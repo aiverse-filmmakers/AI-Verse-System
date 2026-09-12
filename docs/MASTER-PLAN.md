@@ -24,7 +24,7 @@ Components should be:
 - portable across compatible agents/runtimes such as Hermes, Codex, Claude Code and other hosts;
 - independently installable;
 - install-order independent wherever technically possible;
-- explicitly attachable/activatable after installation;
+- explicitly adoptable/activatable after installation, using attachment only where host-local integration state is actually required;
 - able to coexist without editing or corrupting sibling-owned state;
 - upgradeable without silently overwriting user-owned truth;
 - migration-aware for existing users with older state;
@@ -69,16 +69,32 @@ Attaching a component to an OS/host should be an explicit, idempotent operation 
 - exposes the component to the host runtime;
 - does not silently grant permissions or authority.
 
+#### External-provider adoption exception
+
+Not every independently installed component requires a host-local attachment record.
+
+For a read-only external provider whose host integration is discovery-only, dynamic discovery from a canonical/configured provider root may be the correct adoption mechanism when:
+
+- provider appearance does not transfer canonical authority;
+- discovery grants no permission or approval;
+- no tracked host file or host-owned canonical state must be mutated;
+- late installation and later absence are discovered dynamically;
+- damaged/incompatible provider state fails closed without corrupting unrelated host behavior;
+- the provider retains ownership of its own lifecycle.
+
+AI-Verse Skills is the current concrete example.
+
+Do not create attachment state merely for lifecycle symmetry when external discovery already provides the correct ownership boundary.
+
 ### Activation / adoption
 
-A host or agent must be able to adopt a newly attached component at any time, including when the host or agent existed before the component.
+A host or agent must be able to adopt a newly available component at any time, including when the host or agent existed before the component. Adoption may be explicit attachment or dynamic external-provider discovery, depending on ownership.
 
 Long-term target examples include commands/concepts such as:
 
 - `activate memory`
 - `activate data`
 - `activate brain`
-- `activate skills`
 - `reconcile components`
 
 The exact CLI syntax may differ by repository, but the architectural requirement is that an agent can be told: **this component now becomes the canonical infrastructure for this responsibility**, without reinstalling the entire system.
@@ -338,6 +354,9 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 15. A missing optional component should degrade the dependent capability, not corrupt unrelated system behavior.
 16. Public/member installation paths must match the paths actually tested in acceptance.
 17. Stable releases should use immutable versions/tags rather than moving branches.
+18. Integrity-valid content is not automatically trusted/admitted, ready, authorized, approved or verified.
+19. Dynamic external-provider discovery may satisfy late adoption without attachment only when discovery changes no canonical host authority/state and grants no permission.
+20. A runtime-support claim should require a tested discover -> select -> load -> invoke -> verified-outcome path, not merely directory exposure or package visibility.
 18. Apps, dashboards and other interfaces must remain rebuildable projections/clients of declared canonical owners; UI convenience must never create hidden canonical truth.
 19. A component may define a registration or extension schema without owning the host's canonical registration records; for Apps, the intended split is Apps-owned app contract/schema and OS-owned authoritative system registration state.
 20. Scoped canonical storage must validate physical containment at both read and write boundaries; later read rejection cannot undo an escaped write.
