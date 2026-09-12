@@ -871,31 +871,34 @@ A future Dashboard may visualize Brain, but must remain a projection or write th
 
 ---
 
+
 ## 38. Release/distribution QC
 
 **Verdict: FAILS CURRENT IMMUTABLE-ARTIFACT BAR**
 
-This is Brain's most material current release issue.
+This is one of Brain's most material current release issues.
 
-The current README recommends beta.1 tag.
+The current README recommends `v0.1.0-beta.1`.
 
-The tag lacks major current hardening.
+That tag predates major current-main lifecycle, direction, permission, receipt and attachment hardening, while current main still identifies itself as beta.1.
 
-Main still reports beta.1.
+Version identity therefore no longer uniquely describes product behavior.
 
-That means version identity no longer uniquely describes product behavior.
+### Verified source-head CI
+
+At the exact reviewed main head, all three Brain workflows are green:
+
+- CI;
+- OS Direction Ownership Contract;
+- Skills Receipt Contract.
+
+The main CI matrix has seven successful jobs across Ubuntu/macOS/Windows, Python 3.9/3.12, plus package-smoke.
+
+That is strong source-head evidence, but it does not repair the immutable-artifact mismatch.
 
 ### Required correction
 
-Cut a new beta/RC version from current hardened main after:
-
-- enable lifecycle fix;
-- stale docs/CI correction;
-- full current acceptance.
-
-Then update install command to that immutable version.
-
----
+Cut a new beta/RC version from the hardened architecture after the immediate lifecycle/protocol corrections, then verify the exact immutable artifact through the documented member path and update the install command.
 
 ## 39. Cross-platform QC
 
@@ -915,6 +918,7 @@ Vendor CLI functionality remains a moving external dependency and must be rechec
 
 ---
 
+
 ## 40. Documentation consistency QC
 
 **Verdict: FAILS CLEANLINESS BAR**
@@ -922,14 +926,16 @@ Vendor CLI functionality remains a moving external dependency and must be rechec
 Material drift:
 
 1. beta tag vs current README features;
-2. stale installation protocol;
-3. stale research README status;
-4. OS direction CI still patches tracked manifest;
-5. historical docs not always clearly marked historical.
+2. stale installation protocol requiring an older registration model;
+3. stale research README implementation status;
+4. OS direction CI still patches the tracked manifest slot;
+5. `docs/INSTALLATION.md` current `run-tick` examples omit the parser-required host mode;
+6. `docs/VENDOR-REASONERS.md` does the same;
+7. security installation wording still reflects the older registration generation;
+8. changelog/release material does not capture the substantial post-beta hardening now on main;
+9. historical docs are not always clearly marked historical.
 
-Because agents will read these docs to operate Brain, this is not cosmetic.
-
----
+Because agents and operators will use these documents to operate Brain, this is not cosmetic.
 
 ## 41. Historical-learning QC
 
@@ -972,33 +978,59 @@ Among the 10 components, Brain currently has one of the strongest documented ins
 
 ---
 
+
 ## 43. Negative-space QC
 
 **Verdict: MATERIAL FINDINGS**
 
-Expected from product/research claims but not fully present:
+Expected from current product/protocol claims but not fully present:
 
 ### Expected: symmetric native lifecycle
+
 Missing: public enable.
 
-### Expected: current beta artifact contains beta behavior
+### Expected: current beta artifact contains current beta behavior
+
 Missing: current hardening is post-tag.
 
-### Expected: migration command means migration paths exist
-Current reality: package metadata refresh only; older state conversion fails closed.
+### Expected: rollback restores known-good strategy
+
+Current reality: state can become `ROLLED_BACK`, but no prior strategy revision is restored.
+
+### Expected: migration enables version/state evolution
+
+Current reality: package metadata refresh exists; older state conversion fails closed and standalone -> native adoption is absent.
+
+### Expected: install-order independence
+
+Current reality: Brain-first -> OS-later with existing standalone state is deliberately blocked, with no adoption migration.
 
 ### Expected: OS/Memory write routing from Phase 3
+
 Current reality: classification/host contract exists, general dispatcher not wired.
 
+### Expected: Data integration
+
+Current reality: `query_data` exists on the host bridge but normal cognition does not use it.
+
 ### Expected: "works with Hermes/Codex/Claude"
-Current reality: yes as reasoners through Brain CLI, but not persistent plug-in adoption into their normal agent lifecycle.
+
+Current reality: yes as reasoners through Brain CLI, but not persistent plug-in adoption into their normal lifecycle.
 
 ### Expected: proactive background Brain
+
 Current reality: cadence requests/hooks exist; scheduler is deliberately external.
 
-These are exactly the distinctions the final system blueprint must preserve.
+### Expected: broad no-secrets guarantee
 
----
+Current reality: bridge/configuration defenses exist, but generic Brain object persistence does not universally detect secret-like values.
+
+### Expected: doctor OK means ready
+
+Current reality: doctor is structural + partial attachment health and can remain OK with WARN-only attachment state.
+
+These distinctions must remain explicit in the final system blueprint.
+
 
 ## 44. Architecture-vs-operation QC
 
@@ -1012,24 +1044,29 @@ These are exactly the distinctions the final system blueprint must preserve.
 | verification | implementation + tests |
 | policy | implementation + tests |
 | attention | implementation + tests |
-| learning/strategy | implementation + tests |
+| learning/strategy promotion | implementation + tests |
+| strategy outcome measurement | implementation + tests |
+| strategy rollback status | implementation |
+| prior-version strategy restoration | absent |
 | core source-code self-modification | prohibited / not implemented |
 | cadence policy | implementation |
 | scheduler | external/not Brain-owned |
-| bridge | implementation + tests |
+| bridge transport | implementation + tests |
 | vendor wrappers | implementation, external CLI dependency |
 | host selection | implementation + tests |
 | native attach/init | implementation + tests on main |
 | native enable | API only, CLI missing |
 | direction handover/handback | implementation + acceptance |
-| cross-component read | implementation via host |
+| Memory/history read | operational through host |
+| Data query | adapter contract exists; normal cognition does not consume it |
 | cross-component generic write | contract/classification, incomplete dispatch |
+| doctor | structural + partial attachment health |
+| composite operational readiness | absent |
 | migration framework | implementation |
 | actual old schema conversion | absent |
+| standalone -> native state migration | absent |
 | package beta artifact | exists but stale vs main |
 | agent adoption | manual/composed, not seamless |
-
----
 
 ## 45. Current-target readiness QC
 
