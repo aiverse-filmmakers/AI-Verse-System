@@ -3,483 +3,421 @@
 **Repository:** `aiverse-filmmakers/AI-Verse-Brain`  
 **Reviewed branch:** `main`  
 **Reviewed head:** `bef8261ad35d126d29aeff5d496f46904125b7b6`  
-**Fresh standalone review:** 2026-09-13  
-**Scope rule:** the baseline Brain specification was reconstructed from AI-Verse-Brain itself. Other repositories were not treated as primary evidence; cross-component facts were accepted only where Brain's own code, tests, CI or research records them.
+**Audit date:** 2026-09-13  
+**Methodology:** `AI-Verse-System/docs/AUDIT-METHODOLOGY.md`  
+**Evidence scope:** Brain itself. Other repositories were not independently audited. Cross-repo facts below are admitted only when Brain contains the contract/test/workflow evidence.
 
 ---
 
-## 1. Repository inventory
+## 1. Revision anchor
 
-Fresh tree review:
+Fresh audit anchor:
 
-- 125 tracked files;
-- approximately 922 KB;
-- Python implementation;
-- no runtime package dependencies declared in `pyproject.toml`;
-- canonical code under `engine/aiverse_brain/`;
-- normative contracts under `protocol/`;
+```text
+repo:   aiverse-filmmakers/AI-Verse-Brain
+branch: main
+head:   bef8261ad35d126d29aeff5d496f46904125b7b6
+```
+
+Latest reviewed commit message:
+
+```text
+Release hardening: canonical workspace scope ids
+```
+
+The preceding major lifecycle merge was PR #16, merged at commit:
+
+```text
+9ca1b5d5103e68b85d170660ffea85669533b41a
+```
+
+The final workspace-scope hardening was PR #17.
+
+---
+
+## 2. Evidence precedence used
+
+The audit followed this ordering when sources disagreed:
+
+1. executable code;
+2. tests and CI behavior;
+3. schemas/protocol contracts;
+4. current architecture and install docs;
+5. README/status prose;
+6. Git/PR history;
+7. preserved research and inspiration material.
+
+Research documents were never used to override current implementation.
+
+---
+
+## 3. Repository inventory
+
+Relevant top-level structure:
+
+```text
+.github/
+BRAIN.yaml
+CHANGELOG.md
+LICENSE
+README.md
+SECURITY.md
+docs/
+engine/
+examples/
+protocol/
+pyproject.toml
+research/
+schemas/
+tests/
+```
+
+Key characteristics:
+
+- Python implementation under `engine/aiverse_brain/`;
+- CLI package via `pyproject.toml`;
+- no required third-party runtime Python dependencies declared;
+- normative protocol documents under `protocol/`;
 - JSON schemas under `schemas/`;
-- research lineage under `research/`;
-- current acceptance/unit tests under `tests/`;
+- extensive tests under `tests/`;
 - three GitHub Actions workflows;
-- examples for the adapter bridge.
+- preserved pre-implementation research under `research/`;
+- compatibility/hardening facades preserve mature legacy implementations in several modules.
 
-The repository is compact enough that the audit could distinguish implementation, protocol, research, tests and release material without a large vendor/build tree obscuring the architecture.
+No build/vendor tree was treated as architecture evidence.
 
 ---
 
-## 2. Root identity and release evidence
+## 4. Root product sources
 
 ### `README.md`
 
-Primary current public product description.
-
-Evidence for:
+CURRENT public identity and user-path evidence for:
 
 - universal intelligence layer positioning;
 - Brain/OS/Memory/Host responsibility split;
-- core behaviors;
-- beta install command;
-- dry-run-first init;
-- local attachment lifecycle;
-- explicit direction handback;
+- current beta version label;
+- standalone/native install model;
+- local extension attachment lifecycle;
+- direction handover/handback;
 - onboarding;
-- Claude/Codex/Hermes reasoner wrappers;
-- run-tick;
-- native AI-Verse OS host path;
-- Cadence without scheduler ownership;
-- migration;
-- doctor;
-- security boundary;
-- development/QC.
+- vendor reasoners;
+- host adapter usage;
+- cadence boundary;
+- migration/doctor/security positioning.
 
 ### `BRAIN.yaml`
 
-Machine-readable architecture declaration.
+Machine-readable architecture source for:
 
-Key evidence:
-
-- architecture: `intent-cognition-initiative-learning`;
-- modes: standalone + AI-Verse OS v2;
-- core principles;
+- architecture name;
+- modes;
+- principles/laws;
+- canonical object types;
+- owned/non-owned state;
 - native/standalone paths;
-- canonical object kinds;
-- implemented mechanisms;
-- explicit non-ownership;
-- runtime is disposable.
+- runtime disposability;
+- action and verification constraints;
+- integration assumptions.
 
 ### `pyproject.toml`
 
 Evidence for:
 
-- package identity;
 - Python >=3.9;
-- no declared runtime dependencies;
-- CLI entry points;
-- beta classifier;
-- MIT license;
-- GitHub package metadata.
-
-### `engine/aiverse_brain/_version.py`
-
-Current main still reports:
-
-- Python version `0.1.0b1`;
-- display version `0.1.0-beta.1`;
-- installation schema 1.0;
-- state schema 1.0.
-
-This is important because current main contains substantial post-beta.1 hardening without a new displayed version.
-
-### `CHANGELOG.md`
-
-Release history through beta.1.
-
-It does not include the September 10-12 post-tag hardening.
+- package/CLI entry points;
+- MIT license metadata;
+- no mandatory runtime dependency list;
+- package source layout.
 
 ### `SECURITY.md`
 
-Security/trust model:
+Evidence for:
 
-- model output untrusted;
-- host/retrieved data untrusted;
-- explicit user authority;
-- no secret storage;
-- reasoner-only vendor wrappers;
-- effect uncertainty handling;
-- fail-closed host boundaries.
+- model/retrieved/host content treated as untrusted;
+- explicit user authority boundary;
+- secret-handling expectations;
+- side-effect uncertainty posture;
+- vendor reasoners as reasoners only;
+- fail-closed native behavior.
+
+### `CHANGELOG.md`
+
+Release chronology through beta.1.
+
+Negative-space finding: post-beta.1 September hardening is not represented as a newer immutable version/release.
 
 ### `docs/RELEASE.md`
 
-Beta.1 release checklist and immutable tag intent.
+CURRENT release checklist contract for `v0.1.0-beta.1`.
 
-Important evidence:
+Important requirements recorded there:
 
-- six platform/Python CI legs;
+- six OS/Python test legs;
 - wheel clean-install smoke;
-- tag exact passed commit;
-- re-check vendor CLI flags before release;
-- documented tag install;
-- beta schema may evolve only with explicit migration or fail-closed behavior.
+- exact CI-passed tag;
+- vendor CLI flag recheck;
+- GitHub prerelease creation;
+- immutable tag install verification.
+
+Audit finding: the tag exists, but GitHub releases endpoint returned no Release objects, and current `main` is 20 commits ahead of the tag.
 
 ---
 
-## 3. Brain protocol evidence
+## 5. Protocol sources
 
 ### `protocol/BRAIN-PROTOCOL.md`
 
-Primary architecture contract.
-
-Evidence for:
-
-- three loops;
-- authority hierarchy;
-- hard rules;
-- Direction/Action/Learning contracts;
-- scheduler non-ownership;
-- native/standalone path separation.
+Architecture/authority contract.
 
 ### `protocol/RUNTIME-PIPELINE.md`
 
-Evidence for:
-
-- trigger -> orientation -> bounded context -> reasoner -> proposals -> deterministic apply -> attention;
-- external actions outside cognition;
-- models cannot set control fields;
-- retrieved context remains ephemeral;
-- proposal-specific deterministic validation;
-- surface items do not automatically notify;
-- explicit action boundary;
-- trigger receipt semantics.
+Trigger, context, reasoner, proposal and deterministic-application boundary.
 
 ### `protocol/DIRECTION-ATTENTION.md`
 
-Evidence for:
-
-- gap/opportunity/initiative chain;
-- hard gates before rank;
-- dedupe/cooldowns;
-- initiative lineage;
-- inspectable ranking;
-- notification classes;
-- P0-P4 proactivity;
-- attention budget.
+Gap/opportunity/initiative/attention contract.
 
 ### `protocol/ACTION-VERIFICATION.md`
 
-Evidence for:
-
-- objective contracts;
-- progress/stall semantics;
-- attempt budgets;
-- parallelism;
-- V0-V3 verification;
-- evaluator independence;
-- criterion evidence requirements.
+Objective, progress, evidence and verification contract.
 
 ### `protocol/COGNITION-ACTION-BOUNDARY.md`
 
-Evidence for:
-
-- reasoner advisory-only;
-- deterministic tick planning;
-- explicit ActionRequest;
-- approval authority;
-- replay/idempotency;
-- uncertain action reconciliation.
+Reasoning versus explicit action boundary, replay/idempotency behavior.
 
 ### `protocol/LEARNING-EVOLUTION.md`
 
-Evidence for:
-
-- staged learning;
-- E0-E4 evolution;
-- privileged self-improvement boundaries;
-- rollback/evaluation requirements.
+Learning/evolution stages and privileged self-improvement limits.
 
 ### `protocol/INTEGRATION-CADENCE.md`
 
-Evidence for:
-
-- Brain owns useful cognition timing semantics;
-- host owns actual scheduler;
-- trigger policy and background budgets.
+Cadence semantics while preserving host scheduler ownership.
 
 ### `protocol/ADAPTER-BRIDGE.md`
 
-Normative `ai-verse-brain-bridge/1.0` transport.
-
-Evidence for:
-
-- JSON subprocess boundary;
-- bounded I/O;
-- shell-free execution;
-- environment allowlisting;
-- handshake;
-- reasoner operations;
-- host read/action operations;
-- optional `query_data`;
-- permission operation;
-- semantic history retrieval;
-- task-relevant capability retrieval;
-- idempotency metadata;
-- failure semantics.
+JSON subprocess bridge contract, host/reasoner operations, bounded transport behavior.
 
 ### `protocol/SKILLS-RECEIPT-VERIFICATION.md`
 
-Evidence for:
-
-- Skills receipt v2 consumption;
-- exact action/capability/generation/digest binding;
-- effect certainty mapping;
-- provenance-derived evidence class;
-- objective closure remains Brain-owned.
+Skills receipt v2 consumption and objective-verification boundary.
 
 ### `protocol/WRITE-CONTRACT.md`
 
-Evidence for canonical Brain ownership vs routes to OS/Memory/Knowledge/Capabilities.
-
-Important negative-space finding:
-
-- contract and symbolic routing exist;
-- no general automatic durable cross-component write dispatcher was found in the current cognition/learning execution path.
+Canonical ownership classification and intended owner-routing boundary.
 
 ### `protocol/INSTALLATION-ONBOARDING.md`
 
-Historical/current protocol document.
-
-**Drift found:** still states that native init requires an existing tracked-style Brain registration slot, while current main auto-attaches through the local extension registry.
+Install/onboarding design history. Treat current lifecycle claims carefully because local registry lifecycle evolved after earlier installation assumptions.
 
 ---
 
-## 4. Core object/state model
+## 6. Core state sources
 
 ### `engine/aiverse_brain/models.py`
 
-Evidence for:
+CURRENT evidence for:
 
-- exact scope grammar;
-- evidence classes/provenance;
-- timestamps with timezone validation;
-- common Brain object envelope;
-- revision/provenance/supersession fields.
+- scope grammar;
+- object envelope;
+- evidence classes;
+- evidence provenance/independence;
+- timestamp validation.
+
+Latest scope grammar:
+
+```text
+operator
+workspace:[a-z0-9][a-z0-9-]{0,127}
+```
 
 ### `engine/aiverse_brain/validation.py`
 
-Evidence for:
-
-- required fields per object family;
-- lifecycle status vocabulary;
-- enums;
-- confidence ranges;
-- criterion/evidence constraints;
-- strategy evolution tiers;
-- learning counters.
+Payload and lifecycle validation.
 
 ### `engine/aiverse_brain/state_machine.py`
 
-Evidence for deterministic allowed transitions across:
+Deterministic state transitions and authority requirements.
 
-- intent;
-- practice;
-- gap;
-- opportunity;
-- initiative;
-- objective;
-- model belief;
-- evaluation;
-- learning;
-- strategy rule;
-- policy.
+### `schemas/*.schema.json`
 
-Also enforces stronger authority for user confirmation and policy mutations.
+Machine-readable contracts covering Brain object and bridge/install surfaces.
 
-### Schemas
-
-Reviewed schema set includes:
-
-- common;
-- intent;
-- practice;
-- gap;
-- opportunity;
-- initiative;
-- objective;
-- model belief;
-- evaluation;
-- learning;
-- strategy rule;
-- policy;
-- cognition request/proposal;
-- action request;
-- installation;
-- onboarding answers;
-- adapter config.
-
-Schemas reinforce the typed-contract nature of Brain rather than a loose document store.
+`tests/test_contracts.py` verifies schema/protocol presence and JSON validity, but runtime validation remains code-enforced rather than proof that every JSON schema is dynamically applied at every write edge.
 
 ---
 
-## 5. Storage, concurrency and isolation
+## 7. Storage and isolation sources
 
 ### `engine/aiverse_brain/storage.py`
 
-Evidence for:
+CURRENT evidence for:
 
-- standalone/native storage layout;
-- no standalone fallback inside incompatible AI-Verse host;
-- operator/workspace isolation;
-- path-safe object IDs;
-- atomic file replacement;
-- optimistic revision checks;
-- per-object locks;
-- native write gate before save.
+- standalone/native layout;
+- incompatible-host refusal;
+- operator/workspace mapping;
+- path containment;
+- object ID safety;
+- optimistic revision control;
+- atomic JSON writes;
+- per-object runtime locks;
+- native write readiness gate.
+
+Important scale observation: listing is directory-scan based, with no persistent index/pagination layer.
 
 ### `engine/aiverse_brain/runtime_lock.py`
 
-Evidence for:
+Cross-process runtime key locking with stale-lock semantics for Brain runtime resources.
 
-- cross-process runtime locks;
-- token ownership;
-- stale lock recovery.
+This contrasts with the extension-registry lock, which has no stale-lock recovery.
+
+---
+
+## 8. Installation and lifecycle sources
+
+### `engine/aiverse_brain/integration.py`
+
+CURRENT host detection:
+
+- standalone;
+- compatible AI-Verse OS v2;
+- incompatible AI-Verse.
+
+Local Brain attachment is current authority. Legacy tracked manifest registration may be observed as obsolete evidence but is not current write authority.
+
+### `engine/aiverse_brain/extension_registry.py`
+
+CURRENT evidence for:
+
+- `.aiverse/extensions/registry.json` local attachment;
+- schema 1.0;
+- Brain mutates only its entry;
+- supported/installed/enabled requirements;
+- attach;
+- internal enable/disable setter;
+- detach;
+- symlink/file-type checks;
+- atomic registry write;
+- `O_EXCL` lock.
+
+Critical negative-space findings:
+
+- public CLI exposes disable but not enable;
+- `attach_brain()` preserves an existing `enabled` value, so attach cannot serve as implicit re-enable;
+- registry lock has no stale-lock TTL/token recovery.
+
+### `engine/aiverse_brain/installation.py`
+
+CURRENT evidence for:
+
+- dry-run planning;
+- clean native auto-attachment;
+- idempotent installation marker;
+- package/state schema checks;
+- native bootstrap exception;
+- tracked OS configuration remains untouched.
+
+### `engine/aiverse_brain/write_gate.py`
+
+CURRENT enforcement of native registration + initialization before writes.
+
+### `engine/aiverse_brain/cli.py`
+
+CURRENT public commands:
+
+```text
+init
+attach
+disable
+detach
+onboard
+direction-owner
+adapter-doctor
+vendor-doctor
+run-tick
+doctor
+migrate
+plan-integration
+plan-cadence
+cadence-hooks
+```
+
+Negative evidence from parser inspection:
+
+- no public `enable` command;
+- no general `activate` command;
+- no lifecycle `reconcile` command;
+- no Brain-specific `uninstall` or `rollback` command.
+
+These absences were evaluated relative to the lifecycle target, not treated automatically as defects where package-manager/host ownership is appropriate.
+
+---
+
+## 9. Strategic ownership sources
 
 ### `engine/aiverse_brain/direction_ownership.py`
 
-Evidence for:
+CURRENT evidence for:
 
-- direction registry;
-- safe atomic writes;
-- path containment;
-- import candidates;
-- provenance;
-- per-scope + registry-wide coordination;
-- interrupted handover recovery;
-- handback/export.
+- durable `.aiverse/direction/ownership.json`;
+- OS/Brain owner values;
+- default OS ownership in native mode;
+- standalone Brain ownership;
+- explicit OS-to-Brain import;
+- source path + SHA-256 provenance;
+- staged activation;
+- resumable interruption handling;
+- generated refs view;
+- explicit Brain-to-OS export/handback;
+- bounded strategic-section update;
+- per-scope plus registry-wide locking;
+- concurrent-scope preservation;
+- ownership-safe crash ordering.
 
-Historical PR #14 specifically hardened concurrent shared registry updates.
+### `engine/aiverse_brain/controller.py`
+
+CURRENT enforcement that native Brain cannot write strategic intent while OS owns direction except for the non-active staging used by explicit handover.
+
+### `engine/aiverse_brain/local_host.py`
+
+CURRENT ownership-aware context read behavior.
+
+### `tests/test_direction_ownership.py`
+### `tests/test_frozen_strategy_read_boundary.py`
+
+Strong acceptance evidence for ownership, concurrency, crash handling and frozen-strategy reads.
 
 ---
 
-## 6. Policy and authority
+## 10. Policy and authority sources
 
 ### `engine/aiverse_brain/policy.py`
 
-Evidence for:
-
-- P0-P4;
-- action classes;
-- default action policy;
-- attention budgets;
-- resource budgets;
-- evolution policy.
+Default action policy, proactivity, attention/resource/evolution limits.
 
 ### `engine/aiverse_brain/effective_policy.py`
 
-Evidence for:
+CURRENT evidence for:
 
-- durable policy parsing;
-- exactly one active policy per scope;
-- operator policy baseline;
-- workspace policy may only tighten;
-- caller override may only tighten;
-- persisted policy reloaded rather than trusting constructor-only configuration.
-
-This code corresponds to the repair described by PR #4.
+- one active policy per scope;
+- operator baseline;
+- workspace only tightens;
+- caller override only tightens;
+- strict payload parsing.
 
 ### `engine/aiverse_brain/authority.py`
 
-Authority tier enforcement used by lifecycle/policy operations.
+Authority tiers and mutation gates.
+
+### `tests/test_effective_policy.py`
+
+Restart/runtime/cadence/workspace enforcement evidence.
+
+Historical provenance: PR #4 repaired this area after the beta tag.
 
 ---
 
-## 7. Direction and initiative implementation
-
-### `engine/aiverse_brain/direction.py`
-
-Evidence for:
-
-- gap creation;
-- opportunity fingerprinting;
-- eligibility/ranking;
-- duplicate/cooldown checks;
-- qualified opportunity;
-- initiative proposal lineage;
-- runtime locking around shared semantic fingerprint.
-
-### `engine/aiverse_brain/ranking.py`
-
-Evidence for:
-
-- hard gates;
-- weighted positive/cost factors;
-- Four-C readiness input;
-- notification classification.
-
-### `engine/aiverse_brain/attention.py`
-
-Attention delivery/cooldown budgets.
-
----
-
-## 8. Progress and verification implementation
-
-### `engine/aiverse_brain/progress.py`
-
-Evidence for:
-
-- baseline state token;
-- meaningful progress requires changed state + evidence;
-- stall counter;
-- max attempt block;
-- blocker handling.
-
-### `engine/aiverse_brain/evaluator.py`
-
-Evidence for:
-
-- V0-V3 floor;
-- independence levels;
-- fresh-context builder/evaluator separation;
-- strong evidence requirements;
-- criterion materialization;
-- failed/insufficient/passed objective transitions.
-
-### `engine/aiverse_brain/verification.py`
-
-Verification helper behavior.
-
----
-
-## 9. Belief freshness and learning
-
-### `engine/aiverse_brain/freshness.py`
-
-Evidence for:
-
-- known/inferred/assumed/unknown/contradicted/stale;
-- expiry/max age;
-- evidence expiry;
-- contradiction;
-- verified refresh.
-
-### `engine/aiverse_brain/learning.py`
-
-Evidence for:
-
-- observation counts;
-- controlled evaluation;
-- contradiction blocking;
-- validated learning;
-- strategy candidate generation;
-- strategy outcome tracking;
-- E1/E2 evidence gates;
-- E3/E4 runtime activation prohibition.
-
-This file is key evidence that current "self-improvement" means strategy-rule evolution, not autonomous source-code rewrite.
-
----
-
-## 10. Cognition and proposal implementation
+## 11. Cognition/runtime sources
 
 ### `engine/aiverse_brain/cognition.py`
 
@@ -487,692 +425,387 @@ Cognition request/proposal structures.
 
 ### `engine/aiverse_brain/orchestrator.py`
 
-Deterministic mapping of triggers to cognition purposes.
+Deterministic trigger-to-cognition planning.
 
 ### `engine/aiverse_brain/reasoner.py`
 
-Evidence for:
+Reasoner adapter and bounded context assembly.
 
-- ReasonerAdapter protocol;
-- ContextBundle;
-- bounded context assembly;
-- semantic retrieval queries;
-- Brain-state context selection;
-- strict output parsing.
+### `engine/aiverse_brain/retrieval.py`
+
+CURRENT evidence for semantic history queries and capability ranking before final context truncation.
 
 ### `engine/aiverse_brain/proposal_apply.py`
 
-Evidence for deterministic application of:
-
-- gaps;
-- opportunities;
-- initiatives;
-- objectives;
-- beliefs;
-- learning.
-
-Model proposals remain bounded by canonical refs and policy.
+Deterministic proposal mutation path.
 
 ### `engine/aiverse_brain/runtime.py`
 
-Evidence for:
+CURRENT orchestration and strict separation between cognition and explicit actions.
 
-- native write-ready gate;
-- policy refresh;
-- trigger claim;
-- bounded cognition/application;
-- structured errors;
-- attention output;
-- explicit separate action execution.
+### `engine/aiverse_brain/tick_output.py`
+
+Bounded useful explicit tick/orientation rendering.
+
+### Tests
+
+- `tests/test_runtime_pipeline.py`
+- `tests/test_runtime_hardening.py`
+- `tests/test_meaningful_retrieval.py`
+- `tests/test_explicit_tick_output.py`
 
 ---
 
-## 11. External action safety
+## 12. Direction, attention, progress and learning sources
 
-### `engine/aiverse_brain/action_boundary.py`
-### `engine/aiverse_brain/action_boundary_legacy.py`
+### Direction/attention
+
+- `engine/aiverse_brain/direction.py`
+- `engine/aiverse_brain/ranking.py`
+- `engine/aiverse_brain/attention.py`
+
+### Progress/verification
+
+- `engine/aiverse_brain/progress.py`
+- `engine/aiverse_brain/evaluator.py`
+- `engine/aiverse_brain/verification.py`
+
+### Belief freshness/learning
+
+- `engine/aiverse_brain/freshness.py`
+- `engine/aiverse_brain/learning.py`
+
+### Tests
+
+- `tests/test_slice2.py`
+- `tests/test_core.py`
+
+These tests cover attention budgets, objective evidence, stall semantics, learning progression and strategy evolution restrictions.
+
+---
+
+## 13. External action safety sources
+
 ### `engine/aiverse_brain/action_snapshot.py`
 
-Evidence for:
+Deep/frozen action parameter handling.
 
-- exact immutable action requests;
-- deep/frozen parameters;
-- approvals;
-- permission re-checking;
-- idempotency;
-- durable receipt refs;
-- uncertain outcome blocking;
-- reconciliation.
+### `engine/aiverse_brain/action_boundary.py`
 
-The current stable module wraps the mature legacy implementation with the host-permission hardening layer.
+CURRENT host permission hardening facade.
+
+### `engine/aiverse_brain/action_boundary_legacy.py`
+
+Mature underlying action/idempotency/receipt/reconciliation implementation retained behind stable facade.
 
 ### `engine/aiverse_brain/host_permission.py`
 
-Exact host permission decision binding.
+Exact host permission-decision binding.
 
-### `docs/PERMISSION-INTERSECTION.md`
+### Tests
 
-Normative restrictive-intersection rules.
+- `tests/test_action_approval_binding.py`
+- `tests/test_cognition_action.py`
+- `tests/test_permission_intersection.py`
+
+Strong evidence for:
+
+- exact approval fingerprinting;
+- permission intersection;
+- dispatch-edge recheck;
+- duplicate suppression;
+- uncertain-effect handling;
+- verified reconciliation.
 
 ---
 
-## 12. Skills receipt bridge
+## 14. Skills receipt sources
 
 ### `engine/aiverse_brain/skills_receipt.py`
 ### `engine/aiverse_brain/skills_receipt_legacy.py`
 
-Evidence for:
+CURRENT consumer for Skills receipt v2 and objective evidence translation.
 
-- execution identity;
-- receipt translation;
-- objective evaluation from receipt;
-- provenance/effect constraints.
+### `tests/test_skills_receipt_contract.py`
 
-The stable wrapper retains the mature implementation behind a hardened contract.
+Local contract acceptance.
+
+### `.github/workflows/skills-receipt-contract.yml`
+
+Cross-repo contract workflow pinned to Skills commit:
+
+```text
+558bbcb05ce9f42bb5be30730ea205a7e791bf86
+```
+
+This proves Brain against a fixed Skills receipt implementation without making Skills a Brain runtime dependency.
 
 ---
 
-## 13. Host and bridge implementation
+## 15. Host/bridge sources
 
 ### `engine/aiverse_brain/host.py`
 
-HostAdapter protocol including:
-
-- reads;
-- optional actions/evaluation/scheduling/notify/write-route.
+Host protocol surface.
 
 ### `engine/aiverse_brain/bridge.py`
 ### `engine/aiverse_brain/bridge_legacy.py`
 
-Transport implementation and compatibility facade.
+Bridge facade and mature transport implementation.
 
 ### `engine/aiverse_brain/host_selection.py`
 
-Evidence for explicit host selection and no silent fallback.
+CURRENT explicit host selection.
 
-### `engine/aiverse_brain/local_host.py`
+Required real-host read operations:
 
-Evidence for:
-
-- deliberate read-only limited host;
-- OS current-context resolver delegation;
-- native raw-context bypass prevention;
-- no history/capability/action ownership in limited mode.
+- read context;
+- retrieve history;
+- list capabilities;
+- list connections.
 
 ### `engine/aiverse_brain/vendor.py`
 ### `engine/aiverse_brain/vendor_bridge.py`
 
-Claude/Codex/Hermes reasoner wrappers.
+Vendor reasoner configurations/wrappers.
 
-### `docs/ADAPTERS.md`
-### `docs/VENDOR-REASONERS.md`
+### Tests
 
-Current public adapter/vendor integration guidance.
+- `tests/test_bridge.py`
+- `tests/test_host_selection.py`
+- `tests/test_reference_adapter.py`
+- vendor tests in `tests/test_release_candidate.py`
+
+CI logs show a small quality defect: some subprocess tests produce unclosed-file `ResourceWarning`s while still passing.
 
 ---
 
-## 14. Installation and lifecycle
-
-### `engine/aiverse_brain/integration.py`
-
-Current main evidence for:
-
-- standalone vs compatible native vs incompatible host;
-- local extension registry attachment;
-- obsolete tracked manifest registration detection;
-- Memory presence hints;
-- native path contract;
-- integration planning;
-- no standalone fallback on incompatible AI-Verse.
-
-### `engine/aiverse_brain/extension_registry.py`
-
-Evidence for:
-
-- local registry;
-- Brain-owned entry only;
-- exclusive registry lock;
-- atomic write;
-- compare against original registry bytes;
-- preserve existing/sibling fields;
-- attach;
-- set enabled;
-- detach registration.
-
-### `engine/aiverse_brain/installation.py`
-
-Evidence for:
-
-- dry-run-first plan;
-- current clean OS auto-attachment;
-- idempotent installation marker;
-- package/state version safety;
-- tracked OS preservation.
-
-### `engine/aiverse_brain/onboarding.py`
-
-Evidence for:
-
-- explicit intent only;
-- adaptive questions;
-- no strategic writes while OS owns scope;
-- deduplication;
-- minimal orientation readiness.
+## 16. Doctor and migration sources
 
 ### `engine/aiverse_brain/doctor.py`
 
-Evidence for:
+CURRENT structural checks for:
 
-- installation;
-- schema;
-- attachment;
-- scoped state;
-- onboarding;
-- cross-scope integrity.
+- host contract;
+- parallel store;
+- attachment state;
+- installation marker;
+- JSON scope/kind integrity;
+- onboarding minimums;
+- optional Memory detection.
+
+Contradiction/readiness finding:
+
+- unattached native Brain is WARN, not FAIL;
+- uninitialized Brain is WARN, not FAIL;
+- therefore `DoctorReport.ok` may be true while normal native writes are unavailable.
 
 ### `engine/aiverse_brain/migration.py`
 
-Important current limitation:
+CURRENT behavior:
 
-- can refresh package metadata at same state schema;
-- blocks newer state;
-- blocks older state where no registered conversion exists;
-- no actual older-state conversion currently registered.
-
----
-
-## 15. CLI evidence
-
-### `engine/aiverse_brain/cli.py`
-
-Current main commands:
-
-- init;
-- attach;
-- disable;
-- detach;
-- onboard;
-- direction-owner;
-- adapter-doctor;
-- vendor-doctor;
-- run-tick;
-- doctor;
-- migrate;
-- plan-integration;
-- plan-cadence;
-- cadence-hooks.
-
-### Lifecycle contradiction
-
-There is no public `enable` command.
-
-The internal extension API can set `enabled=True`.
-
-`attach_brain()` preserves an existing disabled flag, so re-running attach does not re-enable.
-
-This is direct evidence of asymmetric public lifecycle.
+- same-schema package metadata refresh;
+- unknown older state fails closed;
+- newer state fails closed;
+- no registered historical state conversion yet.
 
 ---
 
-## 16. Write-routing evidence
+## 17. Installation-order evidence
 
-### `engine/aiverse_brain/write_router.py`
+Evidence chain:
 
-Provides symbolic classification to:
+1. `StorageLayout.detect()` switches to native mode when compatible `AI-VERSE.yaml` exists.
+2. Standalone canonical state is `.ai-verse-brain/`.
+3. Native canonical state is `operator/brain/` or workspace Brain paths.
+4. `doctor.py` marks `.ai-verse-brain` inside native mode as `parallel-store` FAIL.
+5. `migration.py` contains no standalone-to-native state relocation/adoption transaction.
 
-- OS profile;
-- OS context;
-- OS decisions;
-- Memory history;
-- OS knowledge;
-- capability candidate;
-- Brain state;
-- transient.
+Therefore:
 
-### Host protocol
+```text
+OS first -> Brain later     CURRENT supported
+Brain standalone -> OS later  GAP
+```
 
-`HostAdapter.write_route(...)` exists as an optional operation and the bridge can proxy it.
-
-### Negative-space result
-
-No general use of `write_route` was found in the reviewed cognition/learning runtime path that completes arbitrary classified Brain learnings into sibling-owned canonical state.
-
-Therefore the current system should be described as having:
-
-- write ownership classification;
-- a host route contract;
-
-but not a complete automatic cross-component writeback engine.
+This is a lifecycle negative-space result, not an inferred design preference.
 
 ---
 
-## 17. Cadence evidence
-
-### `engine/aiverse_brain/cadence.py`
-### `engine/aiverse_brain/cadence_plan.py`
-### `engine/aiverse_brain/cadence_hooks.py`
-
-Evidence for:
-
-- trigger envelope;
-- claim/complete;
-- stale recovery;
-- scheduler requests;
-- portable command hooks;
-- effective persisted policy.
-
-Brain explicitly does not own scheduler installation.
-
----
-
-## 18. Main CI
+## 18. CI sources
 
 ### `.github/workflows/ci.yml`
 
-Current matrix:
+Matrix:
 
-- Ubuntu 3.9/3.12;
-- macOS 3.9/3.12;
-- Windows 3.9/3.12.
+```text
+ubuntu-latest: Python 3.9, 3.12
+macos-latest:  Python 3.9, 3.12
+windows-latest: Python 3.9, 3.12
+```
 
-Runs full unittest suite.
+Plus wheel build and clean-environment CLI smoke.
 
-Package smoke:
+### Final reviewed PR gate
 
-- wheel build;
-- clean venv;
-- wheel install;
-- installed CLI;
-- standalone init;
-- doctor;
-- migrate;
-- marker verification.
+PR #17 head:
 
-This is strong core/package evidence.
+```text
+296b4d0238e1766b73bd01fb4741e51352b67121
+```
 
----
+Workflow results:
 
-## 19. OS cross-repository CI
+- CI: success;
+- OS Direction Ownership Contract: success;
+- Skills Receipt Contract: success.
+
+Ubuntu/Python 3.12 job log reports:
+
+```text
+Ran 198 tests
+OK
+```
+
+The same matrix workflow passed all six platform/Python test jobs.
 
 ### `.github/workflows/os-direction-contract.yml`
 
-Tests:
+Strong Brain-contained cross-repo evidence for:
 
-- current OS main;
-- initial OS ownership;
-- handover;
-- provenance;
-- OS independent ownership observation;
-- frozen strategy read boundary;
-- Brain-state loss;
-- tracked OS cleanliness.
+- explicit direction handover;
+- OS strategic-write blocking while Brain owns direction;
+- provenance import;
+- frozen-strategy read behavior;
+- Brain-state loss not silently returning ownership;
+- no tracked OS dirt after fixture cleanup.
 
-### Stale acceptance setup
+Evidence limitation:
 
-The workflow still patches tracked `AI-VERSE.yaml` to add a legacy `extensions.brain` block before initialization.
-
-Current main auto-attaches via the local extension registry and explicitly treats tracked Brain manifest registration as obsolete.
-
-Therefore this workflow currently proves the direction semantics but not the exact current member attachment path.
+- workflow clones current OS `main`, so result is time-sensitive compatibility evidence rather than a reproducible pinned pair;
+- workflow still creates a legacy tracked manifest registration fixture before current local-registry initialization, which is not the exact clean member product path.
 
 ---
 
-## 20. Skills cross-repository CI
+## 19. Release evidence
 
-### `.github/workflows/skills-receipt-contract.yml`
+### Tag
 
-Pins a merged Skills receipt-v2 revision and proves:
+`v0.1.0-beta.1` exists. Fetching repository content at that ref succeeds.
 
-- exact action binding;
-- immutable capability generation;
-- digest;
-- effect certainty;
-- trace ID misuse rejection;
-- V2 evidence handling;
-- objective closure remains Brain-owned.
+### Main versus tag
 
-This is strong real cross-repo contract evidence.
+GitHub compare result:
+
+```text
+base: v0.1.0-beta.1
+head: bef8261ad35d126d29aeff5d496f46904125b7b6
+status: ahead
+ahead_by: 20
+behind_by: 0
+```
+
+The changed files include core lifecycle, direction, permission, retrieval and receipt code/tests/workflows.
+
+### GitHub Release object
+
+Releases endpoint returned:
+
+```json
+[]
+```
+
+This conflicts with the release checklist step requiring a GitHub prerelease for beta.1.
 
 ---
 
-## 21. Important tests reviewed
+## 20. Documentation contradiction evidence
 
-### `tests/test_shipment_init.py`
+### `docs/INSTALLATION.md`
 
-Confirms:
+Observed current examples include `run-tick` invocations that omit required host selection.
 
-- dry-run init;
-- standalone idempotency;
-- state-schema fail closed;
-- incompatible OS no fallback;
-- clean native auto-attachment without tracked manifest edits;
-- only Brain/local registry paths written;
-- onboarding explicit/idempotent;
-- doctor onboarding readiness.
+### `engine/aiverse_brain/host_selection.py`
 
-### `tests/test_native_write_readiness.py`
+Requires exactly one mode:
 
-Confirms:
-
-- clean OS plan/init auto-attach;
-- disabled/unsupported attachment blocks writes;
-- enabled but uninitialized blocks writes;
-- init is sole bootstrap exception;
-- disable blocks SDK/runtime/CLI writes;
-- detach blocked while Brain owns direction;
-- handback allows detach preserving Brain state;
-- incompatible host no writes.
-
-### `tests/test_direction_ownership.py`
-
-Direction ownership/handover/handback, crash/recovery, concurrency.
-
-### `tests/test_frozen_strategy_read_boundary.py`
-
-No raw frozen strategy fallback.
-
-### `tests/test_effective_policy.py`
-
-Persisted policy and tightening.
-
-### `tests/test_action_approval_binding.py`
-
-Exact immutable approval binding.
-
-### `tests/test_permission_intersection.py`
-
-Brain/host restrictive authority.
-
-### `tests/test_runtime_pipeline.py`
-
-Bounded cognition/proposals.
-
-### `tests/test_runtime_hardening.py`
-
-Runtime replay/locks/safety.
+```text
+--host-adapter CONFIG
+--read-only-context
+```
 
 ### `tests/test_host_selection.py`
 
-Explicit host selection and fail-closed adapter behavior.
+Explicitly tests parser rejection when neither mode is supplied.
 
-### `tests/test_meaningful_retrieval.py`
-
-Semantic history query and rank-before-limit.
-
-### `tests/test_skills_receipt_contract.py`
-
-Receipt/evidence semantics.
-
-### `tests/test_release_candidate.py`
-
-Release packaging/contracts.
-
----
-
-## 22. Historical PR sequence reviewed
-
-All visible PRs #1 through #17 were closed at review time.
-
-### #1 Deterministic Brain core
-
-Phase 4 engine, object model, verification, learning, cadence, action boundary, runtime-neutral cognition.
-
-### #2 Shipment and installability
-
-Initialization/onboarding, universal bridge, adapter config, package/version, clean install.
-
-### #3 Public beta.1 release candidate
-
-Vendor wrappers, run-tick, cadence hooks, migration plan, packaging/security/release docs.
-
-### #4 Persisted policy repair
-
-Canonical effective policy/restart/cadence enforcement.
-
-### #5 Exact approval binding
-
-Immutable fingerprint approval safety.
-
-### #6 Native write readiness
-
-Originally tracked-style native registration requirement; later superseded in part by PR #16.
-
-### #7 Single strategic direction owner
-
-Explicit OS -> Brain handover.
-
-### #8 Explicit real host adapter selection
-
-Removed implicit host fallback.
-
-### #9 Meaningful retrieval
-
-Semantic Memory queries and relevance-before-limit capability ranking.
-
-### #10 Brain/host permission intersection
-
-Host can restrict but never grant Brain authority.
-
-### #11 Skills receipt verification
-
-Exact effect/provenance/criterion semantics.
-
-### #12 Useful explicit tick output
-
-Deterministic orientation and bounded output.
-
-### #13 Frozen strategy read boundary
-
-Brain delegates native current context to OS ownership-aware resolver.
-
-### #14 Shared direction registry serialization
-
-Cross-scope concurrency repair.
-
-### #15 Host adapter docs correction
-
-Astra docs repair.
-
-### #16 Local attachment and safe lifecycle
-
-Major post-beta.1 hardening:
-
-- local extension registry;
-- attach/disable/detach;
-- native init auto-attachment;
-- Data bridge;
-- Brain -> OS handback.
-
-### #17 Workspace scope alignment
-
-Shared canonical workspace ID grammar.
-
----
-
-## 23. Release-tag comparison
-
-A direct repository comparison was performed between current main and the README's recommended `v0.1.0-beta.1`.
-
-### Beta tag
-
-At `v0.1.0-beta.1`:
-
-- `engine/aiverse_brain/extension_registry.py` is absent;
-- CLI has no `attach`;
-- no `disable`;
-- no `detach`;
-- no `direction-owner`.
-
-### Current main
-
-All those surfaces exist.
-
-The current main package version still reports beta.1.
-
-### Conclusion
-
-The recommended immutable install artifact is materially older than the current documented lifecycle architecture.
-
-This is evidence, not inference.
-
----
-
-## 24. Research lineage
+Therefore the installation-doc command is CURRENTLY BROKEN as written.
 
 ### `research/README.md`
 
-Maps the research project.
-
-**Drift found:** its "Current status" still says no production Brain engine has been implemented, which is now historical.
-
-### `research/SOURCE-MAP.md`
-
-Detailed research source catalog covering:
-
-- LifeOS;
-- Hermes Agent;
-- Hermes self-evolution;
-- GEPA;
-- ACE;
-- Voyager;
-- Letta;
-- OpenClaw;
-- Generative Agents;
-- Reflexion;
-- PersonalOS;
-- Pascal Jarvis;
-- DeerFlow;
-- Honcho;
-- LangMem;
-- Agent Zero;
-- Magentic-One/AutoGen;
-- Anthropic long-running agent harness;
-- AIS-OS;
-- AI-Verse OS;
-- AI-Verse Memory.
-
-### `research/PHASE-1-LANDSCAPE.md`
-
-Best evidence for ideas adopted/rejected from external systems.
-
-### `research/PHASE-2-ARCHITECTURE-DISSECTION.md`
-
-Evidence for:
-
-- long-horizon intent vs execution objectives;
-- three loops;
-- privileged intent layer;
-- user model separation;
-- initiatives;
-- attention;
-- practices;
-- stall detection;
-- native verification vocabulary;
-- epistemic lifecycle;
-- atomic strategy evolution;
-- deterministic control;
-- anti-patterns.
-
-### `research/PHASE-3-BRAIN-SPECIFICATION.md`
-
-Pre-implementation architecture target.
-
-Important historical day-one slice includes:
-
-- OS write routing;
-- Memory recall/write integration;
-- scheduler interface;
-- strategies;
-- install/doctor.
-
-This is useful for finding implementation gaps today.
-
-### `research/PHASE-3-QC-RISK-MATRIX.md`
-
-Pre-implementation safety blockers and quality equations.
+Top matter correctly marks research as pre-implementation record, but its “Current status” still says no production Brain engine has been implemented. That statement is HISTORICAL and must not be used as current implementation truth.
 
 ---
 
-## 25. Research inspiration summary
+## 21. Historical PR map
 
-Evidenced systems and strongest adopted ideas:
+Important merged PR chronology:
 
-- LifeOS: desired-state spine and verification;
-- Hermes: bounded goals and separate evaluation;
-- AIS-OS: Three Ms/Four Cs as partial lenses;
-- Letta: persistent inspectable agent strategy;
-- OpenClaw: proactivity/scheduler separation;
-- ACE: atomic strategy/playbook evolution;
-- Hermes Self-Evolution: candidate/eval/regression/promotion;
-- GEPA: textual trajectory optimization;
-- Voyager: initiative/curriculum discovery;
-- Generative Agents: reflection from experience;
-- Reflexion: evaluator/reflection loop;
-- PersonalOS: capacity-aware prioritization;
-- Pascal Jarvis: proactive intent state machine;
-- DeerFlow: persistence classification/write gates;
-- Honcho: derived user model caution;
-- LangMem: memory vs behavior optimization;
-- Agent Zero: modular/runtime independence;
-- Magentic-One: progress ledger semantics;
-- Anthropic long-running agents: unverified-first/fresh independent evaluation.
+| PR | Meaning |
+|---|---|
+| #1 | Phase 4 deterministic Brain core |
+| #2 | Phase 5 shipment/installability |
+| #3 | public beta release candidate beta.1 |
+| #4 | persisted effective policy enforcement repair |
+| #5 | exact immutable action approval binding |
+| #6 | native write readiness |
+| #7 | single strategic direction owner |
+| #8 | explicit real host selection |
+| #9 | meaningful history/capability retrieval |
+| #10 | Brain/host permission intersection |
+| #11 | Skills receipt verification |
+| #12 | useful explicit tick orientation |
+| #13 | ownership-aware context reads |
+| #14 | shared direction registry concurrency serialization |
+| #15 | host adapter documentation repair |
+| #16 | local attachment and safe lifecycle |
+| #17 | canonical workspace scope IDs |
 
-The research explicitly says not to copy these systems wholesale.
-
----
-
-## 26. Current documentation contradictions
-
-### A. Recommended release artifact vs current README features
-
-README describes current-main lifecycle but installs beta.1 tag that lacks it.
-
-**Classification:** material release/documentation mismatch.
-
-### B. Installation protocol vs current auto-attachment
-
-Protocol says existing Brain registration required.
-
-Current main auto-attaches through local registry.
-
-**Classification:** stale protocol.
-
-### C. Research README status
-
-Says no production engine exists.
-
-Current repo has a mature beta engine.
-
-**Classification:** historical text not marked historical.
-
-### D. OS direction CI vs current local attachment
-
-Workflow patches tracked OS manifest before init.
-
-Current member path should not.
-
-**Classification:** stale acceptance setup.
-
-### E. Public disable without public enable
-
-Implementation API supports both state values, CLI only exposes disable.
-
-**Classification:** lifecycle product defect.
-
-### F. "Self-improvement" wording
-
-Current strategy evolution is real, but runtime Brain cannot promote E3/E4 or rewrite code.
-
-**Classification:** product wording should remain precise, not a code defect.
+This history is important because the current safety architecture cannot be attributed fully to the original beta tag.
 
 ---
 
-## 27. Evidence limitations
+## 22. INSPIRATION sources
 
-1. No Brain-independent web research was needed because the repository preserves the research sources itself.
-2. External projects are documented as research/inspiration, not runtime dependencies.
-3. Current CI definitions were inspected, but this audit does not claim the latest workflow runs are green unless a current run is separately verified.
-4. Other AI-Verse repos were not used as primary truth during the standalone reconstruction.
-5. The absence of a generic cross-component write dispatcher is based on current protocol/interface/code-path review; future hidden/private systems are outside this repo's evidence.
-6. The beta tag comparison uses repository file presence/current CLI content and is therefore directly evidenced.
-7. Release status after the reviewed head may change and should trigger a living-spec update.
+Preserved research directory:
+
+- `research/PHASE-1-LANDSCAPE.md`
+- `research/PHASE-2-ARCHITECTURE-DISSECTION.md`
+- `research/PHASE-3-BRAIN-SPECIFICATION.md`
+- `research/PHASE-3-QC-RISK-MATRIX.md`
+- `research/SOURCE-MAP.md`
+
+`research/README.md` explicitly records study of systems/projects including LifeOS, Hermes, AIS-OS, Letta, OpenClaw, ACE, Hermes Self-Evolution, GEPA, Voyager, Generative Agents, Reflexion, PersonalOS, Pascal Jarvis, DeerFlow, Honcho, LangMem, Agent Zero, Magentic-One and Anthropic long-running-agent work.
+
+Classification rule:
+
+- use these sources to explain design lineage and warnings;
+- do not promote inspiration features to CURRENT unless implementation/tests prove them.
+
+---
+
+## 23. Evidence limitations
+
+This audit intentionally did **not** independently inspect OS, Memory, Skills, Data, Connections, Multiple Bots, Apps, Dashboard or Token implementation.
+
+Statements about sibling behavior are limited to what Brain itself embeds as:
+
+- host contracts;
+- schemas;
+- tests;
+- CI workflows;
+- version-pinned receipt integration;
+- current docs.
+
+No claim that “the whole AI-Verse system works” is justified by this Brain-only audit.
+
+The absence of workflow runs directly attached to final `main` commit was not treated as test failure because PR #17’s tested merge candidate and its three successful workflows are available as exact evidence. It should still be preferable for protected-main policy to make the post-merge status obvious.
