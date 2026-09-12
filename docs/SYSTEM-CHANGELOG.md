@@ -115,3 +115,31 @@ and recorded Cadence runtime ownership as an open scoping decision.
 Canonical detail:
 
 - `docs/IDEA-INBOX.md`
+
+
+### Formalized the forensic component audit methodology
+
+**Date:** 2026-09-13  
+**Type:** documentation methodology / quality-control protocol
+
+Promoted the actual multi-lens process used in the fresh AI-Verse OS standalone re-audit into a reusable mandatory system protocol at:
+
+- `docs/AUDIT-METHODOLOGY.md`
+
+The protocol now requires:
+
+- fresh standalone repository review rather than trusting prior component summaries;
+- exact reviewed revision and canonical-vs-generated inventory;
+- an evidence hierarchy that prefers current implementation/tests over stale prose;
+- 46 audit lenses covering architecture, ownership, scope, isolation, lifecycle, migration, discovery, readiness, health, permissions, security, idempotency, concurrency, failure behavior, integration, read/write paths, scalability, UX, Cadence, agents, apps, distribution, cross-platform behavior, documentation drift, historical repairs, inspirations, negative-space analysis, current-target readiness and definition of done;
+- dedicated contradiction scanning;
+- tests/CI as architecture evidence;
+- repair-to-law promotion;
+- lifecycle and completeness matrices;
+- health-depth and readiness-state separation;
+- exact member/product-path acceptance;
+- "works like a glove" blocker analysis;
+- a final audit completion checklist;
+- living-spec propagation of system-wide findings.
+
+`README.md`, `docs/MASTER-PLAN.md` and `docs/LIVING-SPEC-PROTOCOL.md` now make this methodology canonical for all remaining component audits and future re-audits.
