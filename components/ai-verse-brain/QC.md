@@ -422,26 +422,32 @@ Brain should document the correct order:
 
 ---
 
+
 ## 18. Install-order independence QC
 
-**Verdict: PASS ARCHITECTURALLY, PARTIAL IN PRODUCT UX**
+**Verdict: PARTIAL / NOT YET INSTALL-ORDER INDEPENDENT ACROSS STORAGE MODES**
 
-Brain supports:
+Supported paths:
 
-- standalone installation;
-- OS-first then Brain;
-- Brain package existing before attachment;
-- late native attachment.
+- OS first -> Brain later;
+- Brain package installed before attachment;
+- late native attachment when no standalone Brain state already occupies the root;
+- same-mode reinitialization without duplicating canonical state.
 
-Native incompatible host never falls back to parallel standalone state.
+Correct fail-closed behavior:
 
-This is correct.
+- incompatible AI-Verse host never falls back to a parallel standalone store;
+- a now-native host containing `.ai-verse-brain/` is blocked to prevent duplicate authority.
 
-### Missing
+### Material missing path
 
-A higher-level host/agent reconciliation path is still needed to turn late installation into automatic adoption.
+If Brain was already initialized standalone and the same root later becomes a compatible AI-Verse OS host, native initialization refuses to proceed because the standalone canonical store exists.
 
----
+There is no supported cross-mode state migration/adoption transaction.
+
+Therefore safe blocking is implemented, but true install-order independence is not.
+
+**GAP:** add dry-run-first standalone -> native adoption with explicit scope mapping, conflict handling, provenance preservation, destination verification and retirement of old authority only after success.
 
 ## 19. Discovery QC
 
@@ -487,30 +493,35 @@ Because enable is not exposed in CLI, the lifecycle state model is stronger than
 
 ---
 
+
 ## 21. Doctor/health QC
 
-**Verdict: PASS WITH HEALTH-DEPTH LIMIT**
+**Verdict: PASS FOR STRUCTURAL HEALTH, PARTIAL FOR ATTACHMENT, NOT A FULL READINESS PROOF**
 
-Brain doctor checks Brain structural/native readiness.
+Brain doctor is primarily:
 
-Vendor and adapter doctors check separate dependencies.
+```text
+STRUCTURAL
++ partial ATTACHMENT
+```
 
-This is appropriate.
+Vendor and adapter doctors cover separate dependency slices.
+
+A clean compatible native host with no Brain attachment can still produce `DoctorReport.ok=true` while attachment is only a warning. This is valid for a structural doctor but must not be presented as operational readiness.
 
 ### Gap
 
-There is no one composite command that says:
+There is no one composite readiness path that proves:
 
-- Brain state good;
-- vendor good;
-- host adapter good;
-- scheduler hooks installed;
-- Memory/capabilities live;
+- Brain state valid;
+- attachment/write readiness valid;
+- vendor available;
+- host adapter live;
+- Memory/capability dependencies live where required;
+- scheduler hooks configured where desired;
 - representative tick successful.
 
-This is a system-level unified health opportunity, not necessarily something Brain must own alone.
-
----
+This is a system-level unified-health opportunity, not necessarily something Brain must own alone.
 
 ## 22. Permissions QC
 
@@ -532,11 +543,12 @@ This is implementation-enforced, not prose-only.
 
 ---
 
+
 ## 23. Security/path QC
 
-**Verdict: PASS**
+**Verdict: STRONG WITH ONE MATERIAL PROSE-TO-ENFORCEMENT GAP**
 
-Security patterns include:
+Implemented strengths:
 
 - scope/path validation;
 - no incompatible-host fallback;
@@ -546,12 +558,24 @@ Security patterns include:
 - exact protocol/request IDs;
 - safe extension registry;
 - path-safe object IDs;
-- no credentials in configs/state;
+- symlink checks at the local extension-registry boundary;
+- exact action approval binding;
+- restrictive host-permission intersection;
 - frozen strategy resolver delegation.
 
-No architectural reason was found to weaken these controls for UX convenience.
+### Secret-material persistence gap
 
----
+Current security/protocol prose states that Brain must not store secret material.
+
+Bridge/configuration paths contain concrete credential-handling protections.
+
+However, the generic canonical Brain object persistence path does not include a universal detector for secret-like values inside arbitrary text payload fields.
+
+So the broad no-secrets statement is stronger than the generic enforcement.
+
+**Recommendation:** either enforce an appropriately scoped rejection/redaction rule at the persistence boundary or narrow the documented guarantee to match actual executable controls.
+
+No architectural reason was found to weaken the existing implemented controls for UX convenience.
 
 ## 24. Idempotency/replay QC
 
@@ -646,23 +670,29 @@ Runtime portability at the protocol level is ahead of productized runtime adopti
 
 ---
 
+
 ## 29. Integration-boundary QC
 
-**Verdict: PASS**
+**Verdict: PASS FOR OWNERSHIP BOUNDARIES, PARTIAL FOR OPERATIONAL COVERAGE**
 
 Strong boundaries:
 
 - OS current context through host/resolver;
 - Memory history through host;
 - Skills through metadata/receipt contract;
-- Data through optional host query;
-- actions through host permission + request boundary.
+- actions through host permission + request boundary;
+- Data exposed through an optional host query boundary;
+- owner-routed writes represented symbolically rather than direct sibling storage access.
 
-Brain does not directly open sibling databases.
+Brain does not directly open sibling databases. This is clean component design.
 
-This is clean component design.
+### Operational qualification
 
----
+Contract exposure is broader than the current normal runtime path.
+
+Normal cognition uses current context, history, capabilities and connections. It does not currently call `query_data` or `write_route`.
+
+Therefore those two surfaces are correct architecture but incomplete operational integration.
 
 ## 30. Cross-component write QC
 
@@ -700,23 +730,26 @@ That should become a shared system contract.
 
 ---
 
+
 ## 31. Read-path QC
 
-**Verdict: PASS - STRONG**
+**Verdict: PASS FOR ACTIVE READ PATHS, DATA READ REMAINS CONTRACT-ONLY**
 
 Brain does not treat provider order as relevance.
 
 History query is semantic.
 
-Capability ranking precedes context limit.
+Capability ranking precedes the context limit.
 
-Native context respects OS ownership.
+Native current context respects OS strategic ownership.
 
-Host data remains ephemeral.
+Host data remains ephemeral and external content remains non-authoritative.
 
-No significant read-boundary defect found.
+### Data qualification
 
----
+The bridge exposes `query_data`, but `ContextAssembler` does not invoke it and has no Data field in the current context bundle.
+
+So the currently exercised read path is strong, while structured Data reads are an optional interface rather than normal cognition behavior.
 
 ## 32. Schema/data-model QC
 
@@ -838,31 +871,34 @@ A future Dashboard may visualize Brain, but must remain a projection or write th
 
 ---
 
+
 ## 38. Release/distribution QC
 
 **Verdict: FAILS CURRENT IMMUTABLE-ARTIFACT BAR**
 
-This is Brain's most material current release issue.
+This is one of Brain's most material current release issues.
 
-The current README recommends beta.1 tag.
+The current README recommends `v0.1.0-beta.1`.
 
-The tag lacks major current hardening.
+That tag predates major current-main lifecycle, direction, permission, receipt and attachment hardening, while current main still identifies itself as beta.1.
 
-Main still reports beta.1.
+Version identity therefore no longer uniquely describes product behavior.
 
-That means version identity no longer uniquely describes product behavior.
+### Verified source-head CI
+
+At the exact reviewed main head, all three Brain workflows are green:
+
+- CI;
+- OS Direction Ownership Contract;
+- Skills Receipt Contract.
+
+The main CI matrix has seven successful jobs across Ubuntu/macOS/Windows, Python 3.9/3.12, plus package-smoke.
+
+That is strong source-head evidence, but it does not repair the immutable-artifact mismatch.
 
 ### Required correction
 
-Cut a new beta/RC version from current hardened main after:
-
-- enable lifecycle fix;
-- stale docs/CI correction;
-- full current acceptance.
-
-Then update install command to that immutable version.
-
----
+Cut a new beta/RC version from the hardened architecture after the immediate lifecycle/protocol corrections, then verify the exact immutable artifact through the documented member path and update the install command.
 
 ## 39. Cross-platform QC
 
@@ -882,6 +918,7 @@ Vendor CLI functionality remains a moving external dependency and must be rechec
 
 ---
 
+
 ## 40. Documentation consistency QC
 
 **Verdict: FAILS CLEANLINESS BAR**
@@ -889,14 +926,16 @@ Vendor CLI functionality remains a moving external dependency and must be rechec
 Material drift:
 
 1. beta tag vs current README features;
-2. stale installation protocol;
-3. stale research README status;
-4. OS direction CI still patches tracked manifest;
-5. historical docs not always clearly marked historical.
+2. stale installation protocol requiring an older registration model;
+3. stale research README implementation status;
+4. OS direction CI still patches the tracked manifest slot;
+5. `docs/INSTALLATION.md` current `run-tick` examples omit the parser-required host mode;
+6. `docs/VENDOR-REASONERS.md` does the same;
+7. security installation wording still reflects the older registration generation;
+8. changelog/release material does not capture the substantial post-beta hardening now on main;
+9. historical docs are not always clearly marked historical.
 
-Because agents will read these docs to operate Brain, this is not cosmetic.
-
----
+Because agents and operators will use these documents to operate Brain, this is not cosmetic.
 
 ## 41. Historical-learning QC
 
@@ -939,33 +978,59 @@ Among the 10 components, Brain currently has one of the strongest documented ins
 
 ---
 
+
 ## 43. Negative-space QC
 
 **Verdict: MATERIAL FINDINGS**
 
-Expected from product/research claims but not fully present:
+Expected from current product/protocol claims but not fully present:
 
 ### Expected: symmetric native lifecycle
+
 Missing: public enable.
 
-### Expected: current beta artifact contains beta behavior
+### Expected: current beta artifact contains current beta behavior
+
 Missing: current hardening is post-tag.
 
-### Expected: migration command means migration paths exist
-Current reality: package metadata refresh only; older state conversion fails closed.
+### Expected: rollback restores known-good strategy
+
+Current reality: state can become `ROLLED_BACK`, but no prior strategy revision is restored.
+
+### Expected: migration enables version/state evolution
+
+Current reality: package metadata refresh exists; older state conversion fails closed and standalone -> native adoption is absent.
+
+### Expected: install-order independence
+
+Current reality: Brain-first -> OS-later with existing standalone state is deliberately blocked, with no adoption migration.
 
 ### Expected: OS/Memory write routing from Phase 3
+
 Current reality: classification/host contract exists, general dispatcher not wired.
 
+### Expected: Data integration
+
+Current reality: `query_data` exists on the host bridge but normal cognition does not use it.
+
 ### Expected: "works with Hermes/Codex/Claude"
-Current reality: yes as reasoners through Brain CLI, but not persistent plug-in adoption into their normal agent lifecycle.
+
+Current reality: yes as reasoners through Brain CLI, but not persistent plug-in adoption into their normal lifecycle.
 
 ### Expected: proactive background Brain
+
 Current reality: cadence requests/hooks exist; scheduler is deliberately external.
 
-These are exactly the distinctions the final system blueprint must preserve.
+### Expected: broad no-secrets guarantee
 
----
+Current reality: bridge/configuration defenses exist, but generic Brain object persistence does not universally detect secret-like values.
+
+### Expected: doctor OK means ready
+
+Current reality: doctor is structural + partial attachment health and can remain OK with WARN-only attachment state.
+
+These distinctions must remain explicit in the final system blueprint.
+
 
 ## 44. Architecture-vs-operation QC
 
@@ -979,44 +1044,58 @@ These are exactly the distinctions the final system blueprint must preserve.
 | verification | implementation + tests |
 | policy | implementation + tests |
 | attention | implementation + tests |
-| learning/strategy | implementation + tests |
+| learning/strategy promotion | implementation + tests |
+| strategy outcome measurement | implementation + tests |
+| strategy rollback status | implementation |
+| prior-version strategy restoration | absent |
 | core source-code self-modification | prohibited / not implemented |
 | cadence policy | implementation |
 | scheduler | external/not Brain-owned |
-| bridge | implementation + tests |
+| bridge transport | implementation + tests |
 | vendor wrappers | implementation, external CLI dependency |
 | host selection | implementation + tests |
 | native attach/init | implementation + tests on main |
 | native enable | API only, CLI missing |
 | direction handover/handback | implementation + acceptance |
-| cross-component read | implementation via host |
+| Memory/history read | operational through host |
+| Data query | adapter contract exists; normal cognition does not consume it |
 | cross-component generic write | contract/classification, incomplete dispatch |
+| doctor | structural + partial attachment health |
+| composite operational readiness | absent |
 | migration framework | implementation |
 | actual old schema conversion | absent |
+| standalone -> native state migration | absent |
 | package beta artifact | exists but stale vs main |
 | agent adoption | manual/composed, not seamless |
 
----
 
 ## 45. Current-target readiness QC
 
-**Verdict: FUNCTIONALLY STRONG, CURRENT RELEASE PRODUCT NOT YET COMPLETE**
+**Verdict: FUNCTIONALLY STRONG, CURRENT PUBLIC-BETA PRODUCT NOT YET COMPLETE**
 
-For the actual core intelligence milestone, Brain is highly complete.
+For the core intelligence milestone, Brain is highly complete.
 
-For the public-beta/member milestone described by current docs, it is not yet fully complete because the recommended install artifact does not contain the current integration generation.
+For the current public-beta/member milestone implied by the current repository, it is not complete.
 
-### Current-target blockers
+### Immediate current-target blockers
 
-1. new hardened version/tag;
-2. enable CLI;
-3. current member-path cross-repo CI;
-4. stale docs corrected;
-5. lifecycle/adoption instructions made coherent.
+1. cut a new immutable version from current hardened code;
+2. add public re-enable lifecycle;
+3. implement real strategy rollback/recovery rather than only a `ROLLED_BACK` status;
+4. make OS direction acceptance prove the exact current member path without tracked-manifest scaffolding;
+5. correct executable `run-tick` documentation and older registration/status docs;
+6. verify the exact new immutable artifact after those corrections.
 
-The cross-component write/adoption/migration improvements may continue beyond the immediate beta, but they are required for the stronger system-wide seamless target.
+### Stronger seamless-system blockers
 
----
+7. add standalone -> native Brain state adoption;
+8. productize existing-agent activation/adoption;
+9. complete owner-routed cross-component durable writes;
+10. either wire optional Data into cognition or label it contract-only;
+11. align broad security invariants with actual persistence enforcement;
+12. add truthful composed readiness without collapsing health layers.
+
+The distinction is deliberate: these findings do not imply the cognition engine is weak. They identify what still prevents the current component from being complete as a member-facing, install-order-independent system component.
 
 ## 46. Scope-creep QC
 
@@ -1040,36 +1119,55 @@ It is to improve contracts and orchestration with owners.
 
 ---
 
+
 ## 47. "Works like a glove" acceptance scenario
 
-The mature Brain should pass:
+The mature Brain should pass both adoption directions.
 
-1. Agent already exists.
+### Existing host -> Brain
+
+1. Agent/host already exists.
 2. User installs Brain package.
-3. System detects standalone/native host.
+3. System detects standalone/native mode.
 4. Brain attaches if appropriate.
 5. Existing strategic state is discovered.
 6. User is shown what strategic ownership would change.
 7. User confirms import/handover if desired.
 8. Brain initializes.
-9. Existing goals/practices are imported with provenance where appropriate.
+9. Existing strategic state is imported with provenance where appropriate.
 10. Runtime host adapter is selected/configured.
-11. Vendor reasoner is verified.
+11. Reasoner is verified.
 12. Cadence hooks are offered to the actual scheduler owner.
-13. Brain doctor passes.
+13. Structural and dependency health pass.
 14. First bounded orientation succeeds.
 15. Existing agent now uses Brain as its durable intelligence layer.
-16. Brain can be disabled.
-17. Brain can be re-enabled.
-18. Strategic ownership can be handed back.
-19. Brain can be detached without data loss.
-20. Reinstall can reattach preserved state.
-21. No OS/Memory/capability ownership is duplicated.
-22. User never needs to manually patch tracked files.
 
-**CURRENT:** most low-level pieces exist on main, but the entire scenario is not yet one supported productized flow.
+### Brain first -> host later
 
----
+16. Brain already has valid standalone canonical state.
+17. A compatible AI-Verse host later appears.
+18. System detects both possible authorities and refuses silent duplication.
+19. A dry-run adoption plan maps scopes, IDs, provenance and conflicts.
+20. User approves the migration where authority changes.
+21. Native state is written and verified.
+22. Old standalone authority is retired only after verified adoption.
+23. No Brain state is lost and no parallel truth remains.
+
+### Reversibility and long-term operation
+
+24. Brain can be disabled.
+25. Brain can be re-enabled.
+26. Strategic ownership can be handed back.
+27. Brain can be detached without data loss.
+28. Reinstall can reattach preserved state.
+29. Strategy regression can restore a known-good previous strategy.
+30. Owner-routed durable writes reach the correct component without direct sibling storage access.
+31. Optional Data is either genuinely available to cognition or clearly reported as unavailable/not integrated.
+32. A composed readiness check can prove a representative tick without mislabeling structural doctor status.
+33. User never needs to patch tracked OS files manually.
+
+**CURRENT:** many low-level pieces exist on main, but this full scenario is not one supported productized flow.
+
 
 ## 48. Exact corrective work recommended before new Brain feature expansion
 
@@ -1077,33 +1175,43 @@ Priority order:
 
 ### P1. Fix release identity
 
-Cut a new version from current hardened architecture.
+Cut a new version from the current hardened architecture and make version/docs/artifact agree.
 
 ### P2. Add enable CLI
 
 Restore lifecycle symmetry.
 
-### P3. Fix current cross-repo CI
+### P3. Implement true strategy rollback
 
-Remove legacy tracked manifest patch.
+Add version/revision linkage and deterministic restore/recovery with tests.
 
-### P4. Correct stale docs
+### P4. Fix current cross-repo acceptance
 
-Especially installation protocol and research status.
+Remove legacy tracked-manifest setup and prove the stock current member path.
 
-### P5. Verify full current release matrix
+### P5. Correct stale executable docs
 
-Use the exact new immutable artifact/member path.
+Fix current host-selection examples and older registration/status/release documentation.
 
-### P6. Productize activation/adoption
+### P6. Add standalone -> native adoption
 
-Build the setup sequence around existing primitives rather than adding new core cognition features.
+Complete install-order independence without allowing duplicate truth.
 
-### P7. Complete shared canonical write routing with the system owner
+### P7. Productize activation/adoption
+
+Build the setup sequence around existing primitives instead of adding new cognition features.
+
+### P8. Complete shared canonical write routing with the system owner
 
 Do not implement direct OS/Memory writes inside Brain.
 
----
+### P9. Decide and implement the Data runtime role
+
+Either consume bounded `query_data` results in cognition where justified or document the operation as optional contract-only functionality.
+
+### P10. Tighten readiness and security claim precision
+
+Add composed readiness across distinct health layers and ensure broad security claims are either executable or worded to match actual enforcement.
 
 ## 49. Final documentation verdict
 
