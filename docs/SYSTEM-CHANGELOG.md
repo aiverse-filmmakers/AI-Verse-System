@@ -293,7 +293,7 @@ Canonical detail:
 **Date:** 2026-09-13  
 **Type:** fresh standalone component audit
 
-Completed a Dashboard-only forensic review at exact Dashboard main revision \`c636acf019f76194c40a341bd7985906383f7106\`.
+Completed a Dashboard-only forensic review at exact Dashboard main revision `c636acf019f76194c40a341bd7985906383f7106`.
 
 The audit found a strong TypeScript foundation for scoped protocol requests, read-only OS access, system/workspace isolation, localhost Gateway transport, panel/layout contracts and Phase 2 runtime models, but the current repository is not yet a user-operable visual Dashboard and is not complete for its Phase 2 live-control milestone.
 
@@ -315,9 +315,9 @@ Key findings include:
 
 Canonical detail:
 
-- \`components/ai-verse-dashboard/COMPONENT-SPEC.md\`
-- \`components/ai-verse-dashboard/SOURCE-MAP.md\`
-- \`components/ai-verse-dashboard/QC.md\`
+- `components/ai-verse-dashboard/COMPONENT-SPEC.md`
+- `components/ai-verse-dashboard/SOURCE-MAP.md`
+- `components/ai-verse-dashboard/QC.md`
 
 ### Propagated Dashboard-derived system law
 
@@ -333,5 +333,5 @@ Extended the existing UI non-canonicality rule into a semantic-ownership rule:
 
 Canonical detail:
 
-- \`docs/MASTER-PLAN.md\`
-- \`docs/IDEA-INBOX.md\`
+- `docs/MASTER-PLAN.md`
+- `docs/IDEA-INBOX.md`
