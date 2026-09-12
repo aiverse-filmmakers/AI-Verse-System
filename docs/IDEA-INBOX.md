@@ -573,3 +573,68 @@ Promoted/current detail:
 - `docs/MASTER-PLAN.md`
 - `components/ai-verse-connections/COMPONENT-SPEC.md`
 - `components/ai-verse-connections/QC.md`
+
+
+---
+
+## 2026-09-13 - Dynamic external-provider adoption can replace attachment
+
+**Status:** PROMOTED
+
+The Skills audit establishes a lifecycle exception to the generic component-attachment model.
+
+A read-only external provider does not need a host-local attachment record when the host can discover it dynamically from a canonical/configured root and provider appearance changes no canonical authority or host-owned state.
+
+The mechanism must remain late-install aware, absence aware, fail closed on incompatible state, and permission-neutral.
+
+AI-Verse Skills is the current concrete implementation.
+
+Promoted to:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-skills/COMPONENT-SPEC.md`
+- `components/ai-verse-skills/QC.md`
+
+---
+
+## 2026-09-13 - Integrity-valid is not trusted or authorized
+
+**Status:** PROMOTED
+
+The Skills audit confirms that package integrity, security/trust admission, environment readiness, scope authorization, action approval and effect verification are separate states.
+
+A valid digest and pinned provenance prove what bytes were selected. They do not prove that a package is safely/licensably admitted or authorized to act.
+
+This distinction must remain explicit for any future package, plugin, extension or capability marketplace.
+
+Promoted to:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-skills/COMPONENT-SPEC.md`
+- `components/ai-verse-skills/QC.md`
+
+---
+
+## 2026-09-13 - Runtime support requires invocation acceptance
+
+**Status:** PROMOTED
+
+Directory exposure or adapter materialization alone should not be described as complete runtime support.
+
+A runtime-support claim should be backed by a tested path equivalent to:
+
+```text
+discover
+-> select
+-> load required resources
+-> invoke
+-> obtain a verified outcome/receipt
+```
+
+This preserves a distinction between package visibility/adapter compatibility and real operational support.
+
+Promoted to:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-skills/COMPONENT-SPEC.md`
+- `components/ai-verse-skills/QC.md`
