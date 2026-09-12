@@ -335,3 +335,67 @@ Canonical detail:
 
 - `docs/MASTER-PLAN.md`
 - `docs/IDEA-INBOX.md`
+
+
+### Documented AI-Verse Multiple Bots
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Multiple-Bots-only forensic review using the canonical audit methodology.
+
+Reviewed:
+
+- durable Bot identity and lifecycle;
+- temporary Worker and Team Run lifecycle;
+- task routing, delegation, handoff, Rooms and Threads;
+- capability/environment leases, approvals, budgets and cancellation;
+- local execution queue and recovery;
+- A2A and external runtime interoperability;
+- remote machine authentication, remote authority leases and Phase 4.8 recovery;
+- OS, Brain, Memory, Skills, Automations and owner-write integration boundaries;
+- Data negative space;
+- standalone/non-AI-Verse portability;
+- tests, CI, build/status maps, PR history, historical repair branches and inspirations.
+
+Current reviewed Multiple Bots head:
+
+- 9874d413f5e23c9a869bf3ccead0f2751026a732
+
+Key findings:
+
+- the persistent-teammate / temporary-squad architecture is strong and does not intentionally create a second OS, Brain, Memory or Skills store;
+- Phase 4.8 is implemented and its PR-head CI passed 412/412 tests;
+- the current canonical next milestone is Phase 4.9 compatibility/evaluation and it has not started;
+- Brain ingress still requires the obsolete tracked AI-VERSE.yaml Brain registration signal and therefore does not match the current hardened Brain lifecycle;
+- no AI-Verse Data adapter/contract/test exists in Multiple Bots;
+- HTTP Gateway mutations trust caller-supplied actor identity and therefore require authentication before remote administrative exposure;
+- direct-message idempotency currently deduplicates the Event rather than the complete Message/delivery mutation;
+- current coordination SQLite contains canonical package state and needs stable migration/backup treatment before long-term release;
+- final member packaging/onboarding/doctor/Dashboard/channel/release work remains Phase 5.
+
+Canonical detail:
+
+- components/ai-verse-multiple-bots/COMPONENT-SPEC.md
+- components/ai-verse-multiple-bots/SOURCE-MAP.md
+- components/ai-verse-multiple-bots/QC.md
+
+### Propagated Multiple Bots system laws and intents
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Added system-level laws/intents for:
+
+- separating authenticated control-plane principal from protocol actor identity;
+- requiring consumers to follow the current owner component lifecycle/interface contract rather than stale copied registration signals;
+- treating unique coordination databases as canonical component state rather than disposable derived caches;
+- keeping structured Data access owner-routed;
+- making current-generation compatibility a release property;
+- adding an explicit Multiple Bots Data boundary;
+- adding canonical coordination-state migration/backup expectations.
+
+Canonical detail:
+
+- docs/MASTER-PLAN.md
+- docs/IDEA-INBOX.md
