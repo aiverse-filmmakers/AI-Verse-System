@@ -229,6 +229,8 @@ the supreme blueprint must be updated as part of the same documentation change.
 
 Before making or documenting a significant AI-Verse system change:
 
+If the work is a component audit or re-audit, first read `docs/AUDIT-METHODOLOGY.md` and use its applicable lenses and completion checklist. Do not substitute an earlier component summary for a fresh source review.
+
 1. read the relevant component spec;
 2. read the relevant open ideas;
 3. inspect current implementation evidence;
