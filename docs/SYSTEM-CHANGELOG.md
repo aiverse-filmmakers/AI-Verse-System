@@ -286,3 +286,52 @@ Canonical detail:
 
 - `docs/MASTER-PLAN.md`
 - `docs/IDEA-INBOX.md`
+
+
+### Documented Component 9: AI-Verse Dashboard
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Dashboard-only forensic review at exact Dashboard main revision \`c636acf019f76194c40a341bd7985906383f7106\`.
+
+The audit found a strong TypeScript foundation for scoped protocol requests, read-only OS access, system/workspace isolation, localhost Gateway transport, panel/layout contracts and Phase 2 runtime models, but the current repository is not yet a user-operable visual Dashboard and is not complete for its Phase 2 live-control milestone.
+
+Key findings include:
+
+- every public Gateway command is still blocked, including chat send/abort;
+- apps/web is a framework-free model layer rather than a React/Vite rendered application;
+- there is no supported launch/bootstrap or persistent OS-registration product path;
+- health/work/inbox projections currently invent Dashboard-owned semantics from raw workspace files;
+- missing task truth is shown as an empty work list instead of unavailable;
+- agent/run APIs currently use Dashboard's process-local SessionStore as their source;
+- Bots are not yet canonical entities in Dashboard and agent.list currently returns session summaries;
+- Usage/token/cost has a panel/protocol contract but no served data path;
+- actual docking, detached windows, HUDs and native desktop packaging remain intended rather than current;
+- the generic CLI adapter advertises abort support without killing the in-flight child;
+- browser Origin handling rejects ordinary localhost origins with ports;
+- projection cache invalidation and system-wide subscription keying contain correctness defects;
+- no GitHub CI exists at the reviewed head and the default tests include a developer-local sibling OS path.
+
+Canonical detail:
+
+- \`components/ai-verse-dashboard/COMPONENT-SPEC.md\`
+- \`components/ai-verse-dashboard/SOURCE-MAP.md\`
+- \`components/ai-verse-dashboard/QC.md\`
+
+### Propagated Dashboard-derived system law
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Extended the existing UI non-canonicality rule into a semantic-ownership rule:
+
+- projection layers may aggregate owner-declared state but must not invent canonical health, work, Bot, approval, readiness or runtime meaning from private internals;
+- unavailable owner state remains unavailable rather than empty, zero or healthy;
+- transient UI/runtime buffers cannot become hidden canonical continuation state;
+- runtime adapters are connectors, not permission or ownership.
+
+Canonical detail:
+
+- \`docs/MASTER-PLAN.md\`
+- \`docs/IDEA-INBOX.md\`
