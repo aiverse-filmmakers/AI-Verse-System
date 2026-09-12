@@ -280,3 +280,30 @@ Promoted/current detail:
 
 - `components/ai-verse-brain/COMPONENT-SPEC.md`
 - `components/ai-verse-brain/QC.md`
+
+
+---
+
+## 2026-09-13 - Apps/UI projections and app registration ownership
+
+**Status:** PROMOTED
+
+The standalone AI-Verse Apps audit confirmed a system-wide source-of-truth rule that must survive future UI/app implementation:
+
+> Apps, dashboards and other interfaces may present, cache and interact with canonical state, but they must not become hidden competing truth stores.
+
+A UI or app projection should be deletable and rebuildable from the declared canonical owners. If an app legitimately owns canonical domain state in the future, that ownership must be explicit rather than emerging accidentally from a local database or cache.
+
+The Apps architecture also exposes a registration-boundary decision that is now accepted as the intended split:
+
+- Apps defines the versioned app manifest/registration schema and lifecycle contract.
+- OS owns the authoritative app-registration records for each AI-Verse system.
+- Apps tooling requests registration changes through the OS-owned boundary rather than creating a second editable registry.
+
+The Apps audit also reinforces the existing Cadence scoping issue: an app manifest may describe background behavior, but that does not by itself make Apps the universal scheduler owner.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-apps/COMPONENT-SPEC.md`
+- `components/ai-verse-apps/QC.md`
