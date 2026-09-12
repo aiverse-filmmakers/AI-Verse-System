@@ -395,3 +395,53 @@ Did this change alter:
 If yes, AI-Verse-System must be updated.
 
 A code fix that changes an architectural invariant is incomplete as system documentation until that invariant is captured here.
+
+
+---
+
+## Shared laws established by the Multiple Bots audit
+
+### Authenticated principal is not protocol actor text
+
+**LAW:** network/control-plane authentication and protocol actor identity are different layers.
+
+A component may use durable IDs such as Bot IDs, Worker IDs or operator actor IDs internally, but a network client must not gain that authority merely by submitting the string.
+
+Any mutating Gateway or host API exposed outside a trusted in-process/loopback boundary must:
+
+1. authenticate the caller;
+2. determine which protocol principals that caller may act as;
+3. authorize the requested operation;
+4. then apply component-level scope/permission/lease checks.
+
+Internal least-authority checks do not substitute for authenticated ingress.
+
+### Dynamic component consumers must follow the current owner lifecycle contract
+
+**LAW:** a consumer must not keep a stale private parser for another component's old installation/enablement signal after that owner has migrated to a new lifecycle contract.
+
+For local AI-Verse extensions, current attachment state belongs in the local extension lifecycle/registry contract rather than a copied tracked-manifest convention.
+
+Compatibility suites must test the current owner-supported path.
+
+### Canonical operational state is not the same as a derived cache
+
+**LAW:** “derived state is disposable” applies only when a proven canonical source can rebuild it completely.
+
+A component-owned database that contains unique coordination history, delivery state, recovery state or other owner records is canonical component state even if other AI-Verse domain truth lives elsewhere.
+
+Such state requires migration, backup/recovery and uninstall preservation appropriate to its canonicality.
+
+### Structured Data remains owner-routed
+
+**LAW:** collaboration does not transfer Data ownership to Multiple Bots or another execution layer.
+
+A Bot/Worker that needs structured Data must use the Data owner boundary through the host/OS integration contract. It must not open Data storage directly or create a second editable structured-data store.
+
+### Current-generation compatibility is a release property
+
+**LAW:** a historical integration slice passing its original tests does not prove present sibling compatibility forever.
+
+Before a system/component claims seamless integration, compatibility/evaluation must exercise the current supported owner contracts, lifecycle generation and absence/degraded behavior.
+
+This may use versioned contract fixtures or owner-supported interfaces. It should not create hidden source-repository dependencies merely to make CI green.
