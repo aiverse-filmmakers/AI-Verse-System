@@ -143,3 +143,67 @@ The protocol now requires:
 - living-spec propagation of system-wide findings.
 
 `README.md`, `docs/MASTER-PLAN.md` and `docs/LIVING-SPEC-PROTOCOL.md` now make this methodology canonical for all remaining component audits and future re-audits.
+
+
+### Documented Component 2: AI-Verse Brain
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Brain-only forensic review using the canonical audit methodology.
+
+Reviewed:
+
+- repository tree and current main head;
+- Brain protocols;
+- deterministic implementation;
+- schemas/state machines;
+- lifecycle CLI;
+- installation and local extension attachment;
+- direction ownership/handback;
+- host and vendor bridges;
+- policy/action safety;
+- verification and Skills receipts;
+- learning/strategy evolution;
+- cadence;
+- migration;
+- tests and CI;
+- all visible PRs #1-17;
+- the full research/inspiration lineage;
+- direct comparison of current main against the recommended `v0.1.0-beta.1` release tag.
+
+Key findings:
+
+- Brain's deterministic intelligence core is strong and broadly implements its research specification;
+- current self-improvement is controlled Brain strategy evolution, not unrestricted source-code/policy self-modification;
+- native main now uses local extension-registry attachment and safe handback/detach;
+- public CLI has `disable` but no corresponding `enable`;
+- recommended `v0.1.0-beta.1` does not contain major current-main lifecycle/direction hardening;
+- OS direction acceptance still patches the obsolete tracked Brain manifest path;
+- installation/research documentation contains stale pre-hardening claims;
+- migration framework is fail-closed but has no registered older-state conversion;
+- an existing arbitrary agent still lacks one universal Brain adoption/setup transaction;
+- Brain's owner-classification/write-route contract does not yet complete generic durable cross-component writeback.
+
+Canonical detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/SOURCE-MAP.md`
+- `components/ai-verse-brain/QC.md`
+
+### Propagated Brain-derived system laws and gaps
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Added system-level intent for:
+
+- symmetric reversible component lifecycle;
+- activation remaining separate from canonical authority transfer;
+- one shared owner-routed durable write pipeline;
+- immutable member artifacts matching documented architecture;
+- Cadence runtime ownership remaining outside Brain and requiring system-level scoping.
+
+Canonical detail:
+
+- `docs/IDEA-INBOX.md`
