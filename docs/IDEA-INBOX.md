@@ -378,6 +378,6 @@ System-wide rule:
 
 Promoted/current detail:
 
-- \`docs/MASTER-PLAN.md\`
-- \`components/ai-verse-dashboard/COMPONENT-SPEC.md\`
-- \`components/ai-verse-dashboard/QC.md\`
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-dashboard/COMPONENT-SPEC.md`
+- `components/ai-verse-dashboard/QC.md`
