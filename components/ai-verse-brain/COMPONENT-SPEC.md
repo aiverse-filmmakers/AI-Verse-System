@@ -2183,32 +2183,34 @@ These distinctions matter: Brain is not missing its intelligence core. It is mis
 | Exact current immutable member release | **MISSING / STALE TAG** |
 | Documentation consistency | **PARTIAL / MATERIAL DRIFT** |
 
+
 ## 66. Lifecycle command matrix
 
 | Lifecycle stage | Required? | Current path | End-to-end status | Gap |
 |---|---:|---|---|---|
-| package install | Yes | pip/pipx Git tag | Works, but tag is stale vs current hardening | New immutable release required |
-| inspect integration | Yes | `plan-integration` | Yes | None |
+| package install | Yes | pip/pipx Git tag | Works, but documented tag is stale vs current hardening | New immutable release required |
+| inspect integration | Yes | `plan-integration` | Read-only, but clean native host reports missing attachment as blocker even though `init` can auto-attach | Clarify plan vs bootstrap semantics |
 | attach | Native only | `attach [--apply]` | Yes on main | Not in documented beta tag |
 | enable | Native only | internal API only | **No public CLI** | Add `enable` |
 | initialize | Yes | `init [--apply]` | Yes | None on main |
-| onboard | Brain-owned strategy | `onboard [--apply]` | Yes | Existing agent UX can be simpler |
-| strategic activate/handover | Native optional | `direction-owner --handover-to-brain` | Yes | Should remain separate from generic component activation |
-| run cognition | Yes | `run-tick` | Yes | Host/vendor must be selected/configured |
+| onboard | Brain-owned strategy | `onboard [--apply]` | Yes | Existing-agent UX can be simpler |
+| strategic activate/handover | Native optional | `direction-owner --handover-to-brain` | Yes | Must remain separate from generic activation |
+| run cognition | Yes | `run-tick` | Yes | Host/vendor must be explicit; some docs omit required host mode |
 | cadence plan | Optional | `plan-cadence` | Yes | Scheduler belongs elsewhere |
 | scheduler hooks | Optional | `cadence-hooks` | Yes | Host must install them |
-| doctor | Yes | `doctor` | Yes | Does not prove host/vendor/scheduler |
-| migrate | Yes | `migrate [--apply]` | Only metadata refresh for same schema | No actual old schema migration registered |
+| doctor | Yes | `doctor` | Structural + partial attachment only | Does not prove runtime/dependencies/system |
+| migrate | Yes | `migrate [--apply]` | Package metadata refresh for same schema only | No historical schema conversion |
+| standalone -> native adopt | Required for install-order independence | none | **No** | Native init blocks parallel standalone store; migration path missing |
 | disable | Native | `disable [--apply]` | Yes | No corresponding enable |
 | strategic handback | Native | `direction-owner --handover-to-os` | Yes | None |
 | detach | Native | `detach [--apply]` | Yes | None after handback |
-| uninstall package | Yes operationally | pip/pipx | External package manager | No Brain-specific uninstall orchestration |
+| uninstall package | Operational | pip/pipx | External package manager | No Brain-specific uninstall orchestration |
 | reinstall/reattach | Yes | reinstall + attach/init | Mostly | Disabled state cannot be re-enabled through CLI |
-| update | Yes operationally | pip/pipx reinstall/upgrade | Package-manager based | No Brain `update` command/channel UX |
-| rollback package | Useful | package-manager version selection | External/manual | No Brain rollback command |
+| update | Operational | pip/pipx reinstall/upgrade | Package-manager based | No Brain update-channel UX |
+| rollback package | Useful | package-manager version selection | External/manual | No Brain package rollback command |
+| rollback strategy | Required by current Brain protocol | generic state transition can mark `ROLLED_BACK` | **No actual prior-revision restoration** | Implement versioned restore/recovery path |
 | reconcile uncertain action | Runtime safety | action reconciliation API | Yes | Distinct from component lifecycle reconcile |
 
----
 
 ## 67. Exact blockers to "works like a glove"
 
@@ -2216,60 +2218,53 @@ These distinctions matter: Brain is not missing its intelligence core. It is mis
 
 The immutable install path must contain the same lifecycle/security architecture described by current main.
 
-This is urgent because the README currently combines new-main instructions with an old tag install.
-
 ### 67.2 Add lifecycle symmetry
 
 A component that can be disabled must be re-enableable through the supported CLI.
 
-### 67.3 Update cross-repo acceptance to the real path
+### 67.3 Prove the exact current member path
 
-Remove the tracked `AI-VERSE.yaml` Brain registration patch from the direction workflow.
+Remove the tracked `AI-VERSE.yaml` Brain registration patch from the OS direction workflow. Acceptance must prove stock compatible OS + current Brain local attachment/init.
 
-Acceptance must prove stock OS + current Brain local attachment.
+### 67.4 Fix stale executable documentation
 
-### 67.4 Fix stale protocol/research docs
+Update the installation protocol, current `run-tick` examples, stale security installation wording, research status and release-history documentation.
 
-Current agents should never be instructed to use the superseded manifest model.
+### 67.5 Implement real strategy rollback
 
-### 67.5 Productize agent adoption
+A `ROLLED_BACK` status is not sufficient.
 
-A user should be able to install Brain after an agent has existed for months and invoke a supported setup sequence that:
+The strategy subsystem needs an inspectable prior-version relationship plus a deterministic operation that can restore or reactivate the known-good prior strategy, with regression-triggered and user-triggered recovery tests.
 
-1. verifies the runtime;
-2. chooses/builds host adapter;
-3. initializes Brain;
-4. attaches if native;
-5. detects existing strategic state;
-6. plans strategic import;
-7. obtains explicit authority for handover where desired;
-8. configures cadence hooks if requested;
-9. verifies vendor reasoner;
-10. runs Brain doctor;
-11. runs a bounded first orientation;
-12. reports the new operating state.
+### 67.6 Productize agent adoption
 
-This is more than installing a Python package.
+A supported setup sequence should verify the runtime, choose the host adapter, initialize/attach, detect existing strategic state, plan import, keep authority transfer explicit, configure cadence where requested, verify the reasoner, run health checks and execute a bounded first orientation.
 
-### 67.6 Complete owner-routed durable writes
+### 67.7 Support Brain-first -> host-later adoption
 
-When Brain learns something that belongs to OS/Memory/Knowledge/Skills, it should be able to submit a safe owner-controlled write candidate through the system's canonical write mechanism.
+If standalone canonical Brain state exists and a compatible AI-Verse host appears later, the system needs a dry-run-first cross-mode migration/adoption transaction.
 
-### 67.7 Define strategic migration for existing agents
+It must detect competing stores, refuse silent merging, map scope explicitly, preserve provenance, resolve conflicts, verify the destination and retire old authority only after successful adoption.
 
-General history belongs to Memory, but Brain needs a supported import path for existing:
+### 67.8 Complete owner-routed durable writes
 
-- goals;
-- desired states;
-- constraints;
-- practices;
-- selected planning/strategy state.
+When Brain learns something that belongs to OS/Memory/Knowledge/Skills, it should submit a bounded candidate through the canonical owner-controlled write mechanism. Brain must not gain direct sibling storage access.
 
-### 67.8 Preserve scheduler separation while making proactivity easy
+### 67.9 Wire Data into cognition only if it is a real Brain input
 
-Brain should not become the scheduler, but activation should make it easy for the current host to install/enable the appropriate cadence hooks.
+If attached Data is supposed to inform Brain ticks, add purpose-aware bounded `query_data` use and acceptance tests. Until then, document it as an exposed host operation rather than completed cognition integration.
 
----
+### 67.10 Make the no-secrets rule executable or narrower
+
+Either enforce the rule at the appropriate canonical boundary or document the narrower bridge-level guarantee that exists today.
+
+### 67.11 Preserve scheduler separation while making proactivity easy
+
+Brain should not become the scheduler, but activation should make it easy for the actual scheduler owner to install/enable appropriate cadence hooks.
+
+### 67.12 Add truthful composite readiness
+
+Keep Brain, reasoner, host and scheduler health layers distinct, but provide a composed readiness result capable of proving a representative Brain tick and optional dependencies.
 
 ## 68. Definition of done
 
