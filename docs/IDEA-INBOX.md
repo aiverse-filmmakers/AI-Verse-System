@@ -305,3 +305,52 @@ Promoted/current detail:
 - `docs/MASTER-PLAN.md`
 - `components/ai-verse-apps/COMPONENT-SPEC.md`
 - `components/ai-verse-apps/QC.md`
+
+
+---
+
+## 2026-09-13 - Migration authority handoff and source freeze
+
+**Status:** ACCEPTED-INTENT
+
+The Memory audit found that safe copying is not enough to complete adoption. A legacy Memory store may remain preserved for evidence, but after adoption there must be exactly one active writable canonical route.
+
+The reviewed migration plan should be bound to a source snapshot/fingerprint, or apply must explicitly detect source drift after review. After target verification, the system should record a handoff/retirement receipt for the legacy writable route.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-memory/COMPONENT-SPEC.md`
+- `components/ai-verse-memory/QC.md`
+
+---
+
+## 2026-09-13 - Symmetric physical containment for canonical writes
+
+**Status:** ACCEPTED-INTENT
+
+The Memory audit found a concrete asymmetry: native read/index paths validate lexical and resolved physical ownership, but canonical write destinations are not protected by the same rule before file creation.
+
+System-wide law: scoped canonical storage must validate physical containment before writes as well as reads. Rejecting an escaped file during later indexing is too late because the filesystem effect has already happened.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-memory/COMPONENT-SPEC.md`
+- `components/ai-verse-memory/QC.md`
+
+---
+
+## 2026-09-13 - Detach must match discovery reality
+
+**Status:** ACCEPTED-INTENT
+
+The Memory audit found that registry detach removes Memory's local extension entry while deliberately preserving installed engine and agent adapters.
+
+Preserving canonical user data is correct. A lifecycle operation called `detach` should either make the component unavailable through every host discovery surface that attachment opened, or clearly identify itself as a narrower registry/local-host detach.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-memory/COMPONENT-SPEC.md`
+- `components/ai-verse-memory/QC.md`
