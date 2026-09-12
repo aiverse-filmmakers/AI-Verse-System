@@ -1273,21 +1273,55 @@ This is a concrete present-stage product defect.
 
 ---
 
-## 43. Detach and reinstall
+
+## 43. Detach, reinstall and cross-mode adoption
+
+### Native detach
 
 Detach removes local OS registration but preserves Brain canonical state.
 
-After strategic handback, detach is safe.
+When Brain owns strategic direction, detach is blocked until explicit handback to OS completes. After handback, detach is safe and state remains available for later reattachment.
 
-Reattachment can restore registration.
+### Same-mode reinstall / reattach
 
-Initialization is idempotent and preserves the existing installation ID/state.
+Initialization is idempotent and preserves the existing installation ID and canonical state.
 
-### Limitation
+After a real detach, reattachment can recreate the local registry entry.
 
-If state is merely disabled rather than detached, the missing public enable command blocks clean CLI recovery.
+### Disabled-state limitation
 
----
+If Brain is disabled rather than detached, the missing public `enable` command blocks clean CLI recovery. Re-running `attach --apply` preserves the existing `enabled: false` value.
+
+### Standalone-first, OS-later limitation
+
+**GAP:** install-order independence is not complete across storage modes.
+
+If Brain was initialized standalone under `.ai-verse-brain/` and that same root later becomes a compatible AI-Verse OS host, native initialization deliberately blocks because the standalone store exists:
+
+```text
+parallel standalone .ai-verse-brain store exists inside native AI-Verse host
+```
+
+That fail-closed behavior correctly prevents competing truth, but there is no supported migration/adoption transaction that moves or imports the standalone Brain canonical state into native Brain state.
+
+So:
+
+```text
+OS first -> Brain later
+```
+
+is supported well, while:
+
+```text
+Brain first -> OS later
+```
+
+requires a missing cross-mode state adoption path.
+
+### Package uninstall
+
+Package removal remains owned by pip/pipx or the environment package manager. Brain has no package-uninstall orchestrator. Canonical state is not intentionally deleted by detach.
+
 
 ## 44. Migration
 
@@ -1307,15 +1341,19 @@ It can currently:
 - block unknown older state;
 - refresh package-version metadata when state schema is unchanged.
 
-### Important limitation
+### State-schema limitation
 
 There is no registered state-schema conversion path in the current implementation.
 
-If Brain state schema is older than current, migration reports:
+If Brain state schema is older than current, migration reports that no registered migration path exists and fails closed.
 
-> no registered state migration path
+That is safer than guessing, but it means the migration framework is present while historical state transformation is not yet implemented.
 
-and fails closed.
+### Cross-mode limitation
+
+The migration command does not migrate a standalone `.ai-verse-brain/` installation into native AI-Verse Brain state.
+
+This is the missing half of the Brain-first -> OS-later lifecycle described above.
 
 ### Old-agent/history migration
 
@@ -1327,14 +1365,13 @@ What Brain may need is deliberate import of:
 
 - explicit strategic goals;
 - desired states;
+- constraints;
 - practices;
 - selected strategy state.
 
 Native OS direction handover already provides one narrow strategic import path with provenance.
 
-**GAP:** define a broader but ownership-safe strategic-intent migration/import story for existing agents if required by the future activation UX.
-
----
+**GAP:** define both an ownership-safe strategic-intent import path for existing agents and a canonical cross-mode adoption path for standalone Brain state when a compatible host is introduced later.
 
 ## 45. Doctor
 
