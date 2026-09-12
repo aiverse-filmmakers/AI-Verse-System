@@ -57,6 +57,30 @@ Preserve these intentions unless direct evidence shows a deliberate change:
 - Registration, installation, enablement, health, initialization and authorization are different states.
 - Cross-component integrations must preserve ownership instead of duplicating data to make integration look easier.
 
+## Living-system context
+
+Before auditing a component, also read the existing AI-Verse-System records relevant to it:
+
+- the component's existing spec/QC/source map if this is a re-audit;
+- `docs/IDEA-INBOX.md`;
+- `docs/SYSTEM-CHANGELOG.md`;
+- system-wide accepted lifecycle/ownership laws in `docs/MASTER-PLAN.md`;
+- the supreme blueprint once it exists.
+
+New product intent may exist in AI-Verse-System before the component repository implements it.
+
+The audit must therefore compare:
+
+```text
+current component implementation
+vs
+accepted AI-Verse-System intent
+```
+
+and mark missing implementation as GAP rather than forgetting the accepted idea.
+
+When this research discovers a new durable idea/fix/law, update AI-Verse-System as part of the same work.
+
 ## Evidence collection
 
 Before writing:
@@ -213,3 +237,5 @@ The reader should be able to understand the component without reading its source
 - which exact command or lifecycle path still needs to exist before the component works seamlessly with the rest of AI-Verse.
 
 Do not move to another repository until this component passes all QC perspectives.
+
+After the initial review, continue maintaining the component document whenever its implementation or accepted product intent changes. A component specification is living architecture, not a historical snapshot.
