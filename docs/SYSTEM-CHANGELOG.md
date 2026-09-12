@@ -69,3 +69,49 @@ Canonical detail:
 - `docs/LIVING-SPEC-PROTOCOL.md`
 - `docs/IDEA-INBOX.md`
 - this changelog
+
+
+### Rebuilt AI-Verse OS documentation from a fresh OS-only audit
+
+**Date:** 2026-09-13  
+**Type:** component re-audit / documentation replacement
+
+Re-read AI-Verse-OS independently through architecture, source-of-truth, lifecycle, capability, permission, security, host integration, write-boundary, health, release, documentation-drift and historical-repair lenses.
+
+The previous OS component documents were replaced rather than treated as evidence.
+
+Newly emphasized findings include:
+
+- canonical write-command transport exists but canonical owner handlers are still missing;
+- component reconcile is deliberately plan-only;
+- the component manager is hardcoded to the current known core set rather than self-describing;
+- capability discovery intentionally stops short of live readiness;
+- core doctor, component doctor and operational audit are different health levels;
+- base Cadence/Agents layers are architecture contracts rather than universal execution engines;
+- dynamic host implementation has advanced beyond the stale four-component documentation;
+- Skill Authoring and architecture prose contain current-generation documentation drift;
+- explicit Nate Herk / Three Ms / Four Cs provenance was captured;
+- the current OS should be described as functionally strong but not yet fully seamless at the install -> activate -> migrate -> adopt -> verify product level.
+
+Canonical detail:
+
+- `components/ai-verse-os/COMPONENT-SPEC.md`
+- `components/ai-verse-os/SOURCE-MAP.md`
+- `components/ai-verse-os/QC.md`
+
+### Added OS-derived system intents from the re-audit
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Captured accepted/system-level intent for:
+
+- canonical owner-specific write handlers;
+- self-describing component lifecycle discovery;
+- unified readiness/health reporting;
+
+and recorded Cadence runtime ownership as an open scoping decision.
+
+Canonical detail:
+
+- `docs/IDEA-INBOX.md`
