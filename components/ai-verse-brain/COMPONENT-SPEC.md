@@ -1619,29 +1619,51 @@ This means "proactive Brain" depends on a cadence owner outside Brain for persis
 
 ---
 
+
 ## 55. Release and cross-platform behavior
 
-Core CI runs:
+### Current-main CI
+
+At reviewed head `bef8261ad35d126d29aeff5d496f46904125b7b6`, all three current workflows were verified green:
+
+- `CI`, run `34710865210`;
+- `OS Direction Ownership Contract`, run `34710865217`;
+- `Skills Receipt Contract`, run `34710865215`.
+
+The main CI run contains seven successful jobs:
 
 - Ubuntu Python 3.9;
 - Ubuntu Python 3.12;
 - macOS Python 3.9;
 - macOS Python 3.12;
 - Windows Python 3.9;
-- Windows Python 3.12.
+- Windows Python 3.12;
+- package-smoke.
+
+The repository contains 20 unittest modules with 198 discovered `test_*` methods in the reviewed tree.
+
+### Package smoke
 
 Package smoke:
 
-- builds wheel;
+- builds a wheel;
 - installs into a clean venv;
-- invokes installed CLI;
+- invokes the installed CLI;
 - initializes fresh standalone state;
 - runs doctor/migration;
-- verifies installation marker.
+- verifies the installation marker.
 
-This is a strong packaging baseline.
+This is strong source-head packaging evidence.
 
----
+### Limits of that evidence
+
+- package smoke runs on one CI platform, not all three;
+- CI builds and installs from the current source head, not from the documented immutable beta tag;
+- live Claude/Codex/Hermes installations are not exercised by this matrix;
+- there is no GitHub Release object for the reviewed repository;
+- the documented tag remains older than current hardening.
+
+So current-main code is well tested cross-platform, while current immutable member distribution is not equivalent to current main.
 
 ## 56. Cross-repository acceptance
 
@@ -1664,60 +1686,81 @@ Therefore the direction workflow does not currently prove the **exact current cl
 
 ---
 
+
 ## 57. Documentation drift
 
-Fresh review found several stale documents.
+Fresh review found several current contradictions.
 
 ### Stale installation protocol
 
-`protocol/INSTALLATION-ONBOARDING.md` still says native initialization requires an existing `extensions.brain` registration slot.
+`protocol/INSTALLATION-ONBOARDING.md` still says native initialization requires an existing `extensions.brain` registration slot and fails when absent.
 
 Current main auto-attaches through the local extension registry.
 
+### Invalid current run-tick examples
+
+`docs/INSTALLATION.md` shows `run-tick` examples without either `--host-adapter` or `--read-only-context`.
+
+`docs/VENDOR-REASONERS.md` does the same for Claude, Codex and Hermes examples.
+
+Current CLI parsing requires exactly one explicit host mode. Those documented commands therefore do not represent the current executable interface.
+
+The README is newer and shows the explicit host-selection model correctly.
+
+### Security installation wording
+
+`SECURITY.md` still says native initialization requires the host's existing Brain extension contract. Current clean OS initialization can create the local Brain attachment itself.
+
+The rule that tracked OS configuration must not be patched remains correct, but the registration wording is stale.
+
 ### Stale research status
 
-`research/README.md` still says:
+`research/README.md` still says that no production Brain engine has been implemented.
 
-> No production Brain engine has been implemented yet.
+That was true before Phase 4 and should now be marked historical or rewritten.
 
-That was true before Phase 4.
+### Release-history drift
 
-It is now materially false.
+`CHANGELOG.md` and the beta release material describe the beta.1 generation but do not capture the substantial post-beta hardening now present on main.
 
-### Historical PR language
+### Acceptance drift
 
-Earlier PRs describe tracked manifest registration that was superseded by release hardening.
+The OS direction workflow still injects the old tracked-manifest Brain slot in its test checkout before running current Brain initialization.
 
-That is acceptable as history, but current docs/workflows should not reproduce the obsolete path.
+That setup is historical scaffolding, not the supported member path.
 
----
 
 ## 58. Security posture
 
-Brain assumes:
+Current security strengths include:
 
-- model output can be wrong/adversarial;
-- retrieved data can be adversarial;
-- host context can be wrong;
-- external tools can fail ambiguously.
+- model and retrieved content treated as untrusted data;
+- exact approval binding to immutable action fingerprints;
+- restrictive Brain + host permission intersection;
+- permission recheck at the dispatch edge;
+- durable side-effect receipts and fail-closed uncertainty;
+- shell-free subprocess execution;
+- bounded bridge input/output and timeouts;
+- environment allowlisting;
+- credential-bearing command-flag rejection;
+- path-safe IDs and resolved containment checks;
+- local extension-registry symlink rejection;
+- scope isolation;
+- fail-closed malformed/incompatible host state.
 
-Security properties include:
+### Secret-material persistence limitation
 
-- explicit user intent;
-- deterministic authority;
-- exact approval binding;
-- host permission intersection;
-- path/scope isolation;
-- safe subprocess transport;
-- bounded I/O;
-- no credential persistence;
-- no automatic uncertain-effect retry;
-- incompatible host fail-closed;
-- no privileged self-evolution.
+**LAW in prose:** current security/protocol documents say Brain must not store secret or credential material.
 
-This is a strong defense-in-depth design.
+**CURRENT implementation:** the bridge and adapter configuration paths contain real controls against accidentally embedding credential material in commands/configuration.
 
----
+**GAP:** there is no generic secret-value detector at the canonical Brain object write boundary.
+
+Brain object validation controls kinds, statuses, authority, IDs and typed payload structure, but arbitrary text fields are not generically screened for secret-like material before persistence.
+
+Therefore the no-secrets rule is currently partly an operator/protocol obligation rather than a universal executable guarantee.
+
+The mature contract should either add a deterministic rejection/redaction boundary appropriate to Brain-owned payloads, or narrow the documentation claim so it precisely matches the enforcement that exists.
 
 ## 59. Concurrency
 
