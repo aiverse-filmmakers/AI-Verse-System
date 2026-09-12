@@ -97,7 +97,9 @@ Migration must:
 - be resumable/idempotent where feasible;
 - verify the new state before retiring the old route;
 - avoid two editable canonical copies;
-- record provenance.
+- record provenance;
+- discover eligible existing state before creating a new empty canonical store;
+- make authority handover explicit when a standalone or legacy store becomes the new component's canonical responsibility.
 
 ### Disable / detach / uninstall
 
@@ -334,8 +336,11 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 13. Existing/legacy state must have an explicit migration path.
 14. Cross-repo changes are explicit, never hidden side effects.
 15. A missing optional component should degrade the dependent capability, not corrupt unrelated system behavior.
-16. Public/member installation paths must match the paths actually tested in acceptance.
+16. Public/member installation paths must match the paths actually tested in acceptance. Final release acceptance must not bypass the supported host/runtime boundary by importing internal primitives in place of the real component path.
 17. Stable releases should use immutable versions/tags rather than moving branches.
+18. Effective authority must be re-evaluated at the final nested operation inside batches, transactions, workflows and delegated actions. Outer-envelope permission must never widen authority.
+19. Provenance, audit and receipt surfaces must respect the same visibility boundary as the underlying resource and must not leak hidden-resource existence.
+20. Stateful components must discover and reconcile eligible legacy/canonical state before initializing an empty replacement store. Adoption must leave one canonical writable route.
 
 ## Final synthesis phase
 
