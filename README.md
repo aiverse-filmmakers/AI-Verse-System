@@ -17,7 +17,9 @@ It does **not** duplicate implementation code from the component repositories. I
 
 ## Documentation rule
 
-Every component is researched independently and documented one repository at a time. A component is not marked complete until its source repository, architecture documents, release/status documents, important historical fixes, integration contracts, and relevant commit history have been reviewed.
+Every component is researched independently and documented one repository at a time. A component is not marked complete until its source repository, architecture documents, release/status documents, important historical fixes, integration contracts, relevant commit history, implementation enforcement, lifecycle surfaces, tests/CI, contradictions, negative-space findings, documentation drift, and current-target readiness have been reviewed.
+
+The canonical review procedure is `docs/AUDIT-METHODOLOGY.md`. It defines the evidence hierarchy, fresh standalone-repository rule, 46 mandatory audit lenses, lifecycle/completeness matrices, contradiction scan, historical repair analysis, write/read-path tracing, health-depth classification, and the completion checklist used for every component.
 
 Implementation facts and future intent are kept separate. A desired feature is never described as shipped merely because it belongs in the long-term architecture.
 
