@@ -170,3 +170,39 @@ End the section with the exact remaining work before the component can be descri
 > works perfectly together like a glove with the current AI-Verse system.
 
 This must be concrete implementation work, not vague future aspirations.
+
+
+## Continuous maintenance
+
+After the initial component review, update these files whenever the component changes materially.
+
+### Idea accepted but not implemented
+
+- add/update **INTENDED** behavior in COMPONENT-SPEC;
+- add a **GAP** if current implementation does not satisfy it;
+- update current-target readiness when the accepted idea becomes part of the current milestone;
+- preserve provenance through IDEA-INBOX / SYSTEM-CHANGELOG.
+
+### Implementation lands
+
+- promote applicable INTENDED/GAP statements to CURRENT;
+- update command/lifecycle matrix;
+- update completeness dimensions;
+- update SOURCE-MAP with commit/test/release evidence;
+- rerun QC;
+- append SYSTEM-CHANGELOG.
+
+### Repair lands
+
+Also record:
+
+- old defect;
+- repair;
+- permanent law;
+- potential cross-component applicability.
+
+### Plan changes
+
+If a feature is deferred/rejected/superseded, change its status explicitly. Never leave stale intent looking active.
+
+The component documents should always describe the **latest known current system + accepted intended system**.
