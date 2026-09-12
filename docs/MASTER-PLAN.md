@@ -95,6 +95,7 @@ Migration must:
 - avoid silent destructive conversion;
 - distinguish import from activation;
 - be resumable/idempotent where feasible;
+- bind a reviewed migration plan to a source snapshot/fingerprint or explicitly detect source drift before apply;
 - verify the new state before retiring the old route;
 - avoid two editable canonical copies;
 - record provenance.
