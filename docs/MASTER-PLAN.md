@@ -107,6 +107,28 @@ Uninstall should preserve user-owned state by default unless the user explicitly
 
 Reinstall should be able to rediscover and reattach preserved compatible state.
 
+## Continuous evolution protocol
+
+The first component-by-component pass is only the baseline.
+
+After a component has been documented, it remains live.
+
+Whenever new information appears, apply the rules in `docs/LIVING-SPEC-PROTOCOL.md`.
+
+At minimum:
+
+- capture unscoped ideas in `docs/IDEA-INBOX.md`;
+- update the owning component spec when an idea becomes accepted intent;
+- update CURRENT/GAP/INTENDED state when implementation changes;
+- update SOURCE-MAP when new implementation/release evidence exists;
+- rerun the affected QC/readiness dimensions;
+- append `docs/SYSTEM-CHANGELOG.md`;
+- update the future supreme blueprint when a system-wide law/topology/lifecycle changes.
+
+A component does not become "frozen documentation" merely because its initial review is complete.
+
+A completed component review means: **baseline established and ready for continuous maintenance**.
+
 ## Component research order
 
 Each component is processed separately to avoid context compression and accidental cross-repo assumptions.
@@ -321,6 +343,7 @@ Only after all component documents pass QC:
 8. Trace historical fixes into permanent system laws.
 9. Reconcile current gaps into a single roadmap.
 10. Produce the supreme document.
+11. Put the supreme document under the same living-spec protocol so later ideas/fixes/plans propagate into it.
 
 The final supreme document must tell the story of:
 
@@ -333,3 +356,26 @@ The final supreme document must tell the story of:
 - what has been learned through audits and repairs;
 - what "finished" means;
 - the path from the current implementation to that end state.
+
+
+## Change propagation rule
+
+When implementation work occurs in any AI-Verse repository, the follow-up documentation check is:
+
+```text
+Did this change alter:
+- what the component is?
+- what it owns?
+- how it integrates?
+- its current target?
+- its readiness?
+- lifecycle commands?
+- migration?
+- a known gap?
+- a permanent law?
+- the system roadmap?
+```
+
+If yes, AI-Verse-System must be updated.
+
+A code fix that changes an architectural invariant is incomplete as system documentation until that invariant is captured here.
