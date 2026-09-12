@@ -140,9 +140,13 @@ For every repository:
 8. Search for recorded inspirations/reference projects.
 9. Compare the implementation's current state against the desired system-wide lifecycle.
 10. Identify contradictions between README, runtime, tests, status docs and desired future state.
-11. Write the component specification.
-12. Run the QC gates below.
-13. Only then move to the next component.
+11. Identify the component's **current intended milestone** and audit whether it is actually complete for that milestone.
+12. Build the command/lifecycle matrix for install, attach, activate, initialize, migrate, doctor, update, disable, detach/uninstall and reinstall/reconcile.
+13. Separate engine completeness from implementation/wiring/UX completeness.
+14. List the exact blockers between today's state and "works perfectly together like a glove".
+15. Write the component specification.
+16. Run the QC gates below.
+17. Only then move to the next component.
 
 ## Required component outputs
 
@@ -238,11 +242,50 @@ Every component document is reviewed from several perspectives.
 - Which were deliberately rejected?
 - Did AI-Verse improve on the source idea or merely copy it?
 
-### 10. Future-state QC
+### 10. Current-target readiness QC
+
+- What is the component supposed to achieve at the current milestone?
+- Is the engine complete but implementation/wiring incomplete?
+- Are install, attach and activation commands real and supported?
+- Can an already-running agent adopt it later?
+- Is legacy-state migration real?
+- Has the real member path been tested?
+- What exact tasks remain before it works seamlessly with the rest of the system?
+- Is the component truly ready, partially ready, or externally blocked?
+
+A component is not "100% complete" merely because its internal code/tests are green if the current product goal also requires missing lifecycle or host integration.
+
+### 11. Future-state QC
 
 - Does the desired end state follow naturally from the current architecture?
 - Are aspirations clearly labeled as future requirements?
 - Does the component fit the supreme system vision without scope creep?
+
+## Current-stage completeness rule
+
+Every component document must distinguish:
+
+```text
+ENGINE COMPLETE
+INTEGRATION COMPLETE
+LIFECYCLE COMPLETE
+MIGRATION COMPLETE
+COMMAND/UX COMPLETE
+ACCEPTANCE COMPLETE
+RELEASE/DISTRIBUTION COMPLETE
+```
+
+These are separate dimensions.
+
+The final supreme document must be able to say, for example:
+
+> Brain's core engine is complete, but its current intended product state is only 85% complete because activation/migration/member-path wiring is still missing.
+
+or:
+
+> Memory is functionally complete and fully integrated, but the remaining blocker is a missing implementation command.
+
+Do not invent numerical percentages unless the evidence supports a meaningful task/acceptance denominator. Prefer categorical readiness plus an explicit missing-work list when precision would be false.
 
 ## Cross-component laws to test repeatedly
 
