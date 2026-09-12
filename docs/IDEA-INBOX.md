@@ -480,3 +480,77 @@ Promoted/current detail:
 - docs/MASTER-PLAN.md
 - components/ai-verse-multiple-bots/COMPONENT-SPEC.md
 - components/ai-verse-multiple-bots/QC.md
+
+
+---
+
+## 2026-09-13 - Nested authority must be enforced at the final operation
+
+**Status:** PROMOTED
+
+The Data audit found that a wrapper can correctly declare a narrow top-level capability model and still accidentally widen authority inside a transaction or bulk envelope.
+
+Current AI-Verse Data main demonstrates the failure mode: Apps deliberately expose read/create/update but a nested delete can be classified as update. The active Data hardening line repairs it.
+
+System-wide rule:
+
+> Every nested operation inside a batch, transaction, workflow or delegated action must be re-evaluated against the caller's effective authority. An outer envelope never grants broader authority to its contents.
+
+Related rule:
+
+> Provenance, audit and receipt APIs must not become a side channel that reveals the existence of resources the caller is not authorized to read.
+
+Promoted to:
+
+- docs/MASTER-PLAN.md
+- components/ai-verse-data/COMPONENT-SPEC.md
+- components/ai-verse-data/QC.md
+
+---
+
+## 2026-09-13 - Stateful adoption must precede empty initialization
+
+**Status:** PROMOTED
+
+The Data audit makes the existing-history migration rule concrete.
+
+A stateful component must not initialize a new empty canonical store merely because its new canonical target path is empty when known eligible legacy/standalone state may already exist.
+
+The safe lifecycle is:
+
+~~~text
+discover current canonical target
+-> discover eligible legacy state
+-> reconcile/adopt/migrate if required
+-> verify one canonical route
+-> initialize new state only when no canonical state needs adoption
+~~~
+
+This is especially important for Data because a bound standalone Data database cannot currently be reopened as native workspace Data, while ordinary portable import intentionally preserves binding identity.
+
+Promoted to:
+
+- docs/MASTER-PLAN.md
+- components/ai-verse-data/COMPONENT-SPEC.md
+- components/ai-verse-data/QC.md
+
+---
+
+## 2026-09-13 - Release acceptance must execute the real component path
+
+**Status:** PROMOTED
+
+The Data audit confirms the product-path acceptance rule with a concrete failure mode.
+
+A release test that imports internal install/init/client primitives can prove that the pieces compose, but it does not prove that the actual materialized extension or host runtime can be discovered and used by a member installation.
+
+System-wide rule:
+
+> Final release acceptance must exercise the supported install -> attach/register -> enable/activate/init -> host/runtime use -> health/readiness path without hidden state patching or bypassing the public integration boundary.
+
+Promoted to:
+
+- docs/MASTER-PLAN.md
+- docs/AUDIT-METHODOLOGY.md
+- components/ai-verse-data/COMPONENT-SPEC.md
+- components/ai-verse-data/QC.md
