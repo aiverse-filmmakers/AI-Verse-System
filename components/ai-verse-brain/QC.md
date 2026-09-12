@@ -422,26 +422,32 @@ Brain should document the correct order:
 
 ---
 
+
 ## 18. Install-order independence QC
 
-**Verdict: PASS ARCHITECTURALLY, PARTIAL IN PRODUCT UX**
+**Verdict: PARTIAL / NOT YET INSTALL-ORDER INDEPENDENT ACROSS STORAGE MODES**
 
-Brain supports:
+Supported paths:
 
-- standalone installation;
-- OS-first then Brain;
-- Brain package existing before attachment;
-- late native attachment.
+- OS first -> Brain later;
+- Brain package installed before attachment;
+- late native attachment when no standalone Brain state already occupies the root;
+- same-mode reinitialization without duplicating canonical state.
 
-Native incompatible host never falls back to parallel standalone state.
+Correct fail-closed behavior:
 
-This is correct.
+- incompatible AI-Verse host never falls back to a parallel standalone store;
+- a now-native host containing `.ai-verse-brain/` is blocked to prevent duplicate authority.
 
-### Missing
+### Material missing path
 
-A higher-level host/agent reconciliation path is still needed to turn late installation into automatic adoption.
+If Brain was already initialized standalone and the same root later becomes a compatible AI-Verse OS host, native initialization refuses to proceed because the standalone canonical store exists.
 
----
+There is no supported cross-mode state migration/adoption transaction.
+
+Therefore safe blocking is implemented, but true install-order independence is not.
+
+**GAP:** add dry-run-first standalone -> native adoption with explicit scope mapping, conflict handling, provenance preservation, destination verification and retirement of old authority only after success.
 
 ## 19. Discovery QC
 
@@ -487,30 +493,35 @@ Because enable is not exposed in CLI, the lifecycle state model is stronger than
 
 ---
 
+
 ## 21. Doctor/health QC
 
-**Verdict: PASS WITH HEALTH-DEPTH LIMIT**
+**Verdict: PASS FOR STRUCTURAL HEALTH, PARTIAL FOR ATTACHMENT, NOT A FULL READINESS PROOF**
 
-Brain doctor checks Brain structural/native readiness.
+Brain doctor is primarily:
 
-Vendor and adapter doctors check separate dependencies.
+```text
+STRUCTURAL
++ partial ATTACHMENT
+```
 
-This is appropriate.
+Vendor and adapter doctors cover separate dependency slices.
+
+A clean compatible native host with no Brain attachment can still produce `DoctorReport.ok=true` while attachment is only a warning. This is valid for a structural doctor but must not be presented as operational readiness.
 
 ### Gap
 
-There is no one composite command that says:
+There is no one composite readiness path that proves:
 
-- Brain state good;
-- vendor good;
-- host adapter good;
-- scheduler hooks installed;
-- Memory/capabilities live;
+- Brain state valid;
+- attachment/write readiness valid;
+- vendor available;
+- host adapter live;
+- Memory/capability dependencies live where required;
+- scheduler hooks configured where desired;
 - representative tick successful.
 
-This is a system-level unified health opportunity, not necessarily something Brain must own alone.
-
----
+This is a system-level unified-health opportunity, not necessarily something Brain must own alone.
 
 ## 22. Permissions QC
 
@@ -532,11 +543,12 @@ This is implementation-enforced, not prose-only.
 
 ---
 
+
 ## 23. Security/path QC
 
-**Verdict: PASS**
+**Verdict: STRONG WITH ONE MATERIAL PROSE-TO-ENFORCEMENT GAP**
 
-Security patterns include:
+Implemented strengths:
 
 - scope/path validation;
 - no incompatible-host fallback;
@@ -546,12 +558,24 @@ Security patterns include:
 - exact protocol/request IDs;
 - safe extension registry;
 - path-safe object IDs;
-- no credentials in configs/state;
+- symlink checks at the local extension-registry boundary;
+- exact action approval binding;
+- restrictive host-permission intersection;
 - frozen strategy resolver delegation.
 
-No architectural reason was found to weaken these controls for UX convenience.
+### Secret-material persistence gap
 
----
+Current security/protocol prose states that Brain must not store secret material.
+
+Bridge/configuration paths contain concrete credential-handling protections.
+
+However, the generic canonical Brain object persistence path does not include a universal detector for secret-like values inside arbitrary text payload fields.
+
+So the broad no-secrets statement is stronger than the generic enforcement.
+
+**Recommendation:** either enforce an appropriately scoped rejection/redaction rule at the persistence boundary or narrow the documented guarantee to match actual executable controls.
+
+No architectural reason was found to weaken the existing implemented controls for UX convenience.
 
 ## 24. Idempotency/replay QC
 
@@ -646,23 +670,29 @@ Runtime portability at the protocol level is ahead of productized runtime adopti
 
 ---
 
+
 ## 29. Integration-boundary QC
 
-**Verdict: PASS**
+**Verdict: PASS FOR OWNERSHIP BOUNDARIES, PARTIAL FOR OPERATIONAL COVERAGE**
 
 Strong boundaries:
 
 - OS current context through host/resolver;
 - Memory history through host;
 - Skills through metadata/receipt contract;
-- Data through optional host query;
-- actions through host permission + request boundary.
+- actions through host permission + request boundary;
+- Data exposed through an optional host query boundary;
+- owner-routed writes represented symbolically rather than direct sibling storage access.
 
-Brain does not directly open sibling databases.
+Brain does not directly open sibling databases. This is clean component design.
 
-This is clean component design.
+### Operational qualification
 
----
+Contract exposure is broader than the current normal runtime path.
+
+Normal cognition uses current context, history, capabilities and connections. It does not currently call `query_data` or `write_route`.
+
+Therefore those two surfaces are correct architecture but incomplete operational integration.
 
 ## 30. Cross-component write QC
 
@@ -700,23 +730,26 @@ That should become a shared system contract.
 
 ---
 
+
 ## 31. Read-path QC
 
-**Verdict: PASS - STRONG**
+**Verdict: PASS FOR ACTIVE READ PATHS, DATA READ REMAINS CONTRACT-ONLY**
 
 Brain does not treat provider order as relevance.
 
 History query is semantic.
 
-Capability ranking precedes context limit.
+Capability ranking precedes the context limit.
 
-Native context respects OS ownership.
+Native current context respects OS strategic ownership.
 
-Host data remains ephemeral.
+Host data remains ephemeral and external content remains non-authoritative.
 
-No significant read-boundary defect found.
+### Data qualification
 
----
+The bridge exposes `query_data`, but `ContextAssembler` does not invoke it and has no Data field in the current context bundle.
+
+So the currently exercised read path is strong, while structured Data reads are an optional interface rather than normal cognition behavior.
 
 ## 32. Schema/data-model QC
 
