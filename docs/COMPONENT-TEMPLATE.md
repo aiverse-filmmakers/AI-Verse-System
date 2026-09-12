@@ -48,6 +48,11 @@ components/<component>/
 25. Definition of done
 26. Contribution to the supreme AI-Verse vision
 27. Open decisions
+28. Current intended milestone
+29. Current-target readiness verdict
+30. Implementation completeness by dimension
+31. Command/lifecycle matrix
+32. Exact missing work before seamless operation
 
 ## Required labels
 
@@ -90,9 +95,10 @@ Record these independent verdicts:
 7. Product/UX QC
 8. Historical-learning QC
 9. Inspiration/curation QC
-10. Future-state coherence QC
-11. Contradiction scan
-12. Final documentation verdict
+10. Current-target readiness QC
+11. Future-state coherence QC
+12. Contradiction scan
+13. Final documentation verdict
 
 Every QC should state:
 
@@ -107,3 +113,60 @@ and explain why.
 Never "fix" the source repository merely to make the documentation cleaner.
 
 If current implementation and intended architecture differ, document the gap precisely. Source changes belong in a separately scoped implementation task.
+
+
+## Mandatory current-target readiness section
+
+Every component specification must include a present-stage readiness block with:
+
+### Current intended milestone
+
+State what this repository is supposed to accomplish **now**, based on current release/build/status evidence.
+
+### Completeness dimensions
+
+Use:
+
+- Engine/core functionality
+- OS/host integration
+- Install/package path
+- Attach/register path
+- Activation/adoption path
+- Scope initialization
+- Legacy/history migration
+- Doctor/status/health
+- Disable/detach/uninstall/reinstall
+- Cross-component acceptance
+- Member/public distribution
+
+Each dimension must be labeled one of:
+
+- COMPLETE
+- COMPLETE WITH LIMITATIONS
+- PARTIAL
+- MISSING
+- EXTERNALLY BLOCKED
+- NOT REQUIRED FOR CURRENT TARGET
+
+### Command/lifecycle matrix
+
+| Capability | Required now? | Command/path | End-to-end proven? | Missing work |
+|---|---|---|---|---|
+| Install | | | | |
+| Attach/register | | | | |
+| Activate/adopt | | | | |
+| Initialize | | | | |
+| Migrate/import | | | | |
+| Doctor/status | | | | |
+| Update | | | | |
+| Disable | | | | |
+| Detach/uninstall | | | | |
+| Reinstall/reconcile | | | | |
+
+### Seamless-operation blockers
+
+End the section with the exact remaining work before the component can be described as:
+
+> works perfectly together like a glove with the current AI-Verse system.
+
+This must be concrete implementation work, not vague future aspirations.
