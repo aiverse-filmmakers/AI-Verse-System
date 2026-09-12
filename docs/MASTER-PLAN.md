@@ -98,6 +98,7 @@ Migration must:
 - verify the new state before retiring the old route;
 - avoid two editable canonical copies;
 - record provenance.
+- after a verified stateful migration, explicitly record canonical authority handoff and retire the legacy writable route while preserving old evidence as needed.
 
 ### Disable / detach / uninstall
 
@@ -338,6 +339,9 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 17. Stable releases should use immutable versions/tags rather than moving branches.
 18. Apps, dashboards and other interfaces must remain rebuildable projections/clients of declared canonical owners; UI convenience must never create hidden canonical truth.
 19. A component may define a registration or extension schema without owning the host's canonical registration records; for Apps, the intended split is Apps-owned app contract/schema and OS-owned authoritative system registration state.
+20. Scoped canonical storage must validate physical containment at both read and write boundaries; later read rejection cannot undo an escaped write.
+21. Migration completion is an authority transition, not merely a successful copy: preserved legacy bytes may remain, but duplicate writable canonical authority must not.
+22. A detach operation must close every host discovery route it opened, or its narrower scope must be named and documented explicitly.
 
 ## Final synthesis phase
 
