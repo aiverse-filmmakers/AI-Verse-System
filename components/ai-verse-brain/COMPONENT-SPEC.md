@@ -751,6 +751,7 @@ User confirmation and independent evaluation are distinguished.
 
 ---
 
+
 ## 24. Strategy evolution
 
 Brain implements controlled strategy-rule evolution rather than unrestricted self-modifying software.
@@ -763,29 +764,39 @@ Ephemeral tactic. Not canonical strategy promotion.
 
 ### E1
 
-User-local strategy rule.
-
-Requires evaluation and regression evidence. Policy may allow bounded auto-promotion.
+User-local strategy rule. Requires evaluation and regression evidence. Policy may allow bounded auto-promotion.
 
 ### E2
 
-Broader durable strategy.
-
-Requires stronger evaluation and, by default, explicit user approval.
+Broader durable strategy. Requires stronger evaluation and, by default, explicit user approval.
 
 ### E3
 
-Shipped/core Brain behavior.
-
-Cannot be activated by runtime Brain state. Requires tested code/PR promotion.
+Shipped/core Brain behavior. Cannot be activated by runtime Brain state. Requires tested code/PR promotion.
 
 ### E4
 
-Privileged authority/safety/permission policy.
-
-Cannot be self-promoted by runtime strategy machinery.
+Privileged authority/safety/permission policy. Cannot be self-promoted by runtime strategy machinery.
 
 **LAW:** self-improvement may improve method, but cannot silently rewrite user sovereignty or core authority.
+
+### Current rollback reality
+
+**CURRENT:** the strategy state machine permits `ACTIVE -> RETIRED` and `ACTIVE -> ROLLED_BACK`, and active strategy rules can accumulate helpful/harmful outcome evidence.
+
+**GAP:** this is not yet a true restoration mechanism.
+
+Current code does not provide a strategy rollback service that restores a prior strategy revision, reconstructs the previous known-good rule, or switches an active pointer back to that prior rule. New strategy candidates initialize `previous_revision_ref` to `None`, and the reviewed learning service does not populate or consume a revision chain. There is also no dedicated rollback CLI.
+
+Therefore:
+
+```text
+mark strategy as ROLLED_BACK
+!=
+restore the previous known-good strategy
+```
+
+This matters because the current Brain protocol requires promotion through a permitted rollback path, and the current learning/evolution protocol treats rollback as part of controlled self-improvement.
 
 ### Product-language clarification
 
@@ -795,13 +806,12 @@ The current implementation genuinely supports:
 - strategy candidates;
 - evidence-backed strategy promotion;
 - strategy outcome measurement;
-- rollback state.
+- retirement;
+- a terminal `ROLLED_BACK` state.
 
-It does **not** autonomously rewrite Brain source code, vendor model weights, external skills, or privileged policy.
+It does **not** yet implement version-restoring strategy rollback, nor does it autonomously rewrite Brain source code, vendor model weights, external skills, or privileged policy.
 
-"Controlled self-improvement" should therefore be understood primarily as controlled strategy evolution in the current beta.
-
----
+"Controlled self-improvement" should therefore be understood as controlled strategy evolution with a still-incomplete restoration path.
 
 ## 25. Cognition runtime pipeline
 
@@ -1373,6 +1383,7 @@ Native OS direction handover already provides one narrow strategic import path w
 
 **GAP:** define both an ownership-safe strategic-intent import path for existing agents and a canonical cross-mode adoption path for standalone Brain state when a compatible host is introduced later.
 
+
 ## 45. Doctor
 
 Current command:
@@ -1383,10 +1394,10 @@ ai-verse-brain doctor <root>
 
 Doctor is read-only.
 
-It checks:
+It checks structural Brain concerns including:
 
 - host mode/compatibility;
-- local attachment readiness;
+- local attachment state;
 - parallel-store risk;
 - installation marker;
 - state schema;
@@ -1396,19 +1407,31 @@ It checks:
 
 ### Health depth
 
+Under the system health-depth vocabulary, current Brain doctor is primarily:
+
+```text
+STRUCTURAL
++ partial ATTACHMENT
+```
+
+It is not a RUNTIME, DEPENDENCY, OPERATIONAL or SYSTEM health proof.
+
+This distinction is important because `DoctorReport.ok` means no check reached `FAIL`. A clean compatible native host with no Brain attachment can still return `ok=true` with a `WARN` for attachment.
+
 Doctor does not prove:
 
 - vendor CLI works;
 - real host adapter works;
 - real Memory retrieval works;
-- scheduler is installed;
-- external action path works.
+- optional Data is reachable or used;
+- scheduler hooks are installed;
+- external action path works;
+- a representative cognition tick succeeds;
+- full AI-Verse composition is healthy.
 
-Those have separate doctor/acceptance surfaces.
+Vendor and adapter doctors cover some dependency checks separately.
 
-**LAW:** Brain doctor PASS is Brain structural/readiness evidence, not proof of every dependency.
-
----
+**LAW:** Brain doctor PASS/OK must never be presented as full operational or system readiness.
 
 ## 46. Adapter doctor and vendor doctor
 
@@ -1548,17 +1571,39 @@ Brain does not own Skills installation or package implementation.
 
 ---
 
+
 ## 53. Data relationship
 
-Current bridge protocol allows an optional `query_data` operation.
+The host protocol and bridge expose an optional `query_data` operation.
 
-Brain treats Data output as evidence/data, not Brain truth.
+That is a useful integration boundary because it lets a host keep Data ownership outside Brain.
 
-The native AI-Verse OS host routes Data queries through the OS/Data boundary rather than letting Brain open the database.
+### Current operational reality
 
-This is the correct modular pattern.
+**GAP:** normal Brain cognition does not currently consume that operation.
 
----
+The reviewed `ContextAssembler` builds cognition context from:
+
+- `read_context`;
+- `retrieve_history`;
+- `list_capabilities`;
+- `list_connections`;
+- Brain-owned canonical state.
+
+It does not call `query_data`, and `ContextBundle` has no Data result field.
+
+Likewise, real host selection currently requires the four read operations above, not `query_data`.
+
+Therefore:
+
+```text
+Data bridge operation exists = CURRENT contract surface
+normal tick automatically queries Data = not implemented
+```
+
+README wording that attached Data can expose read-only structured queries should be interpreted as host capability exposure, not proof that current cognition automatically uses those queries.
+
+**INTENDED:** if Data is meant to influence normal Brain reasoning, add an explicit, bounded, purpose-aware Data retrieval path and acceptance tests. Brain must continue treating Data output as evidence/data, not canonical Brain truth.
 
 ## 54. Scheduler relationship
 
