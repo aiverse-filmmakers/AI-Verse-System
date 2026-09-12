@@ -635,3 +635,34 @@ Canonical detail:
 - docs/IDEA-INBOX.md
 - components/ai-verse-data/COMPONENT-SPEC.md
 - components/ai-verse-data/QC.md
+
+### Deepened the Brain forensic audit with negative-space corrections
+
+**Date:** 2026-09-13  
+**Type:** component re-audit correction / living-spec propagation
+
+Revalidated the Brain repository independently at `bef8261ad35d126d29aeff5d496f46904125b7b6` and tightened the existing Component 2 documentation where interface/design evidence had been credited beyond current runtime behavior.
+
+Newly recorded findings include:
+
+- standalone Brain -> later native AI-Verse adoption is safely blocked but has no cross-mode migration, so install-order independence is incomplete;
+- strategy `ROLLED_BACK` is a lifecycle state, not yet a prior-version restoration mechanism;
+- optional Data query transport exists, but normal cognition does not currently consume it;
+- Brain doctor is structural + partial attachment health, not operational/system readiness;
+- current installation/vendor docs contain `run-tick` examples that omit the parser-required explicit host mode;
+- broad no-secret-material prose is stronger than the generic canonical-object persistence enforcement;
+- all three Brain workflows at the exact reviewed head were verified green, including the OS direction and Skills receipt contract workflows.
+
+Propagated new system-level intent for:
+
+- cross-mode component state adoption;
+- executable rollback semantics;
+- distinguishing contract surfaces from operational integration;
+- truthful labeling of executable versus prose-only security invariants.
+
+Canonical detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/SOURCE-MAP.md`
+- `components/ai-verse-brain/QC.md`
+- `docs/IDEA-INBOX.md`
