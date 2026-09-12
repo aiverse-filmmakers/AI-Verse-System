@@ -155,3 +155,128 @@ Promoted/current detail:
 
 - `components/ai-verse-os/COMPONENT-SPEC.md`
 - `components/ai-verse-os/QC.md`
+
+
+---
+
+## 2026-09-13 - Component lifecycle symmetry
+
+**Status:** ACCEPTED-INTENT
+
+The Brain audit found a concrete lifecycle asymmetry: current main exposes `disable` through the CLI but has no public `enable` command. Its internal API can enable Brain, while re-running `attach` deliberately preserves the disabled state.
+
+System-wide lifecycle contracts should therefore require symmetry wherever the state exists:
+
+```text
+enable <-> disable
+attach <-> detach
+install <-> uninstall/reinstall path
+authority handover <-> handback where applicable
+```
+
+A component should never expose a user-facing state transition with no supported way back unless the transition is intentionally terminal and documented as such.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/QC.md`
+
+---
+
+## 2026-09-13 - Activation must remain separate from authority transfer
+
+**Status:** ACCEPTED-INTENT
+
+Brain proves that component adoption and strategic ownership are different operations.
+
+Installing/attaching/activating Brain must not automatically transfer strategic direction from the host/OS to Brain.
+
+A generic future `activate brain` flow may configure Brain as an available intelligence layer, but any transfer of canonical strategic authority must remain a separately visible, explicit, reversible transaction with provenance.
+
+This principle should apply to any future component activation that can change a canonical owner.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/QC.md`
+
+---
+
+## 2026-09-13 - Shared owner-routed write pipeline
+
+**Status:** ACCEPTED-INTENT
+
+The OS re-audit found that OS currently provides safe write-command intake without canonical handlers.
+
+The Brain audit independently found that Brain classifies durable writes by canonical owner and exposes a host `write_route` contract, but the cognition/learning pipeline does not complete a generic OS/Memory/Knowledge/Capability write transaction.
+
+These are two halves of the same missing system layer.
+
+Intended system flow:
+
+```text
+Brain / agent identifies durable candidate
+        ↓
+classify canonical owner
+        ↓
+bounded immutable write request
+        ↓
+host / OS validates scope + permission + authority
+        ↓
+canonical owner revalidates current state + durable idempotency
+        ↓
+canonical effect
+        ↓
+receipt / provenance
+        ↓
+Brain may reference result without duplicating owner state
+```
+
+The solution must not be direct Brain access to OS/Memory internal storage.
+
+Promoted/current detail:
+
+- `components/ai-verse-os/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+
+---
+
+## 2026-09-13 - Immutable release must match the documented architecture
+
+**Status:** ACCEPTED-INTENT
+
+The Brain audit found a concrete release-generation drift: current README describes local-registry attachment, direction ownership, disable/detach and other post-beta hardening while the recommended immutable `v0.1.0-beta.1` tag predates those features.
+
+System-wide rule:
+
+> A member-facing immutable install version must contain the same architecture and lifecycle behavior the current member documentation describes.
+
+Development `main` may move ahead, but docs must distinguish development behavior from the latest released behavior.
+
+Before calling a component member-ready, verify the exact immutable artifact rather than only the repository head.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/QC.md`
+
+---
+
+## 2026-09-13 - Cadence runtime ownership confirmed as outside Brain
+
+**Status:** NEEDS-SCOPING
+
+The OS audit found that base OS has Cadence architecture but no universal scheduler.
+
+The Brain audit independently confirms that Brain intentionally owns **when cognition would be useful**, while the host owns cron/event/background execution.
+
+Brain emits cadence plans and portable hooks but must not become the deterministic scheduler.
+
+The remaining system decision is therefore not whether Brain should absorb scheduling. It is which host/component becomes the canonical Cadence execution owner for AI-Verse and how non-AI-Verse hosts implement the same contract.
+
+Related existing idea: Cadence runtime ownership.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/QC.md`
