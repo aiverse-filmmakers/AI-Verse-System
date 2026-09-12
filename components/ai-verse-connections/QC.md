@@ -982,10 +982,10 @@ Requires supported lifecycle and install-order independence without manual wirin
 - [x] component spec written;
 - [x] source map written;
 - [x] QC written;
-- [ ] shared system findings propagated;
-- [ ] system changelog appended.
+- [x] shared system findings propagated;
+- [x] system changelog appended.
 
-The final two items are completed by the post-baseline living-spec propagation step, after which this audit is complete.
+The post-baseline living-spec propagation is complete. The Connections audit is complete.
 
 ---
 
