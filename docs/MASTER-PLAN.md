@@ -368,6 +368,10 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 25. Attribution is not authorization: telemetry scope IDs and actor labels cannot grant access, workspace membership, execution authority or permission. Host read/write boundaries must intersect telemetry requests with the caller's authorized scope.
 26. Telemetry readiness is multi-dimensional: installed, attached and enabled must remain separate from source-active, collecting, pricing-ready, cost-ready, authorized and operationally ready.
 27. Monetary telemetry preserves truth provenance: UNKNOWN is never zero, ACTUAL and CALCULATED remain visibly distinct, and a derived/calculated cost must never be silently presented as invoice-confirmed billing.
+28. External connection readiness is multi-stage: registered, configured, live-verified, healthy, authorized, approved, executing and succeeded are distinct states; no generic "connected" flag may silently imply all of them.
+29. Agents should normally receive opaque connection handles and bounded capabilities rather than raw credentials. The connection layer may own the handle and trusted execution path while approved credential backends retain raw secret material.
+30. External side effects must re-check current system/workspace scope, connection grants, delegated authority, approval and revocation at the actual provider execution edge; stale discovery or planning authority must never survive later narrowing.
+31. Connectivity does not transfer canonical data ownership: an external provider remains canonical for its records unless an explicit ownership/synchronization contract states otherwise.
 
 ## Final synthesis phase
 
