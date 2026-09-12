@@ -354,3 +354,30 @@ Promoted/current detail:
 - `docs/MASTER-PLAN.md`
 - `components/ai-verse-memory/COMPONENT-SPEC.md`
 - `components/ai-verse-memory/QC.md`
+
+
+---
+
+## 2026-09-13 - Projection semantics must remain owner-declared
+
+**Status:** ACCEPTED-INTENT
+
+The Dashboard audit exposed a stronger form of the existing non-canonical UI law.
+
+A UI can avoid a second writable database and still become a hidden authority if it invents another component's meaning from private files or transient session state.
+
+Examples include defining health dimensions inside Dashboard, treating an unavailable task source as an empty task list, treating chat sessions as canonical Bots, or regenerating attention timestamps during projection.
+
+System-wide rule:
+
+- owners expose versioned read/projection semantics for the state they own;
+- apps/dashboards may normalize and aggregate those owner-declared schemas;
+- transient UI/runtime buffers remain disposable when continuity belongs to another owner;
+- unavailable owner state remains unavailable rather than becoming empty, zero or healthy;
+- a runtime adapter is a connector, not permission or canonical ownership.
+
+Promoted/current detail:
+
+- \`docs/MASTER-PLAN.md\`
+- \`components/ai-verse-dashboard/COMPONENT-SPEC.md\`
+- \`components/ai-verse-dashboard/QC.md\`
