@@ -207,3 +207,36 @@ Added system-level intent for:
 Canonical detail:
 
 - `docs/IDEA-INBOX.md`
+
+
+### Documented Component 8: AI-Verse Apps
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed an Apps-only review at `AI-Verse-Apps@db5b0115bf59d6eae9149137a40e891968f3a637`.
+
+The repository is currently a founding architecture seed with implementation explicitly not started. The audit records that no app framework, package lifecycle, OS registration/activation path, runtime, tests, CI or release artifact exists yet.
+
+The founding architecture does establish strong boundaries: Apps defines application contracts and presentation behavior, OS owns environment registration, and structured operational records remain with their declared canonical owner rather than an interface-local shadow store.
+
+Canonical detail:
+
+- `components/ai-verse-apps/COMPONENT-SPEC.md`
+- `components/ai-verse-apps/SOURCE-MAP.md`
+- `components/ai-verse-apps/QC.md`
+
+### Propagated Apps system laws
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Promoted two system-wide rules:
+
+- app/UI projections remain rebuildable and non-canonical unless ownership is explicitly declared;
+- Apps defines the app extension schema/protocol while OS owns authoritative app-registration records.
+
+Canonical detail:
+
+- `docs/MASTER-PLAN.md`
+- `docs/IDEA-INBOX.md`
