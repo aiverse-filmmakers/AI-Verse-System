@@ -460,3 +460,63 @@ Canonical detail:
 - `docs/MASTER-PLAN.md`
 - `docs/IDEA-INBOX.md`
 
+
+
+### Documented Component 4: AI-Verse Skills
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Skills-only forensic review using the canonical audit methodology.
+
+Reviewed:
+
+- full current repository tree at `3ab838e6e64561bbb7cea8f85d0ebc75b9e84337`;
+- distribution/catalog model;
+- exact source pins and original-first policy;
+- immutable generation lifecycle;
+- Provider Contract v1 producer;
+- manifests, capability index and package digests;
+- readiness v2;
+- execution receipt v2;
+- generic runtime adapters;
+- foundation and vendored package content;
+- tests and CI;
+- visible PR history #1-7;
+- research/inspiration lineage;
+- narrow OS contract/consumer surfaces required to verify Skills' own integration claims.
+
+Key findings:
+
+- Skills is already install-order independent with the maintained AI-Verse OS external-provider path;
+- Skills can be installed before or after OS, and a later installation becomes dynamically discoverable without an OS attachment record;
+- Skills lifecycle remains standalone and Skills-owned;
+- generic runtimes still require an explicit adapter/adoption step unless they already consume the canonical root;
+- immutable generation, provider, readiness and receipt engineering is strong;
+- package integrity/provenance is not equivalent to security/trust admission;
+- the current external catalog does not yet implement the security/evaluation admission pipeline described by its own research;
+- first-party licensing and multiple per-package licensing decisions remain public-release blockers;
+- current generic adapter compatibility is stronger than directory copying but weaker than end-to-end invocation acceptance for every named runtime;
+- several status documents still describe superseded provider stages.
+
+Canonical detail:
+
+- `components/ai-verse-skills/COMPONENT-SPEC.md`
+- `components/ai-verse-skills/SOURCE-MAP.md`
+- `components/ai-verse-skills/QC.md`
+
+### Propagated Skills-derived system laws
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Added system-level laws that:
+
+- dynamic external-provider discovery can satisfy late adoption without host attachment when it changes no canonical host authority/state and grants no permission;
+- integrity-valid content is not automatically trusted/admitted, ready, authorized, approved or verified;
+- complete runtime support requires a tested discover/select/load/invoke/verified-outcome path rather than mere package visibility or directory exposure.
+
+Canonical detail:
+
+- `docs/MASTER-PLAN.md`
+- `docs/IDEA-INBOX.md`
