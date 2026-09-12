@@ -150,6 +150,12 @@ The order may be adjusted only if the documented dependency/ownership architectu
 
 ## Per-component research procedure
 
+The canonical forensic procedure is `docs/AUDIT-METHODOLOGY.md`.
+
+The steps below are the high-level summary. The methodology document is authoritative for the full evidence hierarchy, 46 required audit lenses, contradiction scan, negative-space analysis, lifecycle/completeness matrices, historical archaeology, health-depth classification and completion checklist.
+
+A component review is not complete merely because the summary steps below were followed if the applicable methodology lenses were skipped.
+
 For every repository:
 
 1. Inventory the repository tree and current default branch.
@@ -196,6 +202,8 @@ Independent review results and contradictions/gaps found during documentation.
 ## Quality-control perspectives
 
 Every component document is reviewed from several perspectives.
+
+The perspective list below is a compact overview only. `docs/AUDIT-METHODOLOGY.md` expands this into the mandatory multi-lens review used for the fresh AI-Verse OS re-audit, including ownership, provenance, isolation, privacy, lifecycle, discovery, readiness, health depth, permissions, path security, idempotency, concurrency, failure behavior, cross-component read/write paths, scalability, documentation drift, negative-space analysis, architecture-vs-operation classification, scope-creep checks and component-specific definition of done.
 
 ### 1. Architecture QC
 
