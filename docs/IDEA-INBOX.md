@@ -280,3 +280,98 @@ Promoted/current detail:
 
 - `components/ai-verse-brain/COMPONENT-SPEC.md`
 - `components/ai-verse-brain/QC.md`
+
+---
+
+## 2026-09-13 - Cross-mode component state adoption
+
+**Status:** ACCEPTED-INTENT
+
+A component is not install-order independent merely because it safely blocks duplicate truth.
+
+The Brain audit proved a concrete case: standalone Brain state under `.ai-verse-brain/` is correctly rejected once the same root becomes a native AI-Verse host, but no supported transaction adopts that canonical state into the native layout.
+
+System-wide rule:
+
+```text
+standalone component first
++ compatible host later
+must have a dry-run-first adoption/migration path
+```
+
+That path should detect competing stores, preserve provenance and stable identity where possible, map scopes explicitly, surface conflicts, verify the destination, and retire the old authority only after successful adoption.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/QC.md`
+
+---
+
+## 2026-09-13 - Rollback must restore or compensate
+
+**Status:** ACCEPTED-INTENT
+
+A lifecycle state named `ROLLED_BACK` is not, by itself, a rollback mechanism.
+
+When AI-Verse documentation promises rollback/recovery, the implementation must provide one of:
+
+- deterministic restoration to a known-good prior version/state;
+- a verified compensating recovery when literal restoration is impossible.
+
+The rollback path must preserve provenance and be acceptance-tested.
+
+This applies beyond Brain to future prompts, strategies, skills, configuration, deployments and other evolvable system state.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/QC.md`
+
+---
+
+## 2026-09-13 - Contract surface is not operational integration
+
+**Status:** ACCEPTED-INTENT
+
+Exposing an adapter/provider method does not make that feature operational.
+
+A component integration should be classified as implemented only when the current product path actually invokes the contract under the intended conditions and acceptance evidence proves the effect.
+
+The Brain audit surfaced `query_data` as the concrete example: the host/bridge operation exists, but normal cognition does not currently consume it.
+
+System documentation should therefore distinguish:
+
+```text
+interface exists
+runtime consumes it
+end-to-end effect verified
+```
+
+as separate readiness levels.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/SOURCE-MAP.md`
+- `components/ai-verse-brain/QC.md`
+
+---
+
+## 2026-09-13 - Executable security-invariant labeling
+
+**Status:** NEEDS-SCOPING
+
+Security documentation must distinguish executable guarantees from protocol/operator prohibitions.
+
+If a component claims that a class of sensitive material can never enter canonical state, either:
+
+- enforce that claim at the appropriate persistence boundary, or
+- narrow the wording to match the actual controls.
+
+The exact generic detection/redaction strategy needs scoping so AI-Verse does not create a brittle or overly broad data-loss-prevention layer with high false positives.
+
+Promoted/current detail:
+
+- `components/ai-verse-brain/COMPONENT-SPEC.md`
+- `components/ai-verse-brain/QC.md`
+
