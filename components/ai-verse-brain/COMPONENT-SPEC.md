@@ -2082,52 +2082,60 @@ Brain scope grammar was narrowed to OS canonical IDs.
 
 ---
 
+
 ## 63. Current intended milestone
 
-The present Brain milestone, based on current main and release documentation, is a hardened public-beta intelligence layer that:
+The present Brain milestone, based on current main, current protocol law and release documentation, is a hardened public-beta intelligence layer that:
 
 - installs cleanly;
 - runs standalone;
 - integrates natively with current AI-Verse OS;
 - initializes safely;
 - captures explicit intent;
-- supports real Claude/Codex/Hermes reasoning;
+- supports Claude/Codex/Hermes reasoner wrappers;
 - runs bounded cognition ticks;
 - supports strategic handover/handback;
 - enforces persisted policy;
 - performs restrictive host permission intersection;
 - safely handles side effects and receipts;
 - verifies objectives;
-- supports learning/strategy evolution;
+- supports staged learning and strategy promotion;
+- provides a real rollback/recovery path for promoted strategy;
 - generates cadence requests without scheduler ownership;
 - supports safe native lifecycle;
-- exposes doctor/migration;
+- exposes truthful doctor/migration surfaces;
 - passes cross-platform/package acceptance;
-- can be installed by a member from an immutable release artifact.
+- can be installed by a member from an immutable release artifact whose behavior matches the docs.
 
-The stronger AI-Verse-System goal additionally requires an existing agent to adopt Brain seamlessly after installation.
+The stronger AI-Verse-System goal additionally requires an existing agent to adopt Brain seamlessly at any point, including Brain-first -> host-later scenarios, without duplicate truth or repository-level manual wiring.
 
----
 
 ## 64. Current-target readiness verdict
 
-**Verdict: FUNCTIONALLY STRONG, BUT RELEASE AND LIFECYCLE UX ARE NOT YET COMPLETE**
+**Verdict: FUNCTIONALLY STRONG, BUT THE CURRENT PUBLIC-BETA TARGET IS NOT YET COMPLETE**
 
-The deterministic engine and current-main native integration are mature.
+The deterministic core, current-main native integration, permission model, verification machinery and cross-platform source-head tests are strong.
 
-The largest present-stage blockers are not core cognition.
+### Current public-beta blockers
 
-They are:
+1. the recommended `v0.1.0-beta.1` tag does not contain current main hardening while current package metadata still identifies as beta.1;
+2. no public CLI `enable` exists after `disable`;
+3. current strategy "rollback" can mark a rule `ROLLED_BACK` but cannot restore a prior known-good revision;
+4. the OS direction acceptance workflow still patches the obsolete tracked manifest slot instead of proving the current clean product path;
+5. current installation/vendor docs contain `run-tick` examples that fail the current explicit-host-selection parser;
+6. installation/security/research/release-history docs retain older generation claims.
 
-1. the recommended beta tag does not contain current main hardening;
-2. no public CLI `enable` after disable;
-3. native OS direction CI still patches the obsolete tracked manifest path;
-4. installation protocol/research docs contain stale generation claims;
-5. migration has no registered older-state conversion;
-6. no one-step existing-agent activation/adoption flow;
-7. cross-component write routing is symbolic/contractual rather than end-to-end.
+### Stronger seamless-system blockers
 
----
+7. standalone Brain state cannot be adopted automatically if the same root later becomes native AI-Verse OS;
+8. no one-step existing-agent activation/adoption flow exists;
+9. cross-component write routing is symbolic/contractual rather than end-to-end;
+10. optional Data query transport is exposed but not consumed by normal cognition;
+11. the documented no-secrets invariant is not generically enforced at Brain canonical-object persistence;
+12. actual older-state schema conversion remains unimplemented until a migration path is registered.
+
+These distinctions matter: Brain is not missing its intelligence core. It is missing several lifecycle, restoration, integration and release guarantees required before "works perfectly together like a glove" is true.
+
 
 ## 65. Completeness by dimension
 
@@ -2136,10 +2144,13 @@ They are:
 | Brain object/state model | **COMPLETE** |
 | Deterministic cognition/control core | **COMPLETE** |
 | Intent / Direction Loop | **COMPLETE WITH HOST CURRENT-STATE DEPENDENCY** |
-| Attention/proactivity | **COMPLETE** |
+| Attention/proactivity core | **COMPLETE** |
+| Public proactivity/kill-switch UX | **PARTIAL** |
 | Objective/progress/stall | **COMPLETE** |
 | V0-V3 verification | **COMPLETE** |
-| Learning/strategy evolution | **COMPLETE WITH SCOPE LIMITATION TO STRATEGY RULES** |
+| Learning + strategy promotion | **COMPLETE** |
+| Strategy outcome monitoring | **COMPLETE** |
+| Version-restoring strategy rollback | **MISSING** |
 | Privileged self-modification safety | **COMPLETE / FAIL-CLOSED** |
 | Action/approval/idempotency | **COMPLETE / STRONG** |
 | Host permission intersection | **COMPLETE** |
@@ -2151,23 +2162,26 @@ They are:
 | Disable | **COMPLETE ON MAIN** |
 | Re-enable | **MISSING PUBLIC CLI** |
 | Detach preserving state | **COMPLETE ON MAIN** |
+| Same-mode reinstall/init idempotency | **COMPLETE** |
+| Standalone -> native state adoption | **MISSING** |
 | Generic agent adoption | **PARTIAL / MANUAL ORCHESTRATION** |
 | Migration planning | **COMPLETE** |
 | Actual older-state schema conversion | **MISSING** |
 | Old-agent history migration | **NOT BRAIN-OWNED GENERALLY; STRATEGIC IMPORT PARTIAL** |
-| Doctor | **COMPLETE FOR BRAIN STRUCTURAL READINESS** |
+| Doctor | **COMPLETE FOR STRUCTURAL + PARTIAL ATTACHMENT HEALTH ONLY** |
+| Composite runtime/dependency/system readiness | **MISSING** |
 | Cadence planning/hooks | **COMPLETE** |
 | Scheduler execution | **NOT BRAIN-OWNED** |
-| Memory semantic reads | **COMPLETE THROUGH HOST CONTRACT** |
-| Cross-component canonical write routing | **PARTIAL / SYMBOLIC ONLY** |
+| Memory semantic reads | **COMPLETE THROUGH HOST CONTRACT WHEN HOST IMPLEMENTS IT** |
+| Cross-component canonical write routing | **PARTIAL / SYMBOLIC + HOST INTERFACE ONLY** |
 | Skills receipt verification | **COMPLETE** |
-| Data read integration | **OPTIONAL HOST CONTRACT COMPLETE** |
-| Cross-platform core CI | **COMPLETE** |
+| Data host query transport | **COMPLETE AS OPTIONAL BRIDGE OPERATION** |
+| Data use in normal cognition | **MISSING** |
+| Generic secret-material rejection in Brain state | **MISSING; PROTOCOL RULE + BRIDGE-SPECIFIC GUARDS ONLY** |
+| Cross-platform source-head CI | **COMPLETE / GREEN AT REVIEWED HEAD** |
 | Wheel clean-install smoke | **COMPLETE FOR CURRENT MAIN CI DESIGN** |
 | Exact current immutable member release | **MISSING / STALE TAG** |
 | Documentation consistency | **PARTIAL / MATERIAL DRIFT** |
-
----
 
 ## 66. Lifecycle command matrix
 
