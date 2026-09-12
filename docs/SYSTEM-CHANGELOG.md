@@ -240,3 +240,49 @@ Canonical detail:
 
 - `docs/MASTER-PLAN.md`
 - `docs/IDEA-INBOX.md`
+
+
+### Documented Component 3: AI-Verse Memory
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Memory-only forensic review at exact Memory main revision `f5b417f9e7ce1b3f05bc80d10a483d10f6ad10ee`.
+
+The audit confirms a strong native v0.2 architecture: canonical Markdown historical memory, derived SQLite/FTS recall, no second native profile/context/decision system, strong indexed-source isolation, canonical-source freshness, local extension attachment, enable/disable/registry-detach, Memory-first/OS-later migration, direction-ownership-aware recall and green Linux/macOS/Windows CI.
+
+Current-target blockers found:
+
+- native canonical write destinations lack the same physical/symlink containment enforced on indexed reads;
+- external legacy migration can abort when an old record has no `source` metadata;
+- migration does not enforce retirement of the old writable canonical route;
+- dry-run review is not source-snapshot-bound and `migration-complete` is not a verified authority-handoff transaction;
+- canonical Memory mutation is not serialized/transactional;
+- full discovery closure after registry detach is unverified;
+- uninstall/reconcile/rollback are missing;
+- current documentation contains pre-hardening drift;
+- the public bootstrap still tracks mutable `main` and no immutable Memory release was evidenced.
+
+Canonical detail:
+
+- `components/ai-verse-memory/COMPONENT-SPEC.md`
+- `components/ai-verse-memory/SOURCE-MAP.md`
+- `components/ai-verse-memory/QC.md`
+
+### Propagated Memory-derived system laws
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Promoted three system-level laws:
+
+- migration completion transfers canonical authority, not merely data;
+- scoped canonical storage validates physical containment at both read and write boundaries;
+- detach semantics must match actual discovery surfaces or be explicitly scoped more narrowly.
+
+The master migration contract now also requires binding reviewed migration plans to source state or detecting drift before apply.
+
+Canonical detail:
+
+- `docs/MASTER-PLAN.md`
+- `docs/IDEA-INBOX.md`
