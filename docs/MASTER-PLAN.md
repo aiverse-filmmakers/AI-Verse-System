@@ -345,6 +345,11 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 22. A detach operation must close every host discovery route it opened, or its narrower scope must be named and documented explicitly.
 23. Projection layers may normalize and aggregate owner-declared schemas, but must not become semantic owners by inferring canonical health, work, Bot, approval, readiness or runtime meaning from private files or transient UI/session state. Unavailable owner state must remain unavailable rather than becoming empty, zero or healthy.
 
+24. Telemetry observations and projections are evidence, not authority transfers: a usage event may describe a workspace, project, Bot, task, Skill or connection, but it must not become the canonical operational state of that component.
+25. Attribution is not authorization: telemetry scope IDs and actor labels cannot grant access, workspace membership, execution authority or permission. Host read/write boundaries must intersect telemetry requests with the caller's authorized scope.
+26. Telemetry readiness is multi-dimensional: installed, attached and enabled must remain separate from source-active, collecting, pricing-ready, cost-ready, authorized and operationally ready.
+27. Monetary telemetry preserves truth provenance: UNKNOWN is never zero, ACTUAL and CALCULATED remain visibly distinct, and a derived/calculated cost must never be silently presented as invoice-confirmed billing.
+
 ## Final synthesis phase
 
 Only after all component documents pass QC:
