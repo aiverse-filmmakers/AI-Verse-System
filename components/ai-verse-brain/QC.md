@@ -1068,25 +1068,34 @@ These distinctions must remain explicit in the final system blueprint.
 | package beta artifact | exists but stale vs main |
 | agent adoption | manual/composed, not seamless |
 
+
 ## 45. Current-target readiness QC
 
-**Verdict: FUNCTIONALLY STRONG, CURRENT RELEASE PRODUCT NOT YET COMPLETE**
+**Verdict: FUNCTIONALLY STRONG, CURRENT PUBLIC-BETA PRODUCT NOT YET COMPLETE**
 
-For the actual core intelligence milestone, Brain is highly complete.
+For the core intelligence milestone, Brain is highly complete.
 
-For the public-beta/member milestone described by current docs, it is not yet fully complete because the recommended install artifact does not contain the current integration generation.
+For the current public-beta/member milestone implied by the current repository, it is not complete.
 
-### Current-target blockers
+### Immediate current-target blockers
 
-1. new hardened version/tag;
-2. enable CLI;
-3. current member-path cross-repo CI;
-4. stale docs corrected;
-5. lifecycle/adoption instructions made coherent.
+1. cut a new immutable version from current hardened code;
+2. add public re-enable lifecycle;
+3. implement real strategy rollback/recovery rather than only a `ROLLED_BACK` status;
+4. make OS direction acceptance prove the exact current member path without tracked-manifest scaffolding;
+5. correct executable `run-tick` documentation and older registration/status docs;
+6. verify the exact new immutable artifact after those corrections.
 
-The cross-component write/adoption/migration improvements may continue beyond the immediate beta, but they are required for the stronger system-wide seamless target.
+### Stronger seamless-system blockers
 
----
+7. add standalone -> native Brain state adoption;
+8. productize existing-agent activation/adoption;
+9. complete owner-routed cross-component durable writes;
+10. either wire optional Data into cognition or label it contract-only;
+11. align broad security invariants with actual persistence enforcement;
+12. add truthful composed readiness without collapsing health layers.
+
+The distinction is deliberate: these findings do not imply the cognition engine is weak. They identify what still prevents the current component from being complete as a member-facing, install-order-independent system component.
 
 ## 46. Scope-creep QC
 
@@ -1110,36 +1119,55 @@ It is to improve contracts and orchestration with owners.
 
 ---
 
+
 ## 47. "Works like a glove" acceptance scenario
 
-The mature Brain should pass:
+The mature Brain should pass both adoption directions.
 
-1. Agent already exists.
+### Existing host -> Brain
+
+1. Agent/host already exists.
 2. User installs Brain package.
-3. System detects standalone/native host.
+3. System detects standalone/native mode.
 4. Brain attaches if appropriate.
 5. Existing strategic state is discovered.
 6. User is shown what strategic ownership would change.
 7. User confirms import/handover if desired.
 8. Brain initializes.
-9. Existing goals/practices are imported with provenance where appropriate.
+9. Existing strategic state is imported with provenance where appropriate.
 10. Runtime host adapter is selected/configured.
-11. Vendor reasoner is verified.
+11. Reasoner is verified.
 12. Cadence hooks are offered to the actual scheduler owner.
-13. Brain doctor passes.
+13. Structural and dependency health pass.
 14. First bounded orientation succeeds.
 15. Existing agent now uses Brain as its durable intelligence layer.
-16. Brain can be disabled.
-17. Brain can be re-enabled.
-18. Strategic ownership can be handed back.
-19. Brain can be detached without data loss.
-20. Reinstall can reattach preserved state.
-21. No OS/Memory/capability ownership is duplicated.
-22. User never needs to manually patch tracked files.
 
-**CURRENT:** most low-level pieces exist on main, but the entire scenario is not yet one supported productized flow.
+### Brain first -> host later
 
----
+16. Brain already has valid standalone canonical state.
+17. A compatible AI-Verse host later appears.
+18. System detects both possible authorities and refuses silent duplication.
+19. A dry-run adoption plan maps scopes, IDs, provenance and conflicts.
+20. User approves the migration where authority changes.
+21. Native state is written and verified.
+22. Old standalone authority is retired only after verified adoption.
+23. No Brain state is lost and no parallel truth remains.
+
+### Reversibility and long-term operation
+
+24. Brain can be disabled.
+25. Brain can be re-enabled.
+26. Strategic ownership can be handed back.
+27. Brain can be detached without data loss.
+28. Reinstall can reattach preserved state.
+29. Strategy regression can restore a known-good previous strategy.
+30. Owner-routed durable writes reach the correct component without direct sibling storage access.
+31. Optional Data is either genuinely available to cognition or clearly reported as unavailable/not integrated.
+32. A composed readiness check can prove a representative tick without mislabeling structural doctor status.
+33. User never needs to patch tracked OS files manually.
+
+**CURRENT:** many low-level pieces exist on main, but this full scenario is not one supported productized flow.
+
 
 ## 48. Exact corrective work recommended before new Brain feature expansion
 
@@ -1147,33 +1175,43 @@ Priority order:
 
 ### P1. Fix release identity
 
-Cut a new version from current hardened architecture.
+Cut a new version from the current hardened architecture and make version/docs/artifact agree.
 
 ### P2. Add enable CLI
 
 Restore lifecycle symmetry.
 
-### P3. Fix current cross-repo CI
+### P3. Implement true strategy rollback
 
-Remove legacy tracked manifest patch.
+Add version/revision linkage and deterministic restore/recovery with tests.
 
-### P4. Correct stale docs
+### P4. Fix current cross-repo acceptance
 
-Especially installation protocol and research status.
+Remove legacy tracked-manifest setup and prove the stock current member path.
 
-### P5. Verify full current release matrix
+### P5. Correct stale executable docs
 
-Use the exact new immutable artifact/member path.
+Fix current host-selection examples and older registration/status/release documentation.
 
-### P6. Productize activation/adoption
+### P6. Add standalone -> native adoption
 
-Build the setup sequence around existing primitives rather than adding new core cognition features.
+Complete install-order independence without allowing duplicate truth.
 
-### P7. Complete shared canonical write routing with the system owner
+### P7. Productize activation/adoption
+
+Build the setup sequence around existing primitives instead of adding new cognition features.
+
+### P8. Complete shared canonical write routing with the system owner
 
 Do not implement direct OS/Memory writes inside Brain.
 
----
+### P9. Decide and implement the Data runtime role
+
+Either consume bounded `query_data` results in cognition where justified or document the operation as optional contract-only functionality.
+
+### P10. Tighten readiness and security claim precision
+
+Add composed readiness across distinct health layers and ensure broad security claims are either executable or worded to match actual enforcement.
 
 ## 49. Final documentation verdict
 
