@@ -565,3 +565,73 @@ Canonical detail:
 - `docs/MASTER-PLAN.md`
 - `docs/IDEA-INBOX.md`
 - `components/ai-verse-connections/COMPONENT-SPEC.md`
+
+
+### Documented AI-Verse Data
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Data-only forensic review using the canonical audit methodology.
+
+Reviewed:
+
+- exact main revision and repository inventory;
+- protocol and storage-driver boundaries;
+- SQLite identity and scope binding;
+- Data Spaces, schemas and records;
+- query/aggregate safety;
+- relations, transactions and locking;
+- optimistic concurrency and idempotency;
+- events, receipts and provenance;
+- bulk operations;
+- backup/export/import;
+- internal database-format migration;
+- user-schema migration;
+- corruption quarantine and staged recovery;
+- native OS compatibility, extension registration, workspace resolution and lifecycle;
+- Data-vs-Memory ownership;
+- Bots, Brain, Memory, Dashboard, Apps, Connections and Automation adapters contained in Data;
+- all visible Data pull requests #1-13;
+- exact main-head CI state;
+- post-release hardening PR #13 and its Data-owned five-component acceptance workflow;
+- release/distribution status;
+- research/inspiration lineage.
+
+Key findings:
+
+- Data's core local structured-data engine is mature and architecturally strong;
+- main still materializes a registration-only extension engine, so the original release gate does not prove the real host/runtime path;
+- main lacks explicit re-enable and contains known adapter permission/provenance defects that PR #13 repairs;
+- PR #13 adds the real host engine, explicit enable and five-component acceptance but remains open/unmerged and its hosted-runner gates have not executed successfully;
+- old unbound AI-Verse Data can acquire scope identity once, but an already-bound standalone database cannot currently be adopted into native workspace identity through a supported lifecycle;
+- backup/export/import deliberately preserves binding and therefore is not a substitute for canonical adoption;
+- internal migration machinery is strong, but native migration/adoption wiring remains incomplete;
+- recovery can stage a verified candidate but canonical promotion is explicitly not implemented;
+- doctor/status provide useful health but no combined ready-for-operation verdict;
+- current release/distribution remains 0.1.0-alpha.0, UNLICENSED and GitHub-source based.
+
+Canonical detail:
+
+- components/ai-verse-data/COMPONENT-SPEC.md
+- components/ai-verse-data/SOURCE-MAP.md
+- components/ai-verse-data/QC.md
+
+### Propagated Data-derived system laws
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Promoted the following system-wide rules:
+
+- nested operations inside a batch/transaction/workflow must be individually rechecked against effective authority;
+- provenance/audit/receipt surfaces must not leak hidden-resource existence;
+- stateful components must discover/reconcile eligible legacy state before initializing an empty canonical replacement;
+- release acceptance must exercise the actual supported component/host path rather than bypassing it with internal imports.
+
+Canonical detail:
+
+- docs/MASTER-PLAN.md
+- docs/IDEA-INBOX.md
+- components/ai-verse-data/COMPONENT-SPEC.md
+- components/ai-verse-data/QC.md
