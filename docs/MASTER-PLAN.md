@@ -336,6 +336,8 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 15. A missing optional component should degrade the dependent capability, not corrupt unrelated system behavior.
 16. Public/member installation paths must match the paths actually tested in acceptance.
 17. Stable releases should use immutable versions/tags rather than moving branches.
+18. Apps, dashboards and other interfaces must remain rebuildable projections/clients of declared canonical owners; UI convenience must never create hidden canonical truth.
+19. A component may define a registration or extension schema without owning the host's canonical registration records; for Apps, the intended split is Apps-owned app contract/schema and OS-owned authoritative system registration state.
 
 ## Final synthesis phase
 
