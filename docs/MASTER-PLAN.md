@@ -358,25 +358,25 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 18. Integrity-valid content is not automatically trusted/admitted, ready, authorized, approved or verified.
 19. Dynamic external-provider discovery may satisfy late adoption without attachment only when discovery changes no canonical host authority/state and grants no permission.
 20. A runtime-support claim should require a tested discover -> select -> load -> invoke -> verified-outcome path, not merely directory exposure or package visibility.
-18. Apps, dashboards and other interfaces must remain rebuildable projections/clients of declared canonical owners; UI convenience must never create hidden canonical truth.
-19. A component may define a registration or extension schema without owning the host's canonical registration records; for Apps, the intended split is Apps-owned app contract/schema and OS-owned authoritative system registration state.
-20. Scoped canonical storage must validate physical containment at both read and write boundaries; later read rejection cannot undo an escaped write.
-21. Migration completion is an authority transition, not merely a successful copy: preserved legacy bytes may remain, but duplicate writable canonical authority must not.
-22. A detach operation must close every host discovery route it opened, or its narrower scope must be named and documented explicitly.
-23. Projection layers may normalize and aggregate owner-declared schemas, but must not become semantic owners by inferring canonical health, work, Bot, approval, readiness or runtime meaning from private files or transient UI/session state. Unavailable owner state must remain unavailable rather than becoming empty, zero or healthy.
+21. Apps, dashboards and other interfaces must remain rebuildable projections/clients of declared canonical owners; UI convenience must never create hidden canonical truth.
+22. A component may define a registration or extension schema without owning the host's canonical registration records; for Apps, the intended split is Apps-owned app contract/schema and OS-owned authoritative system registration state.
+23. Scoped canonical storage must validate physical containment at both read and write boundaries; later read rejection cannot undo an escaped write.
+24. Migration completion is an authority transition, not merely a successful copy: preserved legacy bytes may remain, but duplicate writable canonical authority must not.
+25. A detach operation must close every host discovery route it opened, or its narrower scope must be named and documented explicitly.
+26. Projection layers may normalize and aggregate owner-declared schemas, but must not become semantic owners by inferring canonical health, work, Bot, approval, readiness or runtime meaning from private files or transient UI/session state. Unavailable owner state must remain unavailable rather than becoming empty, zero or healthy.
 
-24. Telemetry observations and projections are evidence, not authority transfers: a usage event may describe a workspace, project, Bot, task, Skill or connection, but it must not become the canonical operational state of that component.
-25. Attribution is not authorization: telemetry scope IDs and actor labels cannot grant access, workspace membership, execution authority or permission. Host read/write boundaries must intersect telemetry requests with the caller's authorized scope.
-26. Telemetry readiness is multi-dimensional: installed, attached and enabled must remain separate from source-active, collecting, pricing-ready, cost-ready, authorized and operationally ready.
-27. Monetary telemetry preserves truth provenance: UNKNOWN is never zero, ACTUAL and CALCULATED remain visibly distinct, and a derived/calculated cost must never be silently presented as invoice-confirmed billing.
-28. External connection readiness is multi-stage: registered, configured, live-verified, healthy, authorized, approved, executing and succeeded are distinct states; no generic "connected" flag may silently imply all of them.
-29. Agents should normally receive opaque connection handles and bounded capabilities rather than raw credentials. The connection layer may own the handle and trusted execution path while approved credential backends retain raw secret material.
-30. External side effects must re-check current system/workspace scope, connection grants, delegated authority, approval and revocation at the actual provider execution edge; stale discovery or planning authority must never survive later narrowing.
-31. Connectivity does not transfer canonical data ownership: an external provider remains canonical for its records unless an explicit ownership/synchronization contract states otherwise.
+27. Telemetry observations and projections are evidence, not authority transfers: a usage event may describe a workspace, project, Bot, task, Skill or connection, but it must not become the canonical operational state of that component.
+28. Attribution is not authorization: telemetry scope IDs and actor labels cannot grant access, workspace membership, execution authority or permission. Host read/write boundaries must intersect telemetry requests with the caller's authorized scope.
+29. Telemetry readiness is multi-dimensional: installed, attached and enabled must remain separate from source-active, collecting, pricing-ready, cost-ready, authorized and operationally ready.
+30. Monetary telemetry preserves truth provenance: UNKNOWN is never zero, ACTUAL and CALCULATED remain visibly distinct, and a derived/calculated cost must never be silently presented as invoice-confirmed billing.
+31. External connection readiness is multi-stage: registered, configured, live-verified, healthy, authorized, approved, executing and succeeded are distinct states; no generic "connected" flag may silently imply all of them.
+32. Agents should normally receive opaque connection handles and bounded capabilities rather than raw credentials. The connection layer may own the handle and trusted execution path while approved credential backends retain raw secret material.
+33. External side effects must re-check current system/workspace scope, connection grants, delegated authority, approval and revocation at the actual provider execution edge; stale discovery or planning authority must never survive later narrowing.
+34. Connectivity does not transfer canonical data ownership: an external provider remains canonical for its records unless an explicit ownership/synchronization contract states otherwise.
 
-32. Effective authority must be re-evaluated at the final nested operation inside batches, transactions, workflows and delegated actions. Outer-envelope permission must never widen authority.
-33. Provenance, audit and receipt surfaces must respect the same visibility boundary as the underlying resource and must not leak hidden-resource existence.
-34. Stateful components must discover and reconcile eligible legacy/canonical state before initializing an empty replacement store. Initialization is only safe after the system has established that no canonical state needs adoption.
+35. Effective authority must be re-evaluated at the final nested operation inside batches, transactions, workflows and delegated actions. Outer-envelope permission must never widen authority.
+36. Provenance, audit and receipt surfaces must respect the same visibility boundary as the underlying resource and must not leak hidden-resource existence.
+37. Stateful components must discover and reconcile eligible legacy/canonical state before initializing an empty replacement store. Initialization is only safe after the system has established that no canonical state needs adoption.
 
 ## Final synthesis phase
 
