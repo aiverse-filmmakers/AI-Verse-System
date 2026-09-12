@@ -343,6 +343,7 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 20. Scoped canonical storage must validate physical containment at both read and write boundaries; later read rejection cannot undo an escaped write.
 21. Migration completion is an authority transition, not merely a successful copy: preserved legacy bytes may remain, but duplicate writable canonical authority must not.
 22. A detach operation must close every host discovery route it opened, or its narrower scope must be named and documented explicitly.
+23. Projection layers may normalize and aggregate owner-declared schemas, but must not become semantic owners by inferring canonical health, work, Bot, approval, readiness or runtime meaning from private files or transient UI/session state. Unavailable owner state must remain unavailable rather than becoming empty, zero or healthy.
 
 ## Final synthesis phase
 
