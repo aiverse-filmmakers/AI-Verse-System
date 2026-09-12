@@ -1,1001 +1,1716 @@
 # AI-Verse OS Component Specification
 
 **Component:** AI-Verse OS  
-**Repository:** `aiverse-filmmakers/AI-Verse-OS`  
+**Repository reviewed:** `aiverse-filmmakers/AI-Verse-OS`  
 **Reviewed branch:** `main`  
-**Review date:** 2026-09-12  
-**Role:** canonical host/environment, scope model, ownership model, routing layer, permission floor, extension attachment contract, and user-state filesystem constitution for the AI-Verse system family.
+**Reviewed head:** `3bb28154748f693ba2fd7f5473cc086ddc9d975f`  
+**Fresh standalone review:** 2026-09-13  
+**Evidence rule:** this version was rebuilt from AI-Verse-OS alone. Earlier AI-Verse-System summaries were not treated as source evidence.
 
 ---
 
 ## 1. Executive identity
 
-**CURRENT:** AI-Verse OS is a domain-neutral, local-first operating layer for AI-assisted work. It is not a model, an agent, a memory engine, a database, or a dashboard. It provides the environment in which those systems can operate without competing for canonical truth.
+**CURRENT:** AI-Verse OS is a domain-neutral, local-first operating layer for AI-assisted work.
 
-Its central idea is:
+It is best understood as the **host constitution** of the AI-Verse family. It defines where truth lives, how work is scoped, how optional components attach, which source has authority, which capability may be selected, which permissions constrain action, and how user-owned state survives system evolution.
+
+Its public design principle is:
 
 > One OS. One source of truth. Many isolated workspaces. Reusable capabilities. Connected systems. Automated cadence. Apps on top.
 
-AI-Verse OS v2 uses a Unified Workspace Architecture. It organizes the system around four stronger primitives than profession-specific folders:
+The phrase "operating system" here does not mean a kernel or replacement for macOS/Linux/Windows. It means a persistent architecture and host contract for AI-assisted work.
 
-1. ownership;
-2. scope;
-3. lifecycle;
-4. authority.
+**LAW:** OS should coordinate specialized systems without absorbing their canonical responsibilities.
 
-A workspace is the universal isolation primitive. It can represent a project, client, case, practice, product, role, research area, team, course, personal area, or another meaningful scope without changing the fundamental architecture.
-
-**INTENDED:** AI-Verse OS should mature into the host that can discover, attach, activate, reconcile and safely compose independently installable AI-Verse components regardless of reasonable installation order. It should also remain understandable enough that compatible external agents and runtimes can adopt the same contracts without being forced to become AI-Verse OS internally.
+**INTENDED:** the mature OS should feel like a self-describing AI environment that can discover, attach, activate, migrate, diagnose and compose optional components in any reasonable order, while remaining portable enough for capable runtimes such as Claude Code, Codex, Hermes and future hosts.
 
 ---
 
-## 2. Status vocabulary
+## 2. The problem AI-Verse OS solves
 
-The OS architecture deliberately separates concepts that are often incorrectly collapsed:
+Without an operating layer, an AI stack tends to fragment into:
+
+- large prompts containing everything;
+- duplicated context in multiple agents;
+- one-off project folders with different rules;
+- hidden app-local truth;
+- vector indexes mistaken for canonical data;
+- memory that silently overrides current context;
+- agent-specific capability copies;
+- plugins that edit each other's files;
+- no clear source when two systems disagree;
+- no safe upgrade boundary between system code and user state;
+- no principled workspace isolation;
+- no consistent permission floor;
+- no durable lifecycle for optional components.
+
+AI-Verse OS exists to make those failure modes structurally difficult rather than relying on the model to remember not to cause them.
+
+---
+
+## 3. Product philosophy
+
+### 3.1 Domain neutral core
+
+**CURRENT:** architecture v2 deliberately removed profession-specific assumptions from the universal root.
+
+A doctor, filmmaker, developer, researcher, founder, student, household, legal matter or unknown future domain should start from the same architecture.
+
+**LAW:** specialize content, vocabulary, policies and local workflows, not the fundamental OS architecture.
+
+### 3.2 Workspace first specialization
+
+New domain-specific structure begins inside the workspace that needs it.
+
+Only proven reusable knowledge or capabilities should move upward.
+
+### 3.3 Progressive disclosure
+
+Do not load everything simply because it exists.
+
+The runtime should resolve scope first, then current context, then only the deeper knowledge, memory, connections and capabilities required for the task.
+
+### 3.4 Evidence over presence
+
+A connection entry is not proof of access.
+
+A capability folder is not proof that it executes.
+
+An automation file is not proof that cadence actually runs.
+
+A dashboard is not proof that its displayed data is authoritative.
+
+The `/audit` capability explicitly scores verified operation rather than folder count.
+
+### 3.5 Least necessary complexity
+
+The Three Ms framework pushes the system toward:
+
+- eliminate before automate;
+- deterministic operations where possible;
+- focused AI responsibilities;
+- staged autonomy;
+- explicit validation;
+- replaceable machinery;
+- scoped permissions;
+- kill switches.
+
+---
+
+## 4. Unified Workspace Architecture
+
+**CURRENT:** AI-Verse OS v2 is organized around four dimensions:
+
+1. **Ownership** - who may edit which state.
+2. **Scope** - system, operator, shared or one workspace.
+3. **Lifecycle** - inbox, context, memory, knowledge, decision, capability, archive.
+4. **Authority** - which source wins when sources disagree.
+
+The architecture is declared machine-readably in `AI-VERSE.yaml` and explained under `system/architecture/`.
+
+---
+
+## 5. Canonical layer model
+
+### System-owned
+
+Examples:
+
+- `AGENTS.md`
+- `CLAUDE.md`
+- `AI-VERSE.yaml`
+- `system/`
+- `skills/registry.yaml`
+- deterministic OS scripts
+- generated runtime peers owned by OS
+
+These may evolve through OS updates.
+
+### User-owned
+
+Examples:
+
+- `operator/`
+- `knowledge/`
+- user workspaces
+- connection registry
+- agent definitions
+- automations
+- generated/custom apps
+
+These must not be casually overwritten by OS updates.
+
+### Derived
+
+`runtime/` contains rebuildable state such as caches, indexes, logs, reports and generated ownership ledgers.
+
+**LAW:** if deleting `runtime/` destroys irreplaceable truth, that truth was stored in the wrong layer.
+
+---
+
+## 6. Privacy and local-first meaning
+
+**CURRENT:** the public template gitignores user-owned state by default.
+
+This includes operator information, user workspaces, shared user knowledge, connection registries, user agent definitions, automations, local extension state, direction coordination state and most runtime state.
+
+Therefore:
+
+> local-first does not mean all user truth is committed to Git.
+
+The public repository tracks contracts, examples and templates. Personal/organizational state is local unless the operator deliberately chooses another version-control policy.
+
+---
+
+## 7. Workspace model
+
+A workspace is the universal isolation primitive.
+
+It may represent:
+
+- a project;
+- role;
+- case;
+- client;
+- practice;
+- product;
+- research area;
+- team;
+- course;
+- study;
+- personal area;
+- custom domain unknown to the template.
+
+Every substantial workspace has `WORKSPACE.yaml`.
+
+The workspace schema keeps `type` and `domains` free-form rather than enforcing an industry taxonomy.
+
+### Workspace responsibilities
+
+A workspace should identify:
+
+- identity and purpose;
+- status;
+- owners;
+- source routes;
+- current context;
+- privacy constraints;
+- approval policy;
+- relevant connections;
+- local capabilities;
+- automations.
+
+**LAW:** workspace-specific facts, memory, knowledge and capabilities stay local unless deliberately promoted.
+
+---
+
+## 8. Knowledge lifecycle
+
+AI-Verse OS distinguishes information by meaning.
 
 ```text
-component/package available
-!= supported by this OS
-!= attached to this OS root
-!= enabled
-!= healthy
-!= initialized for a scope
-!= authorized
-```
-
-**LAW:** Installation chronology must never determine authority.
-
-**LAW:** Registration never grants workspace visibility, connection access, action permission, approval, or strategic authority.
-
-**LAW:** Health must be checked live rather than stored as permanent truth.
-
----
-
-## 3. Role in the complete system
-
-AI-Verse OS is the **host and constitution**, not the owner of every capability.
-
-The OS owns:
-
-- architecture and filesystem contracts;
-- operator/workspace scope;
-- workspace isolation;
-- current-context routing while OS owns direction;
-- the extension attachment contract;
-- capability discovery/resolution;
-- the outer action-permission floor;
-- user/system/derived ownership boundaries;
-- current-context and source-of-truth rules;
-- runtime adapter ownership rules;
-- component discovery/doctor/reconciliation surfaces;
-- the host adapter through which optional components compose.
-
-The OS should become the place where a user or agent can answer:
-
-- What components are available?
-- Which are attached here?
-- Which are healthy?
-- Which scopes are initialized?
-- Which source owns this truth?
-- Which component should handle this responsibility?
-- What can this actor do here?
-- What is missing?
-- What needs migration?
-- Can this component be safely activated now?
-
-The OS should **not** absorb the internals of Brain, Memory, Data, Skills, Apps, Multiple Bots, Connections or Token merely to make integration easier.
-
----
-
-## 4. Problem the component solves
-
-Without an operating layer, an advanced personal AI stack tends to become a collection of disconnected agents, prompts, databases, tools and folders that:
-
-- duplicate the same context;
-- disagree over which fact is current;
-- mix user state with system code;
-- leak information between projects;
-- require the human to reconstruct context repeatedly;
-- treat every new domain as a new bespoke architecture;
-- let indexes, dashboards and summaries become accidental truth stores;
-- give optional plugins more authority simply because they were installed first;
-- become impossible to upgrade without overwriting user state.
-
-AI-Verse OS exists to provide durable architectural law around those problems.
-
----
-
-## 5. Current architecture
-
-### 5.1 Unified Workspace Architecture
-
-**CURRENT:** the root architecture is declared in `AI-VERSE.yaml`.
-
-The major layers are:
-
-```text
-SYSTEM
-  architecture / schemas / templates / health / built-in capabilities
-
-USER
-  operator
-  shared knowledge
-  workspaces
-  connections
-  agents
-  automations
-  apps
-
-DERIVED
-  runtime
-```
-
-### 5.2 Knowledge lifecycle
-
-AI-Verse distinguishes:
-
-```text
+incoming material
+    ↓
 inbox
-  -> classify
-      -> context
-      -> memory
-      -> knowledge
-      -> decision
-      -> capability / automation
-      -> archive
+    ↓
+classify
+    ├─ current context
+    ├─ memory/history
+    ├─ durable knowledge
+    ├─ decision
+    ├─ source route
+    ├─ capability / automation candidate
+    └─ archive / discard
 ```
 
-Receipt is not validation. Raw material does not become canonical truth merely because it arrived.
+### Context
 
-### 5.3 Routing
-
-The canonical route is:
-
-```text
-identify intent
- -> identify scope
- -> resolve direction owner
- -> load ownership-aware current context
- -> choose capability
- -> retrieve minimum required knowledge
- -> resolve connections
- -> execute
- -> validate
- -> write back only when warranted
-```
-
-This implements progressive disclosure rather than loading the entire OS into every conversation.
-
-### 5.4 Four Cs
-
-AI-Verse OS evaluates useful operation through:
-
-- Context;
-- Connections;
-- Capabilities;
-- Cadence.
-
-The Four Cs are conceptual capability layers, not four duplicated filesystem trees.
-
-### 5.5 Three Ms
-
-AI-Verse's improvement framework is:
-
-- Mindset;
-- Method;
-- Machine.
-
-The framework prefers the least complexity that produces dependable results, deterministic logic where sufficient, staged autonomy, explicit source/scope discipline and replaceable modular machinery.
-
----
-
-## 6. Canonical ownership
-
-### 6.1 System-owned
-
-Examples include:
-
-- `AGENTS.md`;
-- `CLAUDE.md`;
-- `AI-VERSE.yaml`;
-- `system/`;
-- `skills/registry.yaml`;
-- generated Claude/Codex runtime adapters;
-- deterministic OS scripts.
-
-OS updates may evolve these deliberately.
-
-### 6.2 User-owned
-
-Examples include:
-
-- operator profile/context/memory/decisions;
-- shared knowledge;
-- workspaces;
-- connection registry;
-- user-defined agents;
-- automations;
-- apps.
-
-**LAW:** OS upgrades must not casually overwrite these.
-
-### 6.3 Derived
-
-`runtime/` contains disposable/rebuildable state.
-
-**LAW:** if deleting runtime destroys irreplaceable knowledge, that knowledge is in the wrong layer.
-
----
-
-## 7. Explicit non-ownership
-
-AI-Verse OS must not become a second owner for responsibilities assigned elsewhere.
-
-### Brain
-
-OS does not own active strategic direction after explicit handover to Brain.
+What matters now.
 
 ### Memory
 
-OS provides canonical memory locations and context rules but does not replace the Memory engine's indexing/recall responsibility.
+What happened and may matter later.
 
-### Data
+### Knowledge
 
-OS does not directly open Data's canonical SQLite database from agent/runtime code. Structured Data operations route through the supported Data boundary.
+Reusable validated understanding.
 
-### Skills
+### Decision
 
-OS owns capability resolution, not the external immutable AI-Verse-Skills distribution. External Skills remains independently installed.
+What was settled, why and under which constraints.
 
-### Apps / Dashboard
+### Capability
 
-Interfaces are views/tools over canonical sources. They do not become hidden truth stores.
+Repeatable execution.
 
-### Connections
+### Archive
 
-OS defines connection routing/permission context but secrets and external authority remain with the proper connection/credential owner.
+Historical material that must not silently override current truth.
 
-### Multiple Bots
-
-OS supplies scope and authority boundaries. Multi-agent coordination must not duplicate OS canonical state.
-
-### Token
-
-OS may consume usage/cost/time intelligence but should not become the telemetry ledger.
+**LAW:** receipt is not validation. Raw material does not become canonical truth merely because it arrived.
 
 ---
 
-## 8. Sources of truth
+## 9. Capability taxonomy
+
+The OS makes an important distinction between kinds of reusable machinery.
+
+| Need | Preferred artifact |
+|---|---|
+| current state | context |
+| historical event | memory |
+| reusable understanding | knowledge |
+| settled choice | decision |
+| repeatable human method | SOP/knowledge |
+| reusable artifact shape | template |
+| deterministic file/API/data operation | script |
+| repeatable AI-guided judgment | skill |
+| coordination across capabilities | agent |
+| schedule/event-driven reliable work | automation |
+| persistent human interface | app |
+
+**LAW:** not every useful thing should become an agent.
+
+**LAW:** agents coordinate capabilities and context. They should not become giant duplicate knowledge stores.
+
+---
+
+## 10. Built-in capabilities
+
+The canonical built-in capability sources live under:
+
+```text
+system/capabilities/
+```
+
+Current foundation capabilities include:
+
+- `onboard`
+- `workspace`
+- `grill-me`
+- `link`
+- `audit`
+- `level-up`
+- `3d-brain`
+
+The runtime-neutral registry is `skills/registry.yaml`.
+
+Claude and Codex trees are generated runtime peers:
+
+- `.claude/skills/`
+- `.agents/skills/`
+
+They are not intended to be parallel editable sources.
+
+---
+
+## 11. Runtime adapter ownership
+
+**CURRENT:** `scripts/sync-runtime-adapters.mjs` synchronizes canonical OS capabilities into runtime-specific peers.
+
+It records exact OS-owned generated files and last-generated SHA-256 digests under:
+
+```text
+runtime/adapters/os-owned.json
+```
+
+A generated file may be replaced only when ownership and last-generated bytes prove it is safe.
+
+Unknown files and locally modified generated files are preserved and reported as conflicts.
+
+Symlink/path escape cases fail closed.
+
+**LAW:** a generator may replace only output it can prove it owns and that has not been independently modified.
+
+This rule protects extension adapters and user-created runtime capabilities from OS synchronization.
+
+---
+
+## 12. Runtime startup model
+
+`AGENTS.md` is the canonical runtime behavior contract.
+
+For substantial work, a compatible runtime is expected to:
+
+1. read `AI-VERSE.yaml`;
+2. read `AGENTS.md`;
+3. inspect relevant enabled local extensions;
+4. identify scope;
+5. resolve strategic direction ownership;
+6. load ownership-aware current context;
+7. choose the smallest relevant capability;
+8. retrieve only required knowledge/memory/assets;
+9. resolve required connections;
+10. execute at the lowest reliable autonomy level;
+11. validate;
+12. write back only durable state.
+
+**LAW:** runtime adapters should point back to one standing contract rather than each maintaining a full independent constitution.
+
+---
+
+## 13. Source-of-truth model
 
 High-level authority:
 
-- runtime behavior -> `AGENTS.md`;
-- architecture/paths -> `AI-VERSE.yaml`;
-- architecture intent -> `system/architecture/`;
-- current context -> ownership-aware current-context resolver;
-- workspace identity -> `WORKSPACE.yaml`;
-- strategic direction -> OS or Brain according to explicit per-scope ownership;
-- decisions -> append-oriented decision history;
-- shared curated knowledge -> `knowledge/`;
-- workspace knowledge -> workspace-local knowledge;
-- connection route metadata -> connection registry;
-- derived search/index/cache/dashboard -> never canonical merely because convenient.
+- runtime behavior -> `AGENTS.md`
+- architecture and paths -> `AI-VERSE.yaml`
+- architecture intent -> `system/architecture/`
+- workspace identity -> workspace `WORKSPACE.yaml`
+- current state -> ownership-aware current-context resolver
+- strategic direction -> OS or Brain according to explicit owner
+- decisions -> scoped decision history
+- workspace knowledge -> workspace `knowledge/`
+- cross-workspace knowledge -> root `knowledge/`
+- live external facts -> verified live source where appropriate
+- indexes/apps/dashboards/summaries -> derived views only
 
-**LAW:** a route, index, projection or summary may point to truth but must not silently become a second editable truth.
+When sources conflict:
 
----
-
-## 9. Runtime model
-
-**CURRENT:** `AGENTS.md` is the canonical runtime contract. Claude/Codex surfaces adapt back to it rather than maintaining independent standing constitutions.
-
-At substantial-work startup, a compatible runtime:
-
-1. reads OS architecture/runtime contracts;
-2. loads only relevant enabled extension instructions;
-3. resolves scope;
-4. resolves strategic direction ownership;
-5. resolves current context;
-6. selects the smallest relevant capability;
-7. retrieves only necessary evidence;
-8. executes under current permissions;
-9. validates;
-10. writes back only durable state.
-
-**LAW:** do not load the entire OS merely because it exists.
+1. identify scope;
+2. resolve direction owner;
+3. compare authority and timestamp;
+4. prefer the narrower applicable canonical source;
+5. preserve provenance;
+6. do not silently merge incompatible claims;
+7. surface consequential ambiguity.
 
 ---
 
-## 10. Scope and isolation
+## 14. Strategic direction ownership
 
-Scopes include:
+**CURRENT:** OS and Brain share a strict one-owner-per-scope model.
 
-- system;
-- operator;
-- workspace;
-- shared.
+Each scope has:
 
-Workspaces are physically and logically isolated.
-
-Important repair history established that filesystem links must not allow one workspace's private capabilities to leak into another. Requested workspaces, manifests and physical paths are validated before capability discovery.
-
-**LAW:** scope is a technical boundary, not a prompt convention.
-
----
-
-## 11. Current lifecycle
-
-### 11.1 OS installation
-
-**CURRENT:** the OS ships a cross-platform CLI package.
-
-Development/member-test path:
-
-```bash
-npx --yes github:aiverse-filmmakers/AI-Verse-OS install
+```text
+direction_owner = os
+or
+direction_owner = brain
 ```
 
-The long-term published path is intended to become:
+Durable local coordination lives in:
 
-```bash
-npx ai-verse-os install
+```text
+.aiverse/direction/ownership.json
 ```
 
-Current CLI includes install, doctor, onboard, update and version surfaces.
+### OS-owned direction
 
-### 11.2 Extension attachment
+OS onboarding/workspace/level-up may edit strategic direction.
 
-**CURRENT:** optional local extensions register in:
+### Brain-owned direction
+
+Brain intent becomes canonical.
+
+Existing OS strategic files remain as provenance but are frozen.
+
+The OS current-context resolver removes frozen strategic sections from active context and retains only allowed operational sections plus Brain refs/view.
+
+A Brain outage does **not** return ownership to OS.
+
+### Handback
+
+Current architecture supports explicit Brain -> OS export and handback.
+
+Brain detach must be blocked while any scope is Brain-owned.
+
+**LAW:** exactly one editable strategic owner per scope.
+
+**LAW:** provenance may survive without retaining authority.
+
+---
+
+## 15. Ownership-aware current context
+
+`scripts/current-context.mjs` is more than a convenience reader.
+
+When OS owns a scope, it returns normal OS current context.
+
+When Brain owns a scope, it:
+
+- validates direction ownership;
+- removes OS strategic sections;
+- excludes arbitrary unknown headings from active direction;
+- preserves allowed operational state;
+- includes valid Brain references;
+- reports missing/invalid Brain view instead of falling back to old OS strategy;
+- rejects symlink/path escape.
+
+This is a central runtime safety boundary.
+
+---
+
+## 16. Capability provider architecture
+
+**CURRENT:** OS can discover four provider classes:
+
+1. `os`
+2. `aiverse-skills`
+3. `local`
+4. `workspace:<id>`
+
+Qualified IDs preserve provider identity.
+
+Examples:
+
+```text
+os:onboard
+aiverse-skills:whisper
+local:my-helper
+workspace:film:shot-check
+```
+
+Protected OS aliases cannot be captured by another provider.
+
+For non-protected exact bare names, the preference order is:
+
+1. active workspace;
+2. local personal;
+3. distributed AI-Verse Skills;
+4. OS.
+
+Explicit qualified requests never silently fall back to another provider.
+
+---
+
+## 17. Capability integrity vs readiness
+
+This distinction is critical.
+
+**CURRENT:** capability discovery verifies things such as:
+
+- provider/generation structure;
+- manifest hash;
+- package membership;
+- package digest;
+- provider identity;
+- path containment;
+- workspace authorization;
+- package integrity.
+
+But discovered candidates currently report:
+
+```text
+readiness: UNVERIFIED
+permission: unknown
+approval: not_required
+```
+
+That is intentional.
+
+**GAP:** AI-Verse OS does not yet expose one generic live readiness engine that verifies runtime dependencies, connection usability and contextual execution prerequisites for every capability.
+
+**LAW:**
+
+```text
+discovered
+!= ready
+!= permitted
+!= approved
+!= executed successfully
+```
+
+This must remain explicit in future UI/Dashboard/agent behavior.
+
+---
+
+## 18. Action permission boundary
+
+OS owns an outer host permission floor.
+
+Current decisions:
+
+- `allow`
+- `approval_required`
+- `deny`
+
+Default operator/workspace floors include:
+
+- external actions -> confirm
+- destructive actions -> confirm
+- high-stakes decisions -> human-review
+
+Operator and workspace values intersect by strictness.
+
+Paused or archived workspaces deny action execution.
+
+Malformed policy fails closed.
+
+### Important boundary
+
+For local classes such as `read_local`, `write_local_reversible` and `modify_canonical_state`, OS may have no additional floor. A higher intelligence/component policy may still be stricter.
+
+**LAW:** OS allow never manufactures approval or overrides another layer's denial.
+
+**LAW:** effective authority is restrictive intersection, not privilege union.
+
+---
+
+## 19. Connections
+
+Connections are routes to external systems/sources.
+
+The registry stores safe metadata such as:
+
+- id;
+- mechanism;
+- status;
+- scope;
+- safe authentication description;
+- authority/use.
+
+It must not store secrets.
+
+### Current host behavior
+
+The dynamic host adapter can return bounded, scoped connection metadata.
+
+### What OS does not currently provide
+
+**GAP:** OS is not a universal connection execution engine.
+
+A registry entry says how/where a source exists, not that a generic OS process can authenticate and operate it.
+
+Actual access may be provided by a runtime, plugin, CLI, API adapter, MCP-like system or another component.
+
+**LAW:** registration is not proof of live access.
+
+---
+
+## 20. Automations and Cadence
+
+`automations/` defines the architecture for:
+
+- jobs;
+- triggers;
+- policies.
+
+Definitions are user-owned.
+
+The architecture expects:
+
+- scope;
+- trigger/schedule;
+- authoritative inputs;
+- capability;
+- permission;
+- validation;
+- retry/failure behavior;
+- output;
+- approval/kill switch.
+
+### Current implementation reality
+
+**GAP:** AI-Verse OS itself does not yet provide one universal scheduler/event-runner proving Cadence end-to-end.
+
+The repository contains automation structure, policy architecture and audit criteria, but a file in `automations/jobs/` is explicitly not treated as proof that anything actually runs.
+
+This is one of the clearest examples of:
+
+> architecture layer exists, universal runtime implementation does not yet exist.
+
+---
+
+## 21. Agents
+
+`agents/` is an orchestration architecture layer.
+
+Agents should coordinate:
+
+- context;
+- capabilities;
+- scripts;
+- connections;
+- approvals.
+
+**GAP:** base OS does not contain one generic full agent-execution engine for arbitrary user agent definitions.
+
+Brain is a separate intelligence component and the OS host can integrate with it.
+
+This is consistent with OS non-ownership, but the distinction should be explicit in product language.
+
+---
+
+## 22. Apps
+
+Apps are persistent interfaces/tools built on top of the OS.
+
+**LAW:** important canonical state remains in the appropriate owner rather than becoming app-only truth.
+
+The included 3D Brain is the strongest concrete app example.
+
+It visualizes selected real sources but is deliberately derived.
+
+Deleting the visualization must not delete the knowledge it represents.
+
+---
+
+## 23. 3D Brain
+
+The `3d-brain` capability:
+
+- discovers approved local source paths;
+- lets the user choose categories;
+- scaffolds a local app under `apps/3d-brain/`;
+- builds a real graph from source notes;
+- preserves explicit Markdown/wikilink connectivity;
+- does not invent connections/chronology;
+- keeps app-local visualization derived from canonical sources;
+- binds to localhost;
+- has concrete verification requirements.
+
+This is both a capability and a reference implementation of the rule:
+
+> apps may visualize truth without becoming truth.
+
+---
+
+## 24. Optional extension registry
+
+Local attachment state lives under:
 
 ```text
 .aiverse/extensions/registry.json
 ```
 
-This registry is local and gitignored. Normal extension install/update/disable/detach/uninstall must not modify tracked OS files.
+The registry is gitignored.
 
-### 11.3 Extension states
+Current semantics distinguish:
 
-The release-hardening architecture distinguishes:
+- supported;
+- installed;
+- enabled.
+
+Health is live.
+
+Unknown top-level fields and sibling extension entries must be preserved by writers.
+
+Paths are repository-relative and must remain inside the OS root.
+
+**LAW:** optional extension lifecycle must not normally edit tracked OS files.
+
+**LAW:** registration grants no workspace visibility, connection permission, approval or Brain authority.
+
+---
+
+## 25. Component doctor
+
+Current command:
+
+```text
+ai-verse-os components doctor
+```
+
+Current known local-extension component IDs are hardcoded:
+
+- `ai-verse-brain`
+- `ai-verse-memory`
+- `ai-verse-data`
+
+External Skills is checked separately.
+
+The doctor can identify states such as:
 
 - absent;
 - available-unattached;
+- attached-enabled;
 - attached-disabled;
-- attached-unhealthy;
-- attached-healthy;
 - incompatible;
-- migration-required.
+- Skills available-active/inactive.
 
-### 11.4 Components doctor/reconcile
+It also diagnoses the shared extension-registry lock and never steals/deletes it automatically.
 
-**CURRENT:** release-hardening added OS component doctor/reconciliation planning.
+### Limitation
 
-The purpose is to validate attachment state, health/readiness and safe reconciliation without making the OS the owner of component state.
+**GAP:** this is not yet a fully generic registry-driven component framework.
 
-### 11.5 Update
+Adding future components such as Token or another extension requires OS component-manager awareness unless the implementation is generalized.
 
-OS update must preserve user-owned state and local attachment state. Optional components should not dirty tracked OS files merely by existing.
+### Health depth limitation
 
-### 11.6 Disable/detach/uninstall
+The current doctor primarily proves:
 
-The OS contract expects optional components to preserve canonical user state by default. Component-specific detach/uninstall is owned by the component, subject to OS invariants.
+- registration shape;
+- safe engine/instruction paths;
+- some local installation evidence;
+- Skills active-generation structure.
 
----
+It does not run every component's deep health suite.
 
-## 12. Migration and history integration
-
-### 12.1 OS v1 -> v2
-
-**CURRENT:** legacy root paths such as `context/`, `references/`, `decisions/` and `connections.md` are recognized for deliberate migration.
-
-**LAW:** existing user data is preserved. Migration should not create two active editable canonical copies.
-
-### 12.2 Legacy extension integration
-
-Older Memory installation patterns modified tracked `AGENTS.md` and `skills/registry.yaml`.
-
-**CURRENT:** the extension contract defines exact legacy cleanup rules. Only exact recognized old blocks may be removed. Ambiguous/user-modified material is preserved and reported instead of guessed.
-
-### 12.3 Standalone component history
-
-**INTENDED:** when Memory, Data, Brain or another stateful component was used before attachment to an OS, the OS should support explicit discovery and migration/reconciliation without silently importing or deleting standalone canonical state.
-
-**GAP:** there is not yet one universal cross-component migration command covering every standalone/legacy history source.
-
----
-
-## 13. Intended lifecycle end state
-
-The mature OS lifecycle should be:
+Therefore:
 
 ```text
-component installed anywhere
-        ↓
-OS discovers compatible component
-        ↓
-attach/register to this OS root
-        ↓
-agent/host adopts component for its responsibility
-        ↓
-initialize or migrate relevant scope/state
-        ↓
-health check
-        ↓
-authorize current use
+attached-enabled
+!= fully healthy
 ```
 
-This must work whether the OS or component existed first.
+---
 
-### Activation/adoption sequence
+## 26. Reconciliation
 
-**INTENDED:** an existing agent should be able to receive a deliberate instruction such as:
+Current command:
 
-- activate Memory;
-- activate Data;
-- activate Brain;
-- activate Skills;
-- reconcile installed components;
+```text
+ai-verse-os components reconcile
+```
 
-and have the host perform the supported setup sequence for that component.
+**CURRENT:** reconcile is explicitly plan-only:
 
-The exact public syntax is not yet fixed. A future `/activate_memory`-style experience is a UX example, not a claim about current commands.
+```text
+mode: plan-only
+mutated: false
+```
 
-Activation means more than installing files. It means the host acknowledges:
+It suggests component-owned actions such as:
 
-> This component is now the canonical infrastructure for this responsibility, under the existing ownership and authority contract.
+- Brain attach;
+- rerun Memory installer;
+- Data install.
 
-No activation may create two canonical owners.
+It intentionally does not synthesize another component's state.
+
+### Missing implementation
+
+**GAP:** there is no generic `reconcile --apply` or `activate <component>` transaction that:
+
+1. discovers the component;
+2. validates compatibility;
+3. attaches it;
+4. plans migration;
+5. initializes scope;
+6. teaches/adapts the active agent;
+7. validates health;
+8. reports steady state.
+
+This is the largest OS-side product gap relative to the "works like a glove" target.
 
 ---
 
-## 14. Install-order independence
+## 27. Dynamic AI-Verse host adapter
 
-**LAW:** installation order must not determine correctness or authority.
+The current implementation is `scripts/ai_verse_host_adapter.py`.
 
-The release-hardening architecture explicitly targets representative orders such as:
+The code has evolved beyond its historical four-component name.
 
-- OS -> Memory -> Brain -> Skills -> Data;
-- Skills/Brain packages -> OS -> attach later;
-- OS -> Data -> Brain -> Skills -> Memory;
-- OS alone -> create host -> add optional components later;
-- detach/reinstall stateful components while preserving canonical state.
+Current class:
 
-**CURRENT:** Skills is naturally external and highly order-independent. Local extension registry attachment allows Memory/Data/Brain to converge on an order-independent model.
+```text
+AIverseOSHost
+```
 
-**GAP:** true "OS installs later into the same already-nonempty root" is not the universal mechanism. The mature solution is package availability plus later attachment/reconciliation, not blindly installing OS over arbitrary existing directories.
+Current adapter ID:
 
----
+```text
+ai-verse-os:host
+```
 
-## 15. Agent/runtime portability
+A backward-compatible `OSFourComponentHost` alias remains.
 
-**CURRENT:** the OS has explicit Claude and Codex runtime adapters and a maintained host adapter used by Brain.
+### Current supported surfaces
 
-**INTENDED:** the OS architecture should remain usable with Hermes and other capable runtimes by exposing stable contracts rather than embedding assumptions about one vendor's agent.
+The host can expose:
 
-Portable concepts include:
+- `read_context`
+- `retrieve_history`
+- `list_capabilities`
+- `list_connections`
+- `authorize_action`
+- `request_action`
+- `query_data` when Data is available
 
-- workspace/scope identity;
-- current-context resolution;
-- extension registry;
-- capability provider contract;
-- permission floor;
-- host operation boundaries;
-- source-of-truth rules;
-- component doctor/reconciliation.
+### Dynamic optional behavior
 
-A compatible external runtime should be able to consume those contracts without becoming the owner of OS state.
+- no Memory -> history may be empty rather than host failure;
+- external Skills can appear later via the installed provider root;
+- Data operation is advertised only when Data is available;
+- Connections are read from OS registry metadata;
+- config does not require a Skills source checkout;
+- legacy `--skills-entrypoint` is accepted only for compatibility.
 
-**LAW:** portability must not weaken scope isolation, permissions or canonical ownership.
-
----
-
-## 16. Sibling integrations
-
-### Brain
-
-OS and Brain have explicit per-scope strategic direction ownership.
-
-Handover is deliberate and provenance-preserving. Brain installation alone never grants direction ownership.
-
-Current release-hardening adds symmetric Brain -> OS handback and blocks Brain detach while Brain owns a scope.
-
-### Memory
-
-OS supplies canonical operator/workspace Memory locations and ownership-aware current context. Memory can index/recall them without becoming strategic authority.
-
-### Skills
-
-External Skills is discovered as an optional immutable provider. OS owns scoped capability resolution and protected aliases.
-
-### Data
-
-Data is an optional local extension. OS routes bounded operations through the registered Data engine/host boundary rather than opening Data databases directly.
-
-### Connections
-
-The generic host exposes bounded connection metadata, never credentials.
-
-### Apps/Dashboard
-
-Apps and Dashboard should consume OS/component projections while respecting canonical ownership.
-
-### Multiple Bots
-
-Bots should receive scopes/capabilities/permissions from the host and return evidence/results rather than create a parallel OS.
-
-### Token
-
-Token should appear as optional telemetry intelligence that OS/Dashboard/agents can query without converting telemetry into canonical operational state.
+**LAW:** optional components add operations/capabilities to one host rather than requiring a new fixed host topology.
 
 ---
 
-## 17. Permissions, security and privacy
+## 28. Data host boundary
 
-OS owns an outer host permission floor.
+OS has an explicit Data host:
 
-Effective execution authority is the intersection of:
+```text
+node scripts/data-host.mjs --root <os-root>
+```
 
+OS owns:
+
+- trusted scope;
+- extension discovery;
+- host permission floor;
+- dispatch decision.
+
+Data owns:
+
+- structured records;
+- schemas;
+- query/aggregate;
+- relations;
+- transactions;
+- idempotency;
+- events/receipts;
+- database integrity;
+- migration/backup/recovery.
+
+OS does not open Data SQLite files directly.
+
+Read operations map to local read permission.
+
+Destructive operations map to the stricter delete-data floor.
+
+Approval-required destructive requests are blocked before Data engine invocation.
+
+**LAW:** integration should call the owning component's supported boundary rather than reach into its canonical database.
+
+---
+
+## 29. Canonical write-command boundary
+
+Current command:
+
+```text
+node scripts/write-command.mjs enqueue --root <os-root>
+```
+
+This is a crucial boundary and must not be overstated.
+
+### What exists
+
+It validates:
+
+- exact scope;
+- immutable request shape;
+- bounded structured parameters;
+- fingerprint;
+- idempotency;
+- provenance;
 - OS permission floor;
-- Brain/intelligence policy where present;
-- exact approval requirements;
-- component-specific readiness/authority.
+- safe runtime paths.
 
-**LAW:** denial by either OS or intelligence layer blocks execution.
+It queues request/receipt records in:
 
-**LAW:** OS `allow` never manufactures approval.
+```text
+runtime/write-commands/
+```
 
-Security architecture includes:
+### What does not exist yet
 
-- workspace containment;
-- physical symlink/path resolution;
-- local extension path validation;
-- fail-closed malformed policy/ownership behavior;
-- user-owned state gitignored by default in the public template;
-- no secrets in repositories;
-- stricter human review for high-consequence work.
+The receipt explicitly reports:
+
+```text
+effect_occurred: false
+canonical_effect_occurred: false
+queue_state: pending_handler
+canonical_handler_dispatched: false
+```
+
+**GAP:** canonical owner-specific handlers are not implemented by this Phase 3.7 boundary.
+
+The queue does not itself write:
+
+- context;
+- knowledge;
+- decisions;
+- Memory;
+- Skills;
+- Automations;
+- Connections;
+- Brain state.
+
+This means AI-Verse has a safe cross-component write **intake transport**, but not yet a general canonical-write execution pipeline.
+
+Future handlers must re-check current owner, policy, approval and durable idempotency at the actual write edge.
+
+This is one of the most important unfinished implementation facts in the OS.
 
 ---
 
-## 18. Failure and degraded modes
+## 30. Installation
 
-Desired and increasingly implemented behavior:
+Current development/member-test command:
 
-- missing optional Memory -> history unavailable/empty, unrelated host functions work;
-- missing Skills -> built-in/local/workspace capabilities remain;
-- missing Data -> Data query unavailable, unrelated host functions work;
-- missing connections -> bounded empty/unavailable connection result;
-- incompatible present component -> dependent capability fails closed with specific diagnosis;
-- Brain outage while Brain owns direction -> no silent OS strategic fallback;
-- malformed extension registry -> fail closed rather than guessing attachment state;
-- malformed workspace/symlink escape -> deny scoped access.
+```bash
+npx --yes github:aiverse-filmmakers/AI-Verse-OS install
+```
 
-**LAW:** optional absence is not system corruption.
+Global CLI from GitHub:
+
+```bash
+npm install -g github:aiverse-filmmakers/AI-Verse-OS
+```
+
+Then:
+
+```bash
+ai-verse-os install
+```
+
+### Current behavior
+
+Installer:
+
+- requires Git;
+- clones branch `main`;
+- refuses a non-empty target that is not already an OS root;
+- validates key architecture files;
+- verifies Claude/Codex onboarding packages;
+- reports Node/runtime guidance.
+
+### Intended published UX
+
+The README intends a future:
+
+```bash
+npx ai-verse-os install
+```
+
+after registry publication.
 
 ---
 
-## 19. Important historical repairs
+## 31. Install-order independence
 
-### Repair: domain-neutral architecture v2
+Install-order independence should be interpreted correctly.
 
-The OS was generalized away from profession-specific architecture into universal workspace/scope/ownership contracts.
+It does **not** mean installing the OS blindly on top of an arbitrary non-empty directory.
 
-**Permanent lesson:** specialize content and policy, not the fundamental architecture.
+The intended model is:
 
-### Repair: local extension registry
+```text
+component package/runtime may exist first
+or OS may exist first
+        ↓
+discover
+        ↓
+attach
+        ↓
+activate/adopt
+        ↓
+migrate if required
+        ↓
+initialize
+        ↓
+health + authority check
+```
 
-Optional extensions previously risked modifying tracked OS-owned files.
+Chronology must never determine authority.
 
-The local gitignored extension registry created a stable attachment boundary.
+Current local extension architecture supports this model better than the original tracked-file integration model.
 
-**Permanent lesson:** optional integration metadata belongs outside upstream-tracked canonical OS files.
+---
 
-### Repair: runtime adapter ownership
+## 32. Update behavior
 
-Generated Claude/Codex adapters gained ownership/digest rules.
+Current command:
 
-**Permanent lesson:** generators may replace only content they provably own and that has not been independently modified.
+```text
+ai-verse-os update
+```
 
-### Repair: strategic direction ownership
+It:
 
-OS and Brain previously risked parallel strategic state.
+- requires a Git checkout;
+- refuses update when tracked system files are dirty;
+- ignores local ignored user state;
+- fetches `origin/main`;
+- performs fast-forward-only merge;
+- revalidates required files.
 
-Explicit per-scope direction ownership and handover were introduced.
+### Current limitations
 
-**Permanent lesson:** exactly one editable strategic owner per scope.
+**GAP:** update is tied to moving `main`, not an immutable release channel.
 
-### Repair: capability provider resolution
+**GAP:** there is no general OS rollback command.
 
-OS learned to compose built-in, external distributed, personal and workspace capabilities without merging them into one store.
+**GAP:** architecture migrations are governed conceptually, but update CLI is not a full versioned migration engine.
 
-**Permanent lesson:** discovery can unify interfaces without unifying ownership.
+---
 
-### Repair: permission intersection
+## 33. Core doctor vs component doctor vs audit
 
-OS and Brain authorization were made restrictive-by-intersection.
+There are three different health levels.
 
-**Permanent lesson:** one permissive layer cannot override another layer's denial or approval requirement.
+### `ai-verse-os doctor`
+
+Checks things such as:
+
+- Node;
+- Git;
+- OS root;
+- required files;
+- Claude/Codex runtime presence.
+
+### `ai-verse-os components doctor`
+
+Checks known component attachment/readiness evidence.
+
+### `/audit`
+
+Performs a broader evidence-based review of:
+
+- architecture;
+- authority;
+- workspace isolation;
+- Context;
+- Connections;
+- Capabilities;
+- Cadence;
+- compatibility;
+- freshness;
+- real execution evidence.
+
+**GAP:** there is no single command that proves all three levels plus every component-specific doctor in one end-to-end system health result.
+
+A core doctor can currently say "OS is ready" while an optional component is separately degraded.
+
+---
+
+## 34. Audit model
+
+The built-in audit rubric scores 100 points across:
+
+- architecture integrity;
+- context;
+- connections;
+- capabilities;
+- cadence.
+
+It applies hard score caps for severe authority, context or isolation failures.
+
+This is important because it treats an AI operating system as an **operational evidence system**, not just a folder structure.
+
+Audit reports are point-in-time derived evidence under `runtime/reports/`.
+
+A resolved finding requires fresh evidence, not merely a changed file.
+
+---
+
+## 35. Onboarding
+
+The `onboard` capability uses a universal seven-question intake.
+
+It creates the minimum useful:
+
+- operator profile;
+- current context;
+- connection registry;
+- workspace routes;
+- first improvement candidate.
+
+It explicitly:
+
+- preserves existing state;
+- detects legacy paths;
+- checks direction ownership before strategic writes;
+- resumes safely after interruption;
+- avoids profession-specific scaffolding;
+- distinguishes configured from verified connections;
+- does not automatically automate Q7.
+
+This is one of the strongest places where OS philosophy becomes actual user experience.
+
+---
+
+## 36. Workspace creation
+
+The `workspace` capability:
+
+- checks if a separate workspace is justified;
+- avoids near-duplicates;
+- creates only minimum structure;
+- keeps type/domains extensible;
+- checks direction ownership before strategic edits;
+- routes external authoritative sources instead of copying by default;
+- keeps specialized structure local;
+- promotes reusable material only after evidence.
+
+**LAW:** do not create empty-folder theater.
+
+---
+
+## 37. Knowledge capture
+
+`grill-me` captures operator knowledge through scoped interviews.
+
+It separates:
+
+- confirmed facts;
+- tentative ideas;
+- historical context;
+- reusable knowledge;
+- decisions;
+- source routes.
+
+Raw interviews live in scoped inboxes.
+
+Promotion happens only after classification.
+
+This prevents a conversational transcript from automatically becoming canonical truth.
+
+---
+
+## 38. Linking sources
+
+`link` is designed to make a source discoverable without copying it.
+
+A durable route should record:
+
+- location;
+- contents;
+- when to use it;
+- authority;
+- scope/privacy;
+- access verification.
+
+This is a core anti-duplication pattern in OS design.
+
+---
+
+## 39. Improvement model
+
+`level-up` uses Three Ms to produce one scoped improvement at a time.
+
+It checks strategic ownership before changing goals/objectives.
+
+It may result in:
+
+- deleting unnecessary work;
+- routing/context repair;
+- connection verification;
+- SOP/knowledge;
+- template;
+- script;
+- local/shared skill;
+- agent;
+- automation;
+- app;
+- policy.
+
+It explicitly does not default to adding more AI complexity.
+
+---
+
+## 40. Expansion policy
+
+The universal root is meant to stay stable.
+
+New top-level folders must prove they represent a genuinely universal architectural concern with distinct ownership/lifecycle.
+
+Possible future domain packs must remain optional overlays.
+
+**LAW:** repeated use earns promotion. Speculation does not.
+
+---
+
+## 41. Failure behavior
+
+The OS repeatedly favors fail-closed semantics.
+
+Examples:
+
+- malformed direction ownership -> no strategic fallback;
+- unsafe workspace/symlink -> deny;
+- malformed action policy -> deny;
+- incompatible capability provider -> exclude/degrade;
+- unsafe extension engine path -> reject;
+- Data permission failure -> no dispatch;
+- modified generated adapter -> preserve/report conflict;
+- shared registry lock -> diagnose, never steal automatically.
+
+**LAW:** uncertainty about ownership or authority should not silently widen access.
+
+---
+
+## 42. Historical evolution
+
+### Architecture v2
+
+PR #1 transformed the system into the domain-neutral Unified Workspace Architecture.
+
+**Lesson:** a universal OS should adapt through scoped evidence rather than profession-specific roots.
+
+### Capability Provider Contract
+
+PR #2 established provider identity, generation and ownership before implementing discovery.
+
+**Lesson:** cross-repository integration should begin with ownership/contract definition, not ad hoc file scanning.
+
+### Local extension registry
+
+PR #3 removed the need for optional extensions to permanently edit tracked OS contracts.
+
+**Lesson:** installation state belongs outside upstream-owned system files.
+
+### Runtime adapter ownership
+
+PR #4 moved canonical built-ins to `system/capabilities/` and made Claude/Codex generated peers ownership-aware.
+
+**Lesson:** generated outputs need explicit ownership and conflict preservation.
+
+### Single strategic direction owner
+
+PR #5 prevented OS and Brain from becoming two editable strategy systems.
+
+**Lesson:** one responsibility needs one canonical owner.
+
+### Four-provider capability resolution
+
+PR #6 implemented scoped discovery across OS, distributed, local and workspace providers.
+
+**Lesson:** unify discovery without merging ownership.
+
+### Permission intersection
+
+PR #7 made OS and Brain authority restrictive by intersection.
+
+**Lesson:** one permissive layer cannot weaken another layer.
+
+### Cross-repository acceptance
+
+PRs #8-9 moved architecture claims into executable composition proof.
+
+**Lesson:** integration is not real until the supported path works across repositories.
 
 ### Astra repair: cross-workspace capability symlink leakage
 
-Physical workspace boundaries are now validated before private capability discovery.
+PR #10 hardened physical workspace containment.
 
-**Permanent lesson:** logical scope labels are insufficient without filesystem containment.
+**Lesson:** logical scope labels are not enough. Physical filesystem boundaries matter.
 
 ### Astra repair: frozen OS strategy reactivation
 
-After Brain handover, raw OS strategic context could potentially re-enter active direction.
+PR #11 introduced ownership-aware current-context filtering.
 
-Ownership-aware current-context resolution now excludes frozen strategy while preserving allowed operational state.
+**Lesson:** preserving historical provenance must not preserve current authority.
 
-**Permanent lesson:** provenance may survive without retaining authority.
+### Maintained host adapter
 
-### Astra repair: supported host adapter
+PR #13 moved composition away from CI-only inline wiring.
 
-Four-component composition moved from CI-only/inlined wiring to a maintained OS host adapter.
+**Lesson:** acceptance must exercise a maintainable public integration boundary.
 
-**Permanent lesson:** acceptance tests must exercise the supported public integration boundary, not a special test-only architecture.
+### Documentation correction
 
-### Release-hardening: optional-component-aware host
+PRs #14-15 corrected user-facing integration claims after implementation.
 
-The fixed four-component concept evolved toward a generic OS host whose capabilities expand/contract dynamically.
+**Lesson:** documentation drift is itself an architecture risk in a multi-repo system.
 
-**Permanent lesson:** optional components should add capability to one host rather than require a new host topology.
+### Write-command boundary
 
-### Release-hardening: component doctor/reconcile
+PR #16 created safe owner-controlled command transport.
 
-Component attachment/health became inspectable without making OS the owner of each component lifecycle.
+**Lesson:** cross-component write requests need immutable identity, scope and idempotency before effects.
 
-**Permanent lesson:** orchestration needs system-wide observability, but ownership remains component-local.
+**Still unfinished:** canonical handlers remain later integration work.
 
-### Release-hardening: Brain handback
+### Data host
 
-Direction transfer became symmetric.
+PR #17 added an explicit component-owned Data execution boundary.
 
-**Permanent lesson:** an ownership transfer mechanism needs a safe exit path, not only an entry path.
+**Lesson:** the host should delegate to component APIs rather than access component storage directly.
 
----
+### Five-component release hardening
 
-## 20. Inspirations and curated references
+PR #18 made the host dynamically optional-component aware and added components doctor/reconcile.
 
-### Evidenced internal frameworks
+**Lesson:** one host should gain/lose optional capabilities dynamically.
 
-The OS repository explicitly contains:
+### Workspace ID alignment
 
-- the Three Ms framework;
-- the Four Cs framework;
-- Unified Workspace Architecture;
-- Capability Provider Contract v1;
-- the 3D Brain capability/application.
+PR #20 aligned scope validators with canonical workspace IDs.
 
-These are current AI-Verse design frameworks, not third-party projects.
+**Lesson:** shared identities must have one exact grammar across boundaries.
 
-### External inspirations
+### Registry lock diagnostics
 
-**EVIDENCE LIMITATION:** no canonical OS document was found that names a definitive list of external "top similar systems" used to design the OS itself.
+PR #21 exposed lock state but never auto-stole it.
 
-Therefore this specification does not invent inspiration names.
+**Lesson:** concurrency safety is preferable to "helpful" destructive recovery.
 
-The wider AI-Verse product philosophy is intentionally curatorial: compare strong systems in each category, adopt compatible strengths, reject failure modes, and integrate the result under stricter ownership/portability rules. Future research should record external references explicitly so this history is auditable rather than reconstructed later.
+### Refreshed real acceptance
 
-### 3D Brain third-party material
+PR #23 removed the legacy tracked Brain registration workaround from acceptance.
 
-The repository includes third-party notices for the 3D Brain application template. Those notices are evidence of third-party implementation material for that capability, but not sufficient evidence that those projects define the OS architecture.
+**Lesson:** tests must match real member integration paths, not hidden preparation.
 
 ---
 
-## 21. Current gaps and contradictions
+## 43. Evidenced inspirations and inherited frameworks
 
-### Gap: universal component activation UX
+This fresh OS-only review found explicit provenance that must be preserved.
 
-OS has component doctor/reconcile architecture, but there is not yet one uniform end-user activation grammar for every component.
+### Nate Herk
 
-**INTENDED:** agent-friendly activation/reconciliation sequences that can be invoked at any time.
+`THIRD-PARTY-NOTICES.md` states that portions of the repository are derived from software copyright 2026 Nate Herk and are distributed under the included MIT license.
 
-### Gap: universal standalone-state migration
+It also states that the names **The Three Ms of AI** and **The Four Cs of an AI OS** are identified by their original publisher as trademarks of Nate Herk.
 
-Memory has concrete legacy/standalone migration behavior, but the whole ecosystem does not yet share one universal migration protocol.
+AI-Verse uses shortened descriptive framework labels and maintains AI-Verse-specific modifications/additions.
 
-### Gap: machine-level component discovery
+**INSPIRATION:** Three Ms / Four Cs are therefore evidenced external conceptual ancestry, not purely original AI-Verse inventions.
 
-The release audit considered a machine-level registry such as `~/.aiverse/` for components installed before an OS. The OS-root registry solves attachment, not all machine-level discovery.
+### 3D visualization stack
 
-### Gap: immutable member release refs
+The 3D Brain renderer includes explicit third-party notices for packages including:
 
-The release-hardening documents require immutable tags/refs. Moving `main` should remain development, not the final member release channel.
+- 3d-force-graph;
+- three.js;
+- three-forcegraph;
+- Preact;
+- D3-related libraries;
+- ngraph libraries;
+- Marked;
+- supporting runtime packages.
 
-### Gap: stale architecture declaration
+These are implementation dependencies/inspirations for the visualization layer, not evidence that they define OS architecture.
 
-`AI-VERSE.yaml` still contains a named Memory extension-support section while the generic local extension registry is the broader installation source. This should be clarified so it is not mistaken for a second attachment store.
+### External AI OS competitors
 
-### Gap: five-component release evidence
+**EVIDENCE LIMITATION:** no reviewed canonical OS file names a definitive competitive set of other AI operating systems used to design Unified Workspace Architecture.
 
-The latest release-status document records OS/Brain/Memory/Skills as green while Data's private-repository runner remained the blocker to declaring the five-component beta fully green at that snapshot.
-
-This is release-state evidence, not an OS architectural flaw.
-
----
-
-## 22. Desired future state
-
-AI-Verse OS should become a portable host constitution with these properties:
-
-1. one simple install command;
-2. clear doctor/status/update commands;
-3. stable versioned architecture contracts;
-4. independently installable optional components;
-5. explicit attachment and adoption;
-6. order-independent reconciliation;
-7. agent-invokable activation/setup;
-8. explicit legacy/standalone migration;
-9. safe disable/detach/reinstall with user-state preservation;
-10. dynamic discovery of newly attached components;
-11. one host interface whose capabilities expand as components appear;
-12. strong workspace isolation and permission floors;
-13. explicit source-of-truth and direction ownership;
-14. no direct internal database coupling between components;
-15. portable integration for Hermes/Codex/Claude/other compatible agents;
-16. immutable release artifacts;
-17. system-wide acceptance gates that use the same paths members use.
-
-The OS should feel less like a repository the user manually maintains and more like a self-describing operating environment that an agent can safely understand, diagnose and extend.
+Do not invent such a list.
 
 ---
 
-## 23. Definition of done
+## 44. Documentation drift found in this standalone review
 
-AI-Verse OS is mature for the larger vision when:
+### Drift 1: architecture README understates provider implementation
 
-- installation and update are versioned and reproducible;
-- every optional component has a supported availability -> attachment -> activation lifecycle;
-- installation order does not determine correctness;
-- components installed later are discoverable without rebuilding the host;
-- stateful legacy stores have explicit migration routes;
-- a user can ask the agent to adopt a new component and the agent can execute the supported setup safely;
-- component health and incompatibility are diagnosable;
-- permissions, workspace isolation and strategic ownership remain fail-closed;
-- user-owned canonical state survives normal software lifecycle;
-- the same host contracts work with the wider AI-Verse family and are portable enough for compatible external runtimes;
-- acceptance tests exercise real install/member paths;
-- no sibling component requires hidden tracked-file edits or private test-only wiring.
+`system/architecture/README.md` still says external provider discovery and later integration stages remain separate work.
 
----
+But `system/architecture/capability-resolution.md`, resolver code and CI prove external provider discovery is implemented.
 
-## 24. Contribution to the supreme AI-Verse vision
+### Drift 2: Skill Authoring names the wrong authoring source
 
-AI-Verse OS is the environment that makes the rest of the system coherent.
+`SKILL-AUTHORING.md` says the "current materialized authoring source" is `.claude/skills/<skill-name>/`.
 
-Brain can become smarter without becoming the filesystem.
-Memory can become deeper without becoming current direction.
-Data can become richer without becoming Memory.
-Skills can grow without becoming the OS.
-Bots can multiply without multiplying sources of truth.
-Apps and Dashboard can become powerful without owning canonical state.
-Connections can expand without granting uncontrolled authority.
-Token can observe everything without becoming operational truth.
+Current architecture and `skills/registry.yaml` say the canonical editable source is `system/capabilities/`, with Claude/Codex as generated peers.
 
-The OS exists to let all of those capabilities grow independently while still behaving like one system.
+### Drift 3: historical four-component host document
 
----
+`docs/FOUR-COMPONENT-HOST-ADAPTER.md` still describes the older fixed four-component framing and an example with `--skills-entrypoint`.
+
+Current host code is dynamic, uses `AIverseOSHost`, exposes optional Data, real Connections metadata and no longer requires a Skills source checkout.
+
+### Drift 4: named Memory support in AI-VERSE.yaml
+
+`AI-VERSE.yaml` retains an `extensions.memory` support declaration while current attachment truth is generic `.aiverse/extensions/registry.json`.
+
+This can be interpreted safely as host-support declaration, but the distinction is not explicit enough.
+
+### Drift 5: doctor terminology
+
+Core `ai-verse-os doctor` can report "AI-Verse OS is ready" without running component doctor or operational `/audit`.
+
+The wording can overstate full-system health.
+
+**GAP:** these should be cleaned so member-facing docs match the current implementation generation.
 
 ---
 
-## 26. Current intended milestone
+## 45. Current intended milestone
 
-The present OS target is not merely "the architecture exists."
+Based on the repository's release-hardening PRD and current status docs, the present OS milestone is the **first usable AI-Verse member-beta host**.
 
-Based on the five-component release-hardening PRD and current release-status evidence, AI-Verse OS is presently intended to be the **usable first member-beta host** in which OS, Brain, Memory, Skills and Data can compose safely, optional components can appear in practical installation orders, component absence does not break unrelated functions, tracked OS files stay clean, canonical user state survives lifecycle operations, and the same supported host expands as new components become available.
+At this milestone, OS is intended to:
 
-For this current milestone, the OS is expected to provide:
+- install cleanly;
+- update safely;
+- onboard a new operator;
+- create isolated workspaces;
+- preserve user-owned state;
+- attach optional components without tracked-file mutation;
+- dynamically discover Memory/Skills/Data and compose Brain;
+- keep strategic ownership singular;
+- provide restrictive permission floors;
+- expose connection metadata;
+- route Data through its supported engine;
+- diagnose component attachment;
+- reconcile practical installation-order differences;
+- maintain clean cross-repo acceptance.
 
-- a simple real installation path;
-- a real update path;
-- a real doctor;
-- onboarding;
-- the local extension attachment contract;
-- dynamic optional-component discovery;
-- safe Brain direction ownership;
-- Memory integration;
-- external Skills integration;
-- Data host routing;
-- Connections metadata;
-- component doctor/reconcile;
-- enough lifecycle integration that adding a component later does not require rebuilding the OS;
-- acceptance tests that exercise the actual supported integration path.
-
-This is the present target against which readiness must be judged.
+The stronger AI-Verse-System target additionally expects a frictionless activate/adopt/migrate experience for newly installed additions.
 
 ---
 
-## 27. Current-target readiness verdict
+## 46. Current-target readiness verdict
 
-**Verdict: FUNCTIONALLY READY, IMPLEMENTATION UX MISSING**
+**Verdict: FUNCTIONALLY READY, BUT NOT YET SEAMLESS AS A COMPLETE OPERATING PRODUCT**
 
-The OS core architecture and supported host integration are substantially at the intended first-beta level.
+The foundational architecture is strong.
 
-It is **not yet 100% at the stronger "install any addition and it immediately works like a glove" criterion** defined by AI-Verse-System.
+Several important integration surfaces are real and tested.
 
-The important distinction is:
+However, the current implementation still has meaningful gaps between "correct host architecture" and "every addition works like a glove immediately."
+
+### Completeness by dimension
+
+| Dimension | Verdict |
+|---|---|
+| Unified core architecture | **COMPLETE** |
+| Source-of-truth/ownership model | **COMPLETE** |
+| Workspace isolation | **COMPLETE / STRONGLY ENFORCED** |
+| Built-in capability model | **COMPLETE WITH DOC DRIFT** |
+| External capability discovery | **COMPLETE FOR DISCOVERY** |
+| Generic live capability readiness | **MISSING / DEFERRED** |
+| OS permission floor | **COMPLETE** |
+| Direction ownership | **COMPLETE** |
+| Dynamic Brain/Memory/Skills/Data host composition | **COMPLETE WITH LIMITATIONS** |
+| Connections metadata | **COMPLETE** |
+| Generic connection execution layer | **NOT OWNED / NOT IMPLEMENTED BY OS** |
+| Data host boundary | **COMPLETE** |
+| Cross-component write intake | **COMPLETE** |
+| Canonical write dispatch/handlers | **MISSING** |
+| OS install | **COMPLETE FOR GITHUB DEVELOPMENT PATH** |
+| OS update | **COMPLETE WITH RELEASE LIMITATIONS** |
+| Component attachment model | **COMPLETE FOR KNOWN CORE EXTENSIONS** |
+| Generic extensible component discovery | **PARTIAL** |
+| Component reconcile | **PLAN-ONLY** |
+| Universal activate/adopt command | **MISSING** |
+| Universal legacy-state migration orchestration | **PARTIAL / COMPONENT-SPECIFIC** |
+| Core doctor | **COMPLETE FOR CORE CHECKS** |
+| Unified whole-system health command | **MISSING** |
+| Automation/Cadence architecture | **COMPLETE AS ARCHITECTURE** |
+| Universal scheduler/runtime | **MISSING / OUTSIDE CURRENT BASE IMPLEMENTATION** |
+| Agent architecture | **COMPLETE AS MODEL** |
+| Generic agent executor | **NOT PRESENT IN BASE OS** |
+| App architecture | **COMPLETE AS MODEL** |
+| Concrete app proof | **3D Brain EXISTS** |
+| Release/version immutability | **PARTIAL** |
+| Cross-platform OS CLI proof | **STRONG** |
+| Full five-component release proof | **STATUS DOC SHOWS EXTERNAL DATA RUNNER GATE AT REVIEWED SNAPSHOT** |
+
+---
+
+## 47. Command/lifecycle matrix
+
+| Capability | Required now? | Current command/path | End-to-end proven? | Missing |
+|---|---:|---|---:|---|
+| Install OS | Yes | `npx --yes github:aiverse-filmmakers/AI-Verse-OS install` | Yes | Immutable release channel/published package |
+| Install global CLI | Useful | `npm install -g github:aiverse-filmmakers/AI-Verse-OS` | Yes | Registry publication |
+| Core doctor | Yes | `ai-verse-os doctor` | Yes | Does not include component/operational health |
+| Onboard | Yes | `ai-verse-os onboard` plus `/onboard` or `$onboard` | Yes | Runtime-neutral first-class UX beyond Claude/Codex |
+| Update | Yes | `ai-verse-os update` | Yes | Version channels/rollback/migration engine |
+| Component doctor | Yes | `ai-verse-os components doctor` | Yes | Hardcoded known components, shallow health |
+| Component reconcile | Yes | `ai-verse-os components reconcile` | Yes as plan | No apply mode |
+| Attach Brain | If present | Brain-owned attach command surfaced by reconcile | Yes in acceptance | Not unified under OS activate |
+| Attach Memory | If present | rerun Memory installer | Yes in acceptance | Not unified under OS activate |
+| Attach Data | If present | Data-owned install surfaced by reconcile | Supported | Full release proof externally gated in status snapshot |
+| Discover Skills | If present | passive provider discovery | Yes | Live generic readiness still separate |
+| Activate/adopt arbitrary component | Yes for seamless target | None | No | Define generic activation contract |
+| Migrate old component state | Yes for stateful additions | component-specific | Mixed | Shared discovery/plan/apply/verify UX |
+| Disable component | Yes | component-owned | Mixed | Unified OS UX |
+| Detach/uninstall component | Yes | component-owned | Mixed | Unified OS UX |
+| Reinstall preserved state | Yes | component-specific + reconcile plan | Partial | Automated rediscovery/adoption flow |
+| Queue cross-component write | Yes | `write-command.mjs enqueue` | Yes | Canonical handler dispatch |
+| Execute queued canonical write | Yes for full write integration | None generic | No | Owner-specific handler framework |
+| Audit operational system | Yes | `/audit` | Yes as AI-guided audit | Not one deterministic aggregate doctor |
+| Run universal automation scheduler | Future/architecture dependent | No generic command | No | Cadence runtime/scheduler if OS is to own it |
+
+---
+
+## 48. Exact blockers to "works perfectly together like a glove"
+
+### 48.1 Universal activation/adoption
+
+There is no one operation that takes a newly installed component from:
 
 ```text
-architecture/core host          COMPLETE
-supported runtime composition  COMPLETE / STRONG
-component discovery            COMPLETE / STRONG
-component health visibility    COMPLETE / STRONG
-generic component activation   MISSING
-generic migration execution    PARTIAL
-one-step reconciliation apply  MISSING
-machine-level pre-OS discovery PARTIAL / OPEN DESIGN
-immutable member distribution  RELEASE GAP
-full five-component proof      EXTERNALLY BLOCKED at reviewed snapshot
+available
+→ attached
+→ enabled
+→ initialized
+→ adopted by the active agent
+→ migrated if needed
+→ health verified
 ```
 
-The OS does not need another foundational redesign.
+This is the single most visible product gap.
 
-The missing work is primarily the **implementation/adoption layer** that turns the existing architecture into a frictionless user/agent experience.
+### 48.2 Executable reconciliation
 
----
+Current reconcile only tells the user/agent what command to run next.
 
-## 28. Implementation completeness by dimension
+A safe `--apply` path could orchestrate component-owned commands without violating component ownership.
 
-| Dimension | Current state | Assessment |
-|---|---|---|
-| OS engine/core architecture | Unified Workspace Architecture v2, source-of-truth, ownership, routing and permissions implemented | **COMPLETE** |
-| Host integration | Dynamic optional Memory/Skills/Data discovery and Brain host composition implemented | **COMPLETE WITH LIMITATIONS** |
-| Install/package path | GitHub npx install and global CLI path implemented | **COMPLETE** |
-| Attach/register path | Local extension registry contract implemented; component-owned attach paths supported | **COMPLETE WITH LIMITATIONS** |
-| Activation/adoption path | No universal "activate this component and make the host adopt it" transaction | **MISSING** |
-| Scope initialization | OS onboarding/workspace paths exist; component-specific initialization remains component-owned | **COMPLETE WITH LIMITATIONS** |
-| Legacy/history migration | OS v1 migration law and component-specific migration patterns exist | **PARTIAL** |
-| Doctor/status/health | OS doctor plus component doctor exist | **COMPLETE WITH LIMITATIONS** |
-| Update | Safe Git fast-forward update with tracked-file cleanliness checks | **COMPLETE** |
-| Disable/detach/uninstall | Optional-component lifecycle is component-owned; OS can observe state | **COMPLETE WITH LIMITATIONS** |
-| Reinstall/reconcile preserved state | Reconcile identifies needed component-owned commands but is plan-only | **PARTIAL** |
-| Cross-component acceptance | Strong OS workflows and four/five-component release work exist | **COMPLETE WITH EXTERNAL RELEASE GATE** |
-| Member/public distribution | GitHub development install exists; immutable release/tag/npm policy not fully finished | **PARTIAL** |
-| Non-AI-Verse host portability | Architecture is portable; universal formal host protocol not finalized | **PARTIAL** |
+### 48.3 Generic component manager
 
----
+Known core local extensions are hardcoded.
 
-## 29. Command and lifecycle implementation matrix
+Future additions should be describable through a versioned component contract so Token/Apps/future modules do not require bespoke OS code simply to become discoverable.
 
-| Capability | Required for current target? | Current command/path | End-to-end proven? | Missing work |
-|---|---:|---|---|---|
-| Install OS | Yes | `npx --yes github:aiverse-filmmakers/AI-Verse-OS install` | Yes for development/member-test path | Immutable release/tag or published npm path still needed for final member distribution |
-| Update OS | Yes | `ai-verse-os update` | Yes | Release-version policy still needed |
-| OS doctor | Yes | `ai-verse-os doctor` | Yes | Could later aggregate more component health detail |
-| Onboard/initialize OS | Yes | `ai-verse-os onboard`, then runtime `/onboard` or `$onboard` | Yes | Broader runtime-neutral UX still intended |
-| Inspect components | Yes | `ai-verse-os components doctor` | Yes | None for inspection |
-| Reconcile components | Yes | `ai-verse-os components reconcile` | **Plan-only** | Add safe explicit apply/orchestration mode if the OS is intended to execute reconciliation rather than only prescribe component-owned commands |
-| Attach Memory | Yes when Memory is present | Memory-owned installer/attachment path | Yes in hardened component path | Generic OS activation layer still absent |
-| Attach Brain | Yes when Brain is present | `ai-verse-brain attach <root> --apply` | Yes in hardened Brain path | Generic OS activation layer still absent |
-| Attach Data | Yes when Data is present | `ai-verse-data install --root <root>` | Designed/implemented on Data path | Final reviewed five-component release proof was externally gated |
-| Discover Skills | Yes when Skills is present | passive provider discovery from installed Skills root | Yes | No attach command needed by design |
-| Activate/adopt a newly installed component | **Yes under the strengthened current vision** | **No universal command today** | No | Define and implement a generic activation/adoption transaction or stable component-specific activation contract |
-| Initialize component for scope | Yes when component requires it | component-specific | Mixed | Standardize how OS/agent discovers and runs the right initializer |
-| Import/migrate older component state | Yes for stateful components | component-specific, Memory strongest | Mixed | Define shared migration discovery/plan/apply semantics |
-| Disable component | Yes | component-specific | Mixed/strong for hardened core components | Surface consistently through OS/agent UX |
-| Detach/uninstall component | Yes | component-specific | Mixed/strong for hardened core components | Surface consistently through OS/agent UX |
-| Reinstall and adopt preserved state | Yes | component-specific + reconcile plan | Partial | Make rediscovery/re-activation a supported first-class workflow |
-| Activate component from an already-running agent | **Yes under strengthened goal** | **No universal host command** | No | Agent-facing implementation command/setup sequence is still needed |
+### 48.4 Canonical write handlers
 
----
+The queue is real and safe, but canonical execution is not.
 
-## 30. Exact missing work before seamless "works like a glove" operation
+This must be finished before cross-component write requests can be described as a complete owner-controlled write system.
 
-The OS is close, but the following concrete work separates the current system from the stronger seamless criterion:
+### 48.5 Capability readiness
 
-### 30.1 Implement a universal activation/adoption contract
+Integrity and selection exist.
 
-Today, installing or attaching a component does not automatically mean every existing agent has adopted it as canonical infrastructure.
+Generic live readiness is still explicitly unverified.
 
-The system needs a supported operation equivalent in meaning to:
+A mature host should be able to say not just "I found this capability" but "its runtime/dependencies/connections are currently usable in this scope."
 
-```text
-activate memory
-activate data
-activate brain
-activate token
-reconcile and activate installed components
-```
+### 48.6 Unified health
 
-The exact syntax is open.
+Core doctor, component doctor and `/audit` are separate layers.
 
-The operation should:
+A user should eventually be able to ask one system-level health question and receive a truthful aggregate result without collapsing those distinctions.
 
-1. discover the component;
-2. validate compatibility;
-3. attach/register if needed;
-4. inspect old state;
-5. offer/perform explicit migration where required;
-6. initialize required scope/state;
-7. load/register runtime instructions;
-8. make the host/agent use the component for its canonical responsibility;
-9. verify health;
-10. verify ownership did not become duplicated;
-11. return a clear steady-state report.
+### 48.7 Migration orchestration
 
-### 30.2 Make reconciliation executable, not only advisory
+Stateful components need one consistent migration UX for pre-existing agent history and standalone state.
 
-Current `components reconcile` is intentionally plan-only.
+The component-specific migration mechanics can stay with the component.
 
-For truly seamless operation, there should be a safe apply path that can execute component-owned attachment/activation commands while preserving ownership boundaries.
+### 48.8 Release versioning
 
-This should not mean OS mutates another component's internal state directly.
+The current CLI follows moving `main`.
 
-### 30.3 Standardize component implementation commands
+A real member release should install an immutable tested generation and support explicit update channels/rollback policy.
 
-Every component should expose a predictable supported command contract for the lifecycle operations that apply to it.
+### 48.9 Documentation convergence
 
-At minimum, the system documentation should be able to answer:
-
-```text
-install?
-attach?
-activate?
-initialize?
-migrate?
-doctor?
-update?
-disable?
-detach?
-reinstall?
-```
-
-without reading source code.
-
-### 30.4 Define shared legacy-state migration orchestration
-
-Memory/Data/Brain should not each invent a totally unrelated experience for adopting existing historical state.
-
-The underlying storage semantics can remain component-specific, but discovery/plan/confirm/apply/verify should feel like one AI-Verse system.
-
-### 30.5 Improve pre-OS component discovery
-
-If a package existed before any OS, the OS should have a robust way to discover it after installation without relying on path guessing.
-
-A machine-level registry is one possible design, not yet a fixed decision.
-
-### 30.6 Complete immutable release/distribution proof
-
-A development `main` install is not the final member-release mechanism.
-
-The release should use immutable versions/refs and acceptance on those exact artifacts.
-
-### 30.7 Finish full-system acceptance
-
-At the reviewed OS release-status snapshot, OS/Brain/Memory/Skills were green and Data's private runner gate prevented the entire five-component beta from being called fully green.
-
-This is not an OS engine defect, but the **whole system cannot be called 100% glove-like until the complete real member path passes together**.
+Current docs should be reconciled with actual host/provider implementation so agents do not follow stale integration instructions.
 
 ---
 
-## 31. Current implementation conclusion
+## 49. What is intentionally not an OS defect
 
-For the intended current milestone:
+These absences should not automatically be "fixed" by stuffing more machinery into OS.
 
-> **AI-Verse OS is architecturally and functionally strong enough to serve as the host, but the system-wide implementation experience is not yet 100% seamless.**
+### Brain cognition
 
-The remaining OS-side work is mainly orchestration and UX:
+Brain should remain separate.
 
-- activate/adopt;
-- reconcile apply;
-- migration orchestration;
-- standardized lifecycle commands;
-- immutable release proof.
+### Memory engine
 
-That distinction must remain visible in the final supreme document.
+Memory should remain separate.
 
-A repository can have all major architecture and engine work finished while still being incomplete as a product because the user/agent implementation path is missing.
+### Structured Data database
 
+Data should remain separate.
+
+### Skills generation lifecycle
+
+External Skills should remain separately owned.
+
+### Application-specific databases
+
+Apps should not become OS canonical stores.
+
+### Full connector credentials/execution
+
+OS can own scope/routing/permission contracts without owning every provider credential implementation.
+
+### Telemetry accounting
+
+Token should own telemetry rather than OS.
+
+The goal is not to make OS monolithic.
+
+The goal is to make integration seamless while ownership remains modular.
 
 ---
 
-## 32. Open decisions
+## 50. Portability beyond AI-Verse runtimes
 
-1. What should the universal human/agent-facing activation command syntax be?
-2. Should AI-Verse maintain a machine-level installed-component registry in addition to OS-root attachment registries?
-3. What common migration manifest should Memory, Data, Brain and future stateful components implement?
-4. Which components must support standalone mode versus merely package-available/unattached mode?
-5. What exact stable host protocol should Hermes and non-AI-Verse runtimes target?
-6. When should `AI-VERSE.yaml` remove/clarify the old named Memory support declaration?
-7. What immutable version/tag policy becomes mandatory for member releases?
-8. Which lifecycle operations belong in `ai-verse-os` versus remaining component-owned commands?
+The most portable OS concepts are:
+
+- scope identifiers;
+- workspace manifests;
+- source-of-truth rules;
+- direction ownership;
+- current-context resolver;
+- extension registry;
+- capability provider contract;
+- action-permission boundary;
+- write-command envelope;
+- host operations;
+- component health/reconcile semantics.
+
+**INTENDED:** Hermes and other capable hosts should integrate through a stable versioned host/component protocol rather than ad hoc direct filesystem reading.
+
+### Current limitation
+
+The polished user experience is strongest for Claude Code and Codex.
+
+The Brain JSON-subprocess host is the best current seed for a runtime-neutral external host contract.
+
+---
+
+## 51. Definition of done
+
+AI-Verse OS reaches the intended mature state when:
+
+1. its universal architecture remains stable and domain-neutral;
+2. user-owned state survives upgrades and ordinary component lifecycle;
+3. every optional component can be independently available before or after OS;
+4. attachment is explicit and idempotent;
+5. activation/adoption can be invoked by a user or existing agent;
+6. stateful additions can discover and migrate existing history safely;
+7. component health is truthful and live;
+8. component reconciliation can be safely applied;
+9. future components can register without hardcoded OS enumeration;
+10. capability readiness is distinguished and actually verifiable;
+11. cross-component write commands can reach the correct canonical owner safely;
+12. strategic ownership remains singular;
+13. workspace isolation remains physical and logical;
+14. permissions fail closed;
+15. integrations call component-owned boundaries instead of internal storage;
+16. runtime adapters preserve local modifications;
+17. OS distribution is immutable/versioned/reproducible;
+18. acceptance uses the exact member path;
+19. system documentation matches implementation;
+20. compatible non-AI-Verse runtimes can adopt stable contracts without weakening authority.
+
+---
+
+## 52. Supreme-system contribution
+
+AI-Verse OS is the layer that allows all other components to become more capable without collapsing into one monolith.
+
+Brain can reason without becoming the filesystem.
+
+Memory can remember without becoming current direction.
+
+Data can structure facts without becoming Memory.
+
+Skills can expand without becoming OS.
+
+Multiple Bots can coordinate without becoming a second canonical workspace system.
+
+Connections can reach live systems without granting themselves authority.
+
+Apps and Dashboard can visualize and operate without owning hidden truth.
+
+Token can observe resource use without becoming operational state.
+
+The OS succeeds when these independently owned pieces feel like **one coherent system to the user while remaining cleanly separable underneath**.
+
+---
+
+## 53. Open decisions
+
+1. What should the universal component activation command syntax be?
+2. Should component discovery be registry-driven and self-describing instead of hardcoded IDs?
+3. Should `components reconcile --apply` exist, and what confirmation model should govern it?
+4. What shared migration-plan schema should stateful components expose?
+5. What canonical owner-specific write-handler protocol should consume `runtime/write-commands/`?
+6. Who owns the universal Cadence runtime if scheduled execution becomes first-class?
+7. Should core doctor aggregate component doctor while still distinguishing structural vs live health?
+8. What formal versioned "AI-Verse Host Protocol" should external runtimes target?
+9. How should release channels, immutable versions and rollback work?
+10. Should the named Memory support declaration in `AI-VERSE.yaml` become a generic host-support declaration?
+11. How should current stale four-component/authoring docs be migrated without losing useful historical context?
+12. What future components must be understood by OS core versus discoverable generically through contracts?
