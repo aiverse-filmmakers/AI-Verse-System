@@ -381,3 +381,102 @@ Promoted/current detail:
 - `docs/MASTER-PLAN.md`
 - `components/ai-verse-dashboard/COMPONENT-SPEC.md`
 - `components/ai-verse-dashboard/QC.md`
+
+
+---
+
+## 2026-09-13 - Authenticated coordination control plane
+
+**Status:** ACCEPTED-INTENT
+
+The Multiple Bots audit found that current internal coordination authorization is much stronger than its HTTP ingress identity model.
+
+The Gateway currently accepts actor IDs from request bodies, and the internal operator gate recognizes an operator-style ID convention. That is suitable only inside a trusted control boundary, not as remote caller authentication.
+
+System-wide intended contract:
+
+- authenticate the transport/control-plane caller;
+- map that authenticated principal to the protocol principals it may act as;
+- authorize the requested operation;
+- only then apply component scope, lease, approval and policy checks.
+
+This must be completed before a remote Dashboard/channel/control client is treated as trusted administration.
+
+Promoted/current detail:
+
+- docs/MASTER-PLAN.md
+- components/ai-verse-multiple-bots/COMPONENT-SPEC.md
+- components/ai-verse-multiple-bots/QC.md
+
+---
+
+## 2026-09-13 - Current-generation component compatibility contract
+
+**Status:** ACCEPTED-INTENT
+
+The Multiple Bots audit found a concrete example of integration drift: its Brain adapter still consumes the old tracked AI-VERSE.yaml Brain registration signal, while the current Brain lifecycle uses the local extension registry and treats tracked manifest registration as legacy.
+
+System-wide intent:
+
+- consumers should integrate through the owner component's current supported lifecycle/interface contract;
+- a historical green integration test must not be treated as permanent proof of present compatibility;
+- compatibility/evaluation suites should use current versioned contracts or owner-supported fixtures;
+- one component should not maintain a private copy of another component's obsolete installation truth.
+
+Promoted/current detail:
+
+- docs/MASTER-PLAN.md
+- components/ai-verse-multiple-bots/COMPONENT-SPEC.md
+- components/ai-verse-multiple-bots/QC.md
+
+---
+
+## 2026-09-13 - Multiple Bots structured Data boundary
+
+**Status:** ACCEPTED-INTENT
+
+The Multiple Bots audit found no current AI-Verse Data adapter, contract or test.
+
+The intended integration must preserve Data ownership:
+
+    Bot / Worker Task
+      -> bounded structured-data request
+      -> host / OS permission and scope boundary
+      -> AI-Verse Data owner API
+      -> bounded result / receipt
+      -> runtime context or coordination Artifact
+
+Multiple Bots must not open Data SQLite directly or become another editable structured-data store.
+
+Candidate durable Data writes should use the shared owner-routed write pipeline once canonical handlers exist.
+
+Promoted/current detail:
+
+- docs/MASTER-PLAN.md
+- components/ai-verse-multiple-bots/COMPONENT-SPEC.md
+- components/ai-verse-multiple-bots/QC.md
+
+---
+
+## 2026-09-13 - Canonical coordination-state migration
+
+**Status:** ACCEPTED-INTENT
+
+The Multiple Bots audit established that its SQLite database is not merely a disposable cache. It contains package-owned coordination objects, ordered events, deliveries and recovery state.
+
+Before stable member release, canonical coordination-state evolution needs:
+
+- explicit schema-version compatibility;
+- migrations for supported older databases;
+- safe failure on newer unsupported databases;
+- backup/recovery expectations;
+- uninstall preservation;
+- release acceptance against existing persistent state.
+
+This generalizes the system law that “derived indexes are disposable” only when they can actually be rebuilt from a stronger canonical source.
+
+Promoted/current detail:
+
+- docs/MASTER-PLAN.md
+- components/ai-verse-multiple-bots/COMPONENT-SPEC.md
+- components/ai-verse-multiple-bots/QC.md
