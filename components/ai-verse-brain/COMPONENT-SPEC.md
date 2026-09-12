@@ -2266,32 +2266,36 @@ Brain should not become the scheduler, but activation should make it easy for th
 
 Keep Brain, reasoner, host and scheduler health layers distinct, but provide a composed readiness result capable of proving a representative Brain tick and optional dependencies.
 
+
 ## 68. Definition of done
 
 Brain reaches the intended mature state when:
 
 1. current hardened code is shipped under an immutable version;
-2. install docs and installed artifact match;
+2. install docs and installed artifact match exactly;
 3. Brain can attach, enable, disable, detach and reattach symmetrically;
-4. a compatible existing agent can adopt Brain without repository-level manual wiring;
-5. native installation never modifies tracked OS contracts;
-6. strategic authority transfer remains explicit and reversible;
-7. standalone and native scope semantics remain unambiguous;
+4. standalone Brain state can be adopted safely if a compatible native host appears later;
+5. a compatible existing agent can adopt Brain without repository-level manual wiring;
+6. native installation never modifies tracked OS contracts;
+7. strategic authority transfer remains explicit and reversible;
 8. old strategic state can be imported safely with provenance;
 9. general history continues to route to Memory rather than duplicating it;
 10. cross-component durable writes use owner-controlled boundaries;
-11. vendor reasoners remain replaceable, bounded and non-authoritative;
-12. real host selection remains explicit;
-13. proactivity remains independent from permission;
-14. side-effect uncertainty never creates blind retries;
-15. objective completion remains evidence-backed;
-16. runtime strategy evolution cannot modify E3/E4 privileged behavior;
-17. cadence planning integrates cleanly with the chosen host scheduler;
-18. doctor/readiness surfaces accurately distinguish Brain health from host/vendor/scheduler health;
-19. release acceptance uses the exact documented member path;
-20. current docs no longer describe superseded integration generations.
-
----
+11. optional Data integration is either operationally consumed with bounded semantics or documented as contract-only;
+12. vendor reasoners remain replaceable, bounded and non-authoritative;
+13. real host selection remains explicit;
+14. proactivity remains independent from permission;
+15. side-effect uncertainty never creates blind retries;
+16. objective completion remains evidence-backed;
+17. runtime strategy evolution cannot modify E3/E4 privileged behavior;
+18. promoted strategy has a real tested rollback/recovery path, not only a terminal status;
+19. security claims match actual executable enforcement;
+20. cadence planning integrates cleanly with the chosen host scheduler;
+21. doctor/readiness surfaces accurately distinguish structural, attachment, runtime, dependency, operational and system health;
+22. release acceptance uses the exact documented member path;
+23. current docs contain no executable examples for superseded integration generations;
+24. migration behavior is explicit for schema upgrades and cross-mode adoption;
+25. component installation order does not create duplicate truth or require manual state surgery.
 
 ## 69. Contribution to the supreme AI-Verse vision
 
@@ -2327,6 +2331,7 @@ The architecture is successful when the user experiences one coherent intelligen
 
 ---
 
+
 ## 70. Open decisions
 
 1. What should the supported `enable` CLI look like?
@@ -2338,6 +2343,12 @@ The architecture is successful when the user experiences one coherent intelligen
 7. Which host owns cadence installation in each environment?
 8. Should Brain provide a composite readiness command covering Brain + reasoner + host while preserving separate health layers?
 9. When is an actual state-schema migration first required, and how will migration registrations be versioned?
-10. How should external strategy/prompt/skill optimization candidates be represented without turning Brain into their canonical owner?
-11. Should `research/README.md` be frozen as historical research or updated so its "current status" cannot mislead agents?
-12. Which old protocol documents should be explicitly marked historical versus rewritten to current local-registry behavior?
+10. What is the canonical dry-run/apply flow for standalone Brain -> native AI-Verse state adoption?
+11. How should strategy revisions be represented so rollback restores a known-good prior rule rather than merely marking the current one rolled back?
+12. Should `query_data` become a first-class ContextAssembler input, and for which cognition purposes?
+13. Where should security enforcement for secret-like payload material live without turning Brain into a general data-loss-prevention layer?
+14. How should external strategy/prompt/skill optimization candidates be represented without turning Brain into their canonical owner?
+15. Should `research/README.md` be frozen as historical research or updated so its current-status text cannot mislead agents?
+16. Which old protocol documents should be explicitly marked historical versus rewritten to current local-registry behavior?
+17. Should `plan-integration` describe a clean native host as safely attachable rather than `safe_to_apply=false` when `init` itself can auto-attach?
+
