@@ -550,3 +550,26 @@ Promoted/current detail:
 - `components/ai-verse-token/COMPONENT-SPEC.md`
 - `components/ai-verse-token/QC.md`
 
+
+
+---
+
+## 2026-09-13 - External connection authority, readiness and credential opacity
+
+**Status:** ACCEPTED-INTENT
+
+The standalone Connections audit establishes several system-wide external-access laws.
+
+A connection record is not proof that an external capability is usable. The mature system must preserve distinct states such as registered, configured, live-verified, healthy, authorized, approved and successfully executed.
+
+Agents should normally receive opaque connection handles and bounded capabilities rather than raw credentials. Connections may own the handle and execution boundary while the raw secret remains in an approved credential backend such as an OS keychain, encrypted store or managed provider.
+
+External side effects must re-check current scope, grants, delegated authority, approval and revocation at the actual provider execution edge. A previously discovered or planned capability must not survive later permission narrowing or revocation by relying on stale authority.
+
+Connecting an external system also does not transfer canonical ownership of that system's records into AI-Verse. External data remains externally canonical unless an explicit ownership or synchronization contract says otherwise.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-connections/COMPONENT-SPEC.md`
+- `components/ai-verse-connections/QC.md`
