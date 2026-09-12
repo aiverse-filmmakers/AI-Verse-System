@@ -32,6 +32,11 @@ Produce a document that explains:
 16. **What remains unfinished or contradictory.**
 17. **What the component is intended to become.**
 18. **How it contributes to the larger AI-Verse vision.**
+19. **What this component is supposed to achieve at the current project stage, not only in the distant future.**
+20. **Whether it currently achieves that present-stage target completely, partially, or not yet.**
+21. **Exactly what is still missing before it can be called complete for the current intended milestone.**
+22. **Whether the missing work is architecture, implementation, lifecycle wiring, commands/UX, migration, tests/acceptance, distribution/release, documentation, or external verification.**
+23. **Whether a real implementation/activation command exists for the component, and whether that command actually makes an already-running host/agent adopt the component correctly.**
 
 ## System-wide product philosophy
 
@@ -83,6 +88,59 @@ Before writing:
 9. Identify known incidents where a previous architecture failed.
 10. Identify current contradictions and incomplete lifecycle behavior.
 
+## Current target readiness audit
+
+Do not compare the repository only against a hypothetical far-future vision.
+
+For every component, identify the **current intended milestone** from its build map, PRD, release plan, status documents, recent fixes and the wider AI-Verse integration goal.
+
+Then produce a hard readiness verdict:
+
+- **READY FOR CURRENT TARGET** - everything required for the present intended milestone is implemented, wired, tested and usable through supported commands.
+- **FUNCTIONALLY READY, IMPLEMENTATION UX MISSING** - the core engine works, but install/attach/activate/migrate/reconcile commands or host adoption are incomplete.
+- **PARTIALLY READY** - meaningful functionality exists, but one or more required runtime/integration/lifecycle behaviors are missing.
+- **NOT READY FOR CURRENT TARGET** - the component cannot yet perform the role it is presently supposed to perform.
+- **BLOCKED BY EXTERNAL VERIFICATION** - implementation is complete enough, but release proof is blocked by CI, distribution, access, credentials, platform testing or another external gate.
+
+The audit must explicitly answer:
+
+1. What is this component supposed to do **right now**, based on the current project/release phase?
+2. Which parts are already 100% implemented?
+3. Which parts only exist as architecture/docs/contracts but are not implemented?
+4. Which parts work internally but are not wired into the real OS/host/member path?
+5. Which parts work only in tests or special integration fixtures?
+6. Which parts lack a public/member command?
+7. Does a simple implementation command exist?
+8. Does an attach command exist?
+9. Does an activation/adoption command exist?
+10. Can an agent that existed before installation adopt the component without reinstalling the system?
+11. Is migration/import for old state implemented or only planned?
+12. Does doctor/status prove health after activation?
+13. Can disable/detach/uninstall/reinstall preserve canonical state?
+14. Has the exact real user path been acceptance-tested?
+15. What exact missing tasks separate today's state from "works perfectly together like a glove"?
+
+### Command matrix
+
+For every component, record a command/status matrix:
+
+| Capability | Required now? | Current command | Works end-to-end? | Missing |
+|---|---|---|---|---|
+| Install/package availability | | | | |
+| Attach/register | | | | |
+| Activate/adopt | | | | |
+| Initialize scope | | | | |
+| Migrate/import legacy state | | | | |
+| Doctor/status | | | | |
+| Update | | | | |
+| Disable | | | | |
+| Detach/uninstall | | | | |
+| Reinstall/reconcile preserved state | | | | |
+
+If a row has no command, say so explicitly.
+
+A component must not be called "100% complete" for the current target merely because the engine code is complete. If the intended current product requires installation, attachment, activation, migration or host adoption and those paths are missing, that is unfinished implementation.
+
 ## Required distinction
 
 Every major claim must conceptually fall into one of these categories:
@@ -130,6 +188,10 @@ Write `COMPONENT-SPEC.md` with:
 28. Definition of done
 29. Big-picture contribution to AI-Verse
 30. Open questions/decisions still required
+31. Current target readiness verdict
+32. Present-stage missing implementation
+33. Command/lifecycle implementation matrix
+34. Exact blockers to "works perfectly together like a glove"
 
 Write `SOURCE-MAP.md` containing the evidence used.
 
@@ -145,6 +207,9 @@ The reader should be able to understand the component without reading its source
 - which past failures it is designed never to repeat;
 - how the component should behave in a mature AI-Verse installation;
 - how it can participate in other compatible agent systems;
-- what must still be built before calling the component complete.
+- what must still be built before calling the component complete;
+- whether it is actually complete for the current intended milestone;
+- whether the remaining gap is engine capability or simply missing implementation/wiring/commands;
+- which exact command or lifecycle path still needs to exist before the component works seamlessly with the rest of AI-Verse.
 
 Do not move to another repository until this component passes all QC perspectives.
