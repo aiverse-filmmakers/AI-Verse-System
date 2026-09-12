@@ -96,6 +96,7 @@ Migration must:
 - distinguish import from activation;
 - be resumable/idempotent where feasible;
 - bind a reviewed migration plan to a source snapshot/fingerprint or explicitly detect source drift before apply;
+- discover eligible existing canonical/legacy state before creating any new empty replacement store;
 - verify the new state before retiring the old route;
 - avoid two editable canonical copies;
 - record provenance.
@@ -336,7 +337,7 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 13. Existing/legacy state must have an explicit migration path.
 14. Cross-repo changes are explicit, never hidden side effects.
 15. A missing optional component should degrade the dependent capability, not corrupt unrelated system behavior.
-16. Public/member installation paths must match the paths actually tested in acceptance.
+16. Public/member installation paths must match the paths actually tested in acceptance. Final release acceptance must exercise the supported component/host path and must not substitute direct internal imports for the real attach/activate/init/runtime boundary.
 17. Stable releases should use immutable versions/tags rather than moving branches.
 18. Apps, dashboards and other interfaces must remain rebuildable projections/clients of declared canonical owners; UI convenience must never create hidden canonical truth.
 19. A component may define a registration or extension schema without owning the host's canonical registration records; for Apps, the intended split is Apps-owned app contract/schema and OS-owned authoritative system registration state.
@@ -344,6 +345,9 @@ Do not invent numerical percentages unless the evidence supports a meaningful ta
 21. Migration completion is an authority transition, not merely a successful copy: preserved legacy bytes may remain, but duplicate writable canonical authority must not.
 22. A detach operation must close every host discovery route it opened, or its narrower scope must be named and documented explicitly.
 23. Projection layers may normalize and aggregate owner-declared schemas, but must not become semantic owners by inferring canonical health, work, Bot, approval, readiness or runtime meaning from private files or transient UI/session state. Unavailable owner state must remain unavailable rather than becoming empty, zero or healthy.
+24. Effective authority must be re-evaluated at the final nested operation inside batches, transactions, workflows and delegated actions. Outer-envelope permission must never widen authority.
+25. Provenance, audit and receipt surfaces must respect the same visibility boundary as the underlying resource and must not leak hidden-resource existence.
+26. Stateful components must discover and reconcile eligible legacy/canonical state before initializing an empty replacement store. Initialization is only safe after the system has established that no canonical state needs adoption.
 
 ## Final synthesis phase
 
