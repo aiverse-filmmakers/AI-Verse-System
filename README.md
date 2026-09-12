@@ -21,6 +21,21 @@ Every component is researched independently and documented one repository at a t
 
 Implementation facts and future intent are kept separate. A desired feature is never described as shipped merely because it belongs in the long-term architecture.
 
+## Living specification rule
+
+AI-Verse-System is continuously maintained.
+
+Whenever a meaningful new idea, planned feature, integration, lifecycle change, migration requirement, repair, architectural decision, readiness finding or release-state change affects AI-Verse, this repository should be updated as part of the same body of work.
+
+Use:
+
+- `docs/IDEA-INBOX.md` to capture ideas before their final architectural home is clear;
+- `docs/LIVING-SPEC-PROTOCOL.md` for update/propagation rules;
+- `docs/SYSTEM-CHANGELOG.md` for the chronological record of meaningful changes;
+- the relevant component spec/QC/source map once the change has a clear owner.
+
+A future agent should be able to reconstruct the current system intent from this repository without needing the original chat where the idea appeared.
+
 ## Planned component set
 
 The initial system inventory is:
@@ -52,3 +67,5 @@ After every component is documented and independently QC'd, this repository will
 - the roadmap toward a portable, install-order-independent AI operating system that can work with AI-Verse OS, Hermes, coding agents, and other compatible hosts.
 
 See `docs/MASTER-PLAN.md` for the research sequence and quality gates.
+
+This repository remains canonical after the first supreme blueprint is written. The blueprint and component specs must evolve whenever the system evolves.
