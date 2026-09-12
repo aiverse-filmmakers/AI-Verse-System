@@ -776,7 +776,220 @@ The OS exists to let all of those capabilities grow independently while still be
 
 ---
 
-## 25. Open decisions
+---
+
+## 26. Current intended milestone
+
+The present OS target is not merely "the architecture exists."
+
+Based on the five-component release-hardening PRD and current release-status evidence, AI-Verse OS is presently intended to be the **usable first member-beta host** in which OS, Brain, Memory, Skills and Data can compose safely, optional components can appear in practical installation orders, component absence does not break unrelated functions, tracked OS files stay clean, canonical user state survives lifecycle operations, and the same supported host expands as new components become available.
+
+For this current milestone, the OS is expected to provide:
+
+- a simple real installation path;
+- a real update path;
+- a real doctor;
+- onboarding;
+- the local extension attachment contract;
+- dynamic optional-component discovery;
+- safe Brain direction ownership;
+- Memory integration;
+- external Skills integration;
+- Data host routing;
+- Connections metadata;
+- component doctor/reconcile;
+- enough lifecycle integration that adding a component later does not require rebuilding the OS;
+- acceptance tests that exercise the actual supported integration path.
+
+This is the present target against which readiness must be judged.
+
+---
+
+## 27. Current-target readiness verdict
+
+**Verdict: FUNCTIONALLY READY, IMPLEMENTATION UX MISSING**
+
+The OS core architecture and supported host integration are substantially at the intended first-beta level.
+
+It is **not yet 100% at the stronger "install any addition and it immediately works like a glove" criterion** defined by AI-Verse-System.
+
+The important distinction is:
+
+```text
+architecture/core host          COMPLETE
+supported runtime composition  COMPLETE / STRONG
+component discovery            COMPLETE / STRONG
+component health visibility    COMPLETE / STRONG
+generic component activation   MISSING
+generic migration execution    PARTIAL
+one-step reconciliation apply  MISSING
+machine-level pre-OS discovery PARTIAL / OPEN DESIGN
+immutable member distribution  RELEASE GAP
+full five-component proof      EXTERNALLY BLOCKED at reviewed snapshot
+```
+
+The OS does not need another foundational redesign.
+
+The missing work is primarily the **implementation/adoption layer** that turns the existing architecture into a frictionless user/agent experience.
+
+---
+
+## 28. Implementation completeness by dimension
+
+| Dimension | Current state | Assessment |
+|---|---|---|
+| OS engine/core architecture | Unified Workspace Architecture v2, source-of-truth, ownership, routing and permissions implemented | **COMPLETE** |
+| Host integration | Dynamic optional Memory/Skills/Data discovery and Brain host composition implemented | **COMPLETE WITH LIMITATIONS** |
+| Install/package path | GitHub npx install and global CLI path implemented | **COMPLETE** |
+| Attach/register path | Local extension registry contract implemented; component-owned attach paths supported | **COMPLETE WITH LIMITATIONS** |
+| Activation/adoption path | No universal "activate this component and make the host adopt it" transaction | **MISSING** |
+| Scope initialization | OS onboarding/workspace paths exist; component-specific initialization remains component-owned | **COMPLETE WITH LIMITATIONS** |
+| Legacy/history migration | OS v1 migration law and component-specific migration patterns exist | **PARTIAL** |
+| Doctor/status/health | OS doctor plus component doctor exist | **COMPLETE WITH LIMITATIONS** |
+| Update | Safe Git fast-forward update with tracked-file cleanliness checks | **COMPLETE** |
+| Disable/detach/uninstall | Optional-component lifecycle is component-owned; OS can observe state | **COMPLETE WITH LIMITATIONS** |
+| Reinstall/reconcile preserved state | Reconcile identifies needed component-owned commands but is plan-only | **PARTIAL** |
+| Cross-component acceptance | Strong OS workflows and four/five-component release work exist | **COMPLETE WITH EXTERNAL RELEASE GATE** |
+| Member/public distribution | GitHub development install exists; immutable release/tag/npm policy not fully finished | **PARTIAL** |
+| Non-AI-Verse host portability | Architecture is portable; universal formal host protocol not finalized | **PARTIAL** |
+
+---
+
+## 29. Command and lifecycle implementation matrix
+
+| Capability | Required for current target? | Current command/path | End-to-end proven? | Missing work |
+|---|---:|---|---|---|
+| Install OS | Yes | `npx --yes github:aiverse-filmmakers/AI-Verse-OS install` | Yes for development/member-test path | Immutable release/tag or published npm path still needed for final member distribution |
+| Update OS | Yes | `ai-verse-os update` | Yes | Release-version policy still needed |
+| OS doctor | Yes | `ai-verse-os doctor` | Yes | Could later aggregate more component health detail |
+| Onboard/initialize OS | Yes | `ai-verse-os onboard`, then runtime `/onboard` or `$onboard` | Yes | Broader runtime-neutral UX still intended |
+| Inspect components | Yes | `ai-verse-os components doctor` | Yes | None for inspection |
+| Reconcile components | Yes | `ai-verse-os components reconcile` | **Plan-only** | Add safe explicit apply/orchestration mode if the OS is intended to execute reconciliation rather than only prescribe component-owned commands |
+| Attach Memory | Yes when Memory is present | Memory-owned installer/attachment path | Yes in hardened component path | Generic OS activation layer still absent |
+| Attach Brain | Yes when Brain is present | `ai-verse-brain attach <root> --apply` | Yes in hardened Brain path | Generic OS activation layer still absent |
+| Attach Data | Yes when Data is present | `ai-verse-data install --root <root>` | Designed/implemented on Data path | Final reviewed five-component release proof was externally gated |
+| Discover Skills | Yes when Skills is present | passive provider discovery from installed Skills root | Yes | No attach command needed by design |
+| Activate/adopt a newly installed component | **Yes under the strengthened current vision** | **No universal command today** | No | Define and implement a generic activation/adoption transaction or stable component-specific activation contract |
+| Initialize component for scope | Yes when component requires it | component-specific | Mixed | Standardize how OS/agent discovers and runs the right initializer |
+| Import/migrate older component state | Yes for stateful components | component-specific, Memory strongest | Mixed | Define shared migration discovery/plan/apply semantics |
+| Disable component | Yes | component-specific | Mixed/strong for hardened core components | Surface consistently through OS/agent UX |
+| Detach/uninstall component | Yes | component-specific | Mixed/strong for hardened core components | Surface consistently through OS/agent UX |
+| Reinstall and adopt preserved state | Yes | component-specific + reconcile plan | Partial | Make rediscovery/re-activation a supported first-class workflow |
+| Activate component from an already-running agent | **Yes under strengthened goal** | **No universal host command** | No | Agent-facing implementation command/setup sequence is still needed |
+
+---
+
+## 30. Exact missing work before seamless "works like a glove" operation
+
+The OS is close, but the following concrete work separates the current system from the stronger seamless criterion:
+
+### 30.1 Implement a universal activation/adoption contract
+
+Today, installing or attaching a component does not automatically mean every existing agent has adopted it as canonical infrastructure.
+
+The system needs a supported operation equivalent in meaning to:
+
+```text
+activate memory
+activate data
+activate brain
+activate token
+reconcile and activate installed components
+```
+
+The exact syntax is open.
+
+The operation should:
+
+1. discover the component;
+2. validate compatibility;
+3. attach/register if needed;
+4. inspect old state;
+5. offer/perform explicit migration where required;
+6. initialize required scope/state;
+7. load/register runtime instructions;
+8. make the host/agent use the component for its canonical responsibility;
+9. verify health;
+10. verify ownership did not become duplicated;
+11. return a clear steady-state report.
+
+### 30.2 Make reconciliation executable, not only advisory
+
+Current `components reconcile` is intentionally plan-only.
+
+For truly seamless operation, there should be a safe apply path that can execute component-owned attachment/activation commands while preserving ownership boundaries.
+
+This should not mean OS mutates another component's internal state directly.
+
+### 30.3 Standardize component implementation commands
+
+Every component should expose a predictable supported command contract for the lifecycle operations that apply to it.
+
+At minimum, the system documentation should be able to answer:
+
+```text
+install?
+attach?
+activate?
+initialize?
+migrate?
+doctor?
+update?
+disable?
+detach?
+reinstall?
+```
+
+without reading source code.
+
+### 30.4 Define shared legacy-state migration orchestration
+
+Memory/Data/Brain should not each invent a totally unrelated experience for adopting existing historical state.
+
+The underlying storage semantics can remain component-specific, but discovery/plan/confirm/apply/verify should feel like one AI-Verse system.
+
+### 30.5 Improve pre-OS component discovery
+
+If a package existed before any OS, the OS should have a robust way to discover it after installation without relying on path guessing.
+
+A machine-level registry is one possible design, not yet a fixed decision.
+
+### 30.6 Complete immutable release/distribution proof
+
+A development `main` install is not the final member-release mechanism.
+
+The release should use immutable versions/refs and acceptance on those exact artifacts.
+
+### 30.7 Finish full-system acceptance
+
+At the reviewed OS release-status snapshot, OS/Brain/Memory/Skills were green and Data's private runner gate prevented the entire five-component beta from being called fully green.
+
+This is not an OS engine defect, but the **whole system cannot be called 100% glove-like until the complete real member path passes together**.
+
+---
+
+## 31. Current implementation conclusion
+
+For the intended current milestone:
+
+> **AI-Verse OS is architecturally and functionally strong enough to serve as the host, but the system-wide implementation experience is not yet 100% seamless.**
+
+The remaining OS-side work is mainly orchestration and UX:
+
+- activate/adopt;
+- reconcile apply;
+- migration orchestration;
+- standardized lifecycle commands;
+- immutable release proof.
+
+That distinction must remain visible in the final supreme document.
+
+A repository can have all major architecture and engine work finished while still being incomplete as a product because the user/agent implementation path is missing.
+
+
+---
+
+## 32. Open decisions
 
 1. What should the universal human/agent-facing activation command syntax be?
 2. Should AI-Verse maintain a machine-level installed-component registry in addition to OS-root attachment registries?
