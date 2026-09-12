@@ -8,25 +8,43 @@
 
 ---
 
+
 ## 1. Repository inventory
 
-Fresh tree review:
+**Reviewed repository:** `aiverse-filmmakers/AI-Verse-Brain`  
+**Reviewed branch:** `main`  
+**Reviewed head:** `bef8261ad35d126d29aeff5d496f46904125b7b6`  
+**Tree inventory:** 135 entries, consisting of 125 tracked files and 10 directories. GitHub reported the recursive tree as not truncated.
 
-- 125 tracked files;
-- approximately 922 KB;
-- Python implementation;
-- no runtime package dependencies declared in `pyproject.toml`;
-- canonical code under `engine/aiverse_brain/`;
-- normative contracts under `protocol/`;
+Top-level tracked-file distribution:
+
+- 53 files under `engine/`;
+- 21 under `tests/`;
+- 18 under `schemas/`;
+- 11 under `protocol/`;
+- 6 under `research/`;
+- 5 under `docs/`;
+- 3 workflow files under `.github/`;
+- root identity/release files and two examples.
+
+The repository contains:
+
+- Python implementation under `engine/aiverse_brain/`;
+- normative Brain contracts under `protocol/`;
 - JSON schemas under `schemas/`;
-- research lineage under `research/`;
-- current acceptance/unit tests under `tests/`;
-- three GitHub Actions workflows;
-- examples for the adapter bridge.
+- preserved research/inspiration history under `research/`;
+- current test evidence under `tests/`;
+- release/security/package identity at the root.
 
-The repository is compact enough that the audit could distinguish implementation, protocol, research, tests and release material without a large vendor/build tree obscuring the architecture.
+### Canonical / generated / vendor boundary
 
----
+No generated build tree or vendored third-party implementation is tracked.
+
+Files such as `action_boundary_legacy.py` and `bridge_legacy.py` are not generated artifacts. They remain active current implementation bodies wrapped by hardened public facades.
+
+Canonical user state and disposable runtime state are created at installation/runtime and are intentionally not committed to the repository.
+
+External vendor CLIs are dependencies at execution time through adapters; their source code is not vendored into Brain.
 
 ## 2. Root identity and release evidence
 
@@ -572,23 +590,38 @@ The stable wrapper retains the mature implementation behind a hardened contract.
 
 ---
 
+
 ## 13. Host and bridge implementation
 
 ### `engine/aiverse_brain/host.py`
 
-HostAdapter protocol including:
+The host protocol exposes a broad portable surface:
 
-- reads;
-- optional actions/evaluation/scheduling/notify/write-route.
+- current-context reads;
+- historical retrieval;
+- capability listing;
+- connection listing;
+- optional structured Data query;
+- action authorization/execution;
+- evaluation request;
+- scheduler request/cancel;
+- notification;
+- owner-routed write request.
 
-### `engine/aiverse_brain/bridge.py`
-### `engine/aiverse_brain/bridge_legacy.py`
+### `engine/aiverse_brain/bridge.py` / `bridge_legacy.py`
 
-Transport implementation and compatibility facade.
+Hardened subprocess transport and compatibility facade.
 
 ### `engine/aiverse_brain/host_selection.py`
 
 Evidence for explicit host selection and no silent fallback.
+
+Current real-host selection requires:
+
+- `read_context`;
+- `retrieve_history`;
+- `list_capabilities`;
+- `list_connections`.
 
 ### `engine/aiverse_brain/local_host.py`
 
@@ -599,55 +632,76 @@ Evidence for:
 - native raw-context bypass prevention;
 - no history/capability/action ownership in limited mode.
 
-### `engine/aiverse_brain/vendor.py`
-### `engine/aiverse_brain/vendor_bridge.py`
+### Operational-consumption distinction
+
+The normal cognition path consumes the four required read operations above.
+
+The explicit external-action path consumes `authorize_action` and `request_action`.
+
+The reviewed normal tick does **not** automatically consume:
+
+- `query_data`;
+- `request_evaluation`;
+- `schedule_trigger`;
+- `cancel_trigger`;
+- `notify_user`;
+- `write_route`.
+
+Those are contract surfaces until a concrete current product path invokes them.
+
+This distinction is important under the audit methodology: interface exposure is not equivalent to operational integration.
+
+### `engine/aiverse_brain/vendor.py` / `vendor_bridge.py`
 
 Claude/Codex/Hermes reasoner wrappers.
 
-### `docs/ADAPTERS.md`
-### `docs/VENDOR-REASONERS.md`
+### `docs/ADAPTERS.md` / `docs/VENDOR-REASONERS.md`
 
-Current public adapter/vendor integration guidance.
+Public adapter/vendor guidance, with current documentation drift noted later in this source map.
 
----
 
 ## 14. Installation and lifecycle
 
 ### `engine/aiverse_brain/integration.py`
 
-Current main evidence for:
+Current evidence for:
 
 - standalone vs compatible native vs incompatible host;
-- local extension registry attachment;
-- obsolete tracked manifest registration detection;
-- Memory presence hints;
+- local extension-registry attachment;
+- obsolete tracked-manifest registration detection;
+- Memory-presence hints;
 - native path contract;
 - integration planning;
 - no standalone fallback on incompatible AI-Verse.
+
+A clean compatible host without local Brain attachment is reported as not integration-ready even though initialization can auto-attach. This creates a plan/bootstrap semantic mismatch worth preserving as a product finding.
 
 ### `engine/aiverse_brain/extension_registry.py`
 
 Evidence for:
 
-- local registry;
+- local registry authority;
 - Brain-owned entry only;
 - exclusive registry lock;
 - atomic write;
-- compare against original registry bytes;
-- preserve existing/sibling fields;
+- preservation of sibling fields;
 - attach;
-- set enabled;
-- detach registration.
+- internal enable/disable state mutation;
+- detach registration;
+- symlink rejection.
 
 ### `engine/aiverse_brain/installation.py`
 
 Evidence for:
 
 - dry-run-first plan;
-- current clean OS auto-attachment;
+- clean current OS auto-attachment;
 - idempotent installation marker;
 - package/state version safety;
-- tracked OS preservation.
+- tracked OS preservation;
+- explicit blocker when a standalone `.ai-verse-brain/` store exists inside a now-native AI-Verse host.
+
+That last blocker proves safe duplicate-truth prevention but also proves that standalone Brain -> native OS adoption is not implemented.
 
 ### `engine/aiverse_brain/onboarding.py`
 
@@ -661,25 +715,17 @@ Evidence for:
 
 ### `engine/aiverse_brain/doctor.py`
 
-Evidence for:
-
-- installation;
-- schema;
-- attachment;
-- scoped state;
-- onboarding;
-- cross-scope integrity.
+Evidence for structural checks and partial attachment/readiness warnings.
 
 ### `engine/aiverse_brain/migration.py`
 
-Important current limitation:
+Current limitation:
 
-- can refresh package metadata at same state schema;
+- can refresh package metadata at the same state schema;
 - blocks newer state;
-- blocks older state where no registered conversion exists;
-- no actual older-state conversion currently registered.
-
----
+- blocks older state where no conversion is registered;
+- contains no actual older-state conversion path;
+- does not perform standalone -> native Brain-state adoption.
 
 ## 15. CLI evidence
 
