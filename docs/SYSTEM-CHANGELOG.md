@@ -520,3 +520,48 @@ Canonical detail:
 
 - `docs/MASTER-PLAN.md`
 - `docs/IDEA-INBOX.md`
+
+
+### Documented Component 7: AI-Verse Connections
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Connections-only forensic review at exact Connections main revision `76be3558eb6670b21195064b04acdd7d6dd41490`.
+
+The repository is currently a founding architecture/research seed with implementation explicitly not started. The reviewed repo contains one 900-line `README.md`, one founding commit, no PRs, no tests, no CI/status checks, no package metadata and no operational release.
+
+The audit makes the registry/execution distinction precise:
+
+- CURRENT: Connections is architecture only;
+- INTENDED: Connections is both the canonical connection registry/control plane and the trusted external execution boundary;
+- raw credential storage may remain in approved external/local credential backends behind opaque handles;
+- registration, configuration, live verification, health, authorization, approval and execution must remain separate states;
+- external effects must re-check current authority and revocation at the provider execution edge;
+- external provider data remains externally canonical unless an explicit ownership/synchronization contract says otherwise.
+
+The exact blockers before later-installed connections can become safely discoverable and usable without manual wiring are captured in the component spec, including versioned contracts, registry/runtime implementation, one end-to-end provider, lifecycle/reconcile, live verification, permission/approval enforcement, receipts, revocation, tests, CI and immutable distribution.
+
+Canonical detail:
+
+- `components/ai-verse-connections/COMPONENT-SPEC.md`
+- `components/ai-verse-connections/SOURCE-MAP.md`
+- `components/ai-verse-connections/QC.md`
+
+### Propagated Connections-derived system laws
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Promoted system-wide laws for:
+
+- multi-stage external connection readiness;
+- opaque credential handles and raw-secret separation;
+- late provider-edge authority/revocation re-check;
+- preservation of external canonical data ownership.
+
+Canonical detail:
+
+- `docs/MASTER-PLAN.md`
+- `docs/IDEA-INBOX.md`
+- `components/ai-verse-connections/COMPONENT-SPEC.md`
