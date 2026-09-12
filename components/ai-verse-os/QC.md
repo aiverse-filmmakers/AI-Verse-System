@@ -269,7 +269,52 @@ That will make the user's "curate the best systems into a better one" philosophy
 
 ---
 
-## 10. Future-state coherence QC
+## 10. Current-target readiness QC
+
+**Verdict: FUNCTIONALLY READY, IMPLEMENTATION UX MISSING**
+
+### Present target
+
+The current OS milestone is a usable first member-beta host where the hardened core components can compose safely through supported paths, practical install-order differences do not change authority, optional absence degrades gracefully, and newly available components can be discovered by the host.
+
+### What is complete now
+
+- OS architecture/runtime constitution.
+- workspace/scope isolation.
+- source-of-truth rules.
+- local extension attachment contract.
+- OS install/update/doctor/onboard CLI.
+- Brain strategic ownership integration.
+- dynamic Memory/Skills/Data host discovery.
+- Connections bounded metadata.
+- component doctor.
+- reconcile planning.
+- supported host adapter.
+- restrictive permission boundary.
+- tracked-file cleanliness model.
+
+### What prevents a 100% seamless verdict
+
+1. No universal activation/adoption command.
+2. Component reconcile is plan-only, not an apply transaction.
+3. No one shared migration orchestration for existing Memory/Data/Brain history.
+4. No universal machine-level installed-component discovery contract.
+5. No single standardized lifecycle command grammar across all repositories.
+6. An already-running arbitrary agent cannot yet rely on one universal `activate <component>` protocol.
+7. Final immutable member-release refs/distribution remain a release concern.
+8. The reviewed five-component release snapshot was still externally gated by Data CI execution.
+
+### QC conclusion
+
+The OS does not need more foundational architecture to solve these gaps.
+
+It needs the final **implementation layer that converts correct component architecture into a one-command adoption experience**.
+
+This new criterion will be applied to every remaining component.
+
+---
+
+## 11. Future-state coherence QC
 
 **Verdict: PASS**
 
@@ -289,7 +334,7 @@ No foundational redesign is required to pursue this.
 
 ---
 
-## 11. Contradiction scan
+## 12. Contradiction scan
 
 ### Contradiction A: generic extension registry vs named Memory declaration
 
@@ -327,7 +372,7 @@ OS itself is hardened/green in the latest status evidence, but the five-componen
 
 ---
 
-## 12. Final documentation verdict
+## 13. Final documentation verdict
 
 **PASS WITH GAPS**
 
@@ -347,7 +392,7 @@ The strongest future work is not another architecture rewrite. It is to finish t
 
 ---
 
-## 13. Readiness for supreme-system synthesis
+## 14. Readiness for supreme-system synthesis
 
 **READY**
 
