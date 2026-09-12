@@ -480,3 +480,73 @@ Promoted/current detail:
 - docs/MASTER-PLAN.md
 - components/ai-verse-multiple-bots/COMPONENT-SPEC.md
 - components/ai-verse-multiple-bots/QC.md
+
+---
+
+## 2026-09-13 - Telemetry evidence must not become sibling canonical state
+
+**Status:** ACCEPTED-INTENT
+
+The Token audit confirms a system-wide ownership rule:
+
+- usage telemetry may attribute activity to workspaces, projects, agents, Bots, Workers, Skills, tasks, automations and connections;
+- those observations remain Token-owned evidence;
+- a Dashboard/Data/Memory/Brain/Bots projection does not transfer canonical ownership;
+- operational state must continue to come from the component that owns that responsibility.
+
+A telemetry observation may inform a decision, but it must never silently become canonical operational state.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-token/COMPONENT-SPEC.md`
+- `components/ai-verse-token/QC.md`
+
+---
+
+## 2026-09-13 - Attribution is not authorization
+
+**Status:** ACCEPTED-INTENT
+
+The Token audit shows that workspace/project/agent/Bot/task IDs in telemetry are attribution facts, not proof of caller permission.
+
+System-wide intent:
+
+- hosts must apply an authorized scope floor before exposing scoped telemetry reads or writes;
+- a caller cannot gain access merely by supplying another scope ID;
+- Token must not become the canonical identity/ACL database merely to enforce this boundary;
+- scoped readers/adapters should intersect requested filters with host-owned authorization.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-token/COMPONENT-SPEC.md`
+- `components/ai-verse-token/QC.md`
+
+---
+
+## 2026-09-13 - Telemetry readiness and monetary truth
+
+**Status:** ACCEPTED-INTENT
+
+Token establishes two reusable readiness/truth requirements.
+
+First, telemetry readiness must distinguish:
+
+`INSTALLED -> ATTACHED -> ENABLED -> SOURCE-ACTIVE -> COLLECTING -> PRICING-READY -> COST-READY -> AUTHORIZED -> READY`
+
+No earlier state automatically implies a later one.
+
+Second, monetary usage intelligence must preserve truth provenance:
+
+- UNKNOWN is not zero;
+- a trusted real zero remains real;
+- ACTUAL and CALCULATED remain visibly distinct;
+- calculated usage cost must not be presented as invoice-confirmed billing.
+
+Promoted/current detail:
+
+- `docs/MASTER-PLAN.md`
+- `components/ai-verse-token/COMPONENT-SPEC.md`
+- `components/ai-verse-token/QC.md`
+
