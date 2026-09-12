@@ -399,3 +399,64 @@ Canonical detail:
 
 - docs/MASTER-PLAN.md
 - docs/IDEA-INBOX.md
+
+### Documented Component 10: AI-Verse Token
+
+**Date:** 2026-09-13  
+**Type:** fresh standalone component audit
+
+Completed a Token-only forensic review using the canonical audit methodology against the local hardened alpha.1 source artifact.
+
+Exact reviewed artifact:
+
+- package: `@ai-verse/token@0.1.0-alpha.1`;
+- archive SHA-256: `4feb14ed9df2b82b7f4a07d571e77beda4afe695982e55b3dcfe0a7440588257`;
+- ledger format: 2;
+- no Token Git revision was available because the local archive has no VCS metadata and no Token remote repository is present in the connected GitHub account.
+
+The audit verified locally:
+
+- 249/249 normal tests;
+- 3/3 release tests;
+- 252 total observed passing checks;
+- clean `npm run ci`;
+- successful `npm pack --dry-run`.
+
+Key findings:
+
+- Token's protocol, immutable ledger, exact dedupe, identity, pricing evidence, ACTUAL/CALCULATED/UNKNOWN cost law, collectors, adapters, time engine and efficiency/budget core are substantial and real;
+- raw telemetry and pricing evidence remain Token-owned while Dashboard, Brain, Memory, Data and Bots consume bounded non-owning projections/references;
+- the repository-defined 32/32 hardened first-release implementation gate is genuinely complete;
+- native install/registration is ownership-safe and preserves user state, but installed `engine.mjs` is a metadata descriptor rather than an operational collector/runtime;
+- there is no activate/adopt/reconcile flow that makes a later-installed Token operational in an existing host;
+- built-in collectors exist but no default production collector orchestrator/first-run collection path exists;
+- pricing synchronization exists but the package ships no concrete network pricing fetchers;
+- the primary TokenReader/CLI/MCP/Dashboard path is actual-only and does not yet compose CALCULATED/UNKNOWN pricing through CostEngine;
+- host authorization is not represented in the Token reader, so attribution scope must not be confused with access permission;
+- doctor proves structural/ledger health rather than full collector/pricing/cost readiness;
+- the real AI-Verse host path, hosted cross-platform CI and public immutable/npm distribution remain unverified;
+- storage/architecture/integration documents contain current-vs-intended drift that must be corrected.
+
+Canonical detail:
+
+- `components/ai-verse-token/COMPONENT-SPEC.md`
+- `components/ai-verse-token/SOURCE-MAP.md`
+- `components/ai-verse-token/QC.md`
+
+### Propagated Token-derived system laws and intents
+
+**Date:** 2026-09-13  
+**Type:** living-spec propagation
+
+Added system-level laws/intents for:
+
+- telemetry observations/projections remaining evidence rather than authority transfers;
+- attribution never substituting for authorization;
+- telemetry readiness distinguishing installed/enabled from collecting/pricing/cost/authorized readiness;
+- UNKNOWN never becoming zero and ACTUAL/CALCULATED monetary truth remaining explicitly distinguishable.
+
+Canonical detail:
+
+- `docs/MASTER-PLAN.md`
+- `docs/IDEA-INBOX.md`
+
