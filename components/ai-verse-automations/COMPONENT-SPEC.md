@@ -182,13 +182,12 @@ Hosted publication evidence:
 - canonical repository exists and is populated;
 - GitHub publication commit `447310570aba837c1df61b9f87013f7cb7ec062b` had the exact tested tree `0749fdb4259b1d7e28715eb8e367f1642d43db4e`;
 - GitHub Actions CI run **34777167602** passed **9/9 matrix jobs** across Ubuntu, macOS and Windows on Python 3.11, 3.12 and 3.13;
-- current head `494469a496d479cfec618bcd9511033c0cd3e815` is an evidence-only documentation update over that implementation and has its own CI rerun.
+- current head `494469a496d479cfec618bcd9511033c0cd3e815` is an evidence-only documentation update over that implementation; GitHub Actions CI run **34777316822** also passed **9/9 matrix jobs** across Ubuntu, macOS and Windows on Python 3.11, 3.12 and 3.13.
 
 ## 11. Remaining release/composition work
 
 These are not reasons to move scheduler ownership elsewhere:
 
-- finish the current-head hosted CI rerun after the evidence-only documentation update;
 - optionally publish/tag an immutable release artifact when the Distribution version set is frozen;
 - replace the generic Gateway target with the canonical versioned Gateway receive-side contract when that repository is published;
 - retire the Multiple Bots OS-source compatibility projection when Multiple Bots exposes a direct canonical Automations-owner source contract;
