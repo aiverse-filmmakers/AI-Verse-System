@@ -1,5 +1,21 @@
 # AI-Verse Token QC
 
+## Remote public-beta QC closure
+
+**Update date:** 2026-09-13  
+**Verdict:** PASS for the requested Token public-beta implementation and hosted cross-platform release gate.
+
+Canonical remote: `aiverse-filmmakers/ai-verse-token`  
+Current version: `0.1.0-beta.2`  
+Main/tag target: `8b24891cd9c230e191b2637b6db2122b3dd9984d`
+
+Hosted CI run **34776309959** completed successfully on all six matrix legs: Ubuntu, macOS and Windows on Node 22 and Node 24.
+
+Windows CI initially exposed two test-harness portability defects: file URL path conversion and direct `npm.cmd` spawning. Both were corrected without changing Token's accounting, authorization or ownership laws. The immutable beta.1 tag was not moved; beta.2 is the cross-platform follow-up release.
+
+The former QC item "hosted cross-platform execution pending" is now closed.
+
+
 ## Public-beta closure verdict
 
 **Update date:** 2026-09-13
