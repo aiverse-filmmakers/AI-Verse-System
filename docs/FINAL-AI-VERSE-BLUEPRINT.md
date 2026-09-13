@@ -1362,11 +1362,11 @@ The original ten audited component repositories remain the audited baseline, but
 
 ### AI-Verse-Gateway
 
-**Classification:** implemented public-beta candidate / separate repository publication pending.
+**Classification:** implemented public-beta candidate / dedicated repository published and CI-verified.
 
 Gateway is the user/client/runtime edge for AI-Verse. It owns transport/session/run ingress, runtime selection, streaming, control interrupts and remote-client security. It owns no sibling domain truth.
 
-**Current state (2026-09-13):** the `0.1.0-beta.1` implementation candidate is locally built and acceptance-tested with standard lifecycle commands, OpenAI-compatible ingress, durable run/checkpoint state, SSE streaming, authenticated controls, approval interrupts, OS host composition, bounded execution controls, restart recovery and cross-platform CI configuration. It is not yet a canonical released component until the dedicated GitHub repository is published and remote CI/release identity are verified. Brain-owned Goal continuation is implemented as an owner-adapter boundary and remains composed-activation pending until Brain exposes the canonical Goal-owner API.
+**Current state (2026-09-13):** `aiverse-filmmakers/AI-Verse-Gateway` now contains the exact 35-file `0.1.0-beta.1` tested source snapshot at commit `b20d56eddec6514ec4bc65b510318289b9cffa41`. The repository provides the standard lifecycle commands, OpenAI-compatible ingress, durable run/checkpoint state, SSE streaming, authenticated controls, approval interrupts, OS host composition, bounded execution controls, restart recovery and cross-platform CI. GitHub Actions passed all 6/6 Linux/macOS/Windows × Node 20/22 jobs for that commit. The source repository is therefore published and CI-verified; an immutable release tag/artifact remains a separate release step. Brain-owned Goal continuation is implemented as an owner-adapter boundary and remains composed-activation pending until Brain exposes the canonical Goal-owner API.
 
 It must remain distinct from:
 
