@@ -28,29 +28,29 @@ Connections is not currently an Agent-profile blocker. Dashboard and Apps are no
 | Area | Current evidence | State | Next action |
 |---|---|---|---|
 | System contracts | Goals, Self-Learning, Install/Setup, Public Beta plan exist | READY | Keep tracker/blueprint current |
-| OS | main `01bc4cb...`; frozen five-component beta already passed | CORE-BETA READY, PUBLIC-BETA CLOSURE NOT LANDED | Run/land OS public-beta lifecycle/reconcile closure |
+| OS | PR #25 `653f2c3...`; all 8 hosted workflows green | PUBLIC-BETA CANDIDATE READY TO MERGE | Review/merge PR #25, then freeze exact ref |
 | Brain | PR #18 `b4cf39b...`; 3/3 workflows green; draft/open | IMPLEMENTED, RELEASE CLOSURE IN PROGRESS | Finish acceptance/release docs/artifact pinning, merge |
 | Memory | PR #9 merged; public-beta acceptance 12/12 jobs passed across Linux/macOS/Windows | PUBLIC-BETA IMPLEMENTATION READY | Freeze/reference exact release artifact in final manifest |
 | Skills | PR #8 merged; Runtime Readiness, Validate Skills, Full E2E all green | PUBLIC-BETA IMPLEMENTATION READY | Freeze/reference exact release artifact in final manifest |
 | Data | `189b132...`; canonical five-component release hardening frozen | READY FOR CURRENT TARGET | Do not reopen absent a real regression |
 | Multiple Bots | Phase 5.5 merged; CI green; Phase 5 ~25%, overall directional ~95% | IN PROGRESS | Phase 5.6 production doctor, then 5.7-5.14 |
-| Gateway | local `0.1.0-beta.1` candidate reported at `054de836...`; 8/8 local tests; no GitHub repo currently visible | IMPLEMENTED LOCALLY, NOT RELEASED | Create/publish canonical repo, run hosted CI, activate Brain Goal API after Brain merge |
-| Automations | canonical contract exists; implementation task started, but no GitHub repo/evidence currently visible | IN PROGRESS / NOT YET VERIFIABLE | Create/publish canonical repo and complete public-beta implementation |
-| Token | canonical beta source restored to GitHub at `1811d719...`; Linux/macOS Node 22/24 green; Windows CI currently fails on duplicated drive-letter CLI path | NEARLY READY | Fix Windows path construction, rerun six-leg CI, verify tags/release |
+| Gateway | canonical public repo exists; main `b20d56e...`; hosted CI run #1 green | PUBLIC-BETA IMPLEMENTATION CANDIDATE READY | After Brain merge, run composed Goal-continuation acceptance and freeze exact ref |
+| Automations | canonical public repo exists; main `494469a...`; hosted CI green | PUBLIC-BETA IMPLEMENTATION CANDIDATE READY | Run final composed wake/delivery acceptance with OS/Gateway/Bots and freeze exact ref |
+| Token | beta.3 main `193a9ae...`; hosted CI reaches all six legs but fails one stale CLI-help version assertion expecting beta.2 | NEARLY READY | Update stale test to beta.3, rerun six-leg CI, then freeze/tag release |
 | Connections | PR #1 merged as `baaac641...`; v1 implementation exists; private-repo CI jobs fail before step 1 | IMPLEMENTED, REMOTE CI UNPROVEN | Fix Actions runner availability or run equivalent release proof; not Agent blocker |
-| Distribution | PR #1 open; one-product CLI/release-set implementation exists; Core/Unit Actions jobs fail before step 1; Agent gate intentionally fails closed without complete artifacts | IMPLEMENTED, ACCEPTANCE BLOCKED | Get Core CI/clean-machine gate green; later admit exact Agent artifacts |
+| Distribution | PR #1 open at current head; implementation exists; current Unit/Core jobs terminate before step 1 on private-repo hosted runners | IMPLEMENTED, ACCEPTANCE INFRA BLOCKED | Restore runner availability or make repo public if intended; get Core clean-machine gate green, then admit exact Agent refs |
 | Dashboard | Phase 2 Task 5 current | POST-AGENT-BETA | Do not use as current release blocker |
 | Apps | architecture seed only | POST-AGENT-BETA | Do not use as current release blocker |
 
 ## Immediate critical path
 
-1. Land Brain PR #18.
-2. Land OS public-beta closure.
-3. Finish Multiple Bots Phase 5.6 through 5.14.
-4. Publish Gateway repository and pass hosted acceptance.
-5. Publish/finish Automations repository and pass hosted acceptance.
-6. Fix Token Windows CI and freeze its release artifact.
-7. Get Distribution Core acceptance green.
+1. Review/merge OS PR #25; all eight current hosted workflows are green.
+2. Finish Brain PR #18 release closure and merge it.
+3. Finish Multiple Bots Phase 5.6 through 5.14 sequentially.
+4. Fix Token beta.3's stale CLI-help version assertion and rerun the six-leg matrix.
+5. Run composed Brain Goal continuation through the now-published Gateway and freeze Gateway's exact ref.
+6. Run composed Automations wake/delivery acceptance with current owner boundaries and freeze its exact ref.
+7. Get Distribution Core CI/clean-machine acceptance actually running and green.
 8. Add exact Agent component refs to Distribution and run Agent clean-machine acceptance.
 9. Run the canonical final public-beta acceptance matrix.
 10. Freeze immutable refs and declare PUBLIC BETA READY only if the matrix passes.
