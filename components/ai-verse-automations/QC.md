@@ -29,7 +29,7 @@ Current head:
 
 `494469a496d479cfec618bcd9511033c0cd3e815`
 
-This current head only updates the repository's acceptance document to record the hosted evidence and triggers a new CI run.
+This current head only updates the repository's acceptance document to record the hosted evidence. GitHub Actions CI run **34777316822** passed **9/9 matrix jobs** across Ubuntu, macOS and Windows on Python 3.11, 3.12 and 3.13.
 
 ## Acceptance areas proven
 
@@ -119,7 +119,7 @@ These are explicit public-beta bounds, not hidden scheduler ownership defects:
 
 **CURRENT implementation:** yes.  
 **Canonical repository:** yes.  
-**Hosted cross-platform CI:** yes for implementation publication head.  
+**Hosted cross-platform CI:** yes for both implementation publication head and current evidence head.  
 **Immutable tagged public release:** not yet claimed.  
 **Whole-Agent-profile acceptance:** not yet claimed.
 
