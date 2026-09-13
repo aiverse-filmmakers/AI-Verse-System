@@ -46,6 +46,17 @@ It must not own:
 
 Existing Dashboard `apps/gateway` and Multiple Bots Gateway code must be treated as evidence/reusable implementations, not silently duplicated. The new Gateway design should decide what is generalized, what remains component-private, and how Dashboard/Bots connect to the shared edge service.
 
+**Current implementation status (2026-09-13):**
+
+- a public-beta implementation candidate has been built and locally acceptance-tested as `0.1.0-beta.1`;
+- it implements the standard lifecycle, OpenAI-compatible client ingress, first-class runs, SSE streaming, durable session/run checkpoints, stop/cancel, pause/resume, approval interrupts, bounded budgets/deadlines, no-progress protection, restart recovery, loopback-by-default security, bearer principal identity, CORS/origin controls, bounded bodies/rates, privileged-control audit receipts, OS host composition, and a Brain-owned Goal continuation adapter boundary;
+- it includes cross-platform GitHub Actions configuration for Linux/macOS/Windows and a clean-install acceptance suite;
+- it does not create a second Goal, Memory, Data, Skills, Bots, Connections, Token, or Dashboard source of truth;
+- the implementation is **not yet a canonical released repository** until `aiverse-filmmakers/AI-Verse-Gateway` is actually published, tagged/pinned and its remote CI passes;
+- composed Goal continuation remains activation-pending until Brain exposes the canonical benchmarked Goal-owner API. Gateway intentionally fails closed rather than inventing Goal state.
+
+This means Gateway architecture/implementation is materially closed, but public-beta release evidence is not complete yet.
+
 ### New repository required: AI-Verse-Automations
 
 Reason:
