@@ -56,6 +56,7 @@ The complete AI-Verse family is:
 | AI-Verse Connections | External capability boundary | connection registry/control plane, bounded connection capabilities and trusted provider execution boundary |
 | AI-Verse Apps | Application extension layer | governed app packages and app lifecycle without owning sibling business truth |
 | AI-Verse Dashboard | Visual control room | projections, operator interaction and commands routed to canonical owners |
+| AI-Verse Automations | Cadence runtime | schedules, triggers, occurrence identity, retry/recovery and bounded wake-delivery lifecycle |
 | AI-Verse Token | Usage and cost truth | telemetry evidence, pricing evidence, token/cost/time analysis and usage projections |
 
 External runtimes such as Hermes, Codex, Claude Code and future compatible hosts sit outside these ownership boundaries. They may execute models and tools, but they do not become canonical owners merely because they host execution.
@@ -81,6 +82,7 @@ A useful mental model is:
                             |
                         Dashboard
 
+        Automations owns cadence and bounded wakes into owner runtimes.
         Token observes usage and cost across the system
         without taking operational ownership.
 
@@ -1258,7 +1260,7 @@ A meaningful system-level implementation change is not fully documented until th
 
 ## 30. Evidence basis
 
-This synthesis is derived from the ten audited component records:
+This synthesis is derived from the ten original audited component records plus CURRENT first-class platform component evidence:
 
 | Component | Canonical audit record |
 |---|---|
@@ -1272,6 +1274,7 @@ This synthesis is derived from the ten audited component records:
 | Apps | components/ai-verse-apps/COMPONENT-SPEC.md, SOURCE-MAP.md, QC.md |
 | Dashboard | components/ai-verse-dashboard/COMPONENT-SPEC.md, SOURCE-MAP.md, QC.md |
 | Token | components/ai-verse-token/COMPONENT-SPEC.md, SOURCE-MAP.md, QC.md |
+| Automations | components/ai-verse-automations/COMPONENT-SPEC.md, SOURCE-MAP.md, QC.md |
 
 Also governed by:
 
@@ -1377,11 +1380,27 @@ It must remain distinct from:
 
 ### AI-Verse-Automations
 
-**Classification:** planned canonical component / separate repository.
+**Classification:** CURRENT canonical component / separate repository.
 
-Automations closes the scheduler/cadence ownership gap. Brain may decide when cognition is useful and Multiple Bots may receive wake requests, but neither should own the universal scheduler.
+Canonical repository: `aiverse-filmmakers/AI-Verse-Automations`.
 
-Automations owns schedules/triggers/jobs, wake execution policy, retry/recovery and automation-run lifecycle without becoming Brain or Multiple Bots.
+Current evidence head: `494469a496d479cfec618bcd9511033c0cd3e815`.
+
+Automations now closes the scheduler/cadence ownership gap in implementation, not only architecture. Brain may decide when cognition is useful and Multiple Bots may receive wake requests, but neither owns the universal scheduler.
+
+CURRENT Automations owns schedules/triggers/jobs, deterministic occurrence and invocation identity, event/webhook normalization, retry/backoff/dead-letter state, restart/uncertain-delivery recovery, pause/resume/run-now, wake receipts and bounded delivery into owner runtimes.
+
+Every delivery attempt re-checks current OS scope/permission. The component fails closed on stale/revoked authority and treats uncertain post-crash downstream effects as `unknown` rather than blindly replaying them.
+
+It does not own strategic goals, Memory, Skills, Bot Tasks/Team Runs, external credentials, canonical business Data or Gateway session/run truth.
+
+Acceptance evidence:
+
+- local implementation suite: **27/27 passed**;
+- exact implementation publication CI: run **34777167602**, **9/9 jobs passed** across Ubuntu/macOS/Windows and Python 3.11-3.13;
+- current evidence-head CI: run **34777316822**, **9/9 jobs passed** on the same platform/version matrix.
+
+Immutable tagged release/version-set packaging and whole-Agent-profile composed acceptance remain release gates, not missing scheduler ownership.
 
 ### ai-verse-distribution
 
@@ -1471,6 +1490,8 @@ The main engineering problem is now the seam between components:
 - reconciliation;
 - immutable release identity;
 - current-generation end-to-end acceptance.
+
+The universal cadence-owner gap is now closed by the CURRENT Automations implementation. Remaining public-beta work is concentrated in release/version-set composition, Gateway canonical publication, current-generation owner seams and whole-profile acceptance.
 
 Once those seams are closed for the core, the later layers can be built without changing the fundamental architecture:
 
