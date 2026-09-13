@@ -1,5 +1,40 @@
 # AI-Verse Token Component Specification
 
+## Public-beta restoration update
+
+**Update date:** 2026-09-13  
+**Restored baseline:** `@ai-verse/token@0.1.0-alpha.1` from exact audited archive SHA-256 `4feb14ed9df2b82b7f4a07d571e77beda4afe695982e55b3dcfe0a7440588257`  
+**Restoration commit:** `210ae2b3d12dc5ac9f10190d17a7652bfb0031cb`  
+**Public-beta implementation:** `@ai-verse/token@0.1.0-beta.1`  
+**Public-beta commit:** `1811d719b7ba47c9e68a78f5b9217751a6306faa`  
+**Immutable local release SHA-256:** `6a9b51c22eba5a99d2e3c0433f86a890539a27b0359c2cfe3183e7d0af697567`
+
+The previously audited alpha.1 source was recovered exactly rather than recreated. The archive contains no `.git` metadata and no recoverable historical Git bundle was found, so the restored repository uses the verified alpha.1 artifact as its honest provenance root. No historical commits were fabricated.
+
+The public-beta implementation closes the operational gaps identified by this specification:
+
+- explicit `install -> setup -> status/doctor -> use -> update/disable/uninstall` lifecycle;
+- durable installed runtime bundle rather than metadata-only `engine.mjs`;
+- default discovery/orchestration for Hermes, Claude Code, Codex, OpenCode, Gemini CLI and OpenClaw collectors;
+- real bounded collection/backfill with existing checkpoint/idempotency laws;
+- concrete bounded OpenRouter Models API pricing transport plus a Token-native HTTPS price-manifest transport;
+- primary owner read path composed through `PriceSnapshotStore -> CostEngine`, preserving ACTUAL / CALCULATED / UNKNOWN;
+- authorization is now mandatory when constructing a public `TokenReader`; scoped readers enforce an immutable host-supplied floor;
+- Gateway projection requires a host authorization envelope and remains read-only/Token-owned;
+- Dashboard projection consumes the same owner-backed cost truth;
+- workspace/task/Bot/Worker/Skill and related attribution remain telemetry only and never create authority;
+- deeper operational doctor/readiness with collector, pricing and calculated-cost readiness evidence;
+- update and uninstall preserve Token-owned canonical user state;
+- immutable local beta.1 tag/package/source archive/Git bundle produced;
+- GitHub Actions matrix remains Linux/macOS/Windows on Node 22/24.
+
+Local acceptance is green: **255/255 normal tests** and **3/3 release tests**, including clean packed installation.
+
+**Remaining external release evidence:** the canonical `aiverse-filmmakers/AI-Verse-Token` remote still needs to be created/pushed because the available GitHub connector does not expose repository creation. Therefore hosted GitHub Actions execution and remote tag/publication are not yet claimable. This is a distribution/repository-hosting step, not an open Token implementation gap.
+
+The original audit text below is retained as historical evidence of what alpha.1 lacked before this closure.
+
+
 **Component:** AI-Verse Token  
 **Package:** @ai-verse/token  
 **Reviewed local package:** 0.1.0-alpha.1  
