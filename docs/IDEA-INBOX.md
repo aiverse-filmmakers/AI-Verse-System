@@ -806,3 +806,126 @@ Promoted/current detail:
 
 - `components/ai-verse-brain/COMPONENT-SPEC.md`
 - `components/ai-verse-brain/QC.md`
+
+
+---
+
+## 2026-09-13 - Milestone stopping rule and real-world dogfood
+
+**Status:** PROMOTED
+
+A passed immutable acceptance gate must remain passed unless new evidence proves a real regression, security violation within the gate threat model, data-loss/corruption issue, authority/isolation failure, or broken supported install path.
+
+Future improvements do not retroactively make a passed dogfood milestone unfinished.
+
+The frozen OS + Brain + Memory + Skills + Data first-member beta is now treated as ready for controlled personal dogfood.
+
+Promoted to:
+
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+
+---
+
+## 2026-09-13 - Progressive onboarding and invisible complexity
+
+**Status:** ACCEPTED-INTENT
+
+AI-Verse should pass a "grandma test": a new user should receive useful help without understanding Brain, Memory, Data, Skills, Bots, workspaces, MCP or canonical ownership.
+
+First use should ask only the minimum needed to begin safely, then learn progressively during real work.
+
+The system may propose Memories, Workspaces, Skills, Data schemas, Automations, durable Bots or temporary Workers when repeated evidence justifies them. Complexity remains inspectable for advanced users but hidden by default.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
+## 2026-09-13 - Thin AI-Verse Shell/Gateway before full Dashboard
+
+**Status:** ACCEPTED-INTENT
+
+Do not wait for the final native Dashboard before dogfooding the system.
+
+The next interface milestone should be a small conversational AI-Verse Shell/Gateway over existing owner boundaries, with workspace binding, run state, approvals, cancellation and Brain/Memory/Skills/Data composition.
+
+Where practical it should expose an OpenAI-compatible agent endpoint so an existing frontend such as Open WebUI can serve as a temporary user interface while the final Dashboard is informed by real usage.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
+## 2026-09-13 - Explicit host agent-loop contract
+
+**Status:** ACCEPTED-INTENT
+
+Every runtime publicly claimed as AI-Verse-compatible should prove an equivalent execution-loop contract covering intake, context assembly, model/tool execution, authorization, budgets, cancellation, pause/resume, retries, idempotency, checkpointing around side effects, no-progress protection, completion verification and receipts.
+
+A user-facing `/goal` surface should map to Brain-owned intent/objective state rather than create a parallel goal store.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
+## 2026-09-13 - MCP as a first-class bidirectional interoperability surface
+
+**Status:** ACCEPTED-INTENT
+
+AI-Verse should support both:
+
+- consuming approved external MCP servers through Connections/host policy;
+- exposing selected bounded AI-Verse capabilities to external compatible agents through MCP without exposing raw internal stores or credentials.
+
+Speaking MCP does not imply trust. Admission, identity/origin, capability mapping, tool-list change detection, tool-result trust, prompt-injection/tool-poisoning defenses, least privilege, rate limits, approvals and final-edge authorization remain mandatory.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
+## 2026-09-13 - Security is a release dimension
+
+**Status:** ACCEPTED-INTENT
+
+Security must be gated by the deployment threat model rather than deferred until the end.
+
+Local single-user dogfood may use a narrower loopback-first threat model. Remote/closed/public releases require progressively stronger authenticated identity, secure transport, secret brokering, sandbox/tool policy, browser/network controls, rate limits, supply-chain admission, security auditability, backup/recovery and red-team/regression coverage.
+
+Model instructions must never substitute for executable permission enforcement.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
+## 2026-09-13 - Controlled self-improvement promotion pipeline
+
+**Status:** ACCEPTED-INTENT
+
+AI-Verse should improve repeated work, but no privileged production behavior should silently rewrite itself.
+
+The intended loop is:
+
+`observe -> propose -> identify owner -> candidate version -> isolated test/eval -> compare -> approve by risk -> promote -> monitor -> rollback/compensate`.
+
+This applies to Skills, prompts/instructions, workspace structure, Data schemas through migration, Brain strategy within its allowed bounds, Bot definitions, automations and Apps.
+
+A 3-5 minute interval may trigger reflection during long work, but time alone must not automatically promote changes.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
