@@ -965,3 +965,41 @@ A future monorepo is optional and should be chosen for developer-maintenance rea
 Promoted/current detail:
 
 - `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+
+
+---
+
+## 2026-09-13 - Gateway and Automations become first-class repositories
+
+**Status:** ACCEPTED-INTENT
+
+The public-beta synthesis identifies two concepts large enough to need dedicated implementation ownership:
+
+- **AI-Verse-Gateway** for user/client/runtime ingress, run-loop transport/control, streaming, approvals/cancellation and remote client security without domain-truth ownership.
+- **AI-Verse-Automations** for schedules, triggers, recurring jobs, wake delivery, retries/recovery and automation-run lifecycle.
+
+MCP, Goals, Self-learning, Agent Loops, Security, Identity/RBAC and Evals do not get separate repositories at this stage.
+
+Promoted/current detail:
+
+- `docs/PUBLIC-BETA-EXECUTION-PLAN.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
+## 2026-09-13 - Standard install/setup language for every component
+
+**Status:** PROMOTED
+
+All current and future components should converge on one product vocabulary:
+
+`install -> setup -> status -> doctor -> enable/disable -> update -> uninstall`
+
+Component-specific semantics remain owner-controlled and setup must not silently transfer authority.
+
+The product-level `aiverse` CLI will wrap existing native commands rather than forcing mature components to rewrite their internals solely for naming consistency.
+
+Promoted to:
+
+- `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`
+- `docs/PUBLIC-BETA-EXECUTION-PLAN.md`
