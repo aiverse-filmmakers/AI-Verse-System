@@ -1,5 +1,16 @@
 # AI-Verse Public Beta Execution Plan
 
+## Token remote release closure
+
+**Updated:** 2026-09-13
+
+Token's canonical repository is now live at `aiverse-filmmakers/ai-verse-token`.
+
+The current public-beta release is `@ai-verse/token@0.1.0-beta.2` at commit `8b24891cd9c230e191b2637b6db2122b3dd9984d`, tagged immutably as `v0.1.0-beta.2`.
+
+Hosted GitHub Actions run **34776309959** passed the complete six-leg release matrix on Ubuntu, macOS and Windows using Node 22 and Node 24. The Token track's former remote-repository and hosted-CI release blocker is closed.
+
+
 ### Token current status
 
 **Updated 2026-09-13:** the exact audited `@ai-verse/token@0.1.0-alpha.1` artifact was recovered and restored without reconstructing missing Git history. A `0.1.0-beta.1` implementation now closes the planned Token operational gaps: setup/activation, durable runtime materialization, default local collector orchestration and actual collection, concrete pricing transport, ACTUAL/CALCULATED/UNKNOWN primary reads, mandatory host/local-owner read authorization, deeper doctor/readiness, Gateway/Dashboard owner projections, Multiple Bots attribution boundaries, and state-preserving lifecycle behavior.
