@@ -8,6 +8,25 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-13
 
+### Added benchmark-first design and unified distribution direction
+
+**Date:** 2026-09-13  
+**Type:** product methodology / distribution UX
+
+Recorded two new system-level directions:
+
+- important agent behaviors such as goals and self-learning must be researched across leading existing implementations before AI-Verse defines its own version;
+- normal users should eventually install AI-Verse through one distribution/setup experience even if components remain separate repositories internally.
+
+The first benchmark set explicitly includes Codex, Hermes and OpenClaw for persistent goals, and Hermes, OpenClaw and Letta for self-learning/Skill evolution.
+
+Canonical detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/IDEA-INBOX.md`
+
+
 ### Added dogfood, UX and platform-completeness contract
 
 **Date:** 2026-09-13  
