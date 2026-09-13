@@ -929,3 +929,39 @@ Promoted/current detail:
 
 - `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
 - `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+
+---
+
+## 2026-09-13 - Benchmark-first feature synthesis
+
+**Status:** ACCEPTED-INTENT
+
+Important AI-Verse behaviors should not be invented from one user request when mature systems already implement the same concept.
+
+For features such as persistent goals, self-learning, skill improvement, agent loops, cadence, approvals, MCP, sandboxing, onboarding and remote execution, first compare the strongest existing implementations, extract common primitives/failure modes and then synthesize the AI-Verse version.
+
+Current concrete examples:
+
+- `/goal`: compare Codex, Hermes and OpenClaw;
+- self-learning/Skill improvement: compare Hermes, OpenClaw and Letta.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+
+---
+
+## 2026-09-13 - Unified AI-Verse distribution and component UX
+
+**Status:** ACCEPTED-INTENT
+
+Normal users should eventually install AI-Verse as one product rather than manually install ten repositories.
+
+The internal repositories may remain independent. A distribution/meta-installer should pin compatible versions, orchestrate component-owned install/adopt/init steps, run final readiness checks and expose one consistent component command vocabulary.
+
+A future monorepo is optional and should be chosen for developer-maintenance reasons, not because one-line installation requires it.
+
+Promoted/current detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
