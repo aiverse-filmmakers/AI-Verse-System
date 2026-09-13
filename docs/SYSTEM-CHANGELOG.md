@@ -8,6 +8,41 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-13
 
+### Benchmarked and fixed the public-beta Goal and self-learning contracts
+
+**Date:** 2026-09-13  
+**Type:** benchmark synthesis / public-beta behavior / security and lifecycle contract
+
+Added:
+
+- `docs/GOALS-BENCHMARK-AND-CONTRACT.md`
+- `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md`
+
+Research covered current Hermes, OpenClaw, OpenAI Codex, Letta and Prime Agent behavior, including current failure evidence where it exposed race, cost, duplicate, authority or background-mutation risks.
+
+Decisions:
+
+- Brain is the only canonical Goal owner; Gateway owns revocable, version-bound autonomous continuation;
+- every autonomous turn must re-check Brain state and current authority, preventing paused/stale Goal continuations;
+- Goal completion requires current evidence and Brain verification, with deterministic gates only proving their declared scope;
+- waiting is distinct from blocked/paused and consumes no model turns;
+- repeated no-progress has an executable host circuit breaker;
+- self-learning defaults to `propose`;
+- Skills is the only canonical learned-Skill package/proposal/promotion owner;
+- automatic production changes must still create immutable Skill generations and pass admission/evals;
+- public-beta `auto` is limited to low-risk agent-learned content;
+- background learning authority is operation-scoped;
+- prompt-only duplicate avoidance and direct background production edits are explicitly rejected;
+- Memory remains evidence, Automations remains trigger/wake state, and Multiple Bots remains coordination only.
+
+Canonical detail:
+
+- `docs/GOALS-BENCHMARK-AND-CONTRACT.md`
+- `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/IDEA-INBOX.md`
+
+
 ### Defined public-beta repo boundaries and install/setup language
 
 **Date:** 2026-09-13  

@@ -1398,6 +1398,53 @@ Canonical detail:
 
 ---
 
+## 30E. Benchmarked Goal and self-learning contracts
+
+Fresh benchmark-first research on 2026-09-13 converted the earlier broad Goal and self-improvement intent into two canonical public-beta contracts:
+
+- `docs/GOALS-BENCHMARK-AND-CONTRACT.md`
+- `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md`
+
+### Persistent Goals
+
+The canonical design is now:
+
+- Brain owns the durable Goal object, completion contract, lifecycle and verification verdict;
+- a Gateway session may bind to one active execution Goal at a time without becoming a Goal store;
+- Gateway owns bounded continuation and must revalidate a revocable lease against the current Brain goal_id, version and activation epoch before every autonomous turn;
+- pause, cancel, supersede or execution-invalidating edit revokes old continuation leases;
+- completion requires current authoritative evidence and Brain verification, not merely the assistant's last response;
+- deterministic gates execute through Gateway/host under normal permissions and prove only their declared scope;
+- waiting consumes no model turns;
+- after the same no-progress condition reaches the bounded threshold, no further automatic turn may run until Brain classifies the state as waiting, blocked or paused;
+- the default public-beta autonomous window is 20 continuation turns per activation epoch;
+- Automations may deliver a durable wake only by reference to goal_id and an explicit wake policy;
+- Multiple Bots may contribute delegated evidence but cannot own or complete the Goal.
+
+This strengthens the existing "Brain owns goals" law without creating a new repository.
+
+### Self-learning Skills
+
+The canonical design is now:
+
+- Brain evaluates whether evidence warrants a reusable procedural improvement;
+- Memory owns historical evidence, not Skill bytes;
+- Skills owns proposals, immutable candidate/promoted generations, ownership/protection, admission, eval, promotion, curation and rollback;
+- Gateway may trigger foreground repair or detached post-run review;
+- Automations may trigger scheduled/idle curation but owns no Skill state;
+- public-beta learning mode defaults to `propose`;
+- `off` disables automatic reviews while explicit learning remains available;
+- `auto` is restricted to low-risk agent-learned, unprotected Skill revisions that pass every mandatory gate;
+- new active Skills, executable/dependency/permission-expanding changes, ownership changes, destructive deletion and changes to first-party/user/third-party Skills still require explicit approval in public beta;
+- background review authority is operation-scoped and cannot directly mutate active Skill bytes or destructive sibling-owner state;
+- every production change goes through Skills' immutable generation and promotion path;
+- prompt-only deduplication is insufficient; target binding, semantic duplicate checks and compare-and-set promotion are required;
+- no automatic hard purge is allowed.
+
+This narrows the earlier generic self-improvement intent into a concrete reusable-Skill contract. Broader improvements to prompts, schemas, Bots, Automations or Apps still require their own owner-specific proposal/evaluation/promotion paths.
+
+---
+
 ## 31. Final system conclusion
 
 AI-Verse is no longer primarily an architectural idea.

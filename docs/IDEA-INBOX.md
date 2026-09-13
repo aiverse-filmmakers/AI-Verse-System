@@ -1003,3 +1003,57 @@ Promoted to:
 
 - `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`
 - `docs/PUBLIC-BETA-EXECUTION-PLAN.md`
+
+---
+
+## 2026-09-13 - Benchmarked Persistent Goals contract
+
+**Status:** PROMOTED
+
+Fresh benchmark-first research across Hermes Persistent Goals, OpenClaw Goal, current OpenAI Codex Goal source/current failure evidence and Prime Agent established the exact AI-Verse Goal contract.
+
+Key promoted decisions:
+
+- Brain remains the only canonical Goal/intent owner.
+- Gateway owns autonomous continuation but stores only bindings/leases, not a second Goal.
+- every autonomous turn revalidates goal_id, Brain version, activation epoch, scope, authority and budget;
+- completion is an evidence-backed Brain verification transaction, not a judgment of the last assistant response;
+- waiting consumes no model turns;
+- repeated no-progress is host-circuit-broken;
+- Goal state is not a cron/task/standing-order substitute;
+- Automations may wake an explicitly eligible Goal by goal_id without copying Goal state;
+- Multiple Bots may coordinate delegated work but cannot complete the Brain Goal;
+- default public-beta continuation window is 20 turns per activation epoch.
+
+Promoted to:
+
+- `docs/GOALS-BENCHMARK-AND-CONTRACT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
+## 2026-09-13 - Benchmarked self-learning Skill lifecycle
+
+**Status:** PROMOTED
+
+Fresh benchmark-first research across Hermes /learn, /refine and Curator, OpenClaw Self-learning/Skill Workshop, Letta continual learning/Skills and Prime Agent continual harness established the exact AI-Verse self-learning contract.
+
+Key promoted decisions:
+
+- Brain evaluates improvement opportunities.
+- Memory owns historical evidence.
+- Skills owns reusable package proposals, immutable generations, admission/evals, promotion, protection, curation and rollback.
+- Gateway/Automations may trigger review but never own learned Skill state.
+- public-beta default mode is `propose`, not direct autonomous production editing;
+- `auto` is restricted to low-risk agent-learned content after all gates pass;
+- new active Skills, executable/permission-expanding changes and changes to user/first-party/third-party content require explicit approval;
+- background review permissions are owner- and operation-scoped;
+- duplicate prevention is executable, not prompt-only;
+- active generation bytes are never rewritten in place by learning;
+- automatic hard purge is forbidden.
+
+Promoted to:
+
+- `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
