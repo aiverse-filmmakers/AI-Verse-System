@@ -8,6 +8,37 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-13
 
+### Added benchmarked Goals and self-learning contracts
+
+**Date:** 2026-09-13  
+**Type:** benchmark-first feature contracts
+
+Created:
+
+- `docs/GOALS-BENCHMARK-AND-CONTRACT.md`
+- `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md`
+
+The Goal contract synthesizes current Codex, Hermes and OpenClaw behavior while keeping Brain as canonical Goal owner and Gateway/host as continuation executor.
+
+The self-learning contract synthesizes Hermes, OpenClaw and Letta while keeping Brain evaluation, Memory evidence, Skills package lifecycle and Gateway/Automations triggers separate.
+
+This resolves the dependency that previously blocked Brain implementation from proceeding safely.
+
+### Reset legacy Distribution repository for the current AI-Verse project
+
+**Date:** 2026-09-13  
+**Type:** distribution architecture reset
+
+The pre-current-project `aiverse-filmmakers/ai-verse-distribution` profile/package tree was retired from the active branch and replaced with the new Distribution foundation:
+
+- one-product installer/release-set/setup-orchestration role;
+- architecture and roadmap;
+- Core/Agent/Full/Custom profile definitions;
+- exact frozen five-component Core release-set evidence.
+
+The legacy implementation remains available through Git history and is explicitly non-canonical.
+
+
 ### Benchmarked and fixed the public-beta Goal and self-learning contracts
 
 **Date:** 2026-09-13  
