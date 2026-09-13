@@ -1356,6 +1356,48 @@ Detailed platform coverage and release gates live in `docs/DOGFOOD-UX-AND-PLATFO
 
 ---
 
+## 30D. Planned platform repositories and services
+
+The original ten audited component repositories remain the audited baseline, but the public-beta synthesis identifies two additional first-class implementation owners and one existing packaging owner.
+
+### AI-Verse-Gateway
+
+**Classification:** planned platform service / separate repository.
+
+Gateway is the user/client/runtime edge for AI-Verse. It owns transport/session/run ingress, runtime selection, streaming, control interrupts and remote-client security. It owns no sibling domain truth.
+
+It must remain distinct from:
+
+- Dashboard presentation;
+- Multiple Bots coordination Gateway internals;
+- Brain goal state;
+- Connections credential/external execution ownership.
+
+### AI-Verse-Automations
+
+**Classification:** planned canonical component / separate repository.
+
+Automations closes the scheduler/cadence ownership gap. Brain may decide when cognition is useful and Multiple Bots may receive wake requests, but neither should own the universal scheduler.
+
+Automations owns schedules/triggers/jobs, wake execution policy, retry/recovery and automation-run lifecycle without becoming Brain or Multiple Bots.
+
+### ai-verse-distribution
+
+**Classification:** existing repository, repurpose rather than recreate.
+
+This becomes the one-product installer/version-set/setup layer. It hides repository/package diversity from normal users while preserving component-owned lifecycle and authority.
+
+### Not separate repositories now
+
+MCP, Goals, Self-learning, Agent Loops, Security, Identity/RBAC and Evals remain protocol/features/contracts inside their canonical owners until evidence justifies an independent runtime/state owner.
+
+Canonical detail:
+
+- `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`
+- `docs/PUBLIC-BETA-EXECUTION-PLAN.md`
+
+---
+
 ## 31. Final system conclusion
 
 AI-Verse is no longer primarily an architectural idea.
