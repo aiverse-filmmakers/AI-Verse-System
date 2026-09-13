@@ -970,3 +970,115 @@ The desired experience is:
 The internal architecture remains inspectable for advanced users and developers.
 
 The default user should not have to operate it like an infrastructure engineer.
+
+
+---
+
+## 16. Benchmark-first feature design
+
+AI-Verse should not invent important agent behaviors from a single user idea or a single reference implementation.
+
+When a desired feature already exists elsewhere, the required design process is:
+
+1. identify the concrete feature requested;
+2. inspect the original implementation that motivated the request;
+3. inspect the strongest comparable implementations in other serious systems;
+4. identify shared primitives, control surfaces, persistence model, failure modes, security tradeoffs and UX;
+5. separate copied convention from AI-Verse-specific ownership constraints;
+6. design the AI-Verse version as a synthesis of the strongest compatible patterns;
+7. record which systems influenced each adopted choice;
+8. build only after the comparison is complete.
+
+Examples that require this process include:
+
+- persistent goals / `/goal`;
+- self-learning and self-improving Skills;
+- post-turn/background reflection;
+- memory learning;
+- agent loops;
+- cron/heartbeat/cadence;
+- subagents and durable Bots;
+- MCP usage;
+- approval models;
+- sandboxing;
+- remote gateways;
+- onboarding;
+- skill marketplaces/workshops.
+
+Current benchmark examples:
+
+- persistent goals: Codex Goal mode, Hermes Persistent Goals, OpenClaw Goal;
+- self-learning: Hermes background review + curator, OpenClaw Skill Workshop/self-learning, Letta self-editing memory/skills/harness;
+- durable runtime loops/checkpoints: OpenClaw agent loop, LangGraph persistence/interrupts, Codex/Hermes goal loops;
+- Skills governance: Hermes Skill approval/curator, OpenClaw Workshop proposal/auto modes, Letta learned/pre-made Skills.
+
+This is a methodology rule, not a requirement to copy implementation code or licensing-restricted source.
+
+## 17. Unified installation and adoption UX
+
+The internal component architecture may remain modular and independently versioned while the user experiences one product.
+
+The target public UX is:
+
+```text
+install AI-Verse once
+-> run setup
+-> choose a profile such as Core / Full / Custom
+-> installer fetches exact compatible component versions
+-> components install through their own owner-controlled lifecycle
+-> AI-Verse adopts/initializes them
+-> one final doctor/readiness check
+-> start working
+```
+
+A future distribution command may resemble:
+
+```text
+aiverse install
+aiverse setup
+```
+
+or one bootstrap command that installs the AI-Verse CLI and launches setup.
+
+Component-level expert commands should still follow one consistent wrapper vocabulary where applicable:
+
+```text
+aiverse component install <name>
+aiverse component adopt <name>
+aiverse component status <name>
+aiverse component doctor <name>
+aiverse component enable <name>
+aiverse component disable <name>
+aiverse component detach <name>
+aiverse component uninstall <name>
+aiverse component migrate <name>
+```
+
+The wrapper delegates to each component's canonical lifecycle. Not every verb must apply to every component.
+
+For example:
+
+- Skills may use dynamic discovery rather than attachment;
+- Data initialization is workspace-specific;
+- Brain strategic handover remains separate from ordinary adoption.
+
+### Distribution architecture
+
+Do not require a monorepo merely to achieve one-line installation.
+
+Preferred direction:
+
+```text
+AI-Verse distribution/meta-package
+          |
+          +-- pins compatible OS
+          +-- pins Brain
+          +-- pins Memory
+          +-- pins Skills
+          +-- pins Data
+          +-- optionally Multiple Bots / Token / Connections / Apps / Dashboard
+```
+
+This preserves independent component development, rollback and portability while hiding installation complexity from normal users.
+
+A physical monorepo may still be chosen later for developer-maintenance reasons, but it should not be necessary for the user experience.
