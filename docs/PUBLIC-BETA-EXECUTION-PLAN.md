@@ -121,13 +121,23 @@ Canonical evidence:
 - `components/ai-verse-automations/SOURCE-MAP.md`
 - `components/ai-verse-automations/QC.md`
 
-### Existing repository to repurpose: ai-verse-distribution
+### Canonical repository: ai-verse-distribution
 
 Do not create another installer repository.
 
-Repurpose the existing repository into the one-product distribution/meta-installer described by `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`.
+The existing repository has now been repurposed into the canonical one-product Distribution/meta-installer described by `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`. The earlier profile/package lineage remains preserved in Git history rather than becoming current product truth.
 
-Its current legacy profile-package material should be preserved as historical evidence or migrated deliberately, not silently overwritten.
+**Core Distribution acceptance (2026-09-13):**
+
+- PR #1 merged as `116aa2d74bb55c4ee00bf6139e98bb345b516b8a`;
+- accepted release set: `core-public-beta-2026-09-13`;
+- exact Core refs: OS `9600929b946746c25c64e48471fcc83031fddda9`, Brain `80019be5e6df29aee70371544bd96cedbf0329b9`, Memory `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`, Skills `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`, Data `189b13264ab86115d2f21fee3ba8cd5a8dac6581`;
+- Distribution CI run `34782949282` passed all 6 Ubuntu/macOS/Windows × Python 3.9/3.12 jobs on the final PR head;
+- Core clean-machine run `34782949287` passed Ubuntu job `103793852607`, macOS job `103793852290`, and Windows job `103793852407`;
+- the frozen Data source remains immutable and is made reproducible through the Distribution-owned companion dependency lock;
+- Core Distribution/meta-installer is accepted independently of Agent.
+
+Agent remains blocked. Gateway, Automations and Token have accepted candidates, while Multiple Bots is complete through Phase 5.9 with Phase 5.10-5.14 and final composed Agent acceptance still outstanding.
 
 ## 3. No new repository required
 
@@ -277,7 +287,7 @@ Data remains frozen unless a real regression/public-beta requirement is demonstr
 
 ### Track C: one-product distribution
 
-Repurpose `ai-verse-distribution` around the standard install/setup contract.
+**CORE TARGET COMPLETE.** `ai-verse-distribution` is the accepted Core meta-installer at merge `116aa2d74bb55c4ee00bf6139e98bb345b516b8a`. Agent release-set promotion remains a later gate and must stay blocked until its complete immutable set and composed acceptance exist.
 
 ### Track D: secure interoperability
 
@@ -332,7 +342,9 @@ Completed prerequisites:
 - `aiverse-filmmakers/AI-Verse-Automations` is now populated as the canonical scheduler/trigger/runtime owner; current head is `494469a496d479cfec618bcd9511033c0cd3e815`, with two successful 9-job hosted cross-platform CI runs covering the implementation publication and current evidence head.
 - `docs/GOALS-BENCHMARK-AND-CONTRACT.md` exists and is canonical.
 - `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md` exists and is canonical.
-- `aiverse-filmmakers/ai-verse-distribution` has been reset from the pre-current-project profile experiment and restructured as the current Distribution/meta-installer foundation.
+- `aiverse-filmmakers/ai-verse-distribution` PR #1 is merged as `116aa2d74bb55c4ee00bf6139e98bb345b516b8a`; Core Distribution is accepted through final-head CI run `34782949282` and three-platform clean-machine run `34782949287`.
+- the accepted Core release set is `core-public-beta-2026-09-13` with exact refs OS `9600929b946746c25c64e48471fcc83031fddda9`, Brain `80019be5e6df29aee70371544bd96cedbf0329b9`, Memory `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`, Skills `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`, and Data `189b13264ab86115d2f21fee3ba8cd5a8dac6581`.
+- Distribution Agent remains blocked until Multiple Bots completes Phase 5.10-5.14 and the complete Agent release set passes composed acceptance.
 - the old Distribution tree remains available through Git history but is not current product truth.
 
 This unblocks Brain and Skills public-beta implementation against real benchmarked contracts rather than guessed behavior.
