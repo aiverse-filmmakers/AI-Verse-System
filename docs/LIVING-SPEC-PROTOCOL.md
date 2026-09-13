@@ -208,9 +208,11 @@ It should record:
 
 The changelog is not a substitute for updating the canonical spec.
 
-## Supreme blueprint maintenance
+## Final blueprint maintenance
 
-After the final supreme blueprint is created, it also becomes living.
+The canonical final system blueprint is `docs/FINAL-AI-VERSE-BLUEPRINT.md`.
+
+It is living and must evolve with the rest of AI-Verse.
 
 Whenever a change affects:
 
@@ -223,7 +225,7 @@ Whenever a change affects:
 - host/runtime portability;
 - system-wide definition of done;
 
-the supreme blueprint must be updated as part of the same documentation change.
+`docs/FINAL-AI-VERSE-BLUEPRINT.md` must be updated as part of the same documentation change.
 
 ## Agent/contributor instruction
 
