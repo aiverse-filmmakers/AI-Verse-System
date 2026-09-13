@@ -74,6 +74,8 @@ The blueprint defines:
 
 The detailed component specs remain authoritative for component-local evidence. The Final AI-Verse Blueprint is the canonical system-level synthesis.
 
+For the practical answer to what can be used now, what interface to use, progressive onboarding, security/MCP/runtime-loop coverage and the staged product gates, see `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`.
+
 See `docs/MASTER-PLAN.md` for the audit methodology and synthesis process.
 
 This repository remains canonical after the blueprint baseline. The blueprint and component specs must evolve whenever the system evolves.
