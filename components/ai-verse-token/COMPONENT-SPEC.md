@@ -1,5 +1,27 @@
 # AI-Verse Token Component Specification
 
+## Remote public-beta release closure
+
+**Update date:** 2026-09-13  
+**Canonical repository:** `aiverse-filmmakers/ai-verse-token`  
+**Current public-beta package:** `@ai-verse/token@0.1.0-beta.2`  
+**Canonical main:** `8b24891cd9c230e191b2637b6db2122b3dd9984d`  
+**Immutable tag:** `v0.1.0-beta.2`
+
+The canonical remote repository has now been restored from the verified alpha.1 provenance line and completed beta implementation. The original `artifact-0.1.0-alpha.1` and `v0.1.0-beta.1` tags remain immutable. Beta.2 fixes only the hosted Windows portability defects exposed by real CI and does not weaken or move the beta.1 provenance.
+
+Hosted GitHub Actions run **34776309959** passed all six declared matrix legs:
+
+- Ubuntu, Node 22: PASS
+- Ubuntu, Node 24: PASS
+- macOS, Node 22: PASS
+- macOS, Node 24: PASS
+- Windows, Node 22: PASS
+- Windows, Node 24: PASS
+
+The prior external repository/hosted-CI blocker is therefore closed. Token meets its requested public-beta operational implementation and cross-platform release gate.
+
+
 ## Public-beta restoration update
 
 **Update date:** 2026-09-13  
