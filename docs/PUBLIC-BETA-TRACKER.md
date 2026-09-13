@@ -38,24 +38,41 @@ Connections is not currently an Agent-profile blocker. Dashboard and Apps are no
 | Automations | public repo main `494469a...`; hosted CI green | PUBLIC-BETA REPO TARGET DONE | Final composed wake/delivery acceptance only |
 | Token | beta.3 main `23b7b8e...`; hosted CI green | PUBLIC-BETA REPO TARGET DONE | Freeze exact beta.3 ref/tag for Agent manifest |
 | Connections | PR #1 merged as `baaac641...`; v1 implementation exists; private-repo CI jobs fail before step 1 | IMPLEMENTED, REMOTE CI UNPROVEN | Fix Actions runner availability or run equivalent release proof; not Agent blocker |
-| Distribution | PR #1 at `7e5caf1...`; Distribution CI green; Core acceptance green on Ubuntu/macOS and fails only on Windows Data-host setup; companion Data lock implemented | ONE WINDOWS CORE BLOCKER | Refresh Core OS pin to include merged Windows Data-host fix `9600929...` if compatibility holds, rerun 3-platform Core gate, then merge PR #1 |
+| Distribution | PR #1 merged as `116aa2d...`; Core release `core-public-beta-2026-09-13`; final-head CI `34782949282` green 6/6; Core clean-machine `34782949287` green on Ubuntu/macOS/Windows | CORE DISTRIBUTION ACCEPTED | Keep Agent blocked until Multiple Bots remaining Phase 5 slices finish and the complete immutable Agent set passes composed acceptance |
 | Dashboard | Phase 2 Task 5 current | POST-AGENT-BETA | Do not use as current release blocker |
 | Apps | architecture seed only | POST-AGENT-BETA | Do not use as current release blocker |
+
+## Accepted Core Distribution evidence
+
+The canonical Core Distribution/meta-installer is accepted.
+
+- Distribution merge: `116aa2d74bb55c4ee00bf6139e98bb345b516b8a`
+- accepted release set: `core-public-beta-2026-09-13`
+- OS: `9600929b946746c25c64e48471fcc83031fddda9`
+- Brain: `80019be5e6df29aee70371544bd96cedbf0329b9`
+- Memory: `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`
+- Skills: `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`
+- Data: `189b13264ab86115d2f21fee3ba8cd5a8dac6581`
+- Distribution final-head CI: run `34782949282`, 6/6 green across Ubuntu/macOS/Windows and Python 3.9/3.12
+- Core clean-machine acceptance: run `34782949287`
+  - Ubuntu: job `103793852607` green
+  - macOS: job `103793852290` green
+  - Windows: job `103793852407` green
+
+This accepts the Core one-product install/setup/onboard/status/doctor/use lifecycle, immutable source verification, deterministic Data companion-lock packaging, state-preserving component lifecycle, and cross-platform clean-machine behavior. It does not release the Agent profile.
 
 ## Immediate critical path
 
 1. Finish Multiple Bots Phase 5.10 through 5.14 sequentially.
-2. Finish Distribution PR #1: refresh the Core release set to a compatible exact OS ref containing the merged Windows Data-host fix, rerun Core acceptance on Ubuntu/macOS/Windows, and merge once all three pass.
-3. Refresh Distribution Agent blockers to current Bots Phase 5.9+ truth.
-4. Freeze exact immutable refs for OS, Brain, Memory, Skills, Data, Gateway, Automations, Multiple Bots and Token.
-5. Promote the complete Agent release set in Distribution only when every required ref is accepted.
-6. Run the canonical final public-beta acceptance matrix across the composed Agent profile.
-7. Fix only genuine PUBLIC-BETA BLOCKER findings in their owning repositories.
-8. Freeze the final manifest and declare PUBLIC BETA READY only if the matrix passes.
+2. Freeze the final accepted Multiple Bots ref alongside the already accepted OS, Brain, Memory, Skills, Data, Gateway, Automations and Token refs.
+3. Promote the complete Agent release set in Distribution only when every required ref is accepted.
+4. Run the canonical final public-beta acceptance matrix across the composed Agent profile.
+5. Fix only genuine PUBLIC-BETA BLOCKER findings in their owning repositories.
+6. Freeze the final Agent manifest and declare PUBLIC BETA READY only if the matrix passes.
 
 ## Known CI infrastructure issue
 
-Current private repositories `AI-Verse-Connections` and `ai-verse-distribution` have GitHub Actions matrix jobs that terminate before executing step 1. This is not evidence that their tests failed in code; remote runner availability must be resolved or equivalent release evidence supplied.
+The remaining recorded runner-availability issue applies to `AI-Verse-Connections`, whose earlier private-repository jobs terminated before executing step 1. Distribution is public and its required hosted matrices now execute and pass.
 
 By contrast, public repositories including Brain, Memory, Skills, Multiple Bots and Token are receiving hosted runners.
 
