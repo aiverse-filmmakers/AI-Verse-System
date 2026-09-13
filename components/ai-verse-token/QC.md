@@ -1,5 +1,42 @@
 # AI-Verse Token QC
 
+## Public-beta closure verdict
+
+**Update date:** 2026-09-13
+
+**Implementation verdict:** PASS locally for the requested public-beta Token scope.  
+**Remote release evidence verdict:** PENDING canonical Token repository creation/push and hosted matrix execution.
+
+The alpha.1 gaps recorded by this QC have been closed in the restored `0.1.0-beta.1` implementation:
+
+1. operational setup/activation and a durable installed runtime bundle;
+2. built-in source discovery plus actual collector orchestration/backfill;
+3. concrete pricing transport;
+4. ACTUAL / CALCULATED / UNKNOWN primary read composition;
+5. mandatory explicit read authorization and immutable scope floors;
+6. operational doctor/readiness;
+7. Gateway owner projection and Dashboard owner-backed cost projection;
+8. Multiple Bots/workspace/task/Skill attribution without authority transfer;
+9. state-preserving update/uninstall/reinstall behavior;
+10. immutable local release artifacts and preserved provenance.
+
+Local evidence is **255/255 normal tests + 3/3 release tests**, including clean packed installation.
+
+The following laws remain enforced:
+
+- UNKNOWN never becomes zero;
+- actual zero remains real ACTUAL zero;
+- fetched pricing payloads cannot self-promote trust;
+- raw telemetry remains immutable;
+- attribution never grants permission;
+- projections never transfer Token ownership;
+- recurring scheduling remains outside Token.
+
+One item remains unverified rather than failed: hosted Linux/macOS/Windows CI. The workflow is present, but the connected GitHub tooling cannot create the missing `aiverse-filmmakers/AI-Verse-Token` repository, so no remote Actions run can yet exist.
+
+The detailed audit below records the alpha.1 state before this public-beta closure and should be read historically where it conflicts with this section.
+
+
 **Component:** AI-Verse Token  
 **Reviewed artifact:** `AI-Verse-Token-hardened-alpha.1.zip`  
 **Artifact SHA-256:** `4feb14ed9df2b82b7f4a07d571e77beda4afe695982e55b3dcfe0a7440588257`  

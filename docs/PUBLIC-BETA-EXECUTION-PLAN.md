@@ -1,5 +1,14 @@
 # AI-Verse Public Beta Execution Plan
 
+### Token current status
+
+**Updated 2026-09-13:** the exact audited `@ai-verse/token@0.1.0-alpha.1` artifact was recovered and restored without reconstructing missing Git history. A `0.1.0-beta.1` implementation now closes the planned Token operational gaps: setup/activation, durable runtime materialization, default local collector orchestration and actual collection, concrete pricing transport, ACTUAL/CALCULATED/UNKNOWN primary reads, mandatory host/local-owner read authorization, deeper doctor/readiness, Gateway/Dashboard owner projections, Multiple Bots attribution boundaries, and state-preserving lifecycle behavior.
+
+Local acceptance passes **255/255 normal tests plus 3/3 release tests**, including a clean packed install. Immutable source/package/Git-bundle artifacts and local tags exist.
+
+The remaining Token release step is external: create/push the canonical `aiverse-filmmakers/AI-Verse-Token` remote and run its configured Ubuntu/macOS/Windows Node 22/24 matrix. The current connected GitHub toolset cannot create a new repository, so hosted CI/public remote evidence must not be claimed yet.
+
+
 **Status:** Canonical execution plan  
 **Date:** 2026-09-13  
 **Goal:** Reach a coherent public-beta system before broad personal/member testing without reopening completed engines indefinitely.
