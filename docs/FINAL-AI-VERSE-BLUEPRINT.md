@@ -448,7 +448,9 @@ Connections may separately report registered, configured, live-verified, authori
 
 ## 11. Current system state
 
-The audits show a system with strong core engines but incomplete product composition.
+The system now has a frozen five-component first-member beta for OS, Brain, Memory, Skills and Data. That exact-ref release has passed its technical acceptance gate and is suitable for controlled personal dogfood.
+
+This does not mean the ten-component end state is complete. It means the first usable core milestone has passed and should not be reopened merely because later capabilities can still improve.
 
 ### Core architecture: strong
 
@@ -462,7 +464,11 @@ The strongest implemented areas are:
 - Multiple Bots coordination engine;
 - Token accounting/telemetry engine.
 
-The largest gaps are increasingly around lifecycle, adoption, runtime composition, exact release artifacts and system acceptance rather than missing fundamental ideas.
+The largest remaining gaps are now product-shell, unified adoption UX, external action, observability/productization, security hardening for remote/public exposure and later-component implementation rather than missing fundamental core ideas.
+
+Canonical dogfood/product-completeness plan:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
 
 ### Product shell: earlier
 
@@ -480,9 +486,11 @@ This is intentional system truth and must not be hidden by aspirational language
 
 ### AI-Verse OS
 
-**CURRENT:** Functionally ready as the host architecture, with strong workspace isolation, ownership rules, dynamic core composition and permission floors.
+**CURRENT:** Functionally ready as the host architecture and part of the frozen five-component first-member beta. The beta uses immutable commit refs and has passed the composed release acceptance gate.
 
-**GAP:** It is not yet a seamless complete operating product.
+**DOGFOOD VERDICT:** READY inside the frozen five-component beta.
+
+**GAP TO MATURE PRODUCT:** The system still lacks one unified user-facing adopt/reconcile/readiness experience and later platform surfaces.
 
 Primary blockers:
 
@@ -497,9 +505,11 @@ Primary blockers:
 
 ### AI-Verse Brain
 
-**CURRENT:** Strong deterministic intelligence layer with real native integration, policy intersection, verification, learning and reasoner portability.
+**CURRENT:** Strong deterministic intelligence layer with real native integration, policy intersection, verification, learning and reasoner portability. The exact hardened revision is part of the frozen five-component beta.
 
-**GAP:** Public-beta closure is incomplete.
+**DOGFOOD VERDICT:** READY in the supported frozen OS composition.
+
+**GAP TO MATURE PRODUCT:** Standalone-to-native adoption, strategy restoration, lifecycle symmetry and unified product UX remain broader-target work.
 
 Primary blockers:
 
@@ -513,9 +523,11 @@ Primary blockers:
 
 ### AI-Verse Memory
 
-**CURRENT:** Strong local-first historical memory engine with native OS mode, standalone mode, workspace-isolated recall, supersession and real legacy migration paths.
+**CURRENT:** Strong local-first historical memory engine with native OS mode, standalone mode, workspace-isolated recall, supersession and explicit legacy migration. Its frozen revision is part of the first-member beta.
 
-**GAP:** Near target but not complete.
+**DOGFOOD VERDICT:** READY in the supported frozen OS composition.
+
+**GAP TO MATURE PRODUCT:** Broader migration-handoff hardening, full lifecycle polish and future release/distribution improvements remain.
 
 Primary blockers:
 
@@ -528,9 +540,11 @@ Primary blockers:
 
 ### AI-Verse Data
 
-**CURRENT:** Mature structured-data engine with schemas, CRUD, relations, transactions, concurrency control, provenance, backups, migration frameworks and recovery mechanisms.
+**CURRENT:** Mature structured-data engine with schemas, CRUD, relations, transactions, concurrency control, provenance, backups, migration frameworks and recovery mechanisms. The post-audit hardening line is merged and the exact frozen revision passed the five-component acceptance gate.
 
-**GAP:** The engine is stronger than the current product path.
+**DOGFOOD VERDICT:** READY in the supported frozen OS composition, with workspace initialization remaining explicit by design.
+
+**GAP TO MATURE PRODUCT:** Unified adoption UX, broader standalone-state adoption and recovery-promotion UX remain.
 
 Primary blockers:
 
@@ -543,9 +557,11 @@ Primary blockers:
 
 ### AI-Verse Skills
 
-**CURRENT:** Core engine and OS provider integration are strong. Immutable generations, package pins, provider manifests, readiness and receipt validation are real.
+**CURRENT:** Core engine and OS provider integration are strong. Immutable generations, package pins, provider manifests, readiness and receipt validation are real. The frozen revision participates in the five-component beta through dynamic external-provider discovery.
 
-**GAP:** Trusted member/public distribution is not finished.
+**DOGFOOD VERDICT:** READY for controlled personal use in the frozen beta.
+
+**GAP TO BROAD PUBLIC DISTRIBUTION:** License/admission/security and broader runtime invocation acceptance remain separate release concerns.
 
 Primary blockers:
 
@@ -559,18 +575,24 @@ Skills is the strongest example of late adoption through dynamic provider discov
 
 ### AI-Verse Multiple Bots
 
-**CURRENT:** Strong coordination layer through Phase 4.8 with durable Bots, temporary Workers, Team Runs, leases, recovery and extensive tests.
+**CURRENT:** Phases 0 through 4 are complete. Phase 4.9 closed runtime/A2A interoperability with a 417/417 full suite and a separate 5/5 compatibility/evaluation gate.
 
-**GAP:** Current canonical milestone Phase 4.9 compatibility/evaluation is not complete.
+**DOGFOOD PRODUCT VERDICT:** NOT YET MEMBER-INSTALLABLE.
 
-Primary blockers:
+**NEXT:** Phase 5.1 simple install command/package.
 
-- Brain integration contract drift;
-- missing Data owner boundary;
-- remote/control-plane authentication before safe non-loopback exposure;
-- direct-message idempotency defect;
-- durable database schema migration/recovery hardening;
-- final member product lifecycle, release and acceptance.
+Phase 5 remains the productization layer for:
+
+- simple installation;
+- standalone and AI-Verse OS product modes;
+- setup/onboarding;
+- production doctor/health;
+- upgrade/migration;
+- secure remote Gateway exposure;
+- Dashboard/channel surfaces;
+- approvals/attention UX;
+- observability;
+- full release acceptance.
 
 ### AI-Verse Connections
 
@@ -878,9 +900,11 @@ Core set:
 - Skills;
 - Data.
 
-Goal:
+**Status: BASELINE ACHIEVED FOR CONTROLLED DOGFOOD.**
 
-A clean immutable release where these five components can be installed in supported orders, adopted by an existing system, preserve/migrate state, expose truthful readiness, and pass exact-ref end-to-end acceptance.
+The frozen first-member beta uses exact immutable commit refs and has passed composed release acceptance across representative install orders and lifecycle cases.
+
+The next work on this horizon is product UX and broader maturity, not reopening the frozen technical gate.
 
 ### Horizon B: orchestration and observability expansion
 
@@ -961,29 +985,33 @@ Cross-component acceptance must run against the current supported lifecycle gene
 
 The system should now be completed in dependency-safe layers.
 
-### Stage 1: close the five-component core seam
+### Stage 1: dogfood the frozen five-component core
 
-1. Finish OS generic component lifecycle contract.
-2. Finish safe apply/reconcile orchestration.
-3. Finish canonical owner write handlers.
-4. Standardize readiness/health envelope.
-5. Close Brain lifecycle/release/rollback/adoption gaps.
-6. Close Memory write-containment and migration-handoff gaps.
-7. Close Data native adoption/migration/recovery promotion.
-8. Close Skills licensing/admission/member-release blockers.
-9. Run exact immutable five-component acceptance across supported install orders.
-10. Freeze a member-beta release set with exact versions.
+1. Install the exact frozen beta in a clean dogfood root.
+2. Use it for real work through Claude Code or Codex.
+3. Record friction from actual use.
+4. Fix only D0 blockers: safety, data loss, broken acceptance or unusable daily workflow.
+5. Preserve the passed frozen release gate.
 
-### Stage 2: finish Multiple Bots current milestone
+### Stage 2: build the smallest AI-Verse Shell/Gateway
 
-1. Repair Brain lifecycle contract drift.
-2. Add the Data owner boundary.
-3. Complete Phase 4.9 compatibility/evaluation.
-4. Fix control-plane authentication and message idempotency.
-5. Add durable coordination-state schema migration/recovery.
-6. Prove integration against the released core set.
+1. Provide one conversational endpoint over the existing component boundaries.
+2. Add workspace selection, run state, cancellation and approvals.
+3. Compose Brain, Memory, Skills and Data without moving their ownership.
+4. Expose an OpenAI-compatible agent endpoint or equivalent client contract.
+5. Use an existing UI such as Open WebUI for temporary web access.
+6. Let real usage inform the final Dashboard.
 
-### Stage 3: operationalize Token
+### Stage 3: productize Multiple Bots
+
+1. Begin Phase 5.1 simple install command/package.
+2. Add setup/onboarding and production health.
+3. Add upgrade/migration and canonical coordination-state recovery.
+4. Harden remote Gateway authentication/authorization.
+5. Expose owner-safe Dashboard/channel control surfaces.
+6. Run full release acceptance against the frozen/current core.
+
+### Stage 4: operationalize Token
 
 1. Build explicit activation/bootstrap.
 2. Compose collectors into a usable source path.
@@ -993,7 +1021,7 @@ The system should now be completed in dependency-safe layers.
 6. Deepen doctor/readiness.
 7. Run real host acceptance and immutable release.
 
-### Stage 4: implement Connections v1
+### Stage 5: implement Connections v1
 
 1. Freeze exact v1 contracts.
 2. Implement portable registry/control plane.
@@ -1003,7 +1031,7 @@ The system should now be completed in dependency-safe layers.
 6. Add receipts, revoke/re-auth, idempotency and health.
 7. Prove late-install discovery and real provider acceptance.
 
-### Stage 5: complete Dashboard Phase 2 on owner contracts
+### Stage 6: complete Dashboard Phase 2 on owner contracts
 
 1. Build supported bootstrap and visual product path.
 2. Use owner-declared projections.
@@ -1012,7 +1040,7 @@ The system should now be completed in dependency-safe layers.
 5. Add stable system identity and reconnect/resync.
 6. Prove clean-machine and real user-path acceptance.
 
-### Stage 6: implement Apps v1
+### Stage 7: implement Apps v1
 
 1. Freeze ownership and stable manifest/lifecycle contract.
 2. Build package verification and lifecycle engine.
@@ -1021,7 +1049,7 @@ The system should now be completed in dependency-safe layers.
 5. Add preview/trust/update/rollback.
 6. Prove one real app end to end.
 
-### Stage 7: whole-system acceptance
+### Stage 8: whole-system acceptance
 
 Prove the ten-component family as one system:
 
@@ -1242,6 +1270,79 @@ Also governed by:
 - docs/LIVING-SPEC-PROTOCOL.md
 - docs/IDEA-INBOX.md
 - docs/SYSTEM-CHANGELOG.md
+
+---
+
+## 30A. Product-use and stopping rule
+
+AI-Verse now distinguishes a passed release gate from the larger future vision.
+
+A component or release that passed an explicit immutable acceptance gate remains passed unless new evidence shows a real regression, security violation within that gate's threat model, data-loss/corruption bug, authority/isolation failure, or broken supported install path.
+
+Future improvements belong to later milestones.
+
+The current practical dogfood plan is defined in:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+
+The immediate product strategy is:
+
+```text
+frozen five-component core
+-> real personal dogfood
+-> small AI-Verse Shell/Gateway
+-> temporary borrowed web UI
+-> productize Multiple Bots and Token
+-> secure Connections
+-> final native Dashboard and Apps
+```
+
+Do not wait for the complete Dashboard before testing the system.
+
+---
+
+## 30B. Progressive onboarding and invisible complexity
+
+The intended onboarding bar is the "grandma test."
+
+A normal new user should not need to understand component names or canonical ownership before receiving value.
+
+First use should ask only enough to:
+
+- understand the first useful outcome;
+- identify the working scope/source;
+- establish an initial approval/autonomy preference.
+
+The system should then learn progressively during real work and propose, when evidence warrants it:
+
+- Memories;
+- Workspaces;
+- Skills;
+- Data schemas;
+- Automations;
+- durable Bots;
+- temporary Workers.
+
+Complexity stays inspectable but hidden by default.
+
+A user-facing `/goal` or natural-language goal surface should map to Brain-owned intent/objective state rather than create another goal store.
+
+---
+
+## 30C. Agent-loop, MCP and security completeness
+
+The mature AI-Verse host contract must explicitly cover the agent execution loop: intake, context assembly, model selection, tool use, authorization, side effects, checkpointing, pause/resume, retries, cancellation, budgets, no-progress detection, completion verification, receipts and crash recovery where durability is claimed.
+
+MCP is a first-class interoperability target in both directions:
+
+- consume admitted external MCP capabilities through Connections/host policy;
+- expose selected owner-routed AI-Verse capabilities to compatible external agents without exposing internal databases or raw credentials.
+
+MCP-speaking code is not automatically trusted. Server identity, capability admission, tool-list change review, tool-result trust, prompt-injection/tool-poisoning resistance, least privilege and final-edge authorization remain mandatory.
+
+Security is a release dimension. Remote/public exposure must add authenticated principal identity, secure transport, secret brokering, sandbox/tool policy, rate limits, browser/network controls, supply-chain admission, auditability and security regression testing appropriate to the claimed threat model.
+
+Detailed platform coverage and release gates live in `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`.
 
 ---
 
