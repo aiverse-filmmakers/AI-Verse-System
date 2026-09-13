@@ -1,5 +1,24 @@
 # AI-Verse Token Source Map
 
+## Remote beta.2 source-of-truth closure
+
+**Update date:** 2026-09-13
+
+Canonical GitHub source now exists at `aiverse-filmmakers/ai-verse-token`.
+
+Current immutable release evidence:
+
+- package: `@ai-verse/token@0.1.0-beta.2`;
+- main commit: `8b24891cd9c230e191b2637b6db2122b3dd9984d`;
+- annotated tag: `v0.1.0-beta.2`;
+- annotated tag object: `c860bd45f8f31c5d6d8f981ab848252cae047eb7`;
+- tag target: `8b24891cd9c230e191b2637b6db2122b3dd9984d`;
+- hosted CI run: `34776309959`;
+- matrix result: 6/6 PASS across Ubuntu/macOS/Windows and Node 22/24.
+
+Historical provenance remains intact: `artifact-0.1.0-alpha.1` retains the exact recovered audited alpha.1 baseline, and `v0.1.0-beta.1` remains immutable rather than being retagged after Windows CI exposed test-harness portability defects.
+
+
 ## Public-beta implementation evidence
 
 **Update date:** 2026-09-13
