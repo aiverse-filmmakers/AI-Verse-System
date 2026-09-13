@@ -104,6 +104,23 @@ It must not own:
 - canonical business Data;
 - Memory.
 
+**Current implementation status (2026-09-13):**
+
+- the canonical repository now exists at `aiverse-filmmakers/AI-Verse-Automations`;
+- current head `494469a496d479cfec618bcd9511033c0cd3e815` implements the local single-user scheduler/trigger/runtime owner;
+- local implementation acceptance passed **27/27 tests**;
+- GitHub Actions CI run **34777167602** passed **9/9 jobs** for the exact published implementation tree across Ubuntu, macOS and Windows on Python 3.11, 3.12 and 3.13;
+- after the evidence-only documentation update, GitHub Actions CI run **34777316822** again passed **9/9 jobs** on current head;
+- the current runtime includes one-time/interval/timezone cron scheduling, event/webhook normalization, persistent replay/idempotency, pause/resume/run-now, retry/backoff/dead-letter, process-owner restart recovery, uncertain-effect `unknown` handling, OS permission re-check on every delivery attempt, Brain and Multiple Bots owner adapters, a replaceable Gateway wake boundary, lifecycle commands and read-only projections;
+- Automations does not create a second Brain, Memory, Skills registry, Bot task store, credential store, business Data store or Gateway session store;
+- no immutable tagged Automations release is claimed yet; Distribution version-set and whole-Agent-profile composed acceptance remain separate release gates.
+
+Canonical evidence:
+
+- `components/ai-verse-automations/COMPONENT-SPEC.md`
+- `components/ai-verse-automations/SOURCE-MAP.md`
+- `components/ai-verse-automations/QC.md`
+
 ### Existing repository to repurpose: ai-verse-distribution
 
 Do not create another installer repository.
@@ -255,8 +272,8 @@ Data remains frozen unless a real regression/public-beta requirement is demonstr
 
 ### Track B: create missing first-class runtime owners
 
-- Gateway.
-- Automations.
+- Gateway: implementation candidate exists locally, but canonical remote/release evidence is still pending.
+- Automations: **CURRENT canonical implementation complete for the local single-user public-beta target**; remaining work is immutable version-set packaging and whole-profile composed acceptance.
 
 ### Track C: one-product distribution
 
@@ -312,6 +329,7 @@ This is how AI-Verse stops cycling between "finished" and "unfinished."
 
 Completed prerequisites:
 
+- `aiverse-filmmakers/AI-Verse-Automations` is now populated as the canonical scheduler/trigger/runtime owner; current head is `494469a496d479cfec618bcd9511033c0cd3e815`, with two successful 9-job hosted cross-platform CI runs covering the implementation publication and current evidence head.
 - `docs/GOALS-BENCHMARK-AND-CONTRACT.md` exists and is canonical.
 - `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md` exists and is canonical.
 - `aiverse-filmmakers/ai-verse-distribution` has been reset from the pre-current-project profile experiment and restructured as the current Distribution/meta-installer foundation.
