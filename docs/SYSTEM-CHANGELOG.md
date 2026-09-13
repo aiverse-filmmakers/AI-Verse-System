@@ -8,6 +8,34 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-13
 
+### Added dogfood, UX and platform-completeness contract
+
+**Date:** 2026-09-13  
+**Type:** product-readiness / interface / security / interoperability synthesis
+
+Created `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md` to stop the infinite-audit loop and establish explicit release gates from personal dogfood through public platform maturity.
+
+Key changes:
+
+- recognized the frozen OS + Brain + Memory + Skills + Data release as controlled personal dogfood-ready;
+- updated Multiple Bots to Phase 4 complete with Phase 5.1 as the next product gate;
+- defined a milestone stopping rule so future improvements do not invalidate passed gates without regression evidence;
+- chose real dogfood before full Dashboard development;
+- established a thin AI-Verse Shell/Gateway plus borrowed web UI as the next interface MVP;
+- defined progressive "grandma test" onboarding and progressive autonomy;
+- added an explicit host agent-loop contract and `/goal` UX intent;
+- promoted MCP client/server interoperability with explicit tool-poisoning/trust boundaries;
+- defined local, remote-beta and public security gates;
+- defined a controlled self-improvement/Skill-promotion pipeline;
+- added a platform-completeness checklist covering identity, secrets, sandboxing, prompt injection, MCP, A2A, observability, evals, recovery, channels, RBAC and other commonly missed layers.
+
+Canonical detail:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/IDEA-INBOX.md`
+
+
 ### Created the canonical Final AI-Verse System Blueprint
 
 **Type:** final cross-component synthesis / living system blueprint
