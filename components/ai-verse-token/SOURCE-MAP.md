@@ -1,5 +1,51 @@
 # AI-Verse Token Source Map
 
+## Public-beta implementation evidence
+
+**Update date:** 2026-09-13
+
+The exact alpha.1 audit artifact was recovered and verified:
+
+- source ZIP SHA-256: `4feb14ed9df2b82b7f4a07d571e77beda4afe695982e55b3dcfe0a7440588257`;
+- packed alpha.1 TGZ SHA-256: `43545daa33922656889e4b5e4257e03f7ba7eaa573f13bc1cc361b938aa65abc`;
+- package identity: `@ai-verse/token@0.1.0-alpha.1`;
+- no `.git` metadata in the archive and no separate recoverable Git bundle.
+
+A restored Git lineage was created without inventing history:
+
+- `210ae2b3d12dc5ac9f10190d17a7652bfb0031cb`: untouched alpha.1 artifact import, tagged `artifact-0.1.0-alpha.1`;
+- `1811d719b7ba47c9e68a78f5b9217751a6306faa`: public-beta operational implementation, tagged `v0.1.0-beta.1`.
+
+Immutable beta.1 artifacts:
+
+- source ZIP SHA-256: `d5fad270396ab317fdeece1330d45e09f75af5ca9bf4560cd7fd5fb563501773`;
+- Git bundle SHA-256: `7cf04dbca22fcbf953219085b1222f89081586c93e173d6a39f3dbd0df0c7b24`;
+- npm TGZ SHA-256: `6a9b51c22eba5a99d2e3c0433f86a890539a27b0359c2cfe3183e7d0af697567`.
+
+New canonical implementation areas added in beta.1 include:
+
+- `src/runtime/`: setup, source discovery, collector orchestration, collection, pricing sync, status and doctor;
+- `src/pricing/transports.ts`: concrete bounded OpenRouter transport and generic Token-native HTTPS pricing manifest transport;
+- `src/read/authorization.ts`: mandatory explicit owner/scoped read authority with immutable scope-floor enforcement;
+- cost-aware `src/read/reader.ts` primary reads using Token pricing evidence and CostEngine;
+- `src/gateway/`: host-authorized owner-backed Gateway usage projection;
+- durable installed runtime materialization under the Token extension bundle;
+- expanded query attribution dimensions and Multiple Bots Skill/system/agent attribution;
+- `test/public-beta-runtime.test.mjs`: operational beta acceptance coverage.
+
+Local verification after closure:
+
+- TypeScript check: PASS;
+- normal tests: **255/255**;
+- release tests: **3/3**;
+- clean packed install: PASS;
+- package dry-run: PASS.
+
+The six-leg GitHub Actions matrix remains configured for Ubuntu/macOS/Windows on Node 22 and 24. Hosted execution is pending creation/push of the canonical Token remote.
+
+The original alpha.1 source map below remains useful historical archaeology and describes the pre-beta implementation state.
+
+
 **Component:** AI-Verse Token  
 **Audit date:** 2026-09-13  
 **Audit method:** `docs/AUDIT-METHODOLOGY.md`  
