@@ -8,6 +8,31 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-13
 
+### Published canonical AI-Verse Automations runtime
+
+**Date:** 2026-09-13  
+**Type:** implementation / ownership-gap closure
+
+Published and validated `aiverse-filmmakers/AI-Verse-Automations` as the CURRENT canonical cadence owner.
+
+Evidence:
+
+- current repository head `494469a496d479cfec618bcd9511033c0cd3e815`;
+- implementation publication preserved the exact locally tested tree `0749fdb4259b1d7e28715eb8e367f1642d43db4e`;
+- local implementation suite passed **27/27 tests**;
+- hosted CI run **34777167602** passed **9/9** Ubuntu/macOS/Windows, Python 3.11-3.13 jobs;
+- hosted CI run **34777316822** passed **9/9** jobs again after the evidence-only documentation update.
+
+The implementation owns schedules, triggers, occurrence identity, retry/dead-letter/recovery and bounded wake delivery while preserving OS permission authority and Brain/Multiple Bots/Gateway ownership boundaries.
+
+Canonical detail:
+
+- `components/ai-verse-automations/COMPONENT-SPEC.md`
+- `components/ai-verse-automations/SOURCE-MAP.md`
+- `components/ai-verse-automations/QC.md`
+- `docs/PUBLIC-BETA-EXECUTION-PLAN.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
 ### Added benchmarked Goals and self-learning contracts
 
 **Date:** 2026-09-13  
