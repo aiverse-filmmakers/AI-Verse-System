@@ -136,6 +136,16 @@ Normal upgrade, disable, detach, reinstall or component replacement must not sil
 
 Stateful components need explicit migration and authority-handoff rules.
 
+### LAW: benchmark before inventing mature agent behaviors
+
+When a desired agent behavior already exists in mature systems, AI-Verse should research multiple leading implementations before defining its own contract. The final design should synthesize compatible best patterns and documented failure lessons rather than extrapolate from one product or one prompt.
+
+### LAW: one product UX may wrap many internal components
+
+Independent repositories and install-order-safe components are implementation architecture. They do not require the user to install every repository manually.
+
+AI-Verse should ultimately expose one distribution/setup experience that pins compatible component versions and delegates lifecycle work to the owning components.
+
 ### LAW: portability must not weaken AI-Verse authority
 
 Brain, Memory, Skills, Data, Token and other portable components may work with compatible non-AI-Verse runtimes.
