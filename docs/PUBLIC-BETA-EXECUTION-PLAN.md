@@ -273,3 +273,17 @@ After this gate passes on immutable artifacts, new ideas become the next release
 - failed acceptance evidence.
 
 This is how AI-Verse stops cycling between "finished" and "unfinished."
+
+
+## 8. Current execution status
+
+**Updated:** 2026-09-13
+
+Completed prerequisites:
+
+- `docs/GOALS-BENCHMARK-AND-CONTRACT.md` exists and is canonical.
+- `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md` exists and is canonical.
+- `aiverse-filmmakers/ai-verse-distribution` has been reset from the pre-current-project profile experiment and restructured as the current Distribution/meta-installer foundation.
+- the old Distribution tree remains available through Git history but is not current product truth.
+
+This unblocks Brain and Skills public-beta implementation against real benchmarked contracts rather than guessed behavior.
