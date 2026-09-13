@@ -8,6 +8,26 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-13
 
+### Defined public-beta repo boundaries and install/setup language
+
+**Date:** 2026-09-13  
+**Type:** public-beta architecture / packaging / UX
+
+Added:
+
+- `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`
+- `docs/PUBLIC-BETA-EXECUTION-PLAN.md`
+
+Decisions:
+
+- create a future `AI-Verse-Gateway` repository;
+- create a future `AI-Verse-Automations` repository;
+- repurpose the existing `ai-verse-distribution` repository rather than create another installer;
+- keep MCP, Goals, Self-learning, Agent Loops, Security, Identity/RBAC and Evals inside their current canonical owners until an independent runtime/state owner is justified;
+- standardize product language around `install -> setup -> status -> doctor -> enable/disable -> update -> uninstall`;
+- define an Agent public-beta release gate and stop rule.
+
+
 ### Added benchmark-first design and unified distribution direction
 
 **Date:** 2026-09-13  
