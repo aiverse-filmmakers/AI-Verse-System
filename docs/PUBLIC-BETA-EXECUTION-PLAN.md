@@ -77,7 +77,7 @@ Existing Dashboard `apps/gateway` and Multiple Bots Gateway code must be treated
 
 This means Gateway architecture, repository publication, source-snapshot verification and cross-platform CI are materially closed. An immutable release tag/artifact is still a separate release step, and composed Goal continuation remains dependent on Brain publishing its canonical Goal-owner API.
 
-### New repository required: AI-Verse-Automations
+### Canonical repository: AI-Verse-Automations
 
 Reason:
 
@@ -270,9 +270,9 @@ Skills owns reusable Skill packages. Brain/Memory provide improvement evidence; 
 
 Data remains frozen unless a real regression/public-beta requirement is demonstrated.
 
-### Track B: create missing first-class runtime owners
+### Track B: first-class runtime owners
 
-- Gateway: implementation candidate exists locally, but canonical remote/release evidence is still pending.
+- Gateway: canonical repository publication and hosted cross-platform CI are materially closed; immutable release tagging and composed Goal continuation against Brain's canonical Goal-owner API remain separate gates.
 - Automations: **CURRENT canonical implementation complete for the local single-user public-beta target**; remaining work is immutable version-set packaging and whole-profile composed acceptance.
 
 ### Track C: one-product distribution
