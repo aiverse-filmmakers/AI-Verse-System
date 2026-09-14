@@ -459,7 +459,7 @@ Inspect:
 
 ## Slice 3.2 - Nate 0.7.109 -> candidate-latest compatibility matrix
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 3.1
 
 Compare every Nate-used surface.
@@ -941,6 +941,6 @@ Before any implementation work:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 3 / Slice 3.2 - Nate 0.7.109 -> v0.8.40 compatibility matrix  
-**Next:** Phase 3 / Slice 3.2 - Compare every Nate-used HyperFrames surface  
+**In progress:** Phase 3 / Slice 3.3 - Isolated HyperFrames v0.8.40 acceptance test  
+**Next:** Phase 3 / Slice 3.3 - Run Nate-relevant media/runtime acceptance without mutating AI-Verse-Skills  
 **Implementation authorization:** ACTIVE - owner said continue
