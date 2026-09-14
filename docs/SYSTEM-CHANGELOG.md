@@ -8,6 +8,46 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-14
 
+### Added AI-Verse Interface Designer composite capability
+
+**Date:** 2026-09-14  
+**Type:** Skills capability expansion / design orchestration / expert-provider integration
+
+Built and accepted the AI-Verse Interface Designer release candidate in `aiverse-filmmakers/AI-Verse-Skills` without creating a second Skill architecture.
+
+The candidate:
+
+- evolves the current catalog from 100 to 119 canonical capabilities while preserving all original 100 IDs;
+- adds one first-party `interface-designer` composite and 18 separately pinned expert design capabilities;
+- preserves existing design/creator capabilities with zero destructive removals;
+- routes by task scope and real delivery target rather than forcing React, Vercel, shadcn, Figma or another stack;
+- preserves imported expert methodology/taste in separate provider packages;
+- adds persistent project-local `DESIGN.md` rules, structural originality checks, scoped signature interaction, major-flow experience curves, state-based visual QA, scroll-state QA and separate mobile art direction;
+- requires rendered evidence for visual pass claims and reports blocked verification truthfully;
+- keeps fingerprint/design-history comparison inside the authorized project/workspace and forbids cross-member private history as a novelty constraint;
+- preserves the existing Skills security law that integrity, admission, trust, readiness and execution authorization are distinct;
+- keeps the future AI-Verse Video Editor separate, with `CODE_DRIVEN_VIDEO_MOTION_HANDOFF` failing closed until `video-editor` is actually registered.
+
+Final corrected release-candidate head:
+
+`a5068c2e8b1c581a721419c55282c03d900819a4`
+
+Acceptance:
+
+- Validate AI-Verse Skills: run `34885862726`, PASS;
+- Runtime Readiness: run `34885862743`, PASS across Linux/macOS/Windows and Python 3.9/3.12;
+- Full E2E Install: run `34885862596`, PASS through install, provider validation, setup, immutable update, rollback, uninstall and recovery.
+
+This does not rewrite the already frozen Agent Distribution release set in `PUBLIC-BETA-TRACKER.md`; it is a subsequent Skills capability evolution.
+
+Canonical detail:
+
+- `docs/AI-VERSE-INTERFACE-DESIGNER-IMPLEMENTATION-PLAN.md`
+- `components/ai-verse-skills/COMPONENT-SPEC.md`
+- `components/ai-verse-skills/SOURCE-MAP.md`
+- `components/ai-verse-skills/QC.md`
+
+
 ### Captured deferred privacy-safe friction feedback loop
 
 **Date:** 2026-09-14  
