@@ -252,6 +252,101 @@ Example: if Skills currently defaults to proposal-only creation of a new Skill, 
 
 ---
 
+
+## 9A. Context and memory intelligence direction
+
+AI-Verse should become better at deciding **how much context to load and how deeply to retrieve** without asking the user to manage memory, summaries, retrieval depth or graph structure.
+
+The owner wants long-lived AI-Verse installations to remain fast and intelligent even after years of conversations, workspaces, memories, Skills, Data and Bots.
+
+The preferred direction is a progressive context ladder:
+
+```text
+current task + current scope + recent raw context
+        -> tiny orientation map/catalog
+        -> relevant session/fold summaries
+        -> exact targeted owner records
+        -> bounded related-context expansion when useful
+        -> exact original source/evidence when precision requires it
+```
+
+Most ordinary turns should stop at the shallowest layer that is sufficient.
+
+Normal users should never be asked:
+
+- what recall depth to use;
+- whether to unfold context;
+- whether to load a memory graph;
+- whether to inspect a session digest;
+- whether to use summaries versus source;
+- which internal retrieval subsystem should answer.
+
+The runtime should choose automatically.
+
+### Lossless compression principle
+
+Long conversation history may be compressed into hierarchical summaries for working context, but compression must not destroy access to the original source.
+
+A summary is a navigation/orientation aid, not the final authority for exact-sensitive facts.
+
+For exact prices, numbers, dates, commands, paths, IDs, configuration, quotations, permissions or contractual/state-transition facts, AI-Verse should be able to descend to original authoritative evidence before relying on the answer.
+
+> **Summary is orientation. Source is evidence.**
+
+### Derived context, not duplicate truth
+
+Compact maps, catalogs, summary trees, relationship edges and retrieval indexes should remain derived/rebuildable wherever possible.
+
+They must not become competing canonical owners.
+
+The existing ownership model remains authoritative:
+
+- Memory owns historical memory;
+- Gateway owns live session/runtime context;
+- OS owns workspace/scope/current operating context;
+- Brain owns goals/strategy/evaluation;
+- Data owns structured current truth;
+- Skills owns executable capability packages;
+- Multiple Bots owns coordination identities/state.
+
+If a derived context artifact can be deleted and rebuilt from canonical owners, that is preferred.
+
+### Borrow ideas, not architectures
+
+External systems such as Kylon, Graft and Kilo may inspire improvements, but AI-Verse should adopt only ideas that measurably improve its existing design.
+
+Current desired candidates include:
+
+- Kylon-style hierarchical, reversible conversation folding and cheap branch/fork catalogs where they improve Gateway context scaling;
+- Graft-style compact orientation maps, source fingerprints, bounded relationship traversal and summary-to-source escalation;
+- Kilo-style session digests, selective consolidation/promotion and targeted recall before heavy historical retrieval.
+
+Do not import an external subsystem wholesale.
+
+Every borrowed mechanism must justify itself through lower context cost, better recall/accuracy, stronger continuity, safer recovery, better scalability or lower user-facing complexity.
+
+If a feature adds architecture without measurable benefit, reject it.
+
+### Long-term memory behavior
+
+AI-Verse should not remember everything indiscriminately.
+
+A healthy pattern is:
+
+```text
+normal conversation/work
+    -> bounded session continuity
+    -> concise session digest when useful
+    -> evaluate durable value
+    -> promote only useful historical facts/lessons/corrections/workflows
+    -> retain provenance and exact-source references
+```
+
+Transient chatter should remain transient.
+
+The system should become more useful over time without allowing memory volume to make retrieval progressively noisier or more expensive.
+
+
 ## 10. What the owner does not want
 
 Avoid product drift toward:
@@ -268,7 +363,11 @@ Avoid product drift toward:
 - destructive "self-improvement";
 - upgrades that risk user state;
 - technical correctness without a simple end-user path;
-- documentation that describes an aspiration as if it is already implemented.
+- documentation that describes an aspiration as if it is already implemented;
+- forcing users to understand retrieval depth, summary trees, fold cards, context maps or memory graphs;
+- another canonical graph/vector store merely because an external project uses one;
+- summarizing every trivial interaction or promoting every conversation into durable Memory;
+- context systems that become larger or more expensive than the problem they solve.
 
 ---
 
@@ -292,6 +391,23 @@ A user should not have to manually coordinate repositories.
 Distribution and release automation should assemble compatible component versions and preserve user state across updates.
 
 ---
+
+## 11A. Owner operating style and decision preferences
+
+When interpreting future product decisions, the recurring owner pattern is:
+
+- prefer **invisible usefulness** over visible configuration;
+- prefer extending/wiring existing canonical owners over creating new subsystems;
+- benchmark strong external implementations, then take only the parts that improve AI-Verse;
+- require implementation and acceptance evidence, not documentation-only claims;
+- prefer one bounded implementation slice at a time with persistent GitHub plans rather than relying on chat/agent memory;
+- allow intelligent internal optimization automatically when it is reversible and inside existing authority;
+- ask only at meaningful commitment, permission, recurring-autonomy, durable-actor, destructive or external-effect boundaries;
+- preserve modular repositories internally while presenting one coherent AI-Verse product externally;
+- optimize for a system that gets smarter and better organized through ordinary daily use without making the user become its administrator.
+
+A future agent should treat repeated corrections from the owner as product-direction evidence. When a newer explicit correction changes an older preference, update this file so stale chat history does not remain the de facto specification.
+
 
 ## 12. How to use this document in future work
 
@@ -323,6 +439,10 @@ As of this document's creation, the following product-intent areas require conti
 - runtime detection of recurring structured truth and automatic safe Data organization;
 - proposal/confirmation UX for new recurring Automations;
 - proposal/confirmation UX for durable permanent Bots;
-- final whole-product acceptance proving these behaviors through the real Distribution/Gateway product path.
+- final whole-product acceptance proving these behaviors through the real Distribution/Gateway product path;
+- progressive context retrieval that starts with tiny orientation and descends only as needed;
+- first-class session digests/selective durable promotion where useful;
+- lossless hierarchical conversation folding with exact-source recovery in Gateway if benchmarks prove it beneficial;
+- derived compact context maps/relationships only where they measurably improve retrieval without creating duplicate canonical truth.
 
 These are product gaps, not reasons to collapse component ownership or bypass permission/migration rules.
