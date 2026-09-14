@@ -865,7 +865,7 @@ For substantial interfaces, explicitly verify:
 
 ## Slice 9.1 - Orchestrator routing tests
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Add deterministic fixtures proving that representative requests trigger the correct specialists and skip irrelevant ones.
 
@@ -880,9 +880,17 @@ Required examples include:
 - Expo sheet interaction;
 - finished UI review.
 
+### Phase 9.1 evidence
+
+- canonical fixtures: `skills/imported/ai-verse/interface-designer/references/routing-fixtures.json`
+- accepted fixture ref: `ab22a670a45102d1bdcd330ff72f177280c03779`
+- required cases covered: tiny padding change, dashboard from scratch, screenshot recreation, draggable floating panel, React refactor, cinematic scroll landing page, Expo sheet interaction, finished UI review
+- each fixture records scope, target, conditions, expected stages/experts and forbidden stages/experts
+- Validate: PASS, run `34884056020`
+
 ## Slice 9.2 - Context/bloat tests
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Prove that:
 
@@ -1103,8 +1111,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 9 / Slice 9.1 - Orchestrator routing tests
-**Next:** Phase 9 / Slice 9.1 - Add deterministic routing fixtures
+**In progress:** Phase 9 / Slice 9.2 - Context/bloat tests
+**Next:** Phase 9 / Slice 9.2 - Prove progressive specialist loading
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
