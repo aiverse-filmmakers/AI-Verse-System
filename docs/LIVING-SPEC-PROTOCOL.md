@@ -22,6 +22,8 @@ Whenever a meaningful AI-Verse idea, plan, fix, lifecycle change, integration ch
 
 A future chat, agent or contributor should not need the original conversation to understand the latest intent.
 
+The canonical living record of the owner's recurring product direction, UX/autonomy preferences and corrections is `docs/OWNER-PRODUCT-INTENT.md`. When the owner materially clarifies how AI-Verse should behave, update that document and then propagate the consequence into the relevant contracts/blueprint/implementation plan.
+
 ## What counts as a documentation-triggering change
 
 Update AI-Verse-System whenever any of these happens:
@@ -231,16 +233,19 @@ Whenever a change affects:
 
 Before making or documenting a significant AI-Verse system change:
 
+For product-facing, UX, onboarding, autonomy, learning, workspace, Data, Skills, Bot, Automation or Distribution behavior, first read `docs/OWNER-PRODUCT-INTENT.md`. Treat it as product-direction authority, not proof that a behavior is already implemented.
+
 If the work is a component audit or re-audit, first read `docs/AUDIT-METHODOLOGY.md` and use its applicable lenses and completion checklist. Do not substitute an earlier component summary for a fresh source review.
 
-1. read the relevant component spec;
-2. read the relevant open ideas;
-3. inspect current implementation evidence;
-4. determine whether the change is CURRENT, INTENDED, GAP, HISTORICAL, LAW or INSPIRATION;
-5. make the implementation change in the owning repository if that is the task;
-6. update AI-Verse-System immediately afterward;
-7. update readiness/QC;
-8. append the system changelog.
+1. read `docs/OWNER-PRODUCT-INTENT.md` when the change is product-facing;
+2. read the relevant component spec;
+3. read the relevant open ideas;
+4. inspect current implementation evidence;
+5. determine whether the change is CURRENT, INTENDED, GAP, HISTORICAL, LAW or INSPIRATION;
+6. make the implementation change in the owning repository if that is the task;
+7. update AI-Verse-System immediately afterward;
+8. update readiness/QC;
+9. append the system changelog.
 
 ## Non-negotiable rule
 
