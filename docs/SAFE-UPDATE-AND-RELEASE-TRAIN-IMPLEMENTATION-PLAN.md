@@ -183,6 +183,18 @@ Schema has positive and negative fixtures/tests.
 - passing validation evidence;
 - commit/PR/workflow refs.
 
+### Evidence so far
+
+- schema: `contracts/component-release-descriptor.schema.json`
+- semantics doc: `docs/COMPONENT-RELEASE-DESCRIPTOR-CONTRACT.md`
+- validator: `scripts/validate_component_release_descriptor.py`
+- tests: `tests/test_component_release_descriptor.py`
+- fixtures: `contracts/examples/component-release-descriptor.valid.json`, `contracts/examples/component-release-descriptor.invalid-floating-ref.json`
+- workflow: `.github/workflows/contract-validation.yml`
+- System PR: #8
+- current PR head before this plan sync: `7e2255ca4cd73e0c7149f611f2195df07965818e`
+- hosted workflow evidence: pending; slice remains IN PROGRESS until validation passes.
+
 ## Slice 1.3 - Whole-release preservation result contract
 
 **Status:** NOT STARTED  
