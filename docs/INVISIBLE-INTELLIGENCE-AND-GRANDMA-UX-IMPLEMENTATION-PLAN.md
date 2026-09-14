@@ -119,7 +119,7 @@ Every slice records:
 
 ## Slice 1.1 - OS progressive onboarding
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-OS, then AI-Verse-System evidence sync  
 **Dependencies:** 0.1
 
@@ -146,9 +146,35 @@ Reuse the existing `onboard` capability, `ai-verse-os-intake.md`, existing direc
 - Brain-owned direction does not create parallel OS goals;
 - no architecture jargon required in normal flow.
 
+### Evidence
+
+- OS PR: #28
+- PR head: `a7548405a73247c10e4cb35dde7869f5eac3e39c`
+- merged OS SHA: `a21a44e7b78805b89a48f5c01f40ec0dc09fbd01`
+- focused test: `scripts/test-progressive-onboarding.mjs`
+- Repository QC run `34831174973`: success; focused progressive-onboarding step passed; adapter integration and real Skills-provider integration passed
+- CLI smoke run `34831175417`: success on Ubuntu, macOS and Windows
+- Five-Component Public Beta run `34831175138`: success for all three install-order scenarios
+- Four Repo Acceptance run `34831175093`: success
+- Data Host Boundary run `34831175025`: success
+- Direction Ownership run `34831174969`: success
+- OS Brain Permission Contract run `34831175124`: success
+- OS Write Command Boundary run `34831174931`: success
+
+### Accepted implementation
+
+- normal first use starts from a real request instead of forcing the seven-question intake;
+- when no task exists yet, the conversational prompt is "What would you like help with?";
+- missing intake facts are asked only when they block safety, scope, permission, external access, consequential action, strategic ownership or correct routing;
+- existing answers and canonical state are reused across restart;
+- the existing intake remains the resumable deep-intake record, with no new onboarding store;
+- the seven-question flow remains available as an explicit full/deep intake;
+- Brain-owned strategic direction remains protected;
+- runtime/CLI/README surfaces no longer present full intake as a prerequisite for first value.
+
 ## Slice 1.2 - Natural-language question gate
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-OS and Gateway only if current runtime surface requires it  
 **Dependencies:** 1.1
 
@@ -458,12 +484,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 1
+- COMPLETE: 2
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 20
+- NOT STARTED: 19
 
-**Current slice:** 1.1 - OS progressive onboarding  
-**Exact NEXT:** 1.1 - OS progressive onboarding  
+**Current slice:** 1.2 - Natural-language question gate  
+**Exact NEXT after current slice:** 2.1 - OS automatic workspace create/evolve primitive  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
