@@ -8,6 +8,36 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-14
 
+### Added canonical owner product intent and corrected invisible-autonomy UX
+
+**Date:** 2026-09-14  
+**Type:** product intent / UX / autonomy policy
+
+Created `docs/OWNER-PRODUCT-INTENT.md` as the persistent living record of the owner's recurring product direction so future agents do not have to reconstruct it from chat history.
+
+The document establishes the target distinction between automatic internal optimization and explicit user commitment:
+
+- repeated client/project context should create/evolve workspaces automatically when boundaries are clear;
+- repeated safe reusable workflows should become Skills automatically once owner-specific evaluation/security/rollback gates support it;
+- repeated structured operational truth should be organized into Data automatically when safe/additive;
+- temporary Workers may be used automatically inside existing authority;
+- new recurring Automations require user confirmation;
+- permanent durable Bots require user confirmation;
+- permission/credential/authority expansion, destructive operations and strategic handover remain explicit;
+- normal users should not need to understand technical subsystem names or manually invoke setup/doctor when a safe one-action first-run can hide them.
+
+Updated the Blueprint, lifecycle contract, Dogfood/Grandma UX contract, self-learning contract and Living Specification Protocol to reference and propagate this intent while keeping implementation status truthful.
+
+Canonical detail:
+
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md`
+- `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/LIVING-SPEC-PROTOCOL.md`
+
+
 ### Established permanent safe-update and state-preservation laws
 
 **Date:** 2026-09-14  
