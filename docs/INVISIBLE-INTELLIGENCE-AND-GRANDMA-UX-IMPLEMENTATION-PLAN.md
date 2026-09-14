@@ -272,11 +272,36 @@ The runtime may classify a clear substantial scope and request organization thro
 
 ## Slice 3.1 - Prove or close automatic safe Memory routing
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** Brain, Memory, Gateway as required by current implementation  
 **Dependencies:** 1.2
 
 Inspect current behavior first. Reuse current Memory evidence/provenance/supersession path. Implement only missing routing for stable facts/preferences/lessons that already meet Memory rules. Do not persist every utterance.
+
+### Evidence
+
+- Memory PR #11 merged at `1c6acf036d42937e57d94dfe48ac501727861653`
+- final Memory PR head: `d6cb7e50a1677ade023b2f046988f5aae9cb7aac`
+- Memory Test run `34834329680`: success across Ubuntu/macOS/Windows, Python 3.9 and 3.12, installer smoke, OS-update integration, and public-beta acceptance on all three OSes
+- Memory owner gate: `capture_candidate`, reusing canonical `write_atomic`, provenance/evidence refs, serialized mutation and durable `effect_id` idempotency
+- OS PR #31 merged at `ce7db254af18ee2f7e1c5bc5448d2d7540dab209`
+- final OS PR head: `0898d779a36ee741fc2829c879874af0f4a224c8`
+- OS Repository QC `34850675624`: success
+- OS Five-Component Public Beta `34850675678`: success
+- OS Four Repo Acceptance `34850675611`: success using accepted Memory SHA
+- OS Direction Ownership `34850675689`: success
+- OS Brain Permission Contract `34850675694`: success
+- OS Write Command Boundary `34850675728`: success
+- Gateway PR #4 merged at `7cc1617aeac6caefce627842f5bbe1620c960d5f`
+- final Gateway PR head: `b8f29641b8a7b4026d1dbcc369f9a3fb14c23171`
+- Gateway CI `34850849483`: success on Ubuntu, macOS and Windows, Node 20 and 22
+- Gateway injects trusted run provenance, evidence refs, retry identity and request fingerprint; runtime cannot supply those trusted fields
+- OS binds Memory candidate to the active operator/workspace scope; cross-workspace capture is rejected
+- automatic capture is limited to high-confidence durable historical evidence and fails closed on current truth, strategy, secrets, privacy ambiguity, permission expansion and unsupported types
+
+### Accepted implementation
+
+A normal run may propose a bounded historical Memory candidate through the existing action loop. Gateway supplies trusted provenance/idempotency, OS enforces current-scope routing, and Memory performs final deterministic admission through its existing canonical writer. Trivial turns and weak/current/unsafe candidates are not automatically persisted. No new Memory store, writer, post-task service, classifier service or routing database was introduced.
 
 ---
 
@@ -284,7 +309,7 @@ Inspect current behavior first. Reuse current Memory evidence/provenance/superse
 
 ## Slice 4.1 - Skills safe new-Skill auto-eligibility
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-Skills  
 **Dependencies:** current self-learning contracts
 
@@ -537,12 +562,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 5
+- COMPLETE: 6
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 16
+- NOT STARTED: 15
 
-**Current slice:** 3.1 - Prove or close automatic safe Memory routing  
-**Exact NEXT after current slice:** 4.1 - Skills safe new-Skill auto-eligibility  
+**Current slice:** 4.1 - Skills safe new-Skill auto-eligibility  
+**Exact NEXT after current slice:** 4.2 - Brain/Gateway substantial-task learning trigger  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
