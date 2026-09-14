@@ -114,7 +114,7 @@ Every slice records:
 
 ## Slice 1.1 - Freeze update/state-preservation laws
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** 0.1
 
@@ -142,9 +142,18 @@ Canonical System contract explicitly defines:
 - PR and merged SHA;
 - changelog/blueprint updates required by Living Spec Protocol.
 
+### Evidence
+
+- canonical contract: `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md`
+- implementation commits on PR branch: `eb10ef9fdd7fbcc07e347976e8b558c2fe941dc5`, `dcf9ce9d2787d0ae04887f3b8735bdfdc90b5159`, `f9f41b0c449cfc9034ae621b39627ae58e1f03e5`, `ef38198e99dd1617eaf7044dc355f628b206e6cf`
+- System PR: #7
+- merged SHA: `88da0c7dbeb3e80dfe1ff24dfdfb3b51365afe27`
+- AI-Verse-System had no `.github/workflows` directory at this slice, so no hosted workflow existed to run; acceptance was repository-content verification plus merge.
+- Blueprint, install/setup lifecycle contract, and System changelog were updated in the same accepted PR.
+
 ## Slice 1.2 - Machine-readable Component Release Descriptor contract
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-System  
 **Dependencies:** 1.1
 
@@ -774,11 +783,11 @@ A feature is deliberately post-beta when it is not required to preserve update s
 # 4. Overall progress
 
 - Total planned slices: 34
-- COMPLETE: 1
+- COMPLETE: 2
 - IN PROGRESS: 1
 - BLOCKED: 0
-- NOT STARTED: 32
-- Project completion: 3%
+- NOT STARTED: 31
+- Project completion: 6%
 
-**Current slice:** 1.1  
-**Exact NEXT after current slice:** 1.2 - Machine-readable Component Release Descriptor contract.
+**Current slice:** 1.2  
+**Exact NEXT after current slice:** 1.3 - Whole-release preservation result contract.
