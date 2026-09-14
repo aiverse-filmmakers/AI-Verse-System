@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 4
+Complete: 5
 In progress: 1
 Blocked: 0
-Remaining after current: 20
-Current: B1
-Next after current: B2
+Remaining after current: 19
+Current: B2
+Next after current: C1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -381,7 +381,7 @@ Next after current: B2
 
 #### B1. Rebuildable Memory map/catalog projection
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: A2
@@ -394,12 +394,29 @@ Next after current: B2
   - stale topics/counts disappear after source removal/update.
 - Tests: size, isolation, rebuild equivalence, refresh, no-canonical-write.
 - Risks: map becoming a second truth source; over-detailed catalog.
-- Evidence: pending.
+- Evidence:
+  - Core repository: `aiverse-filmmakers/AI-Verse-Memory`.
+  - Core branch: `context-ladder/b1-orientation-map`.
+  - Core PR #15, merged 2026-09-14.
+  - Core PR head: `443b63c992c12909620205961fd1d6bf71a80c7a`.
+  - Core merge/main SHA: `3fceb2a41eb33db5aef539cc668470e1d43d74be`.
+  - Core PR Test run `34857742063`: success, 12/12 jobs green.
+  - Orientation projection is disposable SQLite derived from active atomic Memory metadata, refreshed indexed current-owner sources, and canonical session-digest projection.
+  - Projection contains compact routing metadata only: counts, Memory types, source kinds/routes, explicit tags/topics, and recent digest pointers. It does not copy atomic text, current-source bodies, digest summaries, or raw transcripts.
+  - Tests prove strict workspace/operator visibility, deterministic rebuild equivalence, projection deletion/rebuild recovery, stale signal removal after canonical changes, no canonical rewrites, and representative output more than 4x smaller than authoritative source bytes.
+  - Core post-merge run `34859761890` exposed a pre-existing serialized canonical-write lock weakness under Windows contention. B1 acceptance remained open until that owner-boundary weakness was resolved rather than accepting a flaky gate.
+  - PR #16 head `65158027b60b48c412e60502de99ab7a46b091d9`, merge `4f5d500d8b758433b1b67aa09983780ed6bae261`; PR run `34860235855` succeeded. Wait budget changed from total queue age to holder-progress age.
+  - PR #17 head `986e5aa2d744832f78fd2a37d8274fded33f126e`, merge `33dbcec3a257ed3bba4913968a1d30b0436951b3`; PR run `34867418069` succeeded. Healthy-holder wait was widened while retaining the stale-lock ceiling.
+  - PR #18 head `0c38b26218a6ee4ef5856d2bfeb902260f706d85`, merge `597cc9d04e9588c03360fcd284c8b053c5a0ed7a`; PR run `34867815048` succeeded. Synthetic progress timing was made scheduler-stable without changing production semantics.
+  - PR #19 head `bd90e6e1a4954d62281eacc3c9bd50aaf409bb15`, merge `d0452bb318ec5cffe00e3ecaf18d670ffc89d172`; PR run `34868413374` succeeded. Normal canonical mutations now incrementally synchronize changed atomic rows instead of rebuilding all derived SQLite state, with full canonical rebuild fallback when the disposable DB is absent.
+  - PR #20 head `7bb1a3044143c952e714ffbe85731488b001a79c`, merge/final Memory main `ced610cdacef0df50cc8ee16a4cf886240f257ce`; PR run `34869169369` succeeded 12/12. Lock semantics now use a bounded 120-second live-owner lease, 2-second dead-process grace, holder-progress reset, and the 600-second ambiguous stale-lock threshold.
+  - Final post-merge Memory main Test run `34869401845`: success, 12/12 jobs green across Linux/macOS/Windows, Python 3.9/3.12, installer smoke, public-beta acceptance, and OS update integration.
+  - Final accepted B1 Memory main: `ced610cdacef0df50cc8ee16a4cf886240f257ce`.
 
 #### B2. Catalog budget, freshness, and diagnostics
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: B1
 - Goal: fingerprint, cap, inspect, and safely rebuild the orientation map.
@@ -417,7 +434,7 @@ Next after current: B2
 #### C1. Versioned progressive recall API
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory
 - Dependencies: A2, B1-B2
 - Goal: add progressive depths equivalent to catalog/summary/detail/source while preserving legacy `recall()`.
@@ -806,16 +823,16 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **B1. Rebuildable Memory map/catalog projection**
+Current implementation slice: **B2. Catalog budget, freshness, and diagnostics**
 
-Do not start B2 until:
-- the orientation map is derived only from current authorized Memory/indexed-source/session-digest evidence;
-- map deletion/rebuild is lossless;
-- source removal/update removes stale map topics/counts;
-- canonical Memory/source files are never modified by map generation;
-- representative fixtures prove the map is materially smaller than underlying source content;
+Do not start C1 until:
+- the orientation map carries a deterministic source fingerprint that changes when authorized atomic/current-source/session-digest inputs change;
+- stale projection state is detected and safely refreshed/rebuilt rather than trusted;
+- a configured output budget is enforced deterministically;
+- diagnostics expose bounded bytes/token estimates/source counts/freshness without chain-of-thought or canonical content leakage;
+- deleting the projection and rebuilding yields equivalent truth;
 - full Memory CI is green;
-- B1 exact commit/PR/merge/run evidence is written here.
+- B2 exact commit/PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -910,3 +927,28 @@ Verified before B1 implementation on 2026-09-14:
 - A1-A4 are accepted and merged; B1 touches Memory only.
 - AI-Verse-System main advanced to `fd7dac7bf210c3deeb2598471ed9cdd988c3f8e4`; its only change since the previous plan refresh is the separate Invisible Intelligence/Grandma UX plan file, so this context-ladder plan can refresh without collision.
 - System Contract Validation remains failing on main itself and is a pre-existing System-plan issue, not a B1 Memory gate.
+
+
+### Slice completion checkpoint: B1
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory core B1 PR #15 merged at `3fceb2a41eb33db5aef539cc668470e1d43d74be`; PR Test run `34857742063` succeeded 12/12.
+- Post-merge contention exposed a real pre-existing canonical mutation lock weakness, so B1 acceptance remained open through follow-up PRs #16-#20.
+- PR #19 removed full derived-index rebuilds from normal serialized mutation and retained lossless rebuild fallback.
+- PR #20 finalized lock semantics with bounded live-owner lease, fast dead-owner recovery, holder-progress reset, and conservative ambiguous-lock staleness.
+- Final accepted Memory main: `ced610cdacef0df50cc8ee16a4cf886240f257ce`.
+- Final post-merge Test run `34869401845`: success, 12/12 jobs.
+- B1 acceptance is complete. Five of 25 slices are accepted.
+
+### Slice start checkpoint: B2
+
+Verified before B2 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `ced610cdacef0df50cc8ee16a4cf886240f257ce`.
+- Memory open PRs: none.
+- Memory active workflow runs: none.
+- Latest Memory main Test run `34869401845`: success, 12/12 jobs.
+- B1 orientation projection and its concurrency hardening are present on current main.
+- AI-Verse-System main: `ebe41f669ffdbabf13c44b1038e8bdf7f95ed0c4`; this plan refreshes onto that exact live state before B2 code changes.
+- B2 is Memory-only and must extend the existing orientation projection rather than create another catalog/store.

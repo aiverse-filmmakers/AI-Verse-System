@@ -347,6 +347,36 @@ Transient chatter should remain transient.
 The system should become more useful over time without allowing memory volume to make retrieval progressively noisier or more expensive.
 
 
+
+## 9B. Learn from user friction without making the user write bug reports
+
+A future AI-Verse should be able to recognize explicit corrections, repeated repair attempts and clear dissatisfaction as useful product/learning evidence.
+
+The desired experience is that a user can simply say things such as:
+
+- "No, that's not what I meant."
+- "Why did you remember that?"
+- "That Skill did this wrong."
+- "You put that in the wrong place."
+
+and AI-Verse can preserve a compact local record of the relevant failure context automatically rather than requiring the user to reconstruct a technical bug report later.
+
+This should remain **local-first and privacy-preserving**.
+
+For member installations, any upstream contribution to improve AI-Verse must be opt-in and sanitized. Do not send raw conversations, private Memory, business Data, credentials, files or unrelated surrounding context by default.
+
+The preferred future pattern is:
+
+```text
+friction/correction
+    -> local structured evidence
+    -> owner-correct repair/learning candidate when safe
+    -> optional sanitized upstream product feedback with consent
+```
+
+The system should distinguish explicit user correction from merely inferred frustration. Model-detected frustration is evidence, not authority, and must never by itself justify destructive state changes, permission changes or silent global product updates.
+
+
 ## 10. What the owner does not want
 
 Avoid product drift toward:
