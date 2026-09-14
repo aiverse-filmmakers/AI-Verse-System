@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 9
+Complete: 10
 In progress: 1
 Blocked: 0
-Remaining after current: 15
-Current: D1
-Next after current: D2
+Remaining after current: 14
+Current: D2
+Next after current: E1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -541,7 +541,7 @@ Next after current: D2
 
 #### D1. Deterministic relationship projection
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: C1
@@ -554,12 +554,18 @@ Next after current: D2
   - scope boundaries are enforced.
 - Tests: rebuild, stale edge removal, relation provenance, isolation.
 - Risks: graph bloat; accidental inference authority.
-- Evidence: pending.
+- Evidence:
+  - Memory PR #24 final head `ee5d73a328be0adc3dc994065ec22e79eb85eef0`.
+  - PR Test run `34886444235`: 12/12 jobs green on the unchanged final head.
+  - Merge/main SHA `11956647f0d7a8e79aacd052e101b31104152b7a`.
+  - Post-merge Test run `34886772023`: 12/12 jobs green.
+  - Projection is disposable/rebuildable, explicit-provenance-only, scope isolated, stale-edge removing, and adds no neighbor traversal.
+  - D1 acceptance complete; ten of 25 slices are accepted.
 
 #### D2. Bounded neighbor recall benchmark and ship/reject gate
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: D1, benchmark harness
 - Goal: test whether one-hop tightly bounded neighbor expansion improves representative recall.
@@ -576,7 +582,7 @@ Next after current: D2
 #### E1. Immutable fold-card and catalog storage foundation
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway
 - Dependencies: Gateway live-state re-audit after Invisible Intelligence changes
 - Goal: derive immutable fold cards over Gateway-owned raw session messages while keeping original messages intact.
@@ -880,19 +886,18 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **D1. Deterministic relationship projection**
+Current implementation slice: **D2. Bounded neighbor recall benchmark and ship/reject gate**
 
-Do not start D2 until:
-- relationship state is derived/rebuildable only and creates no new canonical fact authority;
-- only explicit existing metadata/provenance produces edges, with no speculative model-inferred relationships;
-- initial supported relation types are deterministic and evidence-bearing, including supersession, digest/source provenance, same-session, and explicit evidence/derivation refs where the current canonical records actually expose them;
-- every edge records source/target identity, relation type, scope, deterministic evidence/provenance, and source fingerprints/versions sufficient for stale-edge removal;
-- operator/workspace visibility is enforced and no edge crosses unauthorized workspace boundaries;
-- deleting the relationship projection and rebuilding from canonical Memory/digests yields equivalent edges;
-- canonical record update/removal/supersession removes stale derived edges on refresh;
-- no neighbor expansion is added in D1; D2 owns the benchmarked ship/reject decision for traversal;
+Do not start E1 until:
+- a deterministic D2 benchmark compares the existing direct-only recall path with a one-hop, tightly bounded relationship-neighbor candidate;
+- representative decisions, lessons, and corrections are covered;
+- candidate traversal remains within the authorized operator/workspace scope and produces zero cross-workspace leakage;
+- neighbor count, context/output bytes, irrelevant-neighbor rate, and retrieval cost are bounded and measured;
+- exact evidence and canonical ownership remain unchanged;
+- expansion ships only if the measured candidate improves representative correctness without unacceptable context or latency inflation;
+- if it does not earn that complexity, runtime neighbor expansion remains disabled/absent and rejection evidence is recorded;
 - full Memory CI is green;
-- D1 exact PR/merge/run evidence is written here.
+- D2 exact PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -1107,3 +1112,26 @@ Verified before D1 implementation on 2026-09-14:
 - AI-Verse-OS main: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`; C3 is merged and all standard post-merge OS gates are green.
 - AI-Verse-System main: `272ee3fb968c33fe69dd1d7f8c786686d9cbc35a`; this plan refreshes onto that exact live state before D1 code changes.
 - D1 is Memory-only. It may create only a disposable deterministic relationship projection; it must not change canonical Memory ownership or add traversal/neighbor recall.
+
+
+### Slice completion checkpoint: D1
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory PR #24 merged from `context-ladder/d1-relationship-projection`.
+- Final PR head: `ee5d73a328be0adc3dc994065ec22e79eb85eef0`.
+- PR Test run `34886444235`: success, 12/12 jobs.
+- Memory main after merge: `11956647f0d7a8e79aacd052e101b31104152b7a`.
+- Post-merge main Test run `34886772023`: success, 12/12 jobs.
+- D1 proved deterministic rebuilds, stale-edge removal, malformed/dangling reference rejection, workspace isolation, canonical-file non-mutation, supersession, digest/source provenance, and O(n) same-session projection.
+- D1 introduced no semantic inference and no neighbor traversal.
+- D1 acceptance is complete. Ten of 25 slices are accepted.
+
+### Slice start checkpoint: D2
+
+Verified before D2 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `11956647f0d7a8e79aacd052e101b31104152b7a`; D1 is merged and post-merge Test run `34886772023` is 12/12 green.
+- Existing runtime recall remains direct-only. D1 exposes deterministic relationship reads but does not expand recall through them.
+- D2 is Memory-only and is a benchmarked ship/reject gate. It must not create a second canonical graph, relax scope, or alter exact-evidence authority.
+- The candidate is limited to one hop with explicit hard bounds; runtime expansion may ship only if the benchmark proves material correctness value without unacceptable context/latency inflation.
