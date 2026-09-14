@@ -983,7 +983,7 @@ Imported design Skills must not bypass:
 
 ## Slice 10.1 - Member-facing capability documentation
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Present one coherent capability:
 
@@ -1000,9 +1000,19 @@ Document examples such as:
 - "Audit the animations";
 - "Create an immersive scroll landing page."
 
+### Phase 10.1 evidence
+
+- member guide: `AI-Verse-Skills/docs/INTERFACE_DESIGNER.md`
+- root README links the member-facing capability
+- guide presents one coherent Interface Designer rather than a vendor Skill menu
+- stack-neutral behavior, persistent HTML artifact support, dashboard/app/mobile/reference/motion/scroll use cases and visual QA are explained
+- member guide does not require React, Vercel, shadcn, Figma or a deployment provider
+- accepted documentation ref: `243233407c86d2bf0b8f35b185730f75667f7e6e`
+- Validate: PASS, run `34885074897`
+
 ## Slice 10.2 - Maintainer architecture documentation
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Document:
 
@@ -1158,8 +1168,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 10 / Slice 10.1 - Member-facing capability documentation
-**Next:** Phase 10 / Slice 10.1 - Publish the member-facing Interface Designer guide
+**In progress:** Phase 10 / Slice 10.2 - Maintainer architecture documentation
+**Next:** Phase 10 / Slice 10.2 - Publish maintainer architecture and provider-replacement rules
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
