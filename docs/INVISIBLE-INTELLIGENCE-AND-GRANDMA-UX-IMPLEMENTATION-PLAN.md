@@ -200,7 +200,7 @@ Gateway now tells the runtime to act instead of asking for safe/reversible/inter
 
 ## Slice 2.1 - OS owner-side automatic workspace create/evolve primitive
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-OS  
 **Dependencies:** 1.1
 
@@ -219,9 +219,27 @@ Using existing workspace schema/template/direction-owner rules:
 
 No second workspace registry unless current implementation proves one is strictly required.
 
+### Evidence
+
+- OS PR: #29
+- final PR head: `f7e2b96c718f9392fd4e4d975d2cf9de9cd3bfe6`
+- merged OS SHA: `933a6beadf87b646fb8c8e0358aaeea6b0504424`
+- canonical owner primitive: `scripts/workspace-owner.mjs ensure --root <os-root>`
+- focused acceptance: `scripts/test-workspace-owner.mjs`
+- Repository QC run `34832020361`: success, including automatic workspace owner test, adapter integration and Skills-provider integration
+- Five-Component Public Beta run `34832020302`: success in all three install orders
+- Four Repo Acceptance run `34832020438`: success
+- OS Write Command Boundary run `34832020472`: success
+- Direction Ownership run `34832020379`: success
+- OS Brain Permission Contract run `34832020299`: success
+
+### Accepted implementation
+
+The OS now has a deterministic owner-side `ensure` operation that creates a minimum workspace only for a substantial, clear, privacy-safe scope; reuses/evolves an existing matching workspace; rejects ambiguous/privacy/permission/credential/Connection expansion; avoids duplicates; preserves unrelated workspace state; persists restart-safe provenance; uses conservative approval defaults; and performs only safe additive domain/source evolution without rewriting unsupported user-authored YAML.
+
 ## Slice 2.2 - Runtime classification and routing to OS
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Brain + Gateway + OS  
 **Dependencies:** 2.1
 
@@ -498,12 +516,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 3
+- COMPLETE: 4
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 18
+- NOT STARTED: 17
 
-**Current slice:** 2.1 - OS owner-side automatic workspace create/evolve primitive  
-**Exact NEXT after current slice:** 2.2 - Runtime workspace classification and routing to OS  
+**Current slice:** 2.2 - Runtime workspace classification and routing to OS  
+**Exact NEXT after current slice:** 3.1 - Prove or close automatic safe Memory routing  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
