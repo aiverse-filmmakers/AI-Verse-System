@@ -233,11 +233,11 @@ Exactly one implementation slice may be IN PROGRESS.
 
 Total implementation slices: 25
 Complete: 2
-In progress: 0
+In progress: 1
 Blocked: 0
-Remaining: 23
-Current: none
-Next: A3
+Remaining after current: 22
+Current: A3
+Next after current: A4
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -312,8 +312,8 @@ Next: A3
 
 #### A3. Selective promotion contract
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory, AI-Verse-Brain only if classification intent is needed
 - Dependencies: A1-A2
 - Goal: define/apply bounded promotion of durable facts, decisions, corrections, workflows, and lessons from a digest into existing atomic Memory.
@@ -330,7 +330,7 @@ Next: A3
 #### A4. Gateway completed-session digest handoff
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway, AI-Verse-OS, AI-Verse-Memory
 - Dependencies: A1-A3; active Invisible Intelligence OS/Gateway work must be merged/re-read first
 - Goal: allow meaningful completed Gateway sessions to submit digest evidence through the supported owner path.
@@ -773,15 +773,14 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-No implementation slice is currently in progress.
+Current implementation slice: **A3. Selective promotion contract**
 
-Next implementation slice: **A3. Selective promotion contract**
-
-Before starting A3:
-- refresh live GitHub state for Memory and Brain;
-- check open PRs, branches, and workflow runs for collisions;
-- preserve Invisible Intelligence safe historical capture already merged into Memory;
-- mark A3 IN PROGRESS in this plan before implementation.
+Do not start A4 until:
+- A3 reuses the merged Invisible Intelligence safe-capture authority rather than duplicating it;
+- Memory owner CI/acceptance is green;
+- A3 exact commit/PR/merge/run evidence is written here;
+- A3 is marked COMPLETE;
+- A4 is the only next slice.
 
 
 ### Slice start checkpoint: A2
@@ -808,3 +807,18 @@ Verified on 2026-09-14:
 - Post-merge main Test run `34851416852`: success, 12/12 jobs.
 - A2 acceptance proved targeted digest relevance/recency, workspace isolation, canonical deletion purge, canonical change refresh, lossless derived-DB rebuild, standalone scope recovery, and legacy `recall()` non-regression.
 - A3 remains NOT STARTED and is the next slice.
+
+
+### Slice start checkpoint: A3
+
+Verified before A3 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `08a1fd72d503169cf3f2dd25287fec4b53a12106`.
+- Memory open PRs: none.
+- Memory active workflow runs: none.
+- Latest Memory main Test run `34851416852`: success, 12/12 jobs.
+- AI-Verse-Brain main: `619dd17daac9c1bd7eaf4381a5889e56ab05ec59`.
+- Brain PR #21 (`invisible-intelligence/learning-candidate-gate`) is open and has active CI. A3 will not touch Brain unless Memory-only reuse proves impossible.
+- Invisible Intelligence safe historical capture is already merged into Memory; A3 must adapt to that implementation rather than create another durable promotion authority.
+- AI-Verse-System main: `7c59359a98f44a223fcf0e09c9126cc4a84075fa`.
+- System Contract Validation is failing on main itself and remains a pre-existing plan-repo issue, not an A3 Memory gate.
