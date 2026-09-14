@@ -142,6 +142,8 @@ The permanent executable safety floor is defined by `docs/SAFE-UPDATE-AND-STATE-
 
 Component release candidates expose the small machine-readable contract in `docs/COMPONENT-RELEASE-DESCRIPTOR-CONTRACT.md`. It carries immutable revision/version, lifecycle, state-preservation, migration, platform/runtime, evidence, and authority-negative release facts while explicitly remaining non-canonical for live health/readiness.
 
+Whole-release source-to-target acceptance evidence uses `docs/WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT.md`. A target may only claim update safety when the exact Distribution revision has passing clean-install, real-upgrade, restart/recovery, platform, state-preservation, authority-preservation, migration, and destructive-transition evidence required by policy.
+
 ### LAW: benchmark before inventing mature agent behaviors
 
 When a desired agent behavior already exists in mature systems, AI-Verse should research multiple leading implementations before defining its own contract. The final design should synthesize compatible best patterns and documented failure lessons rather than extrapolate from one product or one prompt.
