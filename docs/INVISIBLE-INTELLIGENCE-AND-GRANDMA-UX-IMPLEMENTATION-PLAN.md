@@ -309,7 +309,7 @@ A normal run may propose a bounded historical Memory candidate through the exist
 
 ## Slice 4.1 - Skills safe new-Skill auto-eligibility
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Skills  
 **Dependencies:** current self-learning contracts
 
@@ -330,21 +330,87 @@ No auto-promotion if candidate:
 - is duplicate/dangerous;
 - cannot be rolled back.
 
+### Evidence
+
+- Skills PR #11 merged at `8b82e41bd8f0adecdfd93d64ae1fb30552802b99`
+- final PR head: `fef39614e5901ae23d77c84ec754932999f90cb9`
+- Validate AI-Verse Skills `34851686901`: success
+- Runtime Readiness `34851687162`: success on Ubuntu/macOS/Windows, Python 3.9 and 3.12
+- Full E2E Install `34851687125`: success through install/update/rollback/uninstall/recovery
+- new `agent_learned` creation in opt-in `auto` mode is gated by low risk, confidence >= 0.90, security/admission, dedup, provenance, scope, permission/dependency, Connection/credential and exact-generation checks
+- `workspace_local` auto-create remains separately opt-in
+- protected/user/upstream/external ownership cannot auto-promote
+- every promotion creates a verified immutable generation and preserves rollback
+
 ## Slice 4.2 - Brain/Gateway substantial-task learning trigger
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** Brain, Gateway, Memory, Skills  
 **Dependencies:** 4.1
 
 Wire current learning-candidate and evidence contracts into post-run/substantial-task review without reviewing every trivial turn.
 
+### Evidence
+
+- Brain PR #21 merged at `a53f79cf083d99b39a87d9ffe9509bf4e2d02922`
+- Brain PR head `20c1a345f3ff2e577806b8a8f2375f9393f5e305`
+- Brain CI `34852941983`: success
+- Brain Skills Receipt Contract `34852941859`: success
+- Brain OS Direction Ownership Contract `34852941819`: success
+- Skills PR #12 merged at `fb0c138ef424734cd2e5359040f376e35c4c5875`
+- Skills PR head `c8abfa68d84f65c04fb38181c2a786275fd33827`
+- Skills Validate `34853205965`, Runtime Readiness `34853206011`, Full E2E Install `34853205943`: all success
+- Gateway PR #5 merged at `ae5b322db4e7ac593bd03d5f5c9630c6e65edf76`
+- Gateway PR head `7637d5e969b8e63ee66e7fcd6cfb9249e640526d`
+- Gateway CI `34855127641`: success on Ubuntu/macOS/Windows, Node 20 and 22
+- OS PR #35 merged at `3ebb0530a876c404031274d4fa4d3ec1909ec21a`
+- OS PR head `a3ae276d9e755af7ca6538e6c39930fb2cc62bdc`
+- OS Repository QC `34855123759`: success
+- OS Write Command Boundary `34855123724`: success
+- OS Brain Permission Contract `34855123720`: success
+- OS Direction Ownership `34855123727`: success
+- OS Four Repo Acceptance `34855123787`: success with accepted Brain/Memory/Skills owner refs
+- OS Five-Component Public Beta `34855123756`: success across all three install orders
+- Gateway suppresses non-substantial learning before any owner action or action-budget use
+- Gateway injects trusted run identity, scope, evidence refs and timestamp; runtime cannot forge them
+- Brain deterministically admits/ignores reusable-procedure candidates; it does not become a Skill store
+- OS only transports admitted candidates to the configured Skills owner entrypoint
+- Skills proposal submission is retry/idempotency bound; reused candidate ID with changed metadata/package bytes fails closed
+- no new review daemon, scheduler, store, post-task service or second model pass was introduced
+
 ## Slice 4.3 - Later task actually uses learned Skill
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** Gateway + Skills + composed owners  
 **Dependencies:** 4.2
 
 Prove restart persistence, active immutable generation, actual subsequent selection/use, rollback and quarantine paths.
+
+### Evidence so far
+
+- OS PR #37 merged at `caa38f46d29e66363493d0e11da83aa924af1dea`
+- final OS PR head: `799af68369440f114108cdbf60668c917e040d13`
+- OS Four Repo Acceptance `34855795748`: success
+- OS Five-Component Public Beta `34855795755`: success across all three install orders
+- OS Repository QC `34855795777`: success
+- OS Direction Ownership `34855795762`: success
+- OS Brain Permission Contract `34855796007`: success
+- OS Write Command Boundary `34855795908`: success
+- real Skills owner was switched to opt-in `auto`, a safe candidate auto-promoted into a new immutable generation, and a fresh OS host object rediscovered it from persisted owner state
+- a later generation/digest-bound `capability.read_instructions` execution successfully loaded the learned procedure
+- an unsafe secret-bearing candidate was quarantined and never appeared in capability discovery
+- compare-and-set learning rollback restored the exact previous immutable generation and removed the learned capability from later discovery
+
+### Gateway later-use evidence
+
+- Gateway Context Ladder PR #6 merged first, preserving concurrent ownership and avoiding branch interference
+- Gateway PR #7 merged at `4e5e6d55f659604922b794cfc517e0898b47fbe1`
+- final Gateway PR head: `f3291587483f3202a61dd8147c0b5ea552a1f954`
+- Gateway CI `34856430622`: success on Ubuntu, macOS and Windows with Node 20 and 22
+- first substantial run created the learned capability through the existing Skills route
+- Gateway process was restarted from the same durable home
+- a later short normal request received the learned capability through canonical owner context, selected its exact generation/digest, and invoked `capability.read_instructions`
+- successful later use did not depend on in-process cache, a repeated learning prompt, or hidden duplicate Skill state
 
 ---
 
@@ -352,7 +418,7 @@ Prove restart persistence, active immutable generation, actual subsequent select
 
 ## Slice 5.1 - Data safe additive structure creation/evolution
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-Data  
 **Dependencies:** current Data catalog/schema migration engine
 
@@ -562,12 +628,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 6
+- COMPLETE: 9
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 15
+- NOT STARTED: 12
 
-**Current slice:** 4.1 - Skills safe new-Skill auto-eligibility  
-**Exact NEXT after current slice:** 4.2 - Brain/Gateway substantial-task learning trigger  
+**Current slice:** 5.1 - Data safe additive structure creation/evolution  
+**Exact NEXT after current slice:** 5.2 - Runtime structured-truth classification and owner routing  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
