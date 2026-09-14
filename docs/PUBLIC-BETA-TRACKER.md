@@ -120,6 +120,49 @@ The accepted Agent Distribution release does not grant permissions, transfer Bra
 
 Brain remains canonical for goals/strategy/evaluation. Automations remains canonical for cadence/schedules/triggers. Token remains canonical for normalized telemetry evidence, immutable usage accounting, pricing evidence and ACTUAL/CALCULATED/UNKNOWN cost truth. Multiple Bots owns operational coordination budgets/counters only and treats usage/cost as projection/execution evidence rather than a second canonical Token ledger.
 
+## Post-release CURRENT Invisible Intelligence evidence
+
+The immutable `agent-public-beta-2026-09-14` release above remains unchanged. The following evidence is later same-day implementation and acceptance intended for a **new** future Agent candidate, not a retroactive mutation of the frozen release.
+
+Accepted post-release Distribution merges:
+
+- product-level one-action bootstrap, PR #3: `68d08a432739deeaff3fe3f7915b7fe9abf7e686`
+- bounded deterministic self-heal, PR #4: `52a86075a36df9c541d750f021d21cad3311f8c7`
+- scenarios A-F gate, PR #5: `7ff5e58fa03e80e541c87bd3f3f319149ccb3fe6`
+- scenarios G-M gate, PR #6: `f89bcae9429ef40128c3c0496993a2d502215d19`
+
+Current accepted owner evidence used by the cross-repo scenario gates:
+
+- Gateway: `7627df658b2071ecb4ea242572343edfb7abf768`
+- OS: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`
+- Skills: `71264af6b2b9a575812fe18858d75a54ea2ff545`
+- Data: `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+- Automations: `caaed83b98026dd955640fc015d181529b91a1c6`
+- Multiple Bots: `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
+
+Accepted product behavior now includes:
+
+- `aiverse start` as the ordinary Agent first-run path over exact released components;
+- progressive first value without a mandatory deep subsystem questionnaire;
+- bounded deterministic self-heal only for the exact released OS/Brain owner repair that passes a strict plan allowlist;
+- automatic safe workspace organization and owner-routed Memory/Skills/Data organization;
+- low-risk Skills learning through immutable candidate/eval/promotion gates;
+- dangerous/secret Skill quarantine and explicit destructive Data migration boundaries;
+- recurring-responsibility recommendation without silent Automation creation;
+- direct recurring requests routed through the canonical Automations owner;
+- durable Bot creation only from explicit/direct consent;
+- bounded automatic temporary Workers without durable promotion;
+- ordinary outcome language without subsystem-choice jargon;
+- restart-safe idempotent replay and no silent authority expansion.
+
+Cross-repo acceptance evidence:
+
+- A-F: run `34890195270`, 2/2 scenario jobs green;
+- G-M: run `34890857872`, 2/2 scenario jobs green;
+- associated Distribution/Core/Agent regressions remained green across Ubuntu, macOS and Windows.
+
+This is **CURRENT implementation evidence**, but it is not yet a newly frozen Agent release set. Creation of that next immutable candidate remains blocked on the separately tracked Safe Update/release-train compatible state.
+
 ## Release boundary
 
 **Agent Distribution is released and accepted.**
