@@ -8,6 +8,30 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-14
 
+### Prioritized the single-user shell and visible AI team
+
+**Date:** 2026-09-14  
+**Type:** owner product direction / interface priority / roadmap deferral
+
+Clarified that the current AI-Verse target remains single-user first, primarily local with optional private VPS/VPN use.
+
+Recorded the immediate interface priority:
+
+- keep the main AI-Verse chat as the primary surface;
+- bring permanent Bots/AI employees visibly beside the chat;
+- surface temporary Worker activity, delegated work, current workspace and approvals only when useful;
+- consume existing Gateway, Multiple Bots, OS and owner APIs rather than creating a new canonical UI state owner;
+- treat Open WebUI or another borrowed shell as temporary dogfood only if it hides core AI-Verse Bot/team concepts;
+- build a focused shell before another broad backend capability cycle.
+
+Also deferred multi-user accounts, human-team membership, enterprise RBAC/SSO and related company administration until the single-user product is excellent.
+
+Canonical detail:
+
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/IDEA-INBOX.md`
+
+
 ### Expanded canonical owner intent with context-intelligence direction
 
 **Date:** 2026-09-14  
