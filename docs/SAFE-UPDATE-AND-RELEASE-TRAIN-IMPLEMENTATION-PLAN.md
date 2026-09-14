@@ -76,7 +76,7 @@ Every slice records:
 
 ## Slice 0.1 - Canonical plan and current-truth capture
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** none
 
@@ -98,11 +98,15 @@ Every slice records:
 
 ### Evidence
 
-Pending.
+- plan creation commit: `154b20cfc9652587febf80d9e242a9e3bfef0972`
+- branch: `release-train/safe-update-plan`
+- System baseline: `67e96a3557a90dd03442955b76870f46d56fcd62`
+- Distribution active Agent PR: #2, head `e24a6503bba3597af2a51f20e9d4a3a755b8e9fe`
+- current component refs are captured in the Baseline truth table above.
 
 ### NEXT
 
-After 0.1 is complete: **Slice 1.1 - Freeze canonical update/state-preservation laws.**
+**Slice 1.1 - Freeze canonical update/state-preservation laws.**
 
 ---
 
@@ -110,7 +114,7 @@ After 0.1 is complete: **Slice 1.1 - Freeze canonical update/state-preservation 
 
 ## Slice 1.1 - Freeze update/state-preservation laws
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-System  
 **Dependencies:** 0.1
 
@@ -770,11 +774,11 @@ A feature is deliberately post-beta when it is not required to preserve update s
 # 4. Overall progress
 
 - Total planned slices: 34
-- COMPLETE: 0
+- COMPLETE: 1
 - IN PROGRESS: 1
 - BLOCKED: 0
-- NOT STARTED: 33
-- Project completion: 0%
+- NOT STARTED: 32
+- Project completion: 3%
 
-**Current slice:** 0.1  
-**Exact NEXT after current slice:** 1.1 - Freeze canonical update/state-preservation laws.
+**Current slice:** 1.1  
+**Exact NEXT after current slice:** 1.2 - Machine-readable Component Release Descriptor contract.
