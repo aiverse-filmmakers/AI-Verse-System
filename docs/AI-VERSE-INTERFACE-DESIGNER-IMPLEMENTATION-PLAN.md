@@ -369,7 +369,7 @@ Unknown or incompatible license means **do not copy bytes** until the legal rout
 
 ## Slice 3.1 - Define canonical capabilities
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 1.2, 2.2
 
 Define semantic capabilities independent of upstream package names, including at minimum:
@@ -402,12 +402,22 @@ The orchestrator resolves capabilities to approved Skill generations rather than
 
 ## Slice 3.2 - Existing-skill replacement/migration plan
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 3.1
 
 Map existing AI-Verse design Skills to the canonical capability map.
 
 Only after this map is reviewed may obsolete AI-Verse design Skills be removed.
+
+### Phase 3 evidence
+
+- capability/routing map: `docs/AI-VERSE-INTERFACE-DESIGNER-CAPABILITY-MAP-2026-09-14.md`
+- evidence commit: `95941b7400568feb840939fbef4df6da7cf7d8d8`
+- shared packaging decision: `docs/AI-VERSE-COMPOSITE-SKILL-PACKAGING-DECISION-2026-09-14.md`
+- packaging commit: `1cb64f6c139631d4f94fe1179a106bf3bcc6f60a`
+- no existing design capability is removed
+- target catalog intentionally evolves from 100 to 120 canonical capabilities
+- interface-designer is first-party; 18 experts retain their own upstream source identity
 
 ### Acceptance criteria
 
@@ -957,7 +967,7 @@ Before doing any work on this project:
 
 **Completed:** Phase 0 / Slice 0.1  
 **In progress:** none  
-**Next:** Phase 3 / Slice 3.1 - Define canonical Interface Designer semantic capabilities  
+**Next:** Phase 4 / Slice 4.1 - Implement Interface Designer scope classifier and orchestrator package  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
