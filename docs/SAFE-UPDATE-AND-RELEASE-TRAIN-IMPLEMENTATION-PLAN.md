@@ -264,7 +264,7 @@ Machine-readable acceptance result can represent:
 
 ## Slice 2.1 - Descriptor support for Core owners
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System, AI-Verse-OS, AI-Verse-Brain, AI-Verse-Memory, AI-Verse-Skills, AI-Verse-Data  
 **Dependencies:** 1.2  
 **Constraint:** do not reopen mature engines beyond release metadata and necessary lifecycle truth.
@@ -277,19 +277,19 @@ Each current Core repo exposes a descriptor conforming to the System contract an
 
 Per repo: commit/PR, schema validation, CI result.
 
-### Evidence so far
+### Evidence
 
-Publication rule clarified: descriptor metadata may land after the immutable release revision; Distribution must consume the descriptor's explicit `revision`, not the descriptor-containing commit.
+Publication rule clarified in System PR #11, merged as `71af06ba7b8356f6ede140137b80d320352a85a0`: descriptor metadata may land after the immutable release revision; Distribution must consume the descriptor's explicit `revision`, not the descriptor-containing commit.
 
-Core descriptor PRs:
+Core descriptor adoption:
 
-- OS PR #27, target revision `9600929b946746c25c64e48471fcc83031fddda9`, descriptor workflow run `34825657169` passed; remaining OS repository gate still running.
-- Brain PR #19, target revision `80019be5e6df29aee70371544bd96cedbf0329b9`, descriptor workflow run `34825718901` passed; remaining Brain CI still running.
-- Memory PR #10, target revision `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`, descriptor workflow run `34825729151` passed; remaining Memory Test still running.
-- Skills PR #10, target revision `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`, descriptor workflow run `34825774341` passed and Validate run `34825774314` passed; merged SHA `8fb8c8d3256a4e5a52609f83080e0cb384800e6d`.
-- Data PR #14, target revision `189b13264ab86115d2f21fee3ba8cd5a8dac6581`, descriptor workflow run `34825787311` passed; CI/Release Smoke/Five-Component Acceptance still running.
+- OS PR #27, target revision `9600929b946746c25c64e48471fcc83031fddda9`, merged `eb059fdf753eba16eedd7c1c4f378ab4f152aa2e`; Release Descriptor `34825657169`, Repository QC `34825657004`, Four Repo Acceptance `34825657073`, Five-Component Public Beta `34825657067`, Direction Ownership `34825657151`, OS Brain Permission Contract `34825657142`, OS Write Command Boundary `34825656964`: all success.
+- Brain PR #19, target revision `80019be5e6df29aee70371544bd96cedbf0329b9`, merged `dfc6fa56e680b384723d7042c1d54f807e853c66`; Release Descriptor `34825718901`, CI `34825718759`, Skills Receipt Contract `34825718859`, OS Direction Ownership Contract `34825718773`: all success.
+- Memory PR #10, target revision `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`, merged `ae1d8a0b14a9a8309450789f3d2f04b2a6426a42`; Release Descriptor `34825729151` and Test `34825729060`: success.
+- Skills PR #10, target revision `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`, merged `8fb8c8d3256a4e5a52609f83080e0cb384800e6d`; Release Descriptor `34825774341` and Validate `34825774314`: success.
+- Data PR #14, target revision `189b13264ab86115d2f21fee3ba8cd5a8dac6581`, merged `a553aa261cd0ed20114c801fb01fc86bdd21050f`; Release Descriptor `34825787311`, CI `34825787136`, Release Smoke `34825787121`, Five-Component Release Acceptance `34825787169`: all success.
 
-All descriptors bind accepted Core Distribution evidence:
+All descriptors also bind the accepted Core Distribution evidence:
 
 - Distribution CI run `34782949282`
 - Distribution clean-machine Core acceptance run `34782949287`
@@ -298,10 +298,16 @@ Data truthfully declares `setup=false` because its current owner CLI exposes ins
 
 ## Slice 2.2 - Descriptor support for Agent owners
 
-**Status:** NOT STARTED  
+**Status:** BLOCKED  
 **Repos:** AI-Verse-Gateway, AI-Verse-Automations, AI-Verse-Multiple-Bots, ai-verse-token  
 **Dependencies:** 1.2 and safe Agent release boundary  
 **Constraint:** avoid destabilizing current Agent release candidate.
+
+### Current blocker
+
+Distribution Agent public-beta PR #2 is still active and its head has continued moving. Latest inspected head: `698125609cd1bd83b1259e1df2f46c10e46be5f8`.
+
+Do not publish Agent descriptors as `accepted` until the Agent release freezes/merges its exact Gateway, Automations, Multiple Bots and Token refs. Metadata-only descriptor adoption may proceed immediately after that without changing the frozen Agent candidate.
 
 ### Acceptance criteria
 
@@ -383,11 +389,45 @@ Accepted input produces a candidate release set that records exact component rev
 
 # Phase 4 - Explicit release-set transition compatibility
 
+## Slice 4.0 - System transition-compatibility contract foundation
+
+**Status:** IN PROGRESS  
+**Repos:** AI-Verse-System  
+**Dependencies:** 1.1, 1.2A  
+**Reason for ordering:** Safe non-conflicting foundation while active Distribution Agent PR #2 is protected.
+
+### Acceptance criteria
+
+A versioned machine-readable contract can express:
+
+- exact source release set;
+- exact target release set;
+- target Distribution revision;
+- supported source sets;
+- runtime requirements;
+- required owner migrations;
+- rollback compatibility;
+- platform support;
+- state-preservation requirements;
+- known incompatible transitions;
+- explicit allow/block decision;
+- no semver-only inference.
+
+Contract has positive and negative fixtures plus semantic validation.
+
+### Evidence required
+
+- schema;
+- validator;
+- tests/fixtures;
+- System PR/merge SHA;
+- hosted validation remains subject to Slice 1.2B runner blocker.
+
 ## Slice 4.1 - Permanent compatibility matrix
 
 **Status:** NOT STARTED  
 **Repos:** ai-verse-distribution  
-**Dependencies:** 3.3
+**Dependencies:** 3.3, 4.0
 
 ### Acceptance criteria
 
@@ -850,12 +890,13 @@ A feature is deliberately post-beta when it is not required to preserve update s
 
 # 4. Overall progress
 
-- Total planned slices: 35
-- COMPLETE: 4
+- Total planned slices: 36
+- COMPLETE: 5
 - IN PROGRESS: 1
-- BLOCKED: 1
-- NOT STARTED: 29
-- Project completion: 11% implementation slices complete, with 1 acceptance blocker carried to the final gate
+- BLOCKED: 2
+- NOT STARTED: 28
+- Project completion: 14% implementation slices complete, with 2 explicit blockers tracked
 
-**Current slice:** 2.1  
-**Exact NEXT after current slice:** 2.2 - Descriptor support for Agent owners.
+**Current slice:** 4.0 - System transition-compatibility contract foundation  
+**Blocked earlier slice:** 2.2 - Agent descriptor support, waiting on active Distribution Agent PR #2  
+**Exact NEXT after current slice:** re-check Agent PR #2; if still active, continue only another explicitly non-conflicting System foundation.
