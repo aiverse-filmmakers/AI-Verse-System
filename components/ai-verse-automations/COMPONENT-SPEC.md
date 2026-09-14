@@ -3,7 +3,7 @@
 **Status:** CURRENT canonical implementation for local single-user public beta  
 **Evidence date:** 2026-09-13  
 **Canonical repository:** `aiverse-filmmakers/AI-Verse-Automations`  
-**Current evidence head:** `494469a496d479cfec618bcd9511033c0cd3e815`  
+**Current accepted evidence head:** `caaed83b98026dd955640fc015d181529b91a1c6`  
 **Implementation publication head:** `447310570aba837c1df61b9f87013f7cb7ec062b`  
 **Exact implementation tree before evidence-only documentation update:** `0749fdb4259b1d7e28715eb8e367f1642d43db4e`
 
@@ -141,7 +141,7 @@ Multiple Bots remains the owner of downstream coordination state.
 
 ### Gateway
 
-Automations has a replaceable generic owner wake envelope. It deliberately does not invent Gateway session internals before the canonical Gateway receive-side contract is published.
+Automations retains a stable owner wake envelope rather than owning Gateway session internals. CURRENT composition now proves both sides of the product boundary: recommendation-only behavior creates no canonical Automation state, while a direct recurring user request can flow through Gateway -> OS -> Automations to atomically create the canonical definition after consent. Gateway still owns session/run truth after wake acceptance; Automations owns schedule/trigger/invocation truth.
 
 ### Dashboard
 
@@ -184,13 +184,14 @@ Hosted publication evidence:
 - GitHub Actions CI run **34777167602** passed **9/9 matrix jobs** across Ubuntu, macOS and Windows on Python 3.11, 3.12 and 3.13;
 - current head `494469a496d479cfec618bcd9511033c0cd3e815` is an evidence-only documentation update over that implementation; GitHub Actions CI run **34777316822** also passed **9/9 matrix jobs** across Ubuntu, macOS and Windows on Python 3.11, 3.12 and 3.13.
 
-## 11. Remaining release/composition work
+## 11. Current release/composition status
 
 These are not reasons to move scheduler ownership elsewhere:
 
-- optionally publish/tag an immutable release artifact when the Distribution version set is frozen;
-- replace the generic Gateway target with the canonical versioned Gateway receive-side contract when that repository is published;
-- retire the Multiple Bots OS-source compatibility projection when Multiple Bots exposes a direct canonical Automations-owner source contract;
-- prove full Agent-profile clean-install/composed acceptance through Distribution.
+- Automations is already included by exact ref in the frozen `agent-public-beta-2026-09-14` release and passed whole-Agent clean-machine composition;
+- post-release head `caaed83b98026dd955640fc015d181529b91a1c6` adds the safe OS extension-owner bridge and preserves explicit disabled state / registry-lock ownership;
+- Invisible Intelligence scenario G proves recommendation-only behavior leaves canonical definitions/triggers/runs empty;
+- scenario H proves direct recurring consent through Gateway -> OS -> Automations;
+- Multiple Bots compatibility projection may still be simplified by a future direct source-binding contract, but it is bounded projection rather than a second scheduler.
 
-CURRENT implementation is real and canonical. Immutable release/version-set acceptance remains a separate release gate.
+A **new** immutable Agent release candidate containing the post-release Automations/Gateway heads remains gated by the separate Safe Update/release-train compatible state. Scheduler ownership and current Agent composition are already proven.

@@ -468,9 +468,14 @@ Connections may separately report registered, configured, live-verified, authori
 
 ## 11. Current system state
 
-The system now has a frozen five-component first-member beta for OS, Brain, Memory, Skills and Data. That exact-ref release has passed its technical acceptance gate and is suitable for controlled personal dogfood.
+The system has two important accepted milestones that must not be conflated:
 
-This does not mean the ten-component end state is complete. It means the first usable core milestone has passed and should not be reopened merely because later capabilities can still improve.
+1. the historical frozen five-component first-member beta for OS, Brain, Memory, Skills and Data; and
+2. the frozen Agent Distribution release `agent-public-beta-2026-09-14`, which composes OS, Brain, Memory, Skills, Data, Gateway, Automations, Multiple Bots and Token through Distribution.
+
+The Agent release passed immutable exact-ref clean-machine acceptance on Ubuntu, macOS and Windows. Subsequent same-day Invisible Intelligence work is **post-release current implementation evidence**, not a mutation of that frozen release: Distribution now has a one-action `aiverse start` first-run path and bounded self-heal, Gateway has invisible owner routing/outcome language, and cross-repo scenarios A-M are accepted. A new immutable release candidate for those later changes remains a separate release step.
+
+This does not mean every future component or the separate Safe Update/release-train project is complete. It means the Agent product path and its current owner boundaries are materially beyond the original five-component dogfood milestone.
 
 ### Core architecture: strong
 
@@ -510,18 +515,9 @@ This is intentional system truth and must not be hidden by aspirational language
 
 **DOGFOOD VERDICT:** READY inside the frozen five-component beta.
 
-**GAP TO MATURE PRODUCT:** The system still lacks one unified user-facing adopt/reconcile/readiness experience and later platform surfaces.
+**CURRENT PRODUCT-PATH UPDATE (2026-09-14):** Distribution now provides the accepted Agent `aiverse start` flow over exact released components, owner-controlled setup and whole-profile doctor/readiness. OS exposes executable bounded reconcile behavior; the accepted automatic repair is deliberately limited to the Brain owner attach/init case and fails closed for locks, migrations and ambiguous owner work. OS owner routing is also composed in the accepted workspace/action/direction/write boundaries.
 
-Primary blockers:
-
-- no universal activate/adopt flow;
-- reconcile is plan-only;
-- component discovery is partly hardcoded;
-- canonical owner write handlers are incomplete;
-- generic live capability readiness is missing;
-- no single truthful whole-system health surface;
-- migration orchestration is component-specific;
-- release/versioning remains partly tied to moving development refs.
+**GAP TO MATURE PRODUCT:** cross-version Safe Update/release-train transactions, broader owner-specific migration/recovery, generic capability readiness for every future provider, and later platform surfaces remain incomplete. Those gaps do not erase the now-current Agent first-run/reconcile/readiness path.
 
 ### AI-Verse Brain
 
@@ -538,8 +534,8 @@ Primary blockers:
 - rollback does not yet restore prior known-good strategy;
 - some executable docs/acceptance still reference obsolete integration generations;
 - Brain-first to host-later adoption is incomplete;
-- general owner-routed durable writes are not end-to-end;
-- composite readiness remains incomplete.
+- Brain itself deliberately remains non-owner for sibling canonical writes; the accepted system now provides bounded Gateway/OS owner routing for workspace, Memory, Skills and Data rather than making Brain a generic write dispatcher;
+- broader cross-version/release readiness remains separate from Brain's Goal/strategy ownership.
 
 ### AI-Verse Memory
 
@@ -566,14 +562,13 @@ Primary blockers:
 
 **GAP TO MATURE PRODUCT:** Unified adoption UX, broader standalone-state adoption and recovery-promotion UX remain.
 
-Primary blockers:
+**CURRENT PRODUCT-PATH UPDATE (2026-09-14):** the accepted Agent path now proves trusted automatic safe structure organization through the Data owner, restart/readback, and explicit fail-closed migration/destructive boundaries. Runtime-supplied automatic Data identity/provenance cannot forge the trusted owner route.
 
-- host runtime/adoption path is not fully closed on the audited baseline;
-- standalone/legacy state adoption into native workspaces is incomplete;
-- native migration-required UX needs a supported operator path;
-- staged recovery needs supported promotion/rollback;
-- unified readiness is missing;
-- immutable released product-path acceptance remains incomplete.
+Primary remaining gaps:
+
+- standalone/legacy state adoption into native workspaces remains broader migration work;
+- staged recovery promotion/rollback remains specialized operator work;
+- cross-version release/update preservation remains part of the separate Safe Update/release-train track.
 
 ### AI-Verse Skills
 
@@ -593,26 +588,17 @@ Primary blockers:
 
 Skills is the strongest example of late adoption through dynamic provider discovery rather than host attachment.
 
+**CURRENT SELF-LEARNING UPDATE (2026-09-14):** the Skills-owned proposal/evaluation/immutable-generation/promotion path is now composed with Gateway background learning. Low-risk agent-learned unprotected candidates may auto-promote only after mandatory gates; dangerous/secret, permission-expanding, ownership-changing or otherwise unsafe candidates remain quarantined/approval-bound. Restart/later-use acceptance proves the promoted Skill can be rediscovered without giving Gateway ownership of Skill bytes.
+
 ### AI-Verse Multiple Bots
 
-**CURRENT:** Phases 0 through 4 are complete. Phase 4.9 closed runtime/A2A interoperability with a 417/417 full suite and a separate 5/5 compatibility/evaluation gate.
+**CURRENT:** Phases 0 through 5 are complete. The canonical build map reports the component first-release implementation at 100%. The product now includes package/install, standalone and OS modes, setup/onboarding, production doctor, upgrade/migration, secure remote option, Dashboard projections/control endpoints, channel bridge contracts, approvals/attention UX, observability and full release acceptance.
 
-**DOGFOOD PRODUCT VERDICT:** NOT YET MEMBER-INSTALLABLE.
+**CURRENT accepted head used by Invisible Intelligence scenarios:** `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`.
 
-**NEXT:** Phase 5.1 simple install command/package.
+**DOGFOOD PRODUCT VERDICT:** READY within its documented public-beta boundaries and already included in the frozen Agent Distribution release. Invisible Intelligence acceptance additionally proves the user-level durable Bot consent boundary and bounded automatic temporary Worker behavior.
 
-Phase 5 remains the productization layer for:
-
-- simple installation;
-- standalone and AI-Verse OS product modes;
-- setup/onboarding;
-- production doctor/health;
-- upgrade/migration;
-- secure remote Gateway exposure;
-- Dashboard/channel surfaces;
-- approvals/attention UX;
-- observability;
-- full release acceptance.
+Multiple Bots remains the canonical coordination owner only. Operational Task/Worker/Bot usage counters and budgets remain projection/execution evidence; Token remains canonical for normalized historical/global telemetry, pricing evidence and ACTUAL/CALCULATED/UNKNOWN cost truth.
 
 ### AI-Verse Connections
 
@@ -1373,11 +1359,13 @@ The original ten audited component repositories remain the audited baseline, but
 
 ### AI-Verse-Gateway
 
-**Classification:** implemented public-beta candidate / dedicated repository published and CI-verified.
+**Classification:** CURRENT Agent runtime/client edge with accepted cross-repo Invisible Intelligence behavior.
 
-Gateway is the user/client/runtime edge for AI-Verse. It owns transport/session/run ingress, runtime selection, streaming, control interrupts and remote-client security. It owns no sibling domain truth.
+Gateway is the user/client/runtime edge for AI-Verse. It owns transport/session/run ingress, runtime selection, streaming, control interrupts, bounded execution orchestration and presentation. It owns no sibling domain truth.
 
-**Current state (2026-09-13):** `aiverse-filmmakers/AI-Verse-Gateway` now contains the exact 35-file `0.1.0-beta.1` tested source snapshot at commit `b20d56eddec6514ec4bc65b510318289b9cffa41`. The repository provides the standard lifecycle commands, OpenAI-compatible ingress, durable run/checkpoint state, SSE streaming, authenticated controls, approval interrupts, OS host composition, bounded execution controls, restart recovery and cross-platform CI. GitHub Actions passed all 6/6 Linux/macOS/Windows × Node 20/22 jobs for that commit. The source repository is therefore published and CI-verified; an immutable release tag/artifact remains a separate release step. Brain-owned Goal continuation is implemented as an owner-adapter boundary and remains composed-activation pending until Brain exposes the canonical Goal-owner API.
+**Current accepted evidence head (2026-09-14):** `7627df658b2071ecb4ea242572343edfb7abf768`. Beyond the original `0.1.0-beta.1` publication, current Gateway evidence now includes composed Brain Goal continuation, trusted automatic workspace/Memory/Skills/Data routing, bounded temporary Worker intent, explicit-consent durable Bot/Automation boundaries, restart-safe invisible organization review, natural outcome-language presentation, and stable owner idempotency. Cross-repo scenarios B-M verify those behaviors against their canonical owners. Technical receipts remain exact; ordinary user output does not force subsystem-choice jargon.
+
+The frozen September 14 Agent release still points at its original exact Gateway release ref. The newer Gateway head is post-release current evidence for the next candidate, not a retroactive rewrite of that immutable release.
 
 It must remain distinct from:
 
@@ -1392,7 +1380,7 @@ It must remain distinct from:
 
 Canonical repository: `aiverse-filmmakers/AI-Verse-Automations`.
 
-Current evidence head: `494469a496d479cfec618bcd9511033c0cd3e815`.
+Current accepted evidence head: `caaed83b98026dd955640fc015d181529b91a1c6`.
 
 Automations now closes the scheduler/cadence ownership gap in implementation, not only architecture. Brain may decide when cognition is useful and Multiple Bots may receive wake requests, but neither owns the universal scheduler.
 
@@ -1408,7 +1396,7 @@ Acceptance evidence:
 - exact implementation publication CI: run **34777167602**, **9/9 jobs passed** across Ubuntu/macOS/Windows and Python 3.11-3.13;
 - current evidence-head CI: run **34777316822**, **9/9 jobs passed** on the same platform/version matrix.
 
-Immutable tagged release/version-set packaging and whole-Agent-profile composed acceptance remain release gates, not missing scheduler ownership.
+The frozen Agent release already includes an immutable Automations ref, and later Invisible Intelligence scenarios G/H prove the current Automations owner in recommendation/direct-consent composition with Gateway and OS. A new immutable whole-Agent candidate containing the post-release Invisible Intelligence heads remains a separate release-train gate, not missing scheduler ownership.
 
 ### ai-verse-distribution
 

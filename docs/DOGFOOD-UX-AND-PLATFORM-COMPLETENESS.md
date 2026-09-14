@@ -95,20 +95,24 @@ It is not a claim that the entire ten-component end state is complete.
 
 ### Multiple Bots
 
-**CURRENT: ENGINE + INTEGRATION READY through Phase 4, not DOGFOOD PRODUCT READY.**
+**CURRENT: FIRST-RELEASE IMPLEMENTATION COMPLETE AND AGENT-PROFILE ACCEPTED.**
 
-Phase 0 through Phase 4 are complete.
+The canonical Multiple Bots build map now records Phases 0 through 5 as complete. Phase 5 closes the productization work that this document previously listed as pending:
 
-Phase 4.9 passed:
+- package/install and standalone/OS modes;
+- setup/onboarding and production doctor;
+- Bot/team templates;
+- upgrade/migration and state preservation;
+- secure remote option with loopback origin constraints;
+- Dashboard projections/control endpoints;
+- provider-neutral channel bridges;
+- approvals/attention UX;
+- observability/usage projections without stealing Token ownership;
+- full release acceptance.
 
-- 417/417 full repository tests;
-- 5/5 dedicated compatibility/evaluation tests.
+Current accepted evidence includes Multiple Bots head `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`, the component's own Phase 5 release gates, the frozen Agent Distribution release, and Invisible Intelligence scenarios I/J/M proving durable Bot consent, bounded temporary Workers and no silent authority expansion.
 
-Current next gate:
-
-- Phase 5.1 simple install command/package.
-
-Multiple Bots should not block five-component dogfood. Add it after its Phase 5 install/onboarding/health surface is ready, or use it only as an advanced development component.
+Multiple Bots is therefore no longer a deferred dogfood component. It remains a coordination owner, not a second OS, Brain, Data, Memory, scheduler or Token ledger.
 
 ### Token
 
@@ -376,7 +380,11 @@ Complex one-off task detected
 -> use temporary Worker(s) automatically within existing authority
 ```
 
-These are target product behaviors, not blanket permission grants. Existing public-beta implementations that still require proposal/approval for some safe internal changes remain implementation gaps until their owner-specific safety gates and acceptance tests are updated.
+These are not blanket permission grants.
+
+**CURRENT Agent-path evidence (2026-09-14):** the Invisible Intelligence project now proves the core form of these boundaries end to end. Safe workspace organization, Memory capture, low-risk Skill learning/promotion, safe structured Data organization and bounded temporary Worker use can occur without forcing the user to choose a subsystem. Recurring Automations and durable Bots remain explicit/direct-consent boundaries. Destructive Data changes, dangerous/secret Skill candidates, forged authority and ambiguous repair/migration states fail closed. Ordinary Gateway responses use outcome language while exact component receipts remain available for technical inspection.
+
+Broader future owners and external-authority cases still require their own owner-specific admission and acceptance, but these Agent-profile behaviors are now CURRENT rather than only target intent.
 
 ### Invisible complexity
 
@@ -674,23 +682,23 @@ Status vocabulary:
 | historical Memory | STRONG core |
 | structured Data | STRONG core |
 | Skills/package generations | STRONG core |
-| multi-agent coordination | STRONG engine, product install pending |
+| multi-agent coordination | STRONG; Multiple Bots first-release + Agent-profile acceptance complete |
 | capability leases/budgets/cancellation | STRONG in Multiple Bots |
 | external Connections | INTENDED |
 | Apps/plugin platform | INTENDED |
 | Dashboard/control room | PARTIAL |
 | telemetry/cost | STRONG engine, operationalization pending |
-| unified install/adopt/reconcile UX | PARTIAL |
-| agent runtime loop contract | GAP/PARTIAL across runtimes |
-| durable run checkpoint/resume contract | PARTIAL |
+| unified install/adopt/reconcile UX | STRONG for Agent first-run; cross-version update/migration remains PARTIAL |
+| agent runtime loop contract | STRONG for accepted Gateway Agent path; broader runtime equivalence remains PARTIAL |
+| durable run checkpoint/resume contract | STRONG in Gateway Agent path |
 | MCP client | INTENDED/PARTIAL in component research, not system-complete |
 | MCP server | GAP |
 | A2A | STRONG in Multiple Bots interoperability |
-| generic OpenAI-compatible agent endpoint | GAP as AI-Verse product surface |
+| generic OpenAI-compatible agent endpoint | STRONG in Gateway local public-beta surface |
 | model/provider abstraction and fallback | PARTIAL/runtime-specific |
 | terminal/computer/browser execution | external runtime responsibility today |
-| scheduler/cadence execution | NEEDS OWNER |
-| triggers/webhooks/events | PARTIAL/FUTURE |
+| scheduler/cadence execution | STRONG; Automations is canonical owner |
+| triggers/webhooks/events | STRONG in local public-beta Automations |
 | notifications/channels | FUTURE |
 | authenticated remote gateway | PARTIAL in Multiple Bots, system product GAP |
 | human identity/authentication | GAP at system product level |
@@ -703,20 +711,20 @@ Status vocabulary:
 | security audit command | GAP |
 | dependency/supply-chain security | PARTIAL |
 | package/skill/app admission | PARTIAL/INTENDED |
-| approval policy | STRONG foundations, fragmented UX |
-| owner-routed durable writes | PARTIAL |
+| approval policy | STRONG owner boundaries; broader unified UI remains PARTIAL |
+| owner-routed durable writes | STRONG for accepted workspace/Memory/Skills/Data routes; broader owners remain PARTIAL |
 | audit/provenance/receipts | STRONG foundations, fragmented |
 | tracing/run observability | PARTIAL |
-| eval/regression framework | PARTIAL by component, no unified platform gate |
+| eval/regression framework | STRONG Agent A-M cross-repo gates; broader platform gate remains PARTIAL |
 | red-team/security evals | GAP |
 | backup/export/import | STRONG in Data, mixed system-wide |
 | disaster recovery | PARTIAL |
 | update/rollback | PARTIAL |
-| progressive onboarding | GAP beyond current fixed intake |
-| accessibility/non-technical UX | GAP |
-| natural-language system administration | INTENDED |
-| self-improvement promotion pipeline | PARTIAL across Brain/Skills, system contract GAP |
-| Skill improvement UX | GAP/PARTIAL |
+| progressive onboarding | STRONG for Agent `aiverse start` first-run path |
+| accessibility/non-technical UX | STRONG first-run language/path; broader visual/accessibility UX remains PARTIAL |
+| natural-language system administration | STRONG for accepted safe internal organization boundaries; broader lifecycle remains PARTIAL |
+| self-improvement promotion pipeline | STRONG for Skills owner pipeline; broader owner types remain PARTIAL |
+| Skill improvement UX | STRONG owner pipeline + invisible learning path; broader user-facing controls remain PARTIAL |
 | goal UX such as /goal | GAP as shell command, Brain primitives exist |
 | mobile/messaging clients | FUTURE |
 | offline/local deployment | STRONG direction |

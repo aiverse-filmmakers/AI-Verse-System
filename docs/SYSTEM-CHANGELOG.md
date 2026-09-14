@@ -8,6 +8,52 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-14
 
+### Accepted Invisible Intelligence and Grandma-first Agent behavior
+
+**Date:** 2026-09-14  
+**Type:** product UX / owner-routing / cross-repo acceptance / post-release current evidence
+
+Completed the Invisible Intelligence and Grandma UX implementation through all unblocked owner and acceptance slices while preserving canonical ownership and the frozen `agent-public-beta-2026-09-14` release.
+
+CURRENT accepted behavior now includes:
+
+- one-action `aiverse start` over the exact released Agent set, owner setup and whole-profile doctor/readiness;
+- progressive first-use handoff: `AI-Verse is ready. What would you like help with?`;
+- fail-closed first-run handling for disabled, unhealthy, migration-required and ambiguous states;
+- one bounded self-heal path that consumes the released OS reconcile contract and may automatically execute only the exact locked Brain owner attach/init repair;
+- automatic safe workspace organization and owner-routed Memory/Skills/Data organization without making Gateway a canonical state owner;
+- bounded invisible post-run organization review with deterministic idempotency, restart replay and trivial-turn/budget suppression;
+- low-risk Skills learning through the Skills-owned immutable proposal/eval/promotion path;
+- dangerous/secret Skill quarantine and destructive Data migration boundaries;
+- recurring-responsibility recommendations without silent Automation creation;
+- direct recurring Automation creation only through the canonical Automations consent/owner route;
+- durable Bot creation only from explicit/direct user consent;
+- automatic temporary Workers bounded to existing authority and never promoted into the durable Bot registry;
+- natural user-facing outcome language while exact technical receipts remain inspectable;
+- stable restart/replay behavior with no duplicate canonical state and no silent authority expansion.
+
+Cross-repo scenario acceptance is now green for A-M:
+
+- scenarios A-F: Distribution run `34890195270`;
+- scenarios G-M: Distribution run `34890857872`;
+- both were accompanied by green Distribution CI and Core/Agent clean-machine regressions on Ubuntu, macOS and Windows.
+
+Key Distribution merges:
+
+- PR #3 `68d08a432739deeaff3fe3f7915b7fe9abf7e686` - Grandma product bootstrap;
+- PR #4 `52a86075a36df9c541d750f021d21cad3311f8c7` - bounded deterministic self-heal;
+- PR #5 `7ff5e58fa03e80e541c87bd3f3f319149ccb3fe6` - scenarios A-F;
+- PR #6 `f89bcae9429ef40128c3c0496993a2d502215d19` - scenarios G-M.
+
+This work does **not** rewrite the frozen Agent release. A new immutable candidate containing these later heads remains a separate release step and is still gated by the Safe Update/release-train compatible state.
+
+Canonical detail:
+
+- `docs/INVISIBLE-INTELLIGENCE-AND-GRANDMA-UX-IMPLEMENTATION-PLAN.md`
+- `docs/PUBLIC-BETA-TRACKER.md`
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
 ### Added AI-Verse Interface Designer composite capability
 
 **Date:** 2026-09-14  

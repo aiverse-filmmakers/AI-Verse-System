@@ -38,6 +38,24 @@ Current QC results:
 
 Remaining generic-runtime or unrelated legacy package limitations, where still applicable, are outside the Interface Designer release gate and must not be interpreted as failures of this composite.
 
+## 2026-09-14 Invisible Intelligence self-learning QC
+
+**Current merged head:** `71264af6b2b9a575812fe18858d75a54ea2ff545`  
+**Bounded self-learning verdict:** **PASS**
+
+Accepted current evidence:
+
+- safe new learned-Skill auto-promotion is restricted to low-risk agent-learned/unprotected candidates;
+- learned identifiers are constrained before owner mutation;
+- mandatory owner evaluation/admission remains in the path;
+- protected/user/first-party/third-party ownership, permission/dependency expansion, executable changes, destructive deletion and dangerous/secret candidates do not silently auto-promote;
+- immutable generation law remains intact;
+- runtime/Gateway/Brain evidence cannot forge trusted learning identity or provenance;
+- later-use and rollback behavior is accepted through OS/Gateway composition;
+- Distribution A-F run `34890195270` proves scenarios C and D against the real Skills owner.
+
+This supersedes the retained 2026-09-13 statements that there was no implemented workshop/promotion pipeline or quarantine/admission behavior at all. It does **not** claim every imported third-party package is safe to execute in every runtime, nor does it make Skills an authorization system.
+
 ## 1. Product identity QC
 
 **Verdict: PASS**
@@ -399,11 +417,9 @@ Missing:
 
 ## 29. Third-party admission QC
 
-**Verdict: FAIL FOR FINAL TRUSTED-DISTRIBUTION TARGET**
+**Verdict: PASS FOR CURRENT DETERMINISTIC ADMISSION; BROADER FOREIGN-RUNTIME BEHAVIORAL TRUST REMAINS PARTIAL**
 
-The repository's own research requires an admission pipeline.
-
-The current release pipeline does not implement it.
+Current merged code implements deterministic package admission/security/trust projection. The retained baseline concern remains relevant only for broader behavioral/runtime-specific assumptions that static admission cannot prove.
 
 The vendored `Council` package is direct evidence of why integrity/provenance alone is insufficient: preserved original instructions contain runtime-specific effects and environment assumptions that current static metadata does not describe.
 
@@ -529,14 +545,7 @@ Research ideas successfully implemented:
 - host authority;
 - evidence/receipt semantics.
 
-Not yet fully implemented:
-
-- quarantine/admission;
-- security scanning;
-- semantic dedup gate;
-- sandbox behavioral evaluation;
-- workshop/promotion pipeline;
-- broad toolpack/eval runtime.
+Partially or fully superseded since this baseline: deterministic admission, quarantine/approval gates and the bounded learned-Skill promotion pipeline are CURRENT. Semantic duplicate analysis, sandbox behavioral evaluation and broad foreign-runtime execution evaluation remain separate breadth gaps.
 
 ## 40. Original-first policy QC
 

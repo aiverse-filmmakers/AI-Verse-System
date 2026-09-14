@@ -1251,3 +1251,19 @@ A clean compatible OS with no Brain attachment is blocked by `plan-integration`,
 8. The absence of a generic cross-component write dispatcher, Data consumption in normal cognition, cross-mode state migration and prior-version strategy restore is based on current reviewed code paths. Future unreviewed/private systems are outside this repository's evidence.
 9. Release status after the reviewed head may change and should trigger a living-spec update.
 
+---
+
+## 2026-09-14 Invisible Intelligence superseding evidence
+
+The original forensic findings remain useful as history, but current owner-admission evidence now supersedes the earlier claim that the system had only a symbolic future route for safe reusable-procedure and structured-Data candidates.
+
+CURRENT Brain evidence head: `16c0b7ea32fcb4759cfb8368876b6985016eab68`.
+
+Relevant accepted changes:
+
+- PR #21 / `a53f79cf083d99b39a87d9ffe9509bf4e2d02922`: bounded Brain admission for reusable-procedure learning candidates;
+- PR #22 / `16c0b7ea32fcb4759cfb8368876b6985016eab68`: bounded Brain admission for automatic Data structure candidates;
+- Gateway/OS remain the routing/final-authority boundary; Brain does not receive direct sibling canonical-write authority;
+- A-F acceptance proves safe Skill/Data routes and dangerous/destructive boundaries against their actual owners.
+
+This closes the accepted Agent-path admission/routing gap without changing Brain's canonical responsibility for intent, goals, strategy, evaluation and learning. Broader future owner classes still require owner-specific contracts.

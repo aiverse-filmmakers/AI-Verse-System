@@ -923,7 +923,7 @@ M. no silent authority expansion
 
 ## Slice 12.1 - Living-spec CURRENT updates
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** corresponding owner slices complete
 
@@ -934,6 +934,41 @@ Only after implementation/evidence exists:
 - update Public Beta Tracker;
 - append System Changelog;
 - keep Owner Product Intent canonical and unchanged unless product intent itself changes.
+
+### Accepted synchronization evidence
+
+Living specifications were updated only after owner implementation and A-M cross-repo acceptance existed.
+
+Updated system-level records:
+
+- `docs/DOGFOOD-UX-AND-PLATFORM-COMPLETENESS.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/PUBLIC-BETA-TRACKER.md`
+- `docs/SYSTEM-CHANGELOG.md`
+
+Updated component living records:
+
+- OS COMPONENT-SPEC / QC / SOURCE-MAP
+- Brain COMPONENT-SPEC / QC / SOURCE-MAP
+- Skills COMPONENT-SPEC / QC / SOURCE-MAP
+- Data COMPONENT-SPEC / QC / SOURCE-MAP
+- Multiple Bots COMPONENT-SPEC / QC / SOURCE-MAP
+- Automations COMPONENT-SPEC / QC / SOURCE-MAP
+
+Key corrections:
+
+- preserved the original immutable `agent-public-beta-2026-09-14` release history instead of rewriting it;
+- recorded later Invisible Intelligence implementation as post-release CURRENT evidence for a new candidate;
+- replaced stale “plan-only reconcile” claims with bounded owner-controlled apply truth;
+- recorded AI-Verse Automations as the canonical cadence owner rather than leaving scheduler ownership undecided;
+- recorded current owner-routed workspace/Memory/Skills/Data/Bot/Worker/Automation paths without turning OS/Gateway/Brain into sibling canonical stores;
+- corrected Multiple Bots from Phase-4-era “Phase 5 pending” prose to its current Phase 5 / first-release-complete state;
+- corrected Skills admission/self-learning status to the current bounded immutable promotion/quarantine model;
+- corrected Data PR #13/host-engine/product-path status and recorded safe automatic structure plus destructive migration boundaries;
+- preserved remaining real gaps: generic future-owner lifecycle breadth, legacy/adoption/recovery UX and the separate Safe Update/release-train dependency;
+- Owner Product Intent was not changed.
+
+Final stale-claim scan found no remaining targeted matches for the superseded claims checked in this slice.
 
 ## Slice 12.2 - New immutable Agent candidate with Invisible Intelligence
 
@@ -962,12 +997,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Formal tracked completion: **22 / 24 = 91.7%**
-- Current active slice: **12.1 - Living-spec CURRENT updates**
-- Completed through: **11.2 - Scenario acceptance G-M**
+- Formal tracked completion: **23 / 24 = 95.8%**
+- Current active slice: **12.2 - New immutable Agent candidate with Invisible Intelligence (BLOCKED on Safe Update/release-train compatible state)**
+- Completed through: **12.1 - Living-spec CURRENT updates**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** synchronize living specifications to the accepted implementation evidence. Update stale GAP/INTENDED/current-status statements only where the accepted owner and A-M scenario evidence now proves CURRENT behavior. Preserve the frozen Agent release history and Owner Product Intent.  
-**Expected repo:** AI-Verse-System.  
+**Exact NEXT:** re-evaluate and close the separately owned Safe Update/release-train dependency required by 12.2. If that dependency is now compatible, freeze a NEW exact Agent candidate containing the accepted Invisible Intelligence heads and rerun Distribution/Core/Agent/A-M release gates. Do not mutate the original frozen release.  
+**Expected repos:** AI-Verse-System safe-update plan and ai-verse-distribution release/version-set surfaces.  

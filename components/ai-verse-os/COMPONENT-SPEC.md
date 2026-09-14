@@ -13,6 +13,8 @@
 
 **CURRENT:** AI-Verse OS is a domain-neutral, local-first operating layer for AI-assisted work.
 
+**Current accepted evidence head:** `156f15f162c6d63159b54d3ad87e0342ec7cf9aa` (includes Invisible Intelligence owner routes and progressive Memory bridge).  
+
 It is best understood as the **host constitution** of the AI-Verse family. It defines where truth lives, how work is scoped, how optional components attach, which source has authority, which capability may be selected, which permissions constrain action, and how user-owned state survives system evolution.
 
 Its public design principle is:
@@ -603,13 +605,9 @@ The architecture expects:
 
 ### Current implementation reality
 
-**GAP:** AI-Verse OS itself does not yet provide one universal scheduler/event-runner proving Cadence end-to-end.
+**CURRENT OWNERSHIP:** OS deliberately does not become the universal scheduler. AI-Verse Automations is the canonical cadence/schedule/trigger owner. OS supplies scope, permission and owner-routing boundaries that Automations must re-check; a file under `automations/` is still not treated as proof of execution.
 
-The repository contains automation structure, policy architecture and audit criteria, but a file in `automations/jobs/` is explicitly not treated as proof that anything actually runs.
-
-This is one of the clearest examples of:
-
-> architecture layer exists, universal runtime implementation does not yet exist.
+The accepted Agent release proves real Automations delivery, and Invisible Intelligence G/H additionally prove that recommendation-only behavior creates no recurring state while direct recurring consent reaches the canonical Automations owner.
 
 ---
 
@@ -756,35 +754,13 @@ Current command:
 ai-verse-os components reconcile
 ```
 
-**CURRENT:** reconcile is explicitly plan-only:
+**CURRENT:** reconcile supports both a deterministic plan and a deliberately narrow apply mode. The plan remains owner-aware. Apply executes only owner actions explicitly admitted by OS; the accepted automatic path is Brain attach/init when the exact owner CLI is available. Registry locks, migration-required states and non-automatic owner actions remain fail-closed.
 
-```text
-mode: plan-only
-mutated: false
-```
+Distribution's `aiverse start` consumes this contract and revalidates the exact plan before using it for bounded self-heal.
 
-It suggests component-owned actions such as:
+### Remaining scope
 
-- Brain attach;
-- rerun Memory installer;
-- Data install.
-
-It intentionally does not synthesize another component's state.
-
-### Missing implementation
-
-**GAP:** there is no generic `reconcile --apply` or `activate <component>` transaction that:
-
-1. discovers the component;
-2. validates compatibility;
-3. attaches it;
-4. plans migration;
-5. initializes scope;
-6. teaches/adapts the active agent;
-7. validates health;
-8. reports steady state.
-
-This is the largest OS-side product gap relative to the "works like a glove" target.
+There is still no universal arbitrary `activate <component>` transaction that may invent lifecycle semantics for every future component. Broader activation/migration remains owner-specific and must preserve canonical ownership. That is now a breadth/release-train gap, not evidence that reconcile is plan-only.
 
 ---
 
@@ -901,35 +877,13 @@ It queues request/receipt records in:
 runtime/write-commands/
 ```
 
-### What does not exist yet
+### Current execution boundary
 
-The receipt explicitly reports:
+The original Phase 3.7 `write-command.mjs` queue remains a safe intake/transport and still must not be mistaken for a generic arbitrary write executor by itself.
 
-```text
-effect_occurred: false
-canonical_effect_occurred: false
-queue_state: pending_handler
-canonical_handler_dispatched: false
-```
+**CURRENT SYSTEM UPDATE (2026-09-14):** OS now also exposes bounded owner routes through the host adapter for the accepted Invisible Intelligence operations, including workspace organization, Memory capture, Skills learning candidates, safe structured Data, temporary Workers, durable Bots with consent, and Automations with recurring consent. Those routes re-check trusted evidence/authority and invoke the canonical owner rather than mutating sibling stores directly.
 
-**GAP:** canonical owner-specific handlers are not implemented by this Phase 3.7 boundary.
-
-The queue does not itself write:
-
-- context;
-- knowledge;
-- decisions;
-- Memory;
-- Skills;
-- Automations;
-- Connections;
-- Brain state.
-
-This means AI-Verse has a safe cross-component write **intake transport**, but not yet a general canonical-write execution pipeline.
-
-Future handlers must re-check current owner, policy, approval and durable idempotency at the actual write edge.
-
-This is one of the most important unfinished implementation facts in the OS.
+The generic queued write-command surface is therefore still not a universal handler framework for every future owner, but the earlier statement that the system has no owner-specific canonical execution path is superseded for the accepted routes.
 
 ---
 
@@ -1095,27 +1049,11 @@ A resolved finding requires fresh evidence, not merely a changed file.
 
 ## 35. Onboarding
 
-The `onboard` capability uses a universal seven-question intake.
+**CURRENT:** onboarding is progressive by default. The deeper seven-question intake remains available when useful, but it is no longer a mandatory first-value barrier.
 
-It creates the minimum useful:
+The ordinary Agent product path is `aiverse start`, which performs exact released install/setup/doctor and then hands off conversationally with “What would you like help with?” without granting permissions or transferring Brain strategy. OS progressive onboarding/history bridges gather additional context only when it becomes relevant.
 
-- operator profile;
-- current context;
-- connection registry;
-- workspace routes;
-- first improvement candidate.
-
-It explicitly:
-
-- preserves existing state;
-- detects legacy paths;
-- checks direction ownership before strategic writes;
-- resumes safely after interruption;
-- avoids profession-specific scaffolding;
-- distinguishes configured from verified connections;
-- does not automatically automate Q7.
-
-This is one of the strongest places where OS philosophy becomes actual user experience.
+The owner-level onboarding machinery still preserves existing state, detects legacy paths, checks direction ownership before strategic writes, resumes safely after interruption, avoids profession-specific scaffolding and distinguishes configured from verified connections.
 
 ---
 
@@ -1468,25 +1406,25 @@ However, the current implementation still has meaningful gaps between "correct h
 | Generic connection execution layer | **NOT OWNED / NOT IMPLEMENTED BY OS** |
 | Data host boundary | **COMPLETE** |
 | Cross-component write intake | **COMPLETE** |
-| Canonical write dispatch/handlers | **MISSING** |
+| Canonical write dispatch/handlers | **CURRENT FOR ACCEPTED INVISIBLE ROUTES; GENERIC QUEUE FRAMEWORK PARTIAL** |
 | OS install | **COMPLETE FOR GITHUB DEVELOPMENT PATH** |
 | OS update | **COMPLETE WITH RELEASE LIMITATIONS** |
 | Component attachment model | **COMPLETE FOR KNOWN CORE EXTENSIONS** |
 | Generic extensible component discovery | **PARTIAL** |
-| Component reconcile | **PLAN-ONLY** |
-| Universal activate/adopt command | **MISSING** |
+| Component reconcile | **PLAN + BOUNDED OWNER APPLY** |
+| Universal activate/adopt command | **CURRENT AGENT FIRST-RUN VIA DISTRIBUTION; ARBITRARY FUTURE COMPONENTS PARTIAL** |
 | Universal legacy-state migration orchestration | **PARTIAL / COMPONENT-SPECIFIC** |
 | Core doctor | **COMPLETE FOR CORE CHECKS** |
-| Unified whole-system health command | **MISSING** |
+| Unified whole-system health command | **CURRENT FOR AGENT PROFILE VIA DISTRIBUTION DOCTOR; BROADER FULL PROFILE PARTIAL** |
 | Automation/Cadence architecture | **COMPLETE AS ARCHITECTURE** |
-| Universal scheduler/runtime | **MISSING / OUTSIDE CURRENT BASE IMPLEMENTATION** |
+| Universal scheduler/runtime | **CURRENT OWNER IS AI-VERSE AUTOMATIONS; INTENTIONALLY OUTSIDE OS** |
 | Agent architecture | **COMPLETE AS MODEL** |
 | Generic agent executor | **NOT PRESENT IN BASE OS** |
 | App architecture | **COMPLETE AS MODEL** |
 | Concrete app proof | **3D Brain EXISTS** |
 | Release/version immutability | **PARTIAL** |
 | Cross-platform OS CLI proof | **STRONG** |
-| Full five-component release proof | **STATUS DOC SHOWS EXTERNAL DATA RUNNER GATE AT REVIEWED SNAPSHOT** |
+| Full five-component release proof | **HISTORICAL FIVE-COMPONENT + FROZEN AGENT RELEASE ACCEPTED** |
 
 ---
 
@@ -1497,23 +1435,23 @@ However, the current implementation still has meaningful gaps between "correct h
 | Install OS | Yes | `npx --yes github:aiverse-filmmakers/AI-Verse-OS install` | Yes | Immutable release channel/published package |
 | Install global CLI | Useful | `npm install -g github:aiverse-filmmakers/AI-Verse-OS` | Yes | Registry publication |
 | Core doctor | Yes | `ai-verse-os doctor` | Yes | Does not include component/operational health |
-| Onboard | Yes | `ai-verse-os onboard` plus `/onboard` or `$onboard` | Yes | Runtime-neutral first-class UX beyond Claude/Codex |
+| Onboard | Yes | progressive OS onboarding; ordinary Agent path is `aiverse start` | Yes | broader UI/channel polish |
 | Update | Yes | `ai-verse-os update` | Yes | Version channels/rollback/migration engine |
 | Component doctor | Yes | `ai-verse-os components doctor` | Yes | Hardcoded known components, shallow health |
-| Component reconcile | Yes | `ai-verse-os components reconcile` | Yes as plan | No apply mode |
+| Component reconcile | Yes | `ai-verse-os components reconcile [--apply]` | Yes for bounded owner apply | no arbitrary future-owner lifecycle invention |
 | Attach Brain | If present | Brain-owned attach command surfaced by reconcile | Yes in acceptance | Not unified under OS activate |
 | Attach Memory | If present | rerun Memory installer | Yes in acceptance | Not unified under OS activate |
-| Attach Data | If present | Data-owned install surfaced by reconcile | Supported | Full release proof externally gated in status snapshot |
+| Attach Data | If present | Data-owned install/host route | Yes in Agent composition | broader migration UX |
 | Discover Skills | If present | passive provider discovery | Yes | Live generic readiness still separate |
-| Activate/adopt arbitrary component | Yes for seamless target | None | No | Define generic activation contract |
+| Activate/adopt arbitrary component | Agent first-run current via Distribution | `aiverse start` for Agent profile | Yes for Agent | generic future component activation remains partial |
 | Migrate old component state | Yes for stateful additions | component-specific | Mixed | Shared discovery/plan/apply/verify UX |
 | Disable component | Yes | component-owned | Mixed | Unified OS UX |
 | Detach/uninstall component | Yes | component-owned | Mixed | Unified OS UX |
-| Reinstall preserved state | Yes | component-specific + reconcile plan | Partial | Automated rediscovery/adoption flow |
-| Queue cross-component write | Yes | `write-command.mjs enqueue` | Yes | Canonical handler dispatch |
-| Execute queued canonical write | Yes for full write integration | None generic | No | Owner-specific handler framework |
+| Reinstall preserved state | Yes | component-specific + reconcile/Distribution | Yes in Agent acceptance | broader cross-version release train |
+| Queue cross-component write | Yes | `write-command.mjs enqueue` | Yes | generic queue remains intake-only |
+| Execute owner-routed canonical write | Yes for accepted invisible routes | OS host adapter -> canonical owner | Yes for workspace/Memory/Skills/Data/Bots/Workers/Automations boundaries | broader owners require contracts |
 | Audit operational system | Yes | `/audit` | Yes as AI-guided audit | Not one deterministic aggregate doctor |
-| Run universal automation scheduler | Future/architecture dependent | No generic command | No | Cadence runtime/scheduler if OS is to own it |
+| Run universal automation scheduler | Yes at system level | AI-Verse Automations owner | Yes in Agent acceptance | OS intentionally does not own scheduler |
 
 ---
 
@@ -1537,9 +1475,9 @@ This is the single most visible product gap.
 
 ### 48.2 Executable reconciliation
 
-Current reconcile only tells the user/agent what command to run next.
+**CURRENT for bounded cases:** reconcile has an apply path and the Agent first-run self-heal consumes it. Automatic mutation is deliberately allowlisted to the exact owner-controlled Brain attach/init case; migration, registry-lock and unknown-owner states remain non-automatic.
 
-A safe `--apply` path could orchestrate component-owned commands without violating component ownership.
+Broader arbitrary component activation is still intentionally not synthesized by OS.
 
 ### 48.3 Generic component manager
 
@@ -1549,9 +1487,7 @@ Future additions should be describable through a versioned component contract so
 
 ### 48.4 Canonical write handlers
 
-The queue is real and safe, but canonical execution is not.
-
-This must be finished before cross-component write requests can be described as a complete owner-controlled write system.
+The generic queue is still intake-only, but CURRENT host routes now execute the accepted owner-controlled workspace/Memory/Skills/Data/Bot/Worker/Automation operations through their canonical owners. The remaining gap is a generic extensible protocol for additional future owner classes, not absence of all canonical execution.
 
 ### 48.5 Capability readiness
 
@@ -1704,10 +1640,10 @@ The OS succeeds when these independently owned pieces feel like **one coherent s
 
 1. What should the universal component activation command syntax be?
 2. Should component discovery be registry-driven and self-describing instead of hardcoded IDs?
-3. Should `components reconcile --apply` exist, and what confirmation model should govern it?
+3. **Answered for current public beta:** `components reconcile --apply` exists, but automatic execution is deliberately narrow and owner-controlled; broader owner actions remain explicit.
 4. What shared migration-plan schema should stateful components expose?
-5. What canonical owner-specific write-handler protocol should consume `runtime/write-commands/`?
-6. Who owns the universal Cadence runtime if scheduled execution becomes first-class?
+5. **Partially answered:** accepted owner-specific execution routes now exist through the OS host adapter; what generic extensible protocol should cover additional future owners and the legacy queue?
+6. **Answered:** AI-Verse Automations owns universal Cadence/schedules/triggers; OS owns scope/permission boundaries, not scheduling truth.
 7. Should core doctor aggregate component doctor while still distinguishing structural vs live health?
 8. What formal versioned "AI-Verse Host Protocol" should external runtimes target?
 9. How should release channels, immutable versions and rollback work?

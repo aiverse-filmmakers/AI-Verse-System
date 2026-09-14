@@ -50,6 +50,22 @@ Post-merge `main` gates on `71264af6b2b9a575812fe18858d75a54ea2ff545`:
 - Runtime Readiness: PASS across all 6 OS/Python matrix jobs, run `34886502969`;
 - Full E2E Install: PASS through install, provider validation, setup, immutable update, rollback, uninstall and recovery, run `34886502946`.
 
+## 2026-09-14 Invisible Intelligence self-learning update
+
+The current merged head `71264af6b2b9a575812fe18858d75a54ea2ff545` also contains the accepted Skills-owned self-learning path that landed before the Interface Designer merge.
+
+**CURRENT:**
+
+- PR #11 / `8b82e41bd8f0adecdfd93d64ae1fb30552802b99` allows bounded safe auto-promotion of new learned Skills;
+- PR #12 / `fb0c138ef424734cd2e5359040f376e35c4c5875` constrains learned Skill identifiers before owner mutation;
+- low-risk agent-learned, unprotected candidates may auto-promote only after mandatory proposal/evaluation/admission gates;
+- dangerous/secret, executable/dependency-bearing, permission-expanding, ownership-changing, destructive or protected-source changes remain quarantined or approval-bound;
+- every production change still creates/uses an immutable Skills generation and active-generation transition owned by Skills;
+- Gateway/Brain/OS may identify and route a candidate, but they do not own Skill bytes or bypass Skills admission;
+- later normal runs rediscover and use the promoted generation, and rollback remains generation-safe.
+
+Cross-repo scenario C/D acceptance is recorded in Distribution run `34890195270` against this exact Skills head. This turns the earlier proposal/evaluate/promote research direction into CURRENT public-beta behavior for the bounded learned-Skill class, not blanket autonomous package mutation.
+
 **LAW:** Interface Designer may select procedural expertise but cannot grant permissions, credentials, connections, workspace authority or external-action approval.
 
 **LAW:** a target-specific expert is loaded only when its actual target/condition applies. The presence of React, Vercel, shadcn, Figma, Scroll Craft or another provider never forces that stack or vendor onto a project.

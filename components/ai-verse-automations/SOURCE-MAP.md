@@ -7,7 +7,7 @@
 
 Repository: `aiverse-filmmakers/AI-Verse-Automations`
 
-Current evidence head: `494469a496d479cfec618bcd9511033c0cd3e815`
+Current accepted evidence head: `caaed83b98026dd955640fc015d181529b91a1c6`
 
 Implementation publication head: `447310570aba837c1df61b9f87013f7cb7ec062b`
 
@@ -173,3 +173,17 @@ Repository record:
 - `docs/RESEARCH.md`
 
 The implementation synthesized mature patterns from Hermes cron/heartbeat, OpenClaw schedules/hooks, Letta scheduled continuation and durable execution systems. The adopted laws are deterministic scheduler bookkeeping outside model cognition, durable claims, stable idempotency identity, explicit uncertainty handling and no cached authority.
+
+---
+
+## 2026-09-14 Invisible Intelligence superseding evidence
+
+Current owner evidence after the original implementation audit:
+
+- `53ab6a79a07f99f7e0e357a9c78337926823d96d` - atomic consented Automation definition creation;
+- `caaed83b98026dd955640fc015d181529b91a1c6` - safe Automations OS extension-owner bridge;
+- registry locks are never stolen and explicit disabled state is preserved on reattach;
+- Distribution frozen Agent acceptance proves whole-profile Automations composition;
+- Invisible Intelligence G/H run `34890857872` proves recommendation leaves canonical recurring state empty and direct recurring consent reaches the Automations owner.
+
+The frozen Agent release ref remains historical release truth; this newer head is CURRENT post-release evidence for a future candidate.

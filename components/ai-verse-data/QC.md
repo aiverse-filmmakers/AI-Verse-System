@@ -10,6 +10,26 @@
 
 ---
 
+## 2026-09-14 current superseding QC
+
+**Current accepted head:** `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`  
+**Current Agent-path verdict:** **PASS**
+
+The retained QC below is a useful 2026-09-13 forensic snapshot, but several release-path failures are superseded:
+
+- PR #13 merged as `189b13264ab86115d2f21fee3ba8cd5a8dac6581`;
+- its callable host engine and real product-path acceptance are CURRENT;
+- the frozen Agent release accepted Data on Ubuntu/macOS/Windows through Distribution;
+- `579dae596a1c929bbc0e900541d29742c18b875e` adds safe retryable automatic structure ensure;
+- `8edde7dca5afa34e300130cc6b8ee2b4170ad40f` advertises trusted host-bound actor support in the installed engine;
+- scenario E proves safe automatic structured Data survives restart/readback;
+- scenario F proves destructive/migration-required change does not happen silently;
+- forged automatic Data identity/provenance is rejected.
+
+Remaining gaps are legacy/adoption and richer migration/recovery UX plus the separate cross-version release-train project. Those do not invalidate the current Agent Data path.
+
+---
+
 ## 1. Executive QC verdict
 
 AI-Verse Data has a strong core engine and a coherent ownership model.
@@ -450,7 +470,7 @@ No prompt-only isolation assumption was found.
 
 ## 13. OS host integration QC
 
-**Verdict: FAIL / REQUIRES CORRECTION ON MAIN**
+**Verdict: PASS - SUPERSEDED BY MERGED PR #13 AND CURRENT HOST ACCEPTANCE**
 
 ### What exists
 
@@ -465,7 +485,7 @@ No prompt-only isolation assumption was found.
 
 ### What main actually materializes
 
-A registration-only engine metadata object.
+At the original reviewed head this was a registration-only engine metadata object. CURRENT merged code materializes a callable Data host engine with trusted host-bound actor support.
 
 ### Consequence
 
@@ -483,7 +503,7 @@ Adds:
 
 ### QC status
 
-Correct direction, not CURRENT until merged and green.
+CURRENT: merged and accepted through frozen Agent composition and later Invisible Intelligence A-F acceptance.
 
 ---
 
@@ -526,7 +546,7 @@ Therefore the original Task 41 gate is not enough to prove the claimed member pa
 
 ## 15. PR #13 QC
 
-**Verdict: ARCHITECTURALLY STRONG, NOT YET RELEASE EVIDENCE**
+**Verdict: HISTORICAL SNAPSHOT - PR #13 IS MERGED RELEASE EVIDENCE**
 
 ### Positive
 
@@ -538,17 +558,11 @@ Its repair list is coherent with observed main weaknesses.
 
 ### Limitation
 
-It is:
-
-- open;
-- draft;
-- unmerged;
-- mergeable_state unstable;
-- blocked by non-executing hosted-runner jobs.
+Historical at review time. CURRENT status: merged, accepted, and followed by additional Invisible Intelligence Data hardening.
 
 ### Important rule
 
-The audit does not promote PR #13 behavior to CURRENT.
+Superseded: PR #13 merged as `189b13264ab86115d2f21fee3ba8cd5a8dac6581` and its behavior is CURRENT for the frozen Agent release.
 
 ### Remaining even after merge
 

@@ -2,6 +2,7 @@
 
 **Component:** AI-Verse Brain  
 **Repository reviewed:** `aiverse-filmmakers/AI-Verse-Brain`  
+**Current superseding evidence head:** `16c0b7ea32fcb4759cfb8368876b6985016eab68` (Invisible Intelligence owner-admission updates)  
 **Reviewed branch:** `main`  
 **Reviewed head:** `bef8261ad35d126d29aeff5d496f46904125b7b6`  
 **Fresh standalone review:** 2026-09-13  
@@ -241,9 +242,9 @@ Brain currently performs every cross-component canonical write
 
 This is important because the Phase 3 research specification expected OS write routing and Memory write integration as part of the day-one functional slice.
 
-**GAP:** the complete cross-component durable-write path remains unfinished at system level.
+**CURRENT SYSTEM UPDATE (2026-09-14):** Brain still does not and must not become a generic sibling-state writer. The system-level durable-write gap is now closed for the accepted invisible-organization routes through owner-controlled boundaries: Gateway/OS route workspace organization, Memory capture, Skills learning candidates and safe structured Data candidates to their canonical owners. Brain contributes classification/admission where its intelligence contract is relevant, but the final canonical write remains with the owner.
 
-The future path should use owner-controlled host/component write boundaries rather than giving Brain direct access to sibling canonical files or databases.
+This is deliberately narrower than “Brain performs every cross-component write.” Broader future owner classes must add their own owner-controlled write/admission contracts rather than granting Brain direct access to sibling files or databases.
 
 ---
 
