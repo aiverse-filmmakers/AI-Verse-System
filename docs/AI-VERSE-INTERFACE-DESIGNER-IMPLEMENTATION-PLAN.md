@@ -269,7 +269,7 @@ A written dedupe/migration map exists before any existing AI-Verse Skill is remo
 
 ## Slice 2.1 - Re-verify exact upstream sources and refs
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Skills, AI-Verse-System for evidence if needed  
 **Dependencies:** 1.1
 
@@ -327,7 +327,7 @@ Do not make Scroll Craft's custom engine the default dashboard/frontend architec
 
 ## Slice 2.2 - License and redistribution decision per upstream
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.1
 
 For every source, record:
@@ -347,13 +347,29 @@ For every source, record:
 
 Unknown or incompatible license means **do not copy bytes** until the legal route is clear.
 
+### Phase 2 evidence
+
+- source/license pin document: `docs/AI-VERSE-INTERFACE-DESIGNER-UPSTREAM-PINS-2026-09-14.md`
+- evidence commit: `cb4212def5ef21bac89f64e23910e2a765b4f054`
+- Anthropic frontend-design: Apache-2.0 package-level license
+- UI/UX Pro Max: MIT
+- Vercel Agent Skills + Web Interface Guidelines: MIT
+- shadcn/ui: MIT
+- Google DESIGN.md: Apache-2.0
+- Meng To Skills: MIT
+- Emil Kowalski Skills: MIT
+- Scroll Craft: MIT
+- Google Stitch Skills: Apache-2.0 and optional only
+- Vercel web-design-guidelines receives only a bounded reproducibility adaptation so its rule snapshot is generation-pinned rather than runtime-fetching mutable main
+- no implementation stack/vendor becomes mandatory
+
 ---
 
 # Phase 3 - Canonical capability map and deduplication design
 
 ## Slice 3.1 - Define canonical capabilities
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 1.2, 2.2
 
 Define semantic capabilities independent of upstream package names, including at minimum:
@@ -386,12 +402,22 @@ The orchestrator resolves capabilities to approved Skill generations rather than
 
 ## Slice 3.2 - Existing-skill replacement/migration plan
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 3.1
 
 Map existing AI-Verse design Skills to the canonical capability map.
 
 Only after this map is reviewed may obsolete AI-Verse design Skills be removed.
+
+### Phase 3 evidence
+
+- capability/routing map: `docs/AI-VERSE-INTERFACE-DESIGNER-CAPABILITY-MAP-2026-09-14.md`
+- evidence commit: `95941b7400568feb840939fbef4df6da7cf7d8d8`
+- shared packaging decision: `docs/AI-VERSE-COMPOSITE-SKILL-PACKAGING-DECISION-2026-09-14.md`
+- packaging commit: `1cb64f6c139631d4f94fe1179a106bf3bcc6f60a`
+- no existing design capability is removed
+- target catalog intentionally evolves from 100 to 120 canonical capabilities
+- interface-designer is first-party; 18 experts retain their own upstream source identity
 
 ### Acceptance criteria
 
@@ -403,7 +429,7 @@ No useful existing AI-Verse behavior disappears silently.
 
 ## Slice 4.1 - Scope classifier
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 3.1
 
 Classify work into at least:
@@ -420,6 +446,22 @@ Classify work into at least:
 - MOBILE/EXPO UI.
 
 Scope determines pipeline depth.
+
+### Current implementation evidence
+
+- AI-Verse-Skills branch: `feature/interface-designer-2026-09-14`
+- draft PR: #13
+- first-party package created at `skills/imported/ai-verse/interface-designer/`
+- package creation ref: `fb048e2c125b6f09f6ba4fd566a574f34c4a765a`
+- registry wiring ref before E2E fix: `ef67e8ce5dcb42bea51a0885f1080a808a5069da`
+- initial Validate workflow: PASS, run `34872390676`
+- initial full E2E correctly exposed one remaining hard-coded 100-capability assertion
+- E2E count fix ref: `f104822c25094d47115517bead64c99089c8ab77`
+- rerun Validate workflow: PASS, run `34872606928`
+- rerun Full E2E: PASS, run `34872606784`
+- accepted implementation ref for Slice 4.1: `f104822c25094d47115517bead64c99089c8ab77`
+- draft implementation PR: #13
+
 
 ### Implementation-target classification
 
@@ -940,8 +982,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** none  
-**Next:** Phase 2 / Slice 2.1 - Re-verify and pin selected Interface Designer upstream expert sources  
+**In progress:** Phase 4 / Slice 4.2 - Semantic trigger policy and expert package registration  
+**Next:** Phase 4 / Slice 4.2 - Register pinned experts and complete semantic trigger policy  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.

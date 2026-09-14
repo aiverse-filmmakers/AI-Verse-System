@@ -349,7 +349,7 @@ Any existing AI-Verse video/design Skill can be removed only when:
 
 ## Slice 2.1 - Pin exact Nate source and inventory
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Skills  
 **Dependencies:** 1.1
 
@@ -385,7 +385,7 @@ Also inventory:
 
 ## Slice 2.2 - Editorial authority map
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.1
 
 Document which specialist owns each decision.
@@ -402,6 +402,20 @@ Example:
 - HyperFrames -> composition/runtime rules.
 
 Purpose: prevent later imported design skills from stealing editorial ownership.
+
+### Phase 2 evidence
+
+- Nate source/authority document: `docs/AI-VERSE-VIDEO-EDITOR-NATE-BASELINE-2026-09-14.md`
+- evidence commit: `e6bbc792314df95a50da8b75dd3cf564582f6be4`
+- Nate pinned source: `b1afdb1dcbcad39dd27638ea699f132fe44ce6df`
+- Nate kit version: `2.0.0`
+- tested Nate HyperFrames baseline: `0.7.109`
+- tested Nate GSAP baseline: `3.14.2`
+- current upstream HyperFrames candidate observed: `0.8.40` at `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`
+- 14 unique Nate Skills inventoried
+- `.agents/skills` and `.claude/skills` confirmed as host mirrors; AI-Verse will keep one canonical package copy and use runtime adapters rather than duplicate bytes
+- short-form-video classified as legacy maintenance only; short-form-edit is the modern short-form route
+- no editorial authority is transferred to Interface Designer
 
 ---
 
@@ -912,5 +926,5 @@ Before any implementation work:
 
 **Completed:** Phase 0 / Slice 0.1  
 **In progress:** none  
-**Next:** Phase 2 / Slice 2.1 - Pin and inventory exact current Nate Herk student-kit source  
+**Next:** Phase 3 / Slice 3.1 - Inspect current upstream HyperFrames 0.8.40 in detail  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD

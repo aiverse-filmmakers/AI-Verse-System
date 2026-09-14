@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 5
+Complete: 6
 In progress: 1
 Blocked: 0
-Remaining after current: 19
-Current: B2
-Next after current: C1
+Remaining after current: 18
+Current: C1
+Next after current: C2
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -415,7 +415,7 @@ Next after current: C1
 
 #### B2. Catalog budget, freshness, and diagnostics
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: B1
@@ -427,14 +427,28 @@ Next after current: C1
   - deleting the projection and rebuilding yields equivalent truth.
 - Tests: fingerprint drift, cap/truncation, diagnostics, rebuild.
 - Risks: brittle fingerprinting; orientation that hides critical corrections.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-Memory`.
+  - Branch: `context-ladder/b2-catalog-budget-freshness`.
+  - PR #21, merged 2026-09-14.
+  - Final PR head: `fd51a7d6b39528de2ce60773a406544ffad79a42`.
+  - Merge/main SHA: `15e81e3958b7f6b69fdf63021556706004bdb8a6`.
+  - PR Test run `34871933644`: final conclusion success on attempt 2. Attempt 1 had one Windows Python 3.12 full-suite runner stall in the pre-existing 8-writer concurrency test; the same Windows 3.12 focused public-beta acceptance passed in that attempt, Windows 3.9 full suite passed, and the unchanged Windows 3.12 job rerun `104071952512` passed completely.
+  - Post-merge Memory main Test run `34872782122`: success, 12/12 jobs green.
+  - Orientation schema v2 now carries deterministic `source_fingerprint` evidence over only authorized atomic Memory versions, refreshed current-source versions, and canonical session-digest versions.
+  - Unrelated workspace changes do not perturb another workspace fingerprint; authorized atomic/current-source/digest changes do.
+  - Public orientation reads rebuild from current owner evidence and overwrite stale stored projection rows rather than trusting cached derived state.
+  - Serialized UTF-8 output is hard-bounded by `max_bytes` or `AI_VERSE_ORIENTATION_MAP_MAX_BYTES`, default 8192 and supported range 1024-65536.
+  - Deterministic budget pressure removes only optional route-path samples, older session pointers, lower-ranked topics, then route entries while preserving scope, fingerprint, counts, Memory-type counts, and source-kind counts.
+  - `get_orientation_map_diagnostics` exposes bytes, transparent byte-based token estimate, budget, truncation, freshness, source counts, visible-scope count, and returned-entry counts without canonical content or hidden reasoning.
+  - Existing B1 isolation/rebuild/no-canonical-write behavior remains green.
 
 ### Phase C: Progressive Memory recall and exact evidence
 
 #### C1. Versioned progressive recall API
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: A2, B1-B2
 - Goal: add progressive depths equivalent to catalog/summary/detail/source while preserving legacy `recall()`.
@@ -451,7 +465,7 @@ Next after current: C1
 #### C2. Exact-source evidence fallback
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory
 - Dependencies: C1
 - Goal: resolve exact authoritative source for precision-sensitive facts rather than treating summaries as evidence.
@@ -823,16 +837,17 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **B2. Catalog budget, freshness, and diagnostics**
+Current implementation slice: **C1. Versioned progressive recall API**
 
-Do not start C1 until:
-- the orientation map carries a deterministic source fingerprint that changes when authorized atomic/current-source/session-digest inputs change;
-- stale projection state is detected and safely refreshed/rebuilt rather than trusted;
-- a configured output budget is enforced deterministically;
-- diagnostics expose bounded bytes/token estimates/source counts/freshness without chain-of-thought or canonical content leakage;
-- deleting the projection and rebuilding yields equivalent truth;
+Do not start C2 until:
+- legacy `recall()` behavior remains backward-compatible;
+- one versioned Memory-owned progressive retrieval API supports bounded catalog, summary, and detail depth without duplicating recall authority;
+- catalog depth reuses the B2 orientation projection rather than creating another catalog;
+- summary/detail retrieval is scoped, bounded, structured, and provenance-bearing;
+- each response states whether deeper evidence exists without claiming summaries are exact evidence;
+- response byte/item budgets are deterministic and tested;
 - full Memory CI is green;
-- B2 exact commit/PR/merge/run evidence is written here.
+- C1 exact commit/PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -952,3 +967,28 @@ Verified before B2 implementation on 2026-09-14:
 - B1 orientation projection and its concurrency hardening are present on current main.
 - AI-Verse-System main: `ebe41f669ffdbabf13c44b1038e8bdf7f95ed0c4`; this plan refreshes onto that exact live state before B2 code changes.
 - B2 is Memory-only and must extend the existing orientation projection rather than create another catalog/store.
+
+
+### Slice completion checkpoint: B2
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory PR #21 merged.
+- Final PR head: `fd51a7d6b39528de2ce60773a406544ffad79a42`.
+- Memory main after merge: `15e81e3958b7f6b69fdf63021556706004bdb8a6`.
+- PR Test run `34871933644`: final success on attempt 2; unchanged rerun job `104071952512` cleared the single transient Windows Python 3.12 full-suite stall from attempt 1.
+- Post-merge main Test run `34872782122`: success, 12/12 jobs.
+- B2 proved source-fingerprint drift across atomic/current-source/session-digest evidence, unrelated-workspace stability, stale derived-row replacement, deterministic hard byte caps, content-free diagnostics, deletion/rebuild equivalence, and B1 regression safety.
+- B2 acceptance is complete. Six of 25 slices are accepted.
+
+### Slice start checkpoint: C1
+
+Verified before C1 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `15e81e3958b7f6b69fdf63021556706004bdb8a6`.
+- Memory open PRs: none.
+- Memory active workflow runs: none.
+- Latest Memory main Test run `34872782122`: success, 12/12 jobs.
+- B1-B2 orientation projection, fingerprint, budget, diagnostics, and concurrency hardening are present on current main.
+- AI-Verse-System main: `28b15a4d61f752e5da62a885a9de8d0702cdc3f7`; this plan refreshes onto that exact live state before C1 code changes.
+- C1 is Memory-only and must preserve legacy `recall()` while adding one bounded versioned progressive retrieval surface.
