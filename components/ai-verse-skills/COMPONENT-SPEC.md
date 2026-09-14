@@ -8,6 +8,46 @@
 **Fresh standalone review:** 2026-09-13  
 **Method:** `docs/AUDIT-METHODOLOGY.md`
 
+## 2026-09-14 current release-candidate update
+
+**CURRENT release-candidate branch:** `feature/interface-designer-2026-09-14`  
+**CURRENT release-candidate head:** `a5068c2e8b1c581a721419c55282c03d900819a4`  
+**Declared distribution version:** `1.1.0-beta.1`  
+**Release-candidate validation date:** 2026-09-14  
+**Draft PR:** AI-Verse-Skills #13
+
+This update supersedes conflicting `CURRENT` statements in the retained 2026-09-13 standalone audit below. The older sections remain useful historical evidence for the pre-public-beta baseline.
+
+Current component facts:
+
+- 20 first-party foundation Skills;
+- 99 employee-facing capabilities;
+- 119 canonical capabilities total;
+- 5 non-canonical support packages;
+- the original 100 canonical capability IDs remain present;
+- 19 approved Interface Designer capabilities were added: one first-party `interface-designer` composite plus 18 separately sourced expert capabilities;
+- no pre-existing design capability was removed or renamed;
+- source/package counts are registry-declared rather than hard-coded into installer validation;
+- deterministic package admission is implemented in `installer/admission.py`;
+- immutable integrity, admission, source trust, runtime readiness and execution authorization remain separate facts;
+- admission metadata never grants execution authorization;
+- unknown/upstream-controlled redistribution remains conservative/fetch-only;
+- external curated design sources have autonomous mutation disabled;
+- Interface Designer is a task-local Skill composite, not a second registry, runtime, scheduler, Memory system or authority owner;
+- project-local `DESIGN.md` stores persistent visual grammar without becoming general Memory;
+- expert design packages remain separately pinned so specialist methodology/taste is not flattened into the orchestrator;
+- the future `video-editor` dependency is explicitly `planned_not_registered` and fails closed for `CODE_DRIVEN_VIDEO_MOTION_HANDOFF`.
+
+Final release-candidate gates on this head:
+
+- Validate AI-Verse Skills: PASS, run `34885862726`;
+- Runtime Readiness: PASS across Linux/macOS/Windows and Python 3.9/3.12, run `34885862743`;
+- Full E2E Install: PASS, run `34885862596`.
+
+**LAW:** Interface Designer may select procedural expertise but cannot grant permissions, credentials, connections, workspace authority or external-action approval.
+
+**LAW:** a target-specific expert is loaded only when its actual target/condition applies. The presence of React, Vercel, shadcn, Figma, Scroll Craft or another provider never forces that stack or vendor onto a project.
+
 ## 1. Executive identity
 
 **CURRENT:** AI-Verse Skills is a standalone, original-first capability distribution and immutable package lifecycle for reusable agent skills.
