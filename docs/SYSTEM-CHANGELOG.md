@@ -6,6 +6,29 @@ The detailed truth remains in the linked canonical documents.
 
 ---
 
+## 2026-09-14
+
+### Established permanent safe-update and state-preservation laws
+
+**Date:** 2026-09-14  
+**Type:** system law / release infrastructure / lifecycle safety
+
+Created:
+
+- `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md`
+- `docs/SAFE-UPDATE-AND-RELEASE-TRAIN-IMPLEMENTATION-PLAN.md`
+
+The contract freezes the cross-component safety floor for exact immutable release-set updates, explicit compatibility, owner-controlled migrations, unknown/user-file preservation, authority preservation, update consent, interrupted-update truth, owner-backed recovery evidence, safe uninstall/purge separation, and software-only rollback semantics.
+
+The persistent implementation plan is the resume source of truth for phased release-train work and explicitly protects the active Distribution Agent public-beta candidate from conflicting changes.
+
+Canonical detail:
+
+- `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md`
+- `docs/SAFE-UPDATE-AND-RELEASE-TRAIN-IMPLEMENTATION-PLAN.md`
+- `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
 ## 2026-09-13
 
 ### Published canonical AI-Verse Automations runtime
