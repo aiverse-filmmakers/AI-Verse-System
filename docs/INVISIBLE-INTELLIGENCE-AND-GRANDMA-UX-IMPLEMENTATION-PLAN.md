@@ -813,11 +813,35 @@ Do not mutate the first frozen Agent release. Create a later exact candidate aft
 
 ## Slice 10.2 - Safe deterministic self-heal
 
-**Status:** IN PROGRESS  
-**Repos:** Distribution/OS and owner components only where current deterministic reconcile exists  
+**Status:** COMPLETE  
+**Repos:** ai-verse-distribution consuming the exact released AI-Verse OS owner reconcile contract  
 **Dependencies:** 10.1
 
 Auto-repair only deterministic reversible owner-controlled setup defects. Never auto-heal corruption destructively, unknown migration, credential/security failures, authority conflicts or ambiguous canonical stores.
+
+### Accepted implementation
+
+- Distribution PR #4 merged at `52a86075a36df9c541d750f021d21cad3311f8c7`
+- final PR head: `291945167301fd54225e2ab20235e01f77be0e46`
+- self-heal is attempted only for a previously completed setup that later returns to `setup-required`
+- Distribution consumes the reconcile plan/apply contract already present in the exact released Agent OS revision
+- before mutation, the plan must be a valid `mode: plan` response with no registry lock, no migration/blocked action and exactly one recognized automatic action
+- the only accepted automatic action is the exact locked Brain owner `attach <root> --apply` followed by `init <root> --apply`
+- the Brain executable comes from the exact locked released Brain venv already installed by Distribution
+- apply output is revalidated; more than one owner execution, an unexpected owner, invalid output or owner failure stops the repair
+- normal status/doctor must return to ready before the conversational handoff continues
+- no generic repair engine, destructive recovery, credential repair, permission expansion, migration, registry-lock stealing or other-owner auto-setup was added
+
+### Acceptance evidence
+
+- Distribution CI `34888930934`: 6/6 successful across Ubuntu/macOS/Windows and Python 3.9/3.12
+- Clean Machine Core `34888931029`: Ubuntu, macOS and Windows all successful
+- Clean Machine Agent `34888930940`: Ubuntu, macOS and Windows all successful
+- the Agent clean-machine gate creates a real bounded defect by removing only the Brain registry attachment while preserving Brain-owned installation evidence
+- OS reports `setup-required`; `aiverse start` then restores the Brain attachment through the owner CLI and returns the system to healthy/ready
+- unrelated extension registry entries remain unchanged
+- an authoritative extension registry lock is then created and `aiverse start` fails closed without deleting or modifying that lock
+- adversarial unit coverage rejects migration, registry locks, invalid plan/apply modes, unknown automatic actions, multiple automatic actions and non-automatic owner work
 
 ---
 
@@ -825,7 +849,7 @@ Auto-repair only deterministic reversible owner-controlled setup defects. Never 
 
 ## Slice 11.1 - Scenario acceptance A-F
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Prove:
 
@@ -895,12 +919,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Formal tracked completion: **19 / 24 = 79.2%**
-- Current active slice: **10.2 - Safe deterministic self-heal**
-- Completed through: **10.1 - Distribution product-level bootstrap**
+- Formal tracked completion: **20 / 24 = 83.3%**
+- Current active slice: **11.1 - Scenario acceptance A-F**
+- Completed through: **10.2 - Safe deterministic self-heal**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** finish 10.2 using only deterministic reversible owner-controlled reconcile behavior already present in the exact released Agent owners. The frozen Agent OS already exposes a reconcile plan/apply path whose automatic mutation is limited to Brain owner attach/init; registry locks, migrations and other owner actions remain non-automatic.  
-**Expected first repo:** ai-verse-distribution, consuming the existing frozen OS reconcile contract rather than inventing a generic repair engine.  
+**Exact NEXT:** prove composed scenarios A-F against the accepted owner implementations: Grandma first run, automatic client workspace, safe Skill learning/use, dangerous Skill refusal/quarantine/approval boundary, automatic safe Data, and destructive Data refusal. Prefer one cross-repo acceptance harness with exact accepted refs over duplicating owner logic.  
+**Expected composition owner:** ai-verse-distribution or another existing release/composition surface; do not create a new runtime authority.  
