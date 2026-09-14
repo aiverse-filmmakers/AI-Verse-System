@@ -232,18 +232,18 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 0
+Complete: 1
 In progress: 1
 Blocked: 0
-Remaining after current: 24
-Current: A1
-Next after current: A2
+Remaining after current: 23
+Current: A2
+Next after current: A3
 
 ### Phase A: Memory session digests and selective promotion
 
 #### A1. Session digest persistence foundation
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: current Memory mutation lock, containment, authority handoff, effect-receipt machinery
@@ -270,12 +270,21 @@ Next after current: A2
   - existing public-beta hardening tests;
   - full Memory test workflow.
 - Risks: accidentally creating transcript ownership in Memory; bypassing mutation serialization; digest filename/scope collisions.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-Memory`.
+  - Branch: `context-ladder/a1-session-digests`.
+  - PR: #12, merged 2026-09-14.
+  - Final PR head: `b290928d1b03bac6598c6ac3c41a89afd9a83fc1`.
+  - Merge/main SHA: `fd4770ee39d9999dcce84fcc0b5cbaa3ab347a4f`.
+  - Final combined acceptance run: `34834608605`, success, 12/12 jobs green.
+  - Post-merge Memory main Test run: `34834745092`, success.
+  - Verified Linux/macOS/Windows; Python 3.9/3.12; installer smoke; public-beta acceptance; OS update integration.
+  - Collision adaptation: Invisible Intelligence Memory PR #11 appeared during A1; A1 was refactored to avoid editing `scripts/memory.py`, then refreshed onto the merged PR #11 main before final acceptance.
 
 #### A2. Session digest derived indexing and targeted recall
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: A1
 - Goal: index digests into disposable SQLite and support bounded digest-specific retrieval without changing legacy `recall()`.
@@ -293,7 +302,7 @@ Next after current: A2
 #### A3. Selective promotion contract
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory, AI-Verse-Brain only if classification intent is needed
 - Dependencies: A1-A2
 - Goal: define/apply bounded promotion of durable facts, decisions, corrections, workflows, and lessons from a digest into existing atomic Memory.
@@ -753,11 +762,24 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **A1. Session digest persistence foundation**
+Current implementation slice: **A2. Session digest derived indexing and targeted recall**
 
-Do not start A2 until:
-- A1 implementation tests pass;
+Do not start A3 until:
+- A2 implementation tests pass;
 - Memory owner CI/acceptance is green;
-- A1 exact commit/PR/merge/run evidence is written here;
-- A1 is marked COMPLETE;
-- A2 alone is marked as the next slice in a committed plan update.
+- A2 exact commit/PR/merge/run evidence is written here;
+- A2 is marked COMPLETE;
+- A3 is the only next slice.
+
+
+### Slice start checkpoint: A2
+
+Verified before A2 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `fd4770ee39d9999dcce84fcc0b5cbaa3ab347a4f`.
+- Memory open PRs: none.
+- Memory active workflow runs: none.
+- Latest Memory main Test run `34834745092`: success.
+- A1 session digest persistence is present on main and final combined CI passed.
+- AI-Verse-System main had advanced to `e62211b8e0a143bf5415da3088b281460b915458`; this plan branch is refreshed onto that live state before A2 code changes.
+- System Contract Validation is currently failing on main itself; this is pre-existing and not an A2 Memory gate.

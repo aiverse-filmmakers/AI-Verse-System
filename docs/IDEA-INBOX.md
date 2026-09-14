@@ -1057,3 +1057,55 @@ Promoted to:
 - `docs/SELF-LEARNING-BENCHMARK-AND-CONTRACT.md`
 - `docs/FINAL-AI-VERSE-BLUEPRINT.md`
 
+
+
+---
+
+## 2026-09-14 - AI-employee product shell and deferred Kylon/Grok-Bot competitive gaps
+
+**Status:** ACCEPTED-INTENT
+
+The owner clarified that the near-term AI-Verse product remains deliberately **single-user first**, primarily local with optional private VPS/VPN use.
+
+The immediate product priority is not enterprise/multi-user expansion. It is making the already-built system visible through a focused shell where:
+
+- the main AI-Verse chat remains primary;
+- permanent Bots/AI employees are clearly visible beside it;
+- Bot roles, availability/activity and delegated work are discoverable;
+- temporary Worker activity can surface when relevant;
+- current workspace/scope and meaningful work status are visible;
+- approvals/attention can surface without exposing backend architecture.
+
+Multiple Bots is already a strong backend coordination engine, but the product currently risks hiding that value because there is no user-operable interface centered on chat + AI team.
+
+A borrowed shell such as Open WebUI is acceptable for temporary dogfood, but is not considered the final answer if it cannot expose AI-Verse-specific team/Bot/work concepts cleanly.
+
+### Near-term priority
+
+Build a **thin single-user AI-Verse shell**, not a giant Dashboard rewrite.
+
+Prefer using existing Gateway, Multiple Bots, OS and owner-backed projections. The shell must remain non-canonical.
+
+### Deliberately deferred competitive gaps
+
+The following Kylon/Grok-Bot-style product capabilities are valid future directions but are deliberately low priority until the single-user shell and current implementation tracks are strong:
+
+- public/multi-user account system;
+- human-team invitations/membership;
+- organization administration;
+- enterprise RBAC/SSO/SCIM;
+- broad public SaaS tenancy;
+- human/AI shared-company roster semantics beyond the single owner;
+- enterprise collaboration controls;
+- large-scale external-user administration.
+
+Other future product gaps to revisit after the shell proves daily use:
+
+- richer persistent per-Bot working-environment/computer UX where it adds real value;
+- broader simplified app/account connection UX;
+- room/workspace surfaces combining conversation, AI employees, Data and Apps;
+- generated Apps/views over AI-Verse Data;
+- stronger visible asynchronous/background-work experience.
+
+These are retained so they are not forgotten, but they must not distract from the current single-user interface milestone.
+
