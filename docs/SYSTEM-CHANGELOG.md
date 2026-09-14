@@ -8,6 +8,33 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-14
 
+### Expanded canonical owner intent with context-intelligence direction
+
+**Date:** 2026-09-14  
+**Type:** owner product intent / context architecture / anti-bloat guidance
+
+Updated `docs/OWNER-PRODUCT-INTENT.md` with the owner's clarified direction from today's Kylon/Graft/Kilo discussion.
+
+Recorded:
+
+- progressive context ladder: current task/scope -> tiny orientation -> summaries -> exact owner records -> bounded related-context expansion -> exact source evidence;
+- normal users must never manage retrieval depth, fold trees, memory graphs or summary/source choices;
+- lossless context-compression principle: summaries may compress working context but must preserve access to original evidence;
+- exact-sensitive facts should descend to authoritative source;
+- derived maps/catalogs/fold trees/relationship indexes remain rebuildable and non-canonical;
+- external systems should be mined selectively for measurable improvements rather than copied wholesale;
+- Kylon-style reversible folding, Graft-style maps/typed relationships/source freshness, and Kilo-style session digests/selective promotion are desired candidates only where they improve AI-Verse;
+- transient conversation should not automatically become durable Memory;
+- additional explicit anti-bloat constraints for context/memory architecture;
+- an owner operating-style section capturing recurring decision preferences: invisible usefulness, benchmark-before-borrowing, one-slice-at-a-time execution, implementation evidence over documentation, minimal questions, strong canonical ownership, and one-product UX over internal modular complexity.
+
+These items are recorded as owner intent and known gaps, not as proof that the behaviors are already implemented.
+
+Canonical detail:
+
+- `docs/OWNER-PRODUCT-INTENT.md`
+
+
 ### Added canonical owner product intent and corrected invisible-autonomy UX
 
 **Date:** 2026-09-14  
