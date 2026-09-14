@@ -28,15 +28,25 @@ The candidate:
 - preserves the existing Skills security law that integrity, admission, trust, readiness and execution authorization are distinct;
 - keeps the future AI-Verse Video Editor separate, with `CODE_DRIVEN_VIDEO_MOTION_HANDOFF` failing closed until `video-editor` is actually registered.
 
-Final corrected release-candidate head:
+Final corrected pre-merge candidate head:
 
 `a5068c2e8b1c581a721419c55282c03d900819a4`
+
+Merged through PR #13 as:
+
+`71264af6b2b9a575812fe18858d75a54ea2ff545`
 
 Acceptance:
 
 - Validate AI-Verse Skills: run `34885862726`, PASS;
 - Runtime Readiness: run `34885862743`, PASS across Linux/macOS/Windows and Python 3.9/3.12;
 - Full E2E Install: run `34885862596`, PASS through install, provider validation, setup, immutable update, rollback, uninstall and recovery.
+
+Post-merge `main` verification:
+
+- Validate AI-Verse Skills: run `34886502980`, PASS;
+- Runtime Readiness: run `34886502969`, PASS across all 6 Linux/macOS/Windows + Python 3.9/3.12 jobs;
+- Full E2E Install: run `34886502946`, PASS through the full immutable lifecycle.
 
 This does not rewrite the already frozen Agent Distribution release set in `PUBLIC-BETA-TRACKER.md`; it is a subsequent Skills capability evolution.
 
