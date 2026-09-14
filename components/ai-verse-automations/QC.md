@@ -110,17 +110,19 @@ These are explicit public-beta bounds, not hidden scheduler ownership defects:
 
 - built-in server is local/loopback first, not an Internet-grade multi-user control plane;
 - external event subscription credentials remain outside Automations;
-- the Multiple Bots adapter needs a compatibility projection until the current source-binding contract evolves;
-- the canonical Gateway receive-side contract is still pending publication, so the Gateway adapter remains deliberately generic;
-- no immutable tagged Automations release/version-set is claimed yet;
-- full Distribution Agent-profile composed acceptance remains to be run.
+- the Multiple Bots adapter still uses a bounded compatibility projection until a direct source-binding contract replaces it;
+- the newer post-release OS extension-owner bridge is not retroactively part of the frozen September 14 Agent release;
+- a new immutable Agent candidate containing post-release heads remains gated by the separate Safe Update/release-train compatible state.
 
 ## Release classification
 
 **CURRENT implementation:** yes.  
 **Canonical repository:** yes.  
-**Hosted cross-platform CI:** yes for both implementation publication head and current evidence head.  
-**Immutable tagged public release:** not yet claimed.  
-**Whole-Agent-profile acceptance:** not yet claimed.
+**Current accepted evidence head:** `caaed83b98026dd955640fc015d181529b91a1c6`.  
+**Hosted cross-platform CI:** yes.  
+**Frozen Agent exact-ref inclusion:** yes, at the earlier release ref recorded in Public Beta Tracker.  
+**Whole-Agent-profile acceptance:** yes for the frozen Agent release.  
+**Invisible Intelligence G/H composition:** yes, run `34890857872`.  
+**New immutable post-release candidate:** not yet claimed.
 
-This is sufficient to change AI-Verse-System from “planned Automations repository” to “CURRENT canonical Automations implementation”, while retaining immutable release/composition as later gates.
+Scheduler ownership, Agent composition and consent boundaries are CURRENT. The remaining release gap is version-set/release-train promotion of later heads, not missing Automations implementation.
