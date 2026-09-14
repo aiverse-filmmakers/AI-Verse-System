@@ -265,7 +265,7 @@ Machine-readable acceptance result can represent:
 ## Slice 2.1 - Descriptor support for Core owners
 
 **Status:** IN PROGRESS  
-**Repos:** AI-Verse-OS, AI-Verse-Brain, AI-Verse-Memory, AI-Verse-Skills, AI-Verse-Data  
+**Repos:** AI-Verse-System, AI-Verse-OS, AI-Verse-Brain, AI-Verse-Memory, AI-Verse-Skills, AI-Verse-Data  
 **Dependencies:** 1.2  
 **Constraint:** do not reopen mature engines beyond release metadata and necessary lifecycle truth.
 
@@ -276,6 +276,25 @@ Each current Core repo exposes a descriptor conforming to the System contract an
 ### Evidence required
 
 Per repo: commit/PR, schema validation, CI result.
+
+### Evidence so far
+
+Publication rule clarified: descriptor metadata may land after the immutable release revision; Distribution must consume the descriptor's explicit `revision`, not the descriptor-containing commit.
+
+Core descriptor PRs:
+
+- OS PR #27, target revision `9600929b946746c25c64e48471fcc83031fddda9`, descriptor workflow run `34825657169` passed; remaining OS repository gate still running.
+- Brain PR #19, target revision `80019be5e6df29aee70371544bd96cedbf0329b9`, descriptor workflow run `34825718901` passed; remaining Brain CI still running.
+- Memory PR #10, target revision `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`, descriptor workflow run `34825729151` passed; remaining Memory Test still running.
+- Skills PR #10, target revision `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`, descriptor workflow run `34825774341` passed and Validate run `34825774314` passed; merged SHA `8fb8c8d3256a4e5a52609f83080e0cb384800e6d`.
+- Data PR #14, target revision `189b13264ab86115d2f21fee3ba8cd5a8dac6581`, descriptor workflow run `34825787311` passed; CI/Release Smoke/Five-Component Acceptance still running.
+
+All descriptors bind accepted Core Distribution evidence:
+
+- Distribution CI run `34782949282`
+- Distribution clean-machine Core acceptance run `34782949287`
+
+Data truthfully declares `setup=false` because its current owner CLI exposes install/update/enable/disable/uninstall/status/doctor rather than inventing a setup command.
 
 ## Slice 2.2 - Descriptor support for Agent owners
 
