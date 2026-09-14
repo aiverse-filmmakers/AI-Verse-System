@@ -1,6 +1,6 @@
 # AI-Verse Public Beta Tracker
 
-**Status:** Agent Distribution release complete; independent whole-system public-beta audit remains separate  
+**Status:** Agent Distribution release complete; Invisible Intelligence candidate qualified; independent whole-system public-beta audit remains separate  
 **Updated:** 2026-09-14  
 **Target:** First complete **Agent public beta** unless explicitly widened.
 
@@ -37,7 +37,7 @@ Connections is not an Agent-profile blocker. Dashboard and Apps are not Agent-pr
 | Automations | `494469a496d479cfec618bcd9511033c0cd3e815`; bounded wake into Multiple Bots accepted | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
 | Multiple Bots | Phase 5.14 ref `9bffdffd07fb8abcea848213642936a23ecf4ecf`; durable two-bot collaboration, restart and automation ingress accepted | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
 | Token | `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4` (`0.1.0-beta.3`); collection/projection accepted | AGENT RELEASE ACCEPTED | Preserve Token as canonical normalized telemetry/pricing/cost truth |
-| Distribution | PR #2 merged as `19150267b28fc41ee012495cabf7b5148e7a81f4`; immutable Agent release accepted cross-platform | AGENT DISTRIBUTION RELEASE COMPLETE | Independent whole-system audit only if explicitly started |
+| Distribution | PR #2 immutable Agent release remains default; PR #7 `a215c8777da55b299247ec9e564cca020cfe2020` freezes the explicit-only Invisible Intelligence candidate | AGENT RELEASE + NEXT CANDIDATE ACCEPTED | Keep cross-release transition closed until Safe Update admits it |
 | Connections | Separate implementation track; not an Agent Distribution blocker | OUTSIDE THIS RELEASE | Handle independently |
 | Dashboard | Separate UI track | POST-AGENT-DISTRIBUTION | Do not use as retroactive release blocker |
 | Apps | Separate app/runtime track | POST-AGENT-DISTRIBUTION | Do not use as retroactive release blocker |
@@ -161,7 +161,34 @@ Cross-repo acceptance evidence:
 - G-M: run `34890857872`, 2/2 scenario jobs green;
 - associated Distribution/Core/Agent regressions remained green across Ubuntu, macOS and Windows.
 
-This is **CURRENT implementation evidence**, but it is not yet a newly frozen Agent release set. Creation of that next immutable candidate remains blocked on the separately tracked Safe Update/release-train compatible state.
+This CURRENT implementation evidence is now frozen into a separate qualified candidate:
+
+`agent-invisible-intelligence-rc1-2026-09-14`
+
+Distribution PR #7 merged at `a215c8777da55b299247ec9e564cca020cfe2020` from exact qualification head `d2f47297bace2a3afe4d13fac928025dee982246`.
+
+Exact candidate refs:
+
+- OS: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`
+- Brain: `16c0b7ea32fcb4759cfb8368876b6985016eab68`
+- Memory: `1c6acf036d42937e57d94dfe48ac501727861653`
+- Skills: `71264af6b2b9a575812fe18858d75a54ea2ff545`
+- Data: `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+- Gateway: `7627df658b2071ecb4ea242572343edfb7abf768`
+- Automations: `caaed83b98026dd955640fc015d181529b91a1c6`
+- Multiple Bots: `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
+- Token: `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4`
+
+Final candidate qualification:
+
+- Distribution CI: `34900045849`, 6/6 green;
+- Core clean-machine: `34900045847`, Ubuntu/macOS/Windows green;
+- original Agent regression: `34900045982`, Ubuntu/macOS/Windows green;
+- candidate clean-machine: `34900045944`, Ubuntu/macOS/Windows green;
+- scenarios A-F: `34900045856`, green;
+- scenarios G-M: `34900045862`, green.
+
+The candidate is deliberately not the default Agent channel. `agent-public-beta-2026-09-14` remains unchanged and default. Old -> candidate update and candidate -> old rollback are not admitted; candidate acceptance proves both fail closed. Same-candidate update/rollback remains a safe no-op. This is intentionally compatible with, but does not complete, the separate Safe Update / Release Train project.
 
 ## Release boundary
 
