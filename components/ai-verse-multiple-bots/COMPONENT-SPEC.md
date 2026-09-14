@@ -6,6 +6,7 @@
 **Reviewed head:** 9874d413f5e23c9a869bf3ccead0f2751026a732  
 **Reviewed tree:** 37737a579bd4c6984ba31b3d786d0e225e2e92ee  
 **Review date:** 2026-09-13  
+**Current superseding evidence head:** `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec` (Phase 5 complete; Agent/Invisible Intelligence acceptance)  
 **Method:** docs/AUDIT-METHODOLOGY.md from AI-Verse-System was read first and applied as the governing forensic method.  
 **Scope rule:** the independent baseline was reconstructed from AI-Verse-Multiple-Bots only. AI-Verse-System living specifications were consulted afterward only for cross-component contract comparison. No sibling repository was audited as part of this pass.
 
@@ -37,16 +38,18 @@ It also owns the coordination machinery around those identities:
 
 **LAW:** Multiple Bots is not a second AI-Verse OS, second Brain, second Memory, second Skills registry, second scheduler, Data engine, secret store, or UI source of truth.
 
-**CURRENT VERDICT:** the core coordination engine is strong and mature through Phase 4.8. The repository has not reached its present canonical milestone because Phase 4.9, the compatibility/evaluation suite, is explicitly NEXT and has not started. It also contains several cross-component and control-plane defects that must be repaired before “works perfectly like a glove” is an accurate description.
+**CURRENT VERDICT (superseding the 2026-09-13 audit snapshot):** the canonical build map now reports Phases 0 through 5 **COMPLETE** and the Multiple Bots first-release implementation at **100%**. The component is member-installable within its documented public-beta boundaries and is already included in the frozen Agent Distribution release. Invisible Intelligence scenarios I/J/M additionally prove the durable Bot consent boundary, bounded temporary Worker behavior and no silent authority expansion against current accepted head `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`.
 
-The most important current defects found by this audit are:
+The old audit findings above/below must now be read with these superseding facts:
 
-1. **GAP - Brain contract drift:** native Brain ingress still requires tracked AI-VERSE.yaml extensions.brain registration, while the current hardened Brain contract uses .aiverse/extensions/registry.json and treats tracked manifest registration as legacy.
-2. **GAP - Data integration absent:** there is no AI-Verse Data adapter, contract, runtime projection or test in Multiple Bots.
-3. **GAP - unauthenticated HTTP control plane:** the Gateway accepts mutating caller-supplied identities and operator-looking actor IDs without transport authentication. Loopback is the safe current assumption.
-4. **GAP - direct-message idempotency is incomplete:** a repeated send with the same idempotency key creates a new Message and delivery; only the Event is deduplicated.
-5. **GAP - package/product path is unfinished:** Phase 5 has not started, package metadata is not yet a complete public distribution contract, and secure remote Gateway, onboarding, Dashboard/channel surfaces and release acceptance remain pending.
-6. **GAP - current main merge commit has no direct CI run returned at audit time:** Phase 4.8 PR-head CI is green at 412/412, but this must not be misstated as merge-commit CI.
+1. **Brain integration:** current Phase 3 native integration and Agent composition use the supported owner boundary; the old “Phase 4.8-era Brain registration drift blocks current milestone” statement is superseded.
+2. **Data ownership:** Multiple Bots still does not become a Data owner or open Data storage directly. Invisible Intelligence Data organization is routed through Gateway/OS to Data itself. A future Bots-specific Data projection must remain owner-routed, but absence of a private Data database/adapter is not a reason to duplicate Data inside coordination state.
+3. **Remote control:** Phase 5.8 added the secure remote Gateway option while retaining loopback-only origin law. This is not a generic unauthenticated Internet control plane.
+4. **Idempotency:** Phase 5.14 now proves whole-mutation direct-message idempotency across restart: the same key replays one Message, delivery and Event, and changed semantics fail closed.
+5. **Product path:** Phase 5.1-5.14 completed package/install, standalone/OS modes, onboarding, doctor, templates, upgrade/migration, secure remote, projections, channels, approvals, observability, docs/examples and full release acceptance.
+6. **Hosted acceptance:** Phase 5.14 hosted run `34816540056` passed **508/508** repository tests, **5/5** compatibility tests, the clean beta package gate and **7/7** public-beta release evaluation.
+
+Remaining limitations must be taken from the current repository/build map, not the superseded Phase 4.8 audit milestone.
 
 ---
 
@@ -100,7 +103,7 @@ The intended AI-Verse topology is:
 
 **CURRENT:** Multiple Bots has explicit native adapters for OS workspace context, Brain objectives, Memory recall, Skills resolution, Automations ingress, OS write-command intake and Four Cs evidence.
 
-**GAP:** Data is missing from that native integration set.
+**CURRENT OWNERSHIP NOTE:** Multiple Bots intentionally does not own canonical Data. The accepted Invisible Intelligence Data path routes structured truth through Gateway/OS to the Data owner rather than adding a private coordination-side Data store. Any future Bot-specific Data projection remains an owner-routed integration concern, not permission to absorb Data.
 
 ---
 
