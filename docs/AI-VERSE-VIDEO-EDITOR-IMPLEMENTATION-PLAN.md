@@ -476,7 +476,7 @@ Classify:
 
 ## Slice 3.3 - Candidate latest compatibility test
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 3.2
 
 Test newest candidate without mutating the canonical Nate baseline first.
@@ -496,9 +496,60 @@ Must pass:
 - representative short-form path;
 - representative longer/motion-graphics path.
 
+### Slice 3.3 evidence
+
+Isolated live acceptance was executed without modifying canonical AI-Verse-Skills `main`.
+
+Disposable test branch:
+
+- repository: `aiverse-filmmakers/AI-Verse-Skills`
+- branch: `test/video-editor-hyperframes-v0840-acceptance`
+- final harness head: `b638eb5516002b53f31a7949df8bb9bab16322a2`
+- successful workflow: `Video Editor HyperFrames 0.8.40 Acceptance`
+- successful run: `34888930903`
+- successful job: `104126423042`
+- evidence artifact: `hyperframes-v0840-acceptance`
+- artifact id: `10365912711`
+- artifact digest: `sha256:fd3c97c062b2d7d86688119a0425f5d09010f484440c9b08c4d73141365ec244`
+
+Acceptance result: **PASS**.
+
+Verified in the successful run:
+
+- Nate pinned baseline resolved to HyperFrames `0.7.109`;
+- Nate baseline behavior suite: **11/11 PASS**;
+- Nate Skill mirrors: **94 files / 0 discrepancies**;
+- candidate injected into the isolated copy: HyperFrames `0.8.40`;
+- Nate behavior suite after candidate swap: **11/11 PASS**;
+- Nate Skill mirrors after candidate swap: **94 files / 0 discrepancies**;
+- HyperFrames pinned Chrome bootstrap: PASS;
+- required doctor checks: Version, Node.js, CPU, Memory, Disk, FFmpeg, FFprobe and Chrome all PASS;
+- optional Whisper/Kokoro/MusicGen absence did not block render acceptance;
+- SRT transcript import: PASS;
+- transcript sidecar export: PASS;
+- current HyperFrames lint gate: PASS with only the intentionally exercised nested-media local-basis warning;
+- current HyperFrames `check`: PASS;
+- deprecated `validate` compatibility path emits the expected deprecation signal;
+- Studio background preview/status/context/stop path: PASS;
+- draft render: PASS, 6.0 seconds, audio present;
+- looks render: PASS, 6.0 seconds, audio present;
+- FFprobe video-stream assertion: PASS;
+- FFprobe audio-stream assertion: PASS;
+- duration assertion: PASS;
+- A/V duration sync assertion: PASS;
+- extracted frames at 0.5s, 2.5s, 3.5s and 5.5s: PASS;
+- all representative frames passed nonblank/dynamic-range checks;
+- final harness result: `ACCEPTANCE PASS`.
+
+The acceptance also caught and corrected one old fixture assumption before success:
+
+- nested composition assets must use project-root paths such as `assets/source.mp4`, not directory-relative `../assets/source.mp4`.
+
+This confirms the source-level migration matrix with actual browser, Studio, audio and encode evidence.
+
 ## Slice 3.4 - Choose canonical HyperFrames version/provider
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 3.3
 
 Decision:
@@ -509,13 +560,40 @@ Decision:
 
 There must be one canonical HyperFrames provider in AI-Verse-Skills.
 
+### Slice 3.4 decision
+
+**Canonical AI-Verse Video Editor HyperFrames provider version:** `0.8.40`
+
+**Immutable upstream release commit:** `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`
+
+**Provider source:** `heygen-com/hyperframes`
+
+Decision basis:
+
+- newest upstream release inspected at execution time;
+- source-level compatibility matrix passed with bounded required adaptations;
+- Nate editorial tests remained green after runtime swap;
+- current HyperFrames lint/check/Studio/render/media paths passed;
+- transcript import/export passed;
+- final encoded video and audio passed runtime assertions;
+- no Nate dependency on identified v0.8.36 Studio-internal breaking APIs;
+- v0.8.40 includes the sandboxed-audio fix directly relevant to reliable video editing/rendering.
+
+Canonical-provider rule:
+
+- AI-Verse ships **one** HyperFrames provider family based on upstream v0.8.40;
+- Nate's bundled `hyperframes`, `hyperframes-cli` and `hyperframes-registry` copies are **not** separate canonical providers;
+- Nate-derived editorial specialists remain above the provider and call it through AI-Verse capability/provider resolution;
+- uniquely useful Nate motion/editorial guidance may be preserved in Nate-derived specialists, but must not fork the provider's runtime contract;
+- future HyperFrames upgrades must rerun the pinned regression suite before provider promotion.
+
 ---
 
 # Phase 4 - Build canonical AI-Verse Video Editor capability map
 
 ## Slice 4.1 - Define semantic capabilities
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 1.2, 2.2, 3.4
 
 At minimum:
@@ -940,7 +1018,7 @@ Before any implementation work:
 
 # Current project status
 
-**Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 3 / Slice 3.3 - Isolated HyperFrames v0.8.40 acceptance test  
-**Next:** Phase 3 / Slice 3.3 - Run Nate-relevant media/runtime acceptance without mutating AI-Verse-Skills  
+**Completed:** Phases 0-3 / HyperFrames provider decision complete  
+**In progress:** Phase 4 / Slice 4.1 - Define semantic Video Editor capabilities against current Skills architecture  
+**Next:** Phase 4 / Slice 4.1 - Inspect current Skills registry/package conventions and add the canonical Video Editor capability map without duplicate ownership  
 **Implementation authorization:** ACTIVE - owner said continue
