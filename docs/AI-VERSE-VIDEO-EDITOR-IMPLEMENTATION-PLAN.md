@@ -866,7 +866,7 @@ CI/evidence on accepted head:
 
 ## Slice 6.1 - Visual-direction handoff
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** relevant Interface Designer capabilities available
 
 Video Editor may request:
@@ -881,7 +881,7 @@ Editorial timing remains Video Editor-owned.
 
 ## Slice 6.2 - Reference-recreation handoff
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 When a reference reel/site/frame is supplied, combine:
 
@@ -892,7 +892,7 @@ Never claim audio was analyzed when only images/frames were inspected.
 
 ## Slice 6.3 - Prototype visual directions
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 For significant motion-graphic identity decisions, optionally generate multiple visual directions before producing the whole edit.
 
@@ -900,7 +900,7 @@ Do not prototype every ordinary lower third.
 
 ## Slice 6.4 - Motion-taste handoff
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Use Apple/Emil motion knowledge only where it improves rendered graphic motion without conflicting with HyperFrames timing/render rules or Nate's video-specific motion philosophy.
 
@@ -910,7 +910,7 @@ Use Apple/Emil motion knowledge only where it improves rendered graphic motion w
 
 ## Slice 7.1 - Migrate unique behavior
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** Phases 4-6
 
 For each existing overlapping AI-Verse Skill:
@@ -922,7 +922,7 @@ For each existing overlapping AI-Verse Skill:
 
 ## Slice 7.2 - Remove confirmed duplicates
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Remove duplicate AI-Verse-native HyperFrames/video/editor skills only after canonical replacements are proven.
 
@@ -934,7 +934,7 @@ Do not keep multiple copies of the same upstream HyperFrames Skill under differe
 
 ## Slice 8.1 - Structural validation
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Verify:
 
@@ -943,13 +943,13 @@ Verify:
 - timing maps;
 - beat anchors;
 - footage-ledger integrity;
-- no invalid same-track overlaps;
+- track/lane overlaps are intentional and interpreted under the accepted HyperFrames 0.8.40 semantics;
 - deterministic compositions;
-- lint/validate clean.
+- lint and current HyperFrames `check` clean; deprecated `validate` is compatibility-only.
 
 ## Slice 8.2 - Visual verification
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Draft output must be inspected at:
 
@@ -971,7 +971,7 @@ Check:
 
 ## Slice 8.3 - Audio verification
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Review:
 
@@ -986,7 +986,7 @@ Automated waveform checks are not substitutes for listening where listening is r
 
 ## Slice 8.4 - Multi-format verification
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 9:16, 16:9 and 1:1 outputs are separately authored/verified where requested. Do not assume a center crop is a valid alternate edit.
 
@@ -996,13 +996,13 @@ Automated waveform checks are not substitutes for listening where listening is r
 
 ## Slice 9.1 - Existing Nate tests retained
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Preserve and adapt the kit's existing test coverage.
 
 ## Slice 9.2 - AI-Verse orchestrator routing tests
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Representative prompts must route correctly:
 
@@ -1018,13 +1018,13 @@ Representative prompts must route correctly:
 
 ## Slice 9.3 - HyperFrames upgrade regression suite
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Pin a regression suite so future upstream upgrades cannot silently break Nate's workflow.
 
 ## Slice 9.4 - Duplicate/provider regression
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Prove only one canonical HyperFrames provider is active and all dependent video specialists resolve to it.
 
@@ -1034,7 +1034,7 @@ Prove only one canonical HyperFrames provider is active and all dependent video 
 
 ## Slice 10.1 - One simple member-facing capability
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Present:
 
@@ -1054,7 +1054,7 @@ They should not need to know HyperFrames, GSAP, FFmpeg, EDL terminology or provi
 
 ## Slice 10.2 - Maintainer docs
 
-**Status:** NOT STARTED
+**Status:** COMPLETE  
 
 Document:
 
@@ -1072,7 +1072,7 @@ Document:
 
 ## Slice 11.1 - Fresh end-to-end audit
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS  
 
 Verify:
 
@@ -1085,13 +1085,13 @@ Verify:
 
 ## Slice 11.2 - Full CI/media acceptance
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS  
 
 Required code tests plus media smoke/render verification pass.
 
 ## Slice 11.3 - System evidence sync
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS  
 
 Update:
 
@@ -1102,7 +1102,7 @@ Update:
 
 ## Slice 11.4 - Final evidence
 
-**Status:** NOT STARTED
+**Status:** NOT STARTED  
 
 Record:
 
@@ -1116,6 +1116,34 @@ Record:
 - final media acceptance evidence.
 
 Only then mark COMPLETE.
+
+---
+
+## Finalization checkpoint - 2026-09-15
+
+Current Skills implementation:
+
+- repository: `aiverse-filmmakers/AI-Verse-Skills`
+- PR: **#14**
+- branch: `feature/video-editor-2026-09-14`
+- audited hardening head: `0f01a943a3193c1fde878300754abead3e9b46e4`
+- Video Editor remains a registered release candidate until the final media acceptance and promotion commit pass
+- Phase 6 Interface Designer handoffs are implemented and contract-tested for visual direction, reference recreation, prototype visual directions and motion taste
+- Phase 7 records **zero destructive removals** and preserves the ten existing film/video capabilities as distinct specialists/backends
+- Phase 8 structural/visual/audio/multi-format policy is implemented; HyperFrames 0.8.40 real render evidence already passed in run `34888930903`, while final integrated branch media acceptance is running
+- Phase 9 now includes representative routing fixtures/golden workflows, Nate deterministic regression coverage, a pinned HyperFrames upgrade harness, and duplicate/provider regression
+- Phase 10 now ships a single member-facing `video-editor` entrypoint plus member and maintainer documentation
+- release hardening found and fixed one real orchestration defect: `WEBSITE_PROMO` now explicitly routes through the `video.website_to_video` specialist stage
+
+Current final-gate workflow evidence at this checkpoint:
+
+- Validate AI-Verse Skills: run `34900498905` - **success**
+- Runtime Readiness: run `34900498920` - **success**
+- Full E2E Install: run `34900498859` - in progress at checkpoint
+- Video Editor Release Acceptance: PR run `34900498955` - integrated regression stage passed; real Nate + HyperFrames media stage in progress
+- duplicate push acceptance run `34900494134` is also in progress and is non-canonical evidence
+
+Final promotion must not happen until the canonical PR acceptance and Full E2E gates pass.
 
 ---
 
@@ -1192,7 +1220,7 @@ Before any implementation work:
 
 # Current project status
 
-**Completed:** Phases 0-5 / Nate editorial integration and canonical HyperFrames provider packaging accepted  
-**In progress:** Phase 6 / Slice 6.1 - Formalize the Interface Designer visual-direction handoff  
-**Next:** Phase 6 / Slices 6.1-6.4 - lock visual direction, reference recreation, prototype directions and motion-taste boundaries with routing/tests  
+**Completed:** Phases 0-10 / implementation, editorial preservation, canonical provider packaging, Interface Designer cooperation, deduplication policy, QA contracts, regressions, member UX and maintainer docs  
+**In progress:** Phase 11 / final integrated audit, media acceptance and System evidence sync  
+**Next:** accept the final Skills release gates, promote Video Editor from release candidate to 1.0.0, merge Skills PR #14, record post-merge CI, then complete System evidence and final refs  
 **Implementation authorization:** ACTIVE - owner said continue
