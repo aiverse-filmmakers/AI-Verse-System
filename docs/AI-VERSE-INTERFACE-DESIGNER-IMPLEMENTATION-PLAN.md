@@ -890,7 +890,7 @@ Required examples include:
 
 ## Slice 9.2 - Context/bloat tests
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Prove that:
 
@@ -899,9 +899,19 @@ Prove that:
 - conditional specialists stay conditional;
 - vendor Skills are not concatenated into one giant always-on context.
 
+### Phase 9.2 evidence
+
+- progressive-context regression ref: `79a1f5dbcc8ebf22065c5679b283cd3490aa24aa`
+- tiny routing fixture resolves zero experts
+- MICRO_CHANGE pipeline is bounded and excludes visual/prototype/originality/design-system specialists
+- FULL_PRODUCT expert references resolve through registered capabilities
+- conditional experts remain outside always-present stage capability bodies
+- Interface Designer package contains only its own first-party package + references; vendor expert packages remain separate sources
+- Validate: PASS, run `34884181878`
+
 ## Slice 9.3 - Expert preservation/provenance tests
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Verify that vendored/adapted specialists retain:
 
@@ -911,15 +921,37 @@ Verify that vendored/adapted specialists retain:
 - expected core rules or reference assets;
 - immutable generation integrity.
 
+### Phase 9.3 evidence
+
+- expert preservation manifest: `skills/imported/ai-verse/interface-designer/references/expert-preservation.json`
+- accepted provenance regression ref: `7476d85872ec27f7f72a32d70fb4469deaeab7f9`
+- all 17 upstream expert SKILL roots were re-verified at their exact immutable commits
+- registry repo/commit/path/license/redistribution decisions are test-locked
+- trust policy auto-mutation remains disabled for every external design source
+- Anthropic frontend-design remains fetch-only
+- adapted Vercel review package preserves SOURCE.json, upstream commit, local rules snapshot and exact guideline commit
+- THIRD_PARTY_NOTICES coverage is enforced
+- Validate: PASS, run `34884457040`
+
 ## Slice 9.4 - Regression tests for removed AI-Verse duplicates
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Every removed/replaced existing design Skill needs coverage proving its supported useful behavior still resolves through the new capability system.
 
+### Phase 9.4 evidence
+
+- compatibility manifest: `skills/imported/ai-verse/interface-designer/references/existing-design-compatibility.json`
+- accepted compatibility regression ref: `43c9a285c775ecb66bafa3dca10052323debf159`
+- zero destructive removals are test-locked
+- all eight existing design capabilities classified KEEP/KEEP+NARROW/SPECIALIST remain registered and package-backed
+- Figma and Canva target routing continues to resolve the existing capability IDs
+- no replacement aliases are introduced because no public capability ID was removed or renamed
+- Validate: PASS, run `34884555287`
+
 ## Slice 9.5 - Security and trust regression
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Imported design Skills must not bypass:
 
@@ -932,11 +964,26 @@ Imported design Skills must not bypass:
 
 ---
 
+### Phase 9.5 and Phase 9 acceptance evidence
+
+- security boundary manifest: `skills/imported/ai-verse/interface-designer/references/security-boundaries.json`
+- final Phase 9 accepted ref: `df6f6613b8620ac570281a03b935d81a6d9f1703`
+- expert packages cannot introduce authorization/admission/integrity/license/workspace bypass fields
+- existing Skills admission remains authoritative: integrity != admission != trust != readiness != authorization
+- Skills admission never grants execution authorization
+- external design sources retain auto-mutation=false
+- cross-member private fingerprint/design-history comparison remains forbidden
+- Validate: PASS, run `34884753600`
+- Runtime Readiness: PASS, run `34884753536`
+- Full E2E: PASS, run `34884753569`
+
+---
+
 # Phase 10 - Documentation, examples, and member-facing UX
 
 ## Slice 10.1 - Member-facing capability documentation
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Present one coherent capability:
 
@@ -953,9 +1000,19 @@ Document examples such as:
 - "Audit the animations";
 - "Create an immersive scroll landing page."
 
+### Phase 10.1 evidence
+
+- member guide: `AI-Verse-Skills/docs/INTERFACE_DESIGNER.md`
+- root README links the member-facing capability
+- guide presents one coherent Interface Designer rather than a vendor Skill menu
+- stack-neutral behavior, persistent HTML artifact support, dashboard/app/mobile/reference/motion/scroll use cases and visual QA are explained
+- member guide does not require React, Vercel, shadcn, Figma or a deployment provider
+- accepted documentation ref: `243233407c86d2bf0b8f35b185730f75667f7e6e`
+- Validate: PASS, run `34885074897`
+
 ## Slice 10.2 - Maintainer architecture documentation
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Document:
 
@@ -968,9 +1025,18 @@ Document:
 - replacement map for removed AI-Verse Skills;
 - how to add or replace an expert provider later.
 
+### Phase 10.2 evidence
+
+- maintainer architecture: `AI-Verse-Skills/docs/INTERFACE_DESIGNER_ARCHITECTURE.md`
+- linked from the repository architecture document
+- documents ownership, scope/target classifiers, stage order, provider mapping, exact source pins, conditional rules, DESIGN.md, originality/QA/security boundaries, conflict priority, zero-removal compatibility and provider replacement procedure
+- future `video-editor` handoff is explicitly non-accepted until that separate capability exists
+- accepted documentation ref: `7c0c8417c5c7e88fb13c110153f995c14e0135e6`
+- Validate: PASS, run `34885255796`
+
 ## Slice 10.3 - Golden demonstration fixtures
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Provide small, testable example projects or fixtures that demonstrate:
 
@@ -1111,8 +1177,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 9 / Slice 9.2 - Context/bloat tests
-**Next:** Phase 9 / Slice 9.2 - Prove progressive specialist loading
+**In progress:** Phase 10 / Slice 10.3 - Golden demonstration fixtures
+**Next:** Phase 10 / Slice 10.3 - Add and test five golden interface workflows
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.

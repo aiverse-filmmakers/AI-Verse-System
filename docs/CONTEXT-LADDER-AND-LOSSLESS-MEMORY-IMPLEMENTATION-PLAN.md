@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 8
+Complete: 9
 In progress: 1
 Blocked: 0
-Remaining after current: 16
-Current: C3
-Next after current: D1
+Remaining after current: 15
+Current: D1
+Next after current: D2
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -509,7 +509,7 @@ Next after current: D1
 
 #### C3. OS host progressive-history bridge
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-OS, AI-Verse-Memory
 - Dependencies: C1-C2; current OS Invisible Intelligence work merged/re-read
@@ -521,14 +521,28 @@ Next after current: D1
   - no Memory canonical state is copied into OS.
 - Tests: old bridge regression, new depth, missing Memory, isolation.
 - Risks: breaking Brain/Gateway host protocol.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-OS`.
+  - Branch: `context-ladder/c3-progressive-history-bridge`.
+  - PR #42, merged 2026-09-14.
+  - Final PR head: `8d192bedfe311eb33720ffb33d95e9bb948e02e0`.
+  - Merge/main SHA: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`.
+  - Corrected-head PR workflows all succeeded: Direction Ownership `34885133569`, OS Write Command Boundary `34885133534`, OS Brain Permission Contract `34885133439`, Repository QC `34885133475`, Five-Component Public Beta `34885133545`, Four Repo Acceptance `34885133535`, Invisible Intelligence Automation Consent `34885133421`, Permanent Bot Consent `34885133419`, Temporary Worker `34885133428`.
+  - Initial PR head `5c37094a0b3d4b514f9109e338f6484b1def876b` already passed all owner/composition/regression gates except Repository QC; that failure was only a new test-fixture parent-directory bug and commit `8d192bedfe311eb33720ffb33d95e9bb948e02e0` fixed the fixture without changing bridge semantics.
+  - Post-merge OS main workflows all succeeded: Direction Ownership `34885346812`, OS Write Command Boundary `34885346721`, OS Brain Permission Contract `34885346714`, Repository QC `34885346682`, Five-Component Public Beta `34885346879`, Four Repo Acceptance `34885346749`.
+  - Existing `retrieve_history(query, scope)` remains byte-for-byte behaviorally unchanged and still returns `[]` when Memory is absent.
+  - New `retrieve_history_progressive` is advertised dynamically only when installed Memory actually exposes `memory.progressive-recall.v1`; absent/incompatible Memory is not falsely advertised.
+  - OS validates scope, version, depth, query, item count, byte budget, and source `evidence_ref` scope before invoking Memory.
+  - Workspace requests may use only their own workspace evidence plus operator evidence already visible under established Memory scope law; operator requests cannot descend into workspace evidence.
+  - The bridge routes to Memory `progressive_recall` and validates returned version/depth/scope/budget without persisting or copying canonical Memory state into OS.
+  - Four Repo Acceptance now composes the accepted C2 Memory SHA `2606bf6524fd67b4a3930fb7d98de54a3d483fb1` and proves real legacy recall plus catalog/summary/detail/source exact-evidence routing.
 
 ### Phase D: Derived Memory relationships
 
 #### D1. Deterministic relationship projection
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: C1
 - Goal: add rebuildable SQLite relations only from explicit metadata/provenance.
@@ -545,7 +559,7 @@ Next after current: D1
 #### D2. Bounded neighbor recall benchmark and ship/reject gate
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory
 - Dependencies: D1, benchmark harness
 - Goal: test whether one-hop tightly bounded neighbor expansion improves representative recall.
@@ -866,18 +880,19 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **C3. OS host progressive-history bridge**
+Current implementation slice: **D1. Deterministic relationship projection**
 
-Do not start D1 until:
-- legacy `retrieve_history(query, scope)` behavior remains backward-compatible for current Brain/Gateway callers;
-- OS exposes one versioned progressive-history host operation that routes to Memory `memory.progressive-recall.v1`;
-- OS validates the requested operator/workspace scope before calling Memory and never exposes an all-workspace progressive path;
-- OS verifies the Memory component is installed/available and actually supports the requested progressive API/version;
-- catalog/summary/detail/source arguments are bounded and owner-routed without copying canonical Memory state into OS;
-- source `evidence_ref` is passed through only after OS scope validation and cannot widen the bound scope;
-- missing/incompatible Memory produces an explicit host-layer failure rather than fallback guessing;
-- existing OS owner/boundary/composition acceptance stays green;
-- C3 exact PR/merge/run evidence is written here.
+Do not start D2 until:
+- relationship state is derived/rebuildable only and creates no new canonical fact authority;
+- only explicit existing metadata/provenance produces edges, with no speculative model-inferred relationships;
+- initial supported relation types are deterministic and evidence-bearing, including supersession, digest/source provenance, same-session, and explicit evidence/derivation refs where the current canonical records actually expose them;
+- every edge records source/target identity, relation type, scope, deterministic evidence/provenance, and source fingerprints/versions sufficient for stale-edge removal;
+- operator/workspace visibility is enforced and no edge crosses unauthorized workspace boundaries;
+- deleting the relationship projection and rebuilding from canonical Memory/digests yields equivalent edges;
+- canonical record update/removal/supersession removes stale derived edges on refresh;
+- no neighbor expansion is added in D1; D2 owns the benchmarked ship/reject decision for traversal;
+- full Memory CI is green;
+- D1 exact PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -1070,3 +1085,25 @@ Verified before C3 implementation on 2026-09-14:
 - AI-Verse-OS main: `b08cc8c05c56fad7bc390f391292bdfbdd7d23e0`; no open PRs or active workflows.
 - AI-Verse-System main: `03c5b71a4ed5bef6d5d1c030c60bb8c18bed7d5e`; this plan refreshes onto that exact live state before C3 code changes.
 - C3 must extend the current OS host adapter and preserve existing Brain/Gateway `retrieve_history` callers rather than replace the host protocol.
+
+
+### Slice completion checkpoint: C3
+
+Verified on 2026-09-14:
+
+- AI-Verse-OS PR #42 merged.
+- Final PR head: `8d192bedfe311eb33720ffb33d95e9bb948e02e0`.
+- OS main after merge: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`.
+- Corrected-head PR gates all green: `34885133569`, `34885133534`, `34885133439`, `34885133475`, `34885133545`, `34885133535`, `34885133421`, `34885133419`, `34885133428`.
+- Post-merge standard OS gates all green: `34885346812`, `34885346721`, `34885346714`, `34885346682`, `34885346879`, `34885346749`.
+- C3 preserved legacy history retrieval, added dynamic versioned progressive Memory routing, proved missing/incompatible Memory truthfulness, bounded scope-safe source evidence handoff, and real C2 Memory exact-source composition without OS canonical state duplication.
+- C3 acceptance is complete. Nine of 25 slices are accepted.
+
+### Slice start checkpoint: D1
+
+Verified before D1 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `2606bf6524fd67b4a3930fb7d98de54a3d483fb1`; no open PRs or active workflows; latest accepted main Test run `34879367921` succeeded 12/12.
+- AI-Verse-OS main: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`; C3 is merged and all standard post-merge OS gates are green.
+- AI-Verse-System main: `272ee3fb968c33fe69dd1d7f8c786686d9cbc35a`; this plan refreshes onto that exact live state before D1 code changes.
+- D1 is Memory-only. It may create only a disposable deterministic relationship projection; it must not change canonical Memory ownership or add traversal/neighbor recall.
