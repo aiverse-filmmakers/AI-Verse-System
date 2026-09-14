@@ -700,11 +700,34 @@ Workers, permanent Bots, Automations, credentials, Connections, permission/scope
 
 ## Slice 8.2 - Review budget / trivial-turn suppression
 
-**Status:** IN PROGRESS  
-**Repos:** Gateway/Brain  
+**Status:** COMPLETE  
+**Repos:** Gateway  
 **Dependencies:** 8.1
 
 Prove low-value turns do not incur expensive organization review while strong evidence/substantial work does.
+
+### Anti-bloat decision
+
+Review budgeting stays inside the existing Gateway run engine and runtime adapter. There is no review scheduler, budget service, second telemetry/cost ledger, new database or user-facing tuning surface.
+
+The deterministic gate rejects low-value completed turns before any second runtime call. Eligible substantial work receives at most one bounded review call with fixed evidence/output/action ceilings. Runtime-reported review cost is retained only as execution evidence; it does not replace canonical Token cost truth.
+
+### Acceptance evidence
+
+- Gateway PR #14 merged at `0e11b34f20a53c3bbdf0e75d058929a7416018a9`
+- final Gateway PR head: `d14ae089d736438cf260e5b38bf746d9c1813dd0`
+- Gateway CI `34885583045`: success across Ubuntu, macOS and Windows on Node 20 and 22
+- Temporary Worker regression composition `34885583206`: success
+- Permanent Bot regression composition `34885583559`: success
+- Automation recommendation + consent regression `34885583405`: success for both jobs
+- a trivial acknowledgement is deterministically marked review-skipped and produces exactly one foreground runtime invocation, with no second review model call
+- substantial completed work produces exactly one additional organization review call
+- completed-work review evidence is capped at 5,600 serialized characters
+- compatible runtime requests receive a hard 768 output-token ceiling
+- the review allowlist plus budget admits at most four safe owner actions
+- runtime-reported review cost above `0.02` or reported output beyond the token ceiling discards the entire proposal before any canonical owner action
+- over-budget synthetic workspace mutation is proven not to reach session/workspace canonical mutation
+- review usage remains separate operational execution evidence and does not claim canonical pricing/accounting authority
 
 ---
 
@@ -712,7 +735,7 @@ Prove low-value turns do not incur expensive organization review while strong ev
 
 ## Slice 9.1 - User-facing outcome language
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Gateway plus owners only where response metadata originates  
 **Dependencies:** owner behaviors implemented
 
@@ -828,13 +851,13 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Formal tracked completion: **16 / 24 = 66.7%**
-- Current active slice: **8.2 - Review budget / trivial-turn suppression**
-- Completed through: **8.1 - Meaningful-work post-run organization routing**
+- Formal tracked completion: **17 / 24 = 70.8%**
+- Current active slice: **9.1 - User-facing outcome language**
+- Completed through: **8.2 - Review budget / trivial-turn suppression**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** finish 8.2 by proving cheap deterministic trivial-turn suppression and bounded review spend for substantial work.  
+**Exact NEXT:** finish 9.1 by proving normal user-facing outcomes stay natural while component/owner detail remains available only in technical receipts and advanced inspection.  
 **Expected first repo touched:** AI-Verse-Gateway  
-**Later repos:** AI-Verse-System, then release/bootstrap owners only when their dependency gates are satisfied.  
+**Later repos:** owner repos only if a normal-surface metadata source cannot be corrected at Gateway presentation without violating ownership.  
