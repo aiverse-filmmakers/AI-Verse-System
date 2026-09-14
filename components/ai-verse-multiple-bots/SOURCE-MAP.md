@@ -70,17 +70,19 @@ These facts are release-governance evidence, not runtime architecture evidence.
 
 Highest-value current planning/status source.
 
-At reviewed head it states:
+At the original reviewed head it recorded the Phase 4.8-era state. That snapshot is now historical.
+
+**CURRENT superseding BUILD-MAP evidence (2026-09-14, accepted head `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`):**
 
 - Phase 0 complete;
 - Phase 1 complete;
 - Phase 2 complete;
 - Phase 3 complete;
-- Phase 4 approximately 80 percent;
-- Phase 4.1 through 4.8 complete;
-- Phase 4.9 compatibility/evaluation suite is NEXT and has not started;
-- Phase 5 Product/Install/Dashboard is not started;
-- directional overall first-release progress roughly 95 percent.
+- Phase 4 complete, including 4.9 compatibility/evaluation;
+- Phase 5 Product/Install/Dashboard complete;
+- first-release implementation 100% complete;
+- Phase 5.14 hosted acceptance run `34816540056`: 508/508 repository tests, 5/5 compatibility tests, clean beta package gate and 7/7 release evaluation;
+- current G-M acceptance additionally proves permanent-Bot consent, temporary-Worker boundaries and no silent authority expansion.
 
 ### docs/PHASE-4-STATUS.md
 
@@ -932,3 +934,15 @@ Negative claims in the component spec are limited to items supported by source-t
 5. Phase 4.9 is named in current status material but its detailed implementation checklist has not yet been authored in the Multiple Bots repository. The component spec derives a required evaluation scope from current gaps and existing architectural laws rather than pretending an absent implementation plan already exists.
 6. External inspiration claims are recorded from the repository’s own research/adoption documents. This audit did not independently re-research each third-party project.
 7. No runtime penetration test was performed. Security findings come from executable server/policy code and tests.
+
+---
+
+## 2026-09-14 superseding evidence pointers
+
+Current repository evidence that outranks the original Phase 4.8 audit snapshot:
+
+- `docs/BUILD-MAP.md` - Phases 0-5 COMPLETE / first release 100%;
+- `docs/PUBLIC-BETA-GUIDE.md` - install/setup/doctor/standalone/OS/secure-remote/update/uninstall product path;
+- `test/message-idempotency.test.ts` - whole-mutation direct-message idempotency and restart replay;
+- Phase 5.14 hosted acceptance `34816540056`;
+- Distribution Invisible Intelligence G-M acceptance `34890857872` against head `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`.

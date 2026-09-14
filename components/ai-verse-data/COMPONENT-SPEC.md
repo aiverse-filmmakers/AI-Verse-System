@@ -9,6 +9,30 @@
 **Repository visibility:** private  
 **Evidence rule:** this specification was reconstructed from AI-Verse-Data itself using docs/AUDIT-METHODOLOGY.md. Other repositories were not independently audited. Cross-repository evidence appears only where the Data repository itself contains pinned integration contracts or acceptance workflows.
 
+
+## 2026-09-14 current superseding update
+
+**CURRENT accepted head:** `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`  
+**PR #13 release-hardening merge:** `189b13264ab86115d2f21fee3ba8cd5a8dac6581`  
+**Invisible Intelligence safe-structure merge:** `579dae596a1c929bbc0e900541d29742c18b875e`
+
+This section supersedes retained 2026-09-13 audit statements where they describe PR #13 as open/unmerged, the materialized extension as registration-only, the real host path as unaccepted, or the final five-component release gate as red.
+
+CURRENT facts:
+
+- PR #13 is merged and its exact ref became the Data revision in the frozen Agent release;
+- the materialized `ai-verse-data-host/1.0` engine is callable through the supported host route;
+- Data is accepted in clean-machine Agent composition without sibling raw-SQL ownership;
+- `579dae596a1c929bbc0e900541d29742c18b875e` adds safe retryable automatic structure ensure for additive/compatible structure only;
+- current head `8edde7dca5afa34e300130cc6b8ee2b4170ad40f` advertises trusted host-bound actor support in the installed engine;
+- automatic structure organization does **not** grant destructive migration authority;
+- incompatible/destructive changes remain explicit `migration_required` / approval-bound and fail closed;
+- runtime/Gateway input cannot forge trusted automatic Data identity or provenance;
+- cross-repo scenarios E/F pass in Distribution run `34890195270` against this exact Data head.
+
+The remaining Data gaps are broader legacy/standalone adoption, operator recovery/migration ergonomics and cross-version release-train preservation. They are not evidence that the accepted Agent host path is still registration-only.
+
+
 ---
 
 ## 1. Executive identity
@@ -32,7 +56,7 @@ OS = scope, host structure, routing and outer policy
 
 **CURRENT:** the core engine is mature and unusually well hardened for a first release. It includes scoped SQLite storage, Data Spaces, versioned schemas, validated CRUD, safe queries, relations, bounded transactions, optimistic concurrency, idempotency, events, receipts, bulk mutation, backup/export/import, internal migrations, user-schema migrations, quarantine and staged recovery.
 
-**GAP:** the current main branch is not yet 100 percent at the seamless current product milestone. The largest gap is not the database engine. It is the product path around the engine: the shipped extension on main is registration-only, several known authority/lifecycle defects are repaired only in unmerged PR #13, exact legacy/standalone adoption into a native workspace is not implemented, native migration/recovery promotion lacks a complete operator path, and the release candidate is not currently proven green through the real five-component host path.
+**CURRENT PRODUCT-PATH STATUS:** the accepted Agent host path is executable and cross-platform accepted. Safe additive automatic structure organization is CURRENT. Remaining product gaps are narrower: exact legacy/bound-standalone adoption into native workspaces, richer operator migration/recovery promotion UX, and cross-version Safe Update/release-train preservation.
 
 ---
 
@@ -47,7 +71,7 @@ This document uses the canonical labels:
 - **HISTORICAL** - prior behavior, repair, milestone claim or evolution relevant to current architecture.
 - **INSPIRATION** - evidenced reference project or technology that informed design, not a requirement by itself.
 
-The open draft PR #13, Fix post-release audit findings, is treated as **INTENDED / in-flight**, not CURRENT. Its head is ebf1ff48adb1bd3696f4e2c28bddb540a98395af and it is not merged into the reviewed main.
+The original audit's PR #13 status is historical. PR #13 merged as `189b13264ab86115d2f21fee3ba8cd5a8dac6581` and became the accepted Data release ref. Later Invisible Intelligence changes `579dae596a1c929bbc0e900541d29742c18b875e` and `8edde7dca5afa34e300130cc6b8ee2b4170ad40f` are CURRENT post-release evidence for the next candidate.
 
 ---
 
@@ -81,9 +105,9 @@ use scoped Data contracts without taking ownership
 
 **CURRENT:** Data installation is designed to preserve sibling registries and avoid modifying sibling repositories or tracked OS files.
 
-**INTENDED:** Data should become available dynamically through the host after later installation, without rebuilding the whole AI-Verse environment.
+**CURRENT:** Data becomes available through the supported OS host/extension route without moving canonical Data ownership into OS.
 
-**GAP on main:** the materialized extension engine is metadata-only and registrationOnly, so current main does not itself provide the complete executable OS-to-Data bridge that the wider system expects. PR #13 adds that bridge and a real five-component acceptance workflow, but it is not CURRENT.
+**CURRENT:** the materialized extension exposes the callable Data host protocol and trusted host-bound actor support. This path is accepted in the frozen Agent release and in Invisible Intelligence scenario E/F composition.
 
 ---
 
@@ -579,11 +603,7 @@ The tests verify:
 
 ### 14.2 Real ecosystem order
 
-**INTENDED:** PR #13 adds three representative real multi-repository install orders through a Data-owned workflow using exact pinned revisions.
-
-Because this evidence is contained in Data, it is valid integration evidence for this audit without independently auditing the sibling repositories.
-
-**GAP:** the workflow has not executed successfully on its current PR head because GitHub-hosted runner jobs terminate before step 1.
+**CURRENT:** the merged release-hardening line plus subsequent Agent Distribution clean-machine gates prove real multi-repository composition. Distribution A-F additionally exercises Data through the accepted host path and destructive boundary.
 
 ---
 
@@ -593,7 +613,7 @@ Because this evidence is contained in Data, it is valid integration evidence for
 
 **CURRENT core capability:** Data can explicitly initialize a fresh active workspace through its native API.
 
-**INTENDED product path:** PR #13 connects this to the OS host.
+**CURRENT product path:** the OS/Data host bridge is merged and accepted; safe structure ensure can initialize/evolve only the admitted additive structure.
 
 ### 15.2 Agent that already has AI-Verse Data at the canonical path
 
@@ -648,7 +668,7 @@ Strong portability traits include:
 
 **CURRENT:** compatibility detection, local extension registration, workspace resolution, native health and lifecycle exist.
 
-**GAP:** executable host bridge absent on main, in-flight in PR #13.
+**CURRENT:** executable host bridge is merged, callable and accepted. OS invokes Data through its supported engine rather than opening SQLite.
 
 ### 17.2 Brain
 

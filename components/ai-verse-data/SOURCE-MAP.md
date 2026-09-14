@@ -12,6 +12,24 @@
 
 ---
 
+## 2026-09-14 current superseding source map
+
+**CURRENT head:** `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+
+The original source map reviewed head `2497b54e5fbdf0fec4621d218302b3df30dbbc03`. The following later evidence supersedes conflicting current-state claims:
+
+- `189b13264ab86115d2f21fee3ba8cd5a8dac6581` - merged PR #13 canonical five-component Data release hardening;
+- `579dae596a1c929bbc0e900541d29742c18b875e` - safe retryable automatic Data structure ensure;
+- `8edde7dca5afa34e300130cc6b8ee2b4170ad40f` - materialized engine trusted host-bound actor support;
+- `test/os-host-protocol.test.ts` - callable OS host protocol, trusted actor and safe automatic structure behavior;
+- `test/migrations.test.ts` / schema migration tests - explicit destructive/migration-required boundary;
+- Distribution A-F run `34890195270` - real cross-owner scenarios E/F against exact Data head;
+- frozen Agent clean-machine acceptance - real supported Data host path across Ubuntu/macOS/Windows.
+
+The statements below that the materialized engine is registration-only, PR #13 is open, real product-path acceptance is unexecuted, or current CI is red are historical and no longer CURRENT.
+
+---
+
 ## 1. Point-in-time repository record
 
 ### Repository metadata
@@ -598,9 +616,7 @@ Evidence for:
 
 Critical CURRENT main evidence.
 
-The materialized engine identifies itself as registrationOnly: true and carries Phase 3.2 metadata.
-
-Therefore current main extension materialization is not a callable Data engine.
+At the original reviewed head the materialized engine was registration-only. CURRENT head materializes the callable host protocol and advertises trusted host-bound actor support.
 
 ### src/native/extension-installer.ts
 
@@ -665,7 +681,7 @@ Evidence for current lifecycle:
 - disable;
 - uninstall.
 
-No current-main enable.
+Historical reviewed-head note. Current lifecycle behavior must be read from the merged release-hardening and post-release heads above.
 
 ### src/cli.ts
 
@@ -1181,7 +1197,7 @@ The audit explicitly searched for adoption, standalone migration, rebind, existi
 - reinstall discovery;
 - exact binding conflict rejection.
 
-### Not found as supported current behavior
+### Not found as supported behavior at the original reviewed head
 
 - bound standalone -> workspace adoption;
 - arbitrary legacy DB importer;

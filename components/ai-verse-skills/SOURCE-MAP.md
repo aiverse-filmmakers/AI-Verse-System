@@ -60,6 +60,29 @@ Post-merge evidence on `main` head `71264af6b2b9a575812fe18858d75a54ea2ff545`:
 - Runtime Readiness: PASS, `34886502969`;
 - Full E2E: PASS, `34886502946`.
 
+## 2026-09-14 Invisible Intelligence self-learning evidence
+
+This evidence is included in the current merged `1.1.0-beta.1` head `71264af6b2b9a575812fe18858d75a54ea2ff545` and supersedes older audit statements where they conflict.
+
+Owner implementation lineage:
+
+- `8b82e41bd8f0adecdfd93d64ae1fb30552802b99` - bounded safe auto-promotion of new learned Skills;
+- `fb0c138ef424734cd2e5359040f376e35c4c5875` - constrained learned Skill identity before owner mutation;
+- `installer/learning.py` - proposal/evaluation/promotion mechanics;
+- immutable generation/pointer lifecycle remains the only production activation path;
+- dangerous/secret or authority-expanding candidates remain non-auto/quarantined;
+- external curated/provider ownership does not become agent-learned ownership.
+
+Cross-owner acceptance:
+
+- OS learning route: `3ebb0530a876c404031274d4fa4d3ec1909ec21a`;
+- OS later-use/rollback proof: `caa38f46d29e66363493d0e11da83aa924af1dea`;
+- Distribution A-F acceptance: run `34890195270`.
+
+The acceptance proves candidate routing, safe owner mutation, restart/later use and dangerous-candidate refusal without making Gateway or Brain a second Skills registry.
+
+---
+
 ## 1. Exact revision and repository inventory
 
 Audit point:

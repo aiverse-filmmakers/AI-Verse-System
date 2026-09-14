@@ -526,17 +526,10 @@ Evidence for:
 - no automatic lock stealing;
 - safe engine/instruction path checks;
 - local-evidence heuristics;
-- plan-only reconcile;
+- reconcile plan plus bounded owner-controlled apply;
 - component-owned suggested commands.
 
-Key gap evidence:
-
-```text
-mode: plan-only
-mutated: false
-```
-
-No generic apply/activation engine is present.
+Current reconcile evidence now includes plan and bounded apply. The automatic path is deliberately constrained to admitted owner actions; the accepted Agent self-heal uses the exact Brain attach/init action and fails closed for migration, registry locks and unknown actions. No generic arbitrary-owner activation engine is implied.
 
 ---
 
@@ -613,9 +606,9 @@ queue_state: pending_handler
 canonical_handler_dispatched: false
 ```
 
-The documentation explicitly says canonical knowledge/decision routing is later integration work.
+The queue remains intake/transport only. Later Invisible Intelligence work added separate host-adapter owner routes for the accepted workspace/Memory/Skills/Data/Bot/Worker/Automation operations. Those routes, not the queue itself, provide current canonical execution while preserving owner authority.
 
-This is direct evidence that the owner-controlled canonical write pipeline is incomplete beyond intake/transport.
+Therefore this older queue evidence must not be generalized into “no canonical owner execution exists anywhere.”
 
 ---
 
@@ -672,6 +665,32 @@ Current deterministic architecture check covers:
 The health README explicitly says checks should increasingly cover more areas.
 
 Therefore the check is intentionally not equivalent to full operational health.
+
+---
+
+## 19A. 2026-09-14 Invisible Intelligence superseding evidence
+
+Current accepted OS evidence head: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`.
+
+Relevant owner-route lineage includes:
+
+- progressive onboarding: `a21a44e7b78805b89a48f5c01f40ec0dc09fbd01`;
+- automatic workspace owner primitive/host route: `933a6beadf87b646fb8c8e0358aaeea6b0504424`, `c9daa62f2f9b49a32dd9897962f61c257678fe28`;
+- Memory owner routing: `ce7db254af18ee2f7e1c5bc5448d2d7540dab209`;
+- Skills learning route and later learned-Skill use: `3ebb0530a876c404031274d4fa4d3ec1909ec21a`, `caa38f46d29e66363493d0e11da83aa924af1dea`;
+- automatic safe Data route: `92bb939885d2f2bf84c1bbb48a2c92c523d5a4bd`;
+- bounded temporary Worker route: `b598e733df89c496cf5740388a1283dda026eb89`;
+- explicit-consent durable Bot route: `c13d3ca858f887b3ceac690544819ccc55e9d5b0`;
+- explicit recurring-consent Automations route: `b08cc8c05c56fad7bc390f391292bdfbdd7d23e0`;
+- later Context Ladder/Memory bridge merged at current accepted head `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`.
+
+System-level acceptance:
+
+- Distribution A-F run `34890195270`;
+- Distribution G-M run `34890857872`;
+- bounded self-heal Agent run `34888930940`.
+
+These newer sources supersede older “plan-only reconcile”, “no owner-specific canonical execution” and “scheduler owner undecided” conclusions where they conflict. AI-Verse Automations is the cadence owner; OS remains the scope/permission/routing host.
 
 ---
 

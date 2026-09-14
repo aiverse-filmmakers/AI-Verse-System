@@ -261,23 +261,19 @@ The design explicitly rejects copying one framework wholesale.
 
 ## 10. Current-target readiness QC
 
-**Verdict:** **FAIL / REQUIRES CORRECTION**
+**Verdict:** **PASS - superseded by current Phase 5 release evidence**
 
 ### Current intended milestone
 
-Phase 4.9 - compatibility/evaluation suite.
+The canonical Multiple Bots build map now defines the first-release milestone as Phases 0 through 5 plus release acceptance.
 
 ### Current status
 
-Not started.
+**COMPLETE.** Phase 4.9 and all Phase 5 slices are complete. Phase 5.14 hosted acceptance run `34816540056` passed 508/508 repository tests, 5/5 compatibility tests, the clean beta package gate and 7/7 public-beta release evaluation.
 
-Therefore the repository cannot pass the current-target readiness gate.
+The component is included in the frozen Agent Distribution release and current Invisible Intelligence scenarios I/J/M additionally pass against accepted head `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`.
 
-### Important nuance
-
-Phase 4.8 itself is complete and green on its PR head.
-
-The failure is against the repository’s current intended milestone, not against Phase 4.8’s implementation gate.
+The earlier FAIL verdict was correct for the 2026-09-13 forensic snapshot but is no longer current.
 
 ---
 
@@ -305,7 +301,7 @@ Open system decisions remain around:
 - authenticated Gateway principal model;
 - generic retry_safe trust;
 - coordination DB migration;
-- universal cadence execution owner;
+- cadence composition remains external to Multiple Bots by design; AI-Verse Automations is now the canonical scheduler owner;
 - external-team adoption.
 
 ---
@@ -657,3 +653,16 @@ Public packaging and cross-platform release proof remain incomplete.
 ## What remains before it works perfectly with AI-Verse?
 
 The exact blocker list is maintained in COMPONENT-SPEC.md section “Exact missing work before seamless operation.”
+
+---
+
+## 2026-09-14 Invisible Intelligence acceptance update
+
+CURRENT evidence confirms the user-level coordination boundaries without moving ownership into Gateway or Distribution:
+
+- durable Bot creation requires explicit/direct consent;
+- repeated need, temporary-only requests and forged runtime/permission/scope/provenance fields cannot create a durable Bot;
+- automatic temporary Workers stay run-scoped, bounded by existing authority, owner-compatible and non-durable;
+- at most one automatic temporary specialist is admitted per foreground run;
+- Multiple Bots' full owner suite passed inside the G-M cross-repo gate;
+- Token remains canonical for normalized historical/global telemetry and pricing/cost truth; Multiple Bots owns only operational coordination budgets/counters and runtime-reported execution evidence.

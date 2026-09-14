@@ -1242,3 +1242,20 @@ Later audits of Memory, Skills, Data, Multiple Bots and other components may ref
 - unified system health.
 
 Any such refinement must update this living Brain spec.
+
+---
+
+## 2026-09-14 Invisible Intelligence superseding evidence
+
+The original forensic findings remain useful as history, but current owner-admission evidence now supersedes the earlier claim that the system had only a symbolic future route for safe reusable-procedure and structured-Data candidates.
+
+CURRENT Brain evidence head: `16c0b7ea32fcb4759cfb8368876b6985016eab68`.
+
+Relevant accepted changes:
+
+- PR #21 / `a53f79cf083d99b39a87d9ffe9509bf4e2d02922`: bounded Brain admission for reusable-procedure learning candidates;
+- PR #22 / `16c0b7ea32fcb4759cfb8368876b6985016eab68`: bounded Brain admission for automatic Data structure candidates;
+- Gateway/OS remain the routing/final-authority boundary; Brain does not receive direct sibling canonical-write authority;
+- A-F acceptance proves safe Skill/Data routes and dangerous/destructive boundaries against their actual owners.
+
+This closes the accepted Agent-path admission/routing gap without changing Brain's canonical responsibility for intent, goals, strategy, evaluation and learning. Broader future owner classes still require owner-specific contracts.
