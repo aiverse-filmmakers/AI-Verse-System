@@ -380,7 +380,7 @@ Wire current learning-candidate and evidence contracts into post-run/substantial
 
 ## Slice 4.3 - Later task actually uses learned Skill
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** Gateway + Skills + composed owners  
 **Dependencies:** 4.2
 
@@ -401,9 +401,16 @@ Prove restart persistence, active immutable generation, actual subsequent select
 - an unsafe secret-bearing candidate was quarantined and never appeared in capability discovery
 - compare-and-set learning rollback restored the exact previous immutable generation and removed the learned capability from later discovery
 
-### Remaining acceptance
+### Gateway later-use evidence
 
-- prove through Gateway itself that a subsequent normal run sees the learned capability in owner context and selects/uses its exact persisted generation; this is intentionally waiting on the concurrently owned Gateway Context Ladder PR #6 rather than modifying that branch
+- Gateway Context Ladder PR #6 merged first, preserving concurrent ownership and avoiding branch interference
+- Gateway PR #7 merged at `4e5e6d55f659604922b794cfc517e0898b47fbe1`
+- final Gateway PR head: `f3291587483f3202a61dd8147c0b5ea552a1f954`
+- Gateway CI `34856430622`: success on Ubuntu, macOS and Windows with Node 20 and 22
+- first substantial run created the learned capability through the existing Skills route
+- Gateway process was restarted from the same durable home
+- a later short normal request received the learned capability through canonical owner context, selected its exact generation/digest, and invoked `capability.read_instructions`
+- successful later use did not depend on in-process cache, a repeated learning prompt, or hidden duplicate Skill state
 
 ---
 
@@ -411,7 +418,7 @@ Prove restart persistence, active immutable generation, actual subsequent select
 
 ## Slice 5.1 - Data safe additive structure creation/evolution
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-Data  
 **Dependencies:** current Data catalog/schema migration engine
 
@@ -621,12 +628,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 8
+- COMPLETE: 9
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 13
+- NOT STARTED: 12
 
-**Current slice:** 4.3 - Later task actually uses learned Skill  
-**Exact NEXT after current slice:** 5.1 - Data safe additive structure creation/evolution  
+**Current slice:** 5.1 - Data safe additive structure creation/evolution  
+**Exact NEXT after current slice:** 5.2 - Runtime structured-truth classification and owner routing  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
