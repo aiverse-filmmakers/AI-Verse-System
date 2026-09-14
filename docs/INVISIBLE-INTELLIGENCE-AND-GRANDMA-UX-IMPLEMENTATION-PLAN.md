@@ -883,7 +883,7 @@ F. destructive Data change does not happen silently
 
 ## Slice 11.2 - Scenario acceptance G-M
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Prove:
 
@@ -895,13 +895,35 @@ K. no subsystem-choice jargon
 L. restart truth/no duplicate canonical state  
 M. no silent authority expansion
 
+### Acceptance evidence
+
+- Distribution PR #6 merged at `f89bcae9429ef40128c3c0496993a2d502215d19`
+- final PR head: `eade74d9a4858477137b7807ee0eb7f9bb145121`
+- dedicated Invisible Intelligence G-M run `34890857872`: both jobs successful
+- Distribution CI `34890857763`: 6/6 successful
+- Clean Machine Core `34890857868`: Ubuntu, macOS and Windows successful
+- Clean Machine Agent `34890857734`: Ubuntu, macOS and Windows successful
+- scenario composition pinned and verified exact owner refs:
+  - Gateway `7627df658b2071ecb4ea242572343edfb7abf768`
+  - OS `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`
+  - Automations `caaed83b98026dd955640fc015d181529b91a1c6`
+  - Multiple Bots `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
+- G proved recommendation-only behavior leaves canonical Automations definitions, triggers and runs empty
+- H proved a direct recurring request through the real Gateway -> OS -> Automations consent/create composition
+- I proved permanent Bots require explicit/direct consent and repeated need or forged runtime fields cannot cross the durable boundary
+- J proved temporary Workers stay bounded, owner-compatible, non-durable and limited to one automatic specialist per foreground run
+- K proved ordinary user-facing outcomes hide subsystem-choice jargon while technical receipts remain exact
+- L proved restart/replay preserves exact proposal/invocation identity and does not duplicate canonical state
+- M proved Gateway rejects forged Worker/Bot/Automation authority fields and OS final action/direction/write checks prevent silent authority expansion
+- this slice added only pinned acceptance orchestration; no runtime owner, state store, scheduler, Bot registry or authority system was duplicated
+
 ---
 
 # Phase 12 - System synchronization and release
 
 ## Slice 12.1 - Living-spec CURRENT updates
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-System  
 **Dependencies:** corresponding owner slices complete
 
@@ -940,12 +962,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Formal tracked completion: **21 / 24 = 87.5%**
-- Current active slice: **11.2 - Scenario acceptance G-M**
-- Completed through: **11.1 - Scenario acceptance A-F**
+- Formal tracked completion: **22 / 24 = 91.7%**
+- Current active slice: **12.1 - Living-spec CURRENT updates**
+- Completed through: **11.2 - Scenario acceptance G-M**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** prove composed scenarios G-M against exact accepted Gateway, OS, Automations and Multiple Bots refs. Reuse existing owner/composition tests for Automation recommendation/direct consent, permanent Bot consent, temporary Workers, natural outcome language, restart/idempotency and final authority checks. This remains acceptance-only.  
-**Prepared composition branch:** `ai-verse-distribution/invisible-intelligence/scenarios-g-m`.  
+**Exact NEXT:** synchronize living specifications to the accepted implementation evidence. Update stale GAP/INTENDED/current-status statements only where the accepted owner and A-M scenario evidence now proves CURRENT behavior. Preserve the frozen Agent release history and Owner Product Intent.  
+**Expected repo:** AI-Verse-System.  
