@@ -911,7 +911,7 @@ Prove that:
 
 ## Slice 9.3 - Expert preservation/provenance tests
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Verify that vendored/adapted specialists retain:
 
@@ -921,9 +921,21 @@ Verify that vendored/adapted specialists retain:
 - expected core rules or reference assets;
 - immutable generation integrity.
 
+### Phase 9.3 evidence
+
+- expert preservation manifest: `skills/imported/ai-verse/interface-designer/references/expert-preservation.json`
+- accepted provenance regression ref: `7476d85872ec27f7f72a32d70fb4469deaeab7f9`
+- all 17 upstream expert SKILL roots were re-verified at their exact immutable commits
+- registry repo/commit/path/license/redistribution decisions are test-locked
+- trust policy auto-mutation remains disabled for every external design source
+- Anthropic frontend-design remains fetch-only
+- adapted Vercel review package preserves SOURCE.json, upstream commit, local rules snapshot and exact guideline commit
+- THIRD_PARTY_NOTICES coverage is enforced
+- Validate: PASS, run `34884457040`
+
 ## Slice 9.4 - Regression tests for removed AI-Verse duplicates
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Every removed/replaced existing design Skill needs coverage proving its supported useful behavior still resolves through the new capability system.
 
@@ -1121,8 +1133,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 9 / Slice 9.3 - Expert preservation/provenance tests
-**Next:** Phase 9 / Slice 9.3 - Verify every imported expert against pinned provenance
+**In progress:** Phase 9 / Slice 9.4 - Existing design capability regression
+**Next:** Phase 9 / Slice 9.4 - Prove zero-removal compatibility result
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
