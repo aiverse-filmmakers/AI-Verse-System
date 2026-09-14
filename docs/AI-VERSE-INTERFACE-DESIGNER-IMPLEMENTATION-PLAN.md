@@ -481,7 +481,7 @@ Do not migrate stacks unless the user explicitly asks or the existing project ca
 
 ## Slice 4.2 - Semantic trigger policy
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 4.1
 
 Users should not need to name Skills.
@@ -492,8 +492,8 @@ Users should not need to name Skills.
 - adapted Vercel review package keeps exact pinned rules locally rather than fetching mutable main
 - expert catalog implementation ref: `5baa5bebdf69af8bdcf6a1a07df2c0624a7b4ccb`
 - Validate workflow: PASS, run `34873010619`
-- Full E2E install: running, run `34873010676`
-- Runtime Readiness matrix: running, run `34873010624`
+- Full E2E install: PASS, run `34873010676`
+- Runtime Readiness matrix: PASS across Linux/macOS/Windows and Python 3.9/3.12, run `34873010624`
 - no existing design capability removed
 
 Examples:
@@ -509,8 +509,18 @@ Examples:
 
 ## Slice 4.3 - Conditional pipeline graph
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 4.2
+
+### Current implementation evidence
+
+- machine-readable graph: `skills/imported/ai-verse/interface-designer/references/orchestration.json`
+- conditional graph ref: `388df165169d1a0cae2373cddff590f7650d1911`
+- focused tests prove micro tasks skip prototype/art direction and target-specific experts remain gated
+- Validate workflow: PASS, run `34873435751`
+- Validate: PASS, run `34873435751`
+- Runtime Readiness: PASS, run `34873435627`
+- Full E2E: PASS, run `34873435714`
 
 Canonical full-product path should support:
 
@@ -535,7 +545,7 @@ Micro changes skip irrelevant stages.
 
 ## Slice 4.4 - DESIGN.md persistence contract
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 4.3
 
 Use project-local `DESIGN.md` as the persistent visual grammar where appropriate.
@@ -558,13 +568,27 @@ It should preserve:
 
 Existing `DESIGN.md` must be read before substantial design changes.
 
+### Current implementation evidence
+
+- persistence contract: `skills/imported/ai-verse/interface-designer/references/design-md-contract.md`
+- minimal template: `skills/imported/ai-verse/interface-designer/references/DESIGN.template.md`
+- Google DESIGN.md structural reference pinned at `google-labs-code/design.md@9bf8eae67128b6cc55ad9bf86665767deb4c11cd`
+- DESIGN.md contract implementation ref: `9c3902ec169e215832de91d188a04f3372463fb0`
+- contract distinguishes read/create/update authority
+- micro changes are explicitly excluded from automatic design-system persistence
+- accepted reusable product grammar must actually change before an existing DESIGN.md is rewritten
+- accepted implementation ref: `56a5b886b151f2215c0e3eef42416a4147a3464e`
+- Validate: PASS, run `34877531986`
+- Runtime Readiness: PASS, run `34877532039`
+- Full E2E: PASS, run `34877531989`
+
 ---
 
 # Phase 5 - Originality without destroying consistency
 
 ## Slice 5.1 - Design fingerprint gate
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 4.3
 
 Adapt the useful Scroll Craft uniqueness concept beyond landing pages.
@@ -992,8 +1016,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 4 / Slice 4.2 - Semantic trigger policy and expert package registration  
-**Next:** Phase 4 / Slice 4.2 - Register pinned experts and complete semantic trigger policy  
+**In progress:** Phase 5 / Slice 5.1 - Design fingerprint gate  
+**Next:** Phase 5 / Slice 5.1 - Implement design fingerprint gate  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.

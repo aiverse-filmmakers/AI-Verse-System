@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 6
+Complete: 7
 In progress: 1
 Blocked: 0
-Remaining after current: 18
-Current: C1
-Next after current: C2
+Remaining after current: 17
+Current: C2
+Next after current: C3
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -447,7 +447,7 @@ Next after current: C2
 
 #### C1. Versioned progressive recall API
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: A2, B1-B2
@@ -460,12 +460,27 @@ Next after current: C2
   - response exposes whether deeper evidence exists.
 - Tests: backward compatibility, depth contracts, budgets, scope.
 - Risks: parallel incompatible recall APIs.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-Memory`.
+  - Branch: `context-ladder/c1-progressive-recall`.
+  - PR #22, merged 2026-09-14.
+  - Final PR head: `735b89c69e69f2bf0f7fdbac62308c17c0bffc54`.
+  - Merge/main SHA: `25c7304aa9e288dc2f8b747e7b453b76cfd5c500`.
+  - PR Test run `34877283843`: success, 12/12 jobs green.
+  - Post-merge Memory main Test run `34877535172`: success, 12/12 jobs green.
+  - Added one additive `memory.progressive-recall.v1` surface; legacy `recall()` implementation and caller contract remain unchanged.
+  - `catalog` reuses the B2 orientation projection rather than introducing a second catalog/index.
+  - `summary` and `detail` reuse existing scoped session-digest recall plus existing scoped Memory/current-source recall.
+  - Progressive responses are query-bound, provenance-bearing, item-capped, and deterministically hard-bounded by serialized UTF-8 bytes.
+  - Workspace isolation is preserved and the progressive API exposes no all-workspace mode.
+  - Each returned item carries available evidence pointers and whether deeper evidence exists.
+  - `source` is advertised as the next depth from detail but remains unavailable in C1; summaries/details are explicitly navigation/bounded detail, not exact evidence.
+  - Tests prove catalog reuse, summary/detail contracts, deterministic budgets, Alpha/Beta isolation, version/depth/query fail-closed behavior, evidence pointers, and legacy-recall non-regression.
 
 #### C2. Exact-source evidence fallback
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: C1
 - Goal: resolve exact authoritative source for precision-sensitive facts rather than treating summaries as evidence.
@@ -481,7 +496,7 @@ Next after current: C2
 #### C3. OS host progressive-history bridge
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-OS, AI-Verse-Memory
 - Dependencies: C1-C2; current OS Invisible Intelligence work merged/re-read
 - Goal: expose progressive Memory retrieval through OS without bypassing owner mediation.
@@ -837,17 +852,18 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **C1. Versioned progressive recall API**
+Current implementation slice: **C2. Exact-source evidence fallback**
 
-Do not start C2 until:
-- legacy `recall()` behavior remains backward-compatible;
-- one versioned Memory-owned progressive retrieval API supports bounded catalog, summary, and detail depth without duplicating recall authority;
-- catalog depth reuses the B2 orientation projection rather than creating another catalog;
-- summary/detail retrieval is scoped, bounded, structured, and provenance-bearing;
-- each response states whether deeper evidence exists without claiming summaries are exact evidence;
-- response byte/item budgets are deterministic and tested;
+Do not start C3 until:
+- `memory.progressive-recall.v1` supports `depth="source"` through the same API, not a parallel exact-read API;
+- source descent accepts exact evidence identity from prior detail output and revalidates current scope/containment at read time;
+- expected source/canonical fingerprint mismatch fails closed as stale evidence rather than returning guessed detail;
+- deleted/missing sources return an explicit unavailable result;
+- exact authoritative content is returned only from the validated owner source, never reconstructed from summary/detail text;
+- cross-workspace source pointers are rejected even if the caller knows the path or record ID;
+- response content remains bounded and records exact-evidence provenance;
 - full Memory CI is green;
-- C1 exact commit/PR/merge/run evidence is written here.
+- C2 exact commit/PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -992,3 +1008,29 @@ Verified before C1 implementation on 2026-09-14:
 - B1-B2 orientation projection, fingerprint, budget, diagnostics, and concurrency hardening are present on current main.
 - AI-Verse-System main: `28b15a4d61f752e5da62a885a9de8d0702cdc3f7`; this plan refreshes onto that exact live state before C1 code changes.
 - C1 is Memory-only and must preserve legacy `recall()` while adding one bounded versioned progressive retrieval surface.
+
+
+### Slice completion checkpoint: C1
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory PR #22 merged.
+- Final PR head: `735b89c69e69f2bf0f7fdbac62308c17c0bffc54`.
+- Memory main after merge: `25c7304aa9e288dc2f8b747e7b453b76cfd5c500`.
+- PR Test run `34877283843`: success, 12/12 jobs.
+- Post-merge main Test run `34877535172`: success, 12/12 jobs.
+- C1 proved one owner-preserving progressive API over B2 orientation + existing digest/index recall, deterministic byte/item budgets, explicit evidence pointers, strict workspace isolation, and unchanged legacy `recall()`.
+- Exact `source` depth intentionally remained unavailable until C2.
+- C1 acceptance is complete. Seven of 25 slices are accepted.
+
+### Slice start checkpoint: C2
+
+Verified before C2 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `25c7304aa9e288dc2f8b747e7b453b76cfd5c500`.
+- Memory open PRs: none.
+- Memory active workflow runs: none.
+- Latest Memory main Test run `34877535172`: success, 12/12 jobs.
+- C1 progressive recall v1 is present on current main and remains the only new progressive retrieval API.
+- AI-Verse-System main: `0bc115ba3a81e5cfa85d33f02bf5891465fb610e`; this plan refreshes onto that exact live state before C2 code changes.
+- C2 is Memory-only and must extend C1 `depth="source"` rather than create a second exact-source surface.
