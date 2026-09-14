@@ -192,7 +192,9 @@ Schema has positive and negative fixtures/tests.
 - fixtures: `contracts/examples/component-release-descriptor.valid.json`, `contracts/examples/component-release-descriptor.invalid-floating-ref.json`
 - workflow: `.github/workflows/contract-validation.yml`
 - System PR: #8
-- current PR head before this plan sync: `7e2255ca4cd73e0c7149f611f2195df07965818e`
+- PR #8 final head: `fa5ac443764fdafcdb6fc811f52fe991aee3d114`
+- PR #8 merged SHA: `1ab90d73e97464db9eab98035d9601e9de3a4dc5`
+- the Contract Validation workflow entered `main` in PR #8; a follow-up acceptance PR is used to exercise that workflow against the now-canonical workflow definition.
 - hosted workflow evidence: pending; slice remains IN PROGRESS until validation passes.
 
 ## Slice 1.3 - Whole-release preservation result contract
