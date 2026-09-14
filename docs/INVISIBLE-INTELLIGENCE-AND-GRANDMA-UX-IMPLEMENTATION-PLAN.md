@@ -239,11 +239,32 @@ The OS now has a deterministic owner-side `ensure` operation that creates a mini
 
 ## Slice 2.2 - Runtime classification and routing to OS
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** Brain + Gateway + OS  
 **Dependencies:** 2.1
 
 Wire meaningful-work evidence to the canonical OS workspace path. The classifier may suggest scope identity; OS validates and owns mutation.
+
+### Evidence
+
+- OS PR: #30
+- OS PR head: `02718658b12bd9aa5bdb107d487c862e0a82679b`
+- merged OS SHA: `c9daa62f2f9b49a32dd9897962f61c257678fe28`
+- OS Repository QC run `34832528643`: success
+- OS Four Repo Acceptance run `34832528691`: success
+- OS Five-Component Public Beta run `34832528635`: success
+- OS Write Command Boundary run `34832528659`: success
+- OS Brain Permission Contract run `34832528628`: success
+- OS Direction Ownership run `34832529275`: success
+- Gateway PR: #3
+- Gateway PR head: `3dd79a3ffb7dac9a2929b1e4a24b058ab4c472e3`
+- merged Gateway SHA: `034d4edc83c971b491d28f93ca571f97e66ff5d6`
+- Gateway CI run `34833839372`: success across Ubuntu, macOS and Windows on Node 20 and 22
+- end-to-end acceptance proves owner-routed `workspace.ensure`, request fingerprinting, no mid-run scope mutation, durable session rebinding, next-turn workspace use, and rejection of silent session-scope override
+
+### Accepted implementation
+
+The runtime may classify a clear substantial scope and request organization through the existing generic action tool. OS rechecks and owns the workspace mutation through `workspace.ensure`. When OS confirms a created/evolved/existing workspace, Gateway updates only the durable session binding for later turns; the active run and any active Brain Goal keep their original scope. No second workspace owner, classifier service, policy service, database, or registry was introduced.
 
 ---
 
@@ -251,7 +272,7 @@ Wire meaningful-work evidence to the canonical OS workspace path. The classifier
 
 ## Slice 3.1 - Prove or close automatic safe Memory routing
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Brain, Memory, Gateway as required by current implementation  
 **Dependencies:** 1.2
 
@@ -516,12 +537,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 4
+- COMPLETE: 5
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 17
+- NOT STARTED: 16
 
-**Current slice:** 2.2 - Runtime workspace classification and routing to OS  
-**Exact NEXT after current slice:** 3.1 - Prove or close automatic safe Memory routing  
+**Current slice:** 3.1 - Prove or close automatic safe Memory routing  
+**Exact NEXT after current slice:** 4.1 - Skills safe new-Skill auto-eligibility  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
