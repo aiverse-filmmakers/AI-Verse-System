@@ -214,6 +214,12 @@ Rationale:
 
 Mode is not permission. `auto` cannot bypass host/Skills admission policy.
 
+### Owner product-direction note
+
+The current public-beta safety default above is intentionally conservative. The canonical longer-term product intent in `docs/OWNER-PRODUCT-INTENT.md` is that safe internal reusable workflows should not burden ordinary users with a "create a Skill?" question. Once owner-specific evaluation/security/rollback gates support it, a newly detected internal Skill may be created/evaluated/promoted automatically when it is scoped, reversible, non-destructive and requires no permission, dependency, connection or authority expansion.
+
+Until that path is implemented and accepted, proposal-only new-Skill creation remains an implementation gap relative to the target UX rather than evidence that the owner wants routine confirmation.
+
 ## 7. Trigger model
 
 Learning should be event-driven first, not timer-driven first.
