@@ -269,7 +269,7 @@ A written dedupe/migration map exists before any existing AI-Verse Skill is remo
 
 ## Slice 2.1 - Re-verify exact upstream sources and refs
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Skills, AI-Verse-System for evidence if needed  
 **Dependencies:** 1.1
 
@@ -327,7 +327,7 @@ Do not make Scroll Craft's custom engine the default dashboard/frontend architec
 
 ## Slice 2.2 - License and redistribution decision per upstream
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.1
 
 For every source, record:
@@ -346,6 +346,22 @@ For every source, record:
 ### Hard rule
 
 Unknown or incompatible license means **do not copy bytes** until the legal route is clear.
+
+### Phase 2 evidence
+
+- source/license pin document: `docs/AI-VERSE-INTERFACE-DESIGNER-UPSTREAM-PINS-2026-09-14.md`
+- evidence commit: `cb4212def5ef21bac89f64e23910e2a765b4f054`
+- Anthropic frontend-design: Apache-2.0 package-level license
+- UI/UX Pro Max: MIT
+- Vercel Agent Skills + Web Interface Guidelines: MIT
+- shadcn/ui: MIT
+- Google DESIGN.md: Apache-2.0
+- Meng To Skills: MIT
+- Emil Kowalski Skills: MIT
+- Scroll Craft: MIT
+- Google Stitch Skills: Apache-2.0 and optional only
+- Vercel web-design-guidelines receives only a bounded reproducibility adaptation so its rule snapshot is generation-pinned rather than runtime-fetching mutable main
+- no implementation stack/vendor becomes mandatory
 
 ---
 
@@ -941,7 +957,7 @@ Before doing any work on this project:
 
 **Completed:** Phase 0 / Slice 0.1  
 **In progress:** none  
-**Next:** Phase 2 / Slice 2.1 - Re-verify and pin selected Interface Designer upstream expert sources  
+**Next:** Phase 3 / Slice 3.1 - Define canonical Interface Designer semantic capabilities  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
