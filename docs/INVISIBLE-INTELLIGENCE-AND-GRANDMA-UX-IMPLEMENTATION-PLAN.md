@@ -762,9 +762,18 @@ Normal surfaces describe user outcomes, while technical receipts retain componen
 
 ## Slice 10.1 - Distribution product-level bootstrap
 
-**Status:** BLOCKED  
-**Repos:** ai-verse-distribution + owner lifecycle consumers  
+**Status:** IN PROGRESS  
+**Repos:** ai-verse-distribution + existing owner lifecycle consumers  
 **Dependencies:** Distribution PR #2 merged/resolved; consume Safe Update / release-train machinery where available
+
+### Dependency trace
+
+The original blocker is resolved: Distribution PR #2 merged as `19150267b28fc41ee012495cabf7b5148e7a81f4` and the frozen `agent-public-beta-2026-09-14` release remains immutable.
+
+The separate Safe Update / Release Train project is not complete, so this slice must not claim a new cross-version transition, automatic migration, recovery journal, candidate-promotion train, or release-set update safety that has not been accepted there. Product bootstrap may proceed because it composes already-released exact Agent installation, current owner-controlled setup, current doctor/readiness, and progressive conversational handoff without changing the released set.
+
+Implementation branch: `ai-verse-distribution/invisible-intelligence/grandma-product-bootstrap`  
+Implementation PR: Distribution #3
 
 Fresh non-technical user path:
 
@@ -867,12 +876,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Formal tracked completion: **18 / 24 = 75.0%**
-- Current active slice: **dependency trace for 10.1 - Distribution product-level bootstrap**
+- Current active slice: **10.1 - Distribution product-level bootstrap**
 - Completed through: **9.1 - User-facing outcome language**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** re-evaluate the live Safe Update / release-train dependency for Slice 10.1 before changing Distribution. If the dependency remains blocked, continue directly with the next unblocked acceptance/synchronization slice rather than inventing a parallel bootstrap/update architecture.  
-**Expected first repos inspected:** AI-Verse-System and ai-verse-distribution  
-**Do not touch the frozen Agent release:** any product-bootstrap work must target a new later candidate only.  
+**Exact NEXT:** finish Distribution PR #3 acceptance for the one-action first-run path. Do not mutate the frozen Agent release or claim incomplete Safe Update / release-train behavior.  
+**Current implementation:** `aiverse start` wraps the existing exact Agent install -> owner setup -> doctor -> conversational handoff path and fails closed on unhealthy/disabled/migration/ambiguous states.  
+**After 10.1:** implement only the bounded deterministic self-heal allowed by Slice 10.2.  
