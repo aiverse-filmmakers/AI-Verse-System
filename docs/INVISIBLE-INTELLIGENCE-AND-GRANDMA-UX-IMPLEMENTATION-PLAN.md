@@ -656,8 +656,8 @@ The implementation reuses the existing Automations Store, scheduler Engine, OS e
 
 ## Slice 8.1 - Meaningful-work post-run organization routing
 
-**Status:** IN PROGRESS  
-**Repos:** Gateway + Brain, consuming OS/Memory/Data/Skills/Bots/Automations owner APIs  
+**Status:** COMPLETE  
+**Repos:** Gateway, consuming existing OS/Memory/Data/Skills owner APIs  
 **Dependencies:** Phases 2-7 owner primitives
 
 Implement the smallest owner-correct post-run routing path:
@@ -665,7 +665,7 @@ Implement the smallest owner-correct post-run routing path:
 ```text
 meaningful work completes
 -> bounded evidence
--> Brain/runtime classification
+-> existing runtime classification
 -> route to canonical owner
 -> owner validates and mutates/proposes
 -> verify
@@ -673,9 +673,34 @@ meaningful work completes
 
 No Optimizer database, second Brain, scheduler or canonical store.
 
+### Anti-bloat decision
+
+The accepted implementation adds one bounded post-run review inside the existing Gateway run engine. It does not add an Optimizer, second Brain service, scheduler, review daemon, approval database, routing store or canonical state owner. The review may only propose the four previously accepted safe organization routes: `workspace.ensure`, `memory.capture`, `skills.learning-candidate` and `data.structured-truth`.
+
+Workers, permanent Bots, Automations, credentials, Connections, permission/scope expansion, external effects, strategic authority transfer and destructive/irreversible mutation are not admitted by the review path.
+
+### Acceptance evidence
+
+- Gateway PR #13 merged at `8de15df92da04dd13b4ac98d422f7c6cc19cf38f`
+- final Gateway PR head: `e75ed9ff0e7db40bff4a2c34c8f84b584441d6e5`
+- Gateway CI `34884868299`: success across Ubuntu, macOS and Windows on Node 20 and 22
+- Temporary Worker regression composition `34884868349`: success
+- Permanent Bot regression composition `34884868344`: success
+- Automation recommendation + consent regression `34884868300`: success for both no-schedule recommendation and real Gateway -> OS -> Automations consent composition
+- the foreground run reaches its normal completed output before optional organization review state is processed; review failure cannot rewrite the foreground answer into failure or approval wait
+- completed-work evidence is bounded and secret-like evidence is not admitted for review
+- review proposals are durably persisted before owner execution and resume after restart without reclassification
+- owner writes use deterministic per-run/per-owner idempotency keys; exact replay does not duplicate canonical effects
+- review-required owner approval is skipped rather than manufacturing consent or parking the already-completed foreground run
+- review messages and review tool results are not appended to the user/session conversation history
+- a successful `workspace.ensure` may rebind the durable session for later turns and subsequent review routes use the owner-confirmed workspace
+- any of the four safe organization operations already routed during the foreground run are deterministically suppressed from the post-run review to avoid duplicate owner mutation
+- an attempted `bots.permanent` review proposal is rejected by the Gateway allowlist before the host sees it
+- existing accepted owner gates remain final authority; this slice reuses rather than duplicates their admission, provenance, rollback/idempotency and canonical mutation contracts
+
 ## Slice 8.2 - Review budget / trivial-turn suppression
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Gateway/Brain  
 **Dependencies:** 8.1
 
@@ -803,13 +828,13 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Total implementation slices: 24 including planning/final gates
-- COMPLETE: 9
-- IN PROGRESS: 1
-- BLOCKED: 2
-- NOT STARTED: 12
+- Formal tracked completion: **16 / 24 = 66.7%**
+- Current active slice: **8.2 - Review budget / trivial-turn suppression**
+- Completed through: **8.1 - Meaningful-work post-run organization routing**
+- Distribution PR #2 is merged; the original frozen Agent release remains immutable.
+- Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
+- The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Current slice:** 5.1 - Data safe additive structure creation/evolution  
-**Exact NEXT after current slice:** 5.2 - Runtime structured-truth classification and owner routing  
-**Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
-**Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
+**Exact NEXT:** finish 8.2 by proving cheap deterministic trivial-turn suppression and bounded review spend for substantial work.  
+**Expected first repo touched:** AI-Verse-Gateway  
+**Later repos:** AI-Verse-System, then release/bootstrap owners only when their dependency gates are satisfied.  
