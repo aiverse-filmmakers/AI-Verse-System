@@ -9,7 +9,7 @@ This document is the final cross-component synthesis of the ten independent AI-V
 
 It is called the Final System Blueprint because it is the single canonical big-picture map of AI-Verse. It is not frozen. AI-Verse-System is a living specification, so this blueprint must evolve whenever component reality, system law, lifecycle, ownership or product intent changes.
 
-The component repositories remain the owners of implementation. The component specifications remain the detailed audited records. This blueprint answers the system-level question:
+The component repositories remain the owners of implementation. The component specifications remain the detailed audited records. The owner's current product-direction, UX and autonomy intent is recorded separately in `docs/OWNER-PRODUCT-INTENT.md`; contributors must read it for significant product-facing decisions and must still distinguish desired behavior from shipped implementation. This blueprint answers the system-level question:
 
 > What is AI-Verse as one complete system, what exists today, what owns what, how should every part work together, and what exact path remains before it works like a glove?
 
@@ -35,9 +35,11 @@ It is an operating architecture that gives agents and humans a durable, scoped a
 - telemetry remains evidence rather than operational authority;
 - components can be installed before or after one another without creating duplicate truth.
 
-The intended user experience is simple even though the architecture is strict:
+The intended user experience is simple even though the architecture is strict.
 
-> Install the pieces you need, tell AI-Verse to adopt them, preserve existing state, verify readiness, and continue working without rebuilding the system.
+For ordinary users, internal component choices should be invisible. Safe, reversible backend organization should happen automatically when sufficient evidence exists; the user should be asked when a change creates new recurring autonomy, a durable Bot, external authority, destructive risk, strategic handover or another meaningful commitment boundary. The detailed owner-product intent is canonical in `docs/OWNER-PRODUCT-INTENT.md`.
+
+> Install AI-Verse, begin working, let the system organize and improve its backend safely, and expose technical lifecycle details only when they are actually needed.
 
 ---
 
