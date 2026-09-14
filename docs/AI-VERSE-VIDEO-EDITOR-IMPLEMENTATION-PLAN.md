@@ -423,7 +423,7 @@ Purpose: prevent later imported design skills from stealing editorial ownership.
 
 ## Slice 3.1 - Inspect CURRENT upstream HyperFrames
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 2.1
 
 Re-check latest release at execution time, not the planning-time v0.8.39 assumption.
@@ -925,6 +925,6 @@ Before any implementation work:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** none  
-**Next:** Phase 3 / Slice 3.1 - Inspect current upstream HyperFrames 0.8.40 in detail  
-**Implementation authorization:** WAITING FOR OWNER GO-AHEAD
+**In progress:** Phase 3 / Slice 3.1 - Inspect CURRENT upstream HyperFrames  
+**Next:** Phase 3 / Slice 3.1 - Re-verify latest upstream release and contracts  
+**Implementation authorization:** ACTIVE - owner said continue
