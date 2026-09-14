@@ -45,6 +45,20 @@ Canonical detail:
 - `scripts/validate_component_release_descriptor.py`
 - `tests/test_component_release_descriptor.py`
 
+### Added whole-release preservation result contract
+
+**Date:** 2026-09-14  
+**Type:** release acceptance contract / state-preservation evidence
+
+Added a machine-readable whole-release preservation result schema, semantic validator, fixtures, and focused tests. The contract prevents `safe_for_update=true` unless an exact source-to-target Distribution revision has the required clean-install, real-upgrade, platform, restart/recovery, state, authority, migration, negative-test, and evidence outcomes.
+
+Canonical detail:
+
+- `docs/WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT.md`
+- `contracts/release-preservation-result.schema.json`
+- `scripts/validate_release_preservation_result.py`
+- `tests/test_release_preservation_result.py`
+
 ## 2026-09-13
 
 ### Published canonical AI-Verse Automations runtime

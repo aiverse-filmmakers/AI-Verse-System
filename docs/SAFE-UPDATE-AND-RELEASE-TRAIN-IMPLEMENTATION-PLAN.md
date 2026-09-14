@@ -245,6 +245,17 @@ Machine-readable acceptance result can represent:
 - passing contract tests;
 - commit/PR/workflow refs.
 
+### Evidence so far
+
+- schema: `contracts/release-preservation-result.schema.json`
+- semantics doc: `docs/WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT.md`
+- validator: `scripts/validate_release_preservation_result.py`
+- tests: `tests/test_release_preservation_result.py`
+- fixtures: valid safe-update result plus invalid `safe_for_update=true` with failed upgrade
+- shared Contract Validation workflow updated to execute the new validator and full test suite
+- hosted execution remains covered by blocked Slice 1.2B because the private System repo currently receives no runner steps.
+- PR/merge evidence: pending.
+
 ---
 
 # Phase 2 - Component release-descriptor adoption

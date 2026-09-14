@@ -29,5 +29,8 @@ jobs:
       - name: Validate example descriptor
         run: python scripts/validate_component_release_descriptor.py contracts/examples/component-release-descriptor.valid.json
 
+      - name: Validate whole-release preservation example
+        run: python scripts/validate_release_preservation_result.py contracts/examples/release-preservation-result.valid.json
+
       - name: Run contract tests
         run: python -m unittest discover -s tests -p "test_*.py"
