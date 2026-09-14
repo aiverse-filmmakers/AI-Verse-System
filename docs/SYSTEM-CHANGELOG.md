@@ -29,6 +29,22 @@ Canonical detail:
 - `docs/COMPONENT-INSTALL-SETUP-CONTRACT.md`
 - `docs/FINAL-AI-VERSE-BLUEPRINT.md`
 
+### Added machine-readable Component Release Descriptor v1
+
+**Date:** 2026-09-14  
+**Type:** release contract / validation infrastructure
+
+Added a strict, versioned component release descriptor schema plus dependency-free semantic validation, positive/negative fixtures, unit tests, and a dedicated GitHub Actions validation workflow.
+
+The descriptor binds release evidence to an exact immutable component revision and carries lifecycle, platform/runtime, state-preservation, migration, and authority-negative facts. It explicitly cannot become canonical live health/readiness truth.
+
+Canonical detail:
+
+- `docs/COMPONENT-RELEASE-DESCRIPTOR-CONTRACT.md`
+- `contracts/component-release-descriptor.schema.json`
+- `scripts/validate_component_release_descriptor.py`
+- `tests/test_component_release_descriptor.py`
+
 ## 2026-09-13
 
 ### Published canonical AI-Verse Automations runtime
