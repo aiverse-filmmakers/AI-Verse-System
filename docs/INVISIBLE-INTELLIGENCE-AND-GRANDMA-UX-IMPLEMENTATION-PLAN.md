@@ -561,8 +561,8 @@ No second Bot registry, approval store, recommendation database or Bot-creation 
 
 ## Slice 7.1 - Repeated responsibility recommendation
 
-**Status:** IN PROGRESS  
-**Repos:** Brain/Gateway + AI-Verse-Automations  
+**Status:** COMPLETE  
+**Repos:** Gateway + canonical AI-Verse-Automations negative composition  
 **Dependencies:** existing Automations scheduler
 
 Observed recurring time/event pattern may generate a natural-language recommendation only. No canonical schedule/job exists before consent.
@@ -571,13 +571,31 @@ Observed recurring time/event pattern may generate a natural-language recommenda
 
 Reuse the existing Automations Store, trigger parser, scheduler Engine, OS permission recheck and owner wake adapters. Do not create another scheduler, recommendation store, cron service or recurring-responsibility registry.
 
+### Acceptance evidence
+
+- Gateway PR #11 merged at `1df2426e53ea57b4e704248bf1c9aa5500a25293`
+- final Gateway PR head: `078419c8b6ae087939caceac29872f75d64a740f`
+- Gateway CI `34874227131`: success across Ubuntu/macOS/Windows on Node 20/22
+- Automation Recommendation Boundary `34874227177`: success against canonical Automations `494469a496d479cfec618bcd9511033c0cd3e815`
+- Temporary Worker regression composition `34874227186`: success
+- Permanent Bot regression composition `34874227080`: success
+- clear repeated responsibility can produce a natural-language recommendation with zero owner actions
+- one-off work does not produce a recurring recommendation
+- normal user copy contains no Automation/scheduler/cron/trigger/job jargon
+- real Automations database remains at zero automations, zero triggers and zero runs after the recommendation flow
+- no new scheduler, recommendation database, classifier service or recurring-responsibility registry was introduced
+
 ## Slice 7.2 - Consent/direct request -> canonical Automation
 
-**Status:** NOT STARTED  
-**Repos:** AI-Verse-Automations + Gateway  
+**Status:** IN PROGRESS  
+**Repos:** AI-Verse-Automations + Gateway + OS only where owner routing requires it  
 **Dependencies:** 7.1
 
 Explicit yes or direct scheduling instruction creates through the existing Automations owner path, unless another authority boundary blocks it. No redundant confirmation.
+
+### Anti-bloat decision
+
+Use the existing Automations Store create + trigger primitives and existing OS action-permission boundary. Add only the smallest owner-correct bridge required for Gateway to submit an explicitly consented definition. Do not add a second mutable scheduler API, approval database, trigger registry or recurring-work service.
 
 ---
 
@@ -733,12 +751,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 13
+- COMPLETE: 14
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 8
+- NOT STARTED: 7
 
-**Current slice:** 7.1 - Repeated responsibility recommendation  
-**Exact NEXT after current slice:** 7.2 - Consent/direct request -> canonical Automation  
-**Expected first repos touched:** Gateway and AI-Verse-Automations only where owner exposure is required  
+**Current slice:** 7.2 - Consent/direct request -> canonical Automation  
+**Exact NEXT after current slice:** 8.1 - Meaningful-work post-run organization routing  
+**Expected first repos touched:** AI-Verse-Automations, Gateway, AI-Verse-OS only if the existing host boundary needs owner routing  
 **Later repos:** Brain, AI-Verse-System, ai-verse-distribution  
