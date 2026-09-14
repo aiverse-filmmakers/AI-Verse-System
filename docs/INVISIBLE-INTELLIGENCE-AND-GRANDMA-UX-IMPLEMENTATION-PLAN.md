@@ -386,6 +386,25 @@ Wire current learning-candidate and evidence contracts into post-run/substantial
 
 Prove restart persistence, active immutable generation, actual subsequent selection/use, rollback and quarantine paths.
 
+### Evidence so far
+
+- OS PR #37 merged at `caa38f46d29e66363493d0e11da83aa924af1dea`
+- final OS PR head: `799af68369440f114108cdbf60668c917e040d13`
+- OS Four Repo Acceptance `34855795748`: success
+- OS Five-Component Public Beta `34855795755`: success across all three install orders
+- OS Repository QC `34855795777`: success
+- OS Direction Ownership `34855795762`: success
+- OS Brain Permission Contract `34855796007`: success
+- OS Write Command Boundary `34855795908`: success
+- real Skills owner was switched to opt-in `auto`, a safe candidate auto-promoted into a new immutable generation, and a fresh OS host object rediscovered it from persisted owner state
+- a later generation/digest-bound `capability.read_instructions` execution successfully loaded the learned procedure
+- an unsafe secret-bearing candidate was quarantined and never appeared in capability discovery
+- compare-and-set learning rollback restored the exact previous immutable generation and removed the learned capability from later discovery
+
+### Remaining acceptance
+
+- prove through Gateway itself that a subsequent normal run sees the learned capability in owner context and selects/uses its exact persisted generation; this is intentionally waiting on the concurrently owned Gateway Context Ladder PR #6 rather than modifying that branch
+
 ---
 
 # Phase 5 - Automatic Data emergence
