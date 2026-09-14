@@ -576,14 +576,18 @@ Next after current: E2
 - Tests: decisions/lessons/corrections, irrelevant-neighbor rate, scope.
 - Risks: graph traversal flooding context.
 - Evidence:
-  - Memory PR #25 final head `73d87c2a0ccd43cc9ead2b01d82da2b78269da1b`.
-  - PR Test run `34887656739`: success, 12/12 jobs.
-  - Merge/main SHA `ea2dee1ea8b91d9e8aa31fc148c00f4ebbef0545`.
-  - Post-merge Test run `34887974183`: success, 12/12 jobs.
-  - Benchmark baseline: 3/3 scenarios correct, 6,517 bytes, 19.994 ms median.
-  - One-hop candidate: 3/3 scenarios correct, zero correctness gain, 6,856 bytes, 1.052018 context ratio, 43.543 ms median, 2.177803 latency ratio.
-  - Candidate returned one extra neighbor; it was irrelevant, for an irrelevant-neighbor rate of 1.0. Scope leakage, stale neighbors, and canonical mutation were all zero.
-  - Ship/reject decision: REJECT generic runtime neighbor expansion. D1 relationships remain bounded provenance/navigation state only.
+  - Initial Memory PR #25 benchmark was later found invalid as a ship/reject gate because its expected answers were already direct-recall records, so it could not demonstrate positive neighbor value by construction.
+  - Corrective benchmark PR #27 final head `f3dc19be30649ef0cec7368694f807e08c4ecfde`.
+  - Corrective PR Test run `34890392950`: success, 12/12 jobs.
+  - Corrected representative benchmark: direct-only recall recovered 1/4 scenarios; the one-hop candidate recovered 4/4.
+  - Corrected apples-to-apples candidate added about 14.1% context, returned three relevant neighbors and zero irrelevant neighbors, with zero workspace leakage, zero stale neighbors, and zero canonical mutation.
+  - Cross-platform latency remained bounded to explicit history/provenance requests: macOS about 15.1 -> 28.2 ms, Ubuntu about 15.8 -> 36.3 ms, Windows 3.9 about 47.8 -> 145.7 ms, Windows 3.12 about 24.2 -> 226.0 ms.
+  - Corrective benchmark merged as Memory main `1be6a9715f574dc4dd5a4988592e49e8f7ef4c74`; post-merge Test run `34890743187`: success, 12/12 jobs.
+  - Runtime ship PR #28 final head `55598172f11cec564dbdffc55db7643264e8fd76`.
+  - PR #28 Test run `34891343587`: accepted 12/12 on unchanged rerun after one pre-existing Windows mutation-lock race; all D2 runtime tests passed.
+  - Runtime merge/main SHA `620252ef361b32d60881d734c58035b155e18b38`.
+  - Post-merge Test run `34891787879`: success, 12/12 on attempt 2 after one unrelated Windows public-beta concurrency timeout.
+  - Ship/reject decision: REJECT generic/unbounded relationship traversal; SHIP only the benchmark-proven narrow path in detail-depth progressive recall: one hop, at most four neighbors, explicit historical/correction or provenance/evidence intent, established scope and byte/result budgets, no expansion for ordinary current-truth queries, and exact-source descent preserved.
   - D2 acceptance complete; eleven of 25 slices are accepted.
 
 ### Phase E: Gateway lossless fold tree
@@ -1150,16 +1154,16 @@ Verified before D2 implementation on 2026-09-14:
 
 ### Slice completion checkpoint: D2
 
-Verified on 2026-09-14:
+Verified on 2026-09-15:
 
-- AI-Verse-Memory PR #25 merged from `context-ladder/d2-neighbor-benchmark`.
-- Final PR head: `73d87c2a0ccd43cc9ead2b01d82da2b78269da1b`.
-- PR Test run `34887656739`: success, 12/12 jobs.
-- Memory main after merge: `ea2dee1ea8b91d9e8aa31fc148c00f4ebbef0545`.
-- Post-merge main Test run `34887974183`: success, 12/12 jobs.
-- Direct recall was already 3/3 correct. The one-hop candidate remained 3/3, added 5.2% context and about 2.18x median latency, and its only added neighbor was irrelevant.
-- Candidate safety remained sound: zero workspace leakage, zero stale neighbors, and zero canonical mutation.
-- D2 therefore rejected generic runtime neighbor expansion. No traversal behavior was shipped; the deterministic D1 relationship projection remains navigation/provenance-only.
+- The original PR #25 benchmark conclusion was superseded after review found the control was not capable of proving positive recall value.
+- Corrective benchmark PR #27 head `f3dc19be30649ef0cec7368694f807e08c4ecfde` passed Test run `34890392950` 12/12 and merged as `1be6a9715f574dc4dd5a4988592e49e8f7ef4c74`; post-merge Test run `34890743187` passed 12/12.
+- Fair benchmark evidence improved representative correctness from 1/4 direct-only to 4/4 with three relevant neighbors, zero irrelevant neighbors, zero scope leakage, zero stale neighbors, zero canonical mutation, and about 14.1% apples-to-apples context inflation.
+- The absolute latency cost was acceptable only for explicit history/provenance retrieval, not for ordinary recall, so D2 kept generic traversal rejected and shipped a much narrower runtime path.
+- Runtime PR #28 head `55598172f11cec564dbdffc55db7643264e8fd76` adds detail-depth, one-hop, max-four-neighbor expansion only for explicit history/correction or provenance/evidence intent. Current-truth queries and other depths do not expand relationships.
+- PR #28 Test run `34891343587` reached full acceptance after an unchanged rerun of the pre-existing Windows mutation-lock race; all new D2 runtime acceptance tests passed.
+- Memory main after runtime merge: `620252ef361b32d60881d734c58035b155e18b38`.
+- Post-merge main Test run `34891787879`: success, 12/12 on attempt 2 after an unrelated Windows public-beta concurrency timeout was rerun unchanged.
 - D2 acceptance is complete. Eleven of 25 slices are accepted.
 
 ### Slice start checkpoint: E1
