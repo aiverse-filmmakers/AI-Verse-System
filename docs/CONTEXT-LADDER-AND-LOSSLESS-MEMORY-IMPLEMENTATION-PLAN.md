@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 10
+Complete: 11
 In progress: 1
 Blocked: 0
-Remaining after current: 14
-Current: D2
-Next after current: E1
+Remaining after current: 13
+Current: E1
+Next after current: E2
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -564,7 +564,7 @@ Next after current: E1
 
 #### D2. Bounded neighbor recall benchmark and ship/reject gate
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: D1, benchmark harness
@@ -575,14 +575,23 @@ Next after current: E1
   - otherwise remove/disable expansion and record rejection evidence.
 - Tests: decisions/lessons/corrections, irrelevant-neighbor rate, scope.
 - Risks: graph traversal flooding context.
-- Evidence: pending.
+- Evidence:
+  - Memory PR #25 final head `73d87c2a0ccd43cc9ead2b01d82da2b78269da1b`.
+  - PR Test run `34887656739`: success, 12/12 jobs.
+  - Merge/main SHA `ea2dee1ea8b91d9e8aa31fc148c00f4ebbef0545`.
+  - Post-merge Test run `34887974183`: success, 12/12 jobs.
+  - Benchmark baseline: 3/3 scenarios correct, 6,517 bytes, 19.994 ms median.
+  - One-hop candidate: 3/3 scenarios correct, zero correctness gain, 6,856 bytes, 1.052018 context ratio, 43.543 ms median, 2.177803 latency ratio.
+  - Candidate returned one extra neighbor; it was irrelevant, for an irrelevant-neighbor rate of 1.0. Scope leakage, stale neighbors, and canonical mutation were all zero.
+  - Ship/reject decision: REJECT generic runtime neighbor expansion. D1 relationships remain bounded provenance/navigation state only.
+  - D2 acceptance complete; eleven of 25 slices are accepted.
 
 ### Phase E: Gateway lossless fold tree
 
 #### E1. Immutable fold-card and catalog storage foundation
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: Gateway live-state re-audit after Invisible Intelligence changes
 - Goal: derive immutable fold cards over Gateway-owned raw session messages while keeping original messages intact.
@@ -597,7 +606,7 @@ Next after current: E1
 #### E2. Fold creation and recursive roll-up
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1
 - Goal: fold oldest eligible history into cards and recursively roll adjacent same-level cards when pressure requires it.
@@ -886,18 +895,20 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **D2. Bounded neighbor recall benchmark and ship/reject gate**
+Current implementation slice: **E1. Immutable fold-card and catalog storage foundation**
 
-Do not start E1 until:
-- a deterministic D2 benchmark compares the existing direct-only recall path with a one-hop, tightly bounded relationship-neighbor candidate;
-- representative decisions, lessons, and corrections are covered;
-- candidate traversal remains within the authorized operator/workspace scope and produces zero cross-workspace leakage;
-- neighbor count, context/output bytes, irrelevant-neighbor rate, and retrieval cost are bounded and measured;
-- exact evidence and canonical ownership remain unchanged;
-- expansion ships only if the measured candidate improves representative correctness without unacceptable context or latency inflation;
-- if it does not earn that complexity, runtime neighbor expansion remains disabled/absent and rejection evidence is recorded;
-- full Memory CI is green;
-- D2 exact PR/merge/run evidence is written here.
+Do not start E2 until:
+- current Gateway raw session/run ownership is re-audited after Invisible Intelligence changes and no competing transcript owner is introduced;
+- the pre-existing Gateway CI baseline is made deterministic without weakening production behavior or hiding a real product failure;
+- fold cards are immutable derived artifacts over Gateway-owned raw run messages, with raw messages left intact and exactly retrievable;
+- each card has deterministic immutable identity, level, scope/session binding, ordered source/child references, coverage, source fingerprint, byte/token estimates, summary, generator metadata, creation time, and explicit validation state;
+- card writes are retry-safe and conflicting/tampered immutable artifacts fail closed;
+- references to child cards are scope-safe and cannot silently mutate the referenced card;
+- the fold catalog is disposable/rebuildable from immutable card files and restart-safe;
+- E1 creates storage/validation only: no context-pressure folding, summary generation policy, recursive roll-up, or runtime prompt replacement is added before E2;
+- identity, immutability, ordering, coverage, scope isolation, raw-source preservation, catalog rebuild, tamper detection, and restart tests pass;
+- full Gateway CI is green;
+- E1 exact PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -1135,3 +1146,30 @@ Verified before D2 implementation on 2026-09-14:
 - Existing runtime recall remains direct-only. D1 exposes deterministic relationship reads but does not expand recall through them.
 - D2 is Memory-only and is a benchmarked ship/reject gate. It must not create a second canonical graph, relax scope, or alter exact-evidence authority.
 - The candidate is limited to one hop with explicit hard bounds; runtime expansion may ship only if the benchmark proves material correctness value without unacceptable context/latency inflation.
+
+
+### Slice completion checkpoint: D2
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory PR #25 merged from `context-ladder/d2-neighbor-benchmark`.
+- Final PR head: `73d87c2a0ccd43cc9ead2b01d82da2b78269da1b`.
+- PR Test run `34887656739`: success, 12/12 jobs.
+- Memory main after merge: `ea2dee1ea8b91d9e8aa31fc148c00f4ebbef0545`.
+- Post-merge main Test run `34887974183`: success, 12/12 jobs.
+- Direct recall was already 3/3 correct. The one-hop candidate remained 3/3, added 5.2% context and about 2.18x median latency, and its only added neighbor was irrelevant.
+- Candidate safety remained sound: zero workspace leakage, zero stale neighbors, and zero canonical mutation.
+- D2 therefore rejected generic runtime neighbor expansion. No traversal behavior was shipped; the deterministic D1 relationship projection remains navigation/provenance-only.
+- D2 acceptance is complete. Eleven of 25 slices are accepted.
+
+### Slice start checkpoint: E1
+
+Verified before E1 implementation on 2026-09-14:
+
+- AI-Verse-Gateway main: `7ed7974d865e6eae9f0a01056e0756b59f2b44e4`; no open PRs or active workflows at initial audit.
+- Gateway owns durable sessions, runs, run checkpoints/events, and gateway audit receipts. Raw conversational history is currently preserved in Gateway run JSON `messages`; E1 must derive from it without rewriting or promoting it into another canonical store.
+- Current Gateway `src/store.mjs` stores sessions/runs/events and has no fold-card or archive-card store yet.
+- Current Gateway `src/run-engine.mjs` invokes runtimes from persisted `run.messages`, so E1 must not alter prompt assembly or folding policy.
+- Latest inspected Gateway main CI `34886514508` had a pre-existing Windows Node 20-only failure. The first attempt failed the recurring-recommendation run while all other matrix lanes passed; an unchanged Windows Node 20 rerun failed a different clean-install run while the previously failing test passed. Earlier main evidence showed another different host-backed test failing only on Windows Node 20. This is being treated as a test-harness determinism prerequisite, not silently ignored.
+- E1 storage design is additive: immutable derived cards plus a rebuildable catalog, with raw source bytes/messages preserved and exact source references retained.
+- AI-Verse-System main at this checkpoint: `8e46c964e3b018440ecd78a1e66ba62ee3397cc1`; concurrent Invisible Intelligence work remains separate from this plan branch.
