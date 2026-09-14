@@ -258,6 +258,14 @@ Every slice records:
 - future agents can resume without the originating chat;
 - no AI-Verse-Skills implementation change occurs before owner go-ahead.
 
+### Evidence
+
+- initial Video Editor plan commit: `b20e69660155a104abbff32230f1d8e28c4618e6`
+- canonical path: `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`
+- planning baseline verified Nate kit pin: HyperFrames `0.7.109`
+- planning baseline verified current upstream release: HyperFrames `v0.8.39` on 2026-09-14
+- planning-time AI-Verse-Skills code search returned no indexed `hyperframes` match; full-tree audit remains mandatory before treating it as absent
+
 ### NEXT
 
 **Slice 1.1 - Fresh full video/design/HyperFrames inventory of CURRENT AI-Verse-Skills.**
