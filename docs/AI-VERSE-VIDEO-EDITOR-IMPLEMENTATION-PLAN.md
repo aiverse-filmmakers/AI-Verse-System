@@ -741,7 +741,7 @@ Preserve the existing website capture -> DESIGN.md -> script -> storyboard -> VO
 
 ## Slice 5.7 - Canonical HyperFrames provider packaging
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 3.4, 5.1-5.6
 
 Package the accepted `heygen-com/hyperframes@0.8.40` provider family into the AI-Verse Skills immutable-generation model as internal support dependencies.
@@ -796,13 +796,77 @@ Phase 5 CI on accepted head:
 - Validate AI-Verse Skills run `34893616312`: **PASS**;
 - Full E2E Install run `34893616220`: **PASS**.
 
+### Slice 5.7 evidence
+
+Accepted provider-integrated AI-Verse-Skills head:
+
+- `179751a792901f38fdb0c74cf24198b1a082e847`
+- draft PR: **#14**
+
+Canonical public candidate:
+
+- member capability: `video-editor`
+- registry rank: `100`
+- canonical employee count: `100`
+- canonical total with foundation: `120`
+
+Pinned HyperFrames provider:
+
+- source: `heygen-com/hyperframes`
+- version: `0.8.40`
+- immutable commit: `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`
+- license decision: `Apache-2.0`
+- redistribution/install posture: pinned `fetch-only`
+- source trust: reviewed upstream
+- provider acceptance run: `34888930903`
+
+Internal support packages installed with Video Editor:
+
+- `hyperframes`
+- `hyperframes-core`
+- `hyperframes-cli`
+- `hyperframes-animation`
+- `hyperframes-keyframes`
+- `hyperframes-creative`
+- `hyperframes-audio`
+- `hyperframes-registry`
+- `media-use`
+- `general-video`
+- `embedded-captions`
+
+These 11 packages are support-only and are excluded from the selectable member capability index.
+
+Cross-composite update:
+
+- Interface Designer's previous `video-editor` future dependency was removed;
+- `CODE_DRIVEN_VIDEO_MOTION_HANDOFF` now resolves to the registered Video Editor candidate;
+- handoff direction is Interface Designer -> Video Editor;
+- boundary remains presentation-only.
+
+CI/evidence on accepted head:
+
+- Validate AI-Verse Skills run `34894758560`: **PASS**;
+- Runtime Readiness run `34894758188`: **PASS** across Linux/macOS/Windows and Python 3.9/3.12;
+- Full E2E Install run `34894758279`: **PASS**;
+- full pinned upstream install: PASS;
+- capability provider v1 output: PASS;
+- setup/integrity doctor/capability count: PASS;
+- immutable update: PASS;
+- pointer rollback: PASS;
+- uninstall preserved pinned generation: PASS;
+- recovery after uninstall: PASS.
+
+## Slice 5.7 result
+
+**PASS.** AI-Verse now has one installed canonical HyperFrames provider family behind one public Video Editor capability.
+
 ---
 
 # Phase 6 - Selective cooperation with Interface Designer
 
 ## Slice 6.1 - Visual-direction handoff
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** relevant Interface Designer capabilities available
 
 Video Editor may request:
@@ -1128,7 +1192,7 @@ Before any implementation work:
 
 # Current project status
 
-**Completed:** Phases 0-5.6 / Nate editorial integration complete and CI accepted  
-**In progress:** Phase 5 / Slice 5.7 - Package the accepted HyperFrames 0.8.40 provider family as internal immutable dependencies  
-**Next:** Slice 5.7 - pin trust/provenance, wire provider support packages to Video Editor, and prove install/provider-index lifecycle  
+**Completed:** Phases 0-5 / Nate editorial integration and canonical HyperFrames provider packaging accepted  
+**In progress:** Phase 6 / Slice 6.1 - Formalize the Interface Designer visual-direction handoff  
+**Next:** Phase 6 / Slices 6.1-6.4 - lock visual direction, reference recreation, prototype directions and motion-taste boundaries with routing/tests  
 **Implementation authorization:** ACTIVE - owner said continue
