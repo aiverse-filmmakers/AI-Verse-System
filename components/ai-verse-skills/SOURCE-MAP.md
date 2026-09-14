@@ -6,6 +6,54 @@
 **Audit date:** 2026-09-13  
 **Scope rule:** Skills was audited standalone. Cross-repository evidence was limited to contracts and acceptance surfaces that Skills itself names or depends on.
 
+## 2026-09-14 release-candidate source-map update
+
+**CURRENT candidate repository:** `aiverse-filmmakers/AI-Verse-Skills`  
+**Branch:** `feature/interface-designer-2026-09-14`  
+**Head:** `a5068c2e8b1c581a721419c55282c03d900819a4`  
+**Version:** `1.1.0-beta.1`  
+**PR:** #13
+
+This section is the current source-map overlay. Conflicting counts/gaps in the retained 2026-09-13 audit below describe the older audited head and are historical.
+
+Current registry truth:
+
+- `registry/skills.json`: 20 foundation + 99 employee = 119 canonical;
+- `registry/packages.json`: exact acquisition truth for the current employee catalog plus 5 support packages;
+- original 100 canonical IDs are preserved;
+- 19 additions are exactly the approved Interface Designer composite/expert set;
+- `registry/trust-policy.json` carries explicit license/redistribution/trust/ownership decisions;
+- `THIRD_PARTY_NOTICES.md` records the new design-source attribution and bounded Vercel adaptation;
+- `installer/admission.py` implements deterministic package integrity/admission/security/trust projection;
+- `installer/learning.py` and public-beta lifecycle code implement governed Skill proposals/promotion rather than a separate workshop runtime.
+
+Interface Designer source surfaces:
+
+- first-party package: `skills/imported/ai-verse/interface-designer/`;
+- orchestrator: `SKILL.md`;
+- AI-Verse machine contract: `aiverse.skill.yaml`;
+- conditional graph: `references/orchestration.json`;
+- project design persistence: `references/design-md-contract.md`;
+- originality/fingerprint: `references/originality-policy.json`;
+- signature interaction: `references/signature-interaction-policy.json`;
+- experience curve: `references/experience-curve-policy.json`;
+- visual QA: `references/visual-qa-policy.json`;
+- scroll QA: `references/scroll-qa-policy.json`;
+- mobile art direction: `references/mobile-art-direction-policy.json`;
+- routing regression fixtures: `references/routing-fixtures.json`;
+- expert preservation/provenance: `references/expert-preservation.json`;
+- existing-design compatibility: `references/existing-design-compatibility.json`;
+- security boundary: `references/security-boundaries.json`;
+- golden workflows: `examples/interface-designer/golden-fixtures.json`.
+
+Exact design-source pins are recorded in `registry/packages.json`. The external expert set includes Anthropic, UI/UX Pro Max, Vercel, shadcn, Meng To, Emil Kowalski and Scroll Craft at immutable 40-character Git refs. Anthropic frontend-design remains fetch-only under conservative upstream-controlled redistribution. The Vercel web-design-guidelines adaptation preserves upstream identity while replacing mutable runtime rule fetching with a package-local rules snapshot pinned to `e3d624baaf29dc1fc645aff3e38f03e564d2d6b1`.
+
+Release-candidate evidence:
+
+- Validate: PASS, `34885862726`;
+- Runtime Readiness: PASS, `34885862743`;
+- Full E2E: PASS, `34885862596`.
+
 ## 1. Exact revision and repository inventory
 
 Audit point:
