@@ -8,6 +8,8 @@
 
 AI-Verse may remain modular internally, but installation and first use must feel like one product.
 
+For product-facing first-run behavior, invisible-complexity rules and automatic-vs-ask boundaries, also read `docs/OWNER-PRODUCT-INTENT.md`. The lifecycle commands below remain important technical/recovery surfaces even when the normal user experience hides them behind one guided first-run action.
+
 Normal users should not need to know whether a component is Python, Node, shell, an external provider, or a local extension.
 
 The public vocabulary is:
@@ -154,7 +156,7 @@ Release-candidate metadata is standardized separately by `docs/COMPONENT-RELEASE
 
 ## 5. First-use rule
 
-Every repository README must contain the same top-level structure:
+Every repository README must contain the same top-level structure for technical/support use:
 
 1. **Install**
 2. **Setup**
@@ -163,7 +165,9 @@ Every repository README must contain the same top-level structure:
 5. **Update / disable / uninstall**
 6. **What setup does and does not grant**
 
-The first-use path must be copy/pasteable and must not require the user to infer the next command from architecture docs.
+The technical first-use path must be copy/pasteable and must not require the user to infer the next command from architecture docs.
+
+At the one-product Distribution layer, the target grandma/Jarvis UX is simpler: normal users should not have to manually understand or invoke `setup` and `doctor` after installation when those steps can be completed safely and verified automatically. Those lifecycle stages stay explicit internally for testing, recovery, support and advanced control.
 
 ## 6. One-product distribution
 
