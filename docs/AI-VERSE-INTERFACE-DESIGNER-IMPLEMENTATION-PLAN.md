@@ -545,7 +545,7 @@ Micro changes skip irrelevant stages.
 
 ## Slice 4.4 - DESIGN.md persistence contract
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 4.3
 
 Use project-local `DESIGN.md` as the persistent visual grammar where appropriate.
@@ -577,7 +577,10 @@ Existing `DESIGN.md` must be read before substantial design changes.
 - contract distinguishes read/create/update authority
 - micro changes are explicitly excluded from automatic design-system persistence
 - accepted reusable product grammar must actually change before an existing DESIGN.md is rewritten
-- CI acceptance pending at last update
+- accepted implementation ref: `56a5b886b151f2215c0e3eef42416a4147a3464e`
+- Validate: PASS, run `34877531986`
+- Runtime Readiness: PASS, run `34877532039`
+- Full E2E: PASS, run `34877531989`
 
 ---
 
@@ -585,7 +588,7 @@ Existing `DESIGN.md` must be read before substantial design changes.
 
 ## Slice 5.1 - Design fingerprint gate
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 4.3
 
 Adapt the useful Scroll Craft uniqueness concept beyond landing pages.
@@ -1013,8 +1016,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 4 / Slice 4.4 - DESIGN.md persistence contract  
-**Next:** Phase 4 / Slice 4.4 - Implement DESIGN.md persistence contract  
+**In progress:** Phase 5 / Slice 5.1 - Design fingerprint gate  
+**Next:** Phase 5 / Slice 5.1 - Implement design fingerprint gate  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
