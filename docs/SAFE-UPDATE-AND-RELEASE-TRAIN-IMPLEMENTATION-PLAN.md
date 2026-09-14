@@ -220,7 +220,7 @@ Do not call this hosted-validation slice COMPLETE until an executable run actual
 
 ## Slice 1.3 - Whole-release preservation result contract
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** 1.2A  
 **Final-gate dependency:** 1.2B must be COMPLETE before project completion.
@@ -245,7 +245,7 @@ Machine-readable acceptance result can represent:
 - passing contract tests;
 - commit/PR/workflow refs.
 
-### Evidence so far
+### Evidence
 
 - schema: `contracts/release-preservation-result.schema.json`
 - semantics doc: `docs/WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT.md`
@@ -253,8 +253,10 @@ Machine-readable acceptance result can represent:
 - tests: `tests/test_release_preservation_result.py`
 - fixtures: valid safe-update result plus invalid `safe_for_update=true` with failed upgrade
 - shared Contract Validation workflow updated to execute the new validator and full test suite
-- hosted execution remains covered by blocked Slice 1.2B because the private System repo currently receives no runner steps.
-- PR/merge evidence: pending.
+- System PR: #10
+- PR #10 head: `044c97edf5864d10a519cbe1901575cf8d45d3c2`
+- merged SHA: `a24ec9457d88d9680f38ea8d96722c553017430f`
+- hosted workflow run `34825092724` again failed before step 1 with zero steps on jobs `103915269276` and `103915269426`; this is covered by the explicit Slice 1.2B infrastructure blocker and is not counted as contract-test execution.
 
 ---
 
@@ -262,7 +264,7 @@ Machine-readable acceptance result can represent:
 
 ## Slice 2.1 - Descriptor support for Core owners
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-OS, AI-Verse-Brain, AI-Verse-Memory, AI-Verse-Skills, AI-Verse-Data  
 **Dependencies:** 1.2  
 **Constraint:** do not reopen mature engines beyond release metadata and necessary lifecycle truth.
@@ -830,11 +832,11 @@ A feature is deliberately post-beta when it is not required to preserve update s
 # 4. Overall progress
 
 - Total planned slices: 35
-- COMPLETE: 3
+- COMPLETE: 4
 - IN PROGRESS: 1
 - BLOCKED: 1
-- NOT STARTED: 30
-- Project completion: 9% implementation slices complete, with 1 acceptance blocker carried to the final gate
+- NOT STARTED: 29
+- Project completion: 11% implementation slices complete, with 1 acceptance blocker carried to the final gate
 
-**Current slice:** 1.3  
-**Exact NEXT after current slice:** 2.1 - Descriptor support for Core owners.
+**Current slice:** 2.1  
+**Exact NEXT after current slice:** 2.2 - Descriptor support for Agent owners.
