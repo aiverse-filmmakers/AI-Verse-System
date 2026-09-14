@@ -174,11 +174,25 @@ Reuse the existing `onboard` capability, `ai-verse-os-intake.md`, existing direc
 
 ## Slice 1.2 - Natural-language question gate
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-OS and Gateway only if current runtime surface requires it  
 **Dependencies:** 1.1
 
 Implement the smallest reusable check that keeps internal technical choices invisible and asks only when authority/safety/scope/external effect genuinely requires user input. Prefer updating existing runtime instructions/contracts over adding a new policy service.
+
+### Evidence
+
+- Gateway PR: #2
+- PR head: `40d00e432e2515c8f1ebf38bbcddc9fa11df8790`
+- merged Gateway SHA: `fc654df78e69e497864995f99a3f7a895f149752`
+- CI run `34831479592`: success across Ubuntu, macOS and Windows on Node 20 and 22
+- end-to-end runtime probe: `fixtures/question-policy-runtime.mjs` + `test/loop-contracts.test.mjs`
+- implementation reuses Gateway's existing system-context assembly; no new policy service/store/mode was added
+- deterministic OS host authorization remains stronger than runtime instructions
+
+### Accepted implementation
+
+Gateway now tells the runtime to act instead of asking for safe/reversible/internal choices within existing authority, reuse known context, avoid subsystem-choice questions, recognize direct user instructions as intent for the requested work, and ask only for real safety/authority/scope/external-effect blockers.
 
 ---
 
@@ -186,7 +200,7 @@ Implement the smallest reusable check that keeps internal technical choices invi
 
 ## Slice 2.1 - OS owner-side automatic workspace create/evolve primitive
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-OS  
 **Dependencies:** 1.1
 
@@ -205,13 +219,52 @@ Using existing workspace schema/template/direction-owner rules:
 
 No second workspace registry unless current implementation proves one is strictly required.
 
+### Evidence
+
+- OS PR: #29
+- final PR head: `f7e2b96c718f9392fd4e4d975d2cf9de9cd3bfe6`
+- merged OS SHA: `933a6beadf87b646fb8c8e0358aaeea6b0504424`
+- canonical owner primitive: `scripts/workspace-owner.mjs ensure --root <os-root>`
+- focused acceptance: `scripts/test-workspace-owner.mjs`
+- Repository QC run `34832020361`: success, including automatic workspace owner test, adapter integration and Skills-provider integration
+- Five-Component Public Beta run `34832020302`: success in all three install orders
+- Four Repo Acceptance run `34832020438`: success
+- OS Write Command Boundary run `34832020472`: success
+- Direction Ownership run `34832020379`: success
+- OS Brain Permission Contract run `34832020299`: success
+
+### Accepted implementation
+
+The OS now has a deterministic owner-side `ensure` operation that creates a minimum workspace only for a substantial, clear, privacy-safe scope; reuses/evolves an existing matching workspace; rejects ambiguous/privacy/permission/credential/Connection expansion; avoids duplicates; preserves unrelated workspace state; persists restart-safe provenance; uses conservative approval defaults; and performs only safe additive domain/source evolution without rewriting unsupported user-authored YAML.
+
 ## Slice 2.2 - Runtime classification and routing to OS
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** Brain + Gateway + OS  
 **Dependencies:** 2.1
 
 Wire meaningful-work evidence to the canonical OS workspace path. The classifier may suggest scope identity; OS validates and owns mutation.
+
+### Evidence
+
+- OS PR: #30
+- OS PR head: `02718658b12bd9aa5bdb107d487c862e0a82679b`
+- merged OS SHA: `c9daa62f2f9b49a32dd9897962f61c257678fe28`
+- OS Repository QC run `34832528643`: success
+- OS Four Repo Acceptance run `34832528691`: success
+- OS Five-Component Public Beta run `34832528635`: success
+- OS Write Command Boundary run `34832528659`: success
+- OS Brain Permission Contract run `34832528628`: success
+- OS Direction Ownership run `34832529275`: success
+- Gateway PR: #3
+- Gateway PR head: `3dd79a3ffb7dac9a2929b1e4a24b058ab4c472e3`
+- merged Gateway SHA: `034d4edc83c971b491d28f93ca571f97e66ff5d6`
+- Gateway CI run `34833839372`: success across Ubuntu, macOS and Windows on Node 20 and 22
+- end-to-end acceptance proves owner-routed `workspace.ensure`, request fingerprinting, no mid-run scope mutation, durable session rebinding, next-turn workspace use, and rejection of silent session-scope override
+
+### Accepted implementation
+
+The runtime may classify a clear substantial scope and request organization through the existing generic action tool. OS rechecks and owns the workspace mutation through `workspace.ensure`. When OS confirms a created/evolved/existing workspace, Gateway updates only the durable session binding for later turns; the active run and any active Brain Goal keep their original scope. No second workspace owner, classifier service, policy service, database, or registry was introduced.
 
 ---
 
@@ -219,7 +272,7 @@ Wire meaningful-work evidence to the canonical OS workspace path. The classifier
 
 ## Slice 3.1 - Prove or close automatic safe Memory routing
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Brain, Memory, Gateway as required by current implementation  
 **Dependencies:** 1.2
 
@@ -484,12 +537,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 2
+- COMPLETE: 5
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 19
+- NOT STARTED: 16
 
-**Current slice:** 1.2 - Natural-language question gate  
-**Exact NEXT after current slice:** 2.1 - OS automatic workspace create/evolve primitive  
+**Current slice:** 3.1 - Prove or close automatic safe Memory routing  
+**Exact NEXT after current slice:** 4.1 - Skills safe new-Skill auto-eligibility  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
