@@ -588,7 +588,7 @@ Existing `DESIGN.md` must be read before substantial design changes.
 
 ## Slice 5.1 - Design fingerprint gate
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 4.3
 
 Adapt the useful Scroll Craft uniqueness concept beyond landing pages.
@@ -614,23 +614,64 @@ Purpose:
 
 Do not force arbitrary novelty when the reference or established `DESIGN.md` intentionally demands consistency.
 
+### Phase 5.1 evidence
+
+- guide: `skills/imported/ai-verse/interface-designer/references/originality.md`
+- machine policy: `skills/imported/ai-verse/interface-designer/references/originality-policy.json`
+- fingerprint gate implementation ref: `189ca6c630d52b5cc6fbdea09516afc200f8ccf1`
+- 10 fingerprint dimensions, including 6 structural dimensions
+- reskin review triggers at 5/6 structural matches
+- high-similarity review triggers at 8/10 total matches
+- exact-reference, established-DESIGN.md, platform, accessibility and explicit-intent bypasses preserved
+- comparison scope is workspace/user scoped; cross-member private fingerprint comparison is forbidden
+- Validate: PASS, run `34877911885`
+- Runtime Readiness: PASS, run `34877911799`
+- Full E2E: PASS, run `34877911939`
+
 ## Slice 5.2 - Signature interaction rule
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 5.1
 
 For marketing/experience work, require one meaningful signature move when appropriate.
 
 For applications/dashboards, treat it as optional and functional, never decorative by default.
 
+### Phase 5.2 evidence
+
+- guide: `skills/imported/ai-verse/interface-designer/references/signature-interaction.md`
+- machine policy: `skills/imported/ai-verse/interface-designer/references/signature-interaction-policy.json`
+- signature interaction implementation ref: `bf1711b725ead61573e296194bf779efcf131eaa`
+- required only for experience-led contexts where distinctiveness is part of the brief
+- dashboards/admin/CRUD/settings/productivity surfaces remain optional-functional
+- generic component/easing/parameter tweaks explicitly do not count
+- accessibility and reduced-motion equivalents are mandatory where needed
+- exact-reference behavior never invents a competing signature move
+- Validate: PASS, run `34878261307`
+- Runtime Readiness: PASS, run `34878261171`
+- Full E2E: PASS, run `34878261195`
+
 ## Slice 5.3 - Experience/feeling curve for major flows
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 5.1
 
 Use only for meaningful multi-stage experiences such as onboarding, major agent flows, launches, or narrative marketing pages.
 
 Do not add emotional-arc ceremony to ordinary CRUD screens.
+
+### Phase 5.3 evidence
+
+- guide: `skills/imported/ai-verse/interface-designer/references/experience-curve.md`
+- machine policy: `skills/imported/ai-verse/interface-designer/references/experience-curve-policy.json`
+- experience curve implementation ref: `b47786a36a72da359bb899bf5802e66d5d631ef2`
+- operational states such as clarity/control/confidence/readiness are preferred for software
+- ordinary CRUD/settings/tables/routine dashboard inspection/micro changes are explicit skip cases
+- intended-vs-rendered review cannot rewrite the intended curve merely to hide mismatch
+- loading/error/mobile/reduced-motion/accessibility paths remain part of the flow
+- Validate: PASS, run `34878613292`
+- Runtime Readiness: PASS, run `34878613310`
+- Full E2E: PASS, run `34878613290`
 
 ---
 
@@ -638,21 +679,21 @@ Do not add emotional-arc ceremony to ordinary CRUD screens.
 
 ## Slice 6.1 - Visual direction specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Integrate approved visual-direction/UI-UX experts with provenance intact.
 
 ## Slice 6.2 - Reference recreation specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Preserve screenshot/video/reference workflows as specialist capabilities.
 
 ## Slice 6.3 - Emil interaction and motion specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Preserve the distinctive methodologies of:
@@ -668,14 +709,14 @@ Do not merge these into a generic `motion.md`.
 
 ## Slice 6.4 - Frontend engineering specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Integrate React/component/web-quality guidance without stealing visual-direction ownership.
 
 ## Slice 6.5 - Scroll Craft specialist
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Keep Scroll Craft conditional to immersive/scroll-driven experiences.
@@ -684,11 +725,25 @@ Preserve its unique page-grammar/scrollytelling expertise where licensed and rel
 
 ---
 
+### Phase 6 integration evidence
+
+- all selected Interface Designer expert packages are present in the live PR registry
+- visual direction: `frontend-design`, `ui-ux-pro-max`
+- reference recreation: `design-first-ui-prompting`, `video-to-superprompt`, `stitched-full-page-capture`
+- Emil specialists preserved independently: `apple-design`, `animate`, `prototype`, `review-animations`, `pick-ui-library`, `improve-animations`, `find-animation-opportunities`, `animate-expo`
+- frontend engineering: `react-best-practices`, `composition-patterns`, `shadcn`, pinned `web-design-guidelines`
+- Scroll Craft remains a separate conditional capability
+- source identity/provenance remains separate rather than flattened into the AI-Verse orchestrator
+- clean-install/provider/readiness acceptance has repeatedly passed with the integrated expert set
+- current catalog remains 20 foundation + 99 employee = 119 until Video Editor adds capability 120
+
+---
+
 # Phase 7 - Existing AI-Verse design Skill migration and cleanup
 
 ## Slice 7.1 - Migrate unique useful behavior from superseded Skills
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** Phase 6 complete
 
 Before deleting any existing AI-Verse design Skill:
@@ -700,7 +755,7 @@ Before deleting any existing AI-Verse design Skill:
 
 ## Slice 7.2 - Remove confirmed duplicates
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 7.1
 
 Only remove confirmed redundant AI-Verse-native design/frontend Skills.
@@ -709,10 +764,24 @@ Imported expert specialists are not deleted merely because they partially overla
 
 ## Slice 7.3 - Compatibility/migration handling
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 7.2
 
 If old Skill IDs or package names are public/currently referenced, provide the smallest safe compatibility path rather than silently breaking callers.
+
+---
+
+### Phase 7 cleanup conclusion
+
+Fresh comparison against `docs/AI-VERSE-SKILLS-DESIGN-VIDEO-OVERLAP-MAP-2026-09-14.md` and the current PR registry confirms:
+
+- no existing design-facing capability is functionally superseded enough to delete;
+- `brand-guidelines`, `canvas-design`, `figma-use`, `figma-generate-design`, `canva`, `design-and-templates`, `theme-factory` and the other existing creator Skills remain distinct;
+- target-specific specialists remain conditionally routed instead of replaced;
+- no old public Skill ID is removed;
+- therefore no compatibility alias/migration shim is required.
+
+Phase 7 completes with **zero destructive removals**, which is the intended safe outcome.
 
 ---
 
@@ -720,7 +789,7 @@ If old Skill IDs or package names are public/currently referenced, provide the s
 
 ## Slice 8.1 - State-based visual QA
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** Phase 6
 
 For applications, validate meaningful states such as:
@@ -741,7 +810,7 @@ For applications, validate meaningful states such as:
 
 ## Slice 8.2 - Scroll-state QA
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 8.1
 
 For scroll-driven experiences, sample multiple positions and verify:
@@ -757,7 +826,7 @@ Do not force Scroll Craft's exact harness onto ordinary apps if simpler browser-
 
 ## Slice 8.3 - Separate mobile art direction gate
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 8.1
 
 A full-product design is not complete merely because desktop CSS shrinks.
@@ -774,11 +843,29 @@ For substantial interfaces, explicitly verify:
 
 ---
 
+### Phase 8 acceptance evidence
+
+- state-based visual QA: `references/visual-qa.md` + `visual-qa-policy.json`
+- scroll-state QA: `references/scroll-qa.md` + `scroll-qa-policy.json`
+- mobile art direction: `references/mobile-art-direction.md` + `mobile-art-direction-policy.json`
+- final Phase 8 accepted ref: `881e42cdb077d81ddf1b2c8e998f5ecd98ceba6f`
+- rendered evidence is required for verified visual results
+- source inspection alone cannot produce a visual pass
+- blocked render states remain `UNVERIFIED_BLOCKED`
+- scroll QA samples semantic transitions rather than only fixed percentages
+- Scroll Craft verification infrastructure is not forced onto ordinary apps
+- mobile must be intentionally authored rather than merely shrinking desktop
+- Validate: PASS, run `34879463395`
+- Runtime Readiness: PASS, run `34879463453`
+- Full E2E: PASS, run `34879463424`
+
+---
+
 # Phase 9 - Tests and quality gates
 
 ## Slice 9.1 - Orchestrator routing tests
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Add deterministic fixtures proving that representative requests trigger the correct specialists and skip irrelevant ones.
 
@@ -793,9 +880,17 @@ Required examples include:
 - Expo sheet interaction;
 - finished UI review.
 
+### Phase 9.1 evidence
+
+- canonical fixtures: `skills/imported/ai-verse/interface-designer/references/routing-fixtures.json`
+- accepted fixture ref: `ab22a670a45102d1bdcd330ff72f177280c03779`
+- required cases covered: tiny padding change, dashboard from scratch, screenshot recreation, draggable floating panel, React refactor, cinematic scroll landing page, Expo sheet interaction, finished UI review
+- each fixture records scope, target, conditions, expected stages/experts and forbidden stages/experts
+- Validate: PASS, run `34884056020`
+
 ## Slice 9.2 - Context/bloat tests
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Prove that:
 
@@ -1016,8 +1111,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 5 / Slice 5.1 - Design fingerprint gate  
-**Next:** Phase 5 / Slice 5.1 - Implement design fingerprint gate  
+**In progress:** Phase 9 / Slice 9.2 - Context/bloat tests
+**Next:** Phase 9 / Slice 9.2 - Prove progressive specialist loading
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.

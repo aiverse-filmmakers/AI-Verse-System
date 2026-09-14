@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 7
+Complete: 8
 In progress: 1
 Blocked: 0
-Remaining after current: 17
-Current: C2
-Next after current: C3
+Remaining after current: 16
+Current: C3
+Next after current: D1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -479,7 +479,7 @@ Next after current: C3
 
 #### C2. Exact-source evidence fallback
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: C1
@@ -491,12 +491,26 @@ Next after current: C3
   - missing source yields explicit uncertainty/failure, not guessed detail.
 - Tests: exact values, stale source, deleted source, cross-workspace rejection.
 - Risks: source retrieval bypassing owner/scope gates.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-Memory`.
+  - Branch: `context-ladder/c2-exact-source`.
+  - PR #23, merged 2026-09-14.
+  - Final PR head: `62444f253532255eaf5d3b8795fae802285d988c`.
+  - Merge/main SHA: `2606bf6524fd67b4a3930fb7d98de54a3d483fb1`.
+  - PR Test run `34878580347`: final success on attempt 2. Attempt 1 failed only in the pre-existing synthetic Windows Python 3.9 mutation-lock queue test; every C2 exact-source test had already passed, Windows Python 3.12 full suite passed, and the unchanged Windows 3.9 rerun `104093425179` passed completely.
+  - Post-merge Memory main Test run `34879367921`: final success on attempt 2, 12/12 jobs green. Attempt 1 was externally interrupted after four minutes in the pre-existing 8-writer Windows Python 3.12 concurrency test after all C2 exact-source tests passed; unchanged rerun job `104109959305` passed completely.
+  - `memory.progressive-recall.v1` now supports `depth="source"` through the same API and requires the prior detail item as `evidence_ref`.
+  - Indexed atomic/current-source descent revalidates request scope, evidence scope, canonical path, identity, physical containment, and current source version before returning canonical UTF-8 source content.
+  - Changed sources return `status="stale"` with no content; deleted/unsafe sources return `status="unavailable"` with no guessed detail.
+  - Cross-workspace evidence and tampered path pointers fail closed.
+  - Large sources return deterministic query-centered exact windows under the same byte budget with explicit character/line coverage and truncation metadata.
+  - Session digests remain navigation. Source depth validates the canonical digest, then returns `external_source_required` plus bounded Gateway source refs/coverage rather than upgrading the digest summary into transcript evidence.
+  - Tests prove exact date/number/path/config/ID/quote/state recovery, atomic Memory source reads, stale and deleted sources, cross-workspace rejection, path tampering rejection, bounded large-source windows, digest external-source routing, and stale digest detection.
 
 #### C3. OS host progressive-history bridge
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-OS, AI-Verse-Memory
 - Dependencies: C1-C2; current OS Invisible Intelligence work merged/re-read
 - Goal: expose progressive Memory retrieval through OS without bypassing owner mediation.
@@ -514,7 +528,7 @@ Next after current: C3
 #### D1. Deterministic relationship projection
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory
 - Dependencies: C1
 - Goal: add rebuildable SQLite relations only from explicit metadata/provenance.
@@ -852,18 +866,18 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **C2. Exact-source evidence fallback**
+Current implementation slice: **C3. OS host progressive-history bridge**
 
-Do not start C3 until:
-- `memory.progressive-recall.v1` supports `depth="source"` through the same API, not a parallel exact-read API;
-- source descent accepts exact evidence identity from prior detail output and revalidates current scope/containment at read time;
-- expected source/canonical fingerprint mismatch fails closed as stale evidence rather than returning guessed detail;
-- deleted/missing sources return an explicit unavailable result;
-- exact authoritative content is returned only from the validated owner source, never reconstructed from summary/detail text;
-- cross-workspace source pointers are rejected even if the caller knows the path or record ID;
-- response content remains bounded and records exact-evidence provenance;
-- full Memory CI is green;
-- C2 exact commit/PR/merge/run evidence is written here.
+Do not start D1 until:
+- legacy `retrieve_history(query, scope)` behavior remains backward-compatible for current Brain/Gateway callers;
+- OS exposes one versioned progressive-history host operation that routes to Memory `memory.progressive-recall.v1`;
+- OS validates the requested operator/workspace scope before calling Memory and never exposes an all-workspace progressive path;
+- OS verifies the Memory component is installed/available and actually supports the requested progressive API/version;
+- catalog/summary/detail/source arguments are bounded and owner-routed without copying canonical Memory state into OS;
+- source `evidence_ref` is passed through only after OS scope validation and cannot widen the bound scope;
+- missing/incompatible Memory produces an explicit host-layer failure rather than fallback guessing;
+- existing OS owner/boundary/composition acceptance stays green;
+- C3 exact PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -1034,3 +1048,25 @@ Verified before C2 implementation on 2026-09-14:
 - C1 progressive recall v1 is present on current main and remains the only new progressive retrieval API.
 - AI-Verse-System main: `0bc115ba3a81e5cfa85d33f02bf5891465fb610e`; this plan refreshes onto that exact live state before C2 code changes.
 - C2 is Memory-only and must extend C1 `depth="source"` rather than create a second exact-source surface.
+
+
+### Slice completion checkpoint: C2
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory PR #23 merged.
+- Final PR head: `62444f253532255eaf5d3b8795fae802285d988c`.
+- Memory main after merge: `2606bf6524fd67b4a3930fb7d98de54a3d483fb1`.
+- PR Test run `34878580347`: final success on attempt 2; unchanged Windows Python 3.9 rerun job `104093425179` cleared the single synthetic mutation-lock queue interruption from attempt 1.
+- Post-merge main Test run `34879367921`: final success on attempt 2, 12/12 jobs; unchanged Windows Python 3.12 rerun job `104109959305` cleared a four-minute external interruption in the pre-existing 8-writer concurrency test.
+- C2 proved same-API source descent, exact canonical value recovery, source freshness/version checks, containment and scope revalidation, deleted-source uncertainty, cross-workspace/tampered-pointer rejection, bounded query-centered source windows, and correct Gateway pointer behavior for session digests.
+- C2 acceptance is complete. Eight of 25 slices are accepted.
+
+### Slice start checkpoint: C3
+
+Verified before C3 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `2606bf6524fd67b4a3930fb7d98de54a3d483fb1`; no open PRs or active workflows; final post-C2 main Test run `34879367921` succeeded 12/12.
+- AI-Verse-OS main: `b08cc8c05c56fad7bc390f391292bdfbdd7d23e0`; no open PRs or active workflows.
+- AI-Verse-System main: `03c5b71a4ed5bef6d5d1c030c60bb8c18bed7d5e`; this plan refreshes onto that exact live state before C3 code changes.
+- C3 must extend the current OS host adapter and preserve existing Brain/Gateway `retrieve_history` callers rather than replace the host protocol.
