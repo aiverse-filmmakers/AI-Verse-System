@@ -481,10 +481,20 @@ Do not migrate stacks unless the user explicitly asks or the existing project ca
 
 ## Slice 4.2 - Semantic trigger policy
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 4.1
 
 Users should not need to name Skills.
+
+### Current implementation evidence
+
+- 18 expert canonical capabilities registered at exact pinned upstream refs
+- adapted Vercel review package keeps exact pinned rules locally rather than fetching mutable main
+- expert catalog implementation ref: `5baa5bebdf69af8bdcf6a1a07df2c0624a7b4ccb`
+- Validate workflow: PASS, run `34873010619`
+- Full E2E install: running, run `34873010676`
+- Runtime Readiness matrix: running, run `34873010624`
+- no existing design capability removed
 
 Examples:
 
