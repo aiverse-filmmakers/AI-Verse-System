@@ -317,7 +317,7 @@ No imports or deletions yet.
 
 ## Slice 1.2 - Existing duplicate and migration map
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 1.1
 
 Produce a written map before deletion.
@@ -327,6 +327,21 @@ Any existing AI-Verse video/design Skill can be removed only when:
 - it is genuinely superseded;
 - unique useful behavior has been migrated;
 - callers/IDs have a safe compatibility path when needed.
+
+### Evidence
+
+- exact pinned upstream contents reviewed for all 10 current film/video registry capabilities
+- overlap map: `docs/AI-VERSE-SKILLS-DESIGN-VIDEO-OVERLAP-MAP-2026-09-14.md`
+- overlap-map commit: `4e47d4b4e8fb253cb46f636108a08f9f9063f01d`
+- Premiere Agent remains a major optional multimodal/NLE backend
+- FFmpeg Skill, After Effects and Whisper remain specialist dependencies
+- director/storyboard/screenplay/camera/AI-video packages remain separate pre-production/generation capabilities
+- no existing HyperFrames registry package exists at the audited baseline
+- no existing video package was removed
+
+### NEXT
+
+**Slice 2.1 - Pin and inventory the exact current Nate Herk student-kit source.**
 
 ---
 
@@ -897,5 +912,5 @@ Before any implementation work:
 
 **Completed:** Phase 0 / Slice 0.1  
 **In progress:** none  
-**Next:** Phase 1 / Slice 1.2 - Existing duplicate and migration map using exact pinned upstream package contents  
+**Next:** Phase 2 / Slice 2.1 - Pin and inventory exact current Nate Herk student-kit source  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
