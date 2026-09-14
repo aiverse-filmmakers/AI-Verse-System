@@ -890,7 +890,7 @@ Required examples include:
 
 ## Slice 9.2 - Context/bloat tests
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Prove that:
 
@@ -899,9 +899,19 @@ Prove that:
 - conditional specialists stay conditional;
 - vendor Skills are not concatenated into one giant always-on context.
 
+### Phase 9.2 evidence
+
+- progressive-context regression ref: `79a1f5dbcc8ebf22065c5679b283cd3490aa24aa`
+- tiny routing fixture resolves zero experts
+- MICRO_CHANGE pipeline is bounded and excludes visual/prototype/originality/design-system specialists
+- FULL_PRODUCT expert references resolve through registered capabilities
+- conditional experts remain outside always-present stage capability bodies
+- Interface Designer package contains only its own first-party package + references; vendor expert packages remain separate sources
+- Validate: PASS, run `34884181878`
+
 ## Slice 9.3 - Expert preservation/provenance tests
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Verify that vendored/adapted specialists retain:
 
@@ -1111,8 +1121,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 9 / Slice 9.2 - Context/bloat tests
-**Next:** Phase 9 / Slice 9.2 - Prove progressive specialist loading
+**In progress:** Phase 9 / Slice 9.3 - Expert preservation/provenance tests
+**Next:** Phase 9 / Slice 9.3 - Verify every imported expert against pinned provenance
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
