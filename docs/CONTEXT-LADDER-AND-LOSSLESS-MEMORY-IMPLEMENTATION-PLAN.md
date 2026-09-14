@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 1
-In progress: 1
+Complete: 2
+In progress: 0
 Blocked: 0
-Remaining after current: 23
-Current: A2
-Next after current: A3
+Remaining: 23
+Current: none
+Next: A3
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -283,7 +283,7 @@ Next after current: A3
 
 #### A2. Session digest derived indexing and targeted recall
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: A1
@@ -297,7 +297,18 @@ Next after current: A3
   - legacy recall callers preserve existing semantics.
 - Tests: digest indexing/rebuild/freshness/scope; legacy recall regression; full Memory CI.
 - Risks: overloading atomic-memory ranking; stale derived state.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-Memory`.
+  - Branch: `context-ladder/a2-digest-index`.
+  - PR: #13, merged 2026-09-14.
+  - Final PR head: `84109843236c000bd1540c9e01be6633063823a7`.
+  - Merge/main SHA: `08a1fd72d503169cf3f2dd25287fec4b53a12106`.
+  - PR acceptance run: `34851187030`, success, 12/12 jobs green.
+  - Post-merge Memory main Test run: `34851416852`, success, 12/12 jobs green.
+  - Verified Linux/macOS/Windows; Python 3.9/3.12; installer smoke; public-beta acceptance; OS update integration.
+  - Derived digest state lives in separate `session_digest_items` / `session_digest_fts` tables and does not enter legacy `recall()`.
+  - Canonical digest deletion/change purges or refreshes the derived projection; deleting the shared DB rebuilds established Memory before digest tables are recreated.
+  - Standalone hashed-scope digests are rediscovered from canonical files without a second scope catalog.
 
 #### A3. Selective promotion contract
 
@@ -762,14 +773,15 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **A2. Session digest derived indexing and targeted recall**
+No implementation slice is currently in progress.
 
-Do not start A3 until:
-- A2 implementation tests pass;
-- Memory owner CI/acceptance is green;
-- A2 exact commit/PR/merge/run evidence is written here;
-- A2 is marked COMPLETE;
-- A3 is the only next slice.
+Next implementation slice: **A3. Selective promotion contract**
+
+Before starting A3:
+- refresh live GitHub state for Memory and Brain;
+- check open PRs, branches, and workflow runs for collisions;
+- preserve Invisible Intelligence safe historical capture already merged into Memory;
+- mark A3 IN PROGRESS in this plan before implementation.
 
 
 ### Slice start checkpoint: A2
@@ -783,3 +795,16 @@ Verified before A2 implementation on 2026-09-14:
 - A1 session digest persistence is present on main and final combined CI passed.
 - AI-Verse-System main had advanced to `e62211b8e0a143bf5415da3088b281460b915458`; this plan branch is refreshed onto that live state before A2 code changes.
 - System Contract Validation is currently failing on main itself; this is pre-existing and not an A2 Memory gate.
+
+
+### Slice completion checkpoint: A2
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory PR #13 merged.
+- PR head: `84109843236c000bd1540c9e01be6633063823a7`.
+- Memory main after merge: `08a1fd72d503169cf3f2dd25287fec4b53a12106`.
+- PR Test run `34851187030`: success, 12/12 jobs.
+- Post-merge main Test run `34851416852`: success, 12/12 jobs.
+- A2 acceptance proved targeted digest relevance/recency, workspace isolation, canonical deletion purge, canonical change refresh, lossless derived-DB rebuild, standalone scope recovery, and legacy `recall()` non-regression.
+- A3 remains NOT STARTED and is the next slice.
