@@ -568,6 +568,17 @@ It should preserve:
 
 Existing `DESIGN.md` must be read before substantial design changes.
 
+### Current implementation evidence
+
+- persistence contract: `skills/imported/ai-verse/interface-designer/references/design-md-contract.md`
+- minimal template: `skills/imported/ai-verse/interface-designer/references/DESIGN.template.md`
+- Google DESIGN.md structural reference pinned at `google-labs-code/design.md@9bf8eae67128b6cc55ad9bf86665767deb4c11cd`
+- DESIGN.md contract implementation ref: `9c3902ec169e215832de91d188a04f3372463fb0`
+- contract distinguishes read/create/update authority
+- micro changes are explicitly excluded from automatic design-system persistence
+- accepted reusable product grammar must actually change before an existing DESIGN.md is rewritten
+- CI acceptance pending at last update
+
 ---
 
 # Phase 5 - Originality without destroying consistency
