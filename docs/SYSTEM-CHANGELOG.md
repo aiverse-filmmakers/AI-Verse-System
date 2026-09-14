@@ -8,6 +8,30 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-14
 
+### Captured deferred privacy-safe friction feedback loop
+
+**Date:** 2026-09-14  
+**Type:** owner product intent / future learning-feedback direction
+
+Recorded a future local-first mechanism for turning explicit user corrections, repeated repair attempts and clear dissatisfaction into structured product/learning evidence without requiring users to write manual bug reports.
+
+The direction requires:
+
+- local private friction records by default;
+- strict distinction between explicit correction and inferred frustration;
+- no automatic authority expansion or destructive repair from frustration alone;
+- optional sanitized upstream member feedback only with consent;
+- no default upload of raw conversations, Memory, Data, files, credentials or unrelated private context;
+- a controlled ingestion endpoint/repository bot rather than a world-writable shared file.
+
+This is deliberately deferred until current Agent dogfood and the focused single-user shell produce real usage evidence.
+
+Canonical detail:
+
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/IDEA-INBOX.md`
+
+
 ### Prioritized the single-user shell and visible AI team
 
 **Date:** 2026-09-14  
