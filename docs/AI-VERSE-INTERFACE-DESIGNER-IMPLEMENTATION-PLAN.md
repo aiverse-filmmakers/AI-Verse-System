@@ -509,8 +509,16 @@ Examples:
 
 ## Slice 4.3 - Conditional pipeline graph
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 4.2
+
+### Current implementation evidence
+
+- machine-readable graph: `skills/imported/ai-verse/interface-designer/references/orchestration.json`
+- conditional graph ref: `388df165169d1a0cae2373cddff590f7650d1911`
+- focused tests prove micro tasks skip prototype/art direction and target-specific experts remain gated
+- Validate workflow: PASS, run `34873435751`
+- Full E2E and Runtime Readiness are running for this slice
 
 Canonical full-product path should support:
 
