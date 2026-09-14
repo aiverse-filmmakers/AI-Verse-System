@@ -238,7 +238,7 @@ That is the right solution to install-order independence.
 ### What is incomplete
 
 - machine/package-level discovery before an OS is not universal;
-- reconcile is plan-only;
+- reconcile has a bounded owner-controlled apply path; broader arbitrary-owner activation remains partial;
 - there is no one activation/adoption transaction;
 - standalone-state migration is component-specific.
 
@@ -250,7 +250,7 @@ Refusing to clone OS into an arbitrary non-empty folder is not itself a design f
 
 ## 10. Lifecycle and UX lens
 
-**Verdict: FUNCTIONALLY READY, UX INCOMPLETE**
+**Verdict: AGENT PRODUCT PATH READY; BROADER GENERIC UX PARTIAL**
 
 The CLI has real install/update/doctor/onboard/component-inspection surfaces.
 
@@ -258,28 +258,13 @@ However, the lifecycle is still fragmented across OS and component-specific comm
 
 ### Missing seamless flow
 
-A user cannot yet issue one supported command equivalent to:
+For the accepted Agent profile, the ordinary user now has one supported product command:
 
 ```text
-activate memory
-activate data
-activate brain
-activate token
-reconcile --apply
+aiverse start
 ```
 
-and have the system safely complete:
-
-- discovery;
-- compatibility;
-- attachment;
-- migration plan;
-- initialization;
-- agent adoption;
-- doctor;
-- steady-state report.
-
-This is the clearest present-stage product gap.
+That path composes exact released install/setup, owner lifecycle, whole-profile doctor/readiness and progressive onboarding. It does not synthesize arbitrary future-owner migration semantics. Generic future component activation remains partial, but the Agent first-run UX is no longer missing.
 
 ---
 
@@ -309,69 +294,33 @@ Current component doctor correctly catches:
 
 ## 12. Reconciliation lens
 
-**Verdict: PARTIAL**
+**Verdict: PASS FOR BOUNDED OWNER APPLY; GENERIC FUTURE-OWNER RECONCILE PARTIAL**
 
 The current design is intentionally safe:
 
-- OS suggests component-owned commands;
-- OS does not synthesize sibling state;
-- registry lock is not stolen;
-- no hidden automatic migration.
+- OS plans component-owned actions;
+- OS does not synthesize sibling canonical state;
+- registry locks are not stolen;
+- migration-required and unknown-owner actions remain non-automatic;
+- `--apply` exists only for admitted owner-controlled actions.
 
-But it is explicitly plan-only.
+The accepted Agent self-heal proves the exact released Brain attach/init action can be planned, allowlisted, applied and revalidated without broad repair authority. Distribution consumes that contract and refuses ambiguous/migration/locked plans.
 
-### Current truth
-
-```text
-mode = plan-only
-mutated = false
-```
-
-### Missing implementation
-
-There is no apply engine.
-
-This should remain component-owned under the hood, but the user-facing orchestration can be OS-owned.
+There is intentionally no universal “apply anything” engine.
 
 ---
 
 ## 13. Canonical write-path lens
 
-**Verdict: IMPORTANT GAP**
+**Verdict: PASS FOR ACCEPTED OWNER ROUTES; GENERIC QUEUED WRITE FRAMEWORK PARTIAL**
 
-This is the most important new finding from the fresh audit.
+The original `write-command` queue remains a safe intake transport and still does not imply canonical effect by itself.
 
-The OS write-command boundary is real, safe and tested, but it ends at the queue.
+CURRENT OS host routes now execute the accepted owner-controlled operations for workspace organization, Memory capture, Skills learning candidates, safe structured Data, temporary Workers, durable Bots with consent, and Automations with recurring consent. These routes preserve the important law:
 
-It guarantees:
+> Permission at enqueue or model proposal time is not permission at canonical write time.
 
-- identity;
-- scope;
-- bounded payload;
-- permission at enqueue;
-- idempotency;
-- safe runtime persistence.
-
-It explicitly guarantees **no canonical effect**.
-
-### Missing
-
-No generic canonical handler dispatch exists for:
-
-- context;
-- knowledge;
-- decisions;
-- other owner state.
-
-Therefore a component can safely ask the OS to consider a write, but OS has not yet completed the second half of the pipeline.
-
-### Why this matters
-
-Without owner-specific handlers, future Bots/Apps/agents may still need bespoke integration to produce durable canonical OS updates.
-
-### Required law
-
-> Permission at enqueue is not permission at canonical write time.
+Final owner/authority evidence is re-checked at the actual execution edge. The remaining gap is a generic extensible handler contract for future owner classes, not absence of owner-specific canonical execution.
 
 The repository already states this correctly. Future implementation must preserve it.
 
@@ -442,27 +391,13 @@ Never describe "configured in registry" as "live connection works."
 
 ## 17. Cadence/automation lens
 
-**Verdict: ARCHITECTURE PRESENT, UNIVERSAL RUNTIME MISSING**
+**Verdict: PASS AT SYSTEM LEVEL - AI-VERSE AUTOMATIONS IS THE CANONICAL RUNTIME OWNER**
 
-The Cadence model is thoughtful and has appropriate requirements.
+OS automation files remain definitions, not execution proof. The ownership question is now resolved: AI-Verse Automations owns schedules, triggers, occurrence/invocation identity, retry/recovery and bounded wake delivery. OS supplies scope/permission/final-edge authority checks.
 
-However:
+Frozen Agent acceptance proves real Automations delivery, and Invisible Intelligence G/H proves recommendation-only behavior leaves canonical recurring state empty while a direct recurring request reaches the Automations owner after consent.
 
-- jobs are definitions;
-- triggers are definitions;
-- policies are definitions;
-- no base OS universal scheduler/event engine is evident.
-
-The audit skill explicitly requires execution evidence before awarding cadence reliability.
-
-### Product decision needed
-
-Either:
-
-1. another component/runtime owns scheduling, or
-2. OS eventually gains a scheduler.
-
-Do not accidentally claim cadence execution is built merely because the folder exists.
+OS should not grow a second scheduler.
 
 ---
 
@@ -760,20 +695,20 @@ That is why another foundational rewrite would be the wrong next move.
 
 The OS is already strong enough to be the system host for the hardened core composition.
 
-### Why it is not 100%
+### Remaining breadth beyond the accepted Agent path
 
-Missing present-stage product work includes:
+The previously listed Agent blockers have materially narrowed:
 
-1. universal activation/adoption;
-2. executable reconciliation;
-3. generic component discovery;
-4. canonical write handlers;
-5. generic live capability readiness;
-6. common migration orchestration;
-7. unified health;
-8. immutable release/versioning path;
-9. documentation convergence;
-10. final full-system release acceptance beyond the Data runner gate recorded in the current status snapshot.
+1. Agent first-run activation/adoption is CURRENT through Distribution `aiverse start`;
+2. bounded executable reconcile is CURRENT;
+3. generic future-component discovery remains partial;
+4. accepted owner routes have canonical execution; a generic future-owner handler protocol remains partial;
+5. generic live capability readiness for every future provider remains partial;
+6. common cross-version migration orchestration remains part of the Safe Update/release-train project;
+7. Agent-profile whole-system doctor/readiness is CURRENT; broader Full-profile aggregation remains partial;
+8. the frozen Agent release is immutable, while a new Invisible Intelligence candidate awaits release-train compatibility;
+9. this living-spec sync is closing documentation drift;
+10. cross-repo Invisible Intelligence scenarios A-M are accepted.
 
 ---
 
@@ -802,7 +737,7 @@ The OS should eventually pass this scenario without manual architecture knowledg
 19. Reinstall reattaches preserved state.
 20. The system does not require the user to understand repository internals.
 
-**CURRENT:** OS cannot yet complete this whole sequence through one supported lifecycle.
+**CURRENT:** the accepted Agent profile now completes the fresh-install/first-run subset through Distribution, including exact install/setup, doctor/readiness, owner routing and state-preserving reinstall evidence. The full arbitrary future-component + cross-version migration scenario still depends on the separate Safe Update/release-train work.
 
 ---
 
@@ -840,15 +775,11 @@ Machine manifest contains Memory-specific support block while attachment is gene
 
 ### Contradiction 5: "Automated cadence" product principle vs runtime evidence
 
-Cadence is a first-class architecture layer, but base OS lacks a universal scheduler.
-
-**Verdict:** conceptual capability layer is ahead of implementation.
+**Resolved at system level:** base OS intentionally lacks a scheduler because AI-Verse Automations is now the canonical cadence runtime. OS retains definitions/policy and final authority boundaries without duplicating scheduler truth.
 
 ### Contradiction 6: owner-controlled write boundary vs actual canonical writes
 
-The boundary name can sound complete, but current phase only queues.
-
-**Verdict:** implementation is intentionally partial and must be labeled clearly.
+**Partially resolved:** the generic queue remains intake-only, while accepted host routes now reach canonical workspace/Memory/Skills/Data/Bot/Worker/Automation owners. Future owner classes still need explicit contracts.
 
 ### Contradiction 7: doctor "ready" wording
 
@@ -894,7 +825,7 @@ Strong for implemented core paths.
 
 ### Lifecycle UX
 
-Incomplete.
+Agent first-run path is CURRENT; arbitrary future-component/cross-version lifecycle remains partial.
 
 ### Generic component ecosystem
 
@@ -902,23 +833,23 @@ Partially implemented.
 
 ### Canonical write integration
 
-Incomplete after safe intake.
+CURRENT for accepted invisible owner routes; generic future-owner queue dispatch remains partial.
 
 ### Live readiness
 
-Incomplete generically.
+Agent-profile doctor/readiness is CURRENT; generic provider readiness remains partial.
 
 ### Cadence runtime
 
-Architectural rather than universally executed.
+CURRENT at system level through AI-Verse Automations; intentionally not duplicated inside OS.
 
 ### Health aggregation
 
-Incomplete.
+CURRENT for Agent profile through Distribution; broader Full-profile aggregation remains partial.
 
 ### Release/distribution
 
-Development path works; immutable member lifecycle is unfinished.
+Frozen Agent release is immutable and accepted; the new Invisible Intelligence candidate awaits Safe Update/release-train compatibility.
 
 ### Documentation consistency
 
