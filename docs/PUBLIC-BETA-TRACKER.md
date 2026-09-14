@@ -33,12 +33,12 @@ Connections is not currently an Agent-profile blocker. Dashboard and Apps are no
 | Memory | PR #9 merged; public-beta acceptance 12/12 jobs passed across Linux/macOS/Windows | PUBLIC-BETA IMPLEMENTATION READY | Freeze/reference exact release artifact in final manifest |
 | Skills | PR #8 merged; Runtime Readiness, Validate Skills, Full E2E all green | PUBLIC-BETA IMPLEMENTATION READY | Freeze/reference exact release artifact in final manifest |
 | Data | `189b132...`; canonical five-component release hardening frozen | READY FOR CURRENT TARGET | Do not reopen absent a real regression |
-| Multiple Bots | Phase 5.9 merged as `6033efd...`; CI green; Phase 5.10 is next | IN PROGRESS | Finish 5.10 channel bridges, 5.11 approvals UX, 5.12 observability, 5.13 release docs, 5.14 final acceptance |
+| Multiple Bots | Phase 5.14 merged as `9bffdffd07fb8abcea848213642936a23ecf4ecf`; Phase 5 14/14 complete; post-merge CI run 614 green | PUBLIC-BETA REPO TARGET DONE | Admit exact ref into Distribution Agent release set |
 | Gateway | public repo main `b20d56e...`; hosted CI green | PUBLIC-BETA REPO TARGET DONE | Final composed Goal/runtime acceptance only |
 | Automations | public repo main `494469a...`; hosted CI green | PUBLIC-BETA REPO TARGET DONE | Final composed wake/delivery acceptance only |
 | Token | beta.3 main `23b7b8e...`; hosted CI green | PUBLIC-BETA REPO TARGET DONE | Freeze exact beta.3 ref/tag for Agent manifest |
 | Connections | PR #1 merged as `baaac641...`; v1 implementation exists; private-repo CI jobs fail before step 1 | IMPLEMENTED, REMOTE CI UNPROVEN | Fix Actions runner availability or run equivalent release proof; not Agent blocker |
-| Distribution | PR #1 merged as `116aa2d...`; Core release `core-public-beta-2026-09-13`; final-head CI `34782949282` green 6/6; Core clean-machine `34782949287` green on Ubuntu/macOS/Windows | CORE DISTRIBUTION ACCEPTED | Keep Agent blocked until Multiple Bots remaining Phase 5 slices finish and the complete immutable Agent set passes composed acceptance |
+| Distribution | PR #1 merged as `116aa2d74bb55c4ee00bf6139e98bb345b516b8a`; Core public-beta release set accepted; Distribution CI and clean-machine Core acceptance green | CORE DISTRIBUTION DONE | Promote complete Agent release set, run Agent clean-machine gate, then final whole-system acceptance |
 | Dashboard | Phase 2 Task 5 current | POST-AGENT-BETA | Do not use as current release blocker |
 | Apps | architecture seed only | POST-AGENT-BETA | Do not use as current release blocker |
 
@@ -63,12 +63,14 @@ This accepts the Core one-product install/setup/onboard/status/doctor/use lifecy
 
 ## Immediate critical path
 
-1. Finish Multiple Bots Phase 5.10 through 5.14 sequentially.
-2. Freeze the final accepted Multiple Bots ref alongside the already accepted OS, Brain, Memory, Skills, Data, Gateway, Automations and Token refs.
-3. Promote the complete Agent release set in Distribution only when every required ref is accepted.
-4. Run the canonical final public-beta acceptance matrix across the composed Agent profile.
-5. Fix only genuine PUBLIC-BETA BLOCKER findings in their owning repositories.
-6. Freeze the final Agent manifest and declare PUBLIC BETA READY only if the matrix passes.
+1. Update Distribution's blocked Agent release set with the exact accepted refs for Core + Gateway + Automations + Multiple Bots + Token.
+2. Add/verify the required owner lifecycle adapters and package/install paths for every Agent component without absorbing their ownership.
+3. Run the real Distribution Agent clean-machine release gate on Ubuntu, macOS and Windows.
+4. Fix only genuine Agent-profile integration blockers until that gate is green.
+5. Freeze the exact immutable Agent release-set ID, component refs and acceptance run IDs.
+6. Run the independent final PUBLIC-BETA whole-system acceptance matrix.
+7. Fix only genuine PUBLIC-BETA BLOCKER findings in their owning repositories.
+8. Freeze the final manifest and declare PUBLIC BETA READY only when the complete matrix passes.
 
 ## Known CI infrastructure issue
 
