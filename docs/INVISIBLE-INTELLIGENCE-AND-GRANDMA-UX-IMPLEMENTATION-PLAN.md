@@ -89,7 +89,7 @@ Every slice records:
 
 ## Slice 0.1 - Create persistent implementation plan
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** none
 
@@ -104,9 +104,10 @@ Every slice records:
 
 ### Tests/evidence
 
-- plan commit SHA
-- branch / PR reference
-- live collision state above
+- plan commit: `cd9b447ad57b9025a6e9ea12db793d8bd39282d3`
+- System PR: #12
+- merged SHA: `32df3aeb9d127c95a183ad697edf59d790b2689c`
+- live collision state captured above
 
 ### NEXT
 
@@ -118,7 +119,7 @@ Every slice records:
 
 ## Slice 1.1 - OS progressive onboarding
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-OS, then AI-Verse-System evidence sync  
 **Dependencies:** 0.1
 
@@ -457,12 +458,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 0
+- COMPLETE: 1
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 21
+- NOT STARTED: 20
 
-**Current slice:** 0.1 - Create persistent implementation plan  
+**Current slice:** 1.1 - OS progressive onboarding  
 **Exact NEXT:** 1.1 - OS progressive onboarding  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
