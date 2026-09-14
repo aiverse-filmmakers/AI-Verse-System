@@ -31,12 +31,15 @@ Whenever a meaningful new idea, planned feature, integration, lifecycle change, 
 
 Use:
 
+- `docs/OWNER-PRODUCT-INTENT.md` as the canonical living record of the owner's product direction, UX/autonomy preferences, "grandma/Jarvis" experience, automatic-vs-ask boundaries, and known intent-versus-implementation gaps;
 - `docs/IDEA-INBOX.md` to capture ideas before their final architectural home is clear;
 - `docs/LIVING-SPEC-PROTOCOL.md` for update/propagation rules;
 - `docs/SYSTEM-CHANGELOG.md` for the chronological record of meaningful changes;
 - the relevant component spec/QC/source map once the change has a clear owner.
 
 A future agent should be able to reconstruct the current system intent from this repository without needing the original chat where the idea appeared.
+
+For product/UX/autonomy decisions, read `docs/OWNER-PRODUCT-INTENT.md` before changing behavior. It records the owner's recurring direction separately from implementation evidence, so a desired behavior is not mistaken for something already shipped.
 
 ## Planned component set
 
