@@ -593,7 +593,7 @@ Canonical-provider rule:
 
 ## Slice 4.1 - Define semantic capabilities
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 1.2, 2.2, 3.4
 
 At minimum:
@@ -621,7 +621,7 @@ At minimum:
 
 ## Slice 4.2 - Edit orchestrator routing
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 4.1
 
 Representative routing:
@@ -646,13 +646,66 @@ website capture -> DESIGN.md -> script -> storyboard -> timing/VO -> HyperFrames
 
 brief -> storyboard -> selected design experts -> HyperFrames/GSAP -> QA
 
+### Phase 4 evidence
+
+Implementation branch:
+
+- `aiverse-filmmakers/AI-Verse-Skills`
+- branch: `feature/video-editor-2026-09-14`
+- draft PR: **#14**
+- Phase 4 head: `1e000222183368c60e03919541f77ee546e77bfd`
+
+First-party fail-closed package:
+
+- `skills/imported/ai-verse/video-editor/SKILL.md`
+- `skills/imported/ai-verse/video-editor/aiverse.skill.yaml`
+- `references/capabilities.json`
+- `references/orchestration.json`
+- `references/ownership.md`
+- `references/routing.md`
+
+Semantic capability map includes 21 internal surfaces spanning orchestration, transcript/edit truth, short-form/long-form editorial logic, HyperFrames/GSAP/FFmpeg runtime work and structural/visual/audio/final-render QA.
+
+Routing is scope-aware for:
+
+- silence only;
+- mistake/retake only;
+- captions only;
+- motion graphics only;
+- short form;
+- long-form talking head;
+- website promo;
+- reference-led edit;
+- full edit.
+
+Fail-closed behavior is explicit: the package is on disk but is not registered/selectable until Nate-derived specialists and the accepted HyperFrames provider are integrated.
+
+Contract tests:
+
+- `tests/test_video_editor_contract.py`
+- exact HyperFrames pin asserted;
+- exact Nate pin asserted;
+- editorial stages precede visual/runtime stages;
+- narrow silence route cannot invoke graphics/rendering;
+- Interface Designer is presentation-only;
+- premature registration and fake source-only media verification are blocked.
+
+CI on Phase 4 head `1e000222183368c60e03919541f77ee546e77bfd`:
+
+- Validate AI-Verse Skills: **PASS**, run `34890555298`;
+- Full E2E Install: **PASS**, run `34890555447`.
+
+## Phase 4 result
+
+**PASS.** The AI-Verse Video Editor now has a tested first-party capability/ownership/routing contract while remaining deliberately unregistered until its specialist/provider dependencies are real.
+
 ---
 
 # Phase 5 - Integrate Nate editorial specialists into AI-Verse Skills
 
 ## Slice 5.1 - Edit orchestrator
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Preserve `edit-video` logic as the main full-edit coordinator, adapted only where required by AI-Verse lifecycle/routing conventions.
 
@@ -1018,7 +1071,7 @@ Before any implementation work:
 
 # Current project status
 
-**Completed:** Phases 0-3 / HyperFrames provider decision complete  
-**In progress:** Phase 4 / Slice 4.1 - Define semantic Video Editor capabilities against current Skills architecture  
-**Next:** Phase 4 / Slice 4.1 - Inspect current Skills registry/package conventions and add the canonical Video Editor capability map without duplicate ownership  
+**Completed:** Phases 0-4 / Video Editor contract and routing complete  
+**In progress:** Phase 5 / Slice 5.1 - Adapt Nate edit orchestrator into the package-local specialist system  
+**Next:** Phase 5 / Slices 5.1-5.2 - Preserve edit orchestration plus deterministic silence/mistake scripts with bounded runtime adaptations  
 **Implementation authorization:** ACTIVE - owner said continue
