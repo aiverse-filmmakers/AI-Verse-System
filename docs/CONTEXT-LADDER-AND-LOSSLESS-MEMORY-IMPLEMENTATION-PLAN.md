@@ -231,11 +231,11 @@ Exactly one implementation slice may be IN PROGRESS.
 
 ## 9. Project slices
 
-Total implementation slices: 22
+Total implementation slices: 25
 Complete: 0
 In progress: 1
 Blocked: 0
-Remaining after current: 21
+Remaining after current: 24
 Current: A1
 Next after current: A2
 
