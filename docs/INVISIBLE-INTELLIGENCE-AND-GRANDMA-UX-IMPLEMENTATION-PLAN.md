@@ -735,11 +735,26 @@ The deterministic gate rejects low-value completed turns before any second runti
 
 ## Slice 9.1 - User-facing outcome language
 
-**Status:** IN PROGRESS  
-**Repos:** Gateway plus owners only where response metadata originates  
+**Status:** COMPLETE  
+**Repos:** Gateway  
 **Dependencies:** owner behaviors implemented
 
 Normal surfaces describe user outcomes, while technical receipts retain component detail for advanced inspection.
+
+### Acceptance evidence
+
+- Gateway PR #15 merged at `7ed7974d865e6eae9f0a01056e0756b59f2b44e4`
+- final Gateway PR head: `5656c6f3671953d4d377bc45a5ef472d8deb7e12`
+- Gateway CI `34886389493`: success across Ubuntu, macOS and Windows on Node 20 and 22
+- Temporary Worker regression composition `34886389437`: success
+- Permanent Bot regression composition `34886389524`: success
+- Automation recommendation + consent regression `34886389440`: both jobs succeeded
+- ordinary assistant output and streamed `assistant.delta` content normalize exact internal component/operation jargon before presentation
+- exact tool arguments and canonical owner receipts remain unchanged in the persisted technical run record
+- explicit requests for raw technical receipts, debugging/API detail, exact component names or operation identifiers bypass presentation normalization
+- ordinary words such as memory, data, skills, automation, project and client are not globally rewritten
+- fenced code blocks are preserved so generated code/examples are not altered by presentation normalization
+- presentation normalization is Gateway-owned and does not change canonical owner authority, execution bindings, run events or mutation semantics
 
 ---
 
@@ -851,13 +866,13 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Formal tracked completion: **17 / 24 = 70.8%**
-- Current active slice: **9.1 - User-facing outcome language**
-- Completed through: **8.2 - Review budget / trivial-turn suppression**
+- Formal tracked completion: **18 / 24 = 75.0%**
+- Current active slice: **dependency trace for 10.1 - Distribution product-level bootstrap**
+- Completed through: **9.1 - User-facing outcome language**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** finish 9.1 by proving normal user-facing outcomes stay natural while component/owner detail remains available only in technical receipts and advanced inspection.  
-**Expected first repo touched:** AI-Verse-Gateway  
-**Later repos:** owner repos only if a normal-surface metadata source cannot be corrected at Gateway presentation without violating ownership.  
+**Exact NEXT:** re-evaluate the live Safe Update / release-train dependency for Slice 10.1 before changing Distribution. If the dependency remains blocked, continue directly with the next unblocked acceptance/synchronization slice rather than inventing a parallel bootstrap/update architecture.  
+**Expected first repos inspected:** AI-Verse-System and ai-verse-distribution  
+**Do not touch the frozen Agent release:** any product-bootstrap work must target a new later candidate only.  
