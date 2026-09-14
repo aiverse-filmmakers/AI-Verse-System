@@ -6,15 +6,15 @@
 **Audit date:** 2026-09-13  
 **Scope rule:** Skills was audited standalone. Cross-repository evidence was limited to contracts and acceptance surfaces that Skills itself names or depends on.
 
-## 2026-09-14 release-candidate source-map update
+## 2026-09-14 merged source-map update
 
-**CURRENT candidate repository:** `aiverse-filmmakers/AI-Verse-Skills`  
-**Branch:** `feature/interface-designer-2026-09-14`  
-**Head:** `a5068c2e8b1c581a721419c55282c03d900819a4`  
+**CURRENT repository:** `aiverse-filmmakers/AI-Verse-Skills`  
+**Branch:** `main`  
+**Head:** `71264af6b2b9a575812fe18858d75a54ea2ff545`  
 **Version:** `1.1.0-beta.1`  
-**PR:** #13
+**Merged PR:** #13
 
-This section is the current source-map overlay. Conflicting counts/gaps in the retained 2026-09-13 audit below describe the older audited head and are historical.
+This section is the current merged source-map overlay. Conflicting counts/gaps in the retained 2026-09-13 audit below describe the older audited head and are historical.
 
 Current registry truth:
 
@@ -48,11 +48,17 @@ Interface Designer source surfaces:
 
 Exact design-source pins are recorded in `registry/packages.json`. The external expert set includes Anthropic, UI/UX Pro Max, Vercel, shadcn, Meng To, Emil Kowalski and Scroll Craft at immutable 40-character Git refs. Anthropic frontend-design remains fetch-only under conservative upstream-controlled redistribution. The Vercel web-design-guidelines adaptation preserves upstream identity while replacing mutable runtime rule fetching with a package-local rules snapshot pinned to `e3d624baaf29dc1fc645aff3e38f03e564d2d6b1`.
 
-Release-candidate evidence:
+Pre-merge candidate evidence:
 
 - Validate: PASS, `34885862726`;
 - Runtime Readiness: PASS, `34885862743`;
 - Full E2E: PASS, `34885862596`.
+
+Post-merge evidence on `main` head `71264af6b2b9a575812fe18858d75a54ea2ff545`:
+
+- Validate: PASS, `34886502980`;
+- Runtime Readiness: PASS, `34886502969`;
+- Full E2E: PASS, `34886502946`.
 
 ## 1. Exact revision and repository inventory
 
