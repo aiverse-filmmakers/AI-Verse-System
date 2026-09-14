@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 12
+Complete: 13
 In progress: 1
 Blocked: 0
-Remaining after current: 12
-Current: E2
-Next after current: E3
+Remaining after current: 11
+Current: E3
+Next after current: E4
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -618,7 +618,7 @@ Next after current: E3
 
 #### E2. Fold creation and recursive roll-up
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1
@@ -631,12 +631,20 @@ Next after current: E3
   - roll-up preserves exact descendant reachability.
 - Tests: level-1, recursive levels, not-smaller rejection, failed generator, ordering.
 - Risks: lossy summaries; excessive model cost.
-- Evidence: pending.
+- Evidence:
+  - E2 PR #19 final head `4b7f0676349ef602a41172844782033923047895`.
+  - PR CI `34901901782`: success, 6/6; composition runs `34901901774`, `34901901840`, and `34901901817`: all success.
+  - E2 merged as Gateway main `c601d1dd0bcd3fcdeb1a8abf51dc433c2f400688`.
+  - Post-merge CI `34902013764`: success, 6/6.
+  - E2 performs no work below the explicit pressure threshold, selects oldest completed session history first, requires an injected summarizer, and rejects summaries that are not strictly smaller before any fold card is written.
+  - Level-1 cards cover complete ordered run-message ranges. Adjacent unparented same-level cards recursively roll up with bounded fan-in; acceptance tests prove level-1 -> level-2 -> level-3 creation and exact recovery of all original descendant messages in order.
+  - Failed summarization leaves raw history and existing fold state unchanged; Gateway-owned raw `run.messages` remain canonical.
+  - E2 acceptance complete; thirteen of 25 slices are accepted.
 
 #### E3. Lossless unfold and archive search
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1-E2
 - Goal: support card -> child card -> original message traversal and bounded archive search.
@@ -652,7 +660,7 @@ Next after current: E3
 #### E4. Recent raw tail and context-pressure governor
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway
 - Dependencies: E2-E3
 - Goal: preserve a benchmarked recent raw tail and fold based on actual context pressure.
@@ -1211,3 +1219,27 @@ Verified before E2 implementation on 2026-09-15:
 - E2 owns fold creation policy and recursive same-level roll-up only. Archive search/unfold policy remains E3; context-pressure policy remains E4.
 - No fold should occur below the configured pressure threshold. Every accepted fold must be strictly smaller than its covered input, preserve ordered complete coverage, and keep exact descendant reachability.
 - Failed or oversized summarization must leave raw history and existing cards untouched.
+
+
+### Slice completion checkpoint: E2
+
+Verified on 2026-09-15:
+
+- E2 PR #19 head `4b7f0676349ef602a41172844782033923047895` passed CI `34901901782` 6/6 and all three existing composition workflows.
+- E2 merged as Gateway main `c601d1dd0bcd3fcdeb1a8abf51dc433c2f400688`; post-merge CI `34902013764` passed 6/6.
+- The accepted engine performs no fold below the explicit pressure threshold and chooses oldest completed session history first.
+- Gateway does not select or invent a summarization provider in E2; folding requires an injected summarizer and rejects empty/failed output.
+- Every candidate summary must be strictly smaller than the covered input before E1 immutable storage is invoked.
+- Recursive roll-up uses only adjacent unparented same-level cards and preserves exact descendant source reachability; tests reach level 3 over eight completed runs and recover all original messages in canonical order.
+- Failed or oversized summarization leaves raw history and existing cards untouched.
+- E2 acceptance is complete. Thirteen of 25 slices are accepted.
+
+### Slice start checkpoint: E3
+
+Verified before E3 implementation on 2026-09-15:
+
+- AI-Verse-Gateway main: `c601d1dd0bcd3fcdeb1a8abf51dc433c2f400688`; E2 post-merge CI `34902013764` is 6/6 green.
+- E3 must reuse E1 exact recursive source resolution and E2 cards. It must not create a second archive, copy raw transcripts, or weaken source fingerprints.
+- Archive search must be bounded and scope-safe. Precision retrieval may force exact unfold, but ordinary search should return compact card evidence first.
+- Stale source or child fingerprint evidence must fail closed and be surfaced as stale derived state rather than returning unverified original content.
+- E4 remains the owner of live context-pressure integration and recent-raw-tail policy; E3 does not modify runtime prompt assembly.
