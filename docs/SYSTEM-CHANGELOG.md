@@ -6,6 +6,54 @@ The detailed truth remains in the linked canonical documents.
 
 ---
 
+## 2026-09-15
+
+### Completed Invisible Intelligence and Grandma UX project at 100%
+
+**Date:** 2026-09-15  
+**Type:** immutable candidate qualification / final project gate
+
+Completed the formal Invisible Intelligence and Grandma UX implementation plan at **24/24 = 100%**.
+
+A new exact Agent candidate was frozen in Distribution without mutating or promoting the original frozen Agent release:
+
+`agent-invisible-intelligence-rc1-2026-09-14`
+
+Distribution PR #7:
+
+- final qualification head: `d2f47297bace2a3afe4d13fac928025dee982246`;
+- merge: `a215c8777da55b299247ec9e564cca020cfe2020`.
+
+Final exact-head gates:
+
+- Distribution CI `34900045849`: PASS, 6/6;
+- Core clean-machine `34900045847`: PASS on Ubuntu/macOS/Windows;
+- original frozen Agent clean-machine regression `34900045982`: PASS on Ubuntu/macOS/Windows;
+- new Invisible Intelligence candidate clean-machine `34900045944`: PASS on Ubuntu/macOS/Windows;
+- scenarios A-F `34900045856`: PASS;
+- scenarios G-M `34900045862`: PASS.
+
+The final candidate contains the accepted Invisible Intelligence owner refs for OS, Brain, Memory, Skills, Data, Gateway, Automations and Multiple Bots plus the accepted Token ref. Distribution lifecycle adapters admit those changed owners only by exact SHA.
+
+Release safety remains conservative:
+
+- the original `agent-public-beta-2026-09-14` remains the default Agent channel;
+- the new candidate is explicit-install only;
+- old -> candidate update is blocked;
+- candidate -> old rollback is blocked;
+- candidate qualification explicitly proves those cross-release transitions fail closed;
+- same-candidate update/rollback is a no-op;
+- no release selection grants permissions or transfers canonical owner authority.
+
+This closes the Invisible Intelligence project without falsely declaring the separate Safe Update / Release Train complete. Cross-version promotion, migration and recovery remain separate release-train work.
+
+Canonical detail:
+
+- `docs/INVISIBLE-INTELLIGENCE-AND-GRANDMA-UX-IMPLEMENTATION-PLAN.md`
+- `docs/PUBLIC-BETA-TRACKER.md`
+
+---
+
 ## 2026-09-14
 
 ### Accepted Invisible Intelligence and Grandma-first Agent behavior

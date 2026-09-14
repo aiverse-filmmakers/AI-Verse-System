@@ -972,37 +972,95 @@ Final stale-claim scan found no remaining targeted matches for the superseded cl
 
 ## Slice 12.2 - New immutable Agent candidate with Invisible Intelligence
 
-**Status:** BLOCKED  
+**Status:** COMPLETE  
 **Repos:** ai-verse-distribution  
-**Dependencies:** PR #2 merged, Safe Update/release-train compatible state, all required owner slices accepted
+**Dependencies:** PR #2 merged, release-train-compatible fail-closed candidate state, all required owner slices accepted
 
-Create a NEW exact Agent release candidate. Do not mutate the original frozen Agent release.
+A NEW exact Agent candidate was frozen and qualified without mutating or promoting the original frozen Agent release.
 
-Run:
+Candidate:
 
-- Distribution CI;
-- Core regression;
-- Agent clean-machine Ubuntu;
-- Agent clean-machine macOS;
-- Agent clean-machine Windows;
-- Grandma/Invisible Intelligence composed scenarios.
+`agent-invisible-intelligence-rc1-2026-09-14`
+
+Exact immutable refs:
+
+- OS: `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`
+- Brain: `16c0b7ea32fcb4759cfb8368876b6985016eab68`
+- Memory: `1c6acf036d42937e57d94dfe48ac501727861653`
+- Skills: `71264af6b2b9a575812fe18858d75a54ea2ff545`
+- Data: `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+- Gateway: `7627df658b2071ecb4ea242572343edfb7abf768`
+- Automations: `caaed83b98026dd955640fc015d181529b91a1c6`
+- Multiple Bots: `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
+- Token: `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4`
+
+Distribution PR #7:
+
+- final head: `d2f47297bace2a3afe4d13fac928025dee982246`
+- merge: `a215c8777da55b299247ec9e564cca020cfe2020`
+
+Final exact-head qualification:
+
+- Distribution CI `34900045849`: 6/6 green across Ubuntu/macOS/Windows and Python 3.9/3.12;
+- Core clean-machine regression `34900045847`: Ubuntu/macOS/Windows green;
+- original frozen Agent regression `34900045982`: Ubuntu/macOS/Windows green;
+- new Invisible Intelligence candidate clean-machine `34900045944`: Ubuntu/macOS/Windows green;
+- Invisible Intelligence scenarios A-F `34900045856`: green;
+- Invisible Intelligence scenarios G-M `34900045862`: green.
+
+Candidate clean-machine jobs:
+
+- Ubuntu: `104163639675`;
+- macOS: `104163639932`;
+- Windows: `104163639867`.
+
+Original-Agent regression jobs:
+
+- Ubuntu: `104163649345`;
+- macOS: `104163649004`;
+- Windows: `104163649305`.
+
+Release-train safety is deliberately fail-closed:
+
+- `agent-public-beta-2026-09-14` remains the default Agent channel;
+- the new candidate is explicit-install only;
+- no automatic promotion is enabled;
+- old -> candidate update is not admitted;
+- candidate -> old rollback is not admitted;
+- candidate acceptance explicitly proves both forbidden cross-release directions fail closed;
+- same-candidate update and rollback are safe no-ops;
+- release-set selection grants no permissions, transfers no Brain strategy authority, initializes no unspecified workspaces and exposes no Gateway remotely.
+
+The separate Safe Update / Release Train project is **not** declared complete by this slice. Cross-version update/migration/recovery remains owned by that project. This slice is compatible with it precisely because no unsafe cross-release transition is admitted.
 
 ## Slice 12.3 - Final project gate
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
-Complete only when every required slice is COMPLETE, composed acceptance is green, state/authority invariants hold, and the exact release set is frozen with evidence.
+Final gate result:
+
+- every required Invisible Intelligence implementation slice is COMPLETE;
+- A-M composed acceptance is green;
+- Distribution/Core/original-Agent/new-candidate gates are green on the exact final candidate head;
+- canonical owner/state boundaries remain unchanged;
+- the original frozen Agent release remains immutable and default;
+- the new exact candidate is frozen and explicit-install only;
+- restart/idempotency, dangerous Skill quarantine, destructive Data refusal, Automation/Bot consent and no-silent-authority-expansion invariants remain proven;
+- no unresolved destructive release transition was introduced;
+- the separately owned Safe Update / Release Train remains a distinct unfinished project rather than being falsely absorbed into this completion claim.
 
 ---
 
 # Overall progress
 
-- Formal tracked completion: **23 / 24 = 95.8%**
-- Current active slice: **12.2 - New immutable Agent candidate with Invisible Intelligence (BLOCKED on Safe Update/release-train compatible state)**
-- Completed through: **12.1 - Living-spec CURRENT updates**
-- Distribution PR #2 is merged; the original frozen Agent release remains immutable.
-- Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
+- Formal tracked completion: **24 / 24 = 100%**
+- Project state: **COMPLETE**
+- Completed through: **12.3 - Final project gate**
+- Original frozen Agent release: `agent-public-beta-2026-09-14`, unchanged and still default.
+- Qualified Invisible Intelligence candidate: `agent-invisible-intelligence-rc1-2026-09-14`, explicit-install only.
+- Distribution PR #7 merge: `a215c8777da55b299247ec9e564cca020cfe2020`.
+- Final exact-head release evidence: CI `34900045849`, Core `34900045847`, old Agent `34900045982`, new candidate `34900045944`, A-F `34900045856`, G-M `34900045862`.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
+- The separate Safe Update / Release Train project remains independent and incomplete; this project does not claim otherwise.
 
-**Exact NEXT:** re-evaluate and close the separately owned Safe Update/release-train dependency required by 12.2. If that dependency is now compatible, freeze a NEW exact Agent candidate containing the accepted Invisible Intelligence heads and rerun Distribution/Core/Agent/A-M release gates. Do not mutate the original frozen release.  
-**Expected repos:** AI-Verse-System safe-update plan and ai-verse-distribution release/version-set surfaces.  
+**Exact NEXT:** no remaining work inside this Invisible Intelligence and Grandma UX implementation plan. Future cross-release promotion/update/migration work belongs to the separate Safe Update / Release Train project.  
