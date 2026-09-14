@@ -429,7 +429,7 @@ No useful existing AI-Verse behavior disappears silently.
 
 ## Slice 4.1 - Scope classifier
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 3.1
 
 Classify work into at least:
@@ -458,9 +458,10 @@ Scope determines pipeline depth.
 - initial full E2E correctly exposed one remaining hard-coded 100-capability assertion
 - E2E count fix ref: `f104822c25094d47115517bead64c99089c8ab77`
 - rerun Validate workflow: PASS, run `34872606928`
-- rerun Full E2E: pending at last plan update, run `34872606784`
+- rerun Full E2E: PASS, run `34872606784`
+- accepted implementation ref for Slice 4.1: `f104822c25094d47115517bead64c99089c8ab77`
+- draft implementation PR: #13
 
-Do not mark COMPLETE until the rerun Full E2E passes.
 
 ### Implementation-target classification
 
@@ -981,8 +982,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 4 / Slice 4.1 - Interface Designer scope classifier and native orchestrator  
-**Next:** Finish Phase 4 / Slice 4.1 acceptance after PR #13 Full E2E is green  
+**In progress:** Phase 4 / Slice 4.2 - Semantic trigger policy and expert package registration  
+**Next:** Phase 4 / Slice 4.2 - Register pinned experts and complete semantic trigger policy  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
