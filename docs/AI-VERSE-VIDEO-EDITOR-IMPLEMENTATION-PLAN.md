@@ -423,7 +423,7 @@ Purpose: prevent later imported design skills from stealing editorial ownership.
 
 ## Slice 3.1 - Inspect CURRENT upstream HyperFrames
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 2.1
 
 Re-check latest release at execution time, not the planning-time v0.8.39 assumption.
@@ -441,9 +441,25 @@ Inspect:
 - registry;
 - breaking changes since 0.7.109.
 
+### Slice 3.1 evidence
+
+- current latest upstream release: `v0.8.40`
+- immutable upstream release commit: `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`
+- CLI package version: `0.8.40`
+- CLI license: Apache-2.0
+- CLI engine floor: Node `>=22`
+- canonical current verification loop uses `lint -> check -> preview -> render`
+- `validate`, `inspect`, and `layout` are deprecated compatibility aliases
+- current Skill family separates main workflow routing, core composition rules, CLI, animation/keyframes, creative direction, audio, registry, captions and general-video concerns
+- v0.8.38 materially reorganized Skill ownership by moving planning/review out of core and into the main HyperFrames Skill
+- v0.8.39 adds stable JSON transcript word IDs
+- v0.8.40 fixes sandboxed-composition audio routing
+- upstream audit: `docs/AI-VERSE-VIDEO-EDITOR-HYPERFRAMES-UPSTREAM-0.8.40-2026-09-14.md`
+- upstream audit commit: `dd3ba89c2474e4172e7aefe1bde305366d57d907`
+
 ## Slice 3.2 - Nate 0.7.109 -> candidate-latest compatibility matrix
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 3.1
 
 Compare every Nate-used surface.
@@ -925,6 +941,6 @@ Before any implementation work:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 3 / Slice 3.1 - Inspect CURRENT upstream HyperFrames  
-**Next:** Phase 3 / Slice 3.1 - Re-verify latest upstream release and contracts  
+**In progress:** Phase 3 / Slice 3.2 - Nate 0.7.109 -> v0.8.40 compatibility matrix  
+**Next:** Phase 3 / Slice 3.2 - Compare every Nate-used HyperFrames surface  
 **Implementation authorization:** ACTIVE - owner said continue
