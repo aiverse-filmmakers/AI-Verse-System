@@ -418,7 +418,7 @@ Prove restart persistence, active immutable generation, actual subsequent select
 
 ## Slice 5.1 - Data safe additive structure creation/evolution
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Data  
 **Dependencies:** current Data catalog/schema migration engine
 
@@ -426,13 +426,55 @@ Use existing Data Space, catalog, additive schema, idempotency, transaction, pro
 
 Safe automatic operations are limited to additive/reversible owner-supported changes. Destructive/ambiguous migration remains approval-required.
 
+### Acceptance evidence
+
+- Data PR #15 merged at `579dae596a1c929bbc0e900541d29742c18b875e`
+- accepted PR head: `64ce5611a0f34f904742af96f39bdaa69824108b`
+- Data CI `34859531419`: success across Node 22/24 on Ubuntu, macOS and Windows
+- Data Release Smoke `34859532062`: success
+- Data Five-Component Release Acceptance `34859532054`: success across all three install orders
+- owner path can create a missing Data Space/schema, return existing state idempotently, or apply only safe additive fields
+- exact idempotency replay is durable across restart and semantic drift under the same key fails closed
+- existing field-definition changes, `allowUnknownFields` changes and required-field additions without defaults route to migration-required rather than silent mutation
+- provenance/receipt attribution is preserved and workspace scope remains isolated
+- trusted host-bound automatic requests preserve the real Bot/Worker/system actor instead of falsely attributing automatic writes to the local human operator
+
+A packaging mismatch found by composed OS acceptance was corrected without changing Data semantics:
+
+- Data PR #16 merged at `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+- accepted PR head: `f304be47dfd31387cf3f1d769e5b00510a2dd837`
+- Data CI `34861500075`: success across Node 22/24 on Ubuntu, macOS and Windows
+- Data Release Smoke `34861500051`: success
+- Data Five-Component Release Acceptance `34861500107`: success across all three install orders
+- materialized/installed Data engine now truthfully advertises the already-accepted trusted host-bound actor contract
+
 ## Slice 5.2 - Runtime structured-truth classification and owner routing
 
-**Status:** NOT STARTED  
-**Repos:** Brain + Gateway + Data  
+**Status:** COMPLETE  
+**Repos:** Brain + Gateway + OS + Data  
 **Dependencies:** 5.1
 
 Meaningful repeated structured information should be routed into an existing or safely created Data structure without asking the user to choose Data/schema.
+
+### Acceptance evidence
+
+- Brain PR #22 merged at `16c0b7ea32fcb4759cfb8368876b6985016eab68`
+- Brain PR head `de2023920c6c01034f4844326deb34d21f4dbd82`
+- Brain CI `34859912066`, Direction Ownership `34859912053`, Skills Receipt Contract `34859911976`: all success
+- Brain deterministically admits only substantial, workspace-bound, repeated, high-confidence structured current truth
+- secret-bearing, privacy-ambiguous, permission-expanding, destructive, weak-evidence and low-confidence candidates do not auto-route
+- runtime cannot smuggle trusted scope, provenance, approval or authority fields through the Brain gate
+- Gateway PR #8 merged at `587a7c53aa2afda68027b1158f52e1e17d1b5dbb`
+- Gateway PR head `1f4594bb13a38f0f56bd5d71d9d63b288c07aed4`
+- Gateway CI `34861198912`: success
+- OS PR #38 merged at `92bb939885d2f2bf84c1bbb48a2c92c523d5a4bd`
+- final OS PR head `8a65658a5cd09bea57142e40a098a478e4269279`
+- OS Direction Ownership `34864858935`, Write Command Boundary `34864859015`, Data Host Boundary `34864858878`, Brain Permission Contract `34864858860`, Repository QC `34864858968`, Four Repo Acceptance `34864858864`, Five-Component Public Beta `34864859011`: all success
+- OS composes Brain admission with Data-owned structure/query/create/update operations and does not become a Data store
+- natural-key duplicate checking reuses or updates one canonical record instead of creating duplicates
+- multiple matches, migration-required changes, owner refusal and concurrency conflicts fail closed without silently widening authority
+- later context receives only bounded Data orientation; records are queried from Data when needed rather than dumped into every prompt
+- no optimizer service, second canonical store, review daemon or new scheduler was introduced
 
 ---
 
@@ -440,19 +482,78 @@ Meaningful repeated structured information should be routed into an existing or 
 
 ## Slice 6.1 - Automatic temporary Workers
 
-**Status:** NOT STARTED  
-**Repos:** AI-Verse-Multiple-Bots, Gateway  
+**Status:** COMPLETE  
+**Repos:** AI-Verse-Multiple-Bots, OS, Gateway  
 **Dependencies:** existing Worker/lease/budget lifecycle
 
 Use existing temporary Worker machinery automatically for requested work when justified by task complexity, within existing authority/budget/scope. No durable promotion.
 
+### Anti-bloat decision
+
+No Worker service, optimizer, scheduler, second runtime, second Bot registry or temporary-agent store was added. The implementation wires the existing Gateway action loop -> OS host boundary -> Multiple Bots Team Run/Worker/Task/lease/runtime/cleanup machinery.
+
+### Acceptance evidence
+
+- Multiple Bots PR #67 merged at `ba97408fa14ba7a5823c4376b10e190c887958b4`
+- final Multiple Bots PR head: `172101fd732ebe018a95f0ff920189642d5b6a60`
+- Multiple Bots CI `34867051626`: success
+- OS PR #39 merged at `b598e733df89c496cf5740388a1283dda026eb89`
+- final OS PR head: `f1bcaa5b82cd6a8fdabe34e947c4420c139237f5`
+- OS Direction Ownership `34867446921`, Write Command Boundary `34867446415`, Brain Permission Contract `34867446703`, Repository QC `34867446820`, Four Repo Acceptance `34867446622`, Five-Component Public Beta `34867446873`, Invisible Intelligence Temporary Worker `34867446819`: all success
+- Gateway PR #9 merged at `4c52286be8f480473ced9af56098e00b0a5452a3`
+- final Gateway PR head: `3679b8e41f03be6552fc4bb2bbe72b0ad1ca79d3`
+- Gateway CI `34870647229`: success across Ubuntu/macOS/Windows on Node 20/22 after one unchanged failed-job retry
+- Gateway -> OS -> Multiple Bots composition `34870647371`: success
+- Gateway admits at most one automatic temporary specialist per foreground run
+- unsupported `json-subprocess` runtime is suppressed rather than bridged through a new runtime abstraction
+- runtime cannot forge Worker runtime, budget, tools, Connections, trusted provenance or task evidence
+- composed canonical state proves zero durable Bots, expired temporary Worker, revoked lease, run-scoped leader and preserved Worker-generated Artifact
+
 ## Slice 6.2 - Permanent Bot recommendation and consent
 
-**Status:** NOT STARTED  
-**Repos:** AI-Verse-Multiple-Bots, Gateway  
+**Status:** COMPLETE  
+**Repos:** AI-Verse-Multiple-Bots, OS, Gateway  
 **Dependencies:** 6.1
 
 Repeated specialist need may create a recommendation, not a durable Bot. Explicit user agreement or an explicit direct permanent-Bot request is required before canonical Bot creation.
+
+### Anti-bloat decision
+
+No second Bot registry, approval store, recommendation database or Bot-creation service was added. Durable creation reuses the existing Multiple Bots registry. Gateway derives consent from the actual conversation, OS validates the trusted consent/runtime/scope boundary, and Multiple Bots remains the canonical durable identity owner.
+
+### Acceptance evidence
+
+- Multiple Bots PR #68 merged at `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
+- final Multiple Bots PR head: `c3f2f2bc86a6cb4d089a8e125360786ed29d74dc`
+- Multiple Bots CI `34871826025`: success
+- installed owner extension exposes the existing canonical durable Bot registry without weakening the low-level registry
+- exact same-manifest retry returns existing canonical state; changed payload under the same durable identity fails closed
+
+- OS PR #40 merged at `c13d3ca858f887b3ceac690544819ccc55e9d5b0`
+- final OS PR head: `074f5cb2723a5772837ba441d894e1b0ab98ac89`
+- Direction Ownership `34872286898`: success
+- Permanent Bot Consent `34872286971`: success against accepted Multiple Bots owner
+- Brain Permission Contract `34872286921`: success
+- Four Repo Acceptance `34872286988`: success
+- Repository QC `34872286869`: success
+- Write Command Boundary `34872286856`: success
+- Temporary Worker regression `34872286928`: success
+- Five-Component Public Beta `34872286901`: success
+- OS accepts only trusted explicit consent modes `direct_request` or `affirmative_to_recommendation`
+- consent evidence is preserved in canonical Bot lifecycle provenance
+- initial Bot authority is conservative: zero tools, zero Connections, zero peers, no Worker creation, no handoff, bound scope only
+- requested Skills must resolve through the canonical Skills owner before durable attachment
+
+- Gateway PR #10 merged at `2b6222763ac3f290463e118ea8430082b3a10934`
+- final Gateway PR head: `5ce9e60e348a0a794a2c208a85c714d76573f13c`
+- Gateway CI `34873514835`: success across Ubuntu/macOS/Windows on Node 20/22 after one unchanged Windows failed-job retry
+- Temporary Worker regression composition `34873514925`: success
+- Gateway -> OS -> Multiple Bots Permanent Bot Composition `34873514977`: success using accepted OS `c13d3ca858f887b3ceac690544819ccc55e9d5b0` and Multiple Bots `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
+- direct "create me a permanent bot" requests count as consent without redundant confirmation
+- short affirmative follow-up counts only when it immediately follows a clear assistant recommendation for a dedicated/permanent specialist
+- repeated need alone, advice questions, negation and temporary-only requests do not cross the durable boundary
+- model-supplied consent/runtime/permissions/scope/provenance are rejected
+- composed canonical state proves exactly one durable Bot after consent and zero durable creation before consent
 
 ---
 
@@ -460,11 +561,15 @@ Repeated specialist need may create a recommendation, not a durable Bot. Explici
 
 ## Slice 7.1 - Repeated responsibility recommendation
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Brain/Gateway + AI-Verse-Automations  
 **Dependencies:** existing Automations scheduler
 
 Observed recurring time/event pattern may generate a natural-language recommendation only. No canonical schedule/job exists before consent.
+
+### Anti-bloat decision
+
+Reuse the existing Automations Store, trigger parser, scheduler Engine, OS permission recheck and owner wake adapters. Do not create another scheduler, recommendation store, cron service or recurring-responsibility registry.
 
 ## Slice 7.2 - Consent/direct request -> canonical Automation
 
@@ -628,12 +733,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 9
+- COMPLETE: 13
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 12
+- NOT STARTED: 8
 
-**Current slice:** 5.1 - Data safe additive structure creation/evolution  
-**Exact NEXT after current slice:** 5.2 - Runtime structured-truth classification and owner routing  
-**Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
-**Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
+**Current slice:** 7.1 - Repeated responsibility recommendation  
+**Exact NEXT after current slice:** 7.2 - Consent/direct request -> canonical Automation  
+**Expected first repos touched:** Gateway and AI-Verse-Automations only where owner exposure is required  
+**Later repos:** Brain, AI-Verse-System, ai-verse-distribution  
