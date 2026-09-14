@@ -233,11 +233,11 @@ Exactly one implementation slice may be IN PROGRESS.
 
 Total implementation slices: 25
 Complete: 4
-In progress: 0
+In progress: 1
 Blocked: 0
-Remaining: 21
-Current: none
-Next: B1
+Remaining after current: 20
+Current: B1
+Next after current: B2
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -381,8 +381,8 @@ Next: B1
 
 #### B1. Rebuildable Memory map/catalog projection
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory
 - Dependencies: A2
 - Goal: deterministic tiny per-scope orientation map from existing atomic Memory, indexed current sources, and session digests.
@@ -399,7 +399,7 @@ Next: B1
 #### B2. Catalog budget, freshness, and diagnostics
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory
 - Dependencies: B1
 - Goal: fingerprint, cap, inspect, and safely rebuild the orientation map.
@@ -806,16 +806,16 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-No implementation slice is currently in progress.
+Current implementation slice: **B1. Rebuildable Memory map/catalog projection**
 
-Next implementation slice: **B1. Rebuildable Memory map/catalog projection**
-
-Before starting B1:
-- refresh current Memory main/open PRs/workflows;
-- re-read the A2 digest projection and current atomic/current-source indexing surfaces;
-- keep the map derived, per-scope, rebuildable, and disposable;
-- prove it is materially smaller than underlying Memory fixtures;
-- mark B1 IN PROGRESS in this plan before implementation.
+Do not start B2 until:
+- the orientation map is derived only from current authorized Memory/indexed-source/session-digest evidence;
+- map deletion/rebuild is lossless;
+- source removal/update removes stale map topics/counts;
+- canonical Memory/source files are never modified by map generation;
+- representative fixtures prove the map is materially smaller than underlying source content;
+- full Memory CI is green;
+- B1 exact commit/PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -897,3 +897,16 @@ Verified on 2026-09-14:
 - OS is the trusted routing boundary for scope/provenance/effect identity and invokes Memory's existing digest owner API.
 - Concurrent Invisible Intelligence Skill-learning changes were preserved across live-state refreshes.
 - B1 is the next slice.
+
+
+### Slice start checkpoint: B1
+
+Verified before B1 implementation on 2026-09-14:
+
+- AI-Verse-Memory main: `d6fe8b7b9cf89f291970a5d54f67079d0d4e4b73`.
+- Memory open PRs: none.
+- Memory active workflow runs: none.
+- Latest Memory main Test run `34854174657`: success, 12/12 jobs.
+- A1-A4 are accepted and merged; B1 touches Memory only.
+- AI-Verse-System main advanced to `fd7dac7bf210c3deeb2598471ed9cdd988c3f8e4`; its only change since the previous plan refresh is the separate Invisible Intelligence/Grandma UX plan file, so this context-ladder plan can refresh without collision.
+- System Contract Validation remains failing on main itself and is a pre-existing System-plan issue, not a B1 Memory gate.
