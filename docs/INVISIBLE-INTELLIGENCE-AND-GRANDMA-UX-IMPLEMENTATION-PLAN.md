@@ -418,7 +418,7 @@ Prove restart persistence, active immutable generation, actual subsequent select
 
 ## Slice 5.1 - Data safe additive structure creation/evolution
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Data  
 **Dependencies:** current Data catalog/schema migration engine
 
@@ -426,13 +426,66 @@ Use existing Data Space, catalog, additive schema, idempotency, transaction, pro
 
 Safe automatic operations are limited to additive/reversible owner-supported changes. Destructive/ambiguous migration remains approval-required.
 
+### Acceptance evidence
+
+- Data PR #15 merged at `579dae596a1c929bbc0e900541d29742c18b875e`
+- accepted PR head: `64ce5611a0f34f904742af96f39bdaa69824108b`
+- Data CI `34859531419`: success across Node 22/24 on Ubuntu, macOS and Windows
+- Data Release Smoke `34859532062`: success
+- Data Five-Component Release Acceptance `34859532054`: success across all three install orders
+- owner path can create a missing Data Space/schema, return existing state idempotently, or apply only safe additive fields
+- exact idempotency replay is durable across restart and semantic drift under the same key fails closed
+- existing field-definition changes, `allowUnknownFields` changes and required-field additions without defaults route to migration-required rather than silent mutation
+- provenance/receipt attribution is preserved and workspace scope remains isolated
+- trusted host-bound automatic requests preserve the real Bot/Worker/system actor instead of falsely attributing automatic writes to the local human operator
+
+A packaging mismatch found by composed OS acceptance was corrected without changing Data semantics:
+
+- Data PR #16 merged at `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+- accepted PR head: `f304be47dfd31387cf3f1d769e5b00510a2dd837`
+- Data CI `34861500075`: success across Node 22/24 on Ubuntu, macOS and Windows
+- Data Release Smoke `34861500051`: success
+- Data Five-Component Release Acceptance `34861500107`: success across all three install orders
+- materialized/installed Data engine now truthfully advertises the already-accepted trusted host-bound actor contract
+
 ## Slice 5.2 - Runtime structured-truth classification and owner routing
 
-**Status:** NOT STARTED  
-**Repos:** Brain + Gateway + Data  
+**Status:** COMPLETE  
+**Repos:** Brain + Gateway + OS + Data  
 **Dependencies:** 5.1
 
 Meaningful repeated structured information should be routed into an existing or safely created Data structure without asking the user to choose Data/schema.
+
+### Acceptance evidence
+
+- Brain PR #22 merged at `16c0b7ea32fcb4759cfb8368876b6985016eab68`
+- Brain PR head `de2023920c6c01034f4844326deb34d21f4dbd82`
+- Brain CI `34859912066`, Direction Ownership `34859912053`, Skills Receipt Contract `34859911976`: all success
+- Brain deterministically admits only substantial, workspace-bound, repeated, high-confidence structured current truth
+- secret-bearing, privacy-ambiguous, permission-expanding, destructive, weak-evidence and low-confidence candidates do not auto-route
+- runtime cannot smuggle trusted scope, provenance, approval or authority fields through the Brain gate
+
+- Gateway PR #8 merged at `587a7c53aa2afda68027b1158f52e1e17d1b5dbb`
+- Gateway PR head `1f4594bb13a38f0f56bd5d71d9d63b288c07aed4`
+- Gateway CI `34861198912`: success
+- Gateway injects trusted run/scope/evidence/timestamp fields and suppresses trivial/non-workspace/secret-bearing automatic organization before owner mutation
+- a substantial run can organize structured current truth, Gateway can restart, and a later short normal request reads the exact canonical Data record
+- forged runtime provenance is rejected before action execution
+
+- OS PR #38 merged at `92bb939885d2f2bf84c1bbb48a2c92c523d5a4bd`
+- final OS PR head `8a65658a5cd09bea57142e40a098a478e4269279`
+- OS Direction Ownership `34864858935`: success
+- OS Write Command Boundary `34864859015`: success
+- Data Host Boundary `34864858878`: success
+- OS Brain Permission Contract `34864858860`: success
+- Repository QC `34864858968`: success
+- Four Repo Acceptance `34864858864`: success
+- Five-Component Public Beta `34864859011`: success across all three install orders
+- OS composes Brain admission with Data-owned structure/query/create/update operations; it does not become a Data store
+- natural-key duplicate checking reuses or updates one canonical record instead of creating duplicates
+- multiple matches, migration-required changes, owner refusal and concurrency conflicts fail closed without silently widening authority
+- later context receives only a bounded Data orientation; records are queried from Data when needed rather than dumped into every prompt
+- no optimizer service, second canonical store, review daemon or new scheduler was introduced
 
 ---
 
@@ -440,7 +493,7 @@ Meaningful repeated structured information should be routed into an existing or 
 
 ## Slice 6.1 - Automatic temporary Workers
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-Multiple-Bots, Gateway  
 **Dependencies:** existing Worker/lease/budget lifecycle
 
@@ -628,12 +681,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 9
+- COMPLETE: 11
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 12
+- NOT STARTED: 10
 
-**Current slice:** 5.1 - Data safe additive structure creation/evolution  
-**Exact NEXT after current slice:** 5.2 - Runtime structured-truth classification and owner routing  
-**Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
-**Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
+**Current slice:** 6.1 - Automatic temporary Workers  
+**Exact NEXT after current slice:** 6.2 - Permanent Bot recommendation and consent  
+**Expected first repos touched:** AI-Verse-Multiple-Bots, Gateway  
+**Later repos:** Brain, Automations, AI-Verse-System, ai-verse-distribution  
