@@ -951,7 +951,7 @@ Every removed/replaced existing design Skill needs coverage proving its supporte
 
 ## Slice 9.5 - Security and trust regression
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Imported design Skills must not bypass:
 
@@ -964,11 +964,26 @@ Imported design Skills must not bypass:
 
 ---
 
+### Phase 9.5 and Phase 9 acceptance evidence
+
+- security boundary manifest: `skills/imported/ai-verse/interface-designer/references/security-boundaries.json`
+- final Phase 9 accepted ref: `df6f6613b8620ac570281a03b935d81a6d9f1703`
+- expert packages cannot introduce authorization/admission/integrity/license/workspace bypass fields
+- existing Skills admission remains authoritative: integrity != admission != trust != readiness != authorization
+- Skills admission never grants execution authorization
+- external design sources retain auto-mutation=false
+- cross-member private fingerprint/design-history comparison remains forbidden
+- Validate: PASS, run `34884753600`
+- Runtime Readiness: PASS, run `34884753536`
+- Full E2E: PASS, run `34884753569`
+
+---
+
 # Phase 10 - Documentation, examples, and member-facing UX
 
 ## Slice 10.1 - Member-facing capability documentation
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Present one coherent capability:
 
@@ -1143,8 +1158,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 9 / Slice 9.5 - Security and trust regression
-**Next:** Phase 9 / Slice 9.5 - Prove design experts stay inside existing admission/trust boundaries
+**In progress:** Phase 10 / Slice 10.1 - Member-facing capability documentation
+**Next:** Phase 10 / Slice 10.1 - Publish the member-facing Interface Designer guide
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
