@@ -309,13 +309,28 @@ A normal run may propose a bounded historical Memory candidate through the exist
 
 ## Slice 4.1 - Skills safe new-Skill auto-eligibility
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Skills  
 **Dependencies:** current self-learning contracts
 
 Extend existing proposal/evaluation/generation/promotion machinery so a genuinely new low-risk `agent_learned` or permitted `workspace_local` Skill may become active automatically only when every mandatory gate passes.
 
 No new Skill store or workshop subsystem.
+
+### Evidence
+
+- Skills PR #11
+- final PR head: `fef39614e5901ae23d77c84ec754932999f90cb9`
+- merged Skills SHA: `8b82e41bd8f0adecdfd93d64ae1fb30552802b99`
+- Validate AI-Verse Skills run `34851686901`: success
+- Runtime Readiness run `34851687162`: success on Ubuntu, macOS and Windows, Python 3.9 and 3.12
+- Full E2E Install run `34851687125`: success through pinned external install, setup/integrity, immutable update, rollback, uninstall and recovery
+- existing governed Workshop was extended rather than replaced
+- new `agent_learned` create may auto-promote only in opt-in `auto` mode after low-risk, confidence >= 0.90, security/admission, dedup, provenance, scope, permission/dependency, Connection/credential and exact-generation gates pass
+- `workspace_local` auto-create remains separately disabled unless owner configuration explicitly enables it
+- protected/user/upstream/external ownership never auto-promotes
+- auto promotion creates a new verified immutable generation and preserves the previous generation as rollback target
+- tests cover risk, confidence, capability/dependency expansion, Connection/credential requirement, protected ownership, secret quarantine, workspace-local opt-in, duplicate blocking, generation drift and rollback
 
 ### Required negative gates
 
@@ -332,7 +347,7 @@ No auto-promotion if candidate:
 
 ## Slice 4.2 - Brain/Gateway substantial-task learning trigger
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Brain, Gateway, Memory, Skills  
 **Dependencies:** 4.1
 
@@ -562,12 +577,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 # Overall progress
 
 - Total implementation slices: 24 including planning/final gates
-- COMPLETE: 6
+- COMPLETE: 7
 - IN PROGRESS: 1
 - BLOCKED: 2
-- NOT STARTED: 15
+- NOT STARTED: 14
 
-**Current slice:** 4.1 - Skills safe new-Skill auto-eligibility  
-**Exact NEXT after current slice:** 4.2 - Brain/Gateway substantial-task learning trigger  
+**Current slice:** 4.2 - Brain/Gateway substantial-task learning trigger  
+**Exact NEXT after current slice:** 4.3 - Later task actually uses learned Skill  
 **Expected first repos touched:** AI-Verse-System, AI-Verse-OS  
 **Later repos:** Brain, Memory, Skills, Data, Gateway, Multiple Bots, Automations, ai-verse-distribution  
