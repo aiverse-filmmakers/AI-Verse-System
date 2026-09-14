@@ -312,6 +312,8 @@ The final native Dashboard can replace the borrowed UI without replacing the und
 
 ## 5. Progressive onboarding: the "grandma test"
 
+The detailed owner-product direction for invisible complexity, automatic internal optimization and ask-vs-auto boundaries is canonical in `docs/OWNER-PRODUCT-INTENT.md`. This section must stay aligned with it.
+
 ### Product requirement
 
 A new user should not need to understand:
@@ -347,32 +349,34 @@ The existing deeper onboarding questions remain useful, but they should not all 
 
 ### Progressive learning contract
 
-While working, AI-Verse may gather evidence and propose structure.
+While working, AI-Verse should gather evidence and improve its internal organization without burdening the user with subsystem decisions.
 
-Examples:
+Target behavior:
 
 ```text
-Repeated client work detected
--> propose a Client workspace
+Repeated client/project scope detected
+-> automatically create/evolve the appropriate workspace when boundaries are clear
 
-Stable preference detected
--> propose Memory/profile update
+Stable useful fact/preference/lesson detected
+-> automatically route it to the correct Memory/profile owner when safe
 
-Repeated workflow detected
--> propose a Skill
+Repeated reusable workflow detected
+-> automatically create/evaluate/use a safe internal Skill when no permission/connection expansion is required
 
-Repeated structured records detected
--> propose a Data Space/schema
+Repeated structured operational records detected
+-> automatically create/evolve the appropriate Data structure when the change is additive/safe
 
-Recurring responsibility detected
--> propose an Automation
+Recurring future responsibility detected
+-> ask before creating/enabling an Automation
 
 Durable specialist role detected
--> propose a Bot
+-> ask before creating a permanent Bot
 
 Complex one-off task detected
--> use temporary Worker(s) rather than create permanent Bots
+-> use temporary Worker(s) automatically within existing authority
 ```
+
+These are target product behaviors, not blanket permission grants. Existing public-beta implementations that still require proposal/approval for some safe internal changes remain implementation gaps until their owner-specific safety gates and acceptance tests are updated.
 
 ### Invisible complexity
 
@@ -388,15 +392,11 @@ Advanced users may inspect the architecture, provenance and decisions.
 
 ### Progressive autonomy
 
-Start conservative.
+The product should not default to asking about harmless internal organization. Safe, reversible backend optimization inside existing authority should happen automatically.
 
-The system learns both the user and the user's desired autonomy level over time.
+Consent remains required at meaningful commitment boundaries such as new recurring Automations, durable Bots, external authority/credentials, destructive operations, strategic handover or other consequential actions.
 
-Suggested modes:
-
-- Guided: ask before meaningful changes/actions.
-- Balanced: auto-handle low-risk reversible operations, ask for consequential changes.
-- Trusted: broader bounded autonomy within explicit scopes.
+Optional user-facing autonomy modes may still exist for broader behavior, but they must not turn technical subsystem choices into routine questions.
 
 The underlying permission system remains authoritative. A UI mode is not itself a permission grant.
 
