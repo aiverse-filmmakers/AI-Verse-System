@@ -762,7 +762,7 @@ Normal surfaces describe user outcomes, while technical receipts retain componen
 
 ## Slice 10.1 - Distribution product-level bootstrap
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** ai-verse-distribution + existing owner lifecycle consumers  
 **Dependencies:** Distribution PR #2 merged/resolved; consume Safe Update / release-train machinery where available
 
@@ -770,10 +770,30 @@ Normal surfaces describe user outcomes, while technical receipts retain componen
 
 The original blocker is resolved: Distribution PR #2 merged as `19150267b28fc41ee012495cabf7b5148e7a81f4` and the frozen `agent-public-beta-2026-09-14` release remains immutable.
 
-The separate Safe Update / Release Train project is not complete, so this slice must not claim a new cross-version transition, automatic migration, recovery journal, candidate-promotion train, or release-set update safety that has not been accepted there. Product bootstrap may proceed because it composes already-released exact Agent installation, current owner-controlled setup, current doctor/readiness, and progressive conversational handoff without changing the released set.
+The separate Safe Update / Release Train project is not complete, so this slice does not claim a new cross-version transition, automatic migration, recovery journal, candidate-promotion train, or release-set update safety that has not been accepted there.
 
-Implementation branch: `ai-verse-distribution/invisible-intelligence/grandma-product-bootstrap`  
-Implementation PR: Distribution #3
+### Accepted implementation
+
+- Distribution PR #3 merged at `68d08a432739deeaff3fe3f7915b7fe9abf7e686`
+- final PR head: `1dcd2b2b482f539cff43feb691d2429ca821c368`
+- `aiverse start` is the ordinary one-action first-use path
+- a fresh start resolves the exact already-released Agent version set, then uses existing owner-controlled install/setup/doctor primitives
+- successful first run returns: `AI-Verse is ready. What would you like help with?`
+- deep onboarding remains progressive rather than a mandatory first-run questionnaire
+- existing `install/setup/onboard/status/doctor/component/update/rollback` commands remain intact for CI, support and advanced use
+- existing locked Agent installations are not silently reprofiled, moved to another root or switched to another release set
+- disabled, unhealthy, migration-required and ambiguous states fail closed instead of triggering repair/migration/authority changes
+- no background service manager or second runtime owner was added
+- no permission grant, Brain strategy transfer, arbitrary workspace initialization or remote Gateway exposure was added
+- frozen `agent-public-beta-2026-09-14` release manifest was not modified
+
+### Acceptance evidence
+
+- Distribution CI `34887681970`: 6/6 successful across Ubuntu/macOS/Windows and Python 3.9/3.12
+- Clean Machine Core `34887681954`: Ubuntu, macOS and Windows all successful
+- Clean Machine Agent `34887681908`: Ubuntu, macOS and Windows all successful
+- the Agent gate begins from `aiverse start`, verifies the exact immutable Agent refs, progressive first-run handoff, no leaked one-time Gateway token, no manual setup/doctor instruction in the normal success surface, persisted first-run evidence and idempotent subsequent `aiverse start`
+- after first-run proof, the gate continues the existing Goal, Memory, Skills, Data, Bots, Automations, Token, restart/recovery, lifecycle and state-preservation acceptance without weakening prior release guarantees
 
 Fresh non-technical user path:
 
@@ -793,7 +813,7 @@ Do not mutate the first frozen Agent release. Create a later exact candidate aft
 
 ## Slice 10.2 - Safe deterministic self-heal
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** Distribution/OS and owner components only where current deterministic reconcile exists  
 **Dependencies:** 10.1
 
@@ -875,13 +895,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Formal tracked completion: **18 / 24 = 75.0%**
-- Current active slice: **10.1 - Distribution product-level bootstrap**
-- Completed through: **9.1 - User-facing outcome language**
+- Formal tracked completion: **19 / 24 = 79.2%**
+- Current active slice: **10.2 - Safe deterministic self-heal**
+- Completed through: **10.1 - Distribution product-level bootstrap**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** finish Distribution PR #3 acceptance for the one-action first-run path. Do not mutate the frozen Agent release or claim incomplete Safe Update / release-train behavior.  
-**Current implementation:** `aiverse start` wraps the existing exact Agent install -> owner setup -> doctor -> conversational handoff path and fails closed on unhealthy/disabled/migration/ambiguous states.  
-**After 10.1:** implement only the bounded deterministic self-heal allowed by Slice 10.2.  
+**Exact NEXT:** finish 10.2 using only deterministic reversible owner-controlled reconcile behavior already present in the exact released Agent owners. The frozen Agent OS already exposes a reconcile plan/apply path whose automatic mutation is limited to Brain owner attach/init; registry locks, migrations and other owner actions remain non-automatic.  
+**Expected first repo:** ai-verse-distribution, consuming the existing frozen OS reconcile contract rather than inventing a generic repair engine.  
