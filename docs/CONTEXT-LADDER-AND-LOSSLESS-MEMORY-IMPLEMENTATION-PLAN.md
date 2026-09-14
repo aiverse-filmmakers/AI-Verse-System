@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 2
-In progress: 1
+Complete: 3
+In progress: 0
 Blocked: 0
-Remaining after current: 22
-Current: A3
-Next after current: A4
+Remaining: 22
+Current: none
+Next: A4
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -312,7 +312,7 @@ Next after current: A4
 
 #### A3. Selective promotion contract
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory, AI-Verse-Brain only if classification intent is needed
 - Dependencies: A1-A2
@@ -325,7 +325,19 @@ Next after current: A4
   - explicit corrections outrank stale facts.
 - Tests: promotion/noop/transient/correction/idempotency/scope tests.
 - Risks: memory spam; model classification becoming authority.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-Memory`.
+  - Branch: `context-ladder/a3-selective-promotion`.
+  - PR: #14, merged 2026-09-14.
+  - Final PR head: `2d005f6d6ce1867024770ace838429fcb4810a43`.
+  - Merge/main SHA: `d6fe8b7b9cf89f291970a5d54f67079d0d4e4b73`.
+  - Final PR Test run: `34853951190`, success, 12/12 jobs green.
+  - Post-merge Memory main Test run: `34854174657`, success, 12/12 jobs green.
+  - Initial PR run `34853830786` failed only because the public promotion-bound constant was not re-exported after extension load; commit `2d005f6d6ce1867024770ace838429fcb4810a43` fixed that visibility issue and the complete matrix passed.
+  - Reused merged Invisible Intelligence `capture_candidate`; no Brain change and no second promotion authority/store.
+  - Added bounded `promote_session_digest`, exact digest-scope binding, digest-covered evidence enforcement, deterministic retry identities, and no-partial-write structural validation.
+  - Explicit corrections now require a `supersedes` target and use retry-safe serialized two-file supersession with evidence refs and effect receipt; cross-scope supersession is rejected.
+  - Normal recall excludes superseded stale history while `include_history=True` preserves it.
 
 #### A4. Gateway completed-session digest handoff
 
@@ -773,14 +785,15 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **A3. Selective promotion contract**
+No implementation slice is currently in progress.
 
-Do not start A4 until:
-- A3 reuses the merged Invisible Intelligence safe-capture authority rather than duplicating it;
-- Memory owner CI/acceptance is green;
-- A3 exact commit/PR/merge/run evidence is written here;
-- A3 is marked COMPLETE;
-- A4 is the only next slice.
+Next implementation slice: **A4. Gateway completed-session digest handoff**
+
+Before starting A4:
+- refresh current Gateway, OS, and Memory heads;
+- inspect current Gateway/OS Invisible Intelligence integrations rather than using old assumptions;
+- preserve Gateway raw-history ownership and Memory digest ownership;
+- mark A4 IN PROGRESS in this plan before implementation.
 
 
 ### Slice start checkpoint: A2
@@ -822,3 +835,17 @@ Verified before A3 implementation on 2026-09-14:
 - Invisible Intelligence safe historical capture is already merged into Memory; A3 must adapt to that implementation rather than create another durable promotion authority.
 - AI-Verse-System main: `7c59359a98f44a223fcf0e09c9126cc4a84075fa`.
 - System Contract Validation is failing on main itself and remains a pre-existing plan-repo issue, not an A3 Memory gate.
+
+
+### Slice completion checkpoint: A3
+
+Verified on 2026-09-14:
+
+- AI-Verse-Memory PR #14 merged.
+- PR head: `2d005f6d6ce1867024770ace838429fcb4810a43`.
+- Memory main after merge: `d6fe8b7b9cf89f291970a5d54f67079d0d4e4b73`.
+- Final PR Test run `34853951190`: success, 12/12 jobs.
+- Post-merge main Test run `34854174657`: success, 12/12 jobs.
+- A3 proved durable-vs-transient admission, bounded promotions, evidence coverage, replay idempotency, no-partial-write structural validation, correction supersession, history preservation, and workspace isolation.
+- Brain was intentionally unchanged because the already-merged Memory admission gate was sufficient.
+- A4 is the next slice.
