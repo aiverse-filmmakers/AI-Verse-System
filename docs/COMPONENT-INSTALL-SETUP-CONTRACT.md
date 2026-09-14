@@ -150,6 +150,8 @@ Every public-beta component must expose an orchestration-friendly machine-readab
 
 Every lifecycle command should support structured output, preferably `--json`, and stable exit codes.
 
+Release-candidate metadata is standardized separately by `docs/COMPONENT-RELEASE-DESCRIPTOR-CONTRACT.md` and `contracts/component-release-descriptor.schema.json`. That descriptor is release metadata only and must not replace the component's live `status` or `doctor` truth.
+
 ## 5. First-use rule
 
 Every repository README must contain the same top-level structure:
