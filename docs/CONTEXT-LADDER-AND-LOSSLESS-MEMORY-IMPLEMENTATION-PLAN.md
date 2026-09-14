@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 3
-In progress: 1
+Complete: 4
+In progress: 0
 Blocked: 0
-Remaining after current: 21
-Current: A4
-Next after current: B1
+Remaining: 21
+Current: none
+Next: B1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -341,7 +341,7 @@ Next after current: B1
 
 #### A4. Gateway completed-session digest handoff
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway, AI-Verse-OS, AI-Verse-Memory
 - Dependencies: A1-A3; active Invisible Intelligence OS/Gateway work must be merged/re-read first
@@ -354,7 +354,28 @@ Next after current: B1
   - scope binding is revalidated at the owner boundary.
 - Tests: completed run handoff, restart replay, duplicate completion, scope mismatch, Memory unavailable.
 - Risks: coupling run completion to optional Memory; duplicate transcript storage.
-- Evidence: pending.
+- Evidence:
+  - Gateway repository: `aiverse-filmmakers/AI-Verse-Gateway`.
+  - Gateway branch: `context-ladder/a4-session-digest-handoff`.
+  - Gateway PR: #6, merged 2026-09-14.
+  - Gateway final PR head: `d48f776bbeadea933fdd69d644bffda71437502b`.
+  - Gateway merge/main SHA: `b1d8ea061b2ad430283ee3e03552a9f25d3ab1e5`.
+  - Gateway PR CI run `34855532254`: success.
+  - Gateway post-merge main CI run `34856496720`: success.
+  - OS repository: `aiverse-filmmakers/AI-Verse-OS`.
+  - OS branch: `context-ladder/a4-session-digest-owner-route`.
+  - OS PR: #36, merged 2026-09-14.
+  - OS final PR head after live-state refreshes: `5e3ed1f1fd9520fa4edf335d0e2c82ea6980b3bf`.
+  - OS merge/main SHA: `7b9c378ee8edbe05c2c31dc7e071e4c12156de47`.
+  - Final OS PR acceptance: Direction Ownership `34856261206`, OS Write Command Boundary `34856261197`, OS Brain Permission Contract `34856261061`, Repository QC `34856261067`, Five-Component Public Beta `34856261099`, Four Repo Acceptance `34856261274`; all success.
+  - Post-merge OS main acceptance: Direction Ownership `34856489856`, OS Write Command Boundary `34856489953`, OS Brain Permission Contract `34856489883`, Repository QC `34856491504`, Five-Component Public Beta `34856489865`, Four Repo Acceptance `34856489828`; all success.
+  - Four Repo Acceptance initially exposed a stale Memory pin at `1c6acf036d42937e57d94dfe48ac501727861653`, which predates A1 session digests. A4 corrected the audited Memory composition pin to accepted Memory main `d6fe8b7b9cf89f291970a5d54f67079d0d4e4b73`.
+  - Gateway persists canonical run completion before optional digest handoff. Handoff failure is retryable and never reopens/fails the completed run.
+  - Pending/retryable handoffs survive restart with stable owner idempotency identity.
+  - Gateway sends only compact digest content/coverage, never transcript bodies or trusted owner fields.
+  - Secret-like completed sessions are deterministically skipped.
+  - OS revalidates scope, validates run-bound coverage/fingerprint, derives source refs/provenance/source version/effect identity, and routes to Memory's existing `write_session_digest`.
+  - A4 was refreshed twice against concurrent Invisible Intelligence merges, preserving substantial Skill-learning routing and later learned-Skill acceptance instead of overwriting them.
 
 ### Phase B: Tiny Memory orientation map
 
@@ -785,15 +806,16 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **A4. Gateway completed-session digest handoff**
+No implementation slice is currently in progress.
 
-Do not start B1 until:
-- completed-session handoff is owner-routed and idempotent;
-- Gateway raw transcript/history remains canonical in Gateway;
-- digest failure cannot corrupt or block canonical run completion;
-- scope is revalidated at the Memory owner boundary;
-- relevant Gateway/OS/Memory CI is green;
-- A4 exact commit/PR/merge/run evidence is written here.
+Next implementation slice: **B1. Rebuildable Memory map/catalog projection**
+
+Before starting B1:
+- refresh current Memory main/open PRs/workflows;
+- re-read the A2 digest projection and current atomic/current-source indexing surfaces;
+- keep the map derived, per-scope, rebuildable, and disposable;
+- prove it is materially smaller than underlying Memory fixtures;
+- mark B1 IN PROGRESS in this plan before implementation.
 
 
 ### Slice start checkpoint: A2
@@ -860,3 +882,18 @@ Verified before A4 implementation on 2026-09-14:
 - AI-Verse-Memory main: `d6fe8b7b9cf89f291970a5d54f67079d0d4e4b73`; no open PRs or active workflows; post-A3 main Test run `34854174657` succeeded.
 - Gateway Invisible Intelligence memory-routing work is already merged into current main and must be consumed, not recreated.
 - A4 begins only after re-reading current Gateway completion/session persistence and current OS/Memory owner-routing seams.
+
+
+### Slice completion checkpoint: A4
+
+Verified on 2026-09-14:
+
+- AI-Verse-Gateway PR #6 merged at `b1d8ea061b2ad430283ee3e03552a9f25d3ab1e5`; post-merge CI `34856496720` succeeded.
+- AI-Verse-OS PR #36 merged at `7b9c378ee8edbe05c2c31dc7e071e4c12156de47`.
+- All six OS post-merge owner/composition gates succeeded: `34856489856`, `34856489953`, `34856489883`, `34856491504`, `34856489865`, and `34856489828`.
+- Canonical Gateway run completion precedes optional digest handoff; failed Memory handoff is retryable and does not corrupt completion.
+- Restart recovery retries only completed runs with pending/retryable digest state and preserves idempotency.
+- Raw session transcript remains Gateway-owned. Memory receives compact digest evidence only.
+- OS is the trusted routing boundary for scope/provenance/effect identity and invokes Memory's existing digest owner API.
+- Concurrent Invisible Intelligence Skill-learning changes were preserved across live-state refreshes.
+- B1 is the next slice.
