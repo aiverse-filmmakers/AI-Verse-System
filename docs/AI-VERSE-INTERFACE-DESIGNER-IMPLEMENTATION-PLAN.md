@@ -429,7 +429,7 @@ No useful existing AI-Verse behavior disappears silently.
 
 ## Slice 4.1 - Scope classifier
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 3.1
 
 Classify work into at least:
@@ -446,6 +446,21 @@ Classify work into at least:
 - MOBILE/EXPO UI.
 
 Scope determines pipeline depth.
+
+### Current implementation evidence
+
+- AI-Verse-Skills branch: `feature/interface-designer-2026-09-14`
+- draft PR: #13
+- first-party package created at `skills/imported/ai-verse/interface-designer/`
+- package creation ref: `fb048e2c125b6f09f6ba4fd566a574f34c4a765a`
+- registry wiring ref before E2E fix: `ef67e8ce5dcb42bea51a0885f1080a808a5069da`
+- initial Validate workflow: PASS, run `34872390676`
+- initial full E2E correctly exposed one remaining hard-coded 100-capability assertion
+- E2E count fix ref: `f104822c25094d47115517bead64c99089c8ab77`
+- rerun Validate workflow: PASS, run `34872606928`
+- rerun Full E2E: pending at last plan update, run `34872606784`
+
+Do not mark COMPLETE until the rerun Full E2E passes.
 
 ### Implementation-target classification
 
@@ -966,8 +981,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** none  
-**Next:** Phase 4 / Slice 4.1 - Implement Interface Designer scope classifier and orchestrator package  
+**In progress:** Phase 4 / Slice 4.1 - Interface Designer scope classifier and native orchestrator  
+**Next:** Finish Phase 4 / Slice 4.1 acceptance after PR #13 Full E2E is green  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
