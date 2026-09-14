@@ -748,7 +748,8 @@ For long-history context specifically, the project expects a material token redu
   - Kylon "Fold, don't forget" architecture and benchmark article;
   - current `trailhq/Graft` README and implementation surfaces for fingerprints/cards/graph/ask;
   - current `Kilo-Org/kilocode/packages/kilo-memory` implementation including session digests, typed consolidation, budgeted recall index, topics, and session storage.
-- Plan branch/commit: to be filled immediately after first plan commit.
+- Plan branch: `context-ladder/implementation-plan`.
+- Initial plan commit: `6380b103f19d36758dfdf03e33b1e2cf69e4ef02`.
 
 ## 13. Immediate execution pointer
 
