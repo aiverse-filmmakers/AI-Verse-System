@@ -23,9 +23,31 @@ The user-facing capability should feel like one coherent **AI-Verse Interface De
 
 The project must not collapse strong expert Skills into one generic mega-prompt.
 
+## 0A. Stack-neutral design rule
+
+The Interface Designer is a **design capability first**, not a React/Vercel/Node product template.
+
+It must be able to design for the user's actual delivery target, including where relevant:
+
+- plain persistent HTML/CSS/JavaScript artifacts hosted directly from GitHub/GitHub Pages or opened locally;
+- framework-based web apps when the existing project already uses one;
+- PWAs;
+- desktop applications that use web UI wrappers such as Tauri/Electron;
+- native desktop applications when an approved platform specialist exists, such as Swift/SwiftUI for macOS;
+- interactive prototypes;
+- visual systems that later feed code-driven video/motion workflows.
+
+React, Vite, Tailwind, shadcn, Base UI, Vercel guidance, or any other framework/vendor may be selected **only when appropriate to the existing project or requested target**. Using a Vercel-authored engineering Skill does not imply Vercel hosting.
+
+The orchestrator must first answer: **what is being designed and what implementation target already exists or best fits the request?** Then it loads only the relevant implementation specialists.
+
+A plain GitHub artifact must not be rewritten into React merely to satisfy the Skill pack.
+
 ---
 
-## 0A. Non-negotiable expert-taste preservation rule
+---
+
+## 0B. Non-negotiable expert-taste preservation rule
 
 This project deliberately imports or adapts design knowledge whose value comes from opinionated human taste.
 
@@ -48,7 +70,7 @@ Therefore:
 
 ---
 
-## 0B. Anti-bloat rule
+## 0C. Anti-bloat rule
 
 The final system must not load every design Skill for every UI task.
 
@@ -66,7 +88,7 @@ A tiny UI edit must not run a full-product design pipeline.
 
 ---
 
-## 0C. Ownership boundaries
+## 0D. Ownership boundaries
 
 Preserve existing AI-Verse canonical ownership:
 
@@ -79,7 +101,20 @@ Preserve existing AI-Verse canonical ownership:
 
 ---
 
-## 0D. Status vocabulary
+## 0F. Relationship to AI-Verse Video Editor
+
+The Interface Designer and AI-Verse Video Editor are separate composite capabilities.
+
+- Interface Designer owns digital-interface/artifact/app visual design and implementation routing.
+- Video Editor owns editorial decisions, transcript-driven cutting, storytelling, video pacing, audio/video sync, motion-graphics assembly and final video delivery.
+- Video Editor may call selected Interface Designer capabilities for typography, composition, visual direction, reference recreation, design-system creation and motion taste.
+- Interface Designer must not override Video Editor editorial logic or HyperFrames render/runtime rules.
+
+See `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`.
+
+---
+
+## 0E. Status vocabulary
 
 - `NOT STARTED`
 - `IN PROGRESS`
@@ -303,8 +338,12 @@ Define semantic capabilities independent of upstream package names, including at
 - `design.signature_interaction`
 - `frontend.component_architecture`
 - `frontend.library_selection`
-- `frontend.react_quality`
+- `implementation.target_selection`
+- `frontend.plain_web`
+- `frontend.react_quality` when React is actually the target
 - `frontend.accessible_primitives`
+- `desktop.webview_ui` when a Tauri/Electron-style target is selected
+- `desktop.native_ui` only when an approved native-platform specialist exists
 - `motion.build`
 - `motion.review`
 - `motion.audit`
@@ -352,6 +391,22 @@ Classify work into at least:
 
 Scope determines pipeline depth.
 
+### Implementation-target classification
+
+Separately classify the delivery target before loading engineering specialists:
+
+- PLAIN HTML/CSS/JS ARTIFACT;
+- EXISTING WEB STACK;
+- REACT WEB APP;
+- PWA;
+- DESKTOP WEBVIEW APP;
+- NATIVE DESKTOP APP;
+- PROTOTYPE ONLY;
+- DESIGN-ONLY / HANDOFF;
+- CODE-DRIVEN VIDEO/MOTION HANDOFF.
+
+Do not migrate stacks unless the user explicitly asks or the existing project cannot satisfy the requirement.
+
 ## Slice 4.2 - Semantic trigger policy
 
 **Status:** NOT STARTED  
@@ -387,8 +442,8 @@ Canonical full-product path should support:
 8. UI library/primitives selection;
 9. interaction-physics specialist when relevant;
 10. motion construction when relevant;
-11. React/implementation quality;
-12. render/browser validation;
+11. target-specific implementation quality, with React guidance only for React targets;
+12. render/browser/native-preview validation appropriate to the target;
 13. visual QA;
 14. animation review when motion exists;
 15. web/accessibility review;
@@ -812,7 +867,7 @@ UI LIBRARY / PRIMITIVES
         +--> EXPO MOTION, when React Native/Expo
         |
         v
-IMPLEMENTATION + REACT QUALITY
+TARGET-SPECIFIC IMPLEMENTATION QUALITY
         |
         +--> ANIMATE, when motion is required
         |
@@ -858,3 +913,5 @@ Before doing any work on this project:
 **In progress:** none  
 **Next:** Phase 1 / Slice 1.1 - Fresh full audit of CURRENT AI-Verse-Skills repository  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
+
+**Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
