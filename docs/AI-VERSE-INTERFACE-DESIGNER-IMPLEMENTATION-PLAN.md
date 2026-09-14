@@ -653,12 +653,25 @@ For applications/dashboards, treat it as optional and functional, never decorati
 
 ## Slice 5.3 - Experience/feeling curve for major flows
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 5.1
 
 Use only for meaningful multi-stage experiences such as onboarding, major agent flows, launches, or narrative marketing pages.
 
 Do not add emotional-arc ceremony to ordinary CRUD screens.
+
+### Phase 5.3 evidence
+
+- guide: `skills/imported/ai-verse/interface-designer/references/experience-curve.md`
+- machine policy: `skills/imported/ai-verse/interface-designer/references/experience-curve-policy.json`
+- experience curve implementation ref: `b47786a36a72da359bb899bf5802e66d5d631ef2`
+- operational states such as clarity/control/confidence/readiness are preferred for software
+- ordinary CRUD/settings/tables/routine dashboard inspection/micro changes are explicit skip cases
+- intended-vs-rendered review cannot rewrite the intended curve merely to hide mismatch
+- loading/error/mobile/reduced-motion/accessibility paths remain part of the flow
+- Validate: PASS, run `34878613292`
+- Runtime Readiness: PASS, run `34878613310`
+- Full E2E: PASS, run `34878613290`
 
 ---
 
@@ -666,21 +679,21 @@ Do not add emotional-arc ceremony to ordinary CRUD screens.
 
 ## Slice 6.1 - Visual direction specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Integrate approved visual-direction/UI-UX experts with provenance intact.
 
 ## Slice 6.2 - Reference recreation specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Preserve screenshot/video/reference workflows as specialist capabilities.
 
 ## Slice 6.3 - Emil interaction and motion specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Preserve the distinctive methodologies of:
@@ -696,14 +709,14 @@ Do not merge these into a generic `motion.md`.
 
 ## Slice 6.4 - Frontend engineering specialists
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Integrate React/component/web-quality guidance without stealing visual-direction ownership.
 
 ## Slice 6.5 - Scroll Craft specialist
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.2, 3.1
 
 Keep Scroll Craft conditional to immersive/scroll-driven experiences.
@@ -712,11 +725,25 @@ Preserve its unique page-grammar/scrollytelling expertise where licensed and rel
 
 ---
 
+### Phase 6 integration evidence
+
+- all selected Interface Designer expert packages are present in the live PR registry
+- visual direction: `frontend-design`, `ui-ux-pro-max`
+- reference recreation: `design-first-ui-prompting`, `video-to-superprompt`, `stitched-full-page-capture`
+- Emil specialists preserved independently: `apple-design`, `animate`, `prototype`, `review-animations`, `pick-ui-library`, `improve-animations`, `find-animation-opportunities`, `animate-expo`
+- frontend engineering: `react-best-practices`, `composition-patterns`, `shadcn`, pinned `web-design-guidelines`
+- Scroll Craft remains a separate conditional capability
+- source identity/provenance remains separate rather than flattened into the AI-Verse orchestrator
+- clean-install/provider/readiness acceptance has repeatedly passed with the integrated expert set
+- current catalog remains 20 foundation + 99 employee = 119 until Video Editor adds capability 120
+
+---
+
 # Phase 7 - Existing AI-Verse design Skill migration and cleanup
 
 ## Slice 7.1 - Migrate unique useful behavior from superseded Skills
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** Phase 6 complete
 
 Before deleting any existing AI-Verse design Skill:
@@ -728,7 +755,7 @@ Before deleting any existing AI-Verse design Skill:
 
 ## Slice 7.2 - Remove confirmed duplicates
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 7.1
 
 Only remove confirmed redundant AI-Verse-native design/frontend Skills.
@@ -737,10 +764,24 @@ Imported expert specialists are not deleted merely because they partially overla
 
 ## Slice 7.3 - Compatibility/migration handling
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 7.2
 
 If old Skill IDs or package names are public/currently referenced, provide the smallest safe compatibility path rather than silently breaking callers.
+
+---
+
+### Phase 7 cleanup conclusion
+
+Fresh comparison against `docs/AI-VERSE-SKILLS-DESIGN-VIDEO-OVERLAP-MAP-2026-09-14.md` and the current PR registry confirms:
+
+- no existing design-facing capability is functionally superseded enough to delete;
+- `brand-guidelines`, `canvas-design`, `figma-use`, `figma-generate-design`, `canva`, `design-and-templates`, `theme-factory` and the other existing creator Skills remain distinct;
+- target-specific specialists remain conditionally routed instead of replaced;
+- no old public Skill ID is removed;
+- therefore no compatibility alias/migration shim is required.
+
+Phase 7 completes with **zero destructive removals**, which is the intended safe outcome.
 
 ---
 
@@ -1044,8 +1085,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 5 / Slice 5.3 - Experience curve for major flows  
-**Next:** Phase 5 / Slice 5.3 - Implement experience curve for major flows  
+**In progress:** Phase 8 / Slice 8.1 - State-based visual QA  
+**Next:** Phase 8 / Slice 8.1 - Implement state-based visual QA  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
