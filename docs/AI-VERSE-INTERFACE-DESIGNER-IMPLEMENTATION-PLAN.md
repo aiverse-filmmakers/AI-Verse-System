@@ -212,7 +212,7 @@ No deletions or imports yet.
 
 ## Slice 1.2 - Existing AI-Verse design Skill inventory
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-Skills  
 **Dependencies:** 1.1
 
@@ -249,6 +249,19 @@ Removal requires evidence that its useful behavior is fully covered by the new c
 ### Acceptance criteria
 
 A written dedupe/migration map exists before any existing AI-Verse Skill is removed.
+
+### Evidence
+
+- exact pinned upstream contents reviewed for all 8 current design-facing registry capabilities
+- overlap map: `docs/AI-VERSE-SKILLS-DESIGN-VIDEO-OVERLAP-MAP-2026-09-14.md`
+- overlap-map commit: `4e47d4b4e8fb253cb46f636108a08f9f9063f01d`
+- conclusion: current design-facing capabilities are complementary rather than direct duplicates
+- Figma packages remain target-specific specialists; static/social/artifact design packages remain separate
+- no existing design package was removed
+
+### NEXT
+
+**Slice 2.1 - Re-verify and pin the selected Interface Designer upstream expert sources.**
 
 ---
 
@@ -928,7 +941,7 @@ Before doing any work on this project:
 
 **Completed:** Phase 0 / Slice 0.1  
 **In progress:** none  
-**Next:** Phase 1 / Slice 1.2 - Existing AI-Verse design Skill inventory at exact pinned upstream refs  
+**Next:** Phase 2 / Slice 2.1 - Re-verify and pin selected Interface Designer upstream expert sources  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
