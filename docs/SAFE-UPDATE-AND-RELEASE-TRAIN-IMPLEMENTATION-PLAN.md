@@ -151,9 +151,9 @@ Canonical System contract explicitly defines:
 - AI-Verse-System had no `.github/workflows` directory at this slice, so no hosted workflow existed to run; acceptance was repository-content verification plus merge.
 - Blueprint, install/setup lifecycle contract, and System changelog were updated in the same accepted PR.
 
-## Slice 1.2 - Machine-readable Component Release Descriptor contract
+## Slice 1.2A - Machine-readable Component Release Descriptor implementation
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** 1.1
 
@@ -174,32 +174,56 @@ Descriptor contract/schema covers:
 - acceptance/CI evidence;
 - distinction from live health truth.
 
-Schema has positive and negative fixtures/tests.
+Schema has positive and negative fixtures/tests and a dedicated validation workflow definition.
 
-### Evidence required
-
-- schema path;
-- validator/test paths;
-- passing validation evidence;
-- commit/PR/workflow refs.
-
-### Evidence so far
+### Evidence
 
 - schema: `contracts/component-release-descriptor.schema.json`
 - semantics doc: `docs/COMPONENT-RELEASE-DESCRIPTOR-CONTRACT.md`
 - validator: `scripts/validate_component_release_descriptor.py`
 - tests: `tests/test_component_release_descriptor.py`
 - fixtures: `contracts/examples/component-release-descriptor.valid.json`, `contracts/examples/component-release-descriptor.invalid-floating-ref.json`
-- workflow: `.github/workflows/contract-validation.yml`
+- workflow definition: `.github/workflows/contract-validation.yml`
 - System PR: #8
-- current PR head before this plan sync: `7e2255ca4cd73e0c7149f611f2195df07965818e`
-- hosted workflow evidence: pending; slice remains IN PROGRESS until validation passes.
+- PR #8 final head: `fa5ac443764fdafcdb6fc811f52fe991aee3d114`
+- PR #8 merged SHA: `1ab90d73e97464db9eab98035d9601e9de3a4dc5`
+
+## Slice 1.2B - Hosted executable validation of Component Release Descriptor
+
+**Status:** BLOCKED  
+**Repos:** AI-Verse-System  
+**Dependencies:** 1.2A  
+**Blocks final project acceptance:** YES  
+**Does not block contract-dependent implementation slices:** YES
+
+### Acceptance criteria
+
+Run the canonical Contract Validation workflow with both Python 3.11 and 3.13 jobs executing their steps and passing.
+
+### Current blocker
+
+`AI-Verse-System` is currently private. Hosted Actions run `34824680741` failed twice before step 1 on both matrix jobs. Both attempts returned empty step lists and no downloadable job-log blob, which is runner/infrastructure failure rather than validator/test assertion evidence.
+
+Initial attempt job IDs:
+
+- Python 3.11: `103913955660`
+- Python 3.13: `103913955918`
+
+Retry job IDs:
+
+- Python 3.11: `103914066674`
+- Python 3.13: `103914066340`
+
+### Resolution rule
+
+Do not call this hosted-validation slice COMPLETE until an executable run actually reaches the validation steps and passes. This may be resolved by restoring hosted runner availability for the private repo or by another policy-approved executable validation route that runs the exact canonical contract tests.
 
 ## Slice 1.3 - Whole-release preservation result contract
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-System  
-**Dependencies:** 1.2
+**Dependencies:** 1.2A  
+**Final-gate dependency:** 1.2B must be COMPLETE before project completion.
 
 ### Acceptance criteria
 
@@ -794,12 +818,12 @@ A feature is deliberately post-beta when it is not required to preserve update s
 
 # 4. Overall progress
 
-- Total planned slices: 34
-- COMPLETE: 2
+- Total planned slices: 35
+- COMPLETE: 3
 - IN PROGRESS: 1
-- BLOCKED: 0
-- NOT STARTED: 31
-- Project completion: 6%
+- BLOCKED: 1
+- NOT STARTED: 30
+- Project completion: 9% implementation slices complete, with 1 acceptance blocker carried to the final gate
 
-**Current slice:** 1.2  
-**Exact NEXT after current slice:** 1.3 - Whole-release preservation result contract.
+**Current slice:** 1.3  
+**Exact NEXT after current slice:** 2.1 - Descriptor support for Core owners.
