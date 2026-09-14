@@ -849,7 +849,7 @@ Auto-repair only deterministic reversible owner-controlled setup defects. Never 
 
 ## Slice 11.1 - Scenario acceptance A-F
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Prove:
 
@@ -860,9 +860,30 @@ D. dangerous Skill blocked/quarantined/approval-required
 E. automatic safe Data  
 F. destructive Data change does not happen silently
 
+### Acceptance evidence
+
+- Distribution PR #5 merged at `7ff5e58fa03e80e541c87bd3f3f319149ccb3fe6`
+- final PR head: `fe4c239fb8029e598890f0c7d07487a2cda9f18f`
+- dedicated Invisible Intelligence A-F run `34890195270`: both jobs successful
+- Distribution CI `34890195249`: 6/6 successful
+- Clean Machine Core `34890195240`: Ubuntu, macOS and Windows successful
+- Clean Machine Agent `34890195254`: Ubuntu, macOS and Windows successful
+- scenario composition pinned and verified exact owner refs:
+  - Gateway `7627df658b2071ecb4ea242572343edfb7abf768`
+  - OS `156f15f162c6d63159b54d3ad87e0342ec7cf9aa`
+  - Skills `71264af6b2b9a575812fe18858d75a54ea2ff545`
+  - Data `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+- A used the real fresh Distribution Agent acceptance beginning from `aiverse start`
+- B composed Gateway automatic workspace routing with the real OS canonical workspace owner acceptance
+- C composed Skills immutable low-risk auto-promotion/later-use/rollback with Gateway restart and later normal use
+- D proved dangerous/secret Skill candidates are quarantined or rejected and runtime cannot forge trusted learning identity/provenance
+- E composed Gateway structured-truth routing/restart with Data trusted host automatic safe structure ensure
+- F proved Data migration-required/destructive boundaries remain explicit and runtime cannot forge trusted automatic Data authority
+- this slice added only a pinned acceptance workflow; it added no new runtime authority, owner, store, classifier or release manifest
+
 ## Slice 11.2 - Scenario acceptance G-M
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Prove:
 
@@ -919,12 +940,12 @@ Complete only when every required slice is COMPLETE, composed acceptance is gree
 
 # Overall progress
 
-- Formal tracked completion: **20 / 24 = 83.3%**
-- Current active slice: **11.1 - Scenario acceptance A-F**
-- Completed through: **10.2 - Safe deterministic self-heal**
+- Formal tracked completion: **21 / 24 = 87.5%**
+- Current active slice: **11.2 - Scenario acceptance G-M**
+- Completed through: **11.1 - Scenario acceptance A-F**
 - Distribution PR #2 is merged; the original frozen Agent release remains immutable.
 - Product bootstrap and the new immutable Invisible Intelligence Agent candidate remain gated by the separately owned Safe Update / release-train-compatible state and later project acceptance.
 - The document contains the separate planning slice `0.1`; the formal 24-slice denominator is preserved to match the established project progress convention.
 
-**Exact NEXT:** prove composed scenarios A-F against the accepted owner implementations: Grandma first run, automatic client workspace, safe Skill learning/use, dangerous Skill refusal/quarantine/approval boundary, automatic safe Data, and destructive Data refusal. Prefer one cross-repo acceptance harness with exact accepted refs over duplicating owner logic.  
-**Expected composition owner:** ai-verse-distribution or another existing release/composition surface; do not create a new runtime authority.  
+**Exact NEXT:** prove composed scenarios G-M against exact accepted Gateway, OS, Automations and Multiple Bots refs. Reuse existing owner/composition tests for Automation recommendation/direct consent, permanent Bot consent, temporary Workers, natural outcome language, restart/idempotency and final authority checks. This remains acceptance-only.  
+**Prepared composition branch:** `ai-verse-distribution/invisible-intelligence/scenarios-g-m`.  
