@@ -509,7 +509,7 @@ Examples:
 
 ## Slice 4.3 - Conditional pipeline graph
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 4.2
 
 ### Current implementation evidence
@@ -518,7 +518,9 @@ Examples:
 - conditional graph ref: `388df165169d1a0cae2373cddff590f7650d1911`
 - focused tests prove micro tasks skip prototype/art direction and target-specific experts remain gated
 - Validate workflow: PASS, run `34873435751`
-- Full E2E and Runtime Readiness are running for this slice
+- Validate: PASS, run `34873435751`
+- Runtime Readiness: PASS, run `34873435627`
+- Full E2E: PASS, run `34873435714`
 
 Canonical full-product path should support:
 
@@ -543,7 +545,7 @@ Micro changes skip irrelevant stages.
 
 ## Slice 4.4 - DESIGN.md persistence contract
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 4.3
 
 Use project-local `DESIGN.md` as the persistent visual grammar where appropriate.
@@ -1000,8 +1002,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 4 / Slice 4.3 - Conditional pipeline graph  
-**Next:** Phase 4 / Slice 4.3 - Implement conditional pipeline graph  
+**In progress:** Phase 4 / Slice 4.4 - DESIGN.md persistence contract  
+**Next:** Phase 4 / Slice 4.4 - Implement DESIGN.md persistence contract  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
