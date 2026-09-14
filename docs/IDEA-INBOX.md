@@ -1109,3 +1109,106 @@ Other future product gaps to revisit after the shell proves daily use:
 
 These are retained so they are not forgotten, but they must not distract from the current single-user interface milestone.
 
+
+
+---
+
+## 2026-09-14 - Invisible friction capture and privacy-safe member feedback loop
+
+**Status:** DEFERRED
+
+The owner wants AI-Verse to eventually notice moments where the user is clearly dissatisfied with system behavior and preserve enough structured evidence to improve the product without requiring the user to stop and write a bug report.
+
+Examples include:
+
+- the answer was wrong or ignored an instruction;
+- a Skill performed badly;
+- Memory was stale, overconfident, or used the wrong fact;
+- information was routed to the wrong canonical owner/workspace;
+- the agent made an unwanted assumption;
+- a Bot/Worker delegated or coordinated poorly;
+- an Automation behaved unexpectedly;
+- the user explicitly corrects the system or expresses frustration with the result.
+
+Desired future flow:
+
+```text
+normal work
+    -> bounded frustration/correction signal detected
+    -> capture a local structured friction record
+    -> include only the minimum technical evidence needed to explain what happened
+    -> redact secrets, personal data and unrelated conversation
+    -> classify likely owner/subsystem and failure type
+    -> optionally use the record locally for repair/learning
+    -> optionally submit a sanitized product-feedback report upstream with user consent
+```
+
+### Local-first requirement
+
+Every installation should be able to keep its own private friction log without sending anything externally.
+
+This local record may reference private trace/session/run IDs so the user's own AI-Verse installation can inspect exact evidence later.
+
+### Universal member feedback
+
+A future member-facing product may offer an **opt-in upstream feedback channel** so many installations can contribute product-quality evidence.
+
+Do **not** implement this as a world-writable shared file or repository path.
+
+A safer design is a controlled ingestion endpoint or repository issue bot that accepts a strict structured schema, rate-limits submissions, strips unsupported fields and never grants clients repository write credentials.
+
+The upstream report should contain only sanitized information such as:
+
+- failure category;
+- affected component/interface;
+- expected behavior;
+- observed behavior;
+- high-level preceding conditions;
+- software/release versions;
+- anonymous installation/build fingerprint if useful;
+- whether the signal was explicit user correction, explicit negative feedback, or model-inferred frustration;
+- optional reproducibility/debug references that are safe to share.
+
+Raw conversation text, credentials, private files, personal Memory, business Data and full prompts must **not** be uploaded by default.
+
+If richer context would materially help, ask the user before attaching it or provide a review screen.
+
+### Signal-quality requirement
+
+Frustration detection is an imperfect model inference and must not be treated as proof that the software is wrong.
+
+Distinguish at least:
+
+- explicit user correction / "this is wrong";
+- explicit negative feedback / complaint;
+- repeated repair attempts;
+- inferred frustration;
+- system-detected contradiction/failure.
+
+False-positive inferred frustration should not silently rewrite Skills, Memory, policy or product behavior.
+
+### Product-learning boundary
+
+This feedback system may generate evidence and repair candidates, but canonical owners remain responsible for actual changes.
+
+Examples:
+
+- Memory problem -> Memory evidence/repair path;
+- Skill problem -> Skills proposal/evaluation path;
+- routing problem -> relevant owner/runtime;
+- product-wide recurring bug -> maintainer/product feedback queue.
+
+No remote feedback collector gains authority over a member's installation.
+
+### Priority
+
+Useful future capability, but deliberately **not part of the current milestone**.
+
+Current priorities remain:
+
+1. finish active implementation tracks;
+2. dogfood the released Agent product;
+3. build the focused single-user shell;
+4. learn from real usage;
+5. only then productize automatic friction capture if the real dogfood evidence justifies it.
+
