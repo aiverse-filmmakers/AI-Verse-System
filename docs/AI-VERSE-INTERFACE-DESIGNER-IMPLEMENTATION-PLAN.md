@@ -118,6 +118,11 @@ Every slice must record:
 - future agents can resume from GitHub without the original conversation;
 - no implementation changes are made to AI-Verse-Skills before the owner gives the go-ahead.
 
+### Evidence
+
+- initial plan commit: `7b5792c2245bc0f85f803a78f0df52c860047b5f`
+- canonical path: `docs/AI-VERSE-INTERFACE-DESIGNER-IMPLEMENTATION-PLAN.md`
+
 ### NEXT
 
 **Slice 1.1 - Fresh full audit of CURRENT AI-Verse-Skills repository.**
