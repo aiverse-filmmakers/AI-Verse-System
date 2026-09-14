@@ -233,11 +233,11 @@ Exactly one implementation slice may be IN PROGRESS.
 
 Total implementation slices: 25
 Complete: 3
-In progress: 0
+In progress: 1
 Blocked: 0
-Remaining: 22
-Current: none
-Next: A4
+Remaining after current: 21
+Current: A4
+Next after current: B1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -341,8 +341,8 @@ Next: A4
 
 #### A4. Gateway completed-session digest handoff
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Gateway, AI-Verse-OS, AI-Verse-Memory
 - Dependencies: A1-A3; active Invisible Intelligence OS/Gateway work must be merged/re-read first
 - Goal: allow meaningful completed Gateway sessions to submit digest evidence through the supported owner path.
@@ -361,7 +361,7 @@ Next: A4
 #### B1. Rebuildable Memory map/catalog projection
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory
 - Dependencies: A2
 - Goal: deterministic tiny per-scope orientation map from existing atomic Memory, indexed current sources, and session digests.
@@ -785,15 +785,15 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-No implementation slice is currently in progress.
+Current implementation slice: **A4. Gateway completed-session digest handoff**
 
-Next implementation slice: **A4. Gateway completed-session digest handoff**
-
-Before starting A4:
-- refresh current Gateway, OS, and Memory heads;
-- inspect current Gateway/OS Invisible Intelligence integrations rather than using old assumptions;
-- preserve Gateway raw-history ownership and Memory digest ownership;
-- mark A4 IN PROGRESS in this plan before implementation.
+Do not start B1 until:
+- completed-session handoff is owner-routed and idempotent;
+- Gateway raw transcript/history remains canonical in Gateway;
+- digest failure cannot corrupt or block canonical run completion;
+- scope is revalidated at the Memory owner boundary;
+- relevant Gateway/OS/Memory CI is green;
+- A4 exact commit/PR/merge/run evidence is written here.
 
 
 ### Slice start checkpoint: A2
@@ -849,3 +849,14 @@ Verified on 2026-09-14:
 - A3 proved durable-vs-transient admission, bounded promotions, evidence coverage, replay idempotency, no-partial-write structural validation, correction supersession, history preservation, and workspace isolation.
 - Brain was intentionally unchanged because the already-merged Memory admission gate was sufficient.
 - A4 is the next slice.
+
+
+### Slice start checkpoint: A4
+
+Verified before A4 implementation on 2026-09-14:
+
+- AI-Verse-Gateway main: `7cc1617aeac6caefce627842f5bbe1620c960d5f`; no open PRs or active workflows; latest main CI `34851000522` succeeded.
+- AI-Verse-OS main: `1162fbb754ec55a562add9d049b33d44133ec8f2`; no open PRs or active workflows; current public-beta/ownership/boundary workflows succeeded.
+- AI-Verse-Memory main: `d6fe8b7b9cf89f291970a5d54f67079d0d4e4b73`; no open PRs or active workflows; post-A3 main Test run `34854174657` succeeded.
+- Gateway Invisible Intelligence memory-routing work is already merged into current main and must be consumed, not recreated.
+- A4 begins only after re-reading current Gateway completion/session persistence and current OS/Memory owner-routing seams.
