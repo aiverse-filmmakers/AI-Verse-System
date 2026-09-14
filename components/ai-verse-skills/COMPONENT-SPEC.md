@@ -8,15 +8,15 @@
 **Fresh standalone review:** 2026-09-13  
 **Method:** `docs/AUDIT-METHODOLOGY.md`
 
-## 2026-09-14 current release-candidate update
+## 2026-09-14 current merged release update
 
-**CURRENT release-candidate branch:** `feature/interface-designer-2026-09-14`  
-**CURRENT release-candidate head:** `a5068c2e8b1c581a721419c55282c03d900819a4`  
+**CURRENT branch:** `main`  
+**CURRENT merged head:** `71264af6b2b9a575812fe18858d75a54ea2ff545`  
 **Declared distribution version:** `1.1.0-beta.1`  
-**Release-candidate validation date:** 2026-09-14  
-**Draft PR:** AI-Verse-Skills #13
+**Final validation date:** 2026-09-14  
+**Merged PR:** AI-Verse-Skills #13
 
-This update supersedes conflicting `CURRENT` statements in the retained 2026-09-13 standalone audit below. The older sections remain useful historical evidence for the pre-public-beta baseline.
+This merged release update supersedes conflicting `CURRENT` statements in the retained 2026-09-13 standalone audit below. The older sections remain useful historical evidence for the pre-public-beta baseline.
 
 Current component facts:
 
@@ -38,11 +38,17 @@ Current component facts:
 - expert design packages remain separately pinned so specialist methodology/taste is not flattened into the orchestrator;
 - the future `video-editor` dependency is explicitly `planned_not_registered` and fails closed for `CODE_DRIVEN_VIDEO_MOTION_HANDOFF`.
 
-Final release-candidate gates on this head:
+Final pre-merge gates on candidate head `a5068c2e8b1c581a721419c55282c03d900819a4`:
 
 - Validate AI-Verse Skills: PASS, run `34885862726`;
 - Runtime Readiness: PASS across Linux/macOS/Windows and Python 3.9/3.12, run `34885862743`;
 - Full E2E Install: PASS, run `34885862596`.
+
+Post-merge `main` gates on `71264af6b2b9a575812fe18858d75a54ea2ff545`:
+
+- Validate AI-Verse Skills: PASS, run `34886502980`;
+- Runtime Readiness: PASS across all 6 OS/Python matrix jobs, run `34886502969`;
+- Full E2E Install: PASS through install, provider validation, setup, immutable update, rollback, uninstall and recovery, run `34886502946`.
 
 **LAW:** Interface Designer may select procedural expertise but cannot grant permissions, credentials, connections, workspace authority or external-action approval.
 
