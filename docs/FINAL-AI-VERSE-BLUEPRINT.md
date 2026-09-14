@@ -138,6 +138,8 @@ Normal upgrade, disable, detach, reinstall or component replacement must not sil
 
 Stateful components need explicit migration and authority-handoff rules.
 
+The permanent executable safety floor is defined by `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md`. It requires exact immutable release-set transitions, fail-closed compatibility and migration handling, package-owned-file boundaries, preservation of unknown/user files, explicit user apply consent, durable interrupted-update truth, owner-controlled migrations/recovery evidence, safe uninstall/purge separation, and software-only rollback semantics unless an owner explicitly supports state rollback.
+
 ### LAW: benchmark before inventing mature agent behaviors
 
 When a desired agent behavior already exists in mature systems, AI-Verse should research multiple leading implementations before defining its own contract. The final design should synthesize compatible best patterns and documented failure lessons rather than extrapolate from one product or one prompt.
