@@ -588,7 +588,7 @@ Existing `DESIGN.md` must be read before substantial design changes.
 
 ## Slice 5.1 - Design fingerprint gate
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 4.3
 
 Adapt the useful Scroll Craft uniqueness concept beyond landing pages.
@@ -614,9 +614,23 @@ Purpose:
 
 Do not force arbitrary novelty when the reference or established `DESIGN.md` intentionally demands consistency.
 
+### Phase 5.1 evidence
+
+- guide: `skills/imported/ai-verse/interface-designer/references/originality.md`
+- machine policy: `skills/imported/ai-verse/interface-designer/references/originality-policy.json`
+- fingerprint gate implementation ref: `189ca6c630d52b5cc6fbdea09516afc200f8ccf1`
+- 10 fingerprint dimensions, including 6 structural dimensions
+- reskin review triggers at 5/6 structural matches
+- high-similarity review triggers at 8/10 total matches
+- exact-reference, established-DESIGN.md, platform, accessibility and explicit-intent bypasses preserved
+- comparison scope is workspace/user scoped; cross-member private fingerprint comparison is forbidden
+- Validate: PASS, run `34877911885`
+- Runtime Readiness: PASS, run `34877911799`
+- Full E2E: PASS, run `34877911939`
+
 ## Slice 5.2 - Signature interaction rule
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 5.1
 
 For marketing/experience work, require one meaningful signature move when appropriate.
@@ -1016,8 +1030,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 5 / Slice 5.1 - Design fingerprint gate  
-**Next:** Phase 5 / Slice 5.1 - Implement design fingerprint gate  
+**In progress:** Phase 5 / Slice 5.2 - Signature interaction rule  
+**Next:** Phase 5 / Slice 5.2 - Implement signature interaction rule  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
