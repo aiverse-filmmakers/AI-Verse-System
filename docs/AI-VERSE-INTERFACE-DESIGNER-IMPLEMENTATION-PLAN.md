@@ -935,13 +935,23 @@ Verify that vendored/adapted specialists retain:
 
 ## Slice 9.4 - Regression tests for removed AI-Verse duplicates
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Every removed/replaced existing design Skill needs coverage proving its supported useful behavior still resolves through the new capability system.
 
+### Phase 9.4 evidence
+
+- compatibility manifest: `skills/imported/ai-verse/interface-designer/references/existing-design-compatibility.json`
+- accepted compatibility regression ref: `43c9a285c775ecb66bafa3dca10052323debf159`
+- zero destructive removals are test-locked
+- all eight existing design capabilities classified KEEP/KEEP+NARROW/SPECIALIST remain registered and package-backed
+- Figma and Canva target routing continues to resolve the existing capability IDs
+- no replacement aliases are introduced because no public capability ID was removed or renamed
+- Validate: PASS, run `34884555287`
+
 ## Slice 9.5 - Security and trust regression
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Imported design Skills must not bypass:
 
@@ -1133,8 +1143,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 9 / Slice 9.4 - Existing design capability regression
-**Next:** Phase 9 / Slice 9.4 - Prove zero-removal compatibility result
+**In progress:** Phase 9 / Slice 9.5 - Security and trust regression
+**Next:** Phase 9 / Slice 9.5 - Prove design experts stay inside existing admission/trust boundaries
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
