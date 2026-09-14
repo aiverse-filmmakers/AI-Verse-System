@@ -789,7 +789,7 @@ Phase 7 completes with **zero destructive removals**, which is the intended safe
 
 ## Slice 8.1 - State-based visual QA
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** Phase 6
 
 For applications, validate meaningful states such as:
@@ -810,7 +810,7 @@ For applications, validate meaningful states such as:
 
 ## Slice 8.2 - Scroll-state QA
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 8.1
 
 For scroll-driven experiences, sample multiple positions and verify:
@@ -826,7 +826,7 @@ Do not force Scroll Craft's exact harness onto ordinary apps if simpler browser-
 
 ## Slice 8.3 - Separate mobile art direction gate
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 8.1
 
 A full-product design is not complete merely because desktop CSS shrinks.
@@ -843,11 +843,29 @@ For substantial interfaces, explicitly verify:
 
 ---
 
+### Phase 8 acceptance evidence
+
+- state-based visual QA: `references/visual-qa.md` + `visual-qa-policy.json`
+- scroll-state QA: `references/scroll-qa.md` + `scroll-qa-policy.json`
+- mobile art direction: `references/mobile-art-direction.md` + `mobile-art-direction-policy.json`
+- final Phase 8 accepted ref: `881e42cdb077d81ddf1b2c8e998f5ecd98ceba6f`
+- rendered evidence is required for verified visual results
+- source inspection alone cannot produce a visual pass
+- blocked render states remain `UNVERIFIED_BLOCKED`
+- scroll QA samples semantic transitions rather than only fixed percentages
+- Scroll Craft verification infrastructure is not forced onto ordinary apps
+- mobile must be intentionally authored rather than merely shrinking desktop
+- Validate: PASS, run `34879463395`
+- Runtime Readiness: PASS, run `34879463453`
+- Full E2E: PASS, run `34879463424`
+
+---
+
 # Phase 9 - Tests and quality gates
 
 ## Slice 9.1 - Orchestrator routing tests
 
-**Status:** NOT STARTED
+**Status:** IN PROGRESS
 
 Add deterministic fixtures proving that representative requests trigger the correct specialists and skip irrelevant ones.
 
@@ -1085,8 +1103,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 8 / Slice 8.1 - State-based visual QA  
-**Next:** Phase 8 / Slice 8.1 - Implement state-based visual QA  
+**In progress:** Phase 9 / Slice 9.1 - Orchestrator routing tests
+**Next:** Phase 9 / Slice 9.1 - Add deterministic routing fixtures
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
