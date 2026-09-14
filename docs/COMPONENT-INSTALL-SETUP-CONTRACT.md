@@ -118,13 +118,17 @@ A disabled component must have a supported route back to enabled unless disable 
 
 Updates software/runtime separately from canonical user-state migration.
 
-An update must not silently reactivate a disabled component or destroy state.
+An update must not silently reactivate a disabled component, broaden authority, destroy state, overwrite unknown user files, or infer compatibility from a floating branch/version alone.
+
+Product-level update orchestration must obey `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md`: exact immutable release sets, explicit source-to-target compatibility, owner-controlled migration, fail-closed unknown migration, explicit preview/apply consent, and truthful interrupted-update recovery.
 
 ### uninstall
 
 Removes product/runtime integration while preserving canonical user-owned state by default.
 
-Destructive purge is a different explicit action.
+Destructive purge is a different explicit action. It must never be invoked implicitly by update or normal uninstall.
+
+Reinstall must discover/adopt preserved state according to the owner lifecycle rather than silently creating a competing canonical store.
 
 ## 4. Machine-readable contract
 
