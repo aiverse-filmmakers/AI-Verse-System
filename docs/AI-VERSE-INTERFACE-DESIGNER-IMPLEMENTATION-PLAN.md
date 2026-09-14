@@ -630,16 +630,30 @@ Do not force arbitrary novelty when the reference or established `DESIGN.md` int
 
 ## Slice 5.2 - Signature interaction rule
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 5.1
 
 For marketing/experience work, require one meaningful signature move when appropriate.
 
 For applications/dashboards, treat it as optional and functional, never decorative by default.
 
+### Phase 5.2 evidence
+
+- guide: `skills/imported/ai-verse/interface-designer/references/signature-interaction.md`
+- machine policy: `skills/imported/ai-verse/interface-designer/references/signature-interaction-policy.json`
+- signature interaction implementation ref: `bf1711b725ead61573e296194bf779efcf131eaa`
+- required only for experience-led contexts where distinctiveness is part of the brief
+- dashboards/admin/CRUD/settings/productivity surfaces remain optional-functional
+- generic component/easing/parameter tweaks explicitly do not count
+- accessibility and reduced-motion equivalents are mandatory where needed
+- exact-reference behavior never invents a competing signature move
+- Validate: PASS, run `34878261307`
+- Runtime Readiness: PASS, run `34878261171`
+- Full E2E: PASS, run `34878261195`
+
 ## Slice 5.3 - Experience/feeling curve for major flows
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 5.1
 
 Use only for meaningful multi-stage experiences such as onboarding, major agent flows, launches, or narrative marketing pages.
@@ -1030,8 +1044,8 @@ Before doing any work on this project:
 # Current project status
 
 **Completed:** Phase 0 / Slice 0.1  
-**In progress:** Phase 5 / Slice 5.2 - Signature interaction rule  
-**Next:** Phase 5 / Slice 5.2 - Implement signature interaction rule  
+**In progress:** Phase 5 / Slice 5.3 - Experience curve for major flows  
+**Next:** Phase 5 / Slice 5.3 - Implement experience curve for major flows  
 **Implementation authorization:** WAITING FOR OWNER GO-AHEAD
 
 **Cross-project note:** AI-Verse Video Editor is planned separately in `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`; shared design capabilities are consumed selectively rather than merged.
