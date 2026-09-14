@@ -705,39 +705,96 @@ CI on Phase 4 head `1e000222183368c60e03919541f77ee546e77bfd`:
 
 ## Slice 5.1 - Edit orchestrator
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 
 Preserve `edit-video` logic as the main full-edit coordinator, adapted only where required by AI-Verse lifecycle/routing conventions.
 
 ## Slice 5.2 - Deterministic cut specialists
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Integrate silence and mistake/retake workflows with tests and exact transcript/EDL contracts preserved.
 
 ## Slice 5.3 - Short-form editor
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Preserve hook/payoff, reference analysis, footage ledger, captions, moving footage and sound-design logic.
 
 ## Slice 5.4 - Long-form storytelling
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Preserve persistent-world, camera-as-edit, spotlight hierarchy, spatial open-loop and transcript-anchor logic.
 
 ## Slice 5.5 - Motion beats and style system
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Integrate motion-beat planning, style library and reusable templates while distinguishing draft assets from verified final components.
 
 ## Slice 5.6 - Website-to-video
 
-**Status:** NOT STARTED
+**Status:** COMPLETE
 
 Preserve the existing website capture -> DESIGN.md -> script -> storyboard -> VO/timing -> composition -> validation route.
+
+## Slice 5.7 - Canonical HyperFrames provider packaging
+
+**Status:** IN PROGRESS  
+**Dependencies:** 3.4, 5.1-5.6
+
+Package the accepted `heygen-com/hyperframes@0.8.40` provider family into the AI-Verse Skills immutable-generation model as internal support dependencies.
+
+Requirements:
+
+- exact source commit `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`;
+- Apache-2.0 trust/redistribution decision recorded;
+- one canonical provider family only;
+- no Nate-bundled HyperFrames/CLI/registry copy;
+- provider dependencies install with `video-editor` but do not become duplicate member-facing capabilities;
+- current main HyperFrames workflow, core composition guidance, CLI/runtime guidance, media/audio/transcript guidance and registry/animation guidance required by Video Editor are available;
+- full install/provider-index lifecycle remains valid;
+- regression tests prove only one canonical HyperFrames provider family is active.
+
+### Phase 5 evidence
+
+Accepted AI-Verse-Skills head: `fa2f8911ab75c0db1538f34c392a6b38ac0749e9`.
+
+Implemented Nate-derived specialists:
+
+- `edit-video`;
+- `cut-silences`;
+- `cut-mistakes`;
+- `short-form-edit`;
+- `video-storytelling`;
+- `hyperframes-video-beats`;
+- `style-library`;
+- `website-to-hyperframes`.
+
+Preservation evidence:
+
+- silence cutter executable blob remains identical to Nate pinned source: `fd34ec6a7e808ae038d9f080b8aeece8e206fb37`;
+- mistake candidate detector: `ddc124283d901b83909f1bff4431cbab17feadcf`;
+- approved-cut renderer: `62973c4e8603613879ecd0962041b55d2655c18b`;
+- EDL review helper: `ae9892c146c111ee6a93e12f2d4bca4235336abd`;
+- short-form plan validator: `0860bdab829b363f5f5df1678756e9b63dc9a7ef`;
+- short-form footage validator: `4d4be237d1dd7313ea9cc4c8daa57b64f82bfadf`;
+- storytelling wall geometry/pattern code remains byte-identical to Nate pinned source.
+
+Website-to-video preservation:
+
+- Step 1 capture reference byte-identical: `770326203c224e65ffb3785c38cd845940ca4b4a`;
+- Step 2 DESIGN.md reference byte-identical: `f4fc65511273f30bb28760151501f2fb7cdccb19`;
+- Step 3 script reference byte-identical: `2eca87a2e79d8fd35d76def228e5366ae33cfc3d`;
+- Steps 4-7 adapted only where current provider/runtime/authorization assumptions required it;
+- stale `hyperframes validate`, parent-relative asset paths, Nate bundled-provider paths and hard-coded Nate-environment MCP TTS calls are rejected by tests;
+- AIS/demo brand materials remain explicitly excluded.
+
+Phase 5 CI on accepted head:
+
+- Validate AI-Verse Skills run `34893616312`: **PASS**;
+- Full E2E Install run `34893616220`: **PASS**.
 
 ---
 
@@ -1071,7 +1128,7 @@ Before any implementation work:
 
 # Current project status
 
-**Completed:** Phases 0-4 / Video Editor contract and routing complete  
-**In progress:** Phase 5 / Slice 5.1 - Adapt Nate edit orchestrator into the package-local specialist system  
-**Next:** Phase 5 / Slices 5.1-5.2 - Preserve edit orchestration plus deterministic silence/mistake scripts with bounded runtime adaptations  
+**Completed:** Phases 0-5.6 / Nate editorial integration complete and CI accepted  
+**In progress:** Phase 5 / Slice 5.7 - Package the accepted HyperFrames 0.8.40 provider family as internal immutable dependencies  
+**Next:** Slice 5.7 - pin trust/provenance, wire provider support packages to Video Editor, and prove install/provider-index lifecycle  
 **Implementation authorization:** ACTIVE - owner said continue
