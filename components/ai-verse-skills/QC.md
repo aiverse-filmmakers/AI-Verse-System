@@ -8,11 +8,11 @@
 
 Skills' immutable distribution/provider engineering is strong. The largest remaining risks are no longer transactional installation correctness. They are package admission/trust, licensing and release freeze, plus whether generic runtime "support" means more than exposing directories.
 
-## 2026-09-14 Interface Designer release-candidate QC
+## 2026-09-14 Interface Designer merged-release QC
 
-**Candidate head:** `a5068c2e8b1c581a721419c55282c03d900819a4`  
-**Draft PR:** AI-Verse-Skills #13  
-**Interface Designer verdict:** **PASS FOR RELEASE CANDIDATE**
+**Merged main head:** `71264af6b2b9a575812fe18858d75a54ea2ff545`  
+**Merged PR:** AI-Verse-Skills #13  
+**Interface Designer verdict:** **PASS - MERGED AND POST-MERGE VERIFIED**
 
 The 2026-09-13 QC below remains a historical baseline for the older reviewed head. Its statements that package admission was unimplemented, the catalog was fixed at 100 capabilities, or first-party licensing was unresolved no longer describe the current candidate.
 
@@ -33,7 +33,8 @@ Current QC results:
 - **Mobile art direction: PASS.** A desktop layout merely shrinking is insufficient for substantial mobile work.
 - **Future dependency safety: PASS.** Unregistered `video-editor` routing fails closed and cannot be reported as executed.
 - **Licensing/provenance for new design sources: PASS.** Exact pins and redistribution decisions are recorded; Anthropic remains fetch-only; bounded Vercel adaptation is fully attributed.
-- **Final CI: PASS.** Validate `34885862726`, Readiness `34885862743`, Full E2E `34885862596`.
+- **Pre-merge CI: PASS.** Validate `34885862726`, Readiness `34885862743`, Full E2E `34885862596`.
+- **Post-merge CI: PASS.** Validate `34886502980`, Readiness `34886502969`, Full E2E `34886502946`.
 
 Remaining generic-runtime or unrelated legacy package limitations, where still applicable, are outside the Interface Designer release gate and must not be interpreted as failures of this composite.
 
