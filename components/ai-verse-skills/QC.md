@@ -8,6 +8,35 @@
 
 Skills' immutable distribution/provider engineering is strong. The largest remaining risks are no longer transactional installation correctness. They are package admission/trust, licensing and release freeze, plus whether generic runtime "support" means more than exposing directories.
 
+## 2026-09-14 Interface Designer release-candidate QC
+
+**Candidate head:** `a5068c2e8b1c581a721419c55282c03d900819a4`  
+**Draft PR:** AI-Verse-Skills #13  
+**Interface Designer verdict:** **PASS FOR RELEASE CANDIDATE**
+
+The 2026-09-13 QC below remains a historical baseline for the older reviewed head. Its statements that package admission was unimplemented, the catalog was fixed at 100 capabilities, or first-party licensing was unresolved no longer describe the current candidate.
+
+Current QC results:
+
+- **Catalog preservation: PASS.** Base had 100 canonical IDs; candidate has 119; removed IDs = 0.
+- **Single composite owner: PASS.** Exactly one canonical `interface-designer` exists.
+- **Anti-bloat: PASS.** Micro routing loads zero design experts; vendor bodies remain separate packages.
+- **Stack neutrality: PASS.** React/shadcn/Figma/Scroll Craft and other specialists are conditional, not mandatory platform choices.
+- **Expert-taste preservation: PASS.** External expert sources remain separately pinned with preservation/provenance regression tests.
+- **Existing design compatibility: PASS.** Existing design/creator capabilities remain present; destructive removals = 0.
+- **Admission/trust separation: PASS.** `integrity != admitted != trusted != ready != authorized`; Skills admission never grants authorization.
+- **Workspace/privacy boundary: PASS.** Cross-member private design-history/fingerprint comparison is explicitly forbidden.
+- **Design persistence: PASS.** `DESIGN.md` create/read/update behavior is scoped to durable product grammar and skipped for micro ceremony.
+- **Originality: PASS.** Structural re-skin detection is conditional and cannot override exact reference fidelity, established product grammar, accessibility or platform conventions.
+- **Visual QA truthfulness: PASS.** Rendered evidence is required for a verified visual pass; blocked states remain `UNVERIFIED_BLOCKED`.
+- **Scroll QA: PASS.** Scroll-specific verification is conditional and does not force Scroll Craft infrastructure onto ordinary pages.
+- **Mobile art direction: PASS.** A desktop layout merely shrinking is insufficient for substantial mobile work.
+- **Future dependency safety: PASS.** Unregistered `video-editor` routing fails closed and cannot be reported as executed.
+- **Licensing/provenance for new design sources: PASS.** Exact pins and redistribution decisions are recorded; Anthropic remains fetch-only; bounded Vercel adaptation is fully attributed.
+- **Final CI: PASS.** Validate `34885862726`, Readiness `34885862743`, Full E2E `34885862596`.
+
+Remaining generic-runtime or unrelated legacy package limitations, where still applicable, are outside the Interface Designer release gate and must not be interpreted as failures of this composite.
+
 ## 1. Product identity QC
 
 **Verdict: PASS**
