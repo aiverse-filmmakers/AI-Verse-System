@@ -24,7 +24,8 @@ Every result names:
 - source release set, or `null` only when recording clean-install-only evidence;
 - target release set;
 - exact target Distribution 40-character Git revision;
-- supported platforms covered by the result.
+- supported platforms covered by the result;
+- per-platform acceptance outcome for Linux, macOS, and Windows.
 
 ## `safe_for_update`
 
@@ -35,6 +36,7 @@ The semantic validator requires:
 - non-null source release set;
 - clean install = `pass`;
 - real upgrade = `pass`;
+- every declared supported platform acceptance = `pass`;
 - restart/recovery = `pass`;
 - authority preservation = `pass`;
 - every declared state-preservation domain = `pass` or explicitly `not-applicable`;
