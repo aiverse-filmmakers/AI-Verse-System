@@ -25,6 +25,20 @@ A descriptor identifies:
 
 Floating `main`, branch names, tags without resolved immutable revision, and implicit `latest` are invalid descriptor revisions.
 
+### Descriptor publication commit is not the release revision
+
+A descriptor committed inside a component repository normally cannot describe the same commit that contains the descriptor because that would require a self-referential Git SHA.
+
+Therefore the canonical publication pattern is:
+
+1. finish and accept the component source/runtime revision;
+2. record that exact immutable revision in the descriptor;
+3. publish or update the descriptor in a later metadata-only commit or release-metadata surface.
+
+Distribution consumes the descriptor's `revision` as the component release target. It must not substitute the commit that happens to contain the descriptor.
+
+A metadata-only descriptor publication commit does not create a new component engine release by itself.
+
 ## Platform and runtime claims
 
 The descriptor declares supported operating systems and required runtime families. These are release claims and must be supported by evidence.
