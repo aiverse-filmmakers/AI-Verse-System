@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-020`.
+**Next unused finding ID:** `WSA-2026-022`.
 
 ## 2. Allowed classifications
 
@@ -86,21 +86,23 @@ Rules:
 | `WSA-2026-017` | HIGH | PROVEN | OPEN | lifecycle concurrency / serialization | `AI-Verse-Skills` | A1.5 |
 | `WSA-2026-018` | MEDIUM | PROVEN | OPEN | immutable generation retention | `AI-Verse-Skills` | A1.5 |
 | `WSA-2026-019` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Skills` | A1.5 |
+| `WSA-2026-020` | HIGH | PROVEN | OPEN | trusted scope provenance / workspace isolation | `AI-Verse-Data` | A1.6 |
+| `WSA-2026-021` | LOW | PROVEN | OPEN | release/version/install reproducibility | `AI-Verse-Data` | A1.6 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 3 |
-| HIGH | 6 |
+| HIGH | 7 |
 | MEDIUM | 2 |
-| LOW | 7 |
+| LOW | 8 |
 | INFO | 1 |
-| PROVEN | 19 |
+| PROVEN | 21 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 19 |
+| OPEN | 21 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -684,6 +686,54 @@ Use distinct post-release versioning or accept a new immutable component revisio
 
 ---
 
+### WSA-2026-020 — Data public client does not prove trusted scope provenance
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.6  
+**Root area:** trusted scope provenance / workspace isolation  
+**Affected repos:** `AI-Verse-Data`
+
+**Summary:**  
+The public Data client contract says callers provide a trusted scope produced from `TrustedDataRoot`, but the exported scope is structural-only at runtime. Client validation does not prove scope provenance before trusting its database path and binding.
+
+**Contradiction:** `C-A1.6-001`.
+
+**Primary evidence:** `E-A1.6-003`, `E-A1.6-015`, `E-A1.6-016`, `E-A1.6-017`.
+
+**Impact:**  
+A structurally compatible scope object can bypass the path-derivation invariant advertised by the supported client surface. Native OS flows remain stronger because they construct scopes internally.
+
+**Required closure evidence:**  
+Make trusted scopes runtime-verifiable/nominal, reject untrusted structural substitutes, derive or validate path/binding from trusted root state, and add forged-scope regressions.
+
+---
+
+### WSA-2026-021 — Accepted Data alpha identity is older than frozen current behavior
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.6  
+**Root area:** release/version/install reproducibility  
+**Affected repos:** `AI-Verse-Data`
+
+**Summary:**  
+The accepted descriptor binds `0.1.0-alpha.0` to `189b13264ab86115d2f21fee3ba8cd5a8dac6581`, while frozen current main is 10 commits newer under the same version and the documented GitHub install path follows the mutable default branch.
+
+**Contradiction:** `C-A1.6-002`.
+
+**Primary evidence:** `E-A1.6-020`, `E-A1.6-021`, `E-A1.6-022`, `E-A1.6-023`.
+
+**Impact:**  
+Version-only diagnostics and the default GitHub install path do not uniquely identify the accepted immutable artifact.
+
+**Required closure evidence:**  
+Accept/version the newer behavior and use an immutable install reference when public-beta reproducibility is required.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -709,6 +759,8 @@ Use distinct post-release versioning or accept a new immutable component revisio
 | `C-A1.5-002` | A1.5 | implementation defect / lifecycle serialization | yes | `WSA-2026-017` | OPEN |
 | `C-A1.5-003` | A1.5 | lifecycle contract / in-use generation retention | yes | `WSA-2026-018` | OPEN |
 | `C-A1.5-004` | A1.5 | release/version/bootstrap drift | yes | `WSA-2026-019` | OPEN |
+| `C-A1.6-001` | A1.6 | implementation defect / trusted scope provenance | yes | `WSA-2026-020` | OPEN |
+| `C-A1.6-002` | A1.6 | release/version/install drift | yes | `WSA-2026-021` | OPEN |
 
 ### C-A0.1-001
 
@@ -869,6 +921,20 @@ See `WSA-2026-002`.
 **Source B:** frozen current main is 190 commits newer under the same version and mutable-main bootstrap.  
 **Higher-authority source:** current source + immutable descriptor + commit comparison.  
 **Finding:** `WSA-2026-019`.
+
+### C-A1.6-001
+
+**Source A:** client/security docs require a trusted `DataDatabaseScope` derived from `TrustedDataRoot`.  
+**Source B:** runtime client validation accepts structural scope identity and trusts supplied path/binding without nominal provenance.  
+**Higher-authority source:** executable client/scope implementation.  
+**Finding:** `WSA-2026-020`.
+
+### C-A1.6-002
+
+**Source A:** accepted descriptor binds alpha.0 to `189b1326…`.  
+**Source B:** frozen current main is 10 commits newer under the same version and mutable GitHub install route.  
+**Higher-authority source:** current package/source + immutable descriptor + commit comparison.  
+**Finding:** `WSA-2026-021`.
 
 ## 6. Evidence ID register
 
@@ -1103,6 +1169,35 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.5-023` | mutable-main bootstrap route | same |
 | `E-A1.5-024` | live pre-write ref/open-PR recheck | same |
 
+### A1.6 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.6-001` | frozen Data tree and repository metadata | `repos/AI-Verse-Data.md` |
+| `E-A1.6-002` | README/architecture ownership reconstruction | same |
+| `E-A1.6-003` | trusted-root and workspace path implementation | same |
+| `E-A1.6-004` | SQLite identity/binding/open behavior | same |
+| `E-A1.6-005` | OCC and separate-process race evidence | same |
+| `E-A1.6-006` | idempotency implementation | same |
+| `E-A1.6-007` | events/receipts provenance implementation | same |
+| `E-A1.6-008` | transaction/bulk safety | same |
+| `E-A1.6-009` | internal/user-schema migration contracts | same |
+| `E-A1.6-010` | backup/export/import implementation/tests | same |
+| `E-A1.6-011` | quarantine/recovery implementation | same |
+| `E-A1.6-012` | native registry/materialization/lifecycle | same |
+| `E-A1.6-013` | Bots/App authority narrowing | same |
+| `E-A1.6-014` | Brain/Memory/Dashboard/Connections/Automation boundaries | same |
+| `E-A1.6-015` | public client scope validation/open path | same |
+| `E-A1.6-016` | exported structural DataDatabaseScope | same |
+| `E-A1.6-017` | secure-client scope wrapper | same |
+| `E-A1.6-018` | exact-head CI run 34864837334 | same |
+| `E-A1.6-019` | six exact-head cross-platform CI jobs | same |
+| `E-A1.6-020` | accepted component descriptor | same |
+| `E-A1.6-021` | accepted-to-current 10-commit comparison | same |
+| `E-A1.6-022` | current package/index alpha.0 identity | same |
+| `E-A1.6-023` | documented mutable GitHub install path | same |
+| `E-A1.6-024` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -1126,7 +1221,9 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-017` | allocated A1.5 |
 | `WSA-2026-018` | allocated A1.5 |
 | `WSA-2026-019` | allocated A1.5 |
-| `WSA-2026-020` | **NEXT UNUSED** |
+| `WSA-2026-020` | allocated A1.6 |
+| `WSA-2026-021` | allocated A1.6 |
+| `WSA-2026-022` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
