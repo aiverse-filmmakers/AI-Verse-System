@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-029`.
+**Next unused finding ID:** `WSA-2026-034`.
 
 ## 2. Allowed classifications
 
@@ -95,21 +95,26 @@ Rules:
 | `WSA-2026-026` | HIGH | PROVEN | OPEN | canonical store ownership / lifecycle safety / health truth | `AI-Verse-Automations` | A1.9 |
 | `WSA-2026-027` | HIGH | PROVEN | OPEN | canonical schedule authority / migration handoff / readiness truth | `AI-Verse-Automations` | A1.9 |
 | `WSA-2026-028` | MEDIUM | PROVEN | OPEN | native attachment lifecycle / host discovery truth | `AI-Verse-Automations` | A1.9 |
+| `WSA-2026-029` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem containment | `AI-Verse-Connections` | A1.10 |
+| `WSA-2026-030` | HIGH | PROVEN | OPEN | system scope isolation / canonical installation binding | `AI-Verse-Connections` | A1.10 |
+| `WSA-2026-031` | HIGH | PROVEN | OPEN | credential origin binding / token passthrough prevention | `AI-Verse-Connections` | A1.10 |
+| `WSA-2026-032` | HIGH | PROVEN | OPEN | final-edge authority / concurrency / safety budgets | `AI-Verse-Connections` | A1.10 |
+| `WSA-2026-033` | HIGH | PROVEN | OPEN | external path authorization / provider-edge containment | `AI-Verse-Connections` | A1.10 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
-| BLOCKER | 3 |
-| HIGH | 12 |
+| BLOCKER | 4 |
+| HIGH | 16 |
 | MEDIUM | 4 |
 | LOW | 8 |
 | INFO | 1 |
-| PROVEN | 28 |
+| PROVEN | 33 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 28 |
+| OPEN | 33 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -909,6 +914,126 @@ Synchronize component and registry lifecycle under existing lock controls, or de
 
 ---
 
+### WSA-2026-029 — Connections destructive purge is not confined to a verified owned root
+
+**Severity:** BLOCKER  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.10  
+**Root area:** destructive lifecycle / filesystem containment  
+**Affected repos:** `AI-Verse-Connections`
+
+**Summary:**  
+`uninstall --purge` recursively force-removes the configured Connections home. That home can be supplied by `AIVERSE_CONNECTIONS_HOME` or the public service constructor, and no ownership marker or safe-root validation is required before deletion.
+
+**Contradiction:** `C-A1.10-001`.
+
+**Primary evidence:** `E-A1.10-005`.
+
+**Impact:**  
+A typo or unsafe lifecycle invocation can delete unrelated user data. This is a proven destructive data-loss path.
+
+**Required closure evidence:**  
+Require a verified Connections ownership marker/realpath, reject root/broad/foreign targets, prefer known-owned-child deletion and add negative purge tests.
+
+---
+
+### WSA-2026-030 — Connections setup system binding is not enforced by connection/execution state
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.10  
+**Root area:** system scope isolation / canonical installation binding  
+**Affected repos:** `AI-Verse-Connections`
+
+**Summary:**  
+Setup stores one lifecycle system ID, but Generic/MCP connection creation accepts any system ID and execution only compares the request against the connection, not against the installation binding.
+
+**Contradiction:** `C-A1.10-002`.
+
+**Primary evidence:** `E-A1.10-005`, `E-A1.10-006`, `E-A1.10-010`, `E-A1.10-011`.
+
+**Impact:**  
+One Connections home can hold and execute external authority for systems other than the system to which setup claims it is bound.
+
+**Required closure evidence:**  
+Enforce lifecycle-system identity during creation and final execution, and add an explicit migration/rebind workflow plus two-system tests.
+
+---
+
+### WSA-2026-031 — MCP reauth bypasses the cross-origin bearer-handle isolation rule
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.10  
+**Root area:** credential origin binding / token passthrough prevention  
+**Affected repos:** `AI-Verse-Connections`
+
+**Summary:**  
+Initial MCP registration forbids one credential handle from being reused across different origins, but reauth does not repeat that check. The next verification resolves and transmits the reused bearer token to the second origin.
+
+**Contradiction:** `C-A1.10-003`.
+
+**Primary evidence:** `E-A1.10-007`, `E-A1.10-009`, `E-A1.10-014`.
+
+**Impact:**  
+A token intended for one MCP security origin can be disclosed to another through a supported reauthentication path.
+
+**Required closure evidence:**  
+Centralize origin/credential binding checks across add, reauth and verify, fail before credential transmission, and add two-origin regressions.
+
+---
+
+### WSA-2026-032 — Connections final provider edge omits lifecycle and budget authority rechecks
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.10  
+**Root area:** final-edge authority / concurrency / safety budgets  
+**Affected repos:** `AI-Verse-Connections`
+
+**Summary:**  
+The security contract says the complete authority intersection is recalculated immediately before provider execution, including component readiness and current rate/budget limits. Code checks both only during initial planning; the final edge reloads only the connection/capability state.
+
+**Contradiction:** `C-A1.10-004`.
+
+**Primary evidence:** `E-A1.10-003`, `E-A1.10-010`, `E-A1.10-011`, `E-A1.10-012`.
+
+**Impact:**  
+A concurrent disable/uninstall can fail to fence already-planned work, and concurrent different-key executions can exceed the same configured call budget.
+
+**Required closure evidence:**  
+Re-read lifecycle at the provider edge, atomically reserve/check budgets across concurrent executions, and add deterministic lifecycle/budget race tests.
+
+---
+
+### WSA-2026-033 — Generic API normalized path can escape the admitted prefix
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.10  
+**Root area:** external path authorization / provider-edge containment  
+**Affected repos:** `AI-Verse-Connections`
+
+**Summary:**  
+Generic API path-prefix authorization checks the raw caller string before WHATWG URL normalization. Encoded or plain dot-segments can therefore pass an admitted prefix and normalize to a path outside it while remaining on the same origin.
+
+**Contradiction:** `C-A1.10-005`.
+
+**Primary evidence:** `E-A1.10-013`, `E-A1.10-019`.
+
+**Impact:**  
+A trusted connection credential can be sent to a same-origin endpoint outside the operator-admitted path boundary.
+
+**Required closure evidence:**  
+Normalize first, authorize the final pathname, reject path-confusion forms and add encoded/plain traversal regressions.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -943,6 +1068,11 @@ Synchronize component and registry lifecycle under existing lock controls, or de
 | `C-A1.9-001` | A1.9 | implementation defect / canonical database ownership identity | yes | `WSA-2026-026` | OPEN |
 | `C-A1.9-002` | A1.9 | implementation defect / live legacy authority fence | yes | `WSA-2026-027` | OPEN |
 | `C-A1.9-003` | A1.9 | implementation defect / native lifecycle synchronization | yes | `WSA-2026-028` | OPEN |
+| `C-A1.10-001` | A1.10 | implementation defect / destructive purge containment | yes | `WSA-2026-029` | OPEN |
+| `C-A1.10-002` | A1.10 | implementation defect / installation system scope binding | yes | `WSA-2026-030` | OPEN |
+| `C-A1.10-003` | A1.10 | implementation defect / MCP credential origin binding | yes | `WSA-2026-031` | OPEN |
+| `C-A1.10-004` | A1.10 | implementation defect / final-edge lifecycle and budgets | yes | `WSA-2026-032` | OPEN |
+| `C-A1.10-005` | A1.10 | implementation defect / normalized path authorization | yes | `WSA-2026-033` | OPEN |
 
 ### C-A0.1-001
 
@@ -1168,6 +1298,42 @@ See `WSA-2026-002`.
 **Source B:** attached OS registry/files are not synchronized or detached by those component lifecycle commands.  
 **Higher-authority source:** executable lifecycle and OS-extension implementation.  
 **Finding:** `WSA-2026-028`.
+
+### C-A1.10-001
+
+**Source A:** Connections exposes destructive purge as a lifecycle command.  
+**Source B:** configured home is arbitrary and purge recursively force-removes that whole path without ownership validation.  
+**Higher-authority source:** executable lifecycle/state-store implementation.  
+**Finding:** `WSA-2026-029`.
+
+### C-A1.10-002
+
+**Source A:** setup claims to bind one installation to an explicit AI-Verse system.  
+**Source B:** connection creation/execution trusts each connection's independently supplied system ID and does not intersect it with lifecycle system ID.  
+**Higher-authority source:** executable lifecycle/registry/policy/execute implementation.  
+**Finding:** `WSA-2026-030`.
+
+### C-A1.10-003
+
+**Source A:** MCP security/research contract forbids bearer token passthrough and cross-origin credential-handle reuse.  
+**Source B:** initial add enforces this rule, while reauth replaces the handle without cross-origin validation and verify subsequently transmits it.  
+**Higher-authority source:** executable registry/admission/MCP adapter.  
+**Finding:** `WSA-2026-031`.
+
+### C-A1.10-004
+
+**Source A:** security contract says component lifecycle and current call budgets are part of the authority intersection recalculated at the final provider edge.  
+**Source B:** execute checks lifecycle/budgets only before planning and final-edge code reloads only connection/capability state.  
+**Higher-authority source:** executable execution/policy implementation.  
+**Finding:** `WSA-2026-032`.
+
+### C-A1.10-005
+
+**Source A:** Generic API security contract claims explicit path-prefix admission.  
+**Source B:** raw path is prefix-checked before URL normalization and normalized pathname is not rechecked.  
+**Runtime proof:** `/v1/%2e%2e/admin` normalizes to `/admin` under Node WHATWG URL handling.  
+**Higher-authority source:** executable Generic API adapter plus required runtime semantics.  
+**Finding:** `WSA-2026-033`.
 
 ## 6. Evidence ID register
 
@@ -1525,6 +1691,34 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.9-025` | accepted marker to current 10-commit comparison | same |
 | `E-A1.9-026` | live pre-write ref/open-PR recheck | same |
 
+### A1.10 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.10-001` | frozen Connections tree/repository metadata | `repos/AI-Verse-Connections.md` |
+| `E-A1.10-002` | README/component/package ownership identity | same |
+| `E-A1.10-003` | security/research trust and final-edge laws | same |
+| `E-A1.10-004` | credential manager/vault implementation | same |
+| `E-A1.10-005` | canonical state-store/lifecycle implementation | same |
+| `E-A1.10-006` | generic connection registration/verification | same |
+| `E-A1.10-007` | MCP registration/origin credential reuse guard | same |
+| `E-A1.10-008` | capability admission/connection approval | same |
+| `E-A1.10-009` | revoke/reauth implementation | same |
+| `E-A1.10-010` | system/workspace/delegated policy | same |
+| `E-A1.10-011` | final-edge execution/idempotency/receipts | same |
+| `E-A1.10-012` | rate/call budget implementation | same |
+| `E-A1.10-013` | generic API path/header policy | same |
+| `E-A1.10-014` | MCP discovery/execution adapter | same |
+| `E-A1.10-015` | bounded HTTP/network controls | same |
+| `E-A1.10-016` | repository-local core integration tests | same |
+| `E-A1.10-017` | repository-local limits integration tests | same |
+| `E-A1.10-018` | repository-local MCP/idempotency tests | same |
+| `E-A1.10-019` | Node URL encoded-dot-segment normalization reproduction | same |
+| `E-A1.10-020` | exact-head CI run 34775251071 | same |
+| `E-A1.10-021` | six exact-head no-step hosted jobs | same |
+| `E-A1.10-022` | implementation/founding commit history | same |
+| `E-A1.10-023` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -1557,7 +1751,12 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-026` | allocated A1.9 |
 | `WSA-2026-027` | allocated A1.9 |
 | `WSA-2026-028` | allocated A1.9 |
-| `WSA-2026-029` | **NEXT UNUSED** |
+| `WSA-2026-029` | allocated A1.10 |
+| `WSA-2026-030` | allocated A1.10 |
+| `WSA-2026-031` | allocated A1.10 |
+| `WSA-2026-032` | allocated A1.10 |
+| `WSA-2026-033` | allocated A1.10 |
+| `WSA-2026-034` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
