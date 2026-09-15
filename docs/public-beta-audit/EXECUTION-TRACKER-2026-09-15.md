@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 31 / 100.**
+**Current accepted progress: 33 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -147,7 +147,7 @@ Status: COMPLETE
 Output: `repos/AI-Verse-Dashboard.md`
 
 ### A1.14 AI-Verse-System meta/release authority - 2
-Status: NEXT
+Status: COMPLETE
 Output: `repos/AI-Verse-System.md`
 
 A1 exit:
@@ -161,7 +161,7 @@ A1 exit:
 # A2 - Cross-component relationship audit - 24 points
 
 ### A2.1 Relationship matrix resolution - 3
-Status: PENDING
+Status: NEXT
 
 ### A2.2 Canonical ownership and write paths - 3
 Status: PENDING
