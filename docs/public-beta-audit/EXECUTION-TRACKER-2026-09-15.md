@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 2 / 100.**
+**Current accepted progress: 3 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -57,7 +57,7 @@ Output:
 `snapshots/A0-SNAPSHOT.md`
 
 ### A0.3 Evidence/finding ledger - 1
-Status: NEXT
+Status: COMPLETE
 
 Instantiate:
 - finding IDs;
@@ -69,7 +69,7 @@ Output:
 `findings/FINDING-REGISTER.md`
 
 ### A0.4 Relationship matrix skeleton - 1
-Status: PENDING
+Status: NEXT
 
 Create directional all-repo matrix with UNKNOWN initial states and relation dimensions.
 
