@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 16
+Complete: 17
 In progress: 1
 Blocked: 0
-Remaining after current: 8
-Current: F1
-Next after current: G1
+Remaining after current: 7
+Current: G1
+Next after current: G2
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -722,7 +722,7 @@ Next after current: G1
 
 #### F1. Copy-on-write branch catalog evaluation and implementation/rejection
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway; AI-Verse-Multiple-Bots only for identity integration if required
 - Dependencies: E1-E5; current Bots main re-audit
@@ -735,14 +735,25 @@ Next after current: G1
   - if current AI-Verse branch model gains no measurable benefit, reject and document rather than ship.
 - Tests: fork point, independent later folds, mixed-scope rejection, no-copy size benchmark.
 - Risks: declassification through summary inheritance; coordination ownership theft.
-- Evidence: pending.
+- Evidence:
+  - F1 outcome: REJECTED FOR CURRENT ARCHITECTURE. No copy-on-write branch runtime was shipped.
+  - F1 PR #24 final head `0cfd81640147f576e8e6fef28ca8ea46f64b2378`.
+  - PR CI `34953046991`: success, 6/6; Permanent Bot `34953046794`, Temporary Worker `34953047025`, Automation Recommendation `34953046799`: all success.
+  - F1 merged as Gateway main `08ba663dd90e3f699933075223886ca72ef7886f`.
+  - Post-merge CI `34953181816`: success, 6/6.
+  - Current Gateway and Multiple Bots code has no canonical branch/fork lineage, parent-run branch identity or fork-point visibility contract.
+  - Immutable fold cards are already stored once by content-addressed ID. Two independent catalog views add zero card files and zero immutable-card bytes; measured copy-on-write storage savings over current baseline are 0 bytes.
+  - Same-workspace divergent cards are intentionally all visible because no branch identity exists; adding a catalog-only branch layer would therefore invent declassification/visibility authority rather than safely isolate history.
+  - Cross-workspace recursive ancestry remains fail-closed through `FOLD_SCOPE_MISMATCH`.
+  - Revisit only after canonical branch/fork identity exists or production evidence shows duplicated immutable pre-fork history.
+  - F1 acceptance complete; seventeen of 25 slices are accepted.
 
 ### Phase G: Gateway progressive context governor
 
 #### G1. Progressive model-context assembly
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Gateway, AI-Verse-OS
 - Dependencies: B1, C1-C3, E1-E5
 - Goal: replace unconditional history dumping with L0/L1 first and bounded escalation to deeper layers.
@@ -759,7 +770,7 @@ Next after current: G1
 #### G2. Runtime deep-retrieval tool/loop
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway, AI-Verse-OS
 - Dependencies: G1
 - Goal: give the runtime one bounded mechanism to request deeper context without direct owner bypass.
@@ -1323,3 +1334,26 @@ Verified before F1 evaluation on 2026-09-15:
 - Existing immutable cards/source refs and existing system/workspace/principal isolation remain authoritative. Multiple Bots may contribute identity integration only if the current live branch model actually requires it.
 - The benchmark must prove measurable storage/rebuild/retrieval benefit from copy-on-write sharing while preserving exact branch visibility and preventing summary declassification.
 - If current AI-Verse branching does not create duplicated immutable history or a measurable cost worth solving, F1 must be rejected and documented rather than implemented speculatively.
+
+
+### Slice completion checkpoint: F1
+
+Verified on 2026-09-15:
+
+- F1 PR #24 final head `0cfd81640147f576e8e6fef28ca8ea46f64b2378` passed CI `34953046991` 6/6 and all three composition gates.
+- F1 merged as Gateway main `08ba663dd90e3f699933075223886ca72ef7886f`; post-merge CI `34953181816` passed 6/6.
+- F1 was rejected for the current architecture rather than implemented.
+- Two independent catalog views over one immutable pre-divergence card produced one card file before and after, with zero duplicated card bytes.
+- Gateway and Multiple Bots currently expose no canonical branch/fork lineage. Same-workspace divergent cards therefore cannot be isolated by a safe catalog-only feature without inventing a new authority model.
+- Existing cross-workspace scope guards remain fail-closed.
+- F1 acceptance is complete. Seventeen of 25 slices are accepted.
+
+### Slice start checkpoint: G1
+
+Verified before G1 implementation on 2026-09-15:
+
+- AI-Verse-Gateway main: `08ba663dd90e3f699933075223886ca72ef7886f`; F1 post-merge CI `34953181816` is 6/6 green.
+- G1 must reuse accepted Memory/OS/Gateway retrieval boundaries from B1, C1-C3 and the E-series fold/archive stack.
+- Ordinary turns should start shallow: current/recent raw context plus compact orientation only.
+- Deep summary/detail/source retrieval must occur only when demonstrated need exists, remain bounded and owner-routed, and record provenance/diagnostics without hidden reasoning.
+- G1 must not introduce the explicit runtime-requested deep retrieval loop reserved for G2.
