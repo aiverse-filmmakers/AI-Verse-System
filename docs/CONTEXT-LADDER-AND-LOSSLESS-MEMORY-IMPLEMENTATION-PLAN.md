@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 21
+Complete: 22
 In progress: 1
 Blocked: 0
-Remaining after current: 3
-Current: J1
-Next after current: J2
+Remaining after current: 2
+Current: J2
+Next after current: J3
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -863,7 +863,7 @@ Next after current: J2
 
 #### J1. Context/recall benchmark harness
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory, AI-Verse-Gateway, AI-Verse-System
 - Dependencies: enough preceding features to compare before/after
@@ -892,12 +892,24 @@ Next after current: J2
   - restart behavior;
   - derived rebuild behavior.
 - Acceptance: reproducible baseline and candidate outputs with machine-readable result.
-- Evidence: pending.
+- Evidence:
+  - Memory J1 PR #29 final head `7c4f8449b2cb027c612a4393ed71f4f5a88fb795`; final PR Test run `34983132926`: all 12 jobs success.
+  - Memory J1 merged as main `406b14fb4398eb1b16dd5f30e50520e8c3540972`; post-merge Test run `34983522129`: all 12 jobs success.
+  - Memory benchmark `memory.context-ladder-j1.v1`: 6/6 candidate scenarios correct, exact fact recovery true, very-old-session recovery true, source reads 3, zero scope leakage, stale-source fail-closed true, restart recall true, orientation/relationship rebuild equivalent, no canonical mutation.
+  - Memory repeated-client top-4 scenario reports 25% irrelevant-context rate; this is retained as honest anti-bloat evidence for J3 rather than hidden or normalized away.
+  - Gateway J1 PR #29 final head `e7eed4915025fccaacf9da2565faf06b4ce943ba`; final PR CI `34982919021`: 6/6 success; Permanent Bot `34982918922`, Temporary Worker `34982918972`, Automation Recommendation `34982918864`: all success.
+  - Gateway J1 merged as main `a44648c852b9c3f7963f891a293671628b5c2d4a`; post-merge CI `34983236074`: 6/6 success.
+  - Gateway benchmark `gateway.context-ladder-j1.v1`: 4/4 scenarios correct, exact recovery true, recent raw tail preserved verbatim, zero scope leakage, restart archive recovery true, fold-catalog rebuild equivalent, canonical raw history unchanged.
+  - Measured 50+ turn context reduction: 80.9934%; measured very-large invocation token reduction: 93.1241%.
+  - After the first measured run, J1 froze minimum acceptance thresholds at 75% long-history context reduction and 90% very-large invocation token reduction; the final accepted run exceeded both.
+  - Exact archive recovery touched 31 source ranges in the deterministic long-history fixture. Correctness remains 100%; this efficiency signal is explicitly carried into J3.
+  - F1-rejected branch catalogs remain intentionally not shipped; J1 records branched-conversation handling as not-applicable under F1 while proving cross-workspace fold isolation.
+  - J1 acceptance complete; twenty-two of 25 slices are accepted.
 
 #### J2. Cross-owner integrated acceptance
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: all changed runtime owners
 - Dependencies: all retained implementation slices
 - Goal: prove the composed AI-Verse runtime consumes the architecture safely.
@@ -920,7 +932,7 @@ Next after current: J2
 #### J3. Regression, performance, and anti-bloat gate
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: all changed runtime owners
 - Dependencies: J1-J2
 - Goal: remove features that do not earn their complexity.
@@ -1483,3 +1495,25 @@ Verified before J1 benchmark work on 2026-09-15:
 - J1 must execute real Memory and Gateway code against deterministic fixtures. It must not replace owner behavior with mocks for the metrics used to judge retention.
 - Baseline and candidate results must be machine-readable. Timing may vary by platform, but correctness/scope/rebuild outcomes and context-byte/token deltas must be reproducible.
 - The long-history acceptance threshold will be frozen only after the baseline fixture is measured.
+
+
+### Slice completion checkpoint: J1
+
+Verified on 2026-09-15:
+
+- Memory J1 final head `7c4f8449b2cb027c612a4393ed71f4f5a88fb795` passed all 12 PR jobs and merged as `406b14fb4398eb1b16dd5f30e50520e8c3540972`; post-merge run `34983522129` passed all 12 jobs.
+- Gateway J1 final head `e7eed4915025fccaacf9da2565faf06b4ce943ba` passed CI 6/6 plus all three composition workflows and merged as `a44648c852b9c3f7963f891a293671628b5c2d4a`; post-merge CI `34983236074` passed 6/6.
+- The machine-readable benchmarks cover all ten required J1 scenarios across the actual Memory and Gateway owners.
+- Long-history context reduction measured 80.9934% against a frozen 75% minimum; very-large invocation token reduction measured 93.1241% against a frozen 90% minimum.
+- Correctness, exact recovery, long-history recovery, scope isolation, restart, rebuild and stale-source behavior all pass.
+- J1 acceptance is complete. Twenty-two of 25 slices are accepted.
+
+### Slice start checkpoint: J2
+
+Verified before J2 integrated acceptance on 2026-09-15:
+
+- AI-Verse-Gateway main: `a44648c852b9c3f7963f891a293671628b5c2d4a`.
+- AI-Verse-Memory main: `406b14fb4398eb1b16dd5f30e50520e8c3540972`.
+- J2 must compose actual owner boundaries and must not replace Memory/OS/Gateway behavior with benchmark mocks.
+- Existing OS four/five-component and Invisible Intelligence composition workflows are the preferred integration pattern; J2 should extend/reuse them rather than inventing another release or composition framework.
+- Accepted feature rejections remain non-applicable, not failures: F1 branch catalogs, H1 Brain depth envelope and I1 cross-owner map are intentionally not shipped.
