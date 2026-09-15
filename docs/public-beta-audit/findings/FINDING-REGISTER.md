@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-043`.
+**Next unused finding ID:** `WSA-2026-045`.
 
 ## 2. Allowed classifications
 
@@ -109,6 +109,8 @@ Rules:
 | WSA-2026-040 | HIGH | PROVEN | OPEN | local gateway authentication / privacy boundary | AI-Verse-Dashboard | A1.13 |
 | WSA-2026-041 | MEDIUM | PROVEN | OPEN | local browser integration / Origin policy | AI-Verse-Dashboard | A1.13 |
 | WSA-2026-042 | MEDIUM | PROVEN | OPEN | canonical ownership / projection truth | AI-Verse-Dashboard | A1.13 |
+| WSA-2026-043 | MEDIUM | PROVEN | OPEN | release contract consistency / machine-readable acceptance | AI-Verse-System | A1.14 |
+| WSA-2026-044 | MEDIUM | PROVEN | OPEN | meta authority / living-spec synchronization / current release truth | AI-Verse-System | A1.14 |
 
 Current counts:
 
@@ -116,14 +118,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 20 |
-| MEDIUM | 8 |
+| MEDIUM | 10 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 42 |
+| PROVEN | 44 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 42 |
+| OPEN | 44 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1261,6 +1263,55 @@ Replace production semantics with owner-backed projections, preserve unknown/una
 
 ---
 
+
+### WSA-2026-043 - Whole-Release Preservation Schema and semantic validator disagree on evidence metadata
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.14  
+**Root area:** release contract consistency / machine-readable acceptance  
+**Affected repos:** AI-Verse-System
+
+**Summary:**  
+The published Whole-Release Preservation JSON Schema allows evidence items containing only kind, status and revision. It defines run_id, job_id and url as optional. The canonical semantic validator instead requires all six keys exactly.
+
+**Contradiction:** C-A1.14-001.
+
+**Primary evidence:** E-A1.14-012, E-A1.14-013, E-A1.14-014, E-A1.14-016, E-A1.14-017.
+
+**Impact:**  
+A release-evidence producer following the published Schema and contract prose can create an artifact that is Schema-valid but rejected by official semantic validation.
+
+**Required closure evidence:**  
+Choose one normative rule, align Schema/prose/validator, add explicit optionality or mandatory-field regressions, and rerun exact canonical contract validation on Python 3.11 and 3.13.
+
+---
+
+### WSA-2026-044 - System living-spec propagation leaves canonical current-state surfaces inconsistent
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.14  
+**Root area:** meta authority / living-spec synchronization / current release truth  
+**Affected repos:** AI-Verse-System
+
+**Summary:**  
+System's Living Specification Protocol requires accepted implementation and release changes to propagate into current component specs, source maps, QC/readiness, system synthesis and changelog. That propagation did not complete after accepted Context Ladder and other release evolution.
+
+**Contradiction:** C-A1.14-002.
+
+**Primary evidence:** E-A1.14-002, E-A1.14-004, E-A1.14-005, E-A1.14-006, E-A1.14-007, E-A1.14-008, E-A1.14-009.
+
+**Impact:**  
+Different canonical-looking System files give different answers about current component heads, readiness and release/candidate state, which can misdirect agents, maintainers and later release decisions.
+
+**Required closure evidence:**  
+Synchronize current System truth from exact accepted owner/release refs, update tracker/Blueprint/changelog and affected component spec/QC/source maps, establish a canonical Gateway component evidence record, align Token current state, preserve historical provenance, and add bounded consistency checks where practical.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1309,6 +1360,8 @@ Replace production semantics with owner-backed projections, preserve unknown/una
 | C-A1.13-003 | A1.13 | implementation defect / local gateway authentication | yes | WSA-2026-040 | OPEN |
 | C-A1.13-004 | A1.13 | implementation defect / browser Origin policy | yes | WSA-2026-041 | OPEN |
 | C-A1.13-005 | A1.13 | implementation defect / shadow projection authority | yes | WSA-2026-042 | OPEN |
+| C-A1.14-001 | A1.14 | machine-contract inconsistency | yes | WSA-2026-043 | OPEN |
+| C-A1.14-002 | A1.14 | meta-authority synchronization defect | yes | WSA-2026-044 | OPEN |
 
 ### C-A0.1-001
 
@@ -1641,6 +1694,24 @@ See `WSA-2026-002`.
 **Source C:** current preservation report explicitly calls this shadow-authority risk.  
 **Higher-authority source:** executable read models.  
 **Finding:** WSA-2026-042.
+
+
+### C-A1.14-001
+
+**Source A:** Whole-Release Preservation JSON Schema requires only kind/status/revision in an evidence item and defines run_id/job_id/url as optional.  
+**Source B:** contract prose says evidence may include those metadata fields.  
+**Source C:** semantic validator requires all six keys exactly.  
+**Higher-authority resolution:** unresolved inside the canonical contract surfaces; repair must align them.  
+**Finding:** WSA-2026-043.
+
+### C-A1.14-002
+
+**Source A:** Living Specification Protocol requires accepted changes to update current component and system records.  
+**Source B:** Context Ladder is 25/25 accepted with an immutable candidate and accepted OS/Brain/Memory/Gateway refs.  
+**Source C:** Public Beta Tracker, Blueprint and multiple component records remain at older current-state/release evidence.  
+**Source D:** Gateway lacks the standard first-class System component record, while Token current-state surfaces also disagree.  
+**Higher-authority source:** exact accepted owner/release evidence plus the completed project plans.  
+**Finding:** WSA-2026-044.
 
 ## 6. Evidence ID register
 
@@ -2118,6 +2189,30 @@ A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 | E-A1.13-029 | current merge-head hosted status limitation | same |
 | E-A1.13-030 | final live pre-write recheck | same |
 
+
+### A1.14 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A1.14-001 | frozen System product ref and audit-only drift classification | repos/AI-Verse-System.md |
+| E-A1.14-002 | Living Specification Protocol propagation law | same |
+| E-A1.14-003 | immutable Agent release evidence | same |
+| E-A1.14-004 | completed Context Ladder immutable release handoff | same |
+| E-A1.14-005 | incomplete propagation after Context Ladder closure | same |
+| E-A1.14-006 | stale OS/Brain/Memory component authority records | same |
+| E-A1.14-007 | missing first-class Gateway component record | same |
+| E-A1.14-008 | Token current-state contradiction | same |
+| E-A1.14-009 | Blueprint/current-state release drift | same |
+| E-A1.14-010 | inherited Connections System-spec drift | same |
+| E-A1.14-011 | Component Release Descriptor contract | same |
+| E-A1.14-012 | Whole-Release Preservation contract | same |
+| E-A1.14-013 | preservation Schema/validator mismatch | same |
+| E-A1.14-014 | missing optional-evidence regression | same |
+| E-A1.14-015 | private System hosted CI no-step limitation | same |
+| E-A1.14-016 | external exact contract qualification 34997085576 | same |
+| E-A1.14-017 | qualified contract code equals frozen contract code | same |
+| E-A1.14-018 | Safe Update remains truthfully incomplete | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -2164,7 +2259,9 @@ A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 | WSA-2026-040 | allocated A1.13 |
 | WSA-2026-041 | allocated A1.13 |
 | WSA-2026-042 | allocated A1.13 |
-| WSA-2026-043 | **NEXT UNUSED** |
+| WSA-2026-043 | allocated A1.14 |
+| WSA-2026-044 | allocated A1.14 |
+| WSA-2026-045 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
