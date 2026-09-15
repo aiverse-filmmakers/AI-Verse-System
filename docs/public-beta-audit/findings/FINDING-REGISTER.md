@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-024`.
+**Next unused finding ID:** `WSA-2026-026`.
 
 ## 2. Allowed classifications
 
@@ -90,21 +90,23 @@ Rules:
 | `WSA-2026-021` | LOW | PROVEN | OPEN | release/version/install reproducibility | `AI-Verse-Data` | A1.6 |
 | `WSA-2026-022` | HIGH | PROVEN | OPEN | operator/domain authority binding | `AI-Verse-Multiple-Bots` | A1.7 |
 | `WSA-2026-023` | HIGH | PROVEN | OPEN | Worker workspace isolation / canonical coordination authority | `AI-Verse-Multiple-Bots` | A1.7 |
+| `WSA-2026-024` | HIGH | PROVEN | OPEN | canonical cost truth / trusted ACTUAL source enforcement | `ai-verse-token` | A1.8 |
+| `WSA-2026-025` | MEDIUM | PROVEN | OPEN | pricing evidence transactionality / concurrency | `ai-verse-token` | A1.8 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 3 |
-| HIGH | 9 |
-| MEDIUM | 2 |
+| HIGH | 10 |
+| MEDIUM | 3 |
 | LOW | 8 |
 | INFO | 1 |
-| PROVEN | 23 |
+| PROVEN | 25 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 23 |
+| OPEN | 25 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -784,6 +786,54 @@ Make Workers first-class in generic workspace policy, reject foreign-workspace d
 
 ---
 
+### WSA-2026-024 — Token ACTUAL monetary truth can bypass the trusted actual-cost source registry
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.8  
+**Root area:** canonical cost truth / trusted ACTUAL source enforcement  
+**Affected repos:** `ai-verse-token`
+
+**Summary:**  
+Token has an explicit trusted actual-cost source registry, but the canonical ledger and generic CollectorRunner do not require an attached actual charge to prove that it passed through that registry. A syntactically valid event can therefore reach the immutable ledger with provider/runtime-reported monetary data and later be rated as ACTUAL.
+
+**Contradiction:** `C-A1.8-001`.
+
+**Primary evidence:** `E-A1.8-004`, `E-A1.8-006`, `E-A1.8-007`, `E-A1.8-008`, `E-A1.8-010`.
+
+**Impact:**  
+A buggy or overly trusted collector/direct storage caller can elevate unverified money into Token's strongest canonical monetary truth class.
+
+**Required closure evidence:**  
+Make ACTUAL admission require trusted source evidence at canonical ingest; prevent generic collector/storage input from self-asserting ACTUAL; retain trusted provider/runtime adapters; add negative regression coverage.
+
+---
+
+### WSA-2026-025 — Token failed pricing sync can leave part of a snapshot batch visible
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.8  
+**Root area:** pricing evidence transactionality / concurrency  
+**Affected repos:** `ai-verse-token`
+
+**Summary:**  
+Pricing batches are fully validated before persistence, but new immutable snapshot files are then committed sequentially. A later write/race failure can leave earlier files visible while the synchronizer records the source refresh as failed.
+
+**Contradiction:** `C-A1.8-002`.
+
+**Primary evidence:** `E-A1.8-012`, `E-A1.8-013`.
+
+**Impact:**  
+A source refresh reported as failed can still change the tariff set available to CALCULATED cost logic. The path requires an I/O or cross-process failure after validation, so severity is MEDIUM.
+
+**Required closure evidence:**  
+Stage and atomically publish one fetched pricing batch or add a durable batch commit manifest; ensure failed refreshes expose no new batch members; add deterministic fault/race regressions.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -813,6 +863,8 @@ Make Workers first-class in generic workspace policy, reject foreign-workspace d
 | `C-A1.6-002` | A1.6 | release/version/install drift | yes | `WSA-2026-021` | OPEN |
 | `C-A1.7-001` | A1.7 | implementation defect / operator authority binding | yes | `WSA-2026-022` | OPEN |
 | `C-A1.7-002` | A1.7 | implementation defect / Worker workspace isolation | yes | `WSA-2026-023` | OPEN |
+| `C-A1.8-001` | A1.8 | implementation defect / ACTUAL source authority bypass | yes | `WSA-2026-024` | OPEN |
+| `C-A1.8-002` | A1.8 | implementation defect / pricing batch failure atomicity | yes | `WSA-2026-025` | OPEN |
 
 ### C-A0.1-001
 
@@ -1001,6 +1053,21 @@ See `WSA-2026-002`.
 **Source B:** generic coordination policy does not apply equivalent Worker workspace validation before delegation/message persistence, while failure handling can update the resolved Worker after a mismatched Task is rejected.  
 **Higher-authority source:** executable policy, delegation, queue/store and principal-runner implementation.  
 **Finding:** `WSA-2026-023`.
+
+### C-A1.8-001
+
+**Source A:** Token truth/collector contracts require trusted provider/runtime evidence for ACTUAL and say collectors do not gain pricing truth.  
+**Source B:** protocol validation and generic collector/ledger ingest accept a pre-attached actual charge without trusted actual-source registry proof.  
+**Source C:** cost engine promotes attached actual charge to ACTUAL before calculation.  
+**Higher-authority source:** executable protocol, collector, ledger and cost implementation.  
+**Finding:** `WSA-2026-024`.
+
+### C-A1.8-002
+
+**Source A:** pricing synchronization describes one updated response as storing its immutable snapshots plus source-check observation and failed refreshes as preserving prior successful state.  
+**Source B:** snapshot batch persistence writes individual files sequentially with no batch transaction/staging visibility barrier.  
+**Higher-authority source:** executable pricing store/synchronizer.  
+**Finding:** `WSA-2026-025`.
 
 ## 6. Evidence ID register
 
@@ -1297,6 +1364,36 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.7-027` | current release-evaluation source | same |
 | `E-A1.7-028` | live pre-write ref/open-PR recheck | same |
 
+### A1.8 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.8-001` | frozen Token tree/repository metadata | `repos/ai-verse-token.md` |
+| `E-A1.8-002` | README/package/provenance identity | same |
+| `E-A1.8-003` | architecture/ownership reconstruction | same |
+| `E-A1.8-004` | usage protocol and validation | same |
+| `E-A1.8-005` | immutable ledger schema/triggers | same |
+| `E-A1.8-006` | ingest/dedupe/checkpoint transaction | same |
+| `E-A1.8-007` | collector SDK/runner enforcement | same |
+| `E-A1.8-008` | actual-cost registry/trusted sources | same |
+| `E-A1.8-009` | provider/Hermes actual-cost adapters | same |
+| `E-A1.8-010` | ACTUAL/CALCULATED/UNKNOWN cost engine | same |
+| `E-A1.8-011` | pricing source registry/source assessment | same |
+| `E-A1.8-012` | pricing synchronizer source stamping/freshness | same |
+| `E-A1.8-013` | immutable pricing store/batch writes | same |
+| `E-A1.8-014` | identity resolver exact-match behavior | same |
+| `E-A1.8-015` | read authorization/filter floor | same |
+| `E-A1.8-016` | privacy-safe read/export/MCP | same |
+| `E-A1.8-017` | native filesystem/registry/lifecycle | same |
+| `E-A1.8-018` | runtime setup/doctor behavior | same |
+| `E-A1.8-019` | hardening audit provenance | same |
+| `E-A1.8-020` | exact-head CI run 34778240376 | same |
+| `E-A1.8-021` | six exact-head successful jobs | same |
+| `E-A1.8-022` | packed release acceptance | same |
+| `E-A1.8-023` | alpha.1/beta.1/beta.2 tag lineage | same |
+| `E-A1.8-024` | beta.3 current-head provenance/version | same |
+| `E-A1.8-025` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -1324,7 +1421,9 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-021` | allocated A1.6 |
 | `WSA-2026-022` | allocated A1.7 |
 | `WSA-2026-023` | allocated A1.7 |
-| `WSA-2026-024` | **NEXT UNUSED** |
+| `WSA-2026-024` | allocated A1.8 |
+| `WSA-2026-025` | allocated A1.8 |
+| `WSA-2026-026` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
