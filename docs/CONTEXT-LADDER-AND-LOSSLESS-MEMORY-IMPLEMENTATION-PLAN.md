@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 12
+Complete: 14
 In progress: 1
 Blocked: 0
-Remaining after current: 12
-Current: E2
-Next after current: E3
+Remaining after current: 10
+Current: E4
+Next after current: E5
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -618,7 +618,7 @@ Next after current: E3
 
 #### E2. Fold creation and recursive roll-up
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1
@@ -631,12 +631,19 @@ Next after current: E3
   - roll-up preserves exact descendant reachability.
 - Tests: level-1, recursive levels, not-smaller rejection, failed generator, ordering.
 - Risks: lossy summaries; excessive model cost.
-- Evidence: pending.
+- Evidence:
+  - E2 PR #19 final head `4b7f0676349ef602a41172844782033923047895`.
+  - PR CI `34901901782`: success, 6/6; composition runs `34901901774`, `34901901840`, and `34901901817`: all success.
+  - E2 merged as Gateway main `c601d1dd0bcd3fcdeb1a8abf51dc433c2f400688`.
+  - Post-merge CI `34902013764`: success, 6/6.
+  - Low pressure performs no folding; oldest completed session history is selected first; failed or non-smaller summaries create no candidate card and never modify canonical raw messages.
+  - Recursive acceptance reaches level 3 over eight completed runs and resolves all original descendant messages in exact order.
+  - E2 acceptance complete; thirteen of 25 slices are accepted.
 
 #### E3. Lossless unfold and archive search
 
-- Status: NOT STARTED
-- Next: YES
+- Status: COMPLETE
+- Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1-E2
 - Goal: support card -> child card -> original message traversal and bounded archive search.
@@ -647,11 +654,19 @@ Next after current: E3
   - retrieval never crosses scope/branch visibility.
 - Tests: multi-level unfold, exact text recovery, stale source, scope.
 - Risks: expensive uncontrolled unfolding.
-- Evidence: pending.
+- Evidence:
+  - E3 PR #20 final head `d82ba2be4b08d6edbd4aff74248a17fa1d6d1241`.
+  - PR CI `34902454573`: success, 6/6; Permanent Bot `34902454575`, Temporary Worker `34902454707`, and Automation Recommendation `34902454850`: all success.
+  - E3 merged as Gateway main `586ebc9114bba85c7d07e88b26d3fe98a4e26e09`.
+  - Post-merge CI `34902581544`: success, 6/6 on unchanged attempt 2 after one pre-existing Invisible Intelligence budget-test flake.
+  - Compact search returns bounded scoped fold-card evidence without unfolding raw history. Precision intent can force bounded multi-level unfold back to exact canonical Gateway messages.
+  - Live source/child validation precedes archive reads. Source fingerprint drift fails closed, returns no unverified raw text, and refreshes derived catalog archive state with stale card IDs.
+  - Workspace isolation and max-hit/max-card/max-message/max-byte bounds are covered by cross-platform acceptance tests.
+  - E3 acceptance complete; fourteen of 25 slices are accepted.
 
 #### E4. Recent raw tail and context-pressure governor
 
-- Status: NOT STARTED
+- Status: IN PROGRESS
 - Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E2-E3
@@ -671,7 +686,7 @@ Next after current: E3
 #### E5. Fold guards, recovery, and diagnostics
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1-E4
 - Goal: enforce card quality/scope/fingerprint/budget guards and expose advanced diagnostics.
@@ -1211,3 +1226,34 @@ Verified before E2 implementation on 2026-09-15:
 - E2 owns fold creation policy and recursive same-level roll-up only. Archive search/unfold policy remains E3; context-pressure policy remains E4.
 - No fold should occur below the configured pressure threshold. Every accepted fold must be strictly smaller than its covered input, preserve ordered complete coverage, and keep exact descendant reachability.
 - Failed or oversized summarization must leave raw history and existing cards untouched.
+
+
+### Slice completion checkpoint: E2
+
+Verified on 2026-09-15:
+
+- E2 PR #19 head `4b7f0676349ef602a41172844782033923047895` passed CI `34901901782` 6/6 and all three composition gates.
+- E2 merged as Gateway main `c601d1dd0bcd3fcdeb1a8abf51dc433c2f400688`; post-merge CI `34902013764` passed 6/6.
+- Oldest-first, low-pressure suppression, strict-smaller validation, failed-generator preservation, ordered coverage and recursive level-3 exact descendant reachability are all proven.
+- E2 acceptance is complete. Thirteen of 25 slices are accepted.
+
+### Slice completion checkpoint: E3
+
+Verified on 2026-09-15:
+
+- E3 PR #20 head `d82ba2be4b08d6edbd4aff74248a17fa1d6d1241` passed CI `34902454573` 6/6 and all three composition gates.
+- E3 merged as Gateway main `586ebc9114bba85c7d07e88b26d3fe98a4e26e09`.
+- Post-merge CI `34902581544` passed 6/6 on unchanged attempt 2 after the existing over-budget Invisible Intelligence test flaked once on Ubuntu 22; all E3 tests were green in that failed lane.
+- Compact archive search stays on card summaries by default. Precision queries boundedly unfold verified roots to exact canonical message text.
+- Stale source/child fingerprints fail closed and are recorded in refreshed derived catalog archive-validation state.
+- E3 acceptance is complete. Fourteen of 25 slices are accepted.
+
+### Slice start checkpoint: E4
+
+Verified before E4 implementation on 2026-09-15:
+
+- AI-Verse-Gateway main: `586ebc9114bba85c7d07e88b26d3fe98a4e26e09`; E3 post-merge CI `34902581544` is 6/6 green after unchanged rerun.
+- E4 may govern what derived history is presented to the runtime, but must not delete or rewrite canonical `run.messages` or fold-card ancestry.
+- Pressure must be computed from AI-Verse-owned configurable context capacity and measured prompt size. No external/Kylon threshold constant is copied.
+- Recent raw continuity must remain verbatim and bounded. Soft pressure may schedule fold work; hard pressure must reduce derived invocation context before the model call or fail closed if it cannot fit.
+- Cache-sensitive recent context may be retained without folding when under the hard threshold; E4 must expose this decision for diagnostics.
