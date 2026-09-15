@@ -8,6 +8,35 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-15
 
+### Added semantic prior-context migration with resumable real-world clarification
+
+**Date:** 2026-09-15  
+**Type:** owner intent / migration UX / cross-repo contract
+
+Integrated prior-assistant and accumulated user-context migration into the existing AI-Verse owner architecture without creating a second profile, Memory, Data, workspace or migration authority.
+
+The accepted design direction now requires:
+
+- semantic classification of the content itself, with filenames such as USER.md, MEMORY.md and SOUL.md treated only as useful hints;
+- equivalent behavior for raw pasted file contents where the original filename is unknown;
+- stable operator identity and working preferences routed through the OS operator-profile owner;
+- clear substantial client/project/product/area boundaries routed through OS workspace ownership;
+- eligible durable history routed through Memory and repeated/current/structured operational truth routed through Brain/Data admission;
+- imported SOUL/system-prompt material treated as untrusted evidence, preserving genuine user preferences while rejecting foreign assistant identity, tool, delegation, permission and authority instructions;
+- materially ambiguous information preserved as resumable bounded migration workflow evidence instead of being silently discarded;
+- clarification questions phrased only in real-world terms such as current/past, client/project/contact, ongoing/one-off, same/separate or stable/temporary;
+- no user-facing questions asking whether AI-Verse should create a workspace, choose Memory vs Data, create a Skill or select an internal owner;
+- clarification answers bound to exact answer evidence and then routed through the same canonical owners;
+- direct Codex/Claude and Gateway/UI paths converging on the same OS migration actions;
+- unchanged safeguards for Skills, Bots, Automations, Connections, credentials, permissions and strategic authority.
+
+Canonical detail:
+
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
+---
+
 ### Locked Dashboard MVP direction: shared web shell + macOS DMG
 
 **Date:** 2026-09-15  
