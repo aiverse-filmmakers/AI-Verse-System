@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 21
+Complete: 23
 In progress: 1
 Blocked: 0
-Remaining after current: 3
-Current: J1
-Next after current: J2
+Remaining after current: 1
+Current: J3
+Next after current: J4
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -863,7 +863,7 @@ Next after current: J2
 
 #### J1. Context/recall benchmark harness
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Memory, AI-Verse-Gateway, AI-Verse-System
 - Dependencies: enough preceding features to compare before/after
@@ -892,12 +892,24 @@ Next after current: J2
   - restart behavior;
   - derived rebuild behavior.
 - Acceptance: reproducible baseline and candidate outputs with machine-readable result.
-- Evidence: pending.
+- Evidence:
+  - Memory J1 PR #29 final head `7c4f8449b2cb027c612a4393ed71f4f5a88fb795`; final PR Test run `34983132926`: all 12 jobs success.
+  - Memory J1 merged as main `406b14fb4398eb1b16dd5f30e50520e8c3540972`; post-merge Test run `34983522129`: all 12 jobs success.
+  - Memory benchmark `memory.context-ladder-j1.v1`: 6/6 candidate scenarios correct, exact fact recovery true, very-old-session recovery true, source reads 3, zero scope leakage, stale-source fail-closed true, restart recall true, orientation/relationship rebuild equivalent, no canonical mutation.
+  - Memory repeated-client top-4 scenario reports 25% irrelevant-context rate; this is retained as honest anti-bloat evidence for J3 rather than hidden or normalized away.
+  - Gateway J1 PR #29 final head `e7eed4915025fccaacf9da2565faf06b4ce943ba`; final PR CI `34982919021`: 6/6 success; Permanent Bot `34982918922`, Temporary Worker `34982918972`, Automation Recommendation `34982918864`: all success.
+  - Gateway J1 merged as main `a44648c852b9c3f7963f891a293671628b5c2d4a`; post-merge CI `34983236074`: 6/6 success.
+  - Gateway benchmark `gateway.context-ladder-j1.v1`: 4/4 scenarios correct, exact recovery true, recent raw tail preserved verbatim, zero scope leakage, restart archive recovery true, fold-catalog rebuild equivalent, canonical raw history unchanged.
+  - Measured 50+ turn context reduction: 80.9934%; measured very-large invocation token reduction: 93.1241%.
+  - After the first measured run, J1 froze minimum acceptance thresholds at 75% long-history context reduction and 90% very-large invocation token reduction; the final accepted run exceeded both.
+  - Exact archive recovery touched 31 source ranges in the deterministic long-history fixture. Correctness remains 100%; this efficiency signal is explicitly carried into J3.
+  - F1-rejected branch catalogs remain intentionally not shipped; J1 records branched-conversation handling as not-applicable under F1 while proving cross-workspace fold isolation.
+  - J1 acceptance complete; twenty-two of 25 slices are accepted.
 
 #### J2. Cross-owner integrated acceptance
 
-- Status: NOT STARTED
-- Next: YES
+- Status: COMPLETE
+- Next: NO
 - Repositories: all changed runtime owners
 - Dependencies: all retained implementation slices
 - Goal: prove the composed AI-Verse runtime consumes the architecture safely.
@@ -915,11 +927,26 @@ Next after current: J2
   - stale source refreshes/fails closed;
   - restart preserves required durable state;
   - exact evidence contract is enforced.
-- Evidence: pending.
+- Evidence:
+  - Repository: `aiverse-filmmakers/AI-Verse-Gateway`.
+  - Branch: `context-ladder/j2-integrated-acceptance-v2`.
+  - PR: #31, merged 2026-09-15.
+  - Final PR head: `a08056e3809b17198082523365902273a525f656`.
+  - Merge/main SHA: `46c15ee58b028dd7fb8b310327ea705ef618805e`.
+  - Exact composed owner pins: OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`; Memory `406b14fb4398eb1b16dd5f30e50520e8c3540972`.
+  - PR Context Ladder Integrated Acceptance run `34990219367`: success.
+  - PR CI run `34990219447`: success.
+  - PR Permanent Bot composition `34990219501`, Temporary Worker composition `34990219558`, and Automation Recommendation Boundary `34990219479`: all success.
+  - Post-merge Gateway main CI run `34992616000`: success, 6/6 matrix jobs green.
+  - The composition drives real Gateway -> OS -> Memory owner routes, not benchmark mocks, and proves all 13 mandatory J2 behaviors in one integrated workspace.
+  - Runtime-supplied trusted Memory provenance remains forbidden; Gateway derives trusted source/evidence/effect authority.
+  - Exact session-digest source fallback prefers bounded `source_coverage`, revalidates scope and source fingerprints, and fails closed rather than treating summaries as proof.
+  - F1 branch catalogs, H1 Brain depth envelope, and I1 cross-owner map remain intentionally rejected/non-shipped; J2 does not resurrect them.
+  - J2 acceptance complete; twenty-three of 25 slices are accepted.
 
 #### J3. Regression, performance, and anti-bloat gate
 
-- Status: NOT STARTED
+- Status: IN PROGRESS
 - Next: NO
 - Repositories: all changed runtime owners
 - Dependencies: J1-J2
@@ -935,7 +962,7 @@ Next after current: J2
 #### J4. Immutable release handoff
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-System, changed component repos, ai-verse-distribution only after frozen release work clears
 - Dependencies: J1-J3; Safe Update/Release Train availability
 - Goal: merge accepted component changes and hand exact immutable SHAs to canonical release machinery.
@@ -995,21 +1022,18 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **E1. Immutable fold-card and catalog storage foundation**
+Current implementation slice: **J3. Regression, performance, and anti-bloat gate**
 
-Do not start E2 until:
-- current Gateway raw session/run ownership is re-audited after Invisible Intelligence changes and no competing transcript owner is introduced;
-- the pre-existing Gateway CI baseline is made deterministic without weakening production behavior or hiding a real product failure;
-- fold cards are immutable derived artifacts over Gateway-owned raw run messages, with raw messages left intact and exactly retrievable;
-- each card has deterministic immutable identity, level, scope/session binding, ordered source/child references, coverage, source fingerprint, byte/token estimates, summary, generator metadata, creation time, and explicit validation state;
-- card writes are retry-safe and conflicting/tampered immutable artifacts fail closed;
-- references to child cards are scope-safe and cannot silently mutate the referenced card;
-- the fold catalog is disposable/rebuildable from immutable card files and restart-safe;
-- E1 creates storage/validation only: no context-pressure folding, summary generation policy, recursive roll-up, or runtime prompt replacement is added before E2;
-- identity, immutability, ordering, coverage, scope isolation, raw-source preservation, catalog rebuild, tamper detection, and restart tests pass;
-- full Gateway CI is green;
-- E1 exact PR/merge/run evidence is written here.
-
+Do not start J4 until:
+- the accepted J1 Memory and Gateway benchmarks are rerun against the current J2-integrated stack;
+- the frozen long-history thresholds remain satisfied: at least 75% reduction for the 50+ turn case and at least 90% reduction for the very-large invocation case;
+- exact recovery, long-history recovery, scope isolation, restart behavior, stale-source handling, derived rebuild equivalence, and canonical-state preservation remain no worse than J1;
+- the honest J1 efficiency signals remain visible and bounded rather than hidden: Memory repeated-client top-4 irrelevant-context rate was 25%, and Gateway exact archive recovery touched 31 source ranges;
+- D2's retained bounded relationship expansion still has benchmark evidence and does not widen into generic traversal;
+- F1 branch catalogs, H1 Brain retrieval-depth envelope, and I1 cross-owner map remain rejected/non-shipped unless new measured evidence overturns those decisions;
+- owner, safety, lifecycle, and Invisible Intelligence regression gates are green;
+- any feature that fails this anti-bloat gate is removed or narrowed before J3 is accepted;
+- J3 exact PR/merge/run evidence is written here.
 
 ### Slice start checkpoint: A2
 
@@ -1483,3 +1507,53 @@ Verified before J1 benchmark work on 2026-09-15:
 - J1 must execute real Memory and Gateway code against deterministic fixtures. It must not replace owner behavior with mocks for the metrics used to judge retention.
 - Baseline and candidate results must be machine-readable. Timing may vary by platform, but correctness/scope/rebuild outcomes and context-byte/token deltas must be reproducible.
 - The long-history acceptance threshold will be frozen only after the baseline fixture is measured.
+
+
+### Slice completion checkpoint: J1
+
+Verified on 2026-09-15:
+
+- Memory J1 final head `7c4f8449b2cb027c612a4393ed71f4f5a88fb795` passed all 12 PR jobs and merged as `406b14fb4398eb1b16dd5f30e50520e8c3540972`; post-merge run `34983522129` passed all 12 jobs.
+- Gateway J1 final head `e7eed4915025fccaacf9da2565faf06b4ce943ba` passed CI 6/6 plus all three composition workflows and merged as `a44648c852b9c3f7963f891a293671628b5c2d4a`; post-merge CI `34983236074` passed 6/6.
+- The machine-readable benchmarks cover all ten required J1 scenarios across the actual Memory and Gateway owners.
+- Long-history context reduction measured 80.9934% against a frozen 75% minimum; very-large invocation token reduction measured 93.1241% against a frozen 90% minimum.
+- Correctness, exact recovery, long-history recovery, scope isolation, restart, rebuild and stale-source behavior all pass.
+- J1 acceptance is complete. Twenty-two of 25 slices are accepted.
+
+### Slice start checkpoint: J2
+
+Verified before J2 integrated acceptance on 2026-09-15:
+
+- AI-Verse-Gateway main: `a44648c852b9c3f7963f891a293671628b5c2d4a`.
+- AI-Verse-Memory main: `406b14fb4398eb1b16dd5f30e50520e8c3540972`.
+- J2 must compose actual owner boundaries and must not replace Memory/OS/Gateway behavior with benchmark mocks.
+- Existing OS four/five-component and Invisible Intelligence composition workflows are the preferred integration pattern; J2 should extend/reuse them rather than inventing another release or composition framework.
+- Accepted feature rejections remain non-applicable, not failures: F1 branch catalogs, H1 Brain depth envelope and I1 cross-owner map are intentionally not shipped.
+
+
+### Slice completion checkpoint: J2
+
+Verified on 2026-09-15:
+
+- Gateway J2 PR #31 final head `a08056e3809b17198082523365902273a525f656` passed the dedicated Context Ladder Integrated Acceptance run `34990219367`, CI `34990219447`, Permanent Bot `34990219501`, Temporary Worker `34990219558`, and Automation Recommendation Boundary `34990219479`.
+- J2 merged as Gateway main `46c15ee58b028dd7fb8b310327ea705ef618805e`.
+- Post-merge Gateway main CI run `34992616000` passed all 6 matrix jobs.
+- The accepted composition uses real Gateway, OS, and Memory owner boundaries with OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d` and Memory `406b14fb4398eb1b16dd5f30e50520e8c3540972`.
+- All 13 mandatory J2 acceptance behaviors are proven, including selective durable promotion, correction supersession, exact source descent, raw recent-tail continuity, workspace isolation, restart/rebuild behavior, stale-source rejection, and exact-evidence enforcement.
+- Trusted provenance remains owner-derived, and exact session-digest fallback is bounded to canonical source coverage with scope/fingerprint revalidation.
+- J2 acceptance is complete. Twenty-three of 25 slices are accepted.
+
+
+### Slice start checkpoint: J3
+
+Verified before J3 anti-bloat/regression work on 2026-09-15:
+
+- AI-Verse-Gateway main: `46c15ee58b028dd7fb8b310327ea705ef618805e`; post-J2 CI `34992616000` is 6/6 green.
+- AI-Verse-Memory main: `406b14fb4398eb1b16dd5f30e50520e8c3540972`.
+- AI-Verse-OS main: `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`.
+- AI-Verse-Brain main: `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`.
+- AI-Verse-Multiple-Bots main: `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`.
+- ai-verse-distribution main: `a215c8777da55b299247ec9e564cca020cfe2020`.
+- No open PRs or active workflow runs were found in Gateway, Memory, OS, Brain, or Distribution at the J3 start audit. System's only open Context Ladder PR is stale bookkeeping PR #43 and will be superseded by the current-main J3 plan refresh.
+- System Contract Validation is pre-existingly red on current main: run `34992773791` failed both matrix jobs before any workflow step executed. The equivalent #49 run `34993037285` fails the same way with zero job steps, so this is not caused by the Context Ladder plan diff. J3 must resolve or conclusively classify this repository-level CI blocker before J4 can claim all changed component mains green.
+- J3 is an evidence/removal gate, not permission to add a second retrieval, graph, branch, Memory, or release architecture.
