@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 18
+Complete: 19
 In progress: 1
 Blocked: 0
-Remaining after current: 6
-Current: G2
-Next after current: H1
+Remaining after current: 5
+Current: H1
+Next after current: I1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -779,7 +779,7 @@ Next after current: H1
 
 #### G2. Runtime deep-retrieval tool/loop
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway, AI-Verse-OS
 - Dependencies: G1
@@ -791,14 +791,25 @@ Next after current: H1
   - source reads are auditable.
 - Tests: depth request, scope escape, over-budget, repeated request, exact fallback.
 - Risks: retrieval loops and token blowup.
-- Evidence: pending.
+- Evidence:
+  - G2 PR #27 final head `41705a5536dcbd54261af492213080c3c99afbab`.
+  - Final-head PR CI `34956910282`: success, 6/6; Permanent Bot `34956910192`, Temporary Worker `34956910161`, Automation Recommendation `34956910214`: all success.
+  - G2 merged as Gateway main `7b61b71e4feceff5763d8f97d1c91db4fcf8af74`.
+  - Post-merge CI `34957067790`: success, 6/6.
+  - Foreground runtime now receives one read-only `aiverse_context` tool alongside `aiverse_action`; completed-work review remains action-only.
+  - Runtime deep retrieval is restricted to `summary`, `detail`, or `source` in the already-bound run scope. Runtime-supplied scope/workspace/principal/system/permission fields fail closed.
+  - Per-depth item/byte caps, four unique deep reads per run, and two source reads per run bound loops/token growth. Read-only retrieval does not consume action budget.
+  - Equivalent requests are fingerprinted and deduplicated per run; safe cache hits avoid a second owner read and remain restart-visible through persisted metadata/tool messages.
+  - Every actual source read emits content-free audit events with request/query/result digests, source-range count, byte count and status.
+  - Session-digest source pointers reuse G1's Gateway scope/fingerprint revalidation before raw evidence is exposed.
+  - G2 acceptance complete; nineteen of 25 slices are accepted.
 
 ### Phase H: Brain retrieval intent
 
 #### H1. Retrieval-intent envelope ship/reject gate
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Brain
 - Dependencies: G1-G2
 - Goal: determine whether Brain needs to express orientation/summary/detail/exact_evidence intent without becoming a retrieval engine.
@@ -1388,3 +1399,24 @@ Verified before G2 implementation on 2026-09-15:
 - G2 must reuse the G1 owner-routed progressive retrieval functions and the existing RunEngine tool loop. It must not add a second Memory API or direct filesystem/index bypass.
 - The runtime may request only bounded summary/detail/source depth in the already-bound run scope. Scope, owner, byte/item caps and source evidence rules remain stronger than the runtime request.
 - Equivalent retrieval requests should be cached/deduplicated per run where safe, and every actual source read must emit auditable diagnostics.
+
+
+### Slice completion checkpoint: G2
+
+Verified on 2026-09-15:
+
+- G2 PR #27 final head `41705a5536dcbd54261af492213080c3c99afbab` passed CI `34956910282` 6/6 and all three composition gates.
+- G2 merged as Gateway main `7b61b71e4feceff5763d8f97d1c91db4fcf8af74`; post-merge CI `34957067790` passed 6/6.
+- The runtime now has one bounded read-only deep-context tool that cannot alter scope, owner, permissions or canonical state.
+- Per-run dedupe/cache plus unique/source-read caps bound loops and repeated equivalent reads.
+- Actual source reads are audited without raw query/content leakage.
+- G2 acceptance is complete. Nineteen of 25 slices are accepted.
+
+### Slice start checkpoint: H1
+
+Verified before H1 evaluation on 2026-09-15:
+
+- G1 deterministic shallow-first retrieval and G2 runtime-requested bounded deep retrieval are accepted on current Gateway main.
+- H1 is a ship/reject gate. Brain must not become a retrieval engine or duplicate Gateway/Memory routing.
+- The benchmark must compare the current purpose/query-based Gateway behavior against a hypothetical bounded Brain envelope such as orientation/summary/detail/exact_evidence.
+- A Brain change is justified only if the explicit envelope materially improves retrieval correctness/efficiency without widening scope, bypassing owners or duplicating retrieval planning.
