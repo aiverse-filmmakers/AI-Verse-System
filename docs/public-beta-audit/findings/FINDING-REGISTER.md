@@ -1362,6 +1362,7 @@ Synchronize current System truth from exact accepted owner/release refs, update 
 | C-A1.13-005 | A1.13 | implementation defect / shadow projection authority | yes | WSA-2026-042 | OPEN |
 | C-A1.14-001 | A1.14 | machine-contract inconsistency | yes | WSA-2026-043 | OPEN |
 | C-A1.14-002 | A1.14 | meta-authority synchronization defect | yes | WSA-2026-044 | OPEN |
+| C-A2.1-001 | A2.1 | cross-side idempotency enforcement contradiction | yes | WSA-2026-008 | OPEN |
 
 ### C-A0.1-001
 
@@ -1712,6 +1713,14 @@ See `WSA-2026-002`.
 **Source D:** Gateway lacks the standard first-class System component record, while Token current-state surfaces also disagree.  
 **Higher-authority source:** exact accepted owner/release evidence plus the completed project plans.  
 **Finding:** WSA-2026-044.
+
+### C-A2.1-001
+
+**Source A:** Automations supplies one stable `invocation_id` and defines it as the downstream idempotency key for Gateway delivery.  
+**Source B:** Gateway accepts Automation wake ingress and maps it into run creation.  
+**Source C:** Gateway concurrent first-claim idempotency admission is not linearizable; two simultaneous first claims can both become new runs.  
+**Higher-authority source:** executable Automations/Gateway implementation already captured in A1.2 and A1.9.  
+**Finding:** existing `WSA-2026-008`. No duplicate finding opened.
 
 ## 6. Evidence ID register
 
@@ -2212,6 +2221,29 @@ A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 | E-A1.14-016 | external exact contract qualification 34997085576 | same |
 | E-A1.14-017 | qualified contract code equals frozen contract code | same |
 | E-A1.14-018 | Safe Update remains truthfully incomplete | same |
+
+### A2.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.1-001 | live frozen-ref/open-PR drift recheck across all 14 repos | seams/A2.1-RELATIONSHIP-MATRIX-RESOLUTION.md |
+| E-A2.1-002 | completed 14-packet A1 claim set | same |
+| E-A2.1-003 | Gateway -> OS focused host-adapter check | same |
+| E-A2.1-004 | Gateway -> Brain Goal-owner check | same |
+| E-A2.1-005 | Gateway owner-routing policy | same |
+| E-A2.1-006 | Automations owner adapters | same |
+| E-A2.1-007 | Automations -> Gateway idempotency contradiction | same |
+| E-A2.1-008 | Multiple Bots <-> Token ownership boundary | same |
+| E-A2.1-009 | Data integration adapter boundaries | same |
+| E-A2.1-010 | Connections credential/effect owner boundary | same |
+| E-A2.1-011 | Dashboard projection/non-ownership boundary | same |
+| E-A2.1-012 | Distribution revision-bounded owner lifecycle adapters | same |
+| E-A2.1-013 | Apps plan-only/current-forbidden write boundary | same |
+| E-A2.1-014 | System meta/release boundary | same |
+| E-A2.1-015 | sensitive NONE pair validation | same |
+| E-A2.1-016 | mechanical 182-pair / 2,184-cell matrix validation | same |
+
+A2.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
 
 ## 7. Finding allocation ledger
 
