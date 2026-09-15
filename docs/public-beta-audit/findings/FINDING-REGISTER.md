@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-022`.
+**Next unused finding ID:** `WSA-2026-024`.
 
 ## 2. Allowed classifications
 
@@ -88,21 +88,23 @@ Rules:
 | `WSA-2026-019` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Skills` | A1.5 |
 | `WSA-2026-020` | HIGH | PROVEN | OPEN | trusted scope provenance / workspace isolation | `AI-Verse-Data` | A1.6 |
 | `WSA-2026-021` | LOW | PROVEN | OPEN | release/version/install reproducibility | `AI-Verse-Data` | A1.6 |
+| `WSA-2026-022` | HIGH | PROVEN | OPEN | operator/domain authority binding | `AI-Verse-Multiple-Bots` | A1.7 |
+| `WSA-2026-023` | HIGH | PROVEN | OPEN | Worker workspace isolation / canonical coordination authority | `AI-Verse-Multiple-Bots` | A1.7 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 3 |
-| HIGH | 7 |
+| HIGH | 9 |
 | MEDIUM | 2 |
 | LOW | 8 |
 | INFO | 1 |
-| PROVEN | 21 |
+| PROVEN | 23 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 21 |
+| OPEN | 23 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -734,6 +736,54 @@ Accept/version the newer behavior and use an immutable install reference when pu
 
 ---
 
+### WSA-2026-022 — Multiple Bots operator/domain authority is not bound to trusted authenticated identity
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.7  
+**Root area:** operator/domain authority binding  
+**Affected repos:** `AI-Verse-Multiple-Bots`
+
+**Summary:**  
+The repository's security contract distinguishes Gateway transport access from operator/domain authority, but sensitive control paths authorize against caller-supplied actor identity rather than trusted authenticated operator identity.
+
+**Contradiction:** `C-A1.7-001`.
+
+**Primary evidence:** `E-A1.7-010`, `E-A1.7-011`, `E-A1.7-012`, `E-A1.7-013`, `E-A1.7-014`.
+
+**Impact:**  
+Gateway access can satisfy operator-only domain controls without a second trusted operator binding. Affected classes include Approval decisions, durable Bot lifecycle/rebind, dead-letter retry and coordination cancellation/control surfaces.
+
+**Required closure evidence:**  
+Bind operator authorization to trusted host/session identity, separate provenance from authorization, and add negative tests showing transport access alone cannot satisfy operator-only mutations.
+
+---
+
+### WSA-2026-023 — Multiple Bots generic Worker coordination can cross workspace scope
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.7  
+**Root area:** Worker workspace isolation / canonical coordination authority  
+**Affected repos:** `AI-Verse-Multiple-Bots`
+
+**Summary:**  
+Managed Team Run Worker creation is workspace-bound, but generic coordination policy does not apply equivalent pre-persistence Worker scope checks. Foreign-workspace coordination state can therefore target an existing Worker, and runner failure handling can subsequently update that Worker's canonical status.
+
+**Contradiction:** `C-A1.7-002`.
+
+**Primary evidence:** `E-A1.7-015`, `E-A1.7-016`, `E-A1.7-017`, `E-A1.7-018`, `E-A1.7-019`.
+
+**Impact:**  
+This creates a canonical cross-workspace coordination corruption/denial path. Runtime execution itself is blocked once the mismatch is detected, so this is not classified as external tool/credential takeover.
+
+**Required closure evidence:**  
+Make Workers first-class in generic workspace policy, reject foreign-workspace delegation/message state before persistence, and prevent failure/cancel paths from mutating a Worker until scope binding is proven.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -761,6 +811,8 @@ Accept/version the newer behavior and use an immutable install reference when pu
 | `C-A1.5-004` | A1.5 | release/version/bootstrap drift | yes | `WSA-2026-019` | OPEN |
 | `C-A1.6-001` | A1.6 | implementation defect / trusted scope provenance | yes | `WSA-2026-020` | OPEN |
 | `C-A1.6-002` | A1.6 | release/version/install drift | yes | `WSA-2026-021` | OPEN |
+| `C-A1.7-001` | A1.7 | implementation defect / operator authority binding | yes | `WSA-2026-022` | OPEN |
+| `C-A1.7-002` | A1.7 | implementation defect / Worker workspace isolation | yes | `WSA-2026-023` | OPEN |
 
 ### C-A0.1-001
 
@@ -935,6 +987,20 @@ See `WSA-2026-002`.
 **Source B:** frozen current main is 10 commits newer under the same version and mutable GitHub install route.  
 **Higher-authority source:** current package/source + immutable descriptor + commit comparison.  
 **Finding:** `WSA-2026-021`.
+
+### C-A1.7-001
+
+**Source A:** secure-remote contract says transport authentication does not grant domain authority.  
+**Source B:** sensitive operator controls accept caller-supplied actor identity and validate operator status syntactically rather than through trusted authenticated identity.  
+**Higher-authority source:** executable server/Gateway/recovery/control implementation.  
+**Finding:** `WSA-2026-022`.
+
+### C-A1.7-002
+
+**Source A:** temporary Workers are documented and implemented as Team Run/workspace-scoped principals.  
+**Source B:** generic coordination policy does not apply equivalent Worker workspace validation before delegation/message persistence, while failure handling can update the resolved Worker after a mismatched Task is rejected.  
+**Higher-authority source:** executable policy, delegation, queue/store and principal-runner implementation.  
+**Finding:** `WSA-2026-023`.
 
 ## 6. Evidence ID register
 
@@ -1198,6 +1264,39 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.6-023` | documented mutable GitHub install path | same |
 | `E-A1.6-024` | live pre-write ref/open-PR recheck | same |
 
+### A1.7 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.7-001` | frozen Multiple Bots tree and repository metadata | `repos/AI-Verse-Multiple-Bots.md` |
+| `E-A1.7-002` | ownership reconstruction | same |
+| `E-A1.7-003` | Bot/Worker distinction and managed Worker binding | same |
+| `E-A1.7-004` | durable Bot coordination policy | same |
+| `E-A1.7-005` | remote lease narrowing and receipt checks | same |
+| `E-A1.7-006` | operational budget enforcement | same |
+| `E-A1.7-007` | Token ownership boundary | same |
+| `E-A1.7-008` | execution queue/concurrency/recovery | same |
+| `E-A1.7-009` | Handoff ownership/lease transfer | same |
+| `E-A1.7-010` | secure remote Gateway contract | same |
+| `E-A1.7-011` | bearer/loopback implementation | same |
+| `E-A1.7-012` | public operator-control routes | same |
+| `E-A1.7-013` | operator validation implementation | same |
+| `E-A1.7-014` | release acceptance security interpretation | same |
+| `E-A1.7-015` | generic Worker policy scope behavior | same |
+| `E-A1.7-016` | generic delegation route | same |
+| `E-A1.7-017` | Worker execution workspace validation | same |
+| `E-A1.7-018` | runner failure Worker update path | same |
+| `E-A1.7-019` | Worker mailbox/delivery scope behavior | same |
+| `E-A1.7-020` | OS write-command owner boundary | same |
+| `E-A1.7-021` | Brain/Memory/Skills/Automations boundaries | same |
+| `E-A1.7-022` | native registry/materialization/lifecycle | same |
+| `E-A1.7-023` | uninstall ownership/preservation tests | same |
+| `E-A1.7-024` | exact-head CI run 34872178884 | same |
+| `E-A1.7-025` | exact-head CI job 104070507325 | same |
+| `E-A1.7-026` | beta.1 release merge to frozen-current comparison | same |
+| `E-A1.7-027` | current release-evaluation source | same |
+| `E-A1.7-028` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -1223,7 +1322,9 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-019` | allocated A1.5 |
 | `WSA-2026-020` | allocated A1.6 |
 | `WSA-2026-021` | allocated A1.6 |
-| `WSA-2026-022` | **NEXT UNUSED** |
+| `WSA-2026-022` | allocated A1.7 |
+| `WSA-2026-023` | allocated A1.7 |
+| `WSA-2026-024` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
