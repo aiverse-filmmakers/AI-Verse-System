@@ -1719,6 +1719,26 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.10-022` | implementation/founding commit history | same |
 | `E-A1.10-023` | live pre-write ref/open-PR recheck | same |
 
+
+### A1.11 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.11-001` | frozen Apps repository metadata/head/history | `repos/AI-Verse-Apps.md` |
+| `E-A1.11-002` | exact one-file tracked-tree reconstruction | same |
+| `E-A1.11-003` | README product identity / research-seed status | same |
+| `E-A1.11-004` | intended ownership and non-ownership boundaries | same |
+| `E-A1.11-005` | planned lifecycle and trust model | same |
+| `E-A1.11-006` | planned security and multi-system isolation laws | same |
+| `E-A1.11-007` | outbound sibling relationship claims | same |
+| `E-A1.11-008` | research/inspiration provenance | same |
+| `E-A1.11-009` | negative-space proof: no executable/package/test/CI surface | same |
+| `E-A1.11-010` | current-head combined status with no contexts | same |
+| `E-A1.11-011` | A0 snapshot Full-profile/research-seed classification | same |
+| `E-A1.11-012` | live pre-write head/open-PR recheck | same |
+
+A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
