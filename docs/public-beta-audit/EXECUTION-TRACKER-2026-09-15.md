@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 33 / 100.**
+**Current accepted progress: 36 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -161,10 +161,10 @@ A1 exit:
 # A2 - Cross-component relationship audit - 24 points
 
 ### A2.1 Relationship matrix resolution - 3
-Status: NEXT
+Status: COMPLETE
 
 ### A2.2 Canonical ownership and write paths - 3
-Status: PENDING
+Status: NEXT
 
 ### A2.3 Lifecycle/discovery/adoption/reconcile graph - 3
 Status: PENDING
