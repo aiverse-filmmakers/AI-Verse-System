@@ -876,3 +876,40 @@ Brain/Memory consume evidence only within their own ownership boundaries
 ```
 
 Skills works best with AI-Verse precisely because it does not become another OS.
+
+
+## 24. Scoped Video Editor 1.0.0 acceptance
+
+**Date:** 2026-09-15  
+**Verdict:** **PASS - MERGED AND POST-MERGE VERIFIED**
+
+AI-Verse Skills contains the accepted first-party `video-editor` 1.0.0 composite capability.
+
+Canonical implementation evidence:
+
+- Skills PR **#14** merged as `8c321c03421a2e0e470280cc40e588a27c1a510d`;
+- accepted pre-merge release head `47ca55b11850b1432882a1c1c015e0a253d4c1d0`;
+- one member-facing capability, `video-editor`, included in Full, Creator and Filmmaker profiles;
+- 21 semantic video-editing capabilities;
+- Nate Herk editorial baseline pinned to `nateherkai/hyperframes-student-kit@b1afdb1dcbcad39dd27638ea699f132fe44ce6df`;
+- canonical HyperFrames pinned to `heygen-com/hyperframes` 0.8.40 at `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`;
+- HyperFrames support packages remain internal, fetch-only provider dependencies rather than duplicate member-facing editor Skills;
+- Interface Designer cooperation is registered, presentation-only and returns authority to Video Editor;
+- existing video/film capabilities remain available as distinct specialists/backends;
+- comparison against the pre-Video-Editor baseline found 63 added files, 10 modified files and **0 removed files**.
+
+Final exact release-head gates:
+
+- Validate AI-Verse Skills: run `34901198285` - PASS;
+- Runtime Readiness: run `34901198247` - PASS;
+- Full E2E Install: run `34901198231` - PASS;
+- Video Editor Release Acceptance: run `34901198219` - PASS;
+- encoded-media acceptance artifact `10370482971`, digest `sha256:79b905477f07c1bf863ef2fab2b2d4b85e6de9ac68bcf91d78edcb695a02d44e`.
+
+Post-merge Skills `main` verification at `8c321c03421a2e0e470280cc40e588a27c1a510d`:
+
+- Validate: `34901693154` - PASS;
+- Runtime Readiness: `34901693118` - PASS;
+- Full E2E: `34901693143` - attempt 1 reached an external GitHub HTTP 429 after all 124 tests passed; unchanged attempt 2 - PASS.
+
+This scoped Video Editor acceptance does **not** change the broader Skills component verdict for unrelated catalog-wide public-beta work documented above.
