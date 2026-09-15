@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-026`.
+**Next unused finding ID:** `WSA-2026-029`.
 
 ## 2. Allowed classifications
 
@@ -92,21 +92,24 @@ Rules:
 | `WSA-2026-023` | HIGH | PROVEN | OPEN | Worker workspace isolation / canonical coordination authority | `AI-Verse-Multiple-Bots` | A1.7 |
 | `WSA-2026-024` | HIGH | PROVEN | OPEN | canonical cost truth / trusted ACTUAL source enforcement | `ai-verse-token` | A1.8 |
 | `WSA-2026-025` | MEDIUM | PROVEN | OPEN | pricing evidence transactionality / concurrency | `ai-verse-token` | A1.8 |
+| `WSA-2026-026` | HIGH | PROVEN | OPEN | canonical store ownership / lifecycle safety / health truth | `AI-Verse-Automations` | A1.9 |
+| `WSA-2026-027` | HIGH | PROVEN | OPEN | canonical schedule authority / migration handoff / readiness truth | `AI-Verse-Automations` | A1.9 |
+| `WSA-2026-028` | MEDIUM | PROVEN | OPEN | native attachment lifecycle / host discovery truth | `AI-Verse-Automations` | A1.9 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 3 |
-| HIGH | 10 |
-| MEDIUM | 3 |
+| HIGH | 12 |
+| MEDIUM | 4 |
 | LOW | 8 |
 | INFO | 1 |
-| PROVEN | 25 |
+| PROVEN | 28 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 25 |
+| OPEN | 28 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -834,6 +837,78 @@ Stage and atomically publish one fetched pricing batch or add a durable batch co
 
 ---
 
+### WSA-2026-026 — Automations canonical store has no ownership/format identity gate
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.9  
+**Root area:** canonical store ownership / lifecycle safety / health truth  
+**Affected repos:** `AI-Verse-Automations`
+
+**Summary:**  
+Setup/update can initialize and stamp an existing SQLite file at the configured Automations database path without first proving the file belongs to Automations. Lifecycle health then checks generic SQLite integrity rather than exact Automations format/schema identity.
+
+**Contradiction:** `C-A1.9-001`.
+
+**Primary evidence:** `E-A1.9-005`, `E-A1.9-006`, `E-A1.9-019`.
+
+**Impact:**  
+A foreign or structurally incompatible SQLite database can be modified or treated as healthy canonical scheduler state.
+
+**Required closure evidence:**  
+Add durable database ownership/format identity, exact schema verification, fail-closed foreign-database handling and compatible-version migration gates, with negative tests.
+
+---
+
+### WSA-2026-027 — Automations legacy-definition conflict is not a live execution kill fence
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.9  
+**Root area:** canonical schedule authority / migration handoff / readiness truth  
+**Affected repos:** `AI-Verse-Automations`
+
+**Summary:**  
+Legacy OS automation definitions correctly block initial setup enablement, but live conflicts introduced after setup are only detected by doctor. Normal status can remain ready and the scheduler continues execution because Engine does not recheck the live legacy-authority condition.
+
+**Contradiction:** `C-A1.9-002`.
+
+**Primary evidence:** `E-A1.9-019`, `E-A1.9-020`.
+
+**Impact:**  
+The component's own anti-dual-authority law is not continuously enforced, leaving a supported path where conflicting definition authority exists while Automations remains active.
+
+**Required closure evidence:**  
+Make live legacy conflict part of readiness/execution fencing, align status and doctor, define explicit handoff clearing semantics and add post-setup conflict regressions.
+
+---
+
+### WSA-2026-028 — Automations component lifecycle and attached OS extension lifecycle diverge
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.9  
+**Root area:** native attachment lifecycle / host discovery truth  
+**Affected repos:** `AI-Verse-Automations`
+
+**Summary:**  
+OS attachment creates an installed/enabled registry entry and bridge files, but component enable/disable/uninstall do not synchronize that registry state or detach those integration files.
+
+**Contradiction:** `C-A1.9-003`.
+
+**Primary evidence:** `E-A1.9-019`, `E-A1.9-021`, `E-A1.9-022`.
+
+**Impact:**  
+Host discovery can disagree with Automations owner state. The retained bridge fails closed after uninstall, so this is lifecycle/discovery inconsistency rather than residual execution authority.
+
+**Required closure evidence:**  
+Synchronize component and registry lifecycle under existing lock controls, or define a separate explicit attach/detach state model; preserve canonical SQLite state and add attached lifecycle regressions.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -865,6 +940,9 @@ Stage and atomically publish one fetched pricing batch or add a durable batch co
 | `C-A1.7-002` | A1.7 | implementation defect / Worker workspace isolation | yes | `WSA-2026-023` | OPEN |
 | `C-A1.8-001` | A1.8 | implementation defect / ACTUAL source authority bypass | yes | `WSA-2026-024` | OPEN |
 | `C-A1.8-002` | A1.8 | implementation defect / pricing batch failure atomicity | yes | `WSA-2026-025` | OPEN |
+| `C-A1.9-001` | A1.9 | implementation defect / canonical database ownership identity | yes | `WSA-2026-026` | OPEN |
+| `C-A1.9-002` | A1.9 | implementation defect / live legacy authority fence | yes | `WSA-2026-027` | OPEN |
+| `C-A1.9-003` | A1.9 | implementation defect / native lifecycle synchronization | yes | `WSA-2026-028` | OPEN |
 
 ### C-A0.1-001
 
@@ -1068,6 +1146,28 @@ See `WSA-2026-002`.
 **Source B:** snapshot batch persistence writes individual files sequentially with no batch transaction/staging visibility barrier.  
 **Higher-authority source:** executable pricing store/synchronizer.  
 **Finding:** `WSA-2026-025`.
+
+### C-A1.9-001
+
+**Source A:** Automations architecture defines SQLite as the component-owned canonical scheduler store.  
+**Source B:** database initialization opens any selected `automations.db`, creates/alters tables and stamps metadata without proving Automations ownership or compatible format.  
+**Source C:** health checks generic SQLite integrity rather than exact Automations schema identity.  
+**Higher-authority source:** executable database/lifecycle implementation.  
+**Finding:** `WSA-2026-026`.
+
+### C-A1.9-002
+
+**Source A:** README states discovered legacy OS automation definitions require migration and keep execution disabled to prevent competing authorities.  
+**Source B:** live legacy discovery after setup is doctor-only; status and Engine execution use stored migration flags and can remain ready/active.  
+**Higher-authority source:** executable lifecycle/engine implementation.  
+**Finding:** `WSA-2026-027`.
+
+### C-A1.9-003
+
+**Source A:** public lifecycle includes enable/disable/uninstall and README describes uninstall/detach with canonical state preservation.  
+**Source B:** attached OS registry/files are not synchronized or detached by those component lifecycle commands.  
+**Higher-authority source:** executable lifecycle and OS-extension implementation.  
+**Finding:** `WSA-2026-028`.
 
 ## 6. Evidence ID register
 
@@ -1394,6 +1494,37 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.8-024` | beta.3 current-head provenance/version | same |
 | `E-A1.8-025` | live pre-write ref/open-PR recheck | same |
 
+### A1.9 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.9-001` | frozen Automations tree/repository metadata | `repos/AI-Verse-Automations.md` |
+| `E-A1.9-002` | README/manifest/package ownership identity | same |
+| `E-A1.9-003` | architecture/owner contract | same |
+| `E-A1.9-004` | schedule parser/DST/misfire behavior | same |
+| `E-A1.9-005` | canonical SQLite schema | same |
+| `E-A1.9-006` | database initialize/connect/integrity implementation | same |
+| `E-A1.9-007` | automation/trigger store validation | same |
+| `E-A1.9-008` | atomic definition creation/idempotency | same |
+| `E-A1.9-009` | due-claim transactional concurrency | same |
+| `E-A1.9-010` | definition/version kill fences | same |
+| `E-A1.9-011` | OS permission binding/retry reauthorization | same |
+| `E-A1.9-012` | crash recovery/unknown retry | same |
+| `E-A1.9-013` | event replay/source/type binding | same |
+| `E-A1.9-014` | webhook HMAC/replay window | same |
+| `E-A1.9-015` | target credential/network validation | same |
+| `E-A1.9-016` | Brain owner adapter | same |
+| `E-A1.9-017` | Multiple Bots projection/payload | same |
+| `E-A1.9-018` | Gateway owner adapter/stable envelope | same |
+| `E-A1.9-019` | setup/status/doctor/enable/disable/update/uninstall | same |
+| `E-A1.9-020` | live legacy-definition discovery | same |
+| `E-A1.9-021` | OS extension registry/owner bridge | same |
+| `E-A1.9-022` | OS extension attachment tests | same |
+| `E-A1.9-023` | exact-head CI run 34875408692 | same |
+| `E-A1.9-024` | nine exact-head successful CI jobs | same |
+| `E-A1.9-025` | accepted marker to current 10-commit comparison | same |
+| `E-A1.9-026` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -1423,7 +1554,10 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-023` | allocated A1.7 |
 | `WSA-2026-024` | allocated A1.8 |
 | `WSA-2026-025` | allocated A1.8 |
-| `WSA-2026-026` | **NEXT UNUSED** |
+| `WSA-2026-026` | allocated A1.9 |
+| `WSA-2026-027` | allocated A1.9 |
+| `WSA-2026-028` | allocated A1.9 |
+| `WSA-2026-029` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
