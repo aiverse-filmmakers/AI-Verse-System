@@ -360,6 +360,19 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A0.4-005` | deterministic 182-pair enumeration | same |
 | `E-A0.4-006` | canonical finding-register allocation state | same |
 
+### A0.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A0.5-001` | canonical freeze-gate contract | `snapshots/A0-FREEZE-GATE.md` |
+| `E-A0.5-002` | frozen non-System ref recheck | same |
+| `E-A0.5-003` | System audit-only drift classification | same |
+| `E-A0.5-004` | scoped open PR state | same |
+| `E-A0.5-005` | Dashboard MC1.4 pause state | same |
+| `E-A0.5-006` | release-surface tag recheck | same |
+| `E-A0.5-007` | GitHub Release recheck | same |
+| `E-A0.5-008` | accepted A0 control artifacts | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
