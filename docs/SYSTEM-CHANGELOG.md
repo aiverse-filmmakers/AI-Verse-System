@@ -8,6 +8,30 @@ The detailed truth remains in the linked canonical documents.
 
 ## 2026-09-15
 
+### Locked Dashboard MVP direction: shared web shell + macOS DMG
+
+**Date:** 2026-09-15  
+**Type:** product interface priority / Dashboard architecture / dogfood plan
+
+Promoted the thin AI-Verse product shell to the immediate product priority and recorded the implementation plan in:
+
+- docs/DASHBOARD-MVP-WEB-DESKTOP-PLAN-2026-09-15.md
+
+The selected direction is one React 19 + TypeScript + Vite frontend shared between browser and a Tauri 2 macOS desktop host.
+
+The first owner-dogfood finish line is intentionally small:
+
+- select/register one or multiple existing AI-Verse OS folders;
+- preserve strict system isolation;
+- automatically start or attach to the canonical AI-Verse Gateway for the selected system;
+- authenticate an admitted runtime through an owner-correct managed flow;
+- chat inside the selected system/workspace;
+- optionally install AI-Verse into a new folder through canonical Distribution.
+
+The plan explicitly avoids making Dashboard a second runtime Gateway, installer, credential owner, Memory, task store, scheduler, Bot registry or other domain authority. Because canonical Gateway currently binds one system root per Gateway configuration, the MVP will use isolated per-system Gateway instances rather than introducing a multi-root Gateway redesign.
+
+This newer owner decision supersedes the older Dashboard roadmap assumption that desktop packaging should occur only after all Dashboard phases are complete. The thin DMG shell now exists to enable early dogfood while the advanced Control Room surfaces remain incremental future work.
+
 ### Completed Invisible Intelligence and Grandma UX project at 100%
 
 **Date:** 2026-09-15  
