@@ -349,6 +349,17 @@ Evidence IDs remain local to their originating task. This section indexes publis
 **Source:** live `docs/public-beta-audit/` tree at `eba8f2e7a7005a4e597bbb75fef7913927e2f738`.  
 **Result:** no `findings/` directory or `FINDING-REGISTER.md` existed before A0.3.
 
+### A0.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A0.4-001` | relationship-matrix protocol | `seams/RELATIONSHIP-MATRIX.md` |
+| `E-A0.4-002` | frozen repository universe and refs | same |
+| `E-A0.4-003` | pre-task drift recheck | same |
+| `E-A0.4-004` | open PR state | same |
+| `E-A0.4-005` | deterministic 182-pair enumeration | same |
+| `E-A0.4-006` | canonical finding-register allocation state | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
