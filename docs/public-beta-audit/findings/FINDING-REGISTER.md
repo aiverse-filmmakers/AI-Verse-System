@@ -1363,6 +1363,10 @@ Synchronize current System truth from exact accepted owner/release refs, update 
 | C-A1.14-001 | A1.14 | machine-contract inconsistency | yes | WSA-2026-043 | OPEN |
 | C-A1.14-002 | A1.14 | meta-authority synchronization defect | yes | WSA-2026-044 | OPEN |
 | C-A2.1-001 | A2.1 | cross-side idempotency enforcement contradiction | yes | WSA-2026-008 | OPEN |
+| C-A2.2-001 | A2.2 | Dashboard shadow-authority contradiction | yes | WSA-2026-042 | OPEN |
+| C-A2.2-002 | A2.2 | Token monetary admission contradiction | yes | WSA-2026-024 | OPEN |
+| C-A2.2-003 | A2.2 | Distribution receipt/write-path contradiction | yes | WSA-2026-034 | OPEN |
+| C-A2.2-004 | A2.2 | Automations owner-vs-attachment truth contradiction | yes | WSA-2026-028 | OPEN |
 
 ### C-A0.1-001
 
@@ -1721,6 +1725,30 @@ See `WSA-2026-002`.
 **Source C:** Gateway concurrent first-claim idempotency admission is not linearizable; two simultaneous first claims can both become new runs.  
 **Higher-authority source:** executable Automations/Gateway implementation already captured in A1.2 and A1.9.  
 **Finding:** existing `WSA-2026-008`. No duplicate finding opened.
+
+### C-A2.2-001
+
+**Source A:** Dashboard is projection/presentation only and must not own canonical domain truth.  
+**Source B:** current Dashboard Health/Inbox read models synthesize owner-like semantics from generic filesystem observations.  
+**Finding:** existing `WSA-2026-042`.
+
+### C-A2.2-002
+
+**Source A:** Token is the sole canonical normalized telemetry/pricing/cost owner and ACTUAL requires trusted monetary evidence.  
+**Source B:** generic collector/direct ingest may supply syntactically valid actual_charge without mandatory trusted-source proof.  
+**Finding:** existing `WSA-2026-024`.
+
+### C-A2.2-003
+
+**Source A:** Distribution receipt is release/install truth and owner live state remains authoritative.  
+**Source B:** concurrent Distribution lifecycle operations can commit stale receipt snapshots after different owner effects complete.  
+**Finding:** existing `WSA-2026-034`.
+
+### C-A2.2-004
+
+**Source A:** Automations owns schedule truth while OS extension registry is attachment metadata only.  
+**Source B:** component lifecycle can diverge from the attached OS registry state.  
+**Finding:** existing `WSA-2026-028`.
 
 ## 6. Evidence ID register
 
@@ -2244,6 +2272,31 @@ A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 | E-A2.1-016 | mechanical 182-pair / 2,184-cell matrix validation | same |
 
 A2.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
+
+### A2.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.2-001 | live A2.2 ref/open-PR freeze | seams/A2.2-CANONICAL-OWNERSHIP-WRITE-PATHS.md |
+| E-A2.2-002 | A2.1 resolved relationship matrix | same |
+| E-A2.2-003 | OS host action and write-command boundary | same |
+| E-A2.2-004 | Brain direction handover/handback and policy intersection | same |
+| E-A2.2-005 | Gateway runtime action admission and non-owner negative space | same |
+| E-A2.2-006 | Memory canonical/derived state and write boundary | same |
+| E-A2.2-007 | Skills immutable generation owner boundary | same |
+| E-A2.2-008 | Data adapters and trusted-scope write admission | same |
+| E-A2.2-009 | Multiple Bots coordination and Token boundary | same |
+| E-A2.2-010 | Token canonical telemetry/pricing/cost boundary | same |
+| E-A2.2-011 | Automations owner bridge/adapters/projection | same |
+| E-A2.2-012 | Connections final-edge effect/credential ownership | same |
+| E-A2.2-013 | Dashboard read-only/shadow-semantics evidence | same |
+| E-A2.2-014 | Distribution revision-bounded owner adapters | same |
+| E-A2.2-015 | System vs Distribution meta/release split | same |
+| E-A2.2-016 | direct cross-owner write inventory | same |
+| E-A2.2-017 | duplicate-ledger/shadow-cache classification | same |
+| E-A2.2-018 | Brain/model security-authority check | same |
+
+A2.2 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
 
 ## 7. Finding allocation ledger
 
