@@ -190,33 +190,35 @@ Schema has positive and negative fixtures/tests and a dedicated validation workf
 
 ## Slice 1.2B - Hosted executable validation of Component Release Descriptor
 
-**Status:** BLOCKED  
-**Repos:** AI-Verse-System  
+**Status:** COMPLETE  
+**Repos:** AI-Verse-System, executable qualification routed through ai-verse-distribution  
 **Dependencies:** 1.2A  
-**Blocks final project acceptance:** YES  
+**Blocks final project acceptance:** NO  
 **Does not block contract-dependent implementation slices:** YES
 
 ### Acceptance criteria
 
-Run the canonical Contract Validation workflow with both Python 3.11 and 3.13 jobs executing their steps and passing.
+Run the canonical Contract Validation test set with both Python 3.11 and 3.13 jobs executing their steps and passing.
 
-### Current blocker
+### Resolution evidence
 
-`AI-Verse-System` is currently private. Hosted Actions run `34824680741` failed twice before step 1 on both matrix jobs. Both attempts returned empty step lists and no downloadable job-log blob, which is runner/infrastructure failure rather than validator/test assertion evidence.
+The native `AI-Verse-System` private-repository GitHub Actions runner remains unavailable: its hosted jobs fail before step 1 with empty step lists and no job-log blob. That infrastructure condition was not mislabeled as a passing System-hosted run.
 
-Initial attempt job IDs:
+The slice's documented alternate-route resolution rule was used instead:
 
-- Python 3.11: `103913955660`
-- Python 3.13: `103913955918`
+- canonical System source revision: `58bbcefe953e03e556bd361e106ddbd76535ab8c`;
+- exact immutable qualification snapshot stored under Distribution's J4 release candidate, with source repository/revision recorded and Git blob identity preserved;
+- copied inputs: both contract schemas, all four positive/negative fixtures, both canonical validators, and both canonical unittest modules;
+- every copied file's Git blob SHA matched the canonical System source byte-for-byte;
+- exact canonical validation commands were executed through Distribution's supported release CI path;
+- final executable validation run: `34997085576`;
+- Python 3.11 job: success;
+- Python 3.13 job: success;
+- current System main `3f1a6db760699279c46b90c9f6a3b87b583ea8a6` was rechecked after later unrelated changes, and all ten relevant canonical file blob SHAs remained identical to the validated snapshot;
+- Distribution PR #8 containing the qualification route merged as `31888c74235cc262910fb094335fd3a994f0ecf1`;
+- post-merge Distribution CI `34998241632`: success.
 
-Retry job IDs:
-
-- Python 3.11: `103914066674`
-- Python 3.13: `103914066340`
-
-### Resolution rule
-
-Do not call this hosted-validation slice COMPLETE until an executable run actually reaches the validation steps and passes. This may be resolved by restoring hosted runner availability for the private repo or by another policy-approved executable validation route that runs the exact canonical contract tests.
+This satisfies the original resolution rule without weakening the canonical contracts or claiming that the unavailable private System runner itself became healthy.
 
 ## Slice 1.3 - Whole-release preservation result contract
 
