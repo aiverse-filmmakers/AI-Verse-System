@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 3 / 100.**
+**Current accepted progress: 4 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -69,7 +69,7 @@ Output:
 `findings/FINDING-REGISTER.md`
 
 ### A0.4 Relationship matrix skeleton - 1
-Status: NEXT
+Status: COMPLETE
 
 Create directional all-repo matrix with UNKNOWN initial states and relation dimensions.
 
@@ -77,7 +77,7 @@ Output:
 `seams/RELATIONSHIP-MATRIX.md`
 
 ### A0.5 Freeze gate - 1
-Status: PENDING
+Status: NEXT
 
 Verify:
 - product repos read-only for audit;
