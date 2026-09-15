@@ -1,3 +1,7 @@
+> **Execution authority update, 2026-09-15**
+>
+> Runtime implementation is governed by the canonical files in `aiverse-filmmakers/AI-Verse-Dashboard`: `docs/PRD-MISSION-CONTROL-AIVERSE-DASHBOARD-2026-09-15.md` and `docs/MISSION-CONTROL-EXECUTION-TRACKER-2026-09-15.md`. The tracker is a 100-point gated program with explicit human checkpoints. Future chats must recheck live GitHub state and continue the first eligible tracker task rather than reconstructing sequence from conversation history.
+
 > **CURRENT DASHBOARD PRODUCT DIRECTION, 2026-09-15**
 >
 > Dashboard implementation now follows [DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md](DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md). Builderz Labs Mission Control is the approved initial visual/application shell; AI-Verse remains the canonical architecture underneath it. Older Dashboard sequencing remains historical where it conflicts with that plan. Do not restart the prior scratch-built shell sequence or the old desktop-last order.
