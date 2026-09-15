@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 20
+Complete: 21
 In progress: 1
 Blocked: 0
-Remaining after current: 4
-Current: I1
-Next after current: J1
+Remaining after current: 3
+Current: J1
+Next after current: J2
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -836,7 +836,7 @@ Next after current: J1
 
 #### I1. Tiny cross-owner map ship/reject gate
 
-- Status: NOT STARTED
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-OS and AI-Verse-Gateway only if benchmark proves missing value
 - Dependencies: G1-G2, current OS context re-audit
@@ -847,14 +847,24 @@ Next after current: J1
   - otherwise record explicit rejection as bloat.
 - Tests if shipped: freshness, owner refs, scope, rebuild, size.
 - Risks: creating a second canonical workspace graph.
-- Evidence: pending.
+- Evidence:
+  - I1 outcome: REJECTED AS BLOAT FOR CURRENT ARCHITECTURE. No new cross-owner graph/map was shipped.
+  - I1 PR #28 final head `8efceb63876393ac14129447916f39c19a7e5f94`.
+  - Final-head PR CI `34970738358`: success, 6/6; Permanent Bot `34970737221`, Temporary Worker `34970737098`, Automation Recommendation `34970737153`: all success.
+  - I1 merged as Gateway main `24fb35ffef05832aeb2b129109e8d0c5101eedea`.
+  - Post-merge CI `34970930788`: success, 6/6.
+  - Existing G1 owner views already cover six of seven proposed domains: direction/goals, Memory topics, Data spaces, Skills, recent sessions and important sources.
+  - Durable Bots are the only genuine proposed-domain gap, but current OS/Gateway host contracts expose no read-only Bot operation.
+  - A new map therefore adds zero safely sourced domains today and duplicates every populated domain already present in G1 context.
+  - Filling the Bot gap by reading Multiple Bots storage directly would steal ownership; a future Bot orientation API must be owner-defined first.
+  - I1 acceptance complete; twenty-one of 25 slices are accepted.
 
 ### Phase J: Benchmark, integrated acceptance, release handoff
 
 #### J1. Context/recall benchmark harness
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Memory, AI-Verse-Gateway, AI-Verse-System
 - Dependencies: enough preceding features to compare before/after
 - Goal: deterministic representative benchmark suite.
@@ -887,7 +897,7 @@ Next after current: J1
 #### J2. Cross-owner integrated acceptance
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: all changed runtime owners
 - Dependencies: all retained implementation slices
 - Goal: prove the composed AI-Verse runtime consumes the architecture safely.
@@ -1452,3 +1462,24 @@ Verified before I1 evaluation on 2026-09-15:
 - The proposed seven-domain cross-owner map therefore overlaps existing owner views for goals/direction, Memory topics, Data spaces, Skills, recent sessions, and important sources.
 - Durable Bots are the only proposed domain without an existing read-only Gateway/OS host operation. A new map must not invent or scrape Bot truth to fill that gap.
 - I1 must measure safe information gain versus duplicated orientation bytes before adding any new cross-owner projection.
+
+
+### Slice completion checkpoint: I1
+
+Verified on 2026-09-15:
+
+- I1 PR #28 final head `8efceb63876393ac14129447916f39c19a7e5f94` passed CI `34970738358` 6/6 plus all three composition gates.
+- I1 merged as Gateway main `24fb35ffef05832aeb2b129109e8d0c5101eedea`; post-merge CI `34970930788` passed 6/6.
+- I1 was rejected as bloat rather than implemented.
+- Six proposed orientation domains are already owner-routed by G1. The one missing domain, durable Bots, has no canonical read-only Gateway/OS host surface and therefore cannot be safely populated by a new map.
+- I1 acceptance is complete. Twenty-one of 25 slices are accepted.
+
+### Slice start checkpoint: J1
+
+Verified before J1 benchmark work on 2026-09-15:
+
+- AI-Verse-Gateway main: `24fb35ffef05832aeb2b129109e8d0c5101eedea`.
+- AI-Verse-Memory main: `620252ef361b32d60881d734c58035b155e18b38`.
+- J1 must execute real Memory and Gateway code against deterministic fixtures. It must not replace owner behavior with mocks for the metrics used to judge retention.
+- Baseline and candidate results must be machine-readable. Timing may vary by platform, but correctness/scope/rebuild outcomes and context-byte/token deltas must be reproducible.
+- The long-history acceptance threshold will be frozen only after the baseline fixture is measured.
