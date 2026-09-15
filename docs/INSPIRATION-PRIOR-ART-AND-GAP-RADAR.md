@@ -787,14 +787,14 @@ This section consolidates previous System research so future work does not have 
 | **Letta** | https://github.com/letta-ai/letta | persistent agent state, mutable strategy, continual learning and Skills |
 | **Prime Agent** | https://github.com/PrimeIntellect-ai/prime-agent | continual harness / goal and self-evolution benchmark research |
 | **LifeOS** | https://github.com/danielmiessler/LifeOS | Brain Current State -> Ideal State; Skills judgment/authoring; Dashboard/Pulse ideas |
-| **Agent Zero** | Canonical repo not pinned in System | Brain modular project/skill/schedule architecture and runtime-independence research |
+| **Agent Zero** | https://github.com/agent0ai/agent-zero | Brain modular project/skill/schedule architecture and runtime-independence research |
 | **Magentic-One / AutoGen** | https://github.com/microsoft/autogen | Brain progress-state distinctions; multi-agent coordination research |
 | **LangGraph** | https://github.com/langchain-ai/langgraph | checkpointing, workflow and durable-agent-loop comparisons |
 | **CrewAI** | https://github.com/crewAIInc/crewAI | multi-agent workflow/failure research |
 | **A2A** | protocol/reference standard | current Multiple Bots external runtime adapter standard |
-| **OpenAI Agents SDK** | reference SDK | manager delegation versus handoff semantics |
-| **Microsoft Agent Framework** | reference framework | explicit orchestration topologies |
-| **AgentScope, PydanticAI, Google ADK, Agno, CAMEL, MetaGPT** | repositories not centrally pinned in System | multi-agent message hubs, typed delegation, transfer/workflow/failure research |
+| **OpenAI Agents SDK** | https://github.com/openai/openai-agents-python | manager delegation versus handoff semantics |
+| **Microsoft Agent Framework** | https://github.com/microsoft/agent-framework | explicit orchestration topologies |
+| **AgentScope, PydanticAI, Google ADK, Agno, CAMEL, MetaGPT** | https://github.com/agentscope-ai/agentscope ; https://github.com/pydantic/pydantic-ai ; https://github.com/google/adk-python ; https://github.com/agno-agi/agno ; https://github.com/camel-ai/camel ; https://github.com/FoundationAgents/MetaGPT | multi-agent message hubs, typed delegation, transfer/workflow/failure research |
 
 ### Brain research lineage also records
 
@@ -839,8 +839,8 @@ AI-Verse has already rejected generic/unbounded graph traversal and shipped only
 | **Gawkbot** | https://github.com/najmuzzaman-mohammad/gawkbot | job-first Bot/product UX reference; idea-only/code-reuse restricted by license |
 | **Open WebUI** | https://github.com/open-webui/open-webui | acceptable temporary dogfood shell, not final AI-Verse UX |
 | **OpenHands** | https://github.com/All-Hands-AI/OpenHands | runtime/client separation and ACP/session ideas |
-| **OpenFang** | canonical repo not pinned in System | autonomous-worker information architecture |
-| **TenacitOS** | canonical repo not pinned in System | Mission Control visual concepts |
+| **OpenFang** | https://github.com/RightNow-AI/openfang | autonomous-worker information architecture |
+| **TenacitOS** | https://github.com/carlosazaustre/tenacitOS | Mission Control visual concepts |
 | **Langfuse** | https://github.com/langfuse/langfuse | trace/span/token/cost observability inspiration |
 | **Phoenix** | https://github.com/Arize-ai/phoenix | observability/tracing inspiration |
 | **Hermes Desktop** | Hermes ecosystem | native React UI over separate headless backend |
@@ -891,18 +891,18 @@ Current Multiple Bots research records:
 - xAI Grok Bot;
 - xAI Grok Multi-Agent;
 - Hermes Bot Mode;
-- Microsoft Agent Framework;
-- A2A 1.0;
-- OpenAI Agents SDK;
-- OpenClaw;
-- AgentScope;
-- Pydantic AI;
-- Google ADK;
-- LangGraph;
-- CrewAI;
-- Agno;
-- CAMEL;
-- MetaGPT.
+- Microsoft Agent Framework: https://github.com/microsoft/agent-framework
+- A2A 1.0: protocol/reference standard
+- OpenAI Agents SDK: https://github.com/openai/openai-agents-python
+- OpenClaw: https://github.com/openclaw/openclaw
+- AgentScope: https://github.com/agentscope-ai/agentscope
+- Pydantic AI: https://github.com/pydantic/pydantic-ai
+- Google ADK: https://github.com/google/adk-python
+- LangGraph: https://github.com/langchain-ai/langgraph
+- CrewAI: https://github.com/crewAIInc/crewAI
+- Agno: https://github.com/agno-agi/agno
+- CAMEL: https://github.com/camel-ai/camel
+- MetaGPT: https://github.com/FoundationAgents/MetaGPT
 
 AI-Verse has already curated these into a deliberate distinction between:
 
