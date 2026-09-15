@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-016`.
+**Next unused finding ID:** `WSA-2026-020`.
 
 ## 2. Allowed classifications
 
@@ -82,21 +82,25 @@ Rules:
 | `WSA-2026-013` | HIGH | PROVEN | OPEN | lifecycle authority / canonical writes | `AI-Verse-Memory` | A1.4 |
 | `WSA-2026-014` | HIGH | PROVEN | OPEN | migration / canonical authority transfer | `AI-Verse-Memory` | A1.4 |
 | `WSA-2026-015` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Memory` | A1.4 |
+| `WSA-2026-016` | BLOCKER | PROVEN | OPEN | lifecycle controller containment | `AI-Verse-Skills` | A1.5 |
+| `WSA-2026-017` | HIGH | PROVEN | OPEN | lifecycle concurrency / serialization | `AI-Verse-Skills` | A1.5 |
+| `WSA-2026-018` | MEDIUM | PROVEN | OPEN | immutable generation retention | `AI-Verse-Skills` | A1.5 |
+| `WSA-2026-019` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Skills` | A1.5 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
-| BLOCKER | 2 |
-| HIGH | 5 |
-| MEDIUM | 1 |
-| LOW | 6 |
+| BLOCKER | 3 |
+| HIGH | 6 |
+| MEDIUM | 2 |
+| LOW | 7 |
 | INFO | 1 |
-| PROVEN | 15 |
+| PROVEN | 19 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 15 |
+| OPEN | 19 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -584,6 +588,102 @@ After repair/release authorization: distinguish post-release main by version or 
 
 ---
 
+### WSA-2026-016 — Skills lifecycle controller is not physically confined like provider packages
+
+**Severity:** BLOCKER  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.5  
+**Root area:** lifecycle controller containment  
+**Affected repos:** `AI-Verse-Skills`
+
+**Summary:**  
+Provider package paths use physical containment, but the Skills controller directory `root/.aiverse` is not independently validated with the same rule before lifecycle state and retention operations derive from it.
+
+**Contradiction:** `C-A1.5-001`.
+
+**Primary evidence:** `E-A1.5-004`, `E-A1.5-010`, `E-A1.5-011`.
+
+**Impact:**  
+Lifecycle state may resolve outside the selected root, making destructive maintenance unsafe.
+
+**Required closure evidence:**  
+Add one controller-path safety primitive, reject unsafe controller indirection, prove all controller/generation/state paths remain inside the selected root, and add platform containment regressions.
+
+---
+
+### WSA-2026-017 — Skills lifecycle lock can be reclaimed while its holder is still live
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.5  
+**Root area:** lifecycle concurrency / serialization  
+**Affected repos:** `AI-Verse-Skills`
+
+**Summary:**  
+The lifecycle lock records holder metadata, but stale recovery is based on age alone and does not confirm that the recorded holder is no longer live.
+
+**Contradiction:** `C-A1.5-002`.
+
+**Primary evidence:** `E-A1.5-004`, `E-A1.5-012`, `E-A1.5-014`.
+
+**Impact:**  
+Long lifecycle/learning operations can overlap a second mutation and lose semantic state updates.
+
+**Required closure evidence:**  
+Use holder-aware stale recovery and add deterministic tests for a live old holder plus dead/crashed-holder recovery.
+
+---
+
+### WSA-2026-018 — Skills retention cleanup does not protect active execution pins
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.5  
+**Root area:** immutable generation retention  
+**Affected repos:** `AI-Verse-Skills`
+
+**Summary:**  
+Retention protects active/history generations and learning provenance, but there is no live execution lease/reference for a generation pinned by a running task.
+
+**Contradiction:** `C-A1.5-003`.
+
+**Primary evidence:** `E-A1.5-004`, `E-A1.5-010`, `E-A1.5-013`, `E-A1.5-014`.
+
+**Impact:**  
+Explicit retention maintenance can invalidate an otherwise valid long-running execution.
+
+**Required closure evidence:**  
+Add execution-generation leases or equivalent in-use protection and prove cleanup preserves a pin until the execution releases it.
+
+---
+
+### WSA-2026-019 — Accepted Skills beta identity and mutable bootstrap are not aligned with frozen current source
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.5  
+**Root area:** release/version/bootstrap reproducibility  
+**Affected repos:** `AI-Verse-Skills`
+
+**Summary:**  
+The accepted component descriptor binds `1.1.0-beta.1` to `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`, while frozen current main is 190 commits newer, still reports the same version, and bootstrap follows mutable `main`.
+
+**Contradiction:** `C-A1.5-004`.
+
+**Primary evidence:** `E-A1.5-020`, `E-A1.5-021`, `E-A1.5-022`, `E-A1.5-023`.
+
+**Impact:**  
+Version-only diagnostics and default bootstrap do not uniquely identify the accepted immutable component artifact.
+
+**Required closure evidence:**  
+Use distinct post-release versioning or accept a new immutable component revision, and pin public-beta bootstrap to an immutable accepted ref by default.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -605,6 +705,10 @@ After repair/release authorization: distinguish post-release main by version or 
 | `C-A1.4-002` | A1.4 | implementation defect / lifecycle write authority | yes | `WSA-2026-013` | OPEN |
 | `C-A1.4-003` | A1.4 | implementation defect / migration handoff atomicity | yes | `WSA-2026-014` | OPEN |
 | `C-A1.4-004` | A1.4 | release/version/bootstrap drift | yes | `WSA-2026-015` | OPEN |
+| `C-A1.5-001` | A1.5 | implementation defect / lifecycle controller containment | yes | `WSA-2026-016` | OPEN |
+| `C-A1.5-002` | A1.5 | implementation defect / lifecycle serialization | yes | `WSA-2026-017` | OPEN |
+| `C-A1.5-003` | A1.5 | lifecycle contract / in-use generation retention | yes | `WSA-2026-018` | OPEN |
+| `C-A1.5-004` | A1.5 | release/version/bootstrap drift | yes | `WSA-2026-019` | OPEN |
 
 ### C-A0.1-001
 
@@ -737,6 +841,34 @@ See `WSA-2026-002`.
 **Higher-authority source:** current version/installer code + immutable descriptor + commit comparison.  
 **Classification:** release/version/bootstrap drift.  
 **Finding:** `WSA-2026-015`.
+
+### C-A1.5-001
+
+**Source A:** Skills filesystem architecture requires canonicalized targets.  
+**Source B:** lifecycle controller state derives from `root/.aiverse` without equivalent physical containment.  
+**Higher-authority source:** executable lifecycle implementation.  
+**Finding:** `WSA-2026-016`.
+
+### C-A1.5-002
+
+**Source A:** immutable-generation docs say lifecycle mutation is serialized and only stale locks recover.  
+**Source B:** recovery uses age without holder-liveness verification.  
+**Higher-authority source:** executable lifecycle lock.  
+**Finding:** `WSA-2026-017`.
+
+### C-A1.5-003
+
+**Source A:** a generation pin is documented as complete for an execution lifetime.  
+**Source B:** retention protection has no active-execution lease/reference input.  
+**Higher-authority source:** executable retention implementation.  
+**Finding:** `WSA-2026-018`.
+
+### C-A1.5-004
+
+**Source A:** accepted descriptor binds beta.1 to `042fda1e…`.  
+**Source B:** frozen current main is 190 commits newer under the same version and mutable-main bootstrap.  
+**Higher-authority source:** current source + immutable descriptor + commit comparison.  
+**Finding:** `WSA-2026-019`.
 
 ## 6. Evidence ID register
 
@@ -942,6 +1074,35 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.4-022` | recent Context Ladder/relationship/benchmark history | same |
 | `E-A1.4-023` | live pre-write ref/open-PR recheck | same |
 
+### A1.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.5-001` | frozen Skills tree and repository metadata | `repos/AI-Verse-Skills.md` |
+| `E-A1.5-002` | README/architecture ownership model | same |
+| `E-A1.5-003` | registry counts, source pins and trust policy | same |
+| `E-A1.5-004` | immutable generation lifecycle | same |
+| `E-A1.5-005` | provider path/digest/index validation | same |
+| `E-A1.5-006` | admission/security/trust implementation | same |
+| `E-A1.5-007` | readiness v2 | same |
+| `E-A1.5-008` | execution receipt v2 | same |
+| `E-A1.5-009` | governed learning lifecycle | same |
+| `E-A1.5-010` | public lifecycle/retention implementation | same |
+| `E-A1.5-011` | controller-path construction | same |
+| `E-A1.5-012` | stale-lock recovery | same |
+| `E-A1.5-013` | retention protection inputs | same |
+| `E-A1.5-014` | generation lifecycle tests | same |
+| `E-A1.5-015` | exact-head Validate run 34901693154 | same |
+| `E-A1.5-016` | exact-head Readiness run 34901693118 | same |
+| `E-A1.5-017` | exact-head Full E2E run 34901693143 | same |
+| `E-A1.5-018` | Video Editor PR #14 evidence | same |
+| `E-A1.5-019` | Video Editor acceptance run 34901198219 | same |
+| `E-A1.5-020` | accepted component descriptor | same |
+| `E-A1.5-021` | accepted-to-current 190-commit comparison | same |
+| `E-A1.5-022` | current distribution version | same |
+| `E-A1.5-023` | mutable-main bootstrap route | same |
+| `E-A1.5-024` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -961,7 +1122,11 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-013` | allocated A1.4 |
 | `WSA-2026-014` | allocated A1.4 |
 | `WSA-2026-015` | allocated A1.4 |
-| `WSA-2026-016` | **NEXT UNUSED** |
+| `WSA-2026-016` | allocated A1.5 |
+| `WSA-2026-017` | allocated A1.5 |
+| `WSA-2026-018` | allocated A1.5 |
+| `WSA-2026-019` | allocated A1.5 |
+| `WSA-2026-020` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
