@@ -1,10 +1,22 @@
 # AI-Verse Public Beta Tracker
 
-**Status:** Agent Distribution release complete; Invisible Intelligence candidate qualified; independent whole-system public-beta audit remains separate  
-**Updated:** 2026-09-14  
+**Status:** Agent Distribution release complete; Invisible Intelligence candidate qualified; independent whole-system public-beta audit is now the active pre-dogfood gate  
+**Updated:** 2026-09-15  
 **Target:** First complete **Agent public beta** unless explicitly widened.
 
 This file tracks execution state only. Architectural law remains in the Final Blueprint and public-beta contracts.
+
+## Independent whole-system audit gate
+
+Before real Mission Control MC1.4 integration proof or broader owner dogfood, execute the canonical audit program:
+
+- `docs/public-beta-audit/PROGRAM-2026-09-15.md`
+- `docs/public-beta-audit/EXECUTION-TRACKER-2026-09-15.md`
+- `docs/public-beta-audit/EVIDENCE-FINDING-PROTOCOL.md`
+- `docs/public-beta-audit/RELATIONSHIP-MATRIX-PROTOCOL.md`
+
+The audit begins at A0.1 and is intentionally read-only against product repositories until the whole-system synthesis and repair program are complete. Existing accepted Agent release evidence remains historical/release evidence to be independently revalidated, not automatically trusted as audit proof.
+
 
 ## Target profile
 
@@ -194,7 +206,7 @@ The candidate is deliberately not the default Agent channel. `agent-public-beta-
 
 **Agent Distribution is released and accepted.**
 
-This tracker does **not** claim that the separate independent final whole-system PUBLIC-BETA audit has been run. It also does not start Full-profile work. Those are later, explicit work items and must not be retroactively treated as blockers for this completed Agent Distribution release.
+This tracker does **not** claim that the separate independent final whole-system PUBLIC-BETA audit has been run. That audit is now the active pre-dogfood gate and is governed by `docs/public-beta-audit/PROGRAM-2026-09-15.md`. It does not retroactively invalidate the completed Agent Distribution release; it independently challenges the current whole system before further dogfood.
 
 ## Stop rule
 
