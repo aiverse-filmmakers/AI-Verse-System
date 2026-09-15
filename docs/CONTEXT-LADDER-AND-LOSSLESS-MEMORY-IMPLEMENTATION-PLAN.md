@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 17
+Complete: 19
 In progress: 1
 Blocked: 0
-Remaining after current: 7
-Current: G1
-Next after current: G2
+Remaining after current: 5
+Current: H1
+Next after current: I1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -752,7 +752,7 @@ Next after current: G2
 
 #### G1. Progressive model-context assembly
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway, AI-Verse-OS
 - Dependencies: B1, C1-C3, E1-E5
@@ -765,12 +765,22 @@ Next after current: G2
   - runtime prompt records retrieval provenance/diagnostics, not hidden reasoning.
 - Tests: short conversation no-deep-read, old fact, exact fact, irrelevant-context rate, source-read count.
 - Risks: under-retrieval harming answers; model repeatedly requesting depth.
-- Evidence: pending.
+- Evidence:
+  - G1 PR #26 final head `e17409e6814cd66c5381db53afd4fad268965bd4`.
+  - Final-head PR CI `34955786467`: success, 6/6; Permanent Bot `34955786352`, Temporary Worker `34955786379`, Automation Recommendation `34955786334`: all success.
+  - G1 merged as Gateway main `73a959e7458e9a69db557725687ceeb3f63cc76a`.
+  - Post-merge CI `34955980675`: success, 6/6 on attempt 2. Attempt 1 failed only the known unrelated `over-budget review output is discarded before any canonical owner action` flake; every G1 acceptance test had passed, and unchanged rerun completed green.
+  - Gateway now uses the existing OS `retrieve_history_progressive` bridge and Memory `memory.progressive-recall.v1` surface instead of unconditional legacy history dumping.
+  - Ordinary turns request only L1 catalog orientation; historical turns add bounded summary; correction/provenance-sensitive turns add bounded detail; exact-sensitive turns perform at most one Memory source read.
+  - Session-digest exact pointers route back to Gateway-owned raw run evidence only after system/principal/workspace visibility and digest source fingerprint are revalidated.
+  - Legacy hosts perform no history read for ordinary turns and only one bounded compatibility read when historical/deeper context is actually required.
+  - Run receipts and advanced diagnostics expose requested/realized depth, byte/item counts, source-read counts and fallback state without raw queries or hidden reasoning.
+  - G1 acceptance complete; eighteen of 25 slices are accepted.
 
 #### G2. Runtime deep-retrieval tool/loop
 
-- Status: NOT STARTED
-- Next: YES
+- Status: COMPLETE
+- Next: NO
 - Repositories: AI-Verse-Gateway, AI-Verse-OS
 - Dependencies: G1
 - Goal: give the runtime one bounded mechanism to request deeper context without direct owner bypass.
@@ -781,13 +791,24 @@ Next after current: G2
   - source reads are auditable.
 - Tests: depth request, scope escape, over-budget, repeated request, exact fallback.
 - Risks: retrieval loops and token blowup.
-- Evidence: pending.
+- Evidence:
+  - G2 PR #27 final head `41705a5536dcbd54261af492213080c3c99afbab`.
+  - Final-head PR CI `34956910282`: success, 6/6; Permanent Bot `34956910192`, Temporary Worker `34956910161`, Automation Recommendation `34956910214`: all success.
+  - G2 merged as Gateway main `7b61b71e4feceff5763d8f97d1c91db4fcf8af74`.
+  - Post-merge CI `34957067790`: success, 6/6.
+  - Foreground runtime now receives one read-only `aiverse_context` tool alongside `aiverse_action`; completed-work review remains action-only.
+  - Runtime deep retrieval is restricted to `summary`, `detail`, or `source` in the already-bound run scope. Runtime-supplied scope/workspace/principal/system/permission fields fail closed.
+  - Per-depth item/byte caps, four unique deep reads per run, and two source reads per run bound loops/token growth. Read-only retrieval does not consume action budget.
+  - Equivalent requests are fingerprinted and deduplicated per run; safe cache hits avoid a second owner read and remain restart-visible through persisted metadata/tool messages.
+  - Every actual source read emits content-free audit events with request/query/result digests, source-range count, byte count and status.
+  - Session-digest source pointers reuse G1's Gateway scope/fingerprint revalidation before raw evidence is exposed.
+  - G2 acceptance complete; nineteen of 25 slices are accepted.
 
 ### Phase H: Brain retrieval intent
 
 #### H1. Retrieval-intent envelope ship/reject gate
 
-- Status: NOT STARTED
+- Status: IN PROGRESS
 - Next: NO
 - Repositories: AI-Verse-Brain
 - Dependencies: G1-G2
@@ -1357,3 +1378,45 @@ Verified before G1 implementation on 2026-09-15:
 - Ordinary turns should start shallow: current/recent raw context plus compact orientation only.
 - Deep summary/detail/source retrieval must occur only when demonstrated need exists, remain bounded and owner-routed, and record provenance/diagnostics without hidden reasoning.
 - G1 must not introduce the explicit runtime-requested deep retrieval loop reserved for G2.
+
+
+### Slice completion checkpoint: G1
+
+Verified on 2026-09-15:
+
+- G1 PR #26 final head `e17409e6814cd66c5381db53afd4fad268965bd4` passed CI `34955786467` 6/6 and all three composition gates.
+- G1 merged as Gateway main `73a959e7458e9a69db557725687ceeb3f63cc76a`.
+- Post-merge CI `34955980675` passed 6/6 on unchanged attempt 2 after the known unrelated organization-review budget flake.
+- Ordinary turns now stop at current context plus Memory orientation. Historical/detail/exact-sensitive turns descend only as far as deterministic need requires.
+- Exact session-digest evidence is never upgraded from summary to proof: Gateway revalidates the referenced canonical run scope and source fingerprint before exposing bounded raw evidence.
+- G1 acceptance is complete. Eighteen of 25 slices are accepted.
+
+### Slice start checkpoint: G2
+
+Verified before G2 implementation on 2026-09-15:
+
+- AI-Verse-Gateway main: `73a959e7458e9a69db557725687ceeb3f63cc76a`; G1 post-merge CI `34955980675` is green.
+- G2 must reuse the G1 owner-routed progressive retrieval functions and the existing RunEngine tool loop. It must not add a second Memory API or direct filesystem/index bypass.
+- The runtime may request only bounded summary/detail/source depth in the already-bound run scope. Scope, owner, byte/item caps and source evidence rules remain stronger than the runtime request.
+- Equivalent retrieval requests should be cached/deduplicated per run where safe, and every actual source read must emit auditable diagnostics.
+
+
+### Slice completion checkpoint: G2
+
+Verified on 2026-09-15:
+
+- G2 PR #27 final head `41705a5536dcbd54261af492213080c3c99afbab` passed CI `34956910282` 6/6 and all three composition gates.
+- G2 merged as Gateway main `7b61b71e4feceff5763d8f97d1c91db4fcf8af74`; post-merge CI `34957067790` passed 6/6.
+- The runtime now has one bounded read-only deep-context tool that cannot alter scope, owner, permissions or canonical state.
+- Per-run dedupe/cache plus unique/source-read caps bound loops and repeated equivalent reads.
+- Actual source reads are audited without raw query/content leakage.
+- G2 acceptance is complete. Nineteen of 25 slices are accepted.
+
+### Slice start checkpoint: H1
+
+Verified before H1 evaluation on 2026-09-15:
+
+- G1 deterministic shallow-first retrieval and G2 runtime-requested bounded deep retrieval are accepted on current Gateway main.
+- H1 is a ship/reject gate. Brain must not become a retrieval engine or duplicate Gateway/Memory routing.
+- The benchmark must compare the current purpose/query-based Gateway behavior against a hypothetical bounded Brain envelope such as orientation/summary/detail/exact_evidence.
+- A Brain change is justified only if the explicit envelope materially improves retrieval correctness/efficiency without widening scope, bypassing owners or duplicating retrieval planning.
