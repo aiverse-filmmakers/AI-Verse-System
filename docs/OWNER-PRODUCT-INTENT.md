@@ -1,7 +1,7 @@
 # AI-Verse Owner Product Intent and Operating Principles
 
 **Status:** Canonical living owner-product-intent record  
-**Updated:** 2026-09-14  
+**Updated:** 2026-09-15  
 **Authority:** Product direction, UX intent, autonomy philosophy and owner preference. This document does not override implementation evidence, component ownership, security policy, migration safety or permission enforcement.
 
 ## Purpose
@@ -495,6 +495,40 @@ Open WebUI or another borrowed chat shell may remain useful for temporary dogfoo
 The near-term goal is not a giant Dashboard.
 
 It is a focused single-user shell that makes the already-built system understandable and usable.
+
+## 11C. Dashboard MVP and desktop-first shell priority
+
+The owner has explicitly promoted the first usable AI-Verse interface ahead of the broader Dashboard roadmap.
+
+The immediate target is the **smallest chat-first product shell**, not the complete Control Room.
+
+The desired first product is:
+
+- one shared browser/desktop frontend rather than separate UI implementations;
+- a macOS DMG first, using the same frontend as the browser build;
+- automatic start/attachment of the canonical local AI-Verse Gateway when the desktop app opens or a system is selected;
+- native selection and registration of one or multiple compatible AI-Verse OS folders;
+- recognition of an already-installed AI-Verse structure without rewriting it;
+- an explicit Install AI-Verse path for a new folder, routed through canonical Distribution rather than a Dashboard-specific installer;
+- primary Chat as the first working surface;
+- visible current system/workspace scope;
+- supported ChatGPT/runtime authentication without making Dashboard the credential owner;
+- strict isolation when several AI-Verse OS installations are registered;
+- a stack deliberately chosen so Bots, Work, Approvals, Automations, Brain, Token, Apps, detachable panels and other future Dashboard features can be added without replacing the shell.
+
+The desktop host should remain thin. Native-only responsibilities such as folder selection, process supervision, secure local secret handling and install/bootstrap actions belong at the host edge. Canonical run/session/domain behavior remains in Gateway and the relevant owner components.
+
+The current preferred stack direction is React 19 + TypeScript + Vite for the shared UI and Tauri 2 for the macOS desktop host.
+
+The current AI-Verse Gateway binds one system root per Gateway configuration. The first multi-system Dashboard should preserve that boundary by supervising isolated Gateway instances per registered OS when needed, rather than turning Gateway into a multi-root canonical owner.
+
+For the first supported ChatGPT login path, prefer an official managed runtime authentication surface such as Codex rich-client/App Server authentication behind a replaceable Gateway runtime adapter. Dashboard should not implement or persist raw ChatGPT OAuth credentials itself.
+
+The older Dashboard sequencing idea that desktop packaging should wait until every Dashboard phase is complete is superseded by this newer explicit owner direction. A thin desktop wrapper is now part of the immediate dogfood path.
+
+Canonical implementation plan:
+
+- docs/DASHBOARD-MVP-WEB-DESKTOP-PLAN-2026-09-15.md
 
 ## 12. How to use this document in future work
 
