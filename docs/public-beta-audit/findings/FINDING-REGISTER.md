@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-034`.
+**Next unused finding ID:** `WSA-2026-038`.
 
 ## 2. Allowed classifications
 
@@ -100,21 +100,25 @@ Rules:
 | `WSA-2026-031` | HIGH | PROVEN | OPEN | credential origin binding / token passthrough prevention | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-032` | HIGH | PROVEN | OPEN | final-edge authority / concurrency / safety budgets | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-033` | HIGH | PROVEN | OPEN | external path authorization / provider-edge containment | `AI-Verse-Connections` | A1.10 |
+| WSA-2026-034 | HIGH | PROVEN | OPEN | lifecycle concurrency / release receipt authority | ai-verse-distribution | A1.12 |
+| WSA-2026-035 | MEDIUM | PROVEN | OPEN | first-run requirements / executable compatibility truth | ai-verse-distribution | A1.12 |
+| WSA-2026-036 | MEDIUM | PROVEN | OPEN | diagnostics / secret redaction / failure handling | ai-verse-distribution | A1.12 |
+| WSA-2026-037 | LOW | PROVEN | OPEN | repository-local release/status documentation drift | ai-verse-distribution | A1.12 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 4 |
-| HIGH | 16 |
-| MEDIUM | 4 |
-| LOW | 8 |
+| HIGH | 17 |
+| MEDIUM | 6 |
+| LOW | 9 |
 | INFO | 1 |
-| PROVEN | 33 |
+| PROVEN | 37 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 33 |
+| OPEN | 37 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1034,6 +1038,103 @@ Normalize first, authorize the final pathname, reject path-confusion forms and a
 
 ---
 
+
+### WSA-2026-034 - concurrent Distribution lifecycle commands can overwrite newer receipt truth
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.12  
+**Root area:** lifecycle concurrency / release receipt authority  
+**Affected repos:** ai-verse-distribution
+
+**Summary:**  
+Distribution atomically replaces individual receipt files but does not serialize complete mutating lifecycle operations across processes. Two supported commands can load the same current receipt, perform different owner effects, and then commit conflicting stale snapshots.
+
+**Contradiction:** C-A1.12-004.
+
+**Primary evidence:** E-A1.12-008, E-A1.12-010, E-A1.12-012, E-A1.12-013, E-A1.12-017, E-A1.12-027.
+
+**Impact:**  
+A later stale writer can resurrect or erase Distribution lifecycle receipt state after another owner mutation completed, leaving release/install truth inconsistent with the actual owner state.
+
+**Required closure evidence:**  
+Add one cross-platform single-writer lifecycle boundary covering owner mutation plus receipt commit, stale-writer/version rejection, deterministic stale-lock recovery and concurrency regressions for setup/install/uninstall/update interactions.
+
+---
+
+### WSA-2026-035 - ordinary Agent documentation understates the required Python version
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.12  
+**Root area:** first-run requirements / executable compatibility truth  
+**Affected repos:** ai-verse-distribution
+
+**Summary:**  
+The ordinary Agent README path says Python 3.9+ and package metadata permits installation on Python 3.9+, while the released Agent compatibility record requires Python 3.11 and executable preflight rejects lower versions.
+
+**Contradiction:** C-A1.12-001.
+
+**Primary evidence:** E-A1.12-003, E-A1.12-005, E-A1.12-029.
+
+**Impact:**  
+A user can satisfy documented prerequisites and install Distribution successfully, then fail at the ordinary aiverse start product path on Python 3.9 or 3.10.
+
+**Required closure evidence:**  
+Align public prerequisites and product messaging with executable release requirements, distinguish Core/Agent floors and add a requirement-consistency regression.
+
+---
+
+### WSA-2026-036 - failed owner-process secrets can bypass CLI redaction through the exception message
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.12  
+**Root area:** diagnostics / secret redaction / failure handling  
+**Affected repos:** ai-verse-distribution
+
+**Summary:**  
+ProcessError embeds raw child stderr/stdout in its exception text. The CLI emits that raw exception text as the top-level message even though the separate stdout and stderr fields are sanitized.
+
+**Contradiction:** C-A1.12-002.
+
+**Primary evidence:** E-A1.12-015, E-A1.12-016, E-A1.12-019, E-A1.12-028.
+
+**Impact:**  
+Credentials printed by a failing owner process can leak through terminal or JSON error output and captured logs.
+
+**Required closure evidence:**  
+Remove or sanitize raw child output from user-visible exception messages, sanitize secret-bearing argv where applicable and add plain/JSON regressions for bearer tokens, API keys and passwords.
+
+---
+
+### WSA-2026-037 - current architecture and roadmap retain stale Agent release status
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.12  
+**Root area:** repository-local release/status documentation drift  
+**Affected repos:** ai-verse-distribution
+
+**Summary:**  
+Current machine-readable release truth and README show the Agent public beta released, but architecture still describes Agent as blocked and Roadmap Phase 5 still leaves the release-branch merge incomplete after it occurred.
+
+**Contradiction:** C-A1.12-003.
+
+**Primary evidence:** E-A1.12-004, E-A1.12-006, E-A1.12-026.
+
+**Impact:**  
+Maintainer-facing documentation gives contradictory current release state while runtime behavior remains unaffected.
+
+**Required closure evidence:**  
+Align current architecture/roadmap with machine release truth and retain obsolete pre-merge wording only as historical evidence.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1073,6 +1174,10 @@ Normalize first, authorize the final pathname, reject path-confusion forms and a
 | `C-A1.10-003` | A1.10 | implementation defect / MCP credential origin binding | yes | `WSA-2026-031` | OPEN |
 | `C-A1.10-004` | A1.10 | implementation defect / final-edge lifecycle and budgets | yes | `WSA-2026-032` | OPEN |
 | `C-A1.10-005` | A1.10 | implementation defect / normalized path authorization | yes | `WSA-2026-033` | OPEN |
+| C-A1.12-001 | A1.12 | product/documentation requirements contradiction | yes | WSA-2026-035 | OPEN |
+| C-A1.12-002 | A1.12 | implementation defect / failure-path secret redaction | yes | WSA-2026-036 | OPEN |
+| C-A1.12-003 | A1.12 | stale release/status documentation | yes | WSA-2026-037 | OPEN |
+| C-A1.12-004 | A1.12 | implementation defect / lifecycle concurrency | yes | WSA-2026-034 | OPEN |
 
 ### C-A0.1-001
 
@@ -1334,6 +1439,40 @@ See `WSA-2026-002`.
 **Runtime proof:** `/v1/%2e%2e/admin` normalizes to `/admin` under Node WHATWG URL handling.  
 **Higher-authority source:** executable Generic API adapter plus required runtime semantics.  
 **Finding:** `WSA-2026-033`.
+
+
+### C-A1.12-001
+
+**Source A:** README says the released Agent beta requires Python 3.9+.  
+**Source B:** package metadata permits Python >=3.9.  
+**Source C:** machine Agent compatibility requires Python 3.11.  
+**Source D:** executable preflight enforces the machine release floor.  
+**Higher-authority source:** compatibility plus executable preflight.  
+**Finding:** WSA-2026-035.
+
+### C-A1.12-002
+
+**Source A:** diagnostic/support behavior claims sensitive output is redacted.  
+**Source B:** explicit stdout/stderr fields are sanitized.  
+**Source C:** ProcessError embeds raw child output and CLI emits raw str(exc) as message.  
+**Higher-authority source:** executable process/CLI implementation.  
+**Finding:** WSA-2026-036.
+
+### C-A1.12-003
+
+**Source A:** current release catalog and README say Agent is released.  
+**Source B:** current architecture says Agent is modeled but blocked.  
+**Source C:** current roadmap still leaves the release-branch merge incomplete.  
+**Higher-authority source:** current machine-readable catalog plus implementation/history.  
+**Finding:** WSA-2026-037.
+
+### C-A1.12-004
+
+**Source A:** Distribution lock is described as recoverable release/install truth.  
+**Source B:** StateStore only guarantees atomic individual file replacement.  
+**Source C:** mutating lifecycle paths perform load -> owner effect -> stale-capable receipt write with no cross-process lock/CAS/version.  
+**Higher-authority source:** executable state/orchestrator implementation.  
+**Finding:** WSA-2026-034.
 
 ## 6. Evidence ID register
 
@@ -1739,6 +1878,42 @@ Evidence IDs remain local to their originating task. This section indexes publis
 
 A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 
+
+### A1.12 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A1.12-001 | frozen Distribution repository metadata/head/open-PR state | repos/ai-verse-distribution.md |
+| E-A1.12-002 | merged PR history and canonical file inventory | same |
+| E-A1.12-003 | README/package/version/product identity | same |
+| E-A1.12-004 | architecture and release-set contracts | same |
+| E-A1.12-005 | profiles and compatibility model | same |
+| E-A1.12-006 | current immutable release manifests | same |
+| E-A1.12-007 | executable catalog validation | same |
+| E-A1.12-008 | StateStore receipt implementation | same |
+| E-A1.12-009 | exact source and staging enforcement | same |
+| E-A1.12-010 | install and incremental receipt lifecycle | same |
+| E-A1.12-011 | setup/workspace/start/safe-reconcile behavior | same |
+| E-A1.12-012 | owner-backed status and doctor | same |
+| E-A1.12-013 | component lifecycle and update/rollback | same |
+| E-A1.12-014 | trusted owner adapter revision allowlists | same |
+| E-A1.12-015 | shell-false subprocess and ProcessError behavior | same |
+| E-A1.12-016 | redaction and support bundle implementation | same |
+| E-A1.12-017 | state/orchestrator unit tests | same |
+| E-A1.12-018 | catalog/manifest mirror tests | same |
+| E-A1.12-019 | CLI/bootstrap tests | same |
+| E-A1.12-020 | Core clean-machine acceptance | same |
+| E-A1.12-021 | Agent clean-machine acceptance | same |
+| E-A1.12-022 | post-merge Distribution CI 34998241632 | same |
+| E-A1.12-023 | PR #8 final-head eight-workflow acceptance matrix | same |
+| E-A1.12-024 | final PR head -> merge tree zero-file-diff proof | same |
+| E-A1.12-025 | immutable System contract qualification snapshot | same |
+| E-A1.12-026 | history/roadmap release-status evidence | same |
+| E-A1.12-027 | stale-writer lifecycle concurrency trace | same |
+| E-A1.12-028 | ProcessError redaction bypass trace | same |
+| E-A1.12-029 | Agent Python-floor contradiction | same |
+| E-A1.12-030 | final live pre-write recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -1776,7 +1951,11 @@ A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 | `WSA-2026-031` | allocated A1.10 |
 | `WSA-2026-032` | allocated A1.10 |
 | `WSA-2026-033` | allocated A1.10 |
-| `WSA-2026-034` | **NEXT UNUSED** |
+| WSA-2026-034 | allocated A1.12 |
+| WSA-2026-035 | allocated A1.12 |
+| WSA-2026-036 | allocated A1.12 |
+| WSA-2026-037 | allocated A1.12 |
+| WSA-2026-038 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
