@@ -1,3 +1,7 @@
+> **SUPERSEDED IMPLEMENTATION-SEQUENCE NOTICE, 2026-09-15**
+>
+> This plan is preserved as historical product/architecture evidence. Its ownership, isolation, canonical-Gateway, shared browser/desktop UI, Tauri-host, and multi-system laws remain relevant. Its decision to build the Dashboard shell from scratch is superseded by [DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md](DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md), which makes Builderz Labs Mission Control the approved initial shell. Future work must follow the canonical plan when sequencing conflicts.
+
 # AI-Verse Dashboard MVP: Shared Web + macOS Desktop Plan
 
 **Date:** 2026-09-15  

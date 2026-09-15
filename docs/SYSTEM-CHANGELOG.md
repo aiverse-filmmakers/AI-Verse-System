@@ -1,3 +1,12 @@
+## 2026-09-15: Mission Control selected as canonical Dashboard bootstrap shell
+
+- Product owner selected Builderz Labs Mission Control as the initial visual/application foundation for AI-Verse Dashboard.
+- AI-Verse remains canonical for OS, Brain, Memory, Data, Skills, Multiple Bots, Automations, Connections, Token, Gateway and Distribution ownership.
+- Previous scratch-built Dashboard sequencing is retained as historical evidence but superseded where it conflicts with the new plan.
+- First implementation proof is Mission Control -> OpenAI-compatible local provider -> canonical AI-Verse Gateway -> selected AI-Verse system/workspace.
+- No Mission Control feature is to be stripped before the feature-disposition audit decides PROJECT, ADOPT, PRESENTATION-ONLY or STRIP.
+- Canonical plan: `docs/DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md`.
+
 # AI-Verse System Changelog
 
 Concise chronological record of meaningful architecture and product-intent changes to the canonical AI-Verse-System specification.

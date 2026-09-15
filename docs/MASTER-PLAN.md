@@ -1,3 +1,7 @@
+> **CURRENT DASHBOARD PRODUCT DIRECTION, 2026-09-15**
+>
+> Dashboard implementation now follows [DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md](DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md). Builderz Labs Mission Control is the approved initial visual/application shell; AI-Verse remains the canonical architecture underneath it. Older Dashboard sequencing remains historical where it conflicts with that plan. Do not restart the prior scratch-built shell sequence or the old desktop-last order.
+
 # AI-Verse System Documentation Master Plan
 
 ## Objective
