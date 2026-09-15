@@ -173,6 +173,65 @@ Then learn missing information when it becomes relevant.
 
 Deeper onboarding remains available for advanced users, migration, support or deliberate configuration.
 
+## 6A. First-use migration drops should organize themselves
+
+A fresh AI-Verse installation may receive a large pasted or exported block of accumulated context from ChatGPT, Hermes, Claude, Codex, notes, or another prior assistant before the user gives any explicit migration instruction.
+
+When the material is clearly an accumulated memory/profile/business/client/project/history dump rather than an ordinary long task, AI-Verse should treat supplying that material as implicit intent to organize it safely.
+
+The desired behavior is:
+
+```text
+fresh AI-Verse
+    -> user pastes prior-assistant context once
+    -> detect clear substantial client/project/area scopes
+    -> create/evolve those workspaces through OS
+    -> capture only eligible durable historical items through Memory
+    -> route only repeated/current/structured operational truth through Brain + Data
+    -> preserve owner provenance and idempotency
+    -> leave ambiguous/unsafe material uncommitted
+    -> continue normal work
+```
+
+The user should not need to say "import this", choose Memory vs Data vs Workspace, or manually create a client structure.
+
+This behavior must work consistently in both:
+
+- direct capable runtimes such as Codex or Claude Code opened at the AI-Verse root; and
+- Gateway-driven clients.
+
+Both paths must converge on the same canonical owner action rather than creating runtime-specific stores.
+
+Migration drops do **not** authorize:
+
+- raw secret persistence;
+- Connection/credential creation;
+- permission expansion;
+- strategic authority handover;
+- permanent Bot creation;
+- recurring Automation creation;
+- destructive migration;
+- indiscriminate storage of every sentence.
+
+Raw migration text should remain source evidence and should not be copied wholesale into canonical state merely because it was pasted.
+
+### Current implementation evidence
+
+Accepted on 2026-09-15:
+
+- AI-Verse OS PR #43 merged as `3eeb27e78829abce4651cb0067957a77b1b6078f`;
+- OS exposes one bounded `migration.import` action that delegates to existing workspace, Memory, Brain and Data owner paths;
+- Codex/Claude direct mode uses the canonical `migration-drop` capability and `scripts/migration-import.py` transport rather than bypassing owner boundaries;
+- exact source + plan replay is idempotent and raw source text is not persisted in the migration receipt;
+- Data migration evidence spans are verified against the actual supplied source before trusted evidence refs are created;
+- OS PR-head acceptance passed Repository QC, Four Repo Acceptance, Five-Component Public Beta, Direction Ownership, Data Host Boundary, Brain Permission Contract, Write Command Boundary, and Invisible Intelligence regression workflows;
+- OS post-merge Repository QC `34951000009`, Four Repo Acceptance `34951000005`, Five-Component Public Beta `34950999959`, Direction Ownership `34951000089`, Data Host Boundary `34950999989`, Brain Permission Contract `34950999977`, and Write Command Boundary `34951000033` passed;
+- AI-Verse Gateway PR #23 merged as `d1e39f933ca0d12ca76b1ace297eea78f6ea67a2`;
+- Gateway binds the exact user message as trusted migration source, prevents runtime source/provenance forgery, forces the batch migration action to operator scope, and does not silently rebind the active run;
+- Gateway PR-head CI `34950942500` and all three Invisible Intelligence composition workflows passed.
+
+A released Distribution set must still pin these or later accepted component revisions before this behavior is claimed for that immutable product release.
+
 ---
 
 ## 7. Minimize questions
