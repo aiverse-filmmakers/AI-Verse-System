@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID after A0.3:** `WSA-2026-005`.
+**Next unused finding ID:** `WSA-2026-006`.
 
 ## 2. Allowed classifications
 
@@ -71,6 +71,7 @@ Rules:
 | `WSA-2026-002` | LOW | PROVEN | OPEN | System documentation drift | `AI-Verse-System`, `AI-Verse-Connections` | A0.2 |
 | `WSA-2026-003` | INFO | PROVEN | OPEN | hosted CI / evidence availability | `AI-Verse-Connections`, `AI-Verse-System` | A0.2 |
 | `WSA-2026-004` | LOW | PROVEN | OPEN | audit control-document drift | `AI-Verse-System` | A0.3 |
+| `WSA-2026-005` | LOW | PROVEN | OPEN | capability source-of-truth / contract metadata drift | `AI-Verse-OS` | A1.1 |
 
 Current counts:
 
@@ -79,16 +80,16 @@ Current counts:
 | BLOCKER | 0 |
 | HIGH | 0 |
 | MEDIUM | 0 |
-| LOW | 3 |
+| LOW | 4 |
 | INFO | 1 |
-| PROVEN | 4 |
+| PROVEN | 5 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 4 |
+| OPEN | 5 |
 | CLOSED | 0 |
 
-These counts do **not** imply public-beta approval. The audit is only 3/100 after A0.3 is accepted.
+These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
 
 ## 4. Detailed finding records
 
@@ -233,6 +234,38 @@ A fresh auditor can be confused into restarting completed scope work before reac
 **Required closure evidence:**  
 After audit synthesis/repair authorization, the audit entrypoint must state that the tracker is authoritative without hardcoding a stale starting task, and a fresh-reader check must confirm it routes to the current NEXT task.
 
+### WSA-2026-005 — OS canonical capability-source metadata is stale against implemented provider architecture
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.1  
+**Root area:** capability source-of-truth / contract metadata drift  
+**Affected repos:** `AI-Verse-OS`  
+**Affected seams:** OS -> Claude/Codex runtime adapters; OS -> external capability providers  
+**Affected journeys:** capability authoring/discovery; future provider maintenance; A2 capability seams; A5 documentation/status scan
+
+**Summary:**  
+OS machine-readable architecture metadata still names `.claude/skills/` as shared capability methodology truth and the provider-v1 contract README still describes already-implemented discovery/migration behavior as future. Current executable code, architecture, capability registry, synchronizer, tests and exact-head CI establish `system/capabilities/` plus implemented Provider v1 discovery as current truth.
+
+**Expected law:**  
+High-authority machine-readable architecture metadata and canonical contract status prose should agree with the implemented canonical capability source and supported provider lifecycle.
+
+**Observed behavior:**  
+The deterministic runtime uses `system/capabilities/` correctly and generated peers remain synchronized, so no current execution failure was proven. The stale metadata can still misdirect humans or model-driven maintainers toward a generated adapter or obsolete implementation state.
+
+**Contradictions:** `C-A1.1-001`, `C-A1.1-002`.
+
+**Primary evidence:** `E-A1.1-004`, `E-A1.1-005`, `E-A1.1-014`.
+
+**Impact:**  
+Maintenance/source attribution can diverge from the canonical implementation, and future changes can be designed against an obsolete provider-migration state.
+
+**Required closure evidence:**  
+After A6 authorizes repair: align `AI-VERSE.yaml` with `system/capabilities/`; update Provider v1 implementation-status/migration prose without weakening the contract; add an architecture/QC invariant preventing recurrence; rerun Repository QC, adapter-sync and provider integration on the repaired exact ref.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -241,6 +274,9 @@ After audit synthesis/repair authorization, the audit entrypoint must state that
 | `C-A0.2-001` | A0.2 | stale release metadata / documentation conflict | yes | `WSA-2026-001` | OPEN |
 | `C-A0.2-002` | A0.2 | stale documentation | yes | `WSA-2026-002` | OPEN |
 | `C-A0.3-001` | A0.3 | stale audit control documentation | yes | `WSA-2026-004` | OPEN |
+| `C-A1.1-001` | A1.1 | stale machine-readable architecture metadata | yes | `WSA-2026-005` | OPEN |
+| `C-A1.1-002` | A1.1 | stale implementation-status contract prose | yes | `WSA-2026-005` | OPEN |
+| `C-A1.1-003` | A1.1 | historical-only superseded readiness wording | no | none | RECORDED / SUPERSEDED |
 
 ### C-A0.1-001
 
@@ -269,6 +305,30 @@ See `WSA-2026-002`.
 **Higher-authority source:** canonical execution tracker.  
 **Classification:** stale audit control documentation.  
 **Finding:** `WSA-2026-004`.
+
+### C-A1.1-001
+
+**Source A:** `AI-VERSE.yaml` at OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d` names `.claude/skills/` as `source_of_truth.shared_skill_methodology`.  
+**Source B:** current synchronizer, capability registry, runtime contract, capability architecture and architecture-check script all name `system/capabilities/` as canonical and `.claude/skills/` / `.agents/skills/` as generated peers.  
+**Higher-authority source:** executable synchronizer/resolver + current exact-head tests/CI.  
+**Classification:** stale machine-readable architecture metadata.  
+**Finding:** `WSA-2026-005`.
+
+### C-A1.1-002
+
+**Source A:** `system/contracts/capability-provider-v1/README.md` still says external discovery/built-in migration are future/not activated.  
+**Source B:** current resolver/synchronizer/architecture and exact-head real-provider integration show Provider v1 discovery and `system/capabilities/` migration implemented.  
+**Higher-authority source:** executable implementation + current tests/CI.  
+**Classification:** stale implementation-status prose in an otherwise active contract.  
+**Finding:** `WSA-2026-005`.
+
+### C-A1.1-003
+
+**Source A:** dated `docs/SHIP-READINESS-AUDIT-2026-09-12.md` contains pre-fix “do not ship unchanged” wording and old blockers.  
+**Source B:** later same-repository release/public-beta status records plus current implementation/tests show the bounded repairs.  
+**Higher-authority source:** current executable implementation + current CI.  
+**Classification:** historical-only superseded readiness wording.  
+**Finding:** none.
 
 ## 6. Evidence ID register
 
@@ -373,6 +433,30 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A0.5-007` | GitHub Release recheck | same |
 | `E-A0.5-008` | accepted A0 control artifacts | same |
 
+### A1.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.1-001` | frozen OS tree and repository metadata | `repos/AI-Verse-OS.md` |
+| `E-A1.1-002` | product/runtime identity | same |
+| `E-A1.1-003` | architecture/ownership/source layers | same |
+| `E-A1.1-004` | canonical capability implementation | same |
+| `E-A1.1-005` | stale capability metadata/contract | same |
+| `E-A1.1-006` | lifecycle implementation | same |
+| `E-A1.1-007` | permissions and write edge | same |
+| `E-A1.1-008` | direction/current-context ownership | same |
+| `E-A1.1-009` | workspace/profile owner automation | same |
+| `E-A1.1-010` | host adapter and owner routes | same |
+| `E-A1.1-011` | Data host boundary | same |
+| `E-A1.1-012` | semantic migration | same |
+| `E-A1.1-013` | progressive onboarding | same |
+| `E-A1.1-014` | exact-head push CI | same |
+| `E-A1.1-015` | merged PR-head owner-route CI | same |
+| `E-A1.1-016` | current release/status boundaries | same |
+| `E-A1.1-017` | history/repair provenance | same |
+| `E-A1.1-018` | live pre/post evidence-collection control state | same |
+| `E-A1.1-019` | branch-protection evidence limitation | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -381,7 +465,8 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-002` | allocated A0.2 |
 | `WSA-2026-003` | allocated A0.2 |
 | `WSA-2026-004` | allocated A0.3 |
-| `WSA-2026-005` | **NEXT UNUSED** |
+| `WSA-2026-005` | allocated A1.1 |
+| `WSA-2026-006` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
