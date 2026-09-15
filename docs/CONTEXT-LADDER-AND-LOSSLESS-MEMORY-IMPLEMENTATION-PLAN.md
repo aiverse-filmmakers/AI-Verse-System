@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 23
+Complete: 24
 In progress: 1
 Blocked: 0
-Remaining after current: 1
-Current: J3
-Next after current: J4
+Remaining after current: 0
+Current: J4
+Next after current: NONE
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -946,7 +946,7 @@ Next after current: J4
 
 #### J3. Regression, performance, and anti-bloat gate
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: all changed runtime owners
 - Dependencies: J1-J2
@@ -957,12 +957,27 @@ Next after current: J4
   - recall/exact recovery is not worse;
   - retained relationship/branch/cross-owner features each have benchmark evidence;
   - rejected features are removed, disabled, or documented as intentionally not shipped.
-- Evidence: pending.
+- Evidence:
+  - Gateway current accepted main `46c15ee58b028dd7fb8b310327ea705ef618805e` passed post-J2 CI `34992616000` across all 6 matrix jobs.
+  - The post-J2 Gateway benchmark `gateway.context-ladder-j1.v1` remains exactly at the frozen measured reference: 4/4 correct, 80.9934% 50+ turn context reduction, 93.1241% very-large invocation token reduction, exact recovery true, recent tail verbatim, zero scope leakage, canonical raw history unchanged, restart recovery true, and fold-catalog rebuild equivalence true.
+  - Gateway exact archive recovery still uses 31 source ranges in the deterministic long-history fixture. This remains an explicit efficiency signal, not hidden evidence; it is unchanged from J1 and therefore not a regression.
+  - Memory current accepted main `406b14fb4398eb1b16dd5f30e50520e8c3540972` passed Test `34983522129` across all 12 jobs.
+  - Memory benchmark `memory.context-ladder-j1.v1` remains 6/6 correct with exact fact recovery, long-history recovery, zero scope leakage, stale-source fail-closed behavior, no canonical mutation during rebuild, orientation/relationship rebuild equivalence, restart recall, and 3 source reads.
+  - Memory repeated-client top-4 irrelevant-context rate remains 25%. It is unchanged from the accepted J1 reference and remains visible as a future optimization signal rather than being normalized away.
+  - D2 relationship expansion retains benchmark justification: direct-only recovered 1/4 representative cases, the bounded one-hop candidate recovered 4/4, added about 14.1% context, returned three relevant and zero irrelevant neighbors, and caused zero workspace leakage, stale neighbors, or canonical mutation.
+  - Current Memory Test still executes and passes the shipped D2 runtime guards: provenance-only bounded expansion, historical correction recovery with exact source descent, no stale superseded neighbor for current-truth queries, and no expansion at summary depth/full result limit.
+  - D2 remains intentionally narrow: detail depth only, one hop, at most four neighbors, explicit history/correction or provenance/evidence intent, established scope and byte/result budgets. Generic/unbounded graph traversal remains rejected.
+  - OS current main `924a21a3dc1094d0fb6cc422f55fdfc714634e4d` is green across Repository QC `34988213763`, OS Brain Permission Contract `34988213673`, Direction Ownership `34988213873`, Data Host Boundary `34988213791`, OS Write Command Boundary `34988213847`, Four Repo Acceptance `34988213651`, and Five-Component Public Beta `34988213714`.
+  - Brain current main `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4` is green across CI `34969997987`, Skills Receipt Contract `34969998014`, and OS Direction Ownership Contract `34969997970`.
+  - F1 branch catalogs, H1 Brain retrieval-depth envelope, and I1 cross-owner orientation map remain intentionally rejected/non-shipped. No J3 evidence justifies resurrecting them.
+  - No retained feature failed the anti-bloat gate, so J3 requires no production removal or widening.
+  - System Contract Validation remains a repository-level no-runner/no-step infrastructure failure and is carried as a J4 release blocker, not misclassified as a runtime regression.
+  - J3 acceptance complete; twenty-four of 25 slices are accepted.
 
 #### J4. Immutable release handoff
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-System, changed component repos, ai-verse-distribution only after frozen release work clears
 - Dependencies: J1-J3; Safe Update/Release Train availability
 - Goal: merge accepted component changes and hand exact immutable SHAs to canonical release machinery.
@@ -1022,18 +1037,17 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **J3. Regression, performance, and anti-bloat gate**
+Current implementation slice: **J4. Immutable release handoff**
 
-Do not start J4 until:
-- the accepted J1 Memory and Gateway benchmarks are rerun against the current J2-integrated stack;
-- the frozen long-history thresholds remain satisfied: at least 75% reduction for the 50+ turn case and at least 90% reduction for the very-large invocation case;
-- exact recovery, long-history recovery, scope isolation, restart behavior, stale-source handling, derived rebuild equivalence, and canonical-state preservation remain no worse than J1;
-- the honest J1 efficiency signals remain visible and bounded rather than hidden: Memory repeated-client top-4 irrelevant-context rate was 25%, and Gateway exact archive recovery touched 31 source ranges;
-- D2's retained bounded relationship expansion still has benchmark evidence and does not widen into generic traversal;
-- F1 branch catalogs, H1 Brain retrieval-depth envelope, and I1 cross-owner map remain rejected/non-shipped unless new measured evidence overturns those decisions;
-- owner, safety, lifecycle, and Invisible Intelligence regression gates are green;
-- any feature that fails this anti-bloat gate is removed or narrowed before J3 is accepted;
-- J3 exact PR/merge/run evidence is written here.
+Do not declare the project complete until:
+- exact current accepted component main SHAs are frozen and every changed runtime owner remains green;
+- the existing Distribution / Safe Update / Release Train machinery is re-read and used rather than replaced;
+- any current Distribution candidate collision is resolved against live GitHub state;
+- System's Contract Validation no-step infrastructure failure is either restored to a real green run or explicitly proven to be an external GitHub/private-runner blocker with the contract validated through an existing supported release path;
+- the immutable handoff includes the accepted Context Ladder Gateway, Memory, OS, Brain, and System refs without inventing a second release manifest;
+- Distribution acceptance runs against those exact refs and passes;
+- the canonical plan records all final PRs, merge SHAs, workflow IDs, and release evidence;
+- J4 is marked COMPLETE only after the release handoff can be reconstructed from this file alone.
 
 ### Slice start checkpoint: A2
 
@@ -1557,3 +1571,30 @@ Verified before J3 anti-bloat/regression work on 2026-09-15:
 - No open PRs or active workflow runs were found in Gateway, Memory, OS, Brain, or Distribution at the J3 start audit. System's only open Context Ladder PR is stale bookkeeping PR #43 and will be superseded by the current-main J3 plan refresh.
 - System Contract Validation is pre-existingly red on current main: run `34992773791` failed both matrix jobs before any workflow step executed. The equivalent #49 run `34993037285` fails the same way with zero job steps, so this is not caused by the Context Ladder plan diff. J3 must resolve or conclusively classify this repository-level CI blocker before J4 can claim all changed component mains green.
 - J3 is an evidence/removal gate, not permission to add a second retrieval, graph, branch, Memory, or release architecture.
+
+
+### Slice completion checkpoint: J3
+
+Verified on 2026-09-15:
+
+- Gateway post-J2 main `46c15ee58b028dd7fb8b310327ea705ef618805e` passed CI `34992616000` 6/6. The embedded J1 benchmark remained 4/4 correct with 0.809934 long-history context reduction and 0.931241 very-large invocation token reduction, exactly matching the frozen accepted reference.
+- Gateway safety/durability remained unchanged: exact recovery true, recent tail verbatim, zero scope leakage, canonical raw history unchanged, restart archive recovery true, and fold-catalog rebuild equivalent.
+- Memory main `406b14fb4398eb1b16dd5f30e50520e8c3540972` remained green on Test `34983522129` 12/12. The J1 benchmark remained 6/6 correct with exact/long-history recovery, zero leakage, stale-source fail-closed behavior, no canonical mutation, rebuild equivalence, and restart recall.
+- D2's narrow relationship path remains benchmark-earned and runtime-guarded; generic relationship traversal remains rejected.
+- OS and Brain current main owner/contract gates are green at the exact J3-audited refs recorded above.
+- F1, H1, and I1 remain intentionally non-shipped.
+- J3 found no retained feature whose complexity exceeded its measured value, so no production feature was removed or broadened.
+- The only non-green repository signal is System Contract Validation, whose jobs fail before any steps or logs exist on both unchanged main and Context Ladder plan commits. It is not a runtime regression and is carried explicitly into J4.
+- J3 acceptance is complete. Twenty-four of 25 slices are accepted.
+
+
+### Slice start checkpoint: J4
+
+Verified before immutable release handoff on 2026-09-15:
+
+- Accepted Context Ladder runtime refs entering J4: Gateway `46c15ee58b028dd7fb8b310327ea705ef618805e`, Memory `406b14fb4398eb1b16dd5f30e50520e8c3540972`, OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`, Brain `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`.
+- Canonical System main entering J4: `5052d9051026a48c8cfa8927f070145dcf1f8442`.
+- Existing Distribution main entering J4: `a215c8777da55b299247ec9e564cca020cfe2020`.
+- Gateway, Memory, OS, and Brain are green at the exact refs above.
+- System Contract Validation run `34993247887` failed again on unchanged rerun attempt 2 before any job steps existed; no logs were generated. J4 must not silently call this green.
+- J4 will re-read current release machinery and Distribution state before writing any release pin or handoff.
