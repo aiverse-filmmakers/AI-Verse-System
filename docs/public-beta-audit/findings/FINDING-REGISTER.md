@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-038`.
+**Next unused finding ID:** `WSA-2026-043`.
 
 ## 2. Allowed classifications
 
@@ -104,21 +104,26 @@ Rules:
 | WSA-2026-035 | MEDIUM | PROVEN | OPEN | first-run requirements / executable compatibility truth | ai-verse-distribution | A1.12 |
 | WSA-2026-036 | MEDIUM | PROVEN | OPEN | diagnostics / secret redaction / failure handling | ai-verse-distribution | A1.12 |
 | WSA-2026-037 | LOW | PROVEN | OPEN | repository-local release/status documentation drift | ai-verse-distribution | A1.12 |
+| WSA-2026-038 | HIGH | PROVEN | OPEN | workspace isolation / realtime subscription lifecycle | AI-Verse-Dashboard | A1.13 |
+| WSA-2026-039 | HIGH | PROVEN | OPEN | system identity / registered-root authority binding | AI-Verse-Dashboard | A1.13 |
+| WSA-2026-040 | HIGH | PROVEN | OPEN | local gateway authentication / privacy boundary | AI-Verse-Dashboard | A1.13 |
+| WSA-2026-041 | MEDIUM | PROVEN | OPEN | local browser integration / Origin policy | AI-Verse-Dashboard | A1.13 |
+| WSA-2026-042 | MEDIUM | PROVEN | OPEN | canonical ownership / projection truth | AI-Verse-Dashboard | A1.13 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 4 |
-| HIGH | 17 |
-| MEDIUM | 6 |
+| HIGH | 20 |
+| MEDIUM | 8 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 37 |
+| PROVEN | 42 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 37 |
+| OPEN | 42 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1135,6 +1140,127 @@ Align current architecture/roadmap with machine release truth and retain obsolet
 
 ---
 
+
+### WSA-2026-038 - WebSocket resubscribe leaves prior workspace subscription active
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.13  
+**Root area:** workspace isolation / realtime subscription lifecycle  
+**Affected repos:** AI-Verse-Dashboard
+
+**Summary:**  
+A socket that subscribes to workspace A and then workspace B receives a new B subscription without removing the A subscription. The old listener stays in SubscriptionHub and can keep delivering A events to the same socket.
+
+**Contradiction:** C-A1.13-001.
+
+**Primary evidence:** E-A1.13-011, E-A1.13-013, E-A1.13-021.
+
+**Impact:**  
+Live workspace context can bleed across an explicit workspace switch and contaminate the selected workspace UI.
+
+**Required closure evidence:**  
+Fence or remove the previous subscription before accepting a new workspace scope, validate the subscribed workspace, release every subscription on close, and add deterministic A -> B -> A resubscribe regressions.
+
+---
+
+### WSA-2026-039 - registered systemId can silently follow a replaced OS filesystem root
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.13  
+**Root area:** system identity / registered-root authority binding  
+**Affected repos:** AI-Verse-Dashboard
+
+**Summary:**  
+SystemRegistry stores a canonical pathname at registration, but later reads follow whatever filesystem object currently resolves at that pathname. A replaced or redirected path can therefore change the OS behind an existing systemId without explicit user reapproval.
+
+**Contradiction:** C-A1.13-002.
+
+**Primary evidence:** E-A1.13-008, E-A1.13-009, E-A1.13-016, E-A1.13-022.
+
+**Impact:**  
+A stable Dashboard system identity can silently move from approved OS A to different filesystem content B while retaining A's UI/runtime identity.
+
+**Required closure evidence:**  
+Bind registration to durable root identity, detect root replacement before reads, fail closed on drift, require explicit rebind/reapproval and add replacement/symlink/rename regressions.
+
+---
+
+### WSA-2026-040 - Dashboard-local Gateway exposes OS read APIs without authentication
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.13  
+**Root area:** local gateway authentication / privacy boundary  
+**Affected repos:** AI-Verse-Dashboard
+
+**Summary:**  
+The temporary Dashboard-local Gateway is loopback-only but does not authenticate HTTP or WebSocket clients. Missing Origin is intentionally accepted for non-browser clients, and those clients can enumerate systems/workspaces and request read projections.
+
+**Contradiction:** C-A1.13-003.
+
+**Primary evidence:** E-A1.13-004, E-A1.13-011, E-A1.13-014, E-A1.13-015.
+
+**Impact:**  
+Any local process able to connect to the port can access Dashboard-exposed AI-Verse read data outside the intended UI authorization flow.
+
+**Required closure evidence:**  
+Require local authenticated client identity if this gateway remains executable, preserve loopback binding, reject unauthenticated HTTP/WS requests and add negative local-client tests.
+
+---
+
+### WSA-2026-041 - browser Origin check rejects normal localhost origins with explicit ports
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.13  
+**Root area:** local browser integration / Origin policy  
+**Affected repos:** AI-Verse-Dashboard
+
+**Summary:**  
+The local Gateway allows only exact Origin values http://localhost and http://127.0.0.1. A normal browser app at http://localhost:5173 or another explicit local port is rejected.
+
+**Contradiction:** C-A1.13-004.
+
+**Primary evidence:** E-A1.13-011, E-A1.13-012, E-A1.13-020, E-A1.13-021, E-A1.13-023.
+
+**Impact:**  
+The intended separate browser/Vite host cannot communicate with the local Dashboard Gateway under ordinary local port layouts without a workaround.
+
+**Required closure evidence:**  
+Define an explicit trusted loopback-origin policy supporting approved ports and add HTTP/WS browser-origin tests for localhost and 127.0.0.1.
+
+---
+
+### WSA-2026-042 - synthetic Health/Inbox projections create Dashboard shadow semantics
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.13  
+**Root area:** canonical ownership / projection truth  
+**Affected repos:** AI-Verse-Dashboard
+
+**Summary:**  
+Current read models synthesize health and inbox meaning from generic file presence, headings and filenames instead of consuming owner-declared domain truth. The repository's own preservation report now identifies these semantics as shadow-authority scaffolding.
+
+**Contradiction:** C-A1.13-005.
+
+**Primary evidence:** E-A1.13-003, E-A1.13-006, E-A1.13-017, E-A1.13-018.
+
+**Impact:**  
+The Dashboard can present authoritative-looking health/attention state that no canonical owner actually declared.
+
+**Required closure evidence:**  
+Replace production semantics with owner-backed projections, preserve unknown/unavailable when owner truth is absent, and explicitly label any retained heuristic as derived/non-authoritative.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1178,6 +1304,11 @@ Align current architecture/roadmap with machine release truth and retain obsolet
 | C-A1.12-002 | A1.12 | implementation defect / failure-path secret redaction | yes | WSA-2026-036 | OPEN |
 | C-A1.12-003 | A1.12 | stale release/status documentation | yes | WSA-2026-037 | OPEN |
 | C-A1.12-004 | A1.12 | implementation defect / lifecycle concurrency | yes | WSA-2026-034 | OPEN |
+| C-A1.13-001 | A1.13 | implementation defect / workspace subscription isolation | yes | WSA-2026-038 | OPEN |
+| C-A1.13-002 | A1.13 | implementation defect / registered root identity binding | yes | WSA-2026-039 | OPEN |
+| C-A1.13-003 | A1.13 | implementation defect / local gateway authentication | yes | WSA-2026-040 | OPEN |
+| C-A1.13-004 | A1.13 | implementation defect / browser Origin policy | yes | WSA-2026-041 | OPEN |
+| C-A1.13-005 | A1.13 | implementation defect / shadow projection authority | yes | WSA-2026-042 | OPEN |
 
 ### C-A0.1-001
 
@@ -1473,6 +1604,43 @@ See `WSA-2026-002`.
 **Source C:** mutating lifecycle paths perform load -> owner effect -> stale-capable receipt write with no cross-process lock/CAS/version.  
 **Higher-authority source:** executable state/orchestrator implementation.  
 **Finding:** WSA-2026-034.
+
+
+### C-A1.13-001
+
+**Source A:** Dashboard architecture requires workspace-scoped subscriptions and no context leakage across workspace switches.  
+**Source B:** WebSocket resubscribe creates a new hub subscription without removing the previous one.  
+**Higher-authority source:** executable server and SubscriptionHub.  
+**Finding:** WSA-2026-038.
+
+### C-A1.13-002
+
+**Source A:** systemId is documented as one explicitly approved OS identity boundary.  
+**Source B:** implementation stores only a pathname and later follows the current filesystem target at that path.  
+**Higher-authority source:** executable registry/path resolver.  
+**Finding:** WSA-2026-039.
+
+### C-A1.13-003
+
+**Source A:** architecture defines a local authenticated control/read gateway.  
+**Source B:** current Dashboard-local server authenticates neither HTTP nor WebSocket clients and accepts missing Origin.  
+**Higher-authority source:** executable server.  
+**Finding:** WSA-2026-040.
+
+### C-A1.13-004
+
+**Source A:** architecture expects a separate local browser/Vite UI consuming the Gateway.  
+**Source B:** Origin comparison rejects loopback origins containing explicit ports.  
+**Higher-authority source:** executable server.  
+**Finding:** WSA-2026-041.
+
+### C-A1.13-005
+
+**Source A:** Dashboard owns zero domain truth.  
+**Source B:** current read models create health/inbox classifications from generic files and filenames.  
+**Source C:** current preservation report explicitly calls this shadow-authority risk.  
+**Higher-authority source:** executable read models.  
+**Finding:** WSA-2026-042.
 
 ## 6. Evidence ID register
 
@@ -1914,6 +2082,42 @@ A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 | E-A1.12-029 | Agent Python-floor contradiction | same |
 | E-A1.12-030 | final live pre-write recheck | same |
 
+
+### A1.13 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A1.13-001 | frozen Dashboard repository metadata/head/open-PR state | repos/AI-Verse-Dashboard.md |
+| E-A1.13-002 | Dashboard commit/PR evolution | same |
+| E-A1.13-003 | README ownership/isolation law | same |
+| E-A1.13-004 | architecture blueprint | same |
+| E-A1.13-005 | Mission Control PRD and current tracker | same |
+| E-A1.13-006 | baseline preservation report | same |
+| E-A1.13-007 | protocol enforcement | same |
+| E-A1.13-008 | OS registry implementation | same |
+| E-A1.13-009 | server-side path containment | same |
+| E-A1.13-010 | Markdown/SQLite read boundaries | same |
+| E-A1.13-011 | local HTTP/WebSocket Gateway server | same |
+| E-A1.13-012 | loopback Origin implementation | same |
+| E-A1.13-013 | WebSocket resubscribe/subscription lifecycle trace | same |
+| E-A1.13-014 | query router supported reads | same |
+| E-A1.13-015 | unauthenticated local read trace | same |
+| E-A1.13-016 | registered root substitution trace | same |
+| E-A1.13-017 | synthetic read-model semantics | same |
+| E-A1.13-018 | repository shadow-authority acknowledgment | same |
+| E-A1.13-019 | live session/runtime scaffolding | same |
+| E-A1.13-020 | client/web shell model | same |
+| E-A1.13-021 | Gateway tests and coverage gaps | same |
+| E-A1.13-022 | registry/isolation tests and coverage gaps | same |
+| E-A1.13-023 | Phase 1 gate | same |
+| E-A1.13-024 | Mission Control MC1 automation | same |
+| E-A1.13-025 | third-party provenance | same |
+| E-A1.13-026 | cross-platform Dashboard CI definition | same |
+| E-A1.13-027 | PR #8 runtime-proof CI 34994307940 | same |
+| E-A1.13-028 | PR #10 pause-head CI 34997395259 | same |
+| E-A1.13-029 | current merge-head hosted status limitation | same |
+| E-A1.13-030 | final live pre-write recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -1955,7 +2159,12 @@ A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
 | WSA-2026-035 | allocated A1.12 |
 | WSA-2026-036 | allocated A1.12 |
 | WSA-2026-037 | allocated A1.12 |
-| WSA-2026-038 | **NEXT UNUSED** |
+| WSA-2026-038 | allocated A1.13 |
+| WSA-2026-039 | allocated A1.13 |
+| WSA-2026-040 | allocated A1.13 |
+| WSA-2026-041 | allocated A1.13 |
+| WSA-2026-042 | allocated A1.13 |
+| WSA-2026-043 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
