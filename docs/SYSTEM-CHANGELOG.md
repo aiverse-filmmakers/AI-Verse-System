@@ -1,3 +1,18 @@
+## 2026-09-15: Added canonical inspiration, prior-art and competitive-gap radar
+
+- Added `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md` as the central living index for AI-Verse inspiration research.
+- Consolidated the owner-supplied Gawkbot, ZeroClaw, EverOS, LifeOS, HolaOS, Osaurus, Celesto/SmolVM, Hermes and Ruflo references with prior System research including Codex, OpenClaw, Letta, Prime Agent, Mission Control, Kylon, Graft, Kilo Memory, connector platforms, Dashboard references and domain-level upstreams.
+- Compared each reference against current AI-Verse implementation evidence so existing AI-Verse strengths are not falsely recorded as gaps.
+- Ranked the strongest current opportunities: Agent Computer/sandbox execution, Connections v1, Apps v1 live surfaces, execution security, whole-system readiness auditing, channels/voice, goal-plan visualization, Knowledge Wiki/multimodal ingest, portable runtime backends, migration adapters and later ecosystem/federation work.
+- Recorded explicit non-copy decisions to prevent duplicate Memory, scheduler, swarm, Token/cost or app-local truth architectures.
+- Preserved the current Mission Control Dashboard direction and single-user-first product priority.
+
+Canonical detail:
+
+- `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md`
+
+---
+
 ## 2026-09-15: Mission Control selected as canonical Dashboard bootstrap shell
 
 - Product owner selected Builderz Labs Mission Control as the initial visual/application foundation for AI-Verse Dashboard.

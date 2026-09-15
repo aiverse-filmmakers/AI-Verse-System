@@ -1233,7 +1233,7 @@ The system should:
 4. strengthen ownership and interoperability boundaries;
 5. make the resulting behavior explicit and testable.
 
-Detailed inspiration provenance belongs in the component specs/source maps.
+The canonical cross-system index is `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md`. It consolidates prior-art provenance, current competitive gaps, ranked adoption opportunities, links and explicit non-copy decisions. Component specs/source maps remain authoritative for component-local evidence and exact implementation lineage.
 
 ---
 
