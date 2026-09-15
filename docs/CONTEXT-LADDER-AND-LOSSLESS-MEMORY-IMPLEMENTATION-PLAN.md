@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 14
+Complete: 15
 In progress: 1
 Blocked: 0
-Remaining after current: 10
-Current: E4
-Next after current: E5
+Remaining after current: 9
+Current: E5
+Next after current: F1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -666,7 +666,7 @@ Next after current: E5
 
 #### E4. Recent raw tail and context-pressure governor
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E2-E3
@@ -681,12 +681,21 @@ Next after current: E5
   - no Kylon numeric constant is copied without benchmark evidence.
 - Tests: low/soft/hard pressure, tail boundary, cache-sensitive skip, huge-turn emergency.
 - Risks: prompt overflow; cache churn.
-- Evidence: pending.
+- Evidence:
+  - E4 PR #21 final head `ac31518a96f24d352ca8b7596377b6ca2a1782fd`.
+  - Final-head PR CI `34947337650`: success, 6/6; Permanent Bot `34947337645`, Temporary Worker `34947337656`, and Automation Recommendation `34947337703`: all success.
+  - E4 merged as Gateway main `105cf673e15a45efb70088eb74e5cbaeb606e223`.
+  - Post-merge CI `34947461088`: success, 6/6.
+  - Context governance activates only when an explicit AI-Verse context-window capacity is configured. Unknown capacity leaves invocation context unchanged rather than guessing a model limit.
+  - Soft pressure preserves invocation context and records durable fold eligibility; cache-sensitive soft context can skip that scheduling hint safely.
+  - Hard pressure compacts only the older derived invocation prefix through a separately usage-accounted summarization call. Recent raw messages remain verbatim; an oversized protected tail fails closed before the foreground model invocation.
+  - Acceptance proves low/soft/hard behavior, configurable thresholds, cache-sensitive skip, emergency tail shrink, impossible huge-turn failure, and a real RunEngine boundary where the runtime receives compacted derived context while canonical `run.messages` remains unchanged.
+  - E4 acceptance complete; fifteen of 25 slices are accepted.
 
 #### E5. Fold guards, recovery, and diagnostics
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1-E4
 - Goal: enforce card quality/scope/fingerprint/budget guards and expose advanced diagnostics.
@@ -704,7 +713,7 @@ Next after current: E5
 #### F1. Copy-on-write branch catalog evaluation and implementation/rejection
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway; AI-Verse-Multiple-Bots only for identity integration if required
 - Dependencies: E1-E5; current Bots main re-audit
 - Goal: share immutable pre-fork cards/sources while branch catalogs diverge without copying entire history.
@@ -1257,3 +1266,26 @@ Verified before E4 implementation on 2026-09-15:
 - Pressure must be computed from AI-Verse-owned configurable context capacity and measured prompt size. No external/Kylon threshold constant is copied.
 - Recent raw continuity must remain verbatim and bounded. Soft pressure may schedule fold work; hard pressure must reduce derived invocation context before the model call or fail closed if it cannot fit.
 - Cache-sensitive recent context may be retained without folding when under the hard threshold; E4 must expose this decision for diagnostics.
+
+
+### Slice completion checkpoint: E4
+
+Verified on 2026-09-15:
+
+- E4 PR #21 head `ac31518a96f24d352ca8b7596377b6ca2a1782fd` passed CI `34947337650` 6/6 and all three composition gates.
+- E4 merged as Gateway main `105cf673e15a45efb70088eb74e5cbaeb606e223`; post-merge CI `34947461088` passed 6/6.
+- The governor is disabled when context capacity is unknown; no external model limit is guessed.
+- Low pressure passes through unchanged. Soft pressure preserves the invocation and records fold eligibility, unless an explicit cache-sensitive hint makes preserving the reusable prefix safer.
+- Hard pressure compacts only the older invocation prefix, preserves a bounded verbatim recent tail, accounts summarization usage against the same run budget, and fails closed when protected recent context itself cannot fit.
+- Canonical `run.messages` is never rewritten by E4.
+- E4 acceptance is complete. Fifteen of 25 slices are accepted.
+
+### Slice start checkpoint: E5
+
+Verified before E5 implementation on 2026-09-15:
+
+- AI-Verse-Gateway main: `105cf673e15a45efb70088eb74e5cbaeb606e223`; E4 post-merge CI `34947461088` is 6/6 green.
+- E5 will harden existing E1-E4 validation rather than create a second fold/archive architecture.
+- Card validation must reject structurally self-consistent but semantically invalid coverage/order/metadata/size, not only fingerprint drift.
+- Restart must preserve cards/catalog rebuildability plus any durable E4 fold-work scheduling state.
+- Advanced diagnostics may expose counts, IDs, fingerprints, token estimates, retrieval depth and fallback reasons, but must not expose raw archived message content, prompts, chain-of-thought or hidden reasoning.
