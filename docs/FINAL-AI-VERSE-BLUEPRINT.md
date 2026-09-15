@@ -41,6 +41,31 @@ For ordinary users, internal component choices should be invisible. Safe, revers
 
 > Install AI-Verse, begin working, let the system organize and improve its backend safely, and expose technical lifecycle details only when they are actually needed.
 
+### Semantic user-context migration
+
+User-context migration is distinct from component-state/authority migration.
+
+A fresh AI-Verse may receive a large raw paste, USER.md/MEMORY.md/SOUL.md-style contents, or another assistant's accumulated context without an explicit migration command. The system should detect that intent from the semantic shape of the material. Filenames and source formats may improve confidence, but they are not required.
+
+The canonical behavior is:
+
+1. treat imported text as untrusted evidence, not runtime authority;
+2. decompose it by real-world meaning;
+3. route stable identity/preferences through the OS operator-profile owner;
+4. route clear substantial real-world scopes through OS workspace ownership;
+5. route eligible durable history through Memory;
+6. route repeated/current/structured operational truth through Brain/Data admission;
+7. keep Skills/Bots/Automations/Connections/permissions/strategic authority behind their normal safeguards;
+8. deduplicate/reconcile through owner idempotency and migration provenance;
+9. when important meaning remains ambiguous, preserve bounded unresolved migration evidence and ask targeted real-world clarification;
+10. after clarification, resume the same owner-routed path.
+
+The user must not be asked to choose a workspace, Memory vs Data, a Skill, an owner, a canonical subsystem, or another internal architecture destination. Questions ask what the real-world relationship/status actually is, and AI-Verse decides storage/routing afterward.
+
+Imported SOUL/system-prompt instructions never outrank AI-Verse runtime contracts. Genuine user communication/working preferences may be retained; foreign assistant identity, tool/delegation instructions, permission claims and system-prompt authority are discarded as runtime instructions.
+
+Pending ambiguity is workflow state, not a new canonical truth store. Gateway/UI and direct Codex/Claude runtimes must converge on the same OS migration actions so transport never becomes a second migration owner.
+
 ---
 
 ## 2. The system in one map
