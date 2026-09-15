@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 36 / 100.**
+**Current accepted progress: 39 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -164,10 +164,10 @@ A1 exit:
 Status: COMPLETE
 
 ### A2.2 Canonical ownership and write paths - 3
-Status: NEXT
+Status: COMPLETE
 
 ### A2.3 Lifecycle/discovery/adoption/reconcile graph - 3
-Status: PENDING
+Status: NEXT
 
 ### A2.4 Identity/scope/isolation/authentication - 3
 Status: PENDING
