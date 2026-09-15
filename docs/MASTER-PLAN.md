@@ -1,3 +1,7 @@
+> **Independent whole-system audit gate, 2026-09-15**
+>
+> Before real Dashboard MC1.4 integration proof and broader owner dogfood, execute the canonical read-only whole-system audit in `docs/public-beta-audit/PROGRAM-2026-09-15.md` and `docs/public-beta-audit/EXECUTION-TRACKER-2026-09-15.md`. The audit independently reconstructs each repository before cross-component synthesis, resolves all directional repo relationships, audits end-to-end journeys and adversarial negative space, revalidates release evidence, and produces a whole-system verdict plus repair order. Product repositories must not be repaired during A0-A6 evidence collection except for emergency containment.
+
 > **Execution authority update, 2026-09-15**
 >
 > Runtime implementation is governed by the canonical files in `aiverse-filmmakers/AI-Verse-Dashboard`: `docs/PRD-MISSION-CONTROL-AIVERSE-DASHBOARD-2026-09-15.md` and `docs/MISSION-CONTROL-EXECUTION-TRACKER-2026-09-15.md`. The tracker is a 100-point gated program with explicit human checkpoints. Future chats must recheck live GitHub state and continue the first eligible tracker task rather than reconstructing sequence from conversation history.
