@@ -1,5 +1,9 @@
 # AI-Verse Dashboard Component Specification
 
+> **CANONICAL PRODUCT DIRECTION UPDATE, 2026-09-15**
+>
+> The forensic CURRENT findings in this specification remain valid, but the implementation sequence has changed. Builderz Labs Mission Control is now the approved initial visual/application shell. The current product track is MC0 -> MC1 -> MC2 from `docs/DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md`, beginning with a real Mission Control -> canonical AI-Verse Gateway chat proof. The older Phase 2 Task 6 milestone below is a historical audit snapshot and must not be used to revert the product plan.
+
 **Component:** AI-Verse Dashboard  
 **Repository:** aiverse-filmmakers/AI-Verse-Dashboard  
 **Reviewed default branch:** main  
@@ -479,9 +483,11 @@ GET /health must not be interpreted as system health.
 
 ## 17. Current milestone
 
-The repository's current intended milestone is:
+At the time of the standalone forensic audit, the repository's then-current intended milestone was:
 
-**Phase 2 Task 6: full live agent-control story green.**
+**HISTORICAL: Phase 2 Task 6: full live agent-control story green.**
+
+The current product milestone is now **MC1: real AI-Verse chat proof through the Mission Control shell and canonical AI-Verse Gateway**, followed by explicit AI-Verse mode and the pre-strip feature disposition gate.
 
 The build ledger marks 13 tasks complete and 60/60 tests locally green, but Phase 2 Task 6 is still unchecked.
 
@@ -513,7 +519,9 @@ If the required canonical OS command/projection APIs do not yet exist, those por
 
 ## 18. Final seamless-system gap
 
-After Phase 2, the repository still intentionally has later phases:
+The historical scratch-built roadmap below still describes useful target surfaces, but it no longer controls implementation order. Under the canonical Mission Control adoption plan, these surfaces are incorporated progressively after the MC1/MC2 integration proof.
+
+Historically, after Phase 2 the repository intentionally had later phases:
 
 - Phase 3: automations, approvals and audit;
 - Phase 4: OpenClaw plus Telegram/Discord/WhatsApp bridge with ACL/risk controls;
