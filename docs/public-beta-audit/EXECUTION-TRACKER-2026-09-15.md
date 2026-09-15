@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 9 / 100.**
+**Current accepted progress: 11 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -103,11 +103,11 @@ Status: COMPLETE
 Output: `repos/AI-Verse-Gateway.md`
 
 ### A1.3 AI-Verse-Brain - 2
-Status: NEXT
+Status: COMPLETE
 Output: `repos/AI-Verse-Brain.md`
 
 ### A1.4 AI-Verse-Memory - 2
-Status: PENDING
+Status: NEXT
 Output: `repos/AI-Verse-Memory.md`
 
 ### A1.5 AI-Verse-Skills - 2

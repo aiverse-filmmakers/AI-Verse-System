@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-009`.
+**Next unused finding ID:** `WSA-2026-012`.
 
 ## 2. Allowed classifications
 
@@ -75,21 +75,24 @@ Rules:
 | `WSA-2026-006` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem safety | `AI-Verse-Gateway` | A1.2 |
 | `WSA-2026-007` | HIGH | PROVEN | OPEN | setup/disable/uninstall/status lifecycle truth | `AI-Verse-Gateway` | A1.2 |
 | `WSA-2026-008` | HIGH | PROVEN | OPEN | concurrency / idempotency / session binding / run control | `AI-Verse-Gateway` | A1.2 |
+| `WSA-2026-009` | HIGH | PROVEN | OPEN | filesystem containment / scope isolation | `AI-Verse-Brain` | A1.3 |
+| `WSA-2026-010` | MEDIUM | PROVEN | OPEN | Goal concurrency / replay safety | `AI-Verse-Brain` | A1.3 |
+| `WSA-2026-011` | LOW | PROVEN | OPEN | release/version identity | `AI-Verse-Brain` | A1.3 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 1 |
-| HIGH | 2 |
-| MEDIUM | 0 |
-| LOW | 4 |
+| HIGH | 3 |
+| MEDIUM | 1 |
+| LOW | 5 |
 | INFO | 1 |
-| PROVEN | 8 |
+| PROVEN | 11 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 8 |
+| OPEN | 11 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -360,6 +363,99 @@ After A6 authorizes repair: make claim/compare/reservation one atomic mutation; 
 
 ---
 
+### WSA-2026-009 — Native Brain state can escape the selected host root through symlinked parent directories
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.3  
+**Root area:** filesystem containment / scope isolation  
+**Affected repos:** `AI-Verse-Brain`  
+**Affected journeys:** native setup; initialization; canonical Brain writes; runtime locks; standalone-to-native adoption
+
+**Summary:**  
+Core native Brain state and runtime paths do not reject a symlinked `operator/` or `workspaces/` parent. Host compatibility follows directory symlinks, and later containment compares children against those already-resolved parents, so state can be written outside the selected AI-Verse root.
+
+**Expected law:**  
+All Brain-owned native state/runtime writes must remain physically inside the selected host root and intended operator/workspace scope, including hostile or malformed symlink layouts.
+
+**Observed behavior:**  
+`inspect_host` accepts `operator` and `workspaces` through `Path.is_dir()`. `StorageLayout.state_root` then checks `operator/brain` relative to resolved `operator`, or workspace relative to resolved `workspaces`. If the parent itself is a symlink outside the host root, both resolved paths share that outside base and the check succeeds. Initialization/adoption/runtime paths subsequently write there. Extension and direction registries separately reject symlinks, demonstrating the stricter intended pattern.
+
+**Contradiction:** `C-A1.3-001`.
+
+**Primary evidence:** `E-A1.3-004`, `E-A1.3-005`, `E-A1.3-006`.
+
+**Impact:**  
+A malformed or adversarial native host layout can place canonical Brain state outside the selected authority boundary.
+
+**Required closure evidence:**  
+After A6 authorizes repair: reject symlinked native operator/workspaces/workspace/runtime parents; realpath-confine final state/runtime/adoption destinations to the selected root and scope; apply the check to installation markers; add parent symlink/junction escape tests; re-audit native setup, writes and adoption.
+
+---
+
+### WSA-2026-010 — Goal operation-ID idempotency can race across different Goals
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.3  
+**Root area:** Goal concurrency / replay safety  
+**Affected repos:** `AI-Verse-Brain`  
+**Affected journeys:** Goal edit; transition; criteria mutations; progress recording
+
+**Summary:**  
+Goal operation receipts are keyed by scope + `operation_id`, but non-create Goal mutations serialize on scope + `goal_id`. Concurrent first-use mutations on two different Goals can therefore reuse one operation ID, both mutate canonical state and race to leave one receipt.
+
+**Expected law:**  
+Within one scope, one operation ID identifies one durable Goal mutation and changed-payload reuse must be rejected even under concurrent first use.
+
+**Observed behavior:**  
+`create` locks `scope|operation_id`. `edit`, `transition`, criteria add/remove/clear and `record_progress` lock `scope|goal_id`. Each performs a second receipt check inside that Goal lock, but different Goal IDs do not share a lock even though they share the operation-receipt namespace.
+
+**Contradiction:** `C-A1.3-002`.
+
+**Primary evidence:** `E-A1.3-008`, `E-A1.3-013`.
+
+**Impact:**  
+Conflicting concurrent callers can produce two canonical Goal mutations while later replay/audit state retains only one operation receipt.
+
+**Required closure evidence:**  
+After A6 authorizes repair: serialize admission on scope + operation ID as well as Goal revision; add deterministic cross-Goal same-operation-ID concurrent tests; prove exactly one mutation commits and the other receives an idempotency conflict.
+
+---
+
+### WSA-2026-011 — Materially different Brain source trees build with the same beta.2 package version
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.3  
+**Root area:** release/version identity  
+**Affected repos:** `AI-Verse-Brain`  
+**Affected journeys:** source installs; artifact identification; support/debugging; update/release evidence
+
+**Summary:**  
+The accepted beta.2 descriptor pins `80019be5e6df29aee70371544bd96cedbf0329b9`, while frozen current main is 13 commits later with production-code changes but still builds and reports exactly `0.1.0-beta.2`.
+
+**Expected law:**  
+An accepted public-beta package version should identify one materially defined artifact, or later development code should carry a distinct development/pre-release identity.
+
+**Observed behavior:**  
+Current main `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4` is 13 commits ahead of accepted beta.2 and changes production `learning.py` / `local_host.py`, while `_version.py`, README and package build remain `0.1.0b2`. Release docs correctly instruct immutable-SHA installation, which bounds the risk.
+
+**Contradiction:** `C-A1.3-003`.
+
+**Primary evidence:** `E-A1.3-002`, `E-A1.3-017`, `E-A1.3-018`.
+
+**Impact:**  
+Version-only diagnostics, installation markers or source-built artifacts cannot distinguish accepted beta.2 from newer development code carrying the same version.
+
+**Required closure evidence:**  
+After A6 authorizes repair: give post-release main a distinct version identity or formally accept/reissue the new immutable beta revision; align README/changelog/version/release metadata semantics; add release QC preventing unintentional post-release production changes under the exact accepted version.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -374,6 +470,9 @@ After A6 authorizes repair: make claim/compare/reservation one atomic mutation; 
 | `C-A1.2-001` | A1.2 | implementation defect / lifecycle truth split | yes | `WSA-2026-007` | OPEN |
 | `C-A1.2-002` | A1.2 | implementation defect / concurrency gap | yes | `WSA-2026-008` | OPEN |
 | `C-A1.2-003` | A1.2 | implementation defect / control-state race | yes | `WSA-2026-008` | OPEN |
+| `C-A1.3-001` | A1.3 | implementation defect / filesystem containment | yes | `WSA-2026-009` | OPEN |
+| `C-A1.3-002` | A1.3 | implementation defect / concurrency-idempotency gap | yes | `WSA-2026-010` | OPEN |
+| `C-A1.3-003` | A1.3 | release/version identity drift | yes | `WSA-2026-011` | OPEN |
 
 ### C-A0.1-001
 
@@ -450,6 +549,30 @@ See `WSA-2026-002`.
 **Higher-authority source:** executable run/store implementation.  
 **Classification:** implementation defect / control-state race.  
 **Finding:** `WSA-2026-008`.
+
+### C-A1.3-001
+
+**Source A:** Brain security/architecture says state paths are validated for scope/path safety.  
+**Source B:** native host/storage/installation code follows a symlinked `operator/` or `workspaces/` parent and validates descendants relative to that already-resolved outside parent.  
+**Higher-authority source:** executable implementation.  
+**Classification:** implementation defect / filesystem containment.  
+**Finding:** `WSA-2026-009`.
+
+### C-A1.3-002
+
+**Source A:** Brain Goal contract says operation IDs are replay-safe/idempotent and changed reuse is rejected.  
+**Source B:** non-create mutations use Goal-keyed locks while durable receipts are operation-ID keyed, leaving concurrent cross-Goal first use unserialized.  
+**Higher-authority source:** executable Goal implementation.  
+**Classification:** implementation defect / concurrency-idempotency gap.  
+**Finding:** `WSA-2026-010`.
+
+### C-A1.3-003
+
+**Source A:** accepted release descriptor pins beta.2 to `80019be5e6df29aee70371544bd96cedbf0329b9`.  
+**Source B:** frozen current main is 13 commits later with production-code changes and still reports/builds `0.1.0-beta.2`.  
+**Higher-authority source:** current version source + immutable release descriptor + commit comparison.  
+**Classification:** release/version identity drift.  
+**Finding:** `WSA-2026-011`.
 
 ## 6. Evidence ID register
 
@@ -602,6 +725,31 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.2-018` | GitHub Release state | same |
 | `E-A1.2-019` | live control-state recheck | same |
 
+### A1.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.3-001` | frozen Brain tree and repository metadata | `repos/AI-Verse-Brain.md` |
+| `E-A1.3-002` | README/BRAIN/package/version/license identity | same |
+| `E-A1.3-003` | protocol/security ownership and authority laws | same |
+| `E-A1.3-004` | storage/scope/object-write implementation | same |
+| `E-A1.3-005` | integration/native paths/write readiness | same |
+| `E-A1.3-006` | installation/lifecycle/adoption implementation | same |
+| `E-A1.3-007` | direction ownership implementation/tests | same |
+| `E-A1.3-008` | canonical Goal implementation | same |
+| `E-A1.3-009` | effective policy / permission intersection | same |
+| `E-A1.3-010` | action replay/receipt implementation | same |
+| `E-A1.3-011` | owner-write / learning / Data candidate gates | same |
+| `E-A1.3-012` | bridge/vendor subprocess hardening | same |
+| `E-A1.3-013` | 26-module test inventory | same |
+| `E-A1.3-014` | exact-head CI run 34969997987 | same |
+| `E-A1.3-015` | exact-head Skills contract run 34969998014 | same |
+| `E-A1.3-016` | exact-head OS direction run 34969997970 | same |
+| `E-A1.3-017` | accepted beta.2 release descriptor | same |
+| `E-A1.3-018` | accepted beta.2 -> frozen-main 13-commit comparison | same |
+| `E-A1.3-019` | recent PR/repair history | same |
+| `E-A1.3-020` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -614,7 +762,10 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-006` | allocated A1.2 |
 | `WSA-2026-007` | allocated A1.2 |
 | `WSA-2026-008` | allocated A1.2 |
-| `WSA-2026-009` | **NEXT UNUSED** |
+| `WSA-2026-009` | allocated A1.3 |
+| `WSA-2026-010` | allocated A1.3 |
+| `WSA-2026-011` | allocated A1.3 |
+| `WSA-2026-012` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
