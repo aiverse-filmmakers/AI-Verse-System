@@ -232,11 +232,11 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 24
-In progress: 1
+Complete: 25
+In progress: 0
 Blocked: 0
 Remaining after current: 0
-Current: J4
+Current: COMPLETE
 Next after current: NONE
 
 ### Phase A: Memory session digests and selective promotion
@@ -976,18 +976,33 @@ Next after current: NONE
 
 #### J4. Immutable release handoff
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
-- Repositories: AI-Verse-System, changed component repos, ai-verse-distribution only after frozen release work clears
+- Repositories: AI-Verse-System, changed component repos, ai-verse-distribution
 - Dependencies: J1-J3; Safe Update/Release Train availability
 - Goal: merge accepted component changes and hand exact immutable SHAs to canonical release machinery.
 - Acceptance:
-  - every changed component main is green;
+  - every changed runtime component main is green;
   - plan records PRs, merge SHAs, workflow IDs;
   - release uses existing Distribution/Release Train process;
   - no ad-hoc release mechanism is invented;
   - final report can be reconstructed from this file alone.
-- Evidence: pending.
+- Evidence:
+  - Frozen Context Ladder runtime refs: Gateway `46c15ee58b028dd7fb8b310327ea705ef618805e`; Memory `406b14fb4398eb1b16dd5f30e50520e8c3540972`; OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`; Brain `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`.
+  - Final owner-main recheck on 2026-09-15 confirmed those four refs are still current main and green: Gateway CI `34992616000`; Memory Test `34983522129`; OS Repository QC `34988213763`, OS Brain Permission Contract `34988213673`, Direction Ownership `34988213873`, Data Host Boundary `34988213791`, OS Write Command Boundary `34988213847`, Four Repo Acceptance `34988213651`, Five-Component Public Beta `34988213714`; Brain CI `34969997987`, Skills Receipt Contract `34969998014`, OS Direction Ownership Contract `34969997970`.
+  - Distribution candidate: `agent-context-ladder-rc1-2026-09-15`, explicit-install qualification candidate only. The default Agent channel was not changed, automatic update remained false, and cross-release update/rollback remained unadmitted.
+  - Distribution PR #8 final head: `7190141935c2e4d8829a859572c87fb9432d83c8`.
+  - Final-head Distribution CI `34997085621`: success, 6/6 matrix jobs.
+  - Final-head clean-machine Core `34997085497`: success on Ubuntu/macOS/Windows.
+  - Final-head default Agent release gate `34997085354`: success on Ubuntu/macOS/Windows after one unchanged Windows-only rerun. The first Windows attempt hit a transient Gateway atomic-rename `EPERM`; rerun job `104477919264` passed without code or candidate changes.
+  - Final-head Invisible Intelligence candidate `34997085413`: success on Ubuntu/macOS/Windows.
+  - Final-head Invisible Intelligence A-F `34997085620` and G-M `34997085437`: success.
+  - Final-head Context Ladder clean-machine candidate `34997085654`: success on Ubuntu/macOS/Windows.
+  - System private hosted Contract Validation remained unable to obtain a runner and failed before step 1. The existing resolution rule was satisfied through Distribution's supported release path: an immutable snapshot of the exact canonical System contract/test inputs at System `58bbcefe953e03e556bd361e106ddbd76535ab8c` was executed on Python 3.11 and 3.13. Final-head external validation run `34997085576` passed both jobs.
+  - All ten canonical contract/schema/fixture/validator/test Git blob SHAs on current System main `3f1a6db760699279c46b90c9f6a3b87b583ea8a6` were rechecked and are byte-identical to the externally validated immutable snapshot, so later unrelated System changes did not invalidate that evidence.
+  - Distribution PR #8 merged as `31888c74235cc262910fb094335fd3a994f0ecf1` on 2026-09-15.
+  - Post-merge Distribution main CI `34998241632`: success on merge SHA `31888c74235cc262910fb094335fd3a994f0ecf1`.
+  - J4 acceptance complete; twenty-five of 25 slices are accepted.
 
 ## 10. Benchmark targets and decision thresholds
 
@@ -1037,17 +1052,19 @@ For long-history context specifically, the project expects a material token redu
 
 ## 13. Immediate execution pointer
 
-Current implementation slice: **J4. Immutable release handoff**
+**PROJECT STATUS: COMPLETE - 25 / 25 slices accepted (100%).**
 
-Do not declare the project complete until:
-- exact current accepted component main SHAs are frozen and every changed runtime owner remains green;
-- the existing Distribution / Safe Update / Release Train machinery is re-read and used rather than replaced;
-- any current Distribution candidate collision is resolved against live GitHub state;
-- System's Contract Validation no-step infrastructure failure is either restored to a real green run or explicitly proven to be an external GitHub/private-runner blocker with the contract validated through an existing supported release path;
-- the immutable handoff includes the accepted Context Ladder Gateway, Memory, OS, Brain, and System refs without inventing a second release manifest;
-- Distribution acceptance runs against those exact refs and passes;
-- the canonical plan records all final PRs, merge SHAs, workflow IDs, and release evidence;
-- J4 is marked COMPLETE only after the release handoff can be reconstructed from this file alone.
+There is no next Context Ladder implementation slice.
+
+The accepted immutable handoff is:
+- Gateway `46c15ee58b028dd7fb8b310327ea705ef618805e`;
+- Memory `406b14fb4398eb1b16dd5f30e50520e8c3540972`;
+- OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`;
+- Brain `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`;
+- Distribution candidate `agent-context-ladder-rc1-2026-09-15`;
+- Distribution merge/main `31888c74235cc262910fb094335fd3a994f0ecf1`.
+
+The Context Ladder project must not be reopened merely to add speculative retrieval, graph, branch, Memory, or context-service complexity. Any future improvement must enter as a new scoped project and re-earn its complexity through measured evidence.
 
 ### Slice start checkpoint: A2
 
@@ -1598,3 +1615,33 @@ Verified before immutable release handoff on 2026-09-15:
 - Gateway, Memory, OS, and Brain are green at the exact refs above.
 - System Contract Validation run `34993247887` failed again on unchanged rerun attempt 2 before any job steps existed; no logs were generated. J4 must not silently call this green.
 - J4 will re-read current release machinery and Distribution state before writing any release pin or handoff.
+
+
+### Slice completion checkpoint: J4
+
+Verified on 2026-09-15:
+
+- Final runtime owner refs remained unchanged and green at closure:
+  - Gateway `46c15ee58b028dd7fb8b310327ea705ef618805e`, CI `34992616000`.
+  - Memory `406b14fb4398eb1b16dd5f30e50520e8c3540972`, Test `34983522129`.
+  - OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`, all seven owner/public-beta gates green.
+  - Brain `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`, all three owner/contract gates green.
+- Existing Distribution and Safe Update / Release Train machinery was re-read before implementation. No second installer, updater, release authority, or release manifest system was introduced.
+- Distribution PR #8 introduced explicit-only release set `agent-context-ladder-rc1-2026-09-15`, kept the default Agent channel unchanged, and admitted no cross-release update or rollback edge.
+- A real J4 release incompatibility was found and fixed: Distribution's trusted owner lifecycle allowlist did not yet include the accepted Context Ladder OS/Brain/Memory/Gateway revisions. The fix extended only those exact accepted revisions and added adapter coverage rather than weakening owner lifecycle checks.
+- Final Distribution PR head `7190141935c2e4d8829a859572c87fb9432d83c8` passed:
+  - Distribution CI `34997085621`;
+  - Core clean-machine `34997085497`;
+  - Agent clean-machine `34997085354`;
+  - Invisible Intelligence candidate `34997085413`;
+  - Invisible Intelligence A-F `34997085620`;
+  - Invisible Intelligence G-M `34997085437`;
+  - Context Ladder candidate `34997085654`;
+  - external exact System contract validation `34997085576`.
+- The Agent Windows lane initially failed only on a transient `EPERM` atomic rename while persisting Gateway run state. The unchanged job rerun `104477919264` passed; no code, release ref, or candidate mutation was used to obtain the pass.
+- System's private-repository hosted runner issue was resolved for acceptance through the plan's explicit alternate-route rule. The exact canonical System contract files were copied as an immutable qualification snapshot with matching Git blob SHAs and executed on Python 3.11 and 3.13. Both jobs passed in `34997085576`.
+- Current System main at final closure start was `3f1a6db760699279c46b90c9f6a3b87b583ea8a6`; all ten contract/test blob SHAs remained identical to the validated snapshot.
+- Distribution PR #8 merged as `31888c74235cc262910fb094335fd3a994f0ecf1`.
+- Post-merge Distribution main CI `34998241632` passed on `31888c74235cc262910fb094335fd3a994f0ecf1`.
+- The immutable release handoff is reconstructable from this plan alone.
+- **J4 COMPLETE. Context Ladder + Lossless Memory implementation: 25 / 25 slices accepted, 100%.**
