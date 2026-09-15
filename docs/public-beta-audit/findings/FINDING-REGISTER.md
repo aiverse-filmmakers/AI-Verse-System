@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-012`.
+**Next unused finding ID:** `WSA-2026-016`.
 
 ## 2. Allowed classifications
 
@@ -78,21 +78,25 @@ Rules:
 | `WSA-2026-009` | HIGH | PROVEN | OPEN | filesystem containment / scope isolation | `AI-Verse-Brain` | A1.3 |
 | `WSA-2026-010` | MEDIUM | PROVEN | OPEN | Goal concurrency / replay safety | `AI-Verse-Brain` | A1.3 |
 | `WSA-2026-011` | LOW | PROVEN | OPEN | release/version identity | `AI-Verse-Brain` | A1.3 |
+| `WSA-2026-012` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem containment | `AI-Verse-Memory` | A1.4 |
+| `WSA-2026-013` | HIGH | PROVEN | OPEN | lifecycle authority / canonical writes | `AI-Verse-Memory` | A1.4 |
+| `WSA-2026-014` | HIGH | PROVEN | OPEN | migration / canonical authority transfer | `AI-Verse-Memory` | A1.4 |
+| `WSA-2026-015` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Memory` | A1.4 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
-| BLOCKER | 1 |
-| HIGH | 3 |
+| BLOCKER | 2 |
+| HIGH | 5 |
 | MEDIUM | 1 |
-| LOW | 5 |
+| LOW | 6 |
 | INFO | 1 |
-| PROVEN | 11 |
+| PROVEN | 15 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 11 |
+| OPEN | 15 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -456,6 +460,130 @@ After A6 authorizes repair: give post-release main a distinct version identity o
 
 ---
 
+### WSA-2026-012 — Memory lifecycle parent-symlink escape can write or recursively delete outside the selected target
+
+**Severity:** BLOCKER  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.4  
+**Root area:** destructive lifecycle / filesystem containment  
+**Affected repos:** `AI-Verse-Memory`  
+**Affected journeys:** install; setup; uninstall; adapter installation/removal; runtime replacement
+
+**Summary:**  
+Canonical atomic Memory writes use strong path confinement, but lifecycle runtime/adapter operations do not validate the full parent chain. A symlinked parent can redirect copy and recursive deletion outside the selected target root.
+
+**Expected law:**  
+Every lifecycle write/delete path must be physically confined to the selected target. Recursive deletion must never follow a symlinked parent into external user/system data.
+
+**Observed behavior:**  
+Native runtime is lexically `target/scripts/ai-verse-memory`. Uninstall only checks whether that final directory itself is a symlink and then calls `shutil.rmtree(runtime)`. If `target/scripts` is a symlink to an external directory and its `ai-verse-memory` child is a normal directory, the final `is_symlink()` check is false and recursive deletion occurs outside target. Adapter paths under `.claude/skills` and `.agents/skills` have the same parent-chain class. Install/setup copy operations can also write outside root through those parents.
+
+**Contradiction:** `C-A1.4-001`.
+
+**Primary evidence:** `E-A1.4-010`, `E-A1.4-011`, `E-A1.4-017`.
+
+**Impact:**  
+Supported lifecycle commands can destroy unrelated external files/directories. This is a proven data-loss risk and therefore a dogfood BLOCKER.
+
+**Required closure evidence:**  
+After A6 authorizes repair: add one safe lifecycle-target resolver; reject symlink/junction/reparse parents; realpath-confine copy/remove targets; never rmtree before containment proof; add external-sentinel tests for symlinked scripts/.claude/.agents parent chains across supported platforms.
+
+---
+
+### WSA-2026-013 — Native canonical Memory writes ignore install/setup/attachment/enable lifecycle authority
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.4  
+**Root area:** lifecycle authority / canonical writes  
+**Affected repos:** `AI-Verse-Memory`  
+**Affected journeys:** pre-setup use; disable; detach; uninstall; migration-required state
+
+**Summary:**  
+Native canonical mutation is not gated by the component lifecycle state that status/doctor expose.
+
+**Expected law:**  
+Install must not imply setup/write authority. Disabled/detached/uninstalled Memory must not accept normal canonical writes. Migration-required state must not behave as normal ready authority.
+
+**Observed behavior:**  
+Effective Memory writes call `public_beta_assert_writable_authority`. That helper enforces retired authority only for standalone mode and returns immediately for native mode. It does not check local registry attachment, supported/installed/enabled flags, setup receipt or migration-required state. Therefore source code or already-loaded runtime can still mutate canonical native Memory before setup or after disable/detach/uninstall.
+
+**Contradiction:** `C-A1.4-002`.
+
+**Primary evidence:** `E-A1.4-004`, `E-A1.4-006`, `E-A1.4-010`, `E-A1.4-016`.
+
+**Impact:**  
+Lifecycle controls can report Memory unavailable while canonical historical state continues changing.
+
+**Required closure evidence:**  
+After A6 authorizes repair: make native write readiness consume authoritative registry/setup state; require supported+installed+attached+enabled+setup-complete for normal writes; narrow explicit bootstrap/migration exceptions; add tests for atomics, digests, promotion and metadata mutation before setup and after disable/detach/uninstall.
+
+---
+
+### WSA-2026-014 — Standalone-to-native Memory authority handoff is not failure-atomic across the two roots
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.4  
+**Root area:** migration / canonical authority transfer  
+**Affected repos:** `AI-Verse-Memory`  
+**Affected journeys:** Memory-first adoption; crash recovery; canonical owner handoff
+
+**Summary:**  
+Migration copy/verification is careful, but final authority transfer publishes target completion before source retirement is durably proven.
+
+**Expected law:**  
+No failure point may expose two writable canonical Memory routes. Handoff must be resumable and singular-authority preserving.
+
+**Observed behavior:**  
+`_retire_legacy_authority` writes in order: target native `authority-handoff.json=status:complete`; source `AUTHORITY.json=status:retired`; optional old-writer backup/stub. There is no cross-root journal/two-phase state. A failure after target complete but before source retirement leaves the old route active. Because WSA-2026-013 means native writes also ignore migration-required lifecycle state, the target can remain writable during the inconsistency.
+
+**Contradiction:** `C-A1.4-003`.
+
+**Primary evidence:** `E-A1.4-012`, `E-A1.4-018`.
+
+**Impact:**  
+An interrupted adoption can violate the architecture's one-canonical-owner rule and allow historical Memory divergence.
+
+**Required closure evidence:**  
+After A6 authorizes repair: implement prepared/pending/complete handoff states with stable handoff ID across both roots; do not publish target complete until source retirement is verified; make target normal writes fail while handoff incomplete; add fault-injection tests at every cross-root transition and prove idempotent recovery.
+
+---
+
+### WSA-2026-015 — Accepted Memory artifact identity and remote bootstrap are not pinned to current immutable source
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.4  
+**Root area:** release/version/bootstrap reproducibility  
+**Affected repos:** `AI-Verse-Memory`  
+**Affected journeys:** remote install; support/debugging; release identification
+
+**Summary:**  
+Accepted beta.1 is pinned to `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`, while frozen current main is 119 commits newer with material production behavior and still reports `0.3.0-beta.1`. Legacy remote bootstrap downloads mutable `main`.
+
+**Expected law:**  
+An accepted beta version should identify one materially defined artifact, and default release bootstrap should resolve an immutable accepted source.
+
+**Observed behavior:**  
+Current main `406b14fb4398eb1b16dd5f30e50520e8c3540972` remains versioned beta.1 despite 119 later commits. `install.sh` and `install.ps1` hardcode raw GitHub `main/scripts`; installer default ref is also `main`. README release language says bootstrap refs are pinned after acceptance.
+
+**Contradiction:** `C-A1.4-004`.
+
+**Primary evidence:** `E-A1.4-019`, `E-A1.4-020`, `E-A1.4-021`.
+
+**Impact:**  
+Version-only diagnostics cannot distinguish accepted beta.1 from later development source, and legacy remote bootstrap can install moving code. The formal release descriptor remains correctly pinned, so standalone severity is LOW; A5 must revisit release consequences.
+
+**Required closure evidence:**  
+After repair/release authorization: distinguish post-release main by version or issue a new accepted beta; pin remote bootstrap to immutable accepted ref by default; make development-main install explicit; add bootstrap pin QC.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -473,6 +601,10 @@ After A6 authorizes repair: give post-release main a distinct version identity o
 | `C-A1.3-001` | A1.3 | implementation defect / filesystem containment | yes | `WSA-2026-009` | OPEN |
 | `C-A1.3-002` | A1.3 | implementation defect / concurrency-idempotency gap | yes | `WSA-2026-010` | OPEN |
 | `C-A1.3-003` | A1.3 | release/version identity drift | yes | `WSA-2026-011` | OPEN |
+| `C-A1.4-001` | A1.4 | implementation defect / destructive lifecycle path containment | yes | `WSA-2026-012` | OPEN |
+| `C-A1.4-002` | A1.4 | implementation defect / lifecycle write authority | yes | `WSA-2026-013` | OPEN |
+| `C-A1.4-003` | A1.4 | implementation defect / migration handoff atomicity | yes | `WSA-2026-014` | OPEN |
+| `C-A1.4-004` | A1.4 | release/version/bootstrap drift | yes | `WSA-2026-015` | OPEN |
 
 ### C-A0.1-001
 
@@ -573,6 +705,38 @@ See `WSA-2026-002`.
 **Higher-authority source:** current version source + immutable release descriptor + commit comparison.  
 **Classification:** release/version identity drift.  
 **Finding:** `WSA-2026-011`.
+
+### C-A1.4-001
+
+**Source A:** Memory safety/docs say escaping destination paths are rejected.  
+**Source B:** lifecycle runtime/adapter copy/removal validates only final paths and can follow symlinked parents outside target before `shutil.rmtree`.  
+**Higher-authority source:** executable lifecycle/installer implementation.  
+**Classification:** implementation defect / destructive lifecycle path containment.  
+**Finding:** `WSA-2026-012`.
+
+### C-A1.4-002
+
+**Source A:** public lifecycle separates install/setup/enablement and reports disabled/detached/uninstalled states.  
+**Source B:** effective native canonical writer's authority helper returns without checking those native lifecycle states.  
+**Higher-authority source:** executable writer/lifecycle implementation.  
+**Classification:** implementation defect / lifecycle write authority.  
+**Finding:** `WSA-2026-013`.
+
+### C-A1.4-003
+
+**Source A:** migration contract says no migration leaves two writable canonical Memory stores.  
+**Source B:** target complete authority marker is written before source retirement is durably completed, with no cross-root transaction journal.  
+**Higher-authority source:** executable migration implementation.  
+**Classification:** implementation defect / migration handoff atomicity.  
+**Finding:** `WSA-2026-014`.
+
+### C-A1.4-004
+
+**Source A:** accepted descriptor pins beta.1 and README says accepted bootstrap refs are immutable.  
+**Source B:** current main is 119 commits newer under the same version and remote bootstrap hardcodes mutable main.  
+**Higher-authority source:** current version/installer code + immutable descriptor + commit comparison.  
+**Classification:** release/version/bootstrap drift.  
+**Finding:** `WSA-2026-015`.
 
 ## 6. Evidence ID register
 
@@ -750,6 +914,34 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.3-019` | recent PR/repair history | same |
 | `E-A1.3-020` | live pre-write ref/open-PR recheck | same |
 
+### A1.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.4-001` | frozen Memory tree and repository metadata | `repos/AI-Verse-Memory.md` |
+| `E-A1.4-002` | README/manifest/SKILL/security identity and ownership | same |
+| `E-A1.4-003` | architecture/protocol/migration contracts | same |
+| `E-A1.4-004` | public wrapper and public-beta patch installation | same |
+| `E-A1.4-005` | canonical path containment implementation | same |
+| `E-A1.4-006` | mutation lock/atomic/idempotency implementation | same |
+| `E-A1.4-007` | capture/forget/supersession implementation | same |
+| `E-A1.4-008` | session digest/promotion implementation | same |
+| `E-A1.4-009` | progressive recall/orientation/relationship implementation | same |
+| `E-A1.4-010` | component lifecycle implementation | same |
+| `E-A1.4-011` | installer/extension registry implementation | same |
+| `E-A1.4-012` | migration authority-handoff ordering | same |
+| `E-A1.4-013` | 18-module test inventory | same |
+| `E-A1.4-014` | exact-head Test run 34983522129 | same |
+| `E-A1.4-015` | 12 exact-head successful jobs and executed steps | same |
+| `E-A1.4-016` | lifecycle disabled-write coverage gap | same |
+| `E-A1.4-017` | lifecycle parent-symlink coverage gap | same |
+| `E-A1.4-018` | migration interruption coverage gap | same |
+| `E-A1.4-019` | accepted beta.1 descriptor | same |
+| `E-A1.4-020` | accepted beta.1 -> frozen-main 119-commit comparison | same |
+| `E-A1.4-021` | remote bootstrap mutable-main sources | same |
+| `E-A1.4-022` | recent Context Ladder/relationship/benchmark history | same |
+| `E-A1.4-023` | live pre-write ref/open-PR recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -765,7 +957,11 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-009` | allocated A1.3 |
 | `WSA-2026-010` | allocated A1.3 |
 | `WSA-2026-011` | allocated A1.3 |
-| `WSA-2026-012` | **NEXT UNUSED** |
+| `WSA-2026-012` | allocated A1.4 |
+| `WSA-2026-013` | allocated A1.4 |
+| `WSA-2026-014` | allocated A1.4 |
+| `WSA-2026-015` | allocated A1.4 |
+| `WSA-2026-016` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
