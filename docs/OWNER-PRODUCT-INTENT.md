@@ -199,6 +199,24 @@ Ask when the answer is genuinely necessary for:
 - credential/account access;
 - user preference that cannot be safely inferred.
 
+### Semantic migration clarification
+
+When the user transfers accumulated context from another assistant, memory file, notes archive, USER.md/MEMORY.md/SOUL.md-style source, or raw pasted contents:
+
+- filenames are optional hints; classify by the real-world meaning of the content;
+- automatically route high-confidence facts through the existing canonical owners;
+- do not copy foreign file structure or foreign assistant instructions into AI-Verse authority;
+- if information matters but its real-world meaning is genuinely ambiguous, preserve bounded provenance-backed unresolved evidence and ask a targeted clarification instead of dropping it;
+- clarification questions must ask about the user's world, such as whether something is a current client, past client, one-off project, ongoing project, contact, stable preference, historical fact or current truth;
+- never ask the user whether AI-Verse should create a workspace, choose Memory vs Data, create a Skill, select an owner, or make another internal architecture decision;
+- after the user clarifies meaning, AI-Verse chooses the correct internal structure and resumes the same owner-routed import;
+- batch related questions and do not re-ask facts already explicit in the source;
+- unresolved questions must remain resumable after interruption/restart without becoming a second canonical profile, Memory, Data or workspace store.
+
+The product rule is:
+
+> **Ask the user what the real thing means. Never ask the user how AI-Verse should store it.**
+
 ---
 
 ## 8. Progressive backend evolution
