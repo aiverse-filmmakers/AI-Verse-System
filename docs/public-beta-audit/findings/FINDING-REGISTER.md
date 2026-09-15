@@ -1367,6 +1367,10 @@ Synchronize current System truth from exact accepted owner/release refs, update 
 | C-A2.2-002 | A2.2 | Token monetary admission contradiction | yes | WSA-2026-024 | OPEN |
 | C-A2.2-003 | A2.2 | Distribution receipt/write-path contradiction | yes | WSA-2026-034 | OPEN |
 | C-A2.2-004 | A2.2 | Automations owner-vs-attachment truth contradiction | yes | WSA-2026-028 | OPEN |
+| C-A2.3-001 | A2.3 | Automations owner/OS discovery lifecycle divergence | yes | WSA-2026-028 | OPEN |
+| C-A2.3-002 | A2.3 | legacy schedule authority fence is setup-only | yes | WSA-2026-027 | OPEN |
+| C-A2.3-003 | A2.3 | owner lifecycle surface can be unsafe when invoked by Distribution | yes | WSA-2026-006 / WSA-2026-012 / WSA-2026-016 / WSA-2026-029 | OPEN |
+| C-A2.3-004 | A2.3 | Distribution receipt can diverge from completed owner effects | yes | WSA-2026-034 | OPEN |
 
 ### C-A0.1-001
 
@@ -1749,6 +1753,30 @@ See `WSA-2026-002`.
 **Source A:** Automations owns schedule truth while OS extension registry is attachment metadata only.  
 **Source B:** component lifecycle can diverge from the attached OS registry state.  
 **Finding:** existing `WSA-2026-028`.
+
+### C-A2.3-001
+
+**Source A:** OS registry is attachment/discovery metadata and Automations owns schedule execution truth.  
+**Source B:** Automations enable/disable/uninstall does not synchronize the OS extension entry.  
+**Finding:** existing `WSA-2026-028`.
+
+### C-A2.3-002
+
+**Source A:** Automations forbids dual legacy/canonical scheduler authority.  
+**Source B:** legacy conflict is enforced during setup but a later legacy definition does not continuously fence readiness/execution.  
+**Finding:** existing `WSA-2026-027`.
+
+### C-A2.3-003
+
+**Source A:** Distribution correctly delegates lifecycle mutations to component owners.  
+**Source B:** Gateway, Memory, Skills and Connections each have existing destructive lifecycle containment defects on supported or future-admitted owner surfaces.  
+**Findings:** existing `WSA-2026-006`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-029`.
+
+### C-A2.3-004
+
+**Source A:** Distribution coordinates owner effects and stores release/install receipt truth.  
+**Source B:** concurrent mutating Distribution commands can commit stale receipt snapshots after owner effects complete.  
+**Finding:** existing `WSA-2026-034`.
 
 ## 6. Evidence ID register
 
@@ -2297,6 +2325,34 @@ A2.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`
 | E-A2.2-018 | Brain/model security-authority check | same |
 
 A2.2 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
+
+### A2.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.3-001 | fresh A2.3 frozen-ref/open-PR gate | seams/A2.3-LIFECYCLE-DISCOVERY-ADOPTION-RECONCILE.md |
+| E-A2.3-002 | A2.1 relationship matrix | same |
+| E-A2.3-003 | A2.2 ownership/write graph | same |
+| E-A2.3-004 | OS lifecycle/install-order/discovery/reconcile | same |
+| E-A2.3-005 | Brain install/adopt/migrate/update/detach | same |
+| E-A2.3-006 | Memory lifecycle/readiness/migration | same |
+| E-A2.3-007 | Skills immutable-generation lifecycle | same |
+| E-A2.3-008 | Data native lifecycle/state preservation | same |
+| E-A2.3-009 | Multiple Bots bounded native lifecycle | same |
+| E-A2.3-010 | Token lifecycle/state preservation | same |
+| E-A2.3-011 | Automations owner/OS attachment and legacy authority | same |
+| E-A2.3-012 | Connections lifecycle/preserve/purge boundary | same |
+| E-A2.3-013 | Gateway lifecycle and recovery | same |
+| E-A2.3-014 | Distribution lifecycle completeness and adapters | same |
+| E-A2.3-015 | Dashboard registration/future lifecycle | same |
+| E-A2.3-016 | Apps PLAN-ONLY lifecycle boundary | same |
+| E-A2.3-017 | adoption/migration graph | same |
+| E-A2.3-018 | discovery/readiness graph | same |
+| E-A2.3-019 | disable/detach/uninstall preservation graph | same |
+| E-A2.3-020 | update/rollback support boundary | same |
+| E-A2.3-021 | restart/recovery graph | same |
+
+A2.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
 
 ## 7. Finding allocation ledger
 
