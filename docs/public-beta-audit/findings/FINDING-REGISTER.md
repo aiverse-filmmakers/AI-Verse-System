@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-006`.
+**Next unused finding ID:** `WSA-2026-009`.
 
 ## 2. Allowed classifications
 
@@ -72,21 +72,24 @@ Rules:
 | `WSA-2026-003` | INFO | PROVEN | OPEN | hosted CI / evidence availability | `AI-Verse-Connections`, `AI-Verse-System` | A0.2 |
 | `WSA-2026-004` | LOW | PROVEN | OPEN | audit control-document drift | `AI-Verse-System` | A0.3 |
 | `WSA-2026-005` | LOW | PROVEN | OPEN | capability source-of-truth / contract metadata drift | `AI-Verse-OS` | A1.1 |
+| `WSA-2026-006` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem safety | `AI-Verse-Gateway` | A1.2 |
+| `WSA-2026-007` | HIGH | PROVEN | OPEN | setup/disable/uninstall/status lifecycle truth | `AI-Verse-Gateway` | A1.2 |
+| `WSA-2026-008` | HIGH | PROVEN | OPEN | concurrency / idempotency / session binding / run control | `AI-Verse-Gateway` | A1.2 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
-| BLOCKER | 0 |
-| HIGH | 0 |
+| BLOCKER | 1 |
+| HIGH | 2 |
 | MEDIUM | 0 |
 | LOW | 4 |
 | INFO | 1 |
-| PROVEN | 5 |
+| PROVEN | 8 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 5 |
+| OPEN | 8 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -266,6 +269,97 @@ After A6 authorizes repair: align `AI-VERSE.yaml` with `system/capabilities/`; u
 
 ---
 
+### WSA-2026-006 — Gateway destructive purge is not confined to a validated Gateway-owned root
+
+**Severity:** BLOCKER  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.2  
+**Root area:** destructive lifecycle / filesystem safety  
+**Affected repos:** `AI-Verse-Gateway`  
+**Affected journeys:** install/uninstall/reinstall; operator recovery; dogfood safety
+
+**Summary:**  
+Gateway accepts an arbitrary `--home PATH`; `gatewayHome()` resolves it, and `uninstallComponent({ purge:true })` recursively force-removes that entire resolved path without first proving the target is a Gateway-owned installation root.
+
+**Expected law:**  
+A destructive component purge must be confined to a verified component-owned realpath and refuse filesystem roots, broad user/system roots, unrelated directories, symlink escapes, missing ownership markers and wrong ownership markers.
+
+**Observed behavior:**  
+The executable path is `CLI --home -> path.resolve(home) -> rm(home,{recursive:true,force:true})`. No valid `install.json`, matching `component_id`, realpath ownership boundary, root refusal or bounded owned-child deletion is required before the recursive removal.
+
+**Primary evidence:** `E-A1.2-004`, `E-A1.2-015`.
+
+**Impact:**  
+A typo, unsafe automation argument or custom home can delete unrelated user/system data. Proven data-loss risk is a dogfood BLOCKER under the audit protocol.
+
+**Required closure evidence:**  
+After A6 authorizes repair: require and verify an exact Gateway ownership marker at the target realpath; reject root/broad/symlink/foreign targets; prefer removal of known Gateway-owned children; add cross-platform negative tests for unrelated directory, missing/wrong marker, root-like target and safe custom home; re-audit uninstall/reinstall on the repaired exact ref.
+
+---
+
+### WSA-2026-007 — Gateway lifecycle state is not operationally authoritative
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.2  
+**Root area:** setup/disable/uninstall/status lifecycle truth  
+**Affected repos:** `AI-Verse-Gateway`  
+**Affected journeys:** setup; status/doctor; serve; disable/enable; uninstall; remote exposure
+
+**Summary:**  
+Gateway's file-backed lifecycle state is not coordinated with the live server process, and setup publishes configuration before its own readiness verification has safely completed.
+
+**Expected law:**  
+Setup, status, doctor, live serving, disable and uninstall must project one authoritative lifecycle state. A successful disable/uninstall must not leave an already-running listener continuing normal authenticated work.
+
+**Observed behavior:**  
+`setupComponent` writes config before host `describe` succeeds and does not validate the built config before publishing it. `setEnabled(false)` only rewrites `config.json`; a running server retains its already-loaded in-memory config and checks `enabled` only at startup. `doctorComponent` does not make disabled config produce a disabled verdict. Normal uninstall removes on-disk integration/config files but has no live-process stop/refusal mechanism. The clean-install acceptance test closes the server before disable/uninstall, so the gap is outside the green happy path.
+
+**Contradiction:** `C-A1.2-001`.
+
+**Primary evidence:** `E-A1.2-004`, `E-A1.2-005`, `E-A1.2-013`.
+
+**Impact:**  
+An operator can believe Gateway is disabled or absent while a previously started network listener continues serving. Setup/status/doctor/live status can disagree materially.
+
+**Required closure evidence:**  
+After A6 authorizes repair: validate and transactionally publish setup or roll back on failure; establish one authoritative live lifecycle control; make disable/uninstall stop or make the existing process refuse work; align CLI status, doctor and live status; add live-server disable/uninstall plus failed-setup tests.
+
+---
+
+### WSA-2026-008 — Gateway durable state transitions are not linearizable under concurrency
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A1.2  
+**Root area:** concurrency / idempotency / session binding / run control  
+**Affected repos:** `AI-Verse-Gateway`  
+**Affected journeys:** run creation/retry; Automation wake replay; session isolation; pause/cancel; approval/control
+
+**Summary:**  
+Atomic JSON replacement protects file integrity, but several semantic read-check-write operations happen outside one serialized state transition. Concurrent callers can therefore violate higher-level idempotency, session-binding and privileged-control guarantees.
+
+**Expected law:**  
+Idempotency reservation, first session binding and privileged run-control transitions must be atomic at the semantic state level, not merely produce valid JSON files.
+
+**Observed behavior:**  
+`claimIdempotency` reads/checks the ledger before the serialized `atomicJson` replacement, so concurrent first claims can both observe an unused key and both return `new`. `createSession` similarly reads/validates before the write, allowing concurrent conflicting first bindings. `saveRun` replaces current run state from a previously captured candidate with no revision/CAS or terminal/control-state guard; execution holds mutable run objects across asynchronous boundaries, so a stale execution writer can overwrite a just-persisted pause/cancel before the next signal/status guard.
+
+**Contradictions:** `C-A1.2-002`, `C-A1.2-003`.
+
+**Primary evidence:** `E-A1.2-006`, `E-A1.2-007`, `E-A1.2-014`.
+
+**Impact:**  
+Possible duplicate runs/provider cost/owner effects, conflicting first session bindings, and pause/cancel that does not remain authoritative. A stale completion can also trigger post-completion digest/organization work after an operator believed the run was canceled.
+
+**Required closure evidence:**  
+After A6 authorizes repair: make claim/compare/reservation one atomic mutation; make first session binding atomic create-or-validate; add run revision/CAS or transition logic that rejects stale writers and preserves control/terminal states; check cancellation immediately before durable/effect boundaries; add deterministic concurrent tests for same/conflicting idempotency keys, conflicting first session binds, pause/cancel during result streaming and no post-cancel owner handoff.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -277,6 +371,9 @@ After A6 authorizes repair: align `AI-VERSE.yaml` with `system/capabilities/`; u
 | `C-A1.1-001` | A1.1 | stale machine-readable architecture metadata | yes | `WSA-2026-005` | OPEN |
 | `C-A1.1-002` | A1.1 | stale implementation-status contract prose | yes | `WSA-2026-005` | OPEN |
 | `C-A1.1-003` | A1.1 | historical-only superseded readiness wording | no | none | RECORDED / SUPERSEDED |
+| `C-A1.2-001` | A1.2 | implementation defect / lifecycle truth split | yes | `WSA-2026-007` | OPEN |
+| `C-A1.2-002` | A1.2 | implementation defect / concurrency gap | yes | `WSA-2026-008` | OPEN |
+| `C-A1.2-003` | A1.2 | implementation defect / control-state race | yes | `WSA-2026-008` | OPEN |
 
 ### C-A0.1-001
 
@@ -329,6 +426,30 @@ See `WSA-2026-002`.
 **Higher-authority source:** current executable implementation + current CI.  
 **Classification:** historical-only superseded readiness wording.  
 **Finding:** none.
+
+### C-A1.2-001
+
+**Source A:** Gateway README/lifecycle surfaces present setup, disable and uninstall as authoritative lifecycle transitions.  
+**Source B:** current executable lifecycle/server code publishes config before setup verification completes, checks enabled only at server startup, leaves doctor independent of disabled state, and has no live-process stop/refusal path for uninstall.  
+**Higher-authority source:** executable lifecycle/server implementation.  
+**Classification:** implementation defect / lifecycle truth split.  
+**Finding:** `WSA-2026-007`.
+
+### C-A1.2-002
+
+**Source A:** README says `Idempotency-Key` durably binds retries to the original payload and changed reuse is rejected.  
+**Source B:** `claimIdempotency` performs the semantic read/check outside the serialized file-write critical section, so concurrent first claims can both be admitted.  
+**Higher-authority source:** executable store implementation.  
+**Classification:** implementation defect / concurrency gap.  
+**Finding:** `WSA-2026-008`.
+
+### C-A1.2-003
+
+**Source A:** security/README present pause and cancel as authenticated privileged controls.  
+**Source B:** `saveRun` can persist a stale execution candidate after a newer pause/cancel state because the transition has no revision/CAS or terminal/control guard.  
+**Higher-authority source:** executable run/store implementation.  
+**Classification:** implementation defect / control-state race.  
+**Finding:** `WSA-2026-008`.
 
 ## 6. Evidence ID register
 
@@ -457,6 +578,30 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `E-A1.1-018` | live pre/post evidence-collection control state | same |
 | `E-A1.1-019` | branch-protection evidence limitation | same |
 
+### A1.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.2-001` | frozen Gateway tree and repository metadata | `repos/AI-Verse-Gateway.md` |
+| `E-A1.2-002` | identity/package/component contract | same |
+| `E-A1.2-003` | architecture/protocol/security | same |
+| `E-A1.2-004` | lifecycle/CLI implementation | same |
+| `E-A1.2-005` | server/auth boundary | same |
+| `E-A1.2-006` | store/durability implementation | same |
+| `E-A1.2-007` | run engine and privileged controls | same |
+| `E-A1.2-008` | adapter/runtime/subprocess boundaries | same |
+| `E-A1.2-009` | Context Ladder implementation | same |
+| `E-A1.2-010` | core test suite | same |
+| `E-A1.2-011` | exact-head CI | same |
+| `E-A1.2-012` | current merged PR-head integration | same |
+| `E-A1.2-013` | lifecycle test coverage gap | same |
+| `E-A1.2-014` | concurrency test coverage gap | same |
+| `E-A1.2-015` | destructive purge implementation trace | same |
+| `E-A1.2-016` | rejected architecture evaluations | same |
+| `E-A1.2-017` | history and research provenance | same |
+| `E-A1.2-018` | GitHub Release state | same |
+| `E-A1.2-019` | live control-state recheck | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -466,7 +611,10 @@ Evidence IDs remain local to their originating task. This section indexes publis
 | `WSA-2026-003` | allocated A0.2 |
 | `WSA-2026-004` | allocated A0.3 |
 | `WSA-2026-005` | allocated A1.1 |
-| `WSA-2026-006` | **NEXT UNUSED** |
+| `WSA-2026-006` | allocated A1.2 |
+| `WSA-2026-007` | allocated A1.2 |
+| `WSA-2026-008` | allocated A1.2 |
+| `WSA-2026-009` | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
