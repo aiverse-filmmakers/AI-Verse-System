@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 1 / 100.**
+**Current accepted progress: 2 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -42,7 +42,7 @@ Output:
 `snapshots/A0-REPOSITORY-UNIVERSE.md`
 
 ### A0.2 Immutable snapshot - 1
-Status: NEXT
+Status: COMPLETE
 
 Capture per scoped repo:
 - default branch;
@@ -57,7 +57,7 @@ Output:
 `snapshots/A0-SNAPSHOT.md`
 
 ### A0.3 Evidence/finding ledger - 1
-Status: PENDING
+Status: NEXT
 
 Instantiate:
 - finding IDs;
