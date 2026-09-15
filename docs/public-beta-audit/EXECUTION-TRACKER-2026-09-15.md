@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 4 / 100.**
+**Current accepted progress: 5 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -77,7 +77,7 @@ Output:
 `seams/RELATIONSHIP-MATRIX.md`
 
 ### A0.5 Freeze gate - 1
-Status: NEXT
+Status: COMPLETE
 
 Verify:
 - product repos read-only for audit;
@@ -95,7 +95,7 @@ A1.1 becomes NEXT.
 Each repo is worth 2 points only after its complete standalone packet passes R-a/R-b/R-c.
 
 ### A1.1 AI-Verse-OS - 2
-Status: PENDING
+Status: NEXT
 Output: `repos/AI-Verse-OS.md`
 
 ### A1.2 AI-Verse-Gateway - 2
