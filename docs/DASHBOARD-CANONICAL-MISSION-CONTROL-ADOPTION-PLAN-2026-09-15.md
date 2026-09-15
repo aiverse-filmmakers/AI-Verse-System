@@ -1,3 +1,7 @@
+> **Execution authority update, 2026-09-15**
+>
+> Runtime implementation is governed by the canonical files in `aiverse-filmmakers/AI-Verse-Dashboard`: `docs/PRD-MISSION-CONTROL-AIVERSE-DASHBOARD-2026-09-15.md` and `docs/MISSION-CONTROL-EXECUTION-TRACKER-2026-09-15.md`. The tracker is a 100-point gated program with explicit human checkpoints. Future chats must recheck live GitHub state and continue the first eligible tracker task rather than reconstructing sequence from conversation history.
+
 # AI-Verse Dashboard Canonical Mission Control Adoption Plan
 
 **Date:** 2026-09-15  
