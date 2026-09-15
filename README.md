@@ -35,6 +35,7 @@ Use:
 - `docs/IDEA-INBOX.md` to capture ideas before their final architectural home is clear;
 - `docs/LIVING-SPEC-PROTOCOL.md` for update/propagation rules;
 - `docs/SYSTEM-CHANGELOG.md` for the chronological record of meaningful changes;
+- `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md` as the canonical central index of external inspirations, competitive gaps, ranked adoption opportunities, prior-art provenance and ideas deliberately not copied;
 - the relevant component spec/QC/source map once the change has a clear owner.
 
 A future agent should be able to reconstruct the current system intent from this repository without needing the original chat where the idea appeared.
