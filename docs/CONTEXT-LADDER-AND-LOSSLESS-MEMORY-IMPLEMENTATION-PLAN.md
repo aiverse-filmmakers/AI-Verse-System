@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 15
+Complete: 16
 In progress: 1
 Blocked: 0
-Remaining after current: 9
-Current: E5
-Next after current: F1
+Remaining after current: 8
+Current: F1
+Next after current: G1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -694,7 +694,7 @@ Next after current: F1
 
 #### E5. Fold guards, recovery, and diagnostics
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Gateway
 - Dependencies: E1-E4
@@ -706,14 +706,24 @@ Next after current: F1
   - no chain-of-thought is exposed.
 - Tests: guard matrix, restart, corrupted card, diagnostics schema.
 - Risks: diagnostics leak content/authority.
-- Evidence: pending.
+- Evidence:
+  - E5 PR #22 final head `b3c6aa263c3b816c33560b8a869f12a6bff19d20`.
+  - Final-head PR CI `34952317794`: success, 6/6; Permanent Bot `34952317741`, Temporary Worker `34952317743`, and Automation Recommendation `34952317820`: all success.
+  - E5 merged into Gateway main as `5474f9a8560e5cb2dad95951a5d75f0e78997867`, incorporating concurrent migration-drop main `d1e39f933ca0d12ca76b1ace297eea78f6ea67a2`.
+  - GitHub did not emit a separate push CI run for the merge commit. Exact merged-tree verification was performed instead: final PR CI checked synthetic merge `e03666a4b23fedebbbf46e7669d492f9acab423e`, which has the same parents as actual main and identical tree hash `20269cee648c44c4e23d4cf99581ac932b019729`.
+  - Fold-card validation now rejects re-fingerprinted semantic corruption across coverage, ordering, scope, metadata and size, and direct card reads fail closed on live child/source drift.
+  - Invalid source/child order is rejected before persistence. Restart rebuilds the live derived catalog and preserves discoverable E4 fold-work recovery state.
+  - Context diagnostics expose token estimates by layer. Archive diagnostics expose only card IDs, canonical source refs, retrieval depth and exact fallback reason, with no raw message/prompt/reasoning leakage.
+  - A serialized JSON mutation primitive prevents post-completion stale snapshots from erasing newer archive diagnostics.
+  - Precision-unfold diagnostics now report every canonical source range actually touched, even when no message becomes an exact scored hit.
+  - E5 acceptance complete; sixteen of 25 slices are accepted.
 
 ### Phase F: Cheap branch/fork catalogs
 
 #### F1. Copy-on-write branch catalog evaluation and implementation/rejection
 
-- Status: NOT STARTED
-- Next: YES
+- Status: IN PROGRESS
+- Next: NO
 - Repositories: AI-Verse-Gateway; AI-Verse-Multiple-Bots only for identity integration if required
 - Dependencies: E1-E5; current Bots main re-audit
 - Goal: share immutable pre-fork cards/sources while branch catalogs diverge without copying entire history.
@@ -732,7 +742,7 @@ Next after current: F1
 #### G1. Progressive model-context assembly
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Gateway, AI-Verse-OS
 - Dependencies: B1, C1-C3, E1-E5
 - Goal: replace unconditional history dumping with L0/L1 first and bounded escalation to deeper layers.
@@ -1289,3 +1299,27 @@ Verified before E5 implementation on 2026-09-15:
 - Card validation must reject structurally self-consistent but semantically invalid coverage/order/metadata/size, not only fingerprint drift.
 - Restart must preserve cards/catalog rebuildability plus any durable E4 fold-work scheduling state.
 - Advanced diagnostics may expose counts, IDs, fingerprints, token estimates, retrieval depth and fallback reasons, but must not expose raw archived message content, prompts, chain-of-thought or hidden reasoning.
+
+
+### Slice completion checkpoint: E5
+
+Verified on 2026-09-15:
+
+- E5 PR #22 final head `b3c6aa263c3b816c33560b8a869f12a6bff19d20` passed CI `34952317794` 6/6 plus all three composition gates.
+- Gateway main merge `5474f9a8560e5cb2dad95951a5d75f0e78997867` combines concurrent main `d1e39f933ca0d12ca76b1ace297eea78f6ea67a2` with E5 head.
+- GitHub did not emit a distinct post-merge push workflow for that commit. Final PR CI tested merge `e03666a4b23fedebbbf46e7669d492f9acab423e`; both it and actual main have parents `d1e39f933ca0d12ca76b1ace297eea78f6ea67a2` + `b3c6aa263c3b816c33560b8a869f12a6bff19d20` and identical tree `20269cee648c44c4e23d4cf99581ac932b019729`.
+- Guard matrix proves structurally self-consistent but semantically invalid cards fail closed. Invalid ordering never persists.
+- Restart rebuilds the live catalog and preserves scheduled fold-work recovery state.
+- Safe advanced diagnostics expose token layers, card IDs, canonical source refs, retrieval depth and fallback reasons only. Raw content, prompts and chain-of-thought are explicitly excluded.
+- Concurrent post-completion run mutations cannot erase newer archive diagnostics.
+- E5 acceptance is complete. Sixteen of 25 slices are accepted.
+
+### Slice start checkpoint: F1
+
+Verified before F1 evaluation on 2026-09-15:
+
+- AI-Verse-Gateway main: `5474f9a8560e5cb2dad95951a5d75f0e78997867`.
+- F1 is an evaluation gate, not a requirement to ship another branch-history architecture.
+- Existing immutable cards/source refs and existing system/workspace/principal isolation remain authoritative. Multiple Bots may contribute identity integration only if the current live branch model actually requires it.
+- The benchmark must prove measurable storage/rebuild/retrieval benefit from copy-on-write sharing while preserving exact branch visibility and preventing summary declassification.
+- If current AI-Verse branching does not create duplicated immutable history or a measurable cost worth solving, F1 must be rejected and documented rather than implemented speculatively.
