@@ -232,12 +232,12 @@ Exactly one implementation slice may be IN PROGRESS.
 ## 9. Project slices
 
 Total implementation slices: 25
-Complete: 19
+Complete: 20
 In progress: 1
 Blocked: 0
-Remaining after current: 5
-Current: H1
-Next after current: I1
+Remaining after current: 4
+Current: I1
+Next after current: J1
 
 ### Phase A: Memory session digests and selective promotion
 
@@ -808,7 +808,7 @@ Next after current: I1
 
 #### H1. Retrieval-intent envelope ship/reject gate
 
-- Status: IN PROGRESS
+- Status: COMPLETE
 - Next: NO
 - Repositories: AI-Verse-Brain
 - Dependencies: G1-G2
@@ -819,7 +819,18 @@ Next after current: I1
   - if not materially useful, make no Brain change and record rejection.
 - Tests if shipped: schema validation, deterministic bounds, no scope/permission bypass, runtime integration.
 - Risks: duplicate retrieval planning.
-- Evidence: pending.
+- Evidence:
+  - H1 outcome: REJECTED FOR CURRENT ARCHITECTURE. No production Brain retrieval-depth envelope was shipped.
+  - H1 PR #23 final head `8b903eea37ac55cf8b510d3ee4da2f0597143cf3`.
+  - PR CI `34969770123`: package smoke plus all six OS/Python matrix lanes passed; Skills Receipt `34969770120` and OS Direction Ownership `34969770217` passed.
+  - H1 merged as Brain main `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`.
+  - Post-merge CI `34969997987` passed package smoke and all six matrix lanes; Skills Receipt `34969998014` and OS Direction Ownership `34969997970` also passed.
+  - Current Brain purpose gating achieves 100% history-needed vs no-history routing across the cognition-purpose contract.
+  - Existing semantic history queries preserve depth-sensitive task cues in the evaluation corpus.
+  - A static purpose-to-depth mapping reaches only 50% because every history-bearing Brain purpose has valid scenarios requiring different Context-Ladder depths.
+  - Brain HostAdapter and BridgeHostAdapter expose only `retrieve_history(query, scope)`; there is no Brain progressive-depth transport.
+  - Making a dynamic Brain depth envelope effective would duplicate accepted Gateway G1/G2 retrieval planning and require coordinated host-protocol changes for no demonstrated benefit.
+  - H1 acceptance complete; twenty of 25 slices are accepted.
 
 ### Phase I: Graft-style cross-owner orientation
 
@@ -843,7 +854,7 @@ Next after current: I1
 #### J1. Context/recall benchmark harness
 
 - Status: NOT STARTED
-- Next: NO
+- Next: YES
 - Repositories: AI-Verse-Memory, AI-Verse-Gateway, AI-Verse-System
 - Dependencies: enough preceding features to compare before/after
 - Goal: deterministic representative benchmark suite.
@@ -1420,3 +1431,24 @@ Verified before H1 evaluation on 2026-09-15:
 - H1 is a ship/reject gate. Brain must not become a retrieval engine or duplicate Gateway/Memory routing.
 - The benchmark must compare the current purpose/query-based Gateway behavior against a hypothetical bounded Brain envelope such as orientation/summary/detail/exact_evidence.
 - A Brain change is justified only if the explicit envelope materially improves retrieval correctness/efficiency without widening scope, bypassing owners or duplicating retrieval planning.
+
+
+### Slice completion checkpoint: H1
+
+Verified on 2026-09-15:
+
+- H1 PR #23 final head `8b903eea37ac55cf8b510d3ee4da2f0597143cf3` passed the full Brain matrix, package smoke, Skills Receipt, and OS Direction Ownership contracts.
+- H1 merged as Brain main `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`; the full post-merge acceptance surface also passed.
+- H1 was rejected for the current architecture rather than implemented.
+- Current Brain semantic queries already carry task-specific exact/provenance/correction cues, while a fixed purpose-to-depth envelope is structurally too coarse and a dynamic one would duplicate Gateway retrieval planning.
+- H1 acceptance is complete. Twenty of 25 slices are accepted.
+
+### Slice start checkpoint: I1
+
+Verified before I1 evaluation on 2026-09-15:
+
+- Gateway G1 already assembles OS current/direction context, Data orientation, Memory L1 orientation, Skills/capabilities, and Connections.
+- Memory L1 orientation already contains topics, recent session digest pointers, source routes, counts, bounds and a source fingerprint.
+- The proposed seven-domain cross-owner map therefore overlaps existing owner views for goals/direction, Memory topics, Data spaces, Skills, recent sessions, and important sources.
+- Durable Bots are the only proposed domain without an existing read-only Gateway/OS host operation. A new map must not invent or scrape Bot truth to fill that gap.
+- I1 must measure safe information gain versus duplicated orientation bytes before adding any new cross-owner projection.
