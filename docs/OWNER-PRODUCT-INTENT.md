@@ -1,3 +1,5 @@
+> **Dashboard owner decision, 2026-09-15:** Use Builderz Labs Mission Control as the initial AI-Verse Dashboard shell, preserve the existing AI-Verse Dashboard foundations, connect through the canonical AI-Verse Gateway first, audit every Mission Control feature before stripping it, and progressively replace Mission Control-owned domain state with AI-Verse owner-backed projections. Canonical plan: [DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md](DASHBOARD-CANONICAL-MISSION-CONTROL-ADOPTION-PLAN-2026-09-15.md).
+
 # AI-Verse Owner Product Intent and Operating Principles
 
 **Status:** Canonical living owner-product-intent record  
