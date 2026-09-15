@@ -70,7 +70,7 @@ This does not change:
 
 ## 4. Fastest safe first proof
 
-Before deleting or stripping anything from Mission Control, prove that its existing shell can talk through the real AI-Verse runtime edge.
+Before deleting or stripping anything from Mission Control, prove that its existing task-dispatch path can talk through the real AI-Verse runtime edge.
 
 Mission Control already supports a generic OpenAI-compatible local provider.
 
@@ -107,7 +107,7 @@ dispatchModel=local/aiverse
 
 Mission Control strips the `local/` prefix before sending the model name, so the Gateway receives `aiverse`.
 
-This path is for proving the shell and chat route only. It does not authorize Mission Control's SQLite task, agent, memory, schedule, cost or integration stores to become AI-Verse truth.
+This path is for proving the shell and task-dispatch runtime route only. Stock Mission Control does not route its main /chat page through this generic local-provider path. It does not authorize Mission Control's SQLite task, agent, memory, schedule, cost or integration stores to become AI-Verse truth.
 
 ## 5. Prototype before strip
 
@@ -154,15 +154,15 @@ Current Dashboard-local synthetic health/work/inbox semantics and process-local 
 - do not delete current Dashboard code;
 - run Mission Control unmodified as a reference instance.
 
-### Phase MC1: AI-Verse chat proof
+### Phase MC1: AI-Verse runtime dispatch proof
 
 - run one real AI-Verse Gateway;
 - point Mission Control's OpenAI-compatible local provider at it;
-- verify a message traverses Mission Control -> Gateway -> selected AI-Verse OS/workspace -> runtime -> Mission Control;
+- create and dispatch a task whose agent uses `dispatchModel=local/aiverse` and verify it traverses Mission Control -> Gateway -> selected AI-Verse OS/workspace -> runtime -> Mission Control;
 - verify Gateway authentication and system/workspace scope;
 - do not use Mission Control domain stores as AI-Verse truth.
 
-Exit gate: AI-Verse can be spoken to through the Mission Control visual shell with no duplicate runtime owner.
+Exit gate: a real Mission Control task can execute through canonical AI-Verse Gateway with no duplicate runtime owner.
 
 ### Phase MC2: first-class AI-Verse mode
 
@@ -301,7 +301,7 @@ The Dashboard foundation decision is complete when:
 
 - the official plan is recorded in System and Dashboard;
 - older contradictory plans are visibly marked historical/superseded;
-- Mission Control can route a real chat through canonical AI-Verse Gateway;
+- Mission Control can route a real task dispatch through canonical AI-Verse Gateway;
 - the complete feature-disposition map exists;
 - no Mission Control domain store has silently become AI-Verse authority;
 - the adopted shell can select a real AI-Verse system/workspace;
