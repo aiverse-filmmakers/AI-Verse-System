@@ -891,3 +891,41 @@ Intentional absences:
 3. The connector did not surface PR-triggered runs for the reviewed merge commit itself. Relevant implementation PR heads have successful workflow evidence.
 4. Cross-repository inspection was limited to the OS contract/consumer path necessary to understand Skills.
 5. No third-party package is treated as legally/security approved merely because it has a pin, digest or successful fetch.
+
+
+## 18. Video Editor 1.0.0 source lineage
+
+**First-party orchestrator**
+
+- repository: `aiverse-filmmakers/AI-Verse-Skills`;
+- package: `skills/imported/ai-verse/video-editor/`;
+- release: `1.0.0`;
+- accepted release head: `47ca55b11850b1432882a1c1c015e0a253d4c1d0`;
+- merged main: `8c321c03421a2e0e470280cc40e588a27c1a510d`;
+- implementation PR: **#14**.
+
+**Editorial lineage**
+
+- upstream: `nateherkai/hyperframes-student-kit`;
+- immutable commit: `b1afdb1dcbcad39dd27638ea699f132fe44ce6df`;
+- license: MIT;
+- handling: bounded package-local editorial adaptations with provenance retained;
+- deterministic silence cutting, mistake candidate detection, approved-cut application and EDL review are regression-locked;
+- demonstration/AIS brand assets are excluded from reusable Video Editor content.
+
+**Canonical renderer/provider lineage**
+
+- upstream: `heygen-com/hyperframes`;
+- version: `0.8.40`;
+- immutable commit: `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`;
+- license: Apache-2.0;
+- redistribution: fetch-only;
+- role: one canonical composition/runtime/rendering provider family beneath the member-facing Video Editor.
+
+**Cross-skill lineage**
+
+Interface Designer provides only bounded presentation handoffs. Transcript truth, EDLs, source-time mapping, edit decisions, HyperFrames correctness and final media acceptance remain outside Interface Designer ownership.
+
+**Compatibility evidence**
+
+Comparison from Skills baseline `71264af6b2b9a575812fe18858d75a54ea2ff545` to accepted head `47ca55b11850b1432882a1c1c015e0a253d4c1d0` reported 63 added files, 10 modified files and **0 removed files**.
