@@ -54,6 +54,49 @@ Canonical detail:
 
 ---
 
+
+### Accepted AI-Verse Video Editor 1.0.0
+
+**Date:** 2026-09-15  
+**Type:** first-party capability release / video editing / media acceptance
+
+Released the first-party AI-Verse Video Editor as one member-facing 1.0.0 composite capability in AI-Verse Skills.
+
+Accepted result:
+
+- Skills PR **#14** merged as `8c321c03421a2e0e470280cc40e588a27c1a510d`;
+- Nate Herk editorial logic pinned to `nateherkai/hyperframes-student-kit@b1afdb1dcbcad39dd27638ea699f132fe44ce6df`;
+- canonical HyperFrames provider pinned to 0.8.40 at `cfe5dcfad310ced2a5844998628daa2b8a0f53d7`;
+- 21 semantic editing/orchestration/QA capabilities;
+- short-form, long-form storytelling, motion beats/style, website-to-video and bounded Interface Designer visual handoffs;
+- zero destructive removals of existing film/video capabilities;
+- one member-facing `video-editor` capability with internal fetch-only HyperFrames support packages;
+- member and maintainer documentation, provenance, routing fixtures, golden workflows, security boundaries and third-party notices.
+
+Final exact-head gates all passed:
+
+- Validate AI-Verse Skills `34901198285`;
+- Runtime Readiness `34901198247`;
+- Full E2E Install `34901198231`;
+- Video Editor Release Acceptance `34901198219`;
+- media artifact `10370482971`, digest `sha256:79b905477f07c1bf863ef2fab2b2d4b85e6de9ac68bcf91d78edcb695a02d44e`.
+
+Post-merge Skills `main` also passed Validate `34901693154`, Runtime Readiness `34901693118`, and Full E2E `34901693143` on unchanged rerun attempt 2 after attempt 1 was externally throttled by GitHub HTTP 429.
+
+Release hardening also caught and fixed a real routing defect: `WEBSITE_PROMO` now explicitly invokes the `video.website_to_video` specialist.
+
+This capability release does not override broader Skills component caveats unrelated to Video Editor.
+
+Canonical detail:
+
+- `docs/AI-VERSE-VIDEO-EDITOR-IMPLEMENTATION-PLAN.md`;
+- `components/ai-verse-skills/COMPONENT-SPEC.md`;
+- `components/ai-verse-skills/SOURCE-MAP.md`;
+- `components/ai-verse-skills/QC.md`.
+
+---
+
+
 ## 2026-09-14
 
 ### Accepted Invisible Intelligence and Grandma-first Agent behavior
