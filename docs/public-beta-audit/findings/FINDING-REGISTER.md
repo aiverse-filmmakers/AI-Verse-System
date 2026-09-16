@@ -1407,6 +1407,11 @@ Bind exact-source cache entries to validated source identity/version/fingerprint
 | C-A2.5-002 | A2.5 | Dashboard projection-only vs synthetic owner-like semantics | yes | WSA-2026-042 | OPEN |
 | C-A2.5-003 | A2.5 | Data trusted-read scope vs forgeable provenance | yes | WSA-2026-020 | OPEN |
 | C-A2.5-004 | A2.5 | Skills pinned read vs generation retention | yes | WSA-2026-018 | OPEN |
+| C-A2.6-001 | A2.6 | Automations stable invocation vs Gateway concurrent admission | yes | WSA-2026-008 | OPEN |
+| C-A2.6-002 | A2.6 | Gateway pause/cancel vs stale execution writer | yes | WSA-2026-008 | OPEN |
+| C-A2.6-003 | A2.6 | Multiple Bots operator controls vs trusted identity | yes | WSA-2026-022 | OPEN |
+| C-A2.6-004 | A2.6 | generic Worker event scope vs managed Worker scope | yes | WSA-2026-023 | OPEN |
+| C-A2.6-005 | A2.6 | canonical Automations scheduler vs late legacy authority | yes | WSA-2026-027 | OPEN |
 
 ### C-A0.1-001
 
@@ -1880,6 +1885,36 @@ See `WSA-2026-002`.
 **Source A:** Skills execution pins an immutable generation.  
 **Source B:** retention can remove a generation while a live execution still relies on it.  
 **Finding:** existing `WSA-2026-018`.
+
+### C-A2.6-001
+
+**Source A:** Automations supplies stable invocation identity and reuses it on retry.  
+**Source B:** Gateway concurrent first-claim idempotency admission can create duplicate runs.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A2.6-002
+
+**Source A:** pause/cancel are authenticated privileged Gateway controls.  
+**Source B:** asynchronous stale execution state can overwrite a newer persisted pause/cancel.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A2.6-003
+
+**Source A:** Multiple Bots transport authentication is not domain authority.  
+**Source B:** sensitive operator controls authorize caller-supplied actor identity.  
+**Finding:** existing `WSA-2026-022`.
+
+### C-A2.6-004
+
+**Source A:** managed Worker execution is tightly workspace-bound.  
+**Source B:** generic Worker delegation/message paths can persist cross-workspace state before rejection.  
+**Finding:** existing `WSA-2026-023`.
+
+### C-A2.6-005
+
+**Source A:** Automations forbids dual scheduler authority.  
+**Source B:** a legacy definition appearing after setup does not continuously fence canonical scheduler execution.  
+**Finding:** existing `WSA-2026-027`.
 
 ## 6. Evidence ID register
 
@@ -2506,6 +2541,30 @@ A2.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`
 | E-A2.5-016 | Apps plan-only read relationships | same |
 | E-A2.5-017 | provenance truth-class synthesis | same |
 | E-A2.5-018 | scope/visibility synthesis | same |
+
+### A2.6 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.6-001 | fresh A2.6 frozen-ref/open-PR gate | seams/A2.6-RUNTIME-TASK-BOT-AUTOMATION-EVENT-FLOWS.md |
+| E-A2.6-002 | Gateway run/session/event state machine | same |
+| E-A2.6-003 | Gateway action/approval/control flow | same |
+| E-A2.6-004 | Gateway idempotency/control concurrency defect | same |
+| E-A2.6-005 | Brain Goal continuation/evaluation/action receipts | same |
+| E-A2.6-006 | Automations occurrence identity/scheduler claim transaction | same |
+| E-A2.6-007 | Automations permission-on-retry/crash uncertainty | same |
+| E-A2.6-008 | Automations -> Gateway stable invocation contract | same |
+| E-A2.6-009 | Automations -> Brain idempotency handoff | same |
+| E-A2.6-010 | Multiple Bots automation wake ingress implementation | same |
+| E-A2.6-011 | Multiple Bots automation replay/source-binding tests | same |
+| E-A2.6-012 | Multiple Bots Task/Worker/Team Run recovery | same |
+| E-A2.6-013 | Data mutation event/idempotency/receipt atomicity | same |
+| E-A2.6-014 | permanent Bot consent composition | same |
+| E-A2.6-015 | recurring Automation consent composition | same |
+| E-A2.6-016 | restart/recovery graph | same |
+| E-A2.6-017 | event ownership map | same |
+
+A2.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`.
 
 ## 7. Finding allocation ledger
 
