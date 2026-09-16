@@ -1514,6 +1514,8 @@ Add one composed acceptance at exact admitted refs that creates a real Brain Goa
 | C-A3.5-002 | A3.5 | Skills lifecycle serialization law vs age-only stale-lock reclaim | yes | WSA-2026-017 | OPEN |
 | C-A3.5-003 | A3.5 | pinned immutable capability lifetime vs retention cleanup | yes | WSA-2026-018 | OPEN |
 | C-A3.5-004 | A3.5 | Goal operation idempotency vs cross-Goal concurrent admission | yes | WSA-2026-010 | OPEN |
+| C-A3.6-001 | A3.6 | sensitive operator controls vs caller actor authority | yes | WSA-2026-022 | OPEN |
+| C-A3.6-002 | A3.6 | managed Worker workspace binding vs generic Worker coordination | yes | WSA-2026-023 | OPEN |
 
 ### C-A0.1-001
 
@@ -2183,6 +2185,18 @@ See `WSA-2026-002`.
 **Source A:** Brain Goal operation IDs are intended to bind replay.  
 **Source B:** cross-Goal concurrent operation-ID admission is not fully serialized.  
 **Finding:** existing `WSA-2026-010`.
+
+### C-A3.6-001
+
+**Source A:** sensitive Multiple Bots operator controls require trusted operator authority.  
+**Source B:** caller-supplied actor identity can satisfy that authority on affected paths.  
+**Finding:** existing `WSA-2026-022`.
+
+### C-A3.6-002
+
+**Source A:** managed Team Run Workers are strictly bound to Task/run/workspace.  
+**Source B:** generic Worker delegation/message paths can cross workspace before execution rejection and can mutate the foreign Worker.  
+**Finding:** existing `WSA-2026-023`.
 
 ## 6. Evidence ID register
 
@@ -3013,6 +3027,36 @@ A3.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`
 | E-A3.5-018 | real clean-machine Goal journey does not invoke learning | same |
 | E-A3.5-019 | negative-space search for one Goal-to-Skills composed acceptance | same |
 | E-A3.5-020 | Skills lifecycle/retention findings affecting learned generations | same |
+
+### A3.6 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.6-001 | fresh A3.6 frozen-ref/open-PR gate | journeys/A3.6-MULTIPLE-BOTS-TEAM-EXECUTION.md |
+| E-A3.6-002 | Context candidate exact current Multiple Bots pin | same |
+| E-A3.6-003 | candidate Ubuntu durable Bot collaboration/restart | same |
+| E-A3.6-004 | Distribution G-M run 34997085437 | same |
+| E-A3.6-005 | G-M job 104475920006 exact current Multiple Bots | same |
+| E-A3.6-006 | exact-current Multiple Bots npm test, 513 passes | same |
+| E-A3.6-007 | real two-durable-Bot HTTP Artifact handoff | same |
+| E-A3.6-008 | real managed temporary Worker Task execution | same |
+| E-A3.6-009 | Worker identity preservation | same |
+| E-A3.6-010 | run-scoped automatic Worker execution/cleanup | same |
+| E-A3.6-011 | Team Run aggregate/absolute budget enforcement | same |
+| E-A3.6-012 | Team Run live cancellation | same |
+| E-A3.6-013 | stale/restart Worker execution recovery | same |
+| E-A3.6-014 | Room/Thread discussion execution/restart | same |
+| E-A3.6-015 | Handoff ownership transfer/reopen | same |
+| E-A3.6-016 | adaptive collaboration topology | same |
+| E-A3.6-017 | verifier/disagreement resolution | same |
+| E-A3.6-018 | final synthesis/idempotent settlement | same |
+| E-A3.6-019 | Task Memory bounded recall/non-persistence | same |
+| E-A3.6-020 | operational usage vs canonical Token boundary | same |
+| E-A3.6-021 | G-M Gateway temporary Worker consent/authority boundary | same |
+| E-A3.6-022 | WSA-022 operator identity defect | same |
+| E-A3.6-023 | WSA-023 generic Worker workspace defect | same |
+
+A3.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
 
 ## 7. Finding allocation ledger
 
