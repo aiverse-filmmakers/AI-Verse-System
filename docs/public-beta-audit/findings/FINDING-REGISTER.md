@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-046`.
+**Next unused finding ID:** `WSA-2026-047`.
 
 ## 2. Allowed classifications
 
@@ -112,6 +112,7 @@ Rules:
 | WSA-2026-043 | MEDIUM | PROVEN | OPEN | release contract consistency / machine-readable acceptance | AI-Verse-System | A1.14 |
 | WSA-2026-044 | MEDIUM | PROVEN | OPEN | meta authority / living-spec synchronization / current release truth | AI-Verse-System | A1.14 |
 | WSA-2026-045 | MEDIUM | PROVEN | OPEN | retrieval freshness / provenance cache invalidation | AI-Verse-Gateway | A2.5 |
+| WSA-2026-046 | MEDIUM | PROVEN | OPEN | release composition / public-member product path | AI-Verse-Skills, ai-verse-distribution, AI-Verse-System | A2.8 |
 
 Current counts:
 
@@ -119,14 +120,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 20 |
-| MEDIUM | 11 |
+| MEDIUM | 12 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 45 |
+| PROVEN | 46 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 45 |
+| OPEN | 46 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1337,6 +1338,30 @@ Bind exact-source cache entries to validated source identity/version/fingerprint
 
 ---
 
+### WSA-2026-046 - accepted member-facing Video Editor release is absent from every admitted Distribution composition
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A2.8  
+**Root area:** release composition / public-member product path  
+**Affected repos:** AI-Verse-Skills, ai-verse-distribution, AI-Verse-System
+
+**Summary:**  
+AI-Verse Video Editor is marked 100% complete and member-facing at accepted Skills head `8c321c03421a2e0e470280cc40e588a27c1a510d`. No admitted Distribution release set contains that Skills revision. The newest Agent candidate pins `71264af6b2b9a575812fe18858d75a54ea2ff545`, which predates the Video Editor package.
+
+**Contradiction:** C-A2.8-006.
+
+**Primary evidence:** E-A2.8-006, E-A2.8-008, E-A2.8-012, E-A2.8-013, E-A2.8-014, E-A2.8-015, E-A2.8-016.
+
+**Impact:**  
+A member using the canonical one-product Distribution path cannot receive the accepted member-facing Video Editor capability. Standalone current Skills installation can reach it, but whole-Agent compatibility for that Skills revision has not been proven by an admitted Distribution clean-machine composition.
+
+**Required closure evidence:**  
+Create a new immutable Agent candidate containing an exact accepted Skills ref with Video Editor, rerun Distribution and three-platform clean-machine Agent acceptance plus relevant Context Ladder/Invisible regressions, prove Video Editor is installed/discoverable/selectable, and update System release/member-path truth. Do not mutate an existing immutable release set.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1416,6 +1441,12 @@ Bind exact-source cache entries to validated source identity/version/fingerprint
 | C-A2.7-002 | A2.7 | failed pricing batch vs partial immutable snapshot subset | yes | WSA-2026-025 | OPEN |
 | C-A2.7-003 | A2.7 | Connections current budget law vs final-edge implementation | yes | WSA-2026-032 | OPEN |
 | C-A2.7-004 | A2.7 | Distribution sanitized diagnostics vs raw ProcessError message | yes | WSA-2026-036 | OPEN |
+| C-A2.8-001 | A2.8 | Invisible candidate released qualification vs nested pending metadata | yes | WSA-2026-001 | OPEN |
+| C-A2.8-002 | A2.8 | Agent runtime floor vs ordinary Distribution requirements | yes | WSA-2026-035 | OPEN |
+| C-A2.8-003 | A2.8 | Full compatibility blocker text says Agent release is missing | yes | WSA-2026-037 | OPEN |
+| C-A2.8-004 | A2.8 | System current release/meta surfaces lag accepted candidates | yes | WSA-2026-044 | OPEN |
+| C-A2.8-005 | A2.8 | component current source vs immutable release identity | yes | WSA-2026-011 / WSA-2026-015 / WSA-2026-019 / WSA-2026-021 | OPEN |
+| C-A2.8-006 | A2.8 | accepted member-facing Video Editor vs every Distribution release set | yes | WSA-2026-046 | OPEN |
 
 ### C-A0.1-001
 
@@ -1943,6 +1974,43 @@ See `WSA-2026-002`.
 **Source A:** Distribution sanitizes child stdout/stderr for user-facing diagnostics.  
 **Source B:** ProcessError can embed the raw child output in the unsanitized top-level message.  
 **Finding:** existing `WSA-2026-036`.
+
+### C-A2.8-001
+
+**Source A:** Invisible Intelligence candidate is an explicitly installable released candidate with later qualification evidence.  
+**Source B:** nested Distribution acceptance metadata still says qualification-pending.  
+**Finding:** existing `WSA-2026-001`.
+
+### C-A2.8-002
+
+**Source A:** Agent compatibility and executable preflight require Python 3.11 and Node 22.5.  
+**Source B:** ordinary Distribution README says Python 3.9+ and Node 22+.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A2.8-003
+
+**Source A:** Agent public beta is already an admitted immutable released set.  
+**Source B:** Full compatibility blocker text still says Agent lacks an admitted immutable release set.  
+**Finding:** existing `WSA-2026-037`.
+
+### C-A2.8-004
+
+**Source A:** later candidate/component release evidence is accepted.  
+**Source B:** System current release/meta surfaces do not consistently reflect those accepted states.  
+**Finding:** existing `WSA-2026-044`.
+
+### C-A2.8-005
+
+**Source A:** several frozen current component trees are newer than their component-level immutable release identity surfaces.  
+**Source B:** version/bootstrap/descriptor surfaces still name older accepted artifacts.  
+**Findings:** existing `WSA-2026-011`, `WSA-2026-015`, `WSA-2026-019`, `WSA-2026-021`.
+
+### C-A2.8-006
+
+**Source A:** Video Editor is a 100% complete canonical Skills release and member-facing capability at `8c321c...`.  
+**Source B:** every admitted Distribution release set pins an older Skills ref; newest candidate uses `71264af6...`.  
+**Source C:** exact Video Editor package is absent at `71264af6...` and present at `8c321c...`.  
+**Finding:** new `WSA-2026-046`.
 
 ## 6. Evidence ID register
 
@@ -2620,6 +2688,31 @@ A2.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`
 
 A2.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`.
 
+### A2.8 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.8-001 | fresh A2.8 frozen-ref/open-PR gate | seams/A2.8-VERSION-COMPATIBILITY-RELEASE-INSTALL-ORDER.md |
+| E-A2.8-002 | Distribution profile definitions/dependency graph | same |
+| E-A2.8-003 | Distribution compatibility matrix | same |
+| E-A2.8-004 | default Agent immutable release manifest | same |
+| E-A2.8-005 | Invisible Intelligence explicit candidate manifest | same |
+| E-A2.8-006 | Context Ladder explicit candidate manifest | same |
+| E-A2.8-007 | Full blocked manifest | same |
+| E-A2.8-008 | release channel catalog | same |
+| E-A2.8-009 | executable Catalog validation | same |
+| E-A2.8-010 | catalog tests for defaults/candidates/custom/Full/transitions | same |
+| E-A2.8-011 | A1.12 Distribution acceptance/clean-machine evidence | same |
+| E-A2.8-012 | frozen current Agent refs vs Context candidate comparison | same |
+| E-A2.8-013 | accepted Skills Video Editor final release evidence | same |
+| E-A2.8-014 | current Skills README member-facing Video Editor claim | same |
+| E-A2.8-015 | Skills compare 71264af6 -> 8c321c03, 98 commits | same |
+| E-A2.8-016 | Video Editor SKILL.md absent at candidate ref, present at accepted current ref | same |
+| E-A2.8-017 | Distribution runtime-floor/public-requirement contradiction | same |
+| E-A2.8-018 | self-only candidate update/rollback transition enforcement | same |
+| E-A2.8-019 | component release identity drift findings | same |
+| E-A2.8-020 | System current release propagation drift | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -2669,7 +2762,8 @@ A2.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`
 | WSA-2026-043 | allocated A1.14 |
 | WSA-2026-044 | allocated A1.14 |
 | WSA-2026-045 | allocated A2.5 |
-| WSA-2026-046 | **NEXT UNUSED** |
+| WSA-2026-046 | allocated A2.8 |
+| WSA-2026-047 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 

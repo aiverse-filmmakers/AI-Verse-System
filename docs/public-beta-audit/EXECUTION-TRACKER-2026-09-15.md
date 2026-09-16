@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 54 / 100.**
+**Current accepted progress: 57 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -182,7 +182,7 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A2.8 Version/compatibility/release/install-order graph - 3
-Status: NEXT
+Status: COMPLETE
 
 A2 exit:
 - every current supported seam verified;
@@ -194,7 +194,7 @@ A2 exit:
 # A3 - End-to-end product journeys - 20 points
 
 ### A3.1 Clean install and first use - 2
-Status: PENDING
+Status: NEXT
 
 ### A3.2 Existing-system attach/adopt/migration - 2
 Status: PENDING
