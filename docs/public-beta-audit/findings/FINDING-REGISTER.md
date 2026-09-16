@@ -23,7 +23,7 @@ Rules:
 7. Findings are not repaired during A0-A6. State changes during those phases may record new evidence, duplication or invalidation, but product repair waits for the canonical repair program unless emergency containment is required.
 8. The register summarizes source packets. It must not silently weaken, strengthen or rewrite their evidence.
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
-10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
+10. The A0-A6 audit is complete. Dashboard MC1.4 and owner dogfood remain paused under the final NO-GO verdict until the ordered repair, re-audit, closure and bounded final independent recheck gates explicitly release the intended scope.
 
 **Next unused finding ID:** `WSA-2026-064`.
 
@@ -1976,6 +1976,27 @@ Add immutable clean-machine acceptance that begins through `aiverse start`, conf
 | C-A5.4-008 | A5.4 | public Agent prerequisites vs executable compatibility | yes | WSA-2026-035 | OPEN |
 | C-A5.4-009 | A5.4 | final Agent PR attempt-1 Windows failure vs unchanged successful rerun | no | none | EVIDENCE LIMITATION |
 | C-A5.4-010 | A5.4 | current model/provider generation vs hard-coded obsolete provider | no | none | VERIFIED ADAPTER/CONFIG DRIVEN |
+
+### A6.5 final audit freeze
+
+A6.5 freezes the final A0-A6 audit state at **100/100 complete**.
+
+Final audit truth:
+
+- product/distribution refs remain exactly on the A0 frozen snapshot;
+- 63 findings remain PROVEN / OPEN;
+- severities remain 4 BLOCKER / 24 HIGH / 22 MEDIUM / 12 LOW / 1 INFO;
+- whole-system verdict remains **NO-GO**;
+- nine root-cause families remain canonical;
+- A6.4 repair program covers 63/63 findings exactly once;
+- Dashboard MC1.4 and owner dogfood remain paused;
+- post-repair bounded independent recheck remains mandatory.
+
+Canonical final freeze:
+
+`docs/public-beta-audit/synthesis/A6.5-FINAL-AUDIT-FREEZE.md`
+
+No finding is closed or changed by the freeze.
 
 ### A6.4 ordered repair program
 
@@ -4560,6 +4581,23 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A6.4-012 | bounded final independent recheck scope | same |
 | E-A6.4-013 | repository impact map | same |
 | E-A6.4-014 | repair milestones / dogfood gates | same |
+
+### A6.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.5-001 | fresh final System/open-PR gate | synthesis/A6.5-FINAL-AUDIT-FREEZE.md |
+| E-A6.5-002 | all 13 product/distribution refs unchanged from A0 | same |
+| E-A6.5-003 | final tracker state | same |
+| E-A6.5-004 | A6.1 contradiction synthesis | same |
+| E-A6.5-005 | A6.2 nine-root graph | same |
+| E-A6.5-006 | A6.3 NO-GO verdict | same |
+| E-A6.5-007 | A6.4 63/63 repair program | same |
+| E-A6.5-008 | final finding counts | same |
+| E-A6.5-009 | canonical audit authority set | same |
+| E-A6.5-010 | still-open documentation findings intentionally preserved | same |
+| E-A6.5-011 | mandatory post-repair recheck scope | same |
+| E-A6.5-012 | Dashboard/owner-dogfood gate remains closed | same |
 
 ## 7. Finding allocation ledger
 
