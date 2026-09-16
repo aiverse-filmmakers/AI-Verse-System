@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 42 / 100.**
+**Current accepted progress: 45 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -170,10 +170,10 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A2.4 Identity/scope/isolation/authentication - 3
-Status: NEXT
+Status: COMPLETE
 
 ### A2.5 Read/retrieval/context/data flows - 3
-Status: PENDING
+Status: NEXT
 
 ### A2.6 Runtime/task/Bot/automation event flows - 3
 Status: PENDING
