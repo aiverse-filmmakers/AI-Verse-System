@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Audit findings entering repair:** **63 PROVEN / 63 OPEN / 0 CLOSED**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-012`
+**Current active finding:** `WSA-2026-016`
 
 ## 1. Purpose
 
@@ -47,8 +47,8 @@ Exactly one finding should normally be ACTIVE.
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
 | R0.1 | WSA-2026-006 Gateway destructive purge containment | AI-Verse-Gateway | **CLOSED** |
-| R0.2 | WSA-2026-012 Memory lifecycle parent-symlink containment | AI-Verse-Memory | **ACTIVE** |
-| R0.3 | WSA-2026-016 Skills lifecycle-controller containment | AI-Verse-Skills | PENDING |
+| R0.2 | WSA-2026-012 Memory lifecycle parent-symlink containment | AI-Verse-Memory | **CLOSED** |
+| R0.3 | WSA-2026-016 Skills lifecycle-controller containment | AI-Verse-Skills | **ACTIVE** |
 | R0.4 | WSA-2026-029 Connections destructive purge containment | AI-Verse-Connections | PENDING |
 
 **R0 exit:** all four BLOCKERs CLOSED after exact-ref negative regression evidence plus lifecycle/security rechecks.
@@ -209,14 +209,51 @@ Repair requirements:
 - A4.1 Gateway destructive-containment branch: RESOLVED; adversarial task remains FAIL due other findings
 - finding state: `OPEN -> CLOSED`
 
-### R0.2 / WSA-2026-012 - ACTIVE
+### R0.2 / WSA-2026-012 - CLOSED
 
-Next dependency-safe task: AI-Verse-Memory lifecycle parent-symlink containment. No implementation has begun in this tracker update.
+- baseline Memory: `406b14fb4398eb1b16dd5f30e50520e8c3540972`
+- repair PR: `AI-Verse-Memory#30`
+- initial CI run `35155623941`: caught macOS/Windows platform-alias handling and was not merged
+- corrected PR head: `acbe3e22d9b12c0fc1b0dcd95eeea393a57a69f2`
+- final CI run `35155708095`: 12 / 12 jobs SUCCESS
+- Windows public-beta acceptance: real junction/reparse tests SUCCESS
+- merged Memory: `7a1ed5777fd11616375501d730fcbd488beff8b8`
+- exact PR-head to merge comparison: zero changed files
+- A1.4 finding-specific recheck: PASS for WSA-012 only
+- A3.10 Memory destructive-containment branch: RESOLVED; journey remains PARTIAL
+- A4.1 Memory path-containment branch: RESOLVED; adversarial task remains FAIL
+- finding state: `OPEN -> CLOSED`
 
-## 7. Current task — R0.2 / WSA-2026-012
+### R0.3 / WSA-2026-016 - ACTIVE
+
+Next dependency-safe task: AI-Verse-Skills lifecycle-controller containment. No implementation has begun in this tracker update.
+
+## 7. Most recently completed task - R0.2 / WSA-2026-012
 
 **Owner:** `AI-Verse-Memory`  
-**Status:** ACTIVE  
-**Execution state:** not yet implemented. The next repair session must first recheck Memory main/open PRs against the audited finding evidence before creating the owner repair branch.
+**Original baseline:** `406b14fb4398eb1b16dd5f30e50520e8c3540972`  
+**Repair PR:** `AI-Verse-Memory#30`  
+**Final PR head:** `acbe3e22d9b12c0fc1b0dcd95eeea393a57a69f2`  
+**Merged Memory:** `7a1ed5777fd11616375501d730fcbd488beff8b8`  
+**Status:** CLOSED  
+**Closure packet:** `repairs/WSA-2026-012-MEMORY-LIFECYCLE-CONTAINMENT.md`
 
-No later finding may become ACTIVE until WSA-2026-012 reaches CLOSED or an explicitly recorded BLOCKED state.
+Closure evidence:
+- shared physical lifecycle containment helper added;
+- symlink/junction/reparse parent chains rejected;
+- destructive uninstall preflights all runtime/adapter targets before mutation;
+- final workflow run `35155708095`: 12 / 12 jobs SUCCESS;
+- Windows public-beta acceptance used real `mklink /J` junctions and passed both new containment tests;
+- final tested PR head and merged product files have zero differences;
+- A1.4 finding-specific recheck: PASS for WSA-012 only;
+- A3.10 Memory destructive-containment branch: RESOLVED; journey remains PARTIAL;
+- A4.1 Memory path-containment branch: RESOLVED; adversarial task remains FAIL;
+- finding state: `OPEN -> CLOSED`.
+
+## 8. Current task - R0.3 / WSA-2026-016
+
+**Owner:** `AI-Verse-Skills`  
+**Status:** ACTIVE  
+**Execution state:** not yet implemented. The next repair session must first recheck Skills main/open PRs and the exact WSA-2026-016 evidence before creating the owner repair branch.
+
+No later finding may become ACTIVE until WSA-2026-016 reaches CLOSED or an explicitly recorded BLOCKED state.
