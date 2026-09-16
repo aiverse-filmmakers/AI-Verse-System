@@ -1842,6 +1842,13 @@ Use indexed recent-window/idempotency state while retaining auditable historical
 | C-A4.5-003 | A4.5 | Agent current-generation floor vs ordinary Python prerequisite UX | yes | WSA-2026-035 | OPEN |
 | C-A4.5-004 | A4.5 | current supported platform claim vs clean-machine evidence | no | none | VERIFIED |
 | C-A4.5-005 | A4.5 | Memory/Token/Data bounded read claims vs executable query limits | no | none | VERIFIED |
+| C-A5.1-001 | A5.1 | private workflow failure label vs zero executed steps | yes | WSA-2026-003 | OPEN |
+| C-A5.1-002 | A5.1 | final Agent success vs first-attempt Windows Gateway failure | no | none | RECORDED / RETRY PASSED |
+| C-A5.1-003 | A5.1 | green exact-head standard CI vs specialized workflow absence | no | none | BOUNDED EVIDENCE |
+| C-A5.1-004 | A5.1 | mutable-main compatibility jobs vs immutable composition evidence | no | none | SUPPLEMENTAL ONLY |
+| C-A5.1-005 | A5.1 | Skills Video Editor acceptance head vs frozen current head | no | none | VERIFIED / ZERO FILE DIFF |
+| C-A5.1-006 | A5.1 | Distribution qualification head vs current merge head | no | none | VERIFIED / ZERO FILE DIFF |
+| C-A5.1-007 | A5.1 | current System hosted no-step failure vs external exact qualification | yes | WSA-2026-003 | OPEN |
 
 ### C-A0.1-001
 
@@ -2783,6 +2790,49 @@ Current Agent release compatibility explicitly covers darwin/linux/win32 and cur
 
 Reviewed Memory, Token and Data normal read paths contain explicit executable result/candidate/page bounds.  
 **Finding:** none.
+
+### C-A5.1-001
+
+**Source A:** GitHub labels current Connections/System workflow runs as failed.  
+**Source B:** the associated jobs contain zero executed steps.  
+**Higher-authority interpretation:** no test executed; this is evidence-infrastructure unavailability rather than a product-test result.  
+**Finding:** existing `WSA-2026-003`.
+
+### C-A5.1-002
+
+**Source A:** Distribution Clean Machine Agent run `34997085354` ends successful on run attempt 2.  
+**Source B:** attempt 1 Windows reached real Gateway execution and failed on an `EPERM` run-state atomic rename before an unchanged retry passed.  
+**Classification:** acceptance-evidence nuance / transient supported-platform instability.  
+**Finding:** none; retained for A5.4/A6.
+
+### C-A5.1-003
+
+**Source A:** standard current-head CI is green for implemented public repos.  
+**Source B:** specialized release/integration workflows may be PR-only, manually dispatched or path-filtered and therefore absent from that exact head.  
+**Classification:** bounded evidence scope, not a false result.  
+**Finding:** none.
+
+### C-A5.1-004
+
+**Source A:** some supplemental OS/Brain compatibility workflows clone sibling current `main`.  
+**Source B:** immutable release-composition proof requires exact refs.  
+**Higher-authority resolution:** Distribution clean-machine release gates pin exact refs; mutable-main jobs remain supplemental compatibility sentinels only.  
+**Finding:** none.
+
+### C-A5.1-005
+
+Dedicated Video Editor acceptance ran at Skills `47ca55b11850b1432882a1c1c015e0a253d4c1d0`; frozen Skills head is one commit ahead with zero changed files.  
+**Finding:** none.
+
+### C-A5.1-006
+
+Distribution final eight-workflow qualification ran at `7190141935c2e4d8829a859572c87fb9432d83c8`; current Distribution main is one commit ahead with zero changed files.  
+**Finding:** none.
+
+### C-A5.1-007
+
+System current hosted validation again fails before any step, while externally qualified canonical contract code remains unchanged and current post-freeze System changes are audit records only.  
+**Finding:** existing `WSA-2026-003`.
 
 ## 6. Evidence ID register
 
@@ -3922,6 +3972,51 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A4.5-032 | existing Python prerequisite contradiction WSA-035 | same |
 | E-A4.5-033 | current provider/model adapter generation review | same |
 | E-A4.5-034 | inherited missing-enforcement finding matrix | same |
+
+### A5.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.1-001 | fresh frozen-ref/open-PR gate | release/A5.1-TESTS-CI-EVIDENCE.md |
+| E-A5.1-002 | exact-head workflow-run inventory | same |
+| E-A5.1-003 | Connections six no-step hosted jobs | same |
+| E-A5.1-004 | current System two no-step hosted jobs | same |
+| E-A5.1-005 | repeated private-runner limitation | same |
+| E-A5.1-006 | external System contract run 34997085576 | same |
+| E-A5.1-007 | external System contract executed job steps | same |
+| E-A5.1-008 | A0 System baseline to current audit-only diff | same |
+| E-A5.1-009 | OS seven exact-head successful workflows | same |
+| E-A5.1-010 | OS current workflow trigger scopes | same |
+| E-A5.1-011 | OS pinned Four/Five Component refs | same |
+| E-A5.1-012 | OS supplemental mutable-main compatibility clone | same |
+| E-A5.1-013 | Gateway exact-head CI | same |
+| E-A5.1-014 | Gateway package check/test scope | same |
+| E-A5.1-015 | Gateway specialized PR/manual workflows | same |
+| E-A5.1-016 | Brain exact-head CI/contract runs | same |
+| E-A5.1-017 | Brain mutable-current OS compatibility workflow | same |
+| E-A5.1-018 | Memory exact-head Test workflow | same |
+| E-A5.1-019 | Skills exact-head Validate/Readiness/E2E runs | same |
+| E-A5.1-020 | Video Editor acceptance run 34901198219 | same |
+| E-A5.1-021 | Skills Video Editor acceptance tree equivalence | same |
+| E-A5.1-022 | Data exact-head CI and PR/manual release workflows | same |
+| E-A5.1-023 | Multiple Bots exact-head release-evaluation CI | same |
+| E-A5.1-024 | Token six-leg exact-head CI | same |
+| E-A5.1-025 | Automations nine-leg exact-head CI | same |
+| E-A5.1-026 | Connections repository-local test source | same |
+| E-A5.1-027 | Apps no-workflow/no-run current state | same |
+| E-A5.1-028 | Dashboard exact-head cross-platform CI | same |
+| E-A5.1-029 | Distribution exact-head six-leg unit CI | same |
+| E-A5.1-030 | Distribution PR #8 eight-workflow qualification matrix | same |
+| E-A5.1-031 | Distribution final PR/current tree equivalence | same |
+| E-A5.1-032 | clean-machine Agent/Core/Context job steps | same |
+| E-A5.1-033 | Agent run 34997085354 attempt-1 Windows failure | same |
+| E-A5.1-034 | Windows Gateway EPERM atomic rename diagnostic | same |
+| E-A5.1-035 | Agent unchanged attempt-2 success | same |
+| E-A5.1-036 | original default Agent gate attempt-1 success | same |
+| E-A5.1-037 | current Context Ladder candidate attempt-1 success | same |
+| E-A5.1-038 | known-finding versus CI coverage matrix | same |
+| E-A5.1-039 | path-filter/manual-trigger negative space | same |
+| E-A5.1-040 | prior A1 exact-head execution packets | same |
 
 ## 7. Finding allocation ledger
 
