@@ -212,7 +212,7 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A3.7 Automation consent/schedule/replay - 2
-Status: PENDING
+Status: NEXT
 
 ### A3.8 Connection/external effect/approval - 2
 Status: PENDING
