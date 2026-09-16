@@ -1480,6 +1480,10 @@ Add a composed acceptance using exact admitted refs that imports a raw prior-ass
 | C-A3.2-003 | A3.2 | migration-required lifecycle state vs native Memory write admission | yes | WSA-2026-013 | OPEN |
 | C-A3.2-004 | A3.2 | existing-system lifecycle containment vs Memory parent-symlink path | yes | WSA-2026-012 | OPEN |
 | C-A3.2-005 | A3.2 | Brain native destination scope law vs symlinked parent acceptance | yes | WSA-2026-009 | OPEN |
+| C-A3.3-001 | A3.3 | stable run idempotency vs concurrent first-claim race | yes | WSA-2026-008 | OPEN |
+| C-A3.3-002 | A3.3 | authenticated pause/cancel vs stale asynchronous writer | yes | WSA-2026-008 | OPEN |
+| C-A3.3-003 | A3.3 | lifecycle status wording vs real process ownership | yes | WSA-2026-007 | OPEN |
+| C-A3.3-004 | A3.3 | exact-source freshness vs per-run deep-retrieval cache | yes | WSA-2026-045 | OPEN |
 
 ### C-A0.1-001
 
@@ -2093,6 +2097,30 @@ See `WSA-2026-002`.
 **Source A:** Brain adoption must stay inside the selected native root/scope.  
 **Source B:** native destination parent containment is incomplete.  
 **Finding:** existing `WSA-2026-009`.
+
+### C-A3.3-001
+
+**Source A:** client retry/idempotency contract says one key binds one request.  
+**Source B:** concurrent first claims can both become new runs.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A3.3-002
+
+**Source A:** pause/cancel are authenticated privileged durable controls.  
+**Source B:** stale asynchronous execution state can overwrite newer persisted pause/cancel state.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A3.3-003
+
+**Source A:** Gateway lifecycle exposes enable/disable/status semantics.  
+**Source B:** Gateway does not own a real service manager, so lifecycle state can diverge from a live process.  
+**Finding:** existing `WSA-2026-007`.
+
+### C-A3.3-004
+
+**Source A:** exact-source reads are required to revalidate source freshness.  
+**Source B:** repeated per-run deep-context cache replay can bypass a new source read.  
+**Finding:** existing `WSA-2026-045`.
 
 ## 6. Evidence ID register
 
@@ -2846,6 +2874,32 @@ A3.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-047`
 | E-A3.2-020 | Distribution bounded existing-install safe reconcile | same |
 | E-A3.2-021 | existing profile/root/release lock refusal | same |
 | E-A3.2-022 | global no-data-loss/singular-authority assessment | same |
+
+### A3.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.3-001 | fresh A3.3 frozen-ref/open-PR gate | journeys/A3.3-GATEWAY-CHAT-RUN-RESTART.md |
+| E-A3.3-002 | Gateway auth/server request boundary | same |
+| E-A3.3-003 | session/run identity binding | same |
+| E-A3.3-004 | context assembly/runtime tool boundary | same |
+| E-A3.3-005 | Gateway run state machine | same |
+| E-A3.3-006 | Distribution real prove_gateway_goal acceptance | same |
+| E-A3.3-007 | real chat completion ID/run retrieval assertions | same |
+| E-A3.3-008 | real Brain Goal event/binding preservation | same |
+| E-A3.3-009 | default Agent clean-machine run 34997085354 | same |
+| E-A3.3-010 | default Agent hosted Gateway/restart summary | same |
+| E-A3.3-011 | Context Ladder candidate clean-machine run 34994419265 | same |
+| E-A3.3-012 | Context candidate Ubuntu job 104467441328 exact current Gateway evidence | same |
+| E-A3.3-013 | Context candidate Windows/macOS job success | same |
+| E-A3.3-014 | current Gateway exact-head CI 34992616000 | same |
+| E-A3.3-015 | current restart recovery unit test | same |
+| E-A3.3-016 | completed-run/digest restart separation | same |
+| E-A3.3-017 | Gateway concurrency/idempotency/control defect | same |
+| E-A3.3-018 | Gateway lifecycle service-truth defect | same |
+| E-A3.3-019 | deep-context cache freshness limitation | same |
+
+A3.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`.
 
 ## 7. Finding allocation ledger
 
