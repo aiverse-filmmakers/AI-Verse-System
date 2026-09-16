@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 93 / 100.**
+**Current accepted progress: 95 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -262,7 +262,7 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A5.4 Product path/clean machine/current generation - 2
-Status: NEXT
+Status: COMPLETE
 
 A5 exit:
 Every "accepted/ready/supported/public beta" claim is tied to evidence or a finding.
@@ -272,7 +272,7 @@ Every "accepted/ready/supported/public beta" claim is tied to evidence or a find
 # A6 - Whole-system synthesis and verdict - 5 points
 
 ### A6.1 Global contradiction register - 1
-Status: PENDING
+Status: NEXT
 
 ### A6.2 Root-cause/finding graph - 1
 Status: PENDING
