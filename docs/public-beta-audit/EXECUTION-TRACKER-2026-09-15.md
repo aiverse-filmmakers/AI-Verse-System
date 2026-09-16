@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 98 / 100.**
+**Current accepted progress: 99 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -288,10 +288,10 @@ Allowed verdicts:
 - GO FOR CONTROLLED DOGFOOD
 
 ### A6.4 Ordered repair program - 1
-Status: NEXT
+Status: COMPLETE
 
 ### A6.5 Audit freeze/canonical propagation - 1
-Status: PENDING
+Status: NEXT
 
 A6 exit:
 - final audit snapshot frozen;
