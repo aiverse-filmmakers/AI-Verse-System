@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-050`.
+**Next unused finding ID:** `WSA-2026-052`.
 
 ## 2. Allowed classifications
 
@@ -116,21 +116,23 @@ Rules:
 | WSA-2026-047 | MEDIUM | PROVEN | OPEN | migration release evidence / cross-owner persistence | AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, ai-verse-distribution | A3.2 |
 | WSA-2026-048 | MEDIUM | PROVEN | OPEN | learning release evidence / cross-owner user journey | AI-Verse-Gateway, AI-Verse-OS, AI-Verse-Brain, AI-Verse-Skills, ai-verse-distribution | A3.5 |
 | WSA-2026-049 | MEDIUM | PROVEN | OPEN | system isolation release evidence / multi-root journey | ai-verse-distribution, AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, AI-Verse-Multiple-Bots, AI-Verse-Automations, ai-verse-token | A3.10 |
+| WSA-2026-050 | MEDIUM | PROVEN | OPEN | authentication availability / pre-auth resource exhaustion | AI-Verse-Gateway | A4.1 |
+| WSA-2026-051 | HIGH | PROVEN | OPEN | SSRF / DNS rebinding / credential-bearing provider edge | AI-Verse-Connections | A4.1 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 4 |
-| HIGH | 20 |
-| MEDIUM | 15 |
+| HIGH | 21 |
+| MEDIUM | 16 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 49 |
+| PROVEN | 51 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 49 |
+| OPEN | 51 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1437,6 +1439,54 @@ Add immutable clean-machine acceptance that creates Systems A and B in separate 
 
 ---
 
+### WSA-2026-050 - invalid bearer requests can exhaust Gateway CPU before rate limiting
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.1  
+**Root area:** authentication availability / pre-auth resource exhaustion  
+**Affected repo:** AI-Verse-Gateway
+
+**Summary:**  
+Gateway performs synchronous scrypt bearer verification before its only request rate limiter. Invalid bearer requests never reach that principal-scoped limiter, so an unauthenticated caller can repeatedly force event-loop KDF work. Default loopback binding reduces exposure, but supported remote mode remains reachable behind a TLS proxy.
+
+**Contradiction:** C-A4.1-001.
+
+**Primary evidence:** E-A4.1-002 through E-A4.1-005.
+
+**Impact:**  
+Unauthenticated local callers, or remote callers in supported remote mode, can degrade or deny Gateway service without bypassing authentication.
+
+**Required closure evidence:**  
+Add bounded pre-auth rate limiting, avoid unbounded synchronous KDF work on the request event loop, define proxy/client-address semantics, and prove invalid-bearer flooding does not starve authenticated traffic.
+
+---
+
+### WSA-2026-051 - Connections DNS rebinding can bypass private-network containment at the credential-bearing fetch edge
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.1  
+**Root area:** SSRF / DNS rebinding / credential-bearing provider edge  
+**Affected repo:** AI-Verse-Connections
+
+**Summary:**  
+Connections validates private-network policy using a standalone DNS lookup, then performs ordinary fetch which can resolve the hostname again. Generic API and MCP attach trusted credentials before this fetch. A controlled hostname can therefore pass the public-address check and later resolve to a private address for the actual credential-bearing connection.
+
+**Contradiction:** C-A4.1-002.
+
+**Primary evidence:** E-A4.1-012 through E-A4.1-016.
+
+**Impact:**  
+Potential private/internal network SSRF and trusted bearer/header credential disclosure through a supported provider connection.
+
+**Required closure evidence:**  
+Pin outbound connections to policy-approved addresses or equivalent non-rebinding resolver/dispatcher behavior, validate actual remote address, preserve TLS hostname verification, and add deterministic rebinding tests for Generic API and MCP.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1557,6 +1607,11 @@ Add immutable clean-machine acceptance that creates Systems A and B in separate 
 | C-A3.10-003 | A3.10 | lifecycle/recovery serialization vs stale/concurrent writers | yes | WSA-2026-008 / WSA-2026-017 / WSA-2026-034 | OPEN |
 | C-A3.10-004 | A3.10 | singular migration authority vs non-atomic Memory handoff | yes | WSA-2026-014 | OPEN |
 | C-A3.10-005 | A3.10 | two-system A/B journey requirement vs one-root acceptance inventory | yes | WSA-2026-049 | OPEN |
+| C-A4.1-001 | A4.1 | authenticated rate-limit claim vs pre-auth synchronous KDF work | yes | WSA-2026-050 | OPEN |
+| C-A4.1-002 | A4.1 | private-network deny law vs independent DNS resolutions | yes | WSA-2026-051 | OPEN |
+| C-A4.1-003 | A4.1 | owner-root confinement vs destructive/symlink path findings | yes | WSA-2026-006 / WSA-2026-009 / WSA-2026-012 / WSA-2026-016 / WSA-2026-029 / WSA-2026-033 / WSA-2026-039 | OPEN |
+| C-A4.1-004 | A4.1 | authenticated/permission-bound control vs local/domain authority findings | yes | WSA-2026-020 / WSA-2026-022 / WSA-2026-023 / WSA-2026-030 / WSA-2026-032 / WSA-2026-038 / WSA-2026-040 | OPEN |
+| C-A4.1-005 | A4.1 | secret boundary vs supported failure/origin paths | yes | WSA-2026-031 / WSA-2026-036 / WSA-2026-051 | OPEN |
 
 ### C-A0.1-001
 
@@ -2334,6 +2389,33 @@ See `WSA-2026-002`.
 **Source A:** A3.10 explicitly requires two-system A/B isolation.  
 **Source B:** exhaustive Distribution product acceptance contains only one-root Agent/Core acceptance scripts.  
 **Finding:** new `WSA-2026-049`.
+
+### C-A4.1-001
+
+**Source A:** Gateway exposes a principal-scoped request rate limiter.  
+**Source B:** bearer verification performs synchronous scrypt before the limiter and invalid credentials never enter the limiter.  
+**Finding:** new `WSA-2026-050`.
+
+### C-A4.1-002
+
+**Source A:** Connections blocks private/reserved network destinations by DNS/IP policy.  
+**Source B:** policy DNS resolution and actual global fetch resolution are separate, after trusted credentials are attached.  
+**Finding:** new `WSA-2026-051`.
+
+### C-A4.1-003
+
+Existing destructive/path confinement findings remain active across Gateway, Brain, Memory, Skills, Connections and Dashboard.  
+**Findings:** `WSA-2026-006`, `009`, `012`, `016`, `029`, `033`, `039`.
+
+### C-A4.1-004
+
+Existing trusted-authority/isolation defects remain active in Data, Multiple Bots, Connections and Dashboard.  
+**Findings:** `WSA-2026-020`, `022`, `023`, `030`, `032`, `038`, `040`.
+
+### C-A4.1-005
+
+Existing credential/failure-path findings remain active alongside the new DNS-rebinding path.  
+**Findings:** `WSA-2026-031`, `036`, `051`.
 
 ## 6. Evidence ID register
 
@@ -3311,6 +3393,31 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A3.10-024 | destructive lifecycle BLOCKER set | same |
 | E-A3.10-025 | lifecycle/concurrency/recovery HIGH findings | same |
 
+### A4.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.1-001 | fresh 14-repo A4.1 freeze | adversarial/A4.1-SECURITY-PATH-SECRET-REMOTE.md |
+| E-A4.1-002 | Gateway loopback/remote bind guard | same |
+| E-A4.1-003 | Gateway request order, bearer before rate limiter | same |
+| E-A4.1-004 | Gateway synchronous scrypt verifier | same |
+| E-A4.1-005 | no pre-auth invalid-bearer limiter/test found | same |
+| E-A4.1-006 | Gateway path/auth/permission A1 evidence | same |
+| E-A4.1-007 | Brain symlink/permission boundary | same |
+| E-A4.1-008 | Memory lifecycle/path/secret boundary | same |
+| E-A4.1-009 | Skills lifecycle path boundary | same |
+| E-A4.1-010 | Data trusted-scope provenance finding | same |
+| E-A4.1-011 | Multiple Bots operator/Worker authority findings | same |
+| E-A4.1-012 | Connections private-network screening | same |
+| E-A4.1-013 | Connections shared boundedFetch implementation | same |
+| E-A4.1-014 | Generic API credential-bearing fetch | same |
+| E-A4.1-015 | MCP credential-bearing fetch | same |
+| E-A4.1-016 | no DNS-rebinding protection/test found | same |
+| E-A4.1-017 | Connections path/origin/final-edge findings | same |
+| E-A4.1-018 | Distribution secret-redaction finding | same |
+| E-A4.1-019 | Dashboard local-auth/root/subscription findings | same |
+| E-A4.1-020 | whole-system A2.4 identity/auth graph | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -3364,7 +3471,9 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-047 | allocated A3.2 |
 | WSA-2026-048 | allocated A3.5 |
 | WSA-2026-049 | allocated A3.10 |
-| WSA-2026-050 | **NEXT UNUSED** |
+| WSA-2026-050 | allocated A4.1 |
+| WSA-2026-051 | allocated A4.1 |
+| WSA-2026-052 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
