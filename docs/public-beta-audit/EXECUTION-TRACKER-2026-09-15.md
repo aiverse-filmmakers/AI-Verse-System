@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 83 / 100.**
+**Current accepted progress: 85 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -240,10 +240,10 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A4.4 Privacy/visibility/provenance leakage - 2
-Status: NEXT
+Status: COMPLETE
 
 ### A4.5 Scale/current-generation/negative-space - 2
-Status: PENDING
+Status: NEXT
 
 A4 exit:
 No unexamined high-risk negative space remains for current public-beta claims.
