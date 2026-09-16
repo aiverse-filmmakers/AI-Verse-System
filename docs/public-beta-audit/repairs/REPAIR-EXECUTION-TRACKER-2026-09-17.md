@@ -171,7 +171,7 @@ Acceptance:
 6. transition the finding register only after closure evidence exists;
 7. mark exactly one next finding ACTIVE.
 
-## 5. Current task — R0.1 / WSA-2026-006
+## 5. Most recently completed task — R0.1 / WSA-2026-006
 
 **Baseline Gateway SHA:** `46c15ee58b028dd7fb8b310327ea705ef618805e`  
 **Baseline state:** unchanged from final audit freeze; no open Gateway PRs at repair start.
@@ -212,3 +212,11 @@ Repair requirements:
 ### R0.2 / WSA-2026-012 - ACTIVE
 
 Next dependency-safe task: AI-Verse-Memory lifecycle parent-symlink containment. No implementation has begun in this tracker update.
+
+## 7. Current task — R0.2 / WSA-2026-012
+
+**Owner:** `AI-Verse-Memory`  
+**Status:** ACTIVE  
+**Execution state:** not yet implemented. The next repair session must first recheck Memory main/open PRs against the audited finding evidence before creating the owner repair branch.
+
+No later finding may become ACTIVE until WSA-2026-012 reaches CLOSED or an explicitly recorded BLOCKED state.
