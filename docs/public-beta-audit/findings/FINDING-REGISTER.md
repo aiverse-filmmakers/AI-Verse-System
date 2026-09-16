@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-045`.
+**Next unused finding ID:** `WSA-2026-046`.
 
 ## 2. Allowed classifications
 
@@ -111,6 +111,7 @@ Rules:
 | WSA-2026-042 | MEDIUM | PROVEN | OPEN | canonical ownership / projection truth | AI-Verse-Dashboard | A1.13 |
 | WSA-2026-043 | MEDIUM | PROVEN | OPEN | release contract consistency / machine-readable acceptance | AI-Verse-System | A1.14 |
 | WSA-2026-044 | MEDIUM | PROVEN | OPEN | meta authority / living-spec synchronization / current release truth | AI-Verse-System | A1.14 |
+| WSA-2026-045 | MEDIUM | PROVEN | OPEN | retrieval freshness / provenance cache invalidation | AI-Verse-Gateway | A2.5 |
 
 Current counts:
 
@@ -118,14 +119,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 20 |
-| MEDIUM | 10 |
+| MEDIUM | 11 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 44 |
+| PROVEN | 45 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 44 |
+| OPEN | 45 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1312,6 +1313,30 @@ Synchronize current System truth from exact accepted owner/release refs, update 
 
 ---
 
+### WSA-2026-045 - repeated Gateway deep-context reads can replay stale exact-source evidence
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A2.5  
+**Root area:** retrieval freshness / provenance cache invalidation  
+**Affected repos:** AI-Verse-Gateway
+
+**Summary:**  
+Gateway exact-source reads correctly revalidate Memory/Gateway source freshness during a real owner read, but the per-run deep-context dedupe cache keys only on the retrieval request. A repeated identical request can return the prior result without re-running source-version/fingerprint validation.
+
+**Contradiction:** C-A2.5-001.
+
+**Primary evidence:** E-A2.5-006, E-A2.5-008, E-A2.5-009, E-A2.5-010, E-A2.5-011.
+
+**Impact:**  
+Within one long-running run, an exact-source request repeated after the underlying source changes can receive stale prior exact content instead of the current owner result or a stale response.
+
+**Required closure evidence:**  
+Bind exact-source cache entries to validated source identity/version/fingerprint, revalidate before replay, return stale or perform a fresh owner read after source drift, and add Memory-source and Gateway-external-source drift regressions.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1378,6 +1403,10 @@ Synchronize current System truth from exact accepted owner/release refs, update 
 | C-A2.4-005 | A2.4 | Connections credential-origin binding bypass on reauth | yes | WSA-2026-031 | OPEN |
 | C-A2.4-006 | A2.4 | Dashboard local projection server lacks authenticated principal | yes | WSA-2026-040 | OPEN |
 | C-A2.4-007 | A2.4 | Dashboard system/workspace identity drift | yes | WSA-2026-038 / WSA-2026-039 | OPEN |
+| C-A2.5-001 | A2.5 | exact-source freshness vs Gateway retrieval cache | yes | WSA-2026-045 | OPEN |
+| C-A2.5-002 | A2.5 | Dashboard projection-only vs synthetic owner-like semantics | yes | WSA-2026-042 | OPEN |
+| C-A2.5-003 | A2.5 | Data trusted-read scope vs forgeable provenance | yes | WSA-2026-020 | OPEN |
+| C-A2.5-004 | A2.5 | Skills pinned read vs generation retention | yes | WSA-2026-018 | OPEN |
 
 ### C-A0.1-001
 
@@ -1826,6 +1855,31 @@ See `WSA-2026-002`.
 **Source A:** Dashboard systemId/workspaceId are intended stable authority/context boundaries.  
 **Source B:** registered root replacement can rebind a systemId and WebSocket resubscribe can retain the prior workspace listener.  
 **Findings:** existing `WSA-2026-038`, `WSA-2026-039`.
+
+### C-A2.5-001
+
+**Source A:** Memory exact-source retrieval revalidates current source version and fails stale.  
+**Source B:** Gateway external exact fallback revalidates source fingerprint and fails stale.  
+**Source C:** Gateway repeated deep-context request cache returns the prior result without owner/fingerprint revalidation.  
+**Finding:** new `WSA-2026-045`.
+
+### C-A2.5-002
+
+**Source A:** Dashboard is projection-only.  
+**Source B:** current Health/Inbox read models synthesize owner-like semantics.  
+**Finding:** existing `WSA-2026-042`.
+
+### C-A2.5-003
+
+**Source A:** Data native reads require TrustedDataRoot-derived scope.  
+**Source B:** public client accepts structurally forgeable scope provenance.  
+**Finding:** existing `WSA-2026-020`.
+
+### C-A2.5-004
+
+**Source A:** Skills execution pins an immutable generation.  
+**Source B:** retention can remove a generation while a live execution still relies on it.  
+**Finding:** existing `WSA-2026-018`.
 
 ## 6. Evidence ID register
 
@@ -2430,6 +2484,29 @@ A2.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`
 
 A2.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
 
+### A2.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.5-001 | fresh A2.5 frozen-ref/open-PR gate | seams/A2.5-READ-RETRIEVAL-CONTEXT-DATA-FLOWS.md |
+| E-A2.5-002 | OS current-context/direction-owner read boundary | same |
+| E-A2.5-003 | Gateway progressive owner-context assembly | same |
+| E-A2.5-004 | Gateway context governor/fold/raw-tail preservation | same |
+| E-A2.5-005 | Gateway deep-context trusted-field rejection | same |
+| E-A2.5-006 | Memory progressive recall and exact-source freshness | same |
+| E-A2.5-007 | Memory digest/raw-transcript authority separation | same |
+| E-A2.5-008 | Gateway external exact-source visibility/fingerprint checks | same |
+| E-A2.5-009 | direct Gateway deep-context cache implementation | same |
+| E-A2.5-010 | test proving equivalent repeated read skips owner | same |
+| E-A2.5-011 | no exact-source cache invalidation regression | same |
+| E-A2.5-012 | Brain bounded retrieval/current-context semantics | same |
+| E-A2.5-013 | Skills exact generation/digest read binding | same |
+| E-A2.5-014 | Data bounded query/read adapters/provenance | same |
+| E-A2.5-015 | Dashboard projection/path/read-model behavior | same |
+| E-A2.5-016 | Apps plan-only read relationships | same |
+| E-A2.5-017 | provenance truth-class synthesis | same |
+| E-A2.5-018 | scope/visibility synthesis | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -2478,7 +2555,8 @@ A2.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`
 | WSA-2026-042 | allocated A1.13 |
 | WSA-2026-043 | allocated A1.14 |
 | WSA-2026-044 | allocated A1.14 |
-| WSA-2026-045 | **NEXT UNUSED** |
+| WSA-2026-045 | allocated A2.5 |
+| WSA-2026-046 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
