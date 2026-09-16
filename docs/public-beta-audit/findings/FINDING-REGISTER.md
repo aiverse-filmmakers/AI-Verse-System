@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-061`.
+**Next unused finding ID:** `WSA-2026-063`.
 
 ## 2. Allowed classifications
 
@@ -127,6 +127,8 @@ Rules:
 | WSA-2026-058 | MEDIUM | PROVEN | OPEN | long-lived runtime state scale / idempotency indexing | AI-Verse-Gateway | A4.5 |
 | WSA-2026-059 | MEDIUM | PROVEN | OPEN | external-effect history scale / receipt indexing / budget lookup | AI-Verse-Connections | A4.5 |
 | WSA-2026-060 | LOW | PROVEN | OPEN | machine-readable release compatibility / blocker truth | ai-verse-distribution | A5.2 |
+| WSA-2026-061 | LOW | PROVEN | OPEN | release-acceptance documentation / version and CI status truth | ai-verse-token | A5.3 |
+| WSA-2026-062 | LOW | PROVEN | OPEN | profile composition documentation / release scope truth | AI-Verse-Multiple-Bots | A5.3 |
 
 Current counts:
 
@@ -135,13 +137,13 @@ Current counts:
 | BLOCKER | 4 |
 | HIGH | 24 |
 | MEDIUM | 21 |
-| LOW | 10 |
+| LOW | 12 |
 | INFO | 1 |
-| PROVEN | 60 |
+| PROVEN | 62 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 60 |
+| OPEN | 62 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1713,6 +1715,54 @@ Remove the obsolete Agent blocker, retain the real Connections/Dashboard/Apps bl
 
 ---
 
+### WSA-2026-061 - Token beta.3 release-acceptance document retains beta.1 and pre-CI status text
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A5.3  
+**Root area:** release-acceptance documentation / version and CI status truth  
+**Affected repo:** ai-verse-token
+
+**Summary:**  
+Token's current release-acceptance document declares public-beta.3 while its verification section still describes public-beta.1 evidence and says beta.3 hosted CI remains a future seal condition. Exact-head beta.3 CI has already passed all six configured cross-platform jobs.
+
+**Contradiction:** C-A5.3-007.
+
+**Primary evidence:** E-A5.3-015 through E-A5.3-017.
+
+**Impact:**  
+Release reviewers can derive the wrong answer about which version the listed test counts apply to and whether beta.3 hosted qualification is still pending. Runtime behavior is unaffected.
+
+**Required closure evidence:**  
+Make version labels internally consistent with beta.3, distinguish inherited beta.1 counts if intentionally retained, replace future CI wording with completed exact run/job evidence, and add bounded release-doc/version-status consistency coverage where practical.
+
+---
+
+### WSA-2026-062 - Multiple Bots release acceptance incorrectly places Connections in the Agent profile
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A5.3  
+**Root area:** profile composition documentation / release scope truth  
+**Affected repo:** AI-Verse-Multiple-Bots
+
+**Summary:**  
+The current Multiple Bots public-beta release-acceptance document says the Agent profile composition includes Connections. Distribution's canonical Agent profile excludes Connections; Connections belongs to Full.
+
+**Contradiction:** C-A5.3-008.
+
+**Primary evidence:** E-A5.3-012 through E-A5.3-014.
+
+**Impact:**  
+Maintainers can incorrectly infer that Connections is required for the current Agent release or was exercised by Agent composed acceptance. Distribution runtime composition is unaffected.
+
+**Required closure evidence:**  
+Correct the Agent profile sentence, preserve Connections only as the owner of external-connection authority where relevant, and regression-check repeated profile composition against canonical Distribution profile truth if composition is retained in component docs.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1881,6 +1931,16 @@ Remove the obsolete Agent blocker, retain the real Connections/Dashboard/Apps bl
 | C-A5.2-005 | A5.2 | finalized manifest identity vs future anti-repointing enforcement | no | none | NEGATIVE SPACE / CURRENT MANIFESTS PRESERVED |
 | C-A5.2-006 | A5.2 | Full release blocker vs stale compatibility blocker | yes | WSA-2026-060 | OPEN |
 | C-A5.2-007 | A5.2 | System latest-candidate current truth vs Distribution | yes | WSA-2026-044 | OPEN |
+| C-A5.3-001 | A5.3 | audit entrypoint says A0.1 vs tracker at A5.3 | yes | WSA-2026-004 | OPEN |
+| C-A5.3-002 | A5.3 | System Connections spec says not started vs executable live Connections | yes | WSA-2026-002 | OPEN |
+| C-A5.3-003 | A5.3 | System living spec vs latest accepted owner/release truth | yes | WSA-2026-044 | OPEN |
+| C-A5.3-004 | A5.3 | Distribution Agent Python prose vs executable compatibility | yes | WSA-2026-035 | OPEN |
+| C-A5.3-005 | A5.3 | Distribution architecture/roadmap release status vs machine truth | yes | WSA-2026-037 | OPEN |
+| C-A5.3-006 | A5.3 | Full compatibility blocker vs released Agent | yes | WSA-2026-060 | OPEN |
+| C-A5.3-007 | A5.3 | Token beta.3 acceptance status vs beta.1/pre-CI verification section | yes | WSA-2026-061 | OPEN |
+| C-A5.3-008 | A5.3 | Multiple Bots Agent composition vs Distribution profile | yes | WSA-2026-062 | OPEN |
+| C-A5.3-009 | A5.3 | component safety/readiness prose vs known executable defects | yes | existing technical findings | DEDUPED |
+| C-A5.3-010 | A5.3 | dated historical snapshots vs later implementation | no | none | HISTORICAL / BOUNDED |
 
 ### C-A0.1-001
 
@@ -2901,6 +2961,56 @@ Finalized Agent manifests are empirically unchanged from their final accepted/fi
 
 Distribution's newest accepted explicit Agent candidate is Context Ladder, while System current-state propagation remains incomplete.  
 **Finding:** existing `WSA-2026-044`.
+
+### C-A5.3-001
+
+The audit README still says execution begins at A0.1 while the canonical tracker has advanced through A5.2 and A5.3 is active.  
+**Finding:** existing `WSA-2026-004`.
+
+### C-A5.3-002
+
+System's Connections component spec still says implementation has not started while frozen live Connections is an executable beta.1 candidate.  
+**Finding:** existing `WSA-2026-002`.
+
+### C-A5.3-003
+
+System current-state surfaces remain incompletely propagated after later accepted owner/release evolution including Context Ladder and current component heads.  
+**Finding:** existing `WSA-2026-044`.
+
+### C-A5.3-004
+
+Distribution README says released Agent requires Python 3.9+, while machine compatibility/preflight require Python 3.11.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A5.3-005
+
+Distribution architecture/roadmap retain stale Agent blocked/incomplete wording after the immutable Agent release merged.  
+**Finding:** existing `WSA-2026-037`.
+
+### C-A5.3-006
+
+Full compatibility metadata says Agent lacks an admitted immutable release while the same catalog defaults to released Agent.  
+**Finding:** existing `WSA-2026-060`.
+
+### C-A5.3-007
+
+Token's beta.3 acceptance document contains beta.1 verification labels and future-tense beta.3 hosted-CI status despite exact-head run `34778240376` succeeding.  
+**Finding:** new `WSA-2026-061`.
+
+### C-A5.3-008
+
+Multiple Bots current release acceptance places Connections in the Agent component list; canonical Distribution Agent excludes Connections and Full includes it.  
+**Finding:** new `WSA-2026-062`.
+
+### C-A5.3-009
+
+Current component documentation can promise safety/readiness behavior later disproved by executable negative-space findings. Those contradictions remain evidence for the existing technical findings and are not duplicated as prose-only defects.  
+**Finding:** existing implementation findings, deduped.
+
+### C-A5.3-010
+
+Explicitly dated or snapshot-scoped status/release evidence may be older than current implementation without being a current-state contradiction.  
+**Finding:** none.
 
 ## 6. Evidence ID register
 
@@ -4132,6 +4242,44 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A5.2-040 | System release/current-candidate evidence | same |
 | E-A5.2-041 | frozen current-head/newest candidate comparison | same |
 
+### A5.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.3-001 | fresh A5.3 ref/open-PR gate | release/A5.3-DOCUMENTATION-STATUS-CONTRADICTION-SCAN.md |
+| E-A5.3-002 | A5.3 program scope | same |
+| E-A5.3-003 | OS README/current public-beta status scan | same |
+| E-A5.3-004 | OS known capability metadata drift | same |
+| E-A5.3-005 | Gateway README/architecture vs existing findings | same |
+| E-A5.3-006 | Brain release docs/current identity vs WSA-011 | same |
+| E-A5.3-007 | Memory README/architecture vs existing findings | same |
+| E-A5.3-008 | Skills dated status/shipping scope | same |
+| E-A5.3-009 | Skills current public-beta contract | same |
+| E-A5.3-010 | Data dated release-acceptance scope | same |
+| E-A5.3-011 | Multiple Bots current README | same |
+| E-A5.3-012 | Multiple Bots current release acceptance | same |
+| E-A5.3-013 | Multiple Bots machine-readable release acceptance | same |
+| E-A5.3-014 | Distribution canonical Agent profile list | same |
+| E-A5.3-015 | Token beta.3 package/current identity | same |
+| E-A5.3-016 | Token current packaging/release-acceptance text | same |
+| E-A5.3-017 | Token exact-head CI run 34778240376 | same |
+| E-A5.3-018 | Automations README/acceptance scan | same |
+| E-A5.3-019 | Connections README/current claims | same |
+| E-A5.3-020 | Apps README status | same |
+| E-A5.3-021 | Dashboard current-direction README | same |
+| E-A5.3-022 | Dashboard Mission Control tracker audit override | same |
+| E-A5.3-023 | Dashboard proposed architecture labeling | same |
+| E-A5.3-024 | Distribution README | same |
+| E-A5.3-025 | Distribution architecture/roadmap | same |
+| E-A5.3-026 | Distribution machine release/compatibility truth | same |
+| E-A5.3-027 | System audit README current text | same |
+| E-A5.3-028 | System Connections component spec | same |
+| E-A5.3-029 | System Public Beta tracker | same |
+| E-A5.3-030 | System Final Blueprint/current synthesis | same |
+| E-A5.3-031 | System living-spec propagation evidence | same |
+| E-A5.3-032 | finding-register dedupe map | same |
+| E-A5.3-033 | historical-vs-current classification pass | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -4196,7 +4344,9 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-058 | allocated A4.5 |
 | WSA-2026-059 | allocated A4.5 |
 | WSA-2026-060 | allocated A5.2 |
-| WSA-2026-061 | **NEXT UNUSED** |
+| WSA-2026-061 | allocated A5.3 |
+| WSA-2026-062 | allocated A5.3 |
+| WSA-2026-063 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 

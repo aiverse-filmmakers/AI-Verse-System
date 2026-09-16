@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 91 / 100.**
+**Current accepted progress: 93 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -259,10 +259,10 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A5.3 Documentation/status contradiction scan - 2
-Status: NEXT
+Status: COMPLETE
 
 ### A5.4 Product path/clean machine/current generation - 2
-Status: PENDING
+Status: NEXT
 
 A5 exit:
 Every "accepted/ready/supported/public beta" claim is tied to evidence or a finding.
