@@ -1977,6 +1977,27 @@ Add immutable clean-machine acceptance that begins through `aiverse start`, conf
 | C-A5.4-009 | A5.4 | final Agent PR attempt-1 Windows failure vs unchanged successful rerun | no | none | EVIDENCE LIMITATION |
 | C-A5.4-010 | A5.4 | current model/provider generation vs hard-coded obsolete provider | no | none | VERIFIED ADAPTER/CONFIG DRIVEN |
 
+### A6.3 whole-system verdict
+
+A6.3 issues the system-level verdict:
+
+# **NO-GO**
+
+for owner dogfood, Dashboard MC1.4 resumption and any claim that the frozen audited whole-system snapshot is ready for controlled public-beta use.
+
+Basis:
+
+- 4 PROVEN / OPEN BLOCKER findings;
+- 24 PROVEN / OPEN HIGH findings;
+- canonical tracker rule requiring repair, re-audit, closure and bounded final recheck before dogfood;
+- A6.2 concentration of all BLOCKER/HIGH findings in trusted-boundary binding, atomic canonical mutation and authoritative lifecycle truth.
+
+This verdict opens no new finding and changes no finding state/severity/confidence.
+
+Canonical verdict:
+
+`docs/public-beta-audit/synthesis/A6.3-WHOLE-SYSTEM-VERDICT.md`
+
 ### A6.2 root-cause synthesis result
 
 A6.2 groups the 63 stable findings into **9 primary architectural root-cause families** without merging or closing findings.
@@ -4477,6 +4498,25 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A6.2-011 | RC-07 6-finding composed qualification family | same |
 | E-A6.2-012 | root-to-root relationship graph | same |
 | E-A6.2-013 | whole-system laws G1-G10 | same |
+
+### A6.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.3-001 | fresh A6.3 drift/open-PR gate | synthesis/A6.3-WHOLE-SYSTEM-VERDICT.md |
+| E-A6.3-002 | canonical allowed verdicts | same |
+| E-A6.3-003 | canonical dogfood gate | same |
+| E-A6.3-004 | canonical 4/24/22/12/1 finding counts | same |
+| E-A6.3-005 | WSA-006 Gateway destructive purge blocker | same |
+| E-A6.3-006 | WSA-012 Memory destructive containment blocker | same |
+| E-A6.3-007 | WSA-016 Skills controller containment blocker | same |
+| E-A6.3-008 | WSA-029 Connections destructive purge blocker | same |
+| E-A6.3-009 | A6.2 RC-01/02/03 severe-risk concentration | same |
+| E-A6.3-010 | A5.4 real product-path verification | same |
+| E-A6.3-011 | A5.2 immutable release identity | same |
+| E-A6.3-012 | A6.1 63-family dedupe proof | same |
+| E-A6.3-013 | current composed-acceptance gaps | same |
+| E-A6.3-014 | product refs unchanged through verdict | same |
 
 ## 7. Finding allocation ledger
 
