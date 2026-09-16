@@ -1516,6 +1516,10 @@ Add one composed acceptance at exact admitted refs that creates a real Brain Goa
 | C-A3.5-004 | A3.5 | Goal operation idempotency vs cross-Goal concurrent admission | yes | WSA-2026-010 | OPEN |
 | C-A3.6-001 | A3.6 | sensitive operator controls vs caller actor authority | yes | WSA-2026-022 | OPEN |
 | C-A3.6-002 | A3.6 | managed Worker workspace binding vs generic Worker coordination | yes | WSA-2026-023 | OPEN |
+| C-A3.7-001 | A3.7 | stable invocation replay vs concurrent Gateway first-claim admission | yes | WSA-2026-008 | OPEN |
+| C-A3.7-002 | A3.7 | Automations canonical store ownership vs foreign SQLite adoption | yes | WSA-2026-026 | OPEN |
+| C-A3.7-003 | A3.7 | one canonical scheduler authority vs post-setup legacy definition | yes | WSA-2026-027 | OPEN |
+| C-A3.7-004 | A3.7 | Automations owner lifecycle vs OS attachment state | yes | WSA-2026-028 | OPEN |
 
 ### C-A0.1-001
 
@@ -2197,6 +2201,30 @@ See `WSA-2026-002`.
 **Source A:** managed Team Run Workers are strictly bound to Task/run/workspace.  
 **Source B:** generic Worker delegation/message paths can cross workspace before execution rejection and can mutate the foreign Worker.  
 **Finding:** existing `WSA-2026-023`.
+
+### C-A3.7-001
+
+**Source A:** Automations retries/replays with one stable invocation identity.  
+**Source B:** Gateway simultaneous first claims can both create runs.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A3.7-002
+
+**Source A:** Automations scheduler SQLite is canonical owner state.  
+**Source B:** owner lifecycle can adopt/mutate a foreign SQLite without proving Automations ownership.  
+**Finding:** existing `WSA-2026-026`.
+
+### C-A3.7-003
+
+**Source A:** one canonical scheduler authority is required.  
+**Source B:** a legacy definition appearing after setup does not fence the active Automations scheduler.  
+**Finding:** existing `WSA-2026-027`.
+
+### C-A3.7-004
+
+**Source A:** OS attachment metadata should reflect Automations lifecycle state.  
+**Source B:** component enable/disable/uninstall and OS registration can diverge.  
+**Finding:** existing `WSA-2026-028`.
 
 ## 6. Evidence ID register
 
@@ -3057,6 +3085,35 @@ A3.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`
 | E-A3.6-023 | WSA-023 generic Worker workspace defect | same |
 
 A3.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
+
+### A3.7 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.7-001 | fresh A3.7 frozen-ref/open-PR gate | journeys/A3.7-AUTOMATION-CONSENT-SCHEDULE-REPLAY.md |
+| E-A3.7-002 | Gateway Automation Recommendation Boundary run 34990219479 | same |
+| E-A3.7-003 | recommendation job 104452631004 no schedule/trigger | same |
+| E-A3.7-004 | recurring-consent job 104452630613 | same |
+| E-A3.7-005 | exact current Automations ref caaed83b in composition | same |
+| E-A3.7-006 | direct consent creates one canonical Automation/trigger | same |
+| E-A3.7-007 | no-consent repetition suppressed | same |
+| E-A3.7-008 | actual owner run_now trigger firing | same |
+| E-A3.7-009 | scheduled Gateway run completion/provenance | same |
+| E-A3.7-010 | Gateway restart exact wake replay -> same run | same |
+| E-A3.7-011 | changed wake replay -> HTTP 409 | same |
+| E-A3.7-012 | canonical schedule/trigger provenance verification | same |
+| E-A3.7-013 | OS Automation Consent run 34987737337 | same |
+| E-A3.7-014 | OS job 104444093471 exact owner schedule creation | same |
+| E-A3.7-015 | Distribution installed Agent Automations -> Multiple Bots wake | same |
+| E-A3.7-016 | exact current Automations CI 34875408692 | same |
+| E-A3.7-017 | stable retry/unknown recovery semantics | same |
+| E-A3.7-018 | event/webhook replay binding | same |
+| E-A3.7-019 | WSA-008 concurrent Gateway replay defect | same |
+| E-A3.7-020 | WSA-026 store ownership defect | same |
+| E-A3.7-021 | WSA-027 legacy dual-authority defect | same |
+| E-A3.7-022 | WSA-028 OS attachment/lifecycle divergence | same |
+
+A3.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
 
 ## 7. Finding allocation ledger
 
