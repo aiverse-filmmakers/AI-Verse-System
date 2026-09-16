@@ -1525,6 +1525,8 @@ Add one composed acceptance at exact admitted refs that creates a real Brain Goa
 | C-A3.8-003 | A3.8 | complete final-edge authority law vs partial recheck | yes | WSA-2026-032 | OPEN |
 | C-A3.8-004 | A3.8 | admitted Generic API path prefix vs normalized provider path | yes | WSA-2026-033 | OPEN |
 | C-A3.8-005 | A3.8 | expected hosted current-head execution vs private-repo Actions infrastructure | yes | WSA-2026-003 | OPEN |
+| C-A3.9-001 | A3.9 | trusted ACTUAL law vs generic actual-charge admission | yes | WSA-2026-024 | OPEN |
+| C-A3.9-002 | A3.9 | failed pricing refresh vs visible partial snapshot batch | yes | WSA-2026-025 | OPEN |
 
 ### C-A0.1-001
 
@@ -2260,6 +2262,18 @@ See `WSA-2026-002`.
 **Source A:** exact-head hosted tests are required for strong release evidence.  
 **Source B:** frozen Connections Actions jobs terminate without executing steps.  
 **Finding:** existing `WSA-2026-003`.
+
+### C-A3.9-001
+
+**Source A:** Token monetary truth requires trusted real-charge evidence for ACTUAL.  
+**Source B:** generic collector/direct canonical ingest can attach syntactically valid actual_charge without mandatory trusted-source proof.  
+**Finding:** existing `WSA-2026-024`.
+
+### C-A3.9-002
+
+**Source A:** a failed pricing refresh should not alter usable accepted pricing evidence.  
+**Source B:** earlier immutable snapshots from a later-failing sequential batch can remain visible and usable.  
+**Finding:** existing `WSA-2026-025`.
 
 ## 6. Evidence ID register
 
@@ -3177,6 +3191,35 @@ A3.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A3.8-021 | current Distribution release graph excludes Connections/Full | same |
 
 A3.8 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
+
+### A3.9 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.9-001 | fresh A3.9 frozen-ref/open-PR gate | journeys/A3.9-TOKEN-USAGE-COST-TRUTH.md |
+| E-A3.9-002 | exact current Token identity/version | same |
+| E-A3.9-003 | Token exact-current CI run 34778240376 | same |
+| E-A3.9-004 | six OS/Node matrix jobs execute ci/release acceptance | same |
+| E-A3.9-005 | Context candidate exact Token ref | same |
+| E-A3.9-006 | candidate Ubuntu token_collection_projection | same |
+| E-A3.9-007 | Distribution Agent runtime-work ordering before Token collection | same |
+| E-A3.9-008 | Distribution prove_token owner/no-error/projection assertions | same |
+| E-A3.9-009 | collector/runtime normalization suite | same |
+| E-A3.9-010 | immutable usage ledger/dedupe/correlation | same |
+| E-A3.9-011 | runtime/provider/model identity | same |
+| E-A3.9-012 | trusted actual-cost source tests | same |
+| E-A3.9-013 | WSA-024 generic ACTUAL admission bypass | same |
+| E-A3.9-014 | authoritative pricing/CALCULATED tests | same |
+| E-A3.9-015 | historical effective-tariff test | same |
+| E-A3.9-016 | pricing source/freshness authority | same |
+| E-A3.9-017 | WSA-025 partial pricing-batch publication | same |
+| E-A3.9-018 | UNKNOWN/zero/missingness tests | same |
+| E-A3.9-019 | Gateway/Brain/Dashboard projection tests | same |
+| E-A3.9-020 | lifecycle preservation across uninstall/reinstall | same |
+| E-A3.9-021 | release story preserves ACTUAL/CALCULATED/UNKNOWN | same |
+| E-A3.9-022 | privacy-safe read/transport behavior | same |
+
+A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
 
 ## 7. Finding allocation ledger
 
