@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-057`.
+**Next unused finding ID:** `WSA-2026-058`.
 
 ## 2. Allowed classifications
 
@@ -123,6 +123,7 @@ Rules:
 | WSA-2026-054 | HIGH | PROVEN | OPEN | crash recovery / state-lock ownership / external-effect receipt safety | AI-Verse-Connections | A4.3 |
 | WSA-2026-055 | MEDIUM | PROVEN | OPEN | external-effect idempotency / crash uncertainty / recovery | AI-Verse-Connections | A4.3 |
 | WSA-2026-056 | MEDIUM | PROVEN | OPEN | canonical receipt corruption / health truth / recovery | AI-Verse-Connections | A4.3 |
+| WSA-2026-057 | MEDIUM | PROVEN | OPEN | provider-error diagnostics / receipt minimization / secret-at-rest boundary | AI-Verse-Connections | A4.4 |
 
 Current counts:
 
@@ -130,14 +131,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 24 |
-| MEDIUM | 18 |
+| MEDIUM | 19 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 56 |
+| PROVEN | 57 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 56 |
+| OPEN | 57 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1613,6 +1614,30 @@ Define a receipt corruption/quarantine protocol, surface corruption in doctor, p
 
 ---
 
+### WSA-2026-057 - MCP provider errors can persist or print unredacted sensitive content through Connections receipts and CLI diagnostics
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.4  
+**Root area:** provider-error diagnostics / receipt minimization / secret-at-rest boundary  
+**Affected repo:** AI-Verse-Connections
+
+**Summary:**  
+Connections normally keeps credentials behind opaque handles and minimizes normal effect receipts, but the MCP JSON-RPC error path accepts provider-controlled error text/details without sanitization. The execution failure path persists the remote message in the append-only receipt and CLI error handling can emit the complete remote RPC error object.
+
+**Contradiction:** C-A4.4-007.
+
+**Primary evidence:** E-A4.4-019 through E-A4.4-024.
+
+**Impact:**  
+A malicious or compromised MCP provider can deliberately echo bearer-like or private content into provider errors, causing that content to be persisted outside the credential vault and/or emitted to terminal/JSON diagnostics and captured logs. The provider already receives its bearer, so the defect broadens persistence/exposure rather than granting the provider a new secret.
+
+**Required closure evidence:**  
+Add a provider-error sanitization/minimization boundary before receipt and CLI output, persist only safe bounded error categories/summaries, and add deterministic MCP regressions proving a bearer echoed in remote error message/data is absent from receipts, CLI output and support artifacts.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1755,6 +1780,13 @@ Define a receipt corruption/quarantine protocol, surface corruption in doctor, p
 | C-A4.3-007 | A4.3 | idempotent external effect vs permanent pending crash uncertainty | yes | WSA-2026-055 | OPEN |
 | C-A4.3-008 | A4.3 | Connections ready/healthy projection vs unreadable receipt state | yes | WSA-2026-056 | OPEN |
 | C-A4.3-009 | A4.3 | source-level migration replay vs crash before final source receipt | yes | WSA-2026-052 | OPEN |
+| C-A4.4-001 | A4.4 | Memory exact-source provenance vs cross-scope probing | no | none | VERIFIED |
+| C-A4.4-002 | A4.4 | Token privacy-safe projection vs explicit raw provenance export | no | none | VERIFIED / EXPLICIT OPT-IN |
+| C-A4.4-003 | A4.4 | selected Dashboard workspace vs retained old realtime subscription | yes | WSA-2026-038 | OPEN |
+| C-A4.4-004 | A4.4 | Dashboard local projection privacy vs unauthenticated loopback reads | yes | WSA-2026-040 | OPEN |
+| C-A4.4-005 | A4.4 | trusted Data scope provenance vs structural public scope | yes | WSA-2026-020 | OPEN |
+| C-A4.4-006 | A4.4 | Distribution sanitized diagnostics vs raw exception message | yes | WSA-2026-036 | OPEN |
+| C-A4.4-007 | A4.4 | Connections opaque credential/receipt minimization vs raw provider-error propagation | yes | WSA-2026-057 | OPEN |
 
 ### C-A0.1-001
 
@@ -2638,6 +2670,38 @@ Existing credential/failure-path findings remain active alongside the new DNS-re
 ### C-A4.3-009
 
 **Finding:** existing `WSA-2026-052`.
+
+### C-A4.4-001
+
+Memory progressive exact-source descent revalidates the evidence scope against current allowed scopes before serving canonical content.  
+**Finding:** none.
+
+### C-A4.4-002
+
+Token normal projections remove sensitive provenance identifiers, while raw provenance export is explicit opt-in behind the read authorization boundary.  
+**Finding:** none.
+
+### C-A4.4-003
+
+**Finding:** existing `WSA-2026-038`.
+
+### C-A4.4-004
+
+**Finding:** existing `WSA-2026-040`.
+
+### C-A4.4-005
+
+**Finding:** existing `WSA-2026-020`.
+
+### C-A4.4-006
+
+**Finding:** existing `WSA-2026-036`.
+
+### C-A4.4-007
+
+**Source A:** Connections keeps credentials behind opaque handles, minimizes normal terminal effect receipts and proves the ordinary Generic API bearer does not persist in registry/receipt state.  
+**Source B:** MCP provider error message/details cross the adapter unsanitized; the message is persisted in a terminal failure receipt and the full RPC error object can be emitted by CLI diagnostics.  
+**Finding:** new `WSA-2026-057`.
 
 ## 6. Evidence ID register
 
@@ -3705,6 +3769,40 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A4.3-029 | A4.2 migration source reservation finding WSA-052 | same |
 | E-A4.3-030 | inherited failure/recovery finding matrix | same |
 
+### A4.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.4-001 | fresh A4.4 frozen-ref/open-PR gate | adversarial/A4.4-PRIVACY-VISIBILITY-PROVENANCE.md |
+| E-A4.4-002 | Gateway bearer/run-principal ownership | same |
+| E-A4.4-003 | Gateway session/system/workspace/principal binding | same |
+| E-A4.4-004 | Gateway audit request-digest minimization | same |
+| E-A4.4-005 | Memory normal allowed-scope model | same |
+| E-A4.4-006 | Memory progressive exact-source scope revalidation | same |
+| E-A4.4-007 | Memory relationship projection scope filter | same |
+| E-A4.4-008 | Data trusted-scope provenance WSA-020 | same |
+| E-A4.4-009 | Token read authorization immutable scope floor | same |
+| E-A4.4-010 | Token default export/projection privacy | same |
+| E-A4.4-011 | Brain minimal durable action receipts | same |
+| E-A4.4-012 | Automations wake/run/wake-receipt storage model | same |
+| E-A4.4-013 | Automations local-only ordinary read surfaces | same |
+| E-A4.4-014 | Multiple Bots inbound bearer authentication | same |
+| E-A4.4-015 | Multiple Bots workspace-filtered Dashboard projections/events | same |
+| E-A4.4-016 | Dashboard local unauthenticated read WSA-040 | same |
+| E-A4.4-017 | Dashboard stale subscription WSA-038 | same |
+| E-A4.4-018 | Distribution failure-path redaction WSA-036 | same |
+| E-A4.4-019 | Connections normal credential/receipt minimization | same |
+| E-A4.4-020 | Connections MCP JSON-RPC error propagation | same |
+| E-A4.4-021 | Connections terminal failure receipt errorMessage persistence | same |
+| E-A4.4-022 | Connections CLI error details serialization | same |
+| E-A4.4-023 | Connections Generic API secret non-persistence regression | same |
+| E-A4.4-024 | no MCP secret-like error redaction regression found | same |
+| E-A4.4-025 | A2.4 identity/scope/isolation graph | same |
+| E-A4.4-026 | A2.7 receipt/provenance ownership/privacy graph | same |
+| E-A4.4-027 | A3.4 Context/Memory journey | same |
+| E-A4.4-028 | A3.8 Connections external-effect journey | same |
+| E-A4.4-029 | A3.10 two-system isolation journey | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -3765,7 +3863,8 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-054 | allocated A4.3 |
 | WSA-2026-055 | allocated A4.3 |
 | WSA-2026-056 | allocated A4.3 |
-| WSA-2026-057 | **NEXT UNUSED** |
+| WSA-2026-057 | allocated A4.4 |
+| WSA-2026-058 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
