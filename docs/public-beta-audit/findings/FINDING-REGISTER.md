@@ -1738,6 +1738,23 @@ Define a receipt corruption/quarantine protocol, surface corruption in doctor, p
 | C-A4.1-003 | A4.1 | owner-root confinement vs destructive/symlink path findings | yes | WSA-2026-006 / WSA-2026-009 / WSA-2026-012 / WSA-2026-016 / WSA-2026-029 / WSA-2026-033 / WSA-2026-039 | OPEN |
 | C-A4.1-004 | A4.1 | authenticated/permission-bound control vs local/domain authority findings | yes | WSA-2026-020 / WSA-2026-022 / WSA-2026-023 / WSA-2026-030 / WSA-2026-032 / WSA-2026-038 / WSA-2026-040 | OPEN |
 | C-A4.1-005 | A4.1 | secret boundary vs supported failure/origin paths | yes | WSA-2026-031 / WSA-2026-036 / WSA-2026-051 | OPEN |
+| C-A4.2-001 | A4.2 | Gateway one-key/one-run law vs concurrent first claim | yes | WSA-2026-008 | OPEN |
+| C-A4.2-002 | A4.2 | Brain operation-ID law vs cross-Goal concurrent admission | yes | WSA-2026-010 | OPEN |
+| C-A4.2-003 | A4.2 | Skills single-writer lifecycle law vs live-holder stale reclaim | yes | WSA-2026-017 | OPEN |
+| C-A4.2-004 | A4.2 | Token failed-refresh atomicity vs partial batch publication | yes | WSA-2026-025 | OPEN |
+| C-A4.2-005 | A4.2 | Connections current-budget law vs concurrent different-key effects | yes | WSA-2026-032 | OPEN |
+| C-A4.2-006 | A4.2 | Distribution one lifecycle truth vs concurrent stale receipt writers | yes | WSA-2026-034 | OPEN |
+| C-A4.2-007 | A4.2 | semantic migration source-identity replay vs concurrent first imports | yes | WSA-2026-052 | OPEN |
+| C-A4.2-008 | A4.2 | one structured natural-key truth vs query-then-create race | yes | WSA-2026-053 | OPEN |
+| C-A4.3-001 | A4.3 | Gateway setup readiness vs failed setup publication | yes | WSA-2026-007 | OPEN |
+| C-A4.3-002 | A4.3 | singular Memory authority vs partial cross-root handoff | yes | WSA-2026-014 | OPEN |
+| C-A4.3-003 | A4.3 | failed Token refresh vs partial authoritative snapshot visibility | yes | WSA-2026-025 | OPEN |
+| C-A4.3-004 | A4.3 | Automations canonical store identity vs mutation-before-ownership proof | yes | WSA-2026-026 | OPEN |
+| C-A4.3-005 | A4.3 | Distribution lifecycle truth vs owner effect before receipt commit | yes | WSA-2026-034 | OPEN |
+| C-A4.3-006 | A4.3 | serialized Connections state vs crash-orphaned lock | yes | WSA-2026-054 | OPEN |
+| C-A4.3-007 | A4.3 | idempotent external effect vs permanent pending crash uncertainty | yes | WSA-2026-055 | OPEN |
+| C-A4.3-008 | A4.3 | Connections ready/healthy projection vs unreadable receipt state | yes | WSA-2026-056 | OPEN |
+| C-A4.3-009 | A4.3 | source-level migration replay vs crash before final source receipt | yes | WSA-2026-052 | OPEN |
 
 ### C-A0.1-001
 
