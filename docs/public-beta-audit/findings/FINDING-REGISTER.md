@@ -78,7 +78,7 @@ Rules:
 | `WSA-2026-009` | HIGH | PROVEN | OPEN | filesystem containment / scope isolation | `AI-Verse-Brain` | A1.3 |
 | `WSA-2026-010` | MEDIUM | PROVEN | OPEN | Goal concurrency / replay safety | `AI-Verse-Brain` | A1.3 |
 | `WSA-2026-011` | LOW | PROVEN | OPEN | release/version identity | `AI-Verse-Brain` | A1.3 |
-| `WSA-2026-012` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem containment | `AI-Verse-Memory` | A1.4 |
+| `WSA-2026-012` | BLOCKER | PROVEN | CLOSED | destructive lifecycle / filesystem containment | `AI-Verse-Memory` | A1.4 |
 | `WSA-2026-013` | HIGH | PROVEN | OPEN | lifecycle authority / canonical writes | `AI-Verse-Memory` | A1.4 |
 | `WSA-2026-014` | HIGH | PROVEN | OPEN | migration / canonical authority transfer | `AI-Verse-Memory` | A1.4 |
 | `WSA-2026-015` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Memory` | A1.4 |
@@ -144,8 +144,8 @@ Current counts:
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 62 |
-| CLOSED | 1 |
+| OPEN | 61 |
+| CLOSED | 2 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
 
@@ -532,7 +532,7 @@ After A6 authorizes repair: give post-release main a distinct version identity o
 
 **Severity:** BLOCKER  
 **Confidence:** PROVEN  
-**State:** OPEN  
+**State:** CLOSED  
 **Opened by:** A1.4  
 **Root area:** destructive lifecycle / filesystem containment  
 **Affected repos:** `AI-Verse-Memory`  
@@ -556,6 +556,30 @@ Supported lifecycle commands can destroy unrelated external files/directories. T
 
 **Required closure evidence:**  
 After A6 authorizes repair: add one safe lifecycle-target resolver; reject symlink/junction/reparse parents; realpath-confine copy/remove targets; never rmtree before containment proof; add external-sentinel tests for symlinked scripts/.claude/.agents parent chains across supported platforms.
+
+
+#### Post-audit closure - 2026-09-17
+
+**State transition:** `OPEN -> CLOSED`  
+**Repair PR:** `AI-Verse-Memory#30`  
+**Final tested PR head:** `acbe3e22d9b12c0fc1b0dcd95eeea393a57a69f2`  
+**Merged repair ref:** `7a1ed5777fd11616375501d730fcbd488beff8b8`  
+**Closure packet:** `../repairs/WSA-2026-012-MEMORY-LIFECYCLE-CONTAINMENT.md`
+
+Memory now routes target-root lifecycle writes and removals through one shared physical-containment helper. Existing path components must remain inside the selected canonical target root, POSIX symlinks and Windows junction/reparse components fail closed, and destructive uninstall preflights runtime/adapter targets before registration or filesystem mutation.
+
+Permanent regressions attack `scripts`, `scripts/ai-verse-memory`, `.claude`, `.claude/skills`, the Claude Memory adapter, `.agents`, `.agents/skills`, and the Agents Memory adapter. External sentinel data must survive rejected install/setup/uninstall operations.
+
+Final workflow run `35155708095` passed all 12 jobs across Ubuntu, macOS and Windows. Windows public-beta acceptance job `104994513236` created real directory junctions with `mklink /J`, passed both new containment tests, and reported 17 tests / OK. The final tested PR head and merged main have zero product-file differences.
+
+Finding-specific rechecks:
+- A1.4: the WSA-012 parent-redirection mechanism is closed at the repaired exact ref;
+- A3.10: the Memory branch of destructive lifecycle contradiction C-A3.10-001 is resolved; Skills and Connections blockers remain;
+- A4.1: the Memory branch of owner-root/path contradiction C-A4.1-003 is resolved; other security/path findings remain.
+
+This closure does not alter WSA-2026-013, WSA-2026-014 or WSA-2026-015.
+
+Overall system verdict remains **NO-GO**. Remaining open BLOCKERs are WSA-2026-016 and WSA-2026-029.
 
 ---
 
