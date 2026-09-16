@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 67 / 100.**
+**Current accepted progress: 69 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -209,10 +209,10 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A3.6 Multiple Bots/team execution - 2
-Status: NEXT
+Status: COMPLETE
 
 ### A3.7 Automation consent/schedule/replay - 2
-Status: PENDING
+Status: NEXT
 
 ### A3.8 Connection/external effect/approval - 2
 Status: PENDING
