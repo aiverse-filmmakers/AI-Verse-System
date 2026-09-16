@@ -1371,6 +1371,13 @@ Synchronize current System truth from exact accepted owner/release refs, update 
 | C-A2.3-002 | A2.3 | legacy schedule authority fence is setup-only | yes | WSA-2026-027 | OPEN |
 | C-A2.3-003 | A2.3 | owner lifecycle surface can be unsafe when invoked by Distribution | yes | WSA-2026-006 / WSA-2026-012 / WSA-2026-016 / WSA-2026-029 | OPEN |
 | C-A2.3-004 | A2.3 | Distribution receipt can diverge from completed owner effects | yes | WSA-2026-034 | OPEN |
+| C-A2.4-001 | A2.4 | transport authentication vs Multiple Bots operator authority | yes | WSA-2026-022 | OPEN |
+| C-A2.4-002 | A2.4 | managed vs generic Worker workspace binding | yes | WSA-2026-023 | OPEN |
+| C-A2.4-003 | A2.4 | trusted Data scope provenance not enforced by public client | yes | WSA-2026-020 | OPEN |
+| C-A2.4-004 | A2.4 | Connections installation system identity not authoritative | yes | WSA-2026-030 | OPEN |
+| C-A2.4-005 | A2.4 | Connections credential-origin binding bypass on reauth | yes | WSA-2026-031 | OPEN |
+| C-A2.4-006 | A2.4 | Dashboard local projection server lacks authenticated principal | yes | WSA-2026-040 | OPEN |
+| C-A2.4-007 | A2.4 | Dashboard system/workspace identity drift | yes | WSA-2026-038 / WSA-2026-039 | OPEN |
 
 ### C-A0.1-001
 
@@ -1777,6 +1784,48 @@ See `WSA-2026-002`.
 **Source A:** Distribution coordinates owner effects and stores release/install receipt truth.  
 **Source B:** concurrent mutating Distribution commands can commit stale receipt snapshots after owner effects complete.  
 **Finding:** existing `WSA-2026-034`.
+
+### C-A2.4-001
+
+**Source A:** Gateway/Tailscale bearer authentication proves transport access only.  
+**Source B:** Multiple Bots sensitive operator controls authorize caller-supplied actor identity rather than trusted authenticated operator identity.  
+**Finding:** existing `WSA-2026-022`.
+
+### C-A2.4-002
+
+**Source A:** managed Team Run Workers are bound to Task/run/workspace and leases.  
+**Source B:** generic Worker paths do not preserve equivalent pre-persistence workspace binding.  
+**Finding:** existing `WSA-2026-023`.
+
+### C-A2.4-003
+
+**Source A:** Data public-client contract requires TrustedDataRoot-derived scope.  
+**Source B:** exported structural DataDatabaseScope can be forged without trusted-root provenance.  
+**Finding:** existing `WSA-2026-020`.
+
+### C-A2.4-004
+
+**Source A:** Connections setup binds one installation system ID.  
+**Source B:** canonical connection/execution state can use another system ID.  
+**Finding:** existing `WSA-2026-030`.
+
+### C-A2.4-005
+
+**Source A:** MCP bearer credentials are origin scoped and cross-origin reuse is blocked on add.  
+**Source B:** reauth can replace a credential handle without the same origin-binding check.  
+**Finding:** existing `WSA-2026-031`.
+
+### C-A2.4-006
+
+**Source A:** Dashboard architecture calls for an authenticated local control/read gateway.  
+**Source B:** current scratch Dashboard Gateway accepts unauthenticated local read clients.  
+**Finding:** existing `WSA-2026-040`.
+
+### C-A2.4-007
+
+**Source A:** Dashboard systemId/workspaceId are intended stable authority/context boundaries.  
+**Source B:** registered root replacement can rebind a systemId and WebSocket resubscribe can retain the prior workspace listener.  
+**Findings:** existing `WSA-2026-038`, `WSA-2026-039`.
 
 ## 6. Evidence ID register
 
@@ -2353,6 +2402,33 @@ A2.2 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`
 | E-A2.3-021 | restart/recovery graph | same |
 
 A2.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
+
+### A2.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.4-001 | fresh A2.4 frozen-ref/open-PR gate | seams/A2.4-IDENTITY-SCOPE-ISOLATION-AUTHENTICATION.md |
+| E-A2.4-002 | Gateway bearer verifier/principal derivation | same |
+| E-A2.4-003 | Gateway session/run system-workspace-principal binding | same |
+| E-A2.4-004 | Gateway principal-owned run controls and approval | same |
+| E-A2.4-005 | Gateway trusted-field stripping and OS request construction | same |
+| E-A2.4-006 | OS action-permission v1 strict scope/policy contract | same |
+| E-A2.4-007 | OS workspace physical isolation/permission floor | same |
+| E-A2.4-008 | Brain operator/workspace scope + host permission intersection | same |
+| E-A2.4-009 | Memory workspace/operator visibility | same |
+| E-A2.4-010 | Data trusted-root model + structurally forgeable scope | same |
+| E-A2.4-011 | Multiple Bots managed Worker identity/scope | same |
+| E-A2.4-012 | Multiple Bots transport-vs-operator authority defect | same |
+| E-A2.4-013 | Token host authorization envelope/filter floor | same |
+| E-A2.4-014 | Automations OS scope reauthorization + adapter identity | same |
+| E-A2.4-015 | Connections delegated authority/final-edge scope model | same |
+| E-A2.4-016 | Connections system/credential-origin identity defects | same |
+| E-A2.4-017 | Dashboard identity/auth/isolation defects | same |
+| E-A2.4-018 | Distribution non-authority identity role | same |
+| E-A2.4-019 | end-to-end trust-chain synthesis | same |
+| E-A2.4-020 | single-operator-model classification | same |
+
+A2.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
 
 ## 7. Finding allocation ledger
 
