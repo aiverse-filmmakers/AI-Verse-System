@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-052`.
+**Next unused finding ID:** `WSA-2026-054`.
 
 ## 2. Allowed classifications
 
@@ -118,21 +118,23 @@ Rules:
 | WSA-2026-049 | MEDIUM | PROVEN | OPEN | system isolation release evidence / multi-root journey | ai-verse-distribution, AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, AI-Verse-Multiple-Bots, AI-Verse-Automations, ai-verse-token | A3.10 |
 | WSA-2026-050 | MEDIUM | PROVEN | OPEN | authentication availability / pre-auth resource exhaustion | AI-Verse-Gateway | A4.1 |
 | WSA-2026-051 | HIGH | PROVEN | OPEN | SSRF / DNS rebinding / credential-bearing provider edge | AI-Verse-Connections | A4.1 |
+| WSA-2026-052 | HIGH | PROVEN | OPEN | migration concurrency / source-level idempotency | AI-Verse-OS | A4.2 |
+| WSA-2026-053 | HIGH | PROVEN | OPEN | structured Data concurrency / natural-key uniqueness | AI-Verse-OS, AI-Verse-Brain, AI-Verse-Data | A4.2 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 4 |
-| HIGH | 21 |
+| HIGH | 23 |
 | MEDIUM | 16 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 51 |
+| PROVEN | 53 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 51 |
+| OPEN | 53 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1487,6 +1489,54 @@ Pin outbound connections to policy-approved addresses or equivalent non-rebindin
 
 ---
 
+### WSA-2026-052 - concurrent semantic migration can execute multiple classifier plans for one source
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.2  
+**Root area:** migration concurrency / source-level idempotency  
+**Affected repo:** AI-Verse-OS
+
+**Summary:**  
+Semantic migration treats source identity as stronger than classifier-plan variation, but same-source admission is a read/check followed by owner effects followed by late receipt publication. Two simultaneous first imports of the same source with different plans can both pass the no-prior-source check. Because their subaction idempotency keys are derived from different plan-dependent import keys, both plans can execute canonical owner writes.
+
+**Contradiction:** C-A4.2-007.
+
+**Primary evidence:** E-A4.2-013 through E-A4.2-017.
+
+**Impact:**  
+One imported context source can concurrently create divergent/duplicate operator, workspace, Memory or Data state even though sequential semantics promise source-level replay.
+
+**Required closure evidence:**  
+Add a durable source-identity reservation/serialization boundary before owner effects, define crash recovery for in-progress imports, and prove concurrent same-source same/different-plan requests collapse to one canonical import.
+
+---
+
+### WSA-2026-053 - concurrent automatic Data candidates can create duplicate canonical natural-key records
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.2  
+**Root area:** structured Data concurrency / natural-key uniqueness  
+**Affected repos:** AI-Verse-OS, AI-Verse-Brain, AI-Verse-Data
+
+**Summary:**  
+Automatic structured truth uses an OS query-then-create natural-key check. Brain candidate IDs can differ for the same natural key. Data create idempotency is candidate-specific, and storage uniqueness is by generated record ID rather than semantic natural key. Two concurrent admitted candidates can therefore both see zero matches and commit separate canonical records for one logical key.
+
+**Contradiction:** C-A4.2-008.
+
+**Primary evidence:** E-A4.2-018 through E-A4.2-024.
+
+**Impact:**  
+Concurrent automatic organization can create duplicate canonical current truth and make later automatic updates ambiguous/blocked.
+
+**Required closure evidence:**  
+Move semantic uniqueness into the Data owner via atomic unique constraint/upsert/CAS semantics and prove simultaneous different candidate IDs for one natural key result in exactly one canonical record.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -2416,6 +2466,42 @@ Existing trusted-authority/isolation defects remain active in Data, Multiple Bot
 
 Existing credential/failure-path findings remain active alongside the new DNS-rebinding path.  
 **Findings:** `WSA-2026-031`, `036`, `051`.
+
+### C-A4.2-001
+
+**Finding:** existing `WSA-2026-008`.
+
+### C-A4.2-002
+
+**Finding:** existing `WSA-2026-010`.
+
+### C-A4.2-003
+
+**Finding:** existing `WSA-2026-017`.
+
+### C-A4.2-004
+
+**Finding:** existing `WSA-2026-025`.
+
+### C-A4.2-005
+
+**Finding:** existing `WSA-2026-032`.
+
+### C-A4.2-006
+
+**Finding:** existing `WSA-2026-034`.
+
+### C-A4.2-007
+
+**Source A:** migration source identity is intended to suppress re-execution under classifier-plan variation.  
+**Source B:** the same-source check is not reserved/serialized before owner effects, and subaction keys differ by plan-derived import key.  
+**Finding:** new `WSA-2026-052`.
+
+### C-A4.2-008
+
+**Source A:** automatic structured truth expects one canonical record for one natural key.  
+**Source B:** OS query-before-create plus candidate-specific idempotency and generated record IDs allow concurrent duplicate natural-key rows.  
+**Finding:** new `WSA-2026-053`.
 
 ## 6. Evidence ID register
 
@@ -3418,6 +3504,35 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A4.1-019 | Dashboard local-auth/root/subscription findings | same |
 | E-A4.1-020 | whole-system A2.4 identity/auth graph | same |
 
+### A4.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.2-001 | fresh A4.2 frozen-ref/open-PR gate | adversarial/A4.2-CONCURRENCY-IDEMPOTENCY-REPLAY.md |
+| E-A4.2-002 | Gateway concurrency/idempotency WSA-008 | same |
+| E-A4.2-003 | Brain Goal replay WSA-010 | same |
+| E-A4.2-004 | Skills lifecycle lock WSA-017 | same |
+| E-A4.2-005 | Token pricing publication WSA-025 | same |
+| E-A4.2-006 | Connections final-edge budget WSA-032 | same |
+| E-A4.2-007 | Distribution lifecycle receipt race WSA-034 | same |
+| E-A4.2-008 | Memory canonical mutation lock/recovery | same |
+| E-A4.2-009 | Automations BEGIN IMMEDIATE occurrence claim | same |
+| E-A4.2-010 | Automations unique invocation/event receipt | same |
+| E-A4.2-011 | Multiple Bots message idempotency/restart | same |
+| E-A4.2-012 | Multiple Bots stale execution/lease recovery | same |
+| E-A4.2-013 | OS migration source/plan/import-key construction | same |
+| E-A4.2-014 | OS pre-effect exact/same-source receipt checks | same |
+| E-A4.2-015 | OS plan-dependent migration subaction keys | same |
+| E-A4.2-016 | OS late migration receipt publication | same |
+| E-A4.2-017 | migration sequential-only replay tests | same |
+| E-A4.2-018 | Brain Data candidate identity/natural-key contract | same |
+| E-A4.2-019 | OS Data query-then-create path | same |
+| E-A4.2-020 | candidate-derived Data create idempotency key | same |
+| E-A4.2-021 | Data transactional record.create/idempotency | same |
+| E-A4.2-022 | Data storage key lacks semantic natural-key uniqueness | same |
+| E-A4.2-023 | OS >1 natural-key match becomes ambiguous | same |
+| E-A4.2-024 | no competing-candidate natural-key race test found | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -3473,7 +3588,9 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-049 | allocated A3.10 |
 | WSA-2026-050 | allocated A4.1 |
 | WSA-2026-051 | allocated A4.1 |
-| WSA-2026-052 | **NEXT UNUSED** |
+| WSA-2026-052 | allocated A4.2 |
+| WSA-2026-053 | allocated A4.2 |
+| WSA-2026-054 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
