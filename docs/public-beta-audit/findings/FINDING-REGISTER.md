@@ -1412,6 +1412,10 @@ Bind exact-source cache entries to validated source identity/version/fingerprint
 | C-A2.6-003 | A2.6 | Multiple Bots operator controls vs trusted identity | yes | WSA-2026-022 | OPEN |
 | C-A2.6-004 | A2.6 | generic Worker event scope vs managed Worker scope | yes | WSA-2026-023 | OPEN |
 | C-A2.6-005 | A2.6 | canonical Automations scheduler vs late legacy authority | yes | WSA-2026-027 | OPEN |
+| C-A2.7-001 | A2.7 | Token ACTUAL truth vs generic actual-charge admission | yes | WSA-2026-024 | OPEN |
+| C-A2.7-002 | A2.7 | failed pricing batch vs partial immutable snapshot subset | yes | WSA-2026-025 | OPEN |
+| C-A2.7-003 | A2.7 | Connections current budget law vs final-edge implementation | yes | WSA-2026-032 | OPEN |
+| C-A2.7-004 | A2.7 | Distribution sanitized diagnostics vs raw ProcessError message | yes | WSA-2026-036 | OPEN |
 
 ### C-A0.1-001
 
@@ -1915,6 +1919,30 @@ See `WSA-2026-002`.
 **Source A:** Automations forbids dual scheduler authority.  
 **Source B:** a legacy definition appearing after setup does not continuously fence canonical scheduler execution.  
 **Finding:** existing `WSA-2026-027`.
+
+### C-A2.7-001
+
+**Source A:** Token defines ACTUAL as trusted provider/runtime real-charge truth.  
+**Source B:** generic ingest can submit syntactically valid actual_charge without mandatory trusted-source-registry proof.  
+**Finding:** existing `WSA-2026-024`.
+
+### C-A2.7-002
+
+**Source A:** pricing refresh is one source observation whose accepted snapshots should be coherent.  
+**Source B:** sequential immutable snapshot writes can leave an earlier subset committed when a later write fails.  
+**Finding:** existing `WSA-2026-025`.
+
+### C-A2.7-003
+
+**Source A:** Connections final authority includes current component lifecycle and rate/call budget.  
+**Source B:** final provider edge does not recompute the complete lifecycle/budget intersection.  
+**Finding:** existing `WSA-2026-032`.
+
+### C-A2.7-004
+
+**Source A:** Distribution sanitizes child stdout/stderr for user-facing diagnostics.  
+**Source B:** ProcessError can embed the raw child output in the unsanitized top-level message.  
+**Finding:** existing `WSA-2026-036`.
 
 ## 6. Evidence ID register
 
@@ -2565,6 +2593,32 @@ A2.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`
 | E-A2.6-017 | event ownership map | same |
 
 A2.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`.
+
+### A2.7 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.7-001 | fresh A2.7 frozen-ref/open-PR gate | seams/A2.7-TELEMETRY-TOKEN-COST-AUDIT-RECEIPTS.md |
+| E-A2.7-002 | Token ownership/truth model | same |
+| E-A2.7-003 | immutable usage ledger/correlation semantics | same |
+| E-A2.7-004 | Token runtime/provider/model identity resolution | same |
+| E-A2.7-005 | trusted actual-cost source registry | same |
+| E-A2.7-006 | generic ACTUAL admission bypass | same |
+| E-A2.7-007 | immutable pricing/freshness/source authority | same |
+| E-A2.7-008 | pricing batch failure atomicity defect | same |
+| E-A2.7-009 | Token read projection privacy | same |
+| E-A2.7-010 | Gateway operational usage/audit boundary | same |
+| E-A2.7-011 | Multiple Bots Token non-ownership boundary | same |
+| E-A2.7-012 | Brain external action receipts | same |
+| E-A2.7-013 | Data mutation events/receipts | same |
+| E-A2.7-014 | Skills execution receipt v2 | same |
+| E-A2.7-015 | Automations wake/replay receipts | same |
+| E-A2.7-016 | Connections idempotency/effect receipts | same |
+| E-A2.7-017 | Connections final-edge budget contradiction | same |
+| E-A2.7-018 | Distribution diagnostic redaction boundary | same |
+| E-A2.7-019 | global receipt/provenance ownership map | same |
+
+A2.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`.
 
 ## 7. Finding allocation ledger
 
