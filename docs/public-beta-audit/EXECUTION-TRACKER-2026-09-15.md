@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 99 / 100.**
+**Current accepted progress: 100 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -291,12 +291,32 @@ Allowed verdicts:
 Status: COMPLETE
 
 ### A6.5 Audit freeze/canonical propagation - 1
-Status: NEXT
+Status: COMPLETE
 
 A6 exit:
 - final audit snapshot frozen;
 - repair program exists;
 - Dashboard MC1.4 remains paused or is released by explicit evidence.
+
+---
+
+# Audit completion
+
+**Independent Whole-System Public-Beta Audit: COMPLETE — 100 / 100.**
+
+Final product verdict: **NO-GO**.
+
+Canonical final freeze:
+`synthesis/A6.5-FINAL-AUDIT-FREEZE.md`
+
+No audit task remains NEXT or PENDING.
+
+Post-audit execution now begins from:
+`synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md`
+
+First repair wave: **Wave 0 — destructive-containment BLOCKERs**.
+
+Dashboard MC1.4 and owner dogfood remain paused until the repair, re-audit and bounded final independent recheck gates explicitly release them.
 
 ---
 
