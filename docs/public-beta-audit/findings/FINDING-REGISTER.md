@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-060`.
+**Next unused finding ID:** `WSA-2026-061`.
 
 ## 2. Allowed classifications
 
@@ -126,6 +126,7 @@ Rules:
 | WSA-2026-057 | MEDIUM | PROVEN | OPEN | provider-error diagnostics / receipt minimization / secret-at-rest boundary | AI-Verse-Connections | A4.4 |
 | WSA-2026-058 | MEDIUM | PROVEN | OPEN | long-lived runtime state scale / idempotency indexing | AI-Verse-Gateway | A4.5 |
 | WSA-2026-059 | MEDIUM | PROVEN | OPEN | external-effect history scale / receipt indexing / budget lookup | AI-Verse-Connections | A4.5 |
+| WSA-2026-060 | LOW | PROVEN | OPEN | machine-readable release compatibility / blocker truth | ai-verse-distribution | A5.2 |
 
 Current counts:
 
@@ -134,13 +135,13 @@ Current counts:
 | BLOCKER | 4 |
 | HIGH | 24 |
 | MEDIUM | 21 |
-| LOW | 9 |
+| LOW | 10 |
 | INFO | 1 |
-| PROVEN | 59 |
+| PROVEN | 60 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 59 |
+| OPEN | 60 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1688,6 +1689,30 @@ Use indexed recent-window/idempotency state while retaining auditable historical
 
 ---
 
+### WSA-2026-060 - Full compatibility metadata retains an obsolete “Agent not admitted” blocker
+
+**Severity:** LOW  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A5.2  
+**Root area:** machine-readable release compatibility / blocker truth  
+**Affected repo:** ai-verse-distribution
+
+**Summary:**  
+The canonical compatibility record for `full-public-beta-pending` still says the Agent profile does not have an admitted immutable public-beta release set, while the same Distribution catalog contains and defaults to released `agent-public-beta-2026-09-14`. The Full release manifest itself correctly lists only the remaining Connections/Dashboard/Apps composition blocker.
+
+**Contradiction:** C-A5.2-006.
+
+**Primary evidence:** E-A5.2-036 through E-A5.2-039.
+
+**Impact:**  
+Machine consumers or maintainers reading compatibility metadata can derive a false reason for Full being blocked. Runtime Full selection still fails closed for the true remaining blocker, so no unsafe release admission is created.
+
+**Required closure evidence:**  
+Remove the obsolete Agent blocker, retain the real Connections/Dashboard/Apps blocker, define one authoritative blocker source or validate repeated blocker lists for consistency, and add a regression preventing a released Agent channel from coexisting with an “Agent not admitted” Full blocker.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1849,6 +1874,13 @@ Use indexed recent-window/idempotency state while retaining auditable historical
 | C-A5.1-005 | A5.1 | Skills Video Editor acceptance head vs frozen current head | no | none | VERIFIED / ZERO FILE DIFF |
 | C-A5.1-006 | A5.1 | Distribution qualification head vs current merge head | no | none | VERIFIED / ZERO FILE DIFF |
 | C-A5.1-007 | A5.1 | current System hosted no-step failure vs external exact qualification | yes | WSA-2026-003 | OPEN |
+| C-A5.2-001 | A5.2 | Invisible candidate qualification-pending metadata vs qualified merged candidate | yes | WSA-2026-001 | OPEN |
+| C-A5.2-002 | A5.2 | current Skills accepted head vs newest admitted Agent candidate Skills ref | yes | WSA-2026-046 | OPEN |
+| C-A5.2-003 | A5.2 | historical component release descriptors vs current main | no | existing version findings | INTENTIONAL RELEASE-METADATA BOUNDARY |
+| C-A5.2-004 | A5.2 | Token beta.3 package identity vs absent beta.3 Git tag | no | none | EXACT DISTRIBUTION SHA VERIFIED |
+| C-A5.2-005 | A5.2 | finalized manifest identity vs future anti-repointing enforcement | no | none | NEGATIVE SPACE / CURRENT MANIFESTS PRESERVED |
+| C-A5.2-006 | A5.2 | Full release blocker vs stale compatibility blocker | yes | WSA-2026-060 | OPEN |
+| C-A5.2-007 | A5.2 | System latest-candidate current truth vs Distribution | yes | WSA-2026-044 | OPEN |
 
 ### C-A0.1-001
 
@@ -2833,6 +2865,42 @@ Distribution final eight-workflow qualification ran at `7190141935c2e4d8829a8595
 
 System current hosted validation again fails before any step, while externally qualified canonical contract code remains unchanged and current post-freeze System changes are audit records only.  
 **Finding:** existing `WSA-2026-003`.
+
+### C-A5.2-001
+
+The Invisible Intelligence candidate manifest remains `qualification-pending` even though exact PR #7 qualification workflows passed and the candidate merged.  
+**Finding:** existing `WSA-2026-001`.
+
+### C-A5.2-002
+
+Frozen current Skills `8c321c...` contains accepted Video Editor work, while the newest accepted Agent candidate pins older Skills `71264af...`.  
+**Finding:** existing `WSA-2026-046`.
+
+### C-A5.2-003
+
+Current owner repositories may retain older accepted component-release descriptors while main advances. The descriptors explicitly classify themselves as release metadata rather than live-health/current-main truth.  
+**Finding:** no new finding; existing owner release/version findings remain applicable.
+
+### C-A5.2-004
+
+Token current package is `0.1.0-beta.3` while Git tags stop at beta.2. Distribution pins the exact beta.3 commit and acceptance evidence to that SHA.  
+**Finding:** none.
+
+### C-A5.2-005
+
+Finalized Agent manifests are empirically unchanged from their final accepted/final-candidate PR heads, but no historical same-ID anti-repointing regression was found.  
+**Finding:** none; negative-space limitation retained.
+
+### C-A5.2-006
+
+**Source A:** `full-public-beta-pending` release manifest lists only the Connections/Dashboard/Apps compatible-Full-set blocker.  
+**Source B:** canonical compatibility metadata additionally claims no immutable Agent public-beta release exists, while `channels.agent` points to released `agent-public-beta-2026-09-14`.  
+**Finding:** new `WSA-2026-060`.
+
+### C-A5.2-007
+
+Distribution's newest accepted explicit Agent candidate is Context Ladder, while System current-state propagation remains incomplete.  
+**Finding:** existing `WSA-2026-044`.
 
 ## 6. Evidence ID register
 
@@ -4018,6 +4086,52 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A5.1-039 | path-filter/manual-trigger negative space | same |
 | E-A5.1-040 | prior A1 exact-head execution packets | same |
 
+### A5.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.2-001 | fresh A5.2 frozen-ref/open-PR gate | release/A5.2-ACCEPTED-REFS-RELEASE-CANDIDATE-IMMUTABLE-IDENTITY.md |
+| E-A5.2-002 | runtime release catalog and channels | same |
+| E-A5.2-003 | public release-set manifest set | same |
+| E-A5.2-004 | public/runtime release mirror equality | same |
+| E-A5.2-005 | public/runtime compatibility mirror equality | same |
+| E-A5.2-006 | public/runtime profile mirror equality | same |
+| E-A5.2-007 | default Agent exact component map | same |
+| E-A5.2-008 | default Agent component SHA existence | same |
+| E-A5.2-009 | default Agent qualification head existence | same |
+| E-A5.2-010 | Distribution PR #2 merge/final identity | same |
+| E-A5.2-011 | default Agent manifest final-head/current equality | same |
+| E-A5.2-012 | Invisible candidate exact component map | same |
+| E-A5.2-013 | Invisible candidate component SHA existence | same |
+| E-A5.2-014 | candidate explicit-only promotion flags | same |
+| E-A5.2-015 | Distribution PR #7 merge/final identity | same |
+| E-A5.2-016 | PR #7 six green exact-head qualification workflows | same |
+| E-A5.2-017 | Invisible qualification-pending metadata | same |
+| E-A5.2-018 | Invisible manifest final-head/current equality | same |
+| E-A5.2-019 | Context Ladder exact component map | same |
+| E-A5.2-020 | Context candidate component SHA existence | same |
+| E-A5.2-021 | Context accepted qualification head existence | same |
+| E-A5.2-022 | Distribution PR #8 final/merge identity | same |
+| E-A5.2-023 | Context manifest final-head/current equality | same |
+| E-A5.2-024 | candidate cross-release transition isolation | same |
+| E-A5.2-025 | Core/first-member ref existence | same |
+| E-A5.2-026 | Data companion dependency identities | same |
+| E-A5.2-027 | owner component-release descriptor semantics | same |
+| E-A5.2-028 | Token beta.3 package identity | same |
+| E-A5.2-029 | Token tag namespace and peeled commits | same |
+| E-A5.2-030 | other scoped repos have no tag namespace | same |
+| E-A5.2-031 | no GitHub Release objects across scoped repos | same |
+| E-A5.2-032 | release-set exact-ref contract | same |
+| E-A5.2-033 | catalog full-SHA validation | same |
+| E-A5.2-034 | finalized manifest historical preservation | same |
+| E-A5.2-035 | no historical same-ID anti-repointing regression found | same |
+| E-A5.2-036 | Full release-manifest blocker | same |
+| E-A5.2-037 | stale Full compatibility blocker | same |
+| E-A5.2-038 | catalog blocker-consistency validation gap | same |
+| E-A5.2-039 | default Agent channel disproves obsolete blocker | same |
+| E-A5.2-040 | System release/current-candidate evidence | same |
+| E-A5.2-041 | frozen current-head/newest candidate comparison | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -4081,7 +4195,8 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-057 | allocated A4.4 |
 | WSA-2026-058 | allocated A4.5 |
 | WSA-2026-059 | allocated A4.5 |
-| WSA-2026-060 | **NEXT UNUSED** |
+| WSA-2026-060 | allocated A5.2 |
+| WSA-2026-061 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
