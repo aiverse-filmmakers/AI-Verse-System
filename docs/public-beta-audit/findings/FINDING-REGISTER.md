@@ -1977,6 +1977,25 @@ Add immutable clean-machine acceptance that begins through `aiverse start`, conf
 | C-A5.4-009 | A5.4 | final Agent PR attempt-1 Windows failure vs unchanged successful rerun | no | none | EVIDENCE LIMITATION |
 | C-A5.4-010 | A5.4 | current model/provider generation vs hard-coded obsolete provider | no | none | VERIFIED ADAPTER/CONFIG DRIVEN |
 
+### A6.1 global deduplication result
+
+A6.1 has completed the whole-system contradiction dedupe.
+
+- source contradiction rows retained: **184**;
+- material source observations: **165**;
+- non-material / verified / historical / bounded rows: **19**;
+- unresolved global contradiction families after dedupe: **63**;
+- stable open findings: **63**;
+- orphan findings: **0**;
+- material unresolved families without a stable finding: **0**;
+- one material umbrella row without exact IDs, `C-A5.3-009`, was already marked **DEDUPED** and creates no additional family.
+
+Canonical deduped view:
+
+`docs/public-beta-audit/synthesis/A6.1-GLOBAL-CONTRADICTION-REGISTER.md`
+
+The raw phase-local contradiction rows below remain immutable audit history. A6.1 does not renumber, erase or rewrite them.
+
 ### C-A0.1-001
 
 **Source A:** older `docs/PUBLIC-BETA-EXECUTION-PLAN.md` language says Agent remained blocked.  
@@ -4401,6 +4420,21 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A5.4-030 | existing WSA-049 two-system acceptance gap | same |
 | E-A5.4-031 | A4.5 current runtime/platform validation | same |
 | E-A5.4-032 | A5.2 release/candidate identity reconstruction | same |
+
+### A6.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.1-001 | fresh A6.1 frozen-ref/open-PR gate | synthesis/A6.1-GLOBAL-CONTRADICTION-REGISTER.md |
+| E-A6.1-002 | Program A6.1 dedupe requirement | same |
+| E-A6.1-003 | canonical A0-A5 contradiction source table | same |
+| E-A6.1-004 | canonical 63-finding summary | same |
+| E-A6.1-005 | 184/165/19 source-row inventory | same |
+| E-A6.1-006 | 63/63 finding coverage check | same |
+| E-A6.1-007 | sole no-exact-ID material umbrella row C-A5.3-009 | same |
+| E-A6.1-008 | non-material contradiction classification inventory | same |
+| E-A6.1-009 | stable finding-ID dedupe mapping | same |
+| E-A6.1-010 | no finding severity/confidence/state mutation | same |
 
 ## 7. Finding allocation ledger
 
