@@ -1977,6 +1977,30 @@ Add immutable clean-machine acceptance that begins through `aiverse start`, conf
 | C-A5.4-009 | A5.4 | final Agent PR attempt-1 Windows failure vs unchanged successful rerun | no | none | EVIDENCE LIMITATION |
 | C-A5.4-010 | A5.4 | current model/provider generation vs hard-coded obsolete provider | no | none | VERIFIED ADAPTER/CONFIG DRIVEN |
 
+### A6.4 ordered repair program
+
+A6.4 defines the dependency-safe post-audit repair sequence for **all 63 open findings**.
+
+Repair waves:
+
+- Wave 0 — 4 destructive-containment BLOCKERs;
+- Wave 1 — 13 trusted authority/scope/identity/final-edge HIGHs;
+- Wave 2 — 5 lifecycle/readiness authority findings;
+- Wave 3 — 10 atomicity/concurrency/migration/crash-safety findings;
+- Wave 4 — 10 remaining runtime MEDIUM correctness/privacy/scale findings;
+- Wave 5 — 15 release/current-state/documentation synchronization findings;
+- Wave 6 — 6 composed qualification/evidence findings.
+
+Coverage is **63/63 unique findings** with no duplicate assignment.
+
+The program requires a bounded final independent recheck after repair/requalification before any new readiness verdict or MC1.4/owner-dogfood release.
+
+Canonical repair program:
+
+`docs/public-beta-audit/synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md`
+
+Current verdict remains **NO-GO**.
+
 ### A6.3 whole-system verdict
 
 A6.3 issues the system-level verdict:
@@ -4517,6 +4541,25 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A6.3-012 | A6.1 63-family dedupe proof | same |
 | E-A6.3-013 | current composed-acceptance gaps | same |
 | E-A6.3-014 | product refs unchanged through verdict | same |
+
+### A6.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.4-001 | fresh A6.4 ref/open-PR gate | synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md |
+| E-A6.4-002 | A6.3 NO-GO verdict | same |
+| E-A6.4-003 | A6.2 nine-root graph | same |
+| E-A6.4-004 | 63/63 finding coverage check | same |
+| E-A6.4-005 | Wave 0 blocker ordering | same |
+| E-A6.4-006 | Wave 1 final-edge authority ordering | same |
+| E-A6.4-007 | Wave 2 lifecycle-before-handoff dependency | same |
+| E-A6.4-008 | Wave 3 atomicity/crash dependency graph | same |
+| E-A6.4-009 | Wave 4 runtime hardening dependencies | same |
+| E-A6.4-010 | Wave 5 runtime-before-metadata synchronization | same |
+| E-A6.4-011 | Wave 6 composed qualification sequence | same |
+| E-A6.4-012 | bounded final independent recheck scope | same |
+| E-A6.4-013 | repository impact map | same |
+| E-A6.4-014 | repair milestones / dogfood gates | same |
 
 ## 7. Finding allocation ledger
 
