@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 89 / 100.**
+**Current accepted progress: 91 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -256,10 +256,10 @@ No unexamined high-risk negative space remains for current public-beta claims.
 Status: COMPLETE
 
 ### A5.2 Accepted refs/release candidate/immutable identity - 2
-Status: NEXT
+Status: COMPLETE
 
 ### A5.3 Documentation/status contradiction scan - 2
-Status: PENDING
+Status: NEXT
 
 ### A5.4 Product path/clean machine/current generation - 2
 Status: PENDING
