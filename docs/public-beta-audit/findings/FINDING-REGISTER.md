@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-048`.
+**Next unused finding ID:** `WSA-2026-049`.
 
 ## 2. Allowed classifications
 
@@ -114,6 +114,7 @@ Rules:
 | WSA-2026-045 | MEDIUM | PROVEN | OPEN | retrieval freshness / provenance cache invalidation | AI-Verse-Gateway | A2.5 |
 | WSA-2026-046 | MEDIUM | PROVEN | OPEN | release composition / public-member product path | AI-Verse-Skills, ai-verse-distribution, AI-Verse-System | A2.8 |
 | WSA-2026-047 | MEDIUM | PROVEN | OPEN | migration release evidence / cross-owner persistence | AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, ai-verse-distribution | A3.2 |
+| WSA-2026-048 | MEDIUM | PROVEN | OPEN | learning release evidence / cross-owner user journey | AI-Verse-Gateway, AI-Verse-OS, AI-Verse-Brain, AI-Verse-Skills, ai-verse-distribution | A3.5 |
 
 Current counts:
 
@@ -121,14 +122,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 20 |
-| MEDIUM | 13 |
+| MEDIUM | 14 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 47 |
+| PROVEN | 48 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 47 |
+| OPEN | 48 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1387,6 +1388,30 @@ Add a composed acceptance using exact admitted refs that imports a raw prior-ass
 
 ---
 
+### WSA-2026-048 - Goal-to-learned-Skill journey lacks one real composed acceptance
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A3.5  
+**Root area:** learning release evidence / cross-owner user journey  
+**Affected repos:** AI-Verse-Gateway, AI-Verse-OS, AI-Verse-Brain, AI-Verse-Skills, ai-verse-distribution
+
+**Summary:**  
+The product has strong evidence for Brain Goal evaluation, Brain learning-candidate admission, OS owner routing, Skills proposal/evaluation/auto-promotion, later capability discovery/use, quarantine and rollback. But no reviewed acceptance executes the entire real user journey from one Goal-bound Gateway run through real OS/Brain/Skills learning and later real Gateway reuse.
+
+**Contradiction:** C-A3.5-001.
+
+**Primary evidence:** E-A3.5-002 through E-A3.5-019.
+
+**Impact:**  
+The audit cannot certify the complete Goal/self-learning user journey under one real run/session/Goal/proposal/generation evidence chain. This is an end-to-end release-evidence gap, not proof of an implementation failure.
+
+**Required closure evidence:**  
+Add one composed acceptance at exact admitted refs that creates a real Brain Goal, runs a real authenticated Gateway task bound to it, evaluates the Goal, routes a safe learning candidate through real OS/Brain/Skills, exercises propose and auto modes, restarts, rediscovers and uses the learned Skill with exact generation/digest binding, quarantines an unsafe candidate, rolls back, proves replay safety and confirms Brain Goal truth remains unchanged by the Skills lifecycle.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1485,6 +1510,10 @@ Add a composed acceptance using exact admitted refs that imports a raw prior-ass
 | C-A3.3-003 | A3.3 | lifecycle status wording vs real process ownership | yes | WSA-2026-007 | OPEN |
 | C-A3.3-004 | A3.3 | exact-source freshness vs per-run deep-retrieval cache | yes | WSA-2026-045 | OPEN |
 | C-A3.4-001 | A3.4 | exact-source freshness law vs per-run deep-context cache | yes | WSA-2026-045 | OPEN |
+| C-A3.5-001 | A3.5 | Goal/self-learning user journey vs split acceptance evidence | yes | WSA-2026-048 | OPEN |
+| C-A3.5-002 | A3.5 | Skills lifecycle serialization law vs age-only stale-lock reclaim | yes | WSA-2026-017 | OPEN |
+| C-A3.5-003 | A3.5 | pinned immutable capability lifetime vs retention cleanup | yes | WSA-2026-018 | OPEN |
+| C-A3.5-004 | A3.5 | Goal operation idempotency vs cross-Goal concurrent admission | yes | WSA-2026-010 | OPEN |
 
 ### C-A0.1-001
 
@@ -2128,6 +2157,32 @@ See `WSA-2026-002`.
 **Source A:** real J2/Memory exact-source retrieval revalidates source fingerprint/version and fails stale.  
 **Source B:** Gateway per-run deep-context dedupe can replay a prior identical exact result without executing that owner/source revalidation again.  
 **Finding:** existing `WSA-2026-045`.
+
+### C-A3.5-001
+
+**Source A:** current architecture supports Goal-bound runs plus governed Skills learning.  
+**Source B:** clean-machine Goal acceptance does not exercise learning.  
+**Source C:** real OS/Brain/Skills learning acceptance does not begin from a Goal-bound Gateway user run.  
+**Source D:** Gateway learned-Skill user journey uses a fixture host rather than real owners.  
+**Finding:** new `WSA-2026-048`.
+
+### C-A3.5-002
+
+**Source A:** Skills lifecycle mutation is intended to be serialized.  
+**Source B:** stale lock recovery is age-based and can reclaim a live long-running holder.  
+**Finding:** existing `WSA-2026-017`.
+
+### C-A3.5-003
+
+**Source A:** a capability execution pins one immutable generation for its lifetime.  
+**Source B:** explicit retention can remove a generation without accounting for live execution pins.  
+**Finding:** existing `WSA-2026-018`.
+
+### C-A3.5-004
+
+**Source A:** Brain Goal operation IDs are intended to bind replay.  
+**Source B:** cross-Goal concurrent operation-ID admission is not fully serialized.  
+**Finding:** existing `WSA-2026-010`.
 
 ## 6. Evidence ID register
 
@@ -2934,6 +2989,31 @@ A3.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`
 
 A3.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`.
 
+### A3.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.5-001 | fresh A3.5 frozen-ref/open-PR gate | journeys/A3.5-GOAL-SELF-LEARNING-SKILLS.md |
+| E-A3.5-002 | Brain Goal/evaluation journey from A3.3 | same |
+| E-A3.5-003 | current Brain Skills learning-candidate gate | same |
+| E-A3.5-004 | Brain gate byte-equivalence between accepted and frozen current refs | same |
+| E-A3.5-005 | current OS production skills.learning-candidate route | same |
+| E-A3.5-006 | OS Four Repo Acceptance run 34988213651 | same |
+| E-A3.5-007 | job 104445712220 real Brain/Skills owner composition | same |
+| E-A3.5-008 | initial propose-mode learning + replay | same |
+| E-A3.5-009 | trivial/unsafe candidate rejection | same |
+| E-A3.5-010 | real auto-promotion to immutable Skills generation | same |
+| E-A3.5-011 | fresh-host learned capability rediscovery/bound use | same |
+| E-A3.5-012 | real Skills quarantine and rollback | same |
+| E-A3.5-013 | Skills accepted-to-current changed-file comparison | same |
+| E-A3.5-014 | current Skills governed-learning tests | same |
+| E-A3.5-015 | Distribution Invisible Intelligence A-F run 34997085620 | same |
+| E-A3.5-016 | job 104475921027 C/D learning evidence | same |
+| E-A3.5-017 | Gateway learned-Skill persistence fixture proof | same |
+| E-A3.5-018 | real clean-machine Goal journey does not invoke learning | same |
+| E-A3.5-019 | negative-space search for one Goal-to-Skills composed acceptance | same |
+| E-A3.5-020 | Skills lifecycle/retention findings affecting learned generations | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -2985,7 +3065,8 @@ A3.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`
 | WSA-2026-045 | allocated A2.5 |
 | WSA-2026-046 | allocated A2.8 |
 | WSA-2026-047 | allocated A3.2 |
-| WSA-2026-048 | **NEXT UNUSED** |
+| WSA-2026-048 | allocated A3.5 |
+| WSA-2026-049 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
