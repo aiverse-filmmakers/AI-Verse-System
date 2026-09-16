@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 61 / 100.**
+**Current accepted progress: 63 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -200,10 +200,10 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A3.3 Gateway chat/run/restart - 2
-Status: NEXT
+Status: COMPLETE
 
 ### A3.4 Context/Memory/Context Ladder - 2
-Status: PENDING
+Status: NEXT
 
 ### A3.5 Goal/self-learning/Skills - 2
 Status: PENDING
