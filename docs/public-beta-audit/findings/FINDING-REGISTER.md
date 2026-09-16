@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-049`.
+**Next unused finding ID:** `WSA-2026-050`.
 
 ## 2. Allowed classifications
 
@@ -115,6 +115,7 @@ Rules:
 | WSA-2026-046 | MEDIUM | PROVEN | OPEN | release composition / public-member product path | AI-Verse-Skills, ai-verse-distribution, AI-Verse-System | A2.8 |
 | WSA-2026-047 | MEDIUM | PROVEN | OPEN | migration release evidence / cross-owner persistence | AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, ai-verse-distribution | A3.2 |
 | WSA-2026-048 | MEDIUM | PROVEN | OPEN | learning release evidence / cross-owner user journey | AI-Verse-Gateway, AI-Verse-OS, AI-Verse-Brain, AI-Verse-Skills, ai-verse-distribution | A3.5 |
+| WSA-2026-049 | MEDIUM | PROVEN | OPEN | system isolation release evidence / multi-root journey | ai-verse-distribution, AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, AI-Verse-Multiple-Bots, AI-Verse-Automations, ai-verse-token | A3.10 |
 
 Current counts:
 
@@ -122,14 +123,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 20 |
-| MEDIUM | 14 |
+| MEDIUM | 15 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 48 |
+| PROVEN | 49 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 48 |
+| OPEN | 49 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1412,6 +1413,30 @@ Add one composed acceptance at exact admitted refs that creates a real Brain Goa
 
 ---
 
+### WSA-2026-049 - no real two-system A/B isolation acceptance exists for the supported product path
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A3.10  
+**Root area:** system isolation release evidence / multi-root journey  
+**Affected repos:** ai-verse-distribution, AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, AI-Verse-Multiple-Bots, AI-Verse-Automations, ai-verse-token
+
+**Summary:**  
+A3 requires a real two-system A/B isolation journey. Current Distribution product acceptance contains exactly two acceptance scripts and each creates one AI-Verse root per run. Existing component-level system/workspace isolation tests do not prove two full systems can coexist without cross-root, cross-system or lifecycle interference.
+
+**Contradiction:** C-A3.10-005.
+
+**Primary evidence:** E-A3.10-020 through E-A3.10-023.
+
+**Impact:**  
+The audit cannot certify that two simultaneous AI-Verse installations remain isolated under same-named workspaces/resources, concurrent runtime activity, lifecycle changes or restart. This is an end-to-end release-evidence gap, not proof that two-system operation currently fails.
+
+**Required closure evidence:**  
+Add immutable clean-machine acceptance that creates Systems A and B in separate roots and Distribution homes, gives them distinct system IDs and Gateway ports, uses same-named workspaces in both, proves distinct Memory/Data/Bot/Automation/Token state, attempts cross-system access, restarts and lifecycle-mutates one system while the other remains unchanged, and runs on Ubuntu/macOS/Windows.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1527,6 +1552,11 @@ Add one composed acceptance at exact admitted refs that creates a real Brain Goa
 | C-A3.8-005 | A3.8 | expected hosted current-head execution vs private-repo Actions infrastructure | yes | WSA-2026-003 | OPEN |
 | C-A3.9-001 | A3.9 | trusted ACTUAL law vs generic actual-charge admission | yes | WSA-2026-024 | OPEN |
 | C-A3.9-002 | A3.9 | failed pricing refresh vs visible partial snapshot batch | yes | WSA-2026-025 | OPEN |
+| C-A3.10-001 | A3.10 | owner-safe uninstall law vs destructive lifecycle containment | yes | WSA-2026-006 / WSA-2026-012 / WSA-2026-016 / WSA-2026-029 | OPEN |
+| C-A3.10-002 | A3.10 | owner lifecycle truth vs live/attached/write authority | yes | WSA-2026-007 / WSA-2026-013 / WSA-2026-028 | OPEN |
+| C-A3.10-003 | A3.10 | lifecycle/recovery serialization vs stale/concurrent writers | yes | WSA-2026-008 / WSA-2026-017 / WSA-2026-034 | OPEN |
+| C-A3.10-004 | A3.10 | singular migration authority vs non-atomic Memory handoff | yes | WSA-2026-014 | OPEN |
+| C-A3.10-005 | A3.10 | two-system A/B journey requirement vs one-root acceptance inventory | yes | WSA-2026-049 | OPEN |
 
 ### C-A0.1-001
 
@@ -2274,6 +2304,36 @@ See `WSA-2026-002`.
 **Source A:** a failed pricing refresh should not alter usable accepted pricing evidence.  
 **Source B:** earlier immutable snapshots from a later-failing sequential batch can remain visible and usable.  
 **Finding:** existing `WSA-2026-025`.
+
+### C-A3.10-001
+
+**Source A:** normal owner uninstall/reinstall is intended to preserve canonical state and remain inside owned roots.  
+**Source B:** Gateway, Memory, Skills and Connections retain destructive path-containment defects.  
+**Findings:** existing `WSA-2026-006`, `012`, `016`, `029`.
+
+### C-A3.10-002
+
+**Source A:** lifecycle status/attachment should fence runtime/write authority.  
+**Source B:** Gateway live process, Memory native writes and Automations OS attachment can diverge from lifecycle state.  
+**Findings:** existing `WSA-2026-007`, `013`, `028`.
+
+### C-A3.10-003
+
+**Source A:** lifecycle/recovery effects require one serialized truth.  
+**Source B:** Gateway, Skills and Distribution retain stale/concurrent-writer races.  
+**Findings:** existing `WSA-2026-008`, `017`, `034`.
+
+### C-A3.10-004
+
+**Source A:** Memory migration requires one writable authority after handoff.  
+**Source B:** target-complete and source-retirement are not one failure-atomic transaction.  
+**Finding:** existing `WSA-2026-014`.
+
+### C-A3.10-005
+
+**Source A:** A3.10 explicitly requires two-system A/B isolation.  
+**Source B:** exhaustive Distribution product acceptance contains only one-root Agent/Core acceptance scripts.  
+**Finding:** new `WSA-2026-049`.
 
 ## 6. Evidence ID register
 
@@ -3221,6 +3281,36 @@ A3.8 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 
 A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
 
+### A3.10 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.10-001 | fresh A3.10 frozen-ref/open-PR gate | journeys/A3.10-LIFECYCLE-RECOVERY-TWO-SYSTEM-ISOLATION-CROSS-PLATFORM.md |
+| E-A3.10-002 | A2.3 whole-system lifecycle/recovery graph | same |
+| E-A3.10-003 | Distribution real Agent lifecycle acceptance | same |
+| E-A3.10-004 | Context candidate run 34994419265 | same |
+| E-A3.10-005 | Ubuntu candidate job 104467441328 | same |
+| E-A3.10-006 | Windows candidate job 104467441640 | same |
+| E-A3.10-007 | macOS candidate job 104467441767 | same |
+| E-A3.10-008 | disable/enable composed lifecycle | same |
+| E-A3.10-009 | all-component uninstall/reinstall preservation | same |
+| E-A3.10-010 | same-release update/rollback | same |
+| E-A3.10-011 | changed cross-release transitions fail closed | same |
+| E-A3.10-012 | Gateway restart/recovery | same |
+| E-A3.10-013 | Memory recovery/lifecycle | same |
+| E-A3.10-014 | Skills update/rollback/recovery | same |
+| E-A3.10-015 | Data transaction/quarantine/recovery | same |
+| E-A3.10-016 | Multiple Bots queue/lease/restart recovery | same |
+| E-A3.10-017 | Automations retry/unknown recovery | same |
+| E-A3.10-018 | Token lifecycle preservation | same |
+| E-A3.10-019 | exact current owner cross-platform matrices | same |
+| E-A3.10-020 | Distribution acceptance inventory contains exactly two scripts | same |
+| E-A3.10-021 | Agent acceptance creates one root only | same |
+| E-A3.10-022 | profile acceptance creates one root only | same |
+| E-A3.10-023 | A2.4 component identity/isolation graph | same |
+| E-A3.10-024 | destructive lifecycle BLOCKER set | same |
+| E-A3.10-025 | lifecycle/concurrency/recovery HIGH findings | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -3273,7 +3363,8 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-046 | allocated A2.8 |
 | WSA-2026-047 | allocated A3.2 |
 | WSA-2026-048 | allocated A3.5 |
-| WSA-2026-049 | **NEXT UNUSED** |
+| WSA-2026-049 | allocated A3.10 |
+| WSA-2026-050 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
