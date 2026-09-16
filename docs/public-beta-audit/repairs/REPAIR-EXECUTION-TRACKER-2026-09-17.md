@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Audit findings entering repair:** **63 PROVEN / 63 OPEN / 0 CLOSED**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-006`
+**Current active finding:** `WSA-2026-012`
 
 ## 1. Purpose
 
@@ -46,8 +46,8 @@ Exactly one finding should normally be ACTIVE.
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
-| R0.1 | WSA-2026-006 Gateway destructive purge containment | AI-Verse-Gateway | **ACTIVE** |
-| R0.2 | WSA-2026-012 Memory lifecycle parent-symlink containment | AI-Verse-Memory | PENDING |
+| R0.1 | WSA-2026-006 Gateway destructive purge containment | AI-Verse-Gateway | **CLOSED** |
+| R0.2 | WSA-2026-012 Memory lifecycle parent-symlink containment | AI-Verse-Memory | **ACTIVE** |
 | R0.3 | WSA-2026-016 Skills lifecycle-controller containment | AI-Verse-Skills | PENDING |
 | R0.4 | WSA-2026-029 Connections destructive purge containment | AI-Verse-Connections | PENDING |
 
@@ -188,8 +188,27 @@ Repair requirements:
 - cross-platform negative regressions cover these cases;
 - safe custom-home install/uninstall/reinstall still works.
 
-**Status:** ACTIVE
+**Status:** CLOSED
+
+**Closure packet:** `repairs/WSA-2026-006-GATEWAY-DESTRUCTIVE-PURGE.md`
 
 ## 6. Repair log
 
-No finding has yet been closed in the post-audit repair program.
+### R0.1 / WSA-2026-006 - CLOSED
+
+- baseline Gateway: `46c15ee58b028dd7fb8b310327ea705ef618805e`
+- repair PR: `AI-Verse-Gateway#32`
+- PR head: `94a1416724f076f06783385c4df07cf18bdbd788`
+- merged Gateway: `5347a0b7e3f3f302f4570e9bc37d515192753610`
+- CI: run `35152574719`, six Linux/macOS/Windows Node 20/22 jobs SUCCESS
+- full test result observed on Ubuntu Node 22: 104 passed / 0 failed
+- composed Gateway workflows: four of four SUCCESS
+- exact PR-head to merge comparison: zero changed files
+- A1.2 finding-specific recheck: PASS for WSA-006 only
+- A3.10 Gateway destructive-containment branch: RESOLVED; journey remains PARTIAL due other findings
+- A4.1 Gateway destructive-containment branch: RESOLVED; adversarial task remains FAIL due other findings
+- finding state: `OPEN -> CLOSED`
+
+### R0.2 / WSA-2026-012 - ACTIVE
+
+Next dependency-safe task: AI-Verse-Memory lifecycle parent-symlink containment. No implementation has begun in this tracker update.
