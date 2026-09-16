@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-047`.
+**Next unused finding ID:** `WSA-2026-048`.
 
 ## 2. Allowed classifications
 
@@ -113,6 +113,7 @@ Rules:
 | WSA-2026-044 | MEDIUM | PROVEN | OPEN | meta authority / living-spec synchronization / current release truth | AI-Verse-System | A1.14 |
 | WSA-2026-045 | MEDIUM | PROVEN | OPEN | retrieval freshness / provenance cache invalidation | AI-Verse-Gateway | A2.5 |
 | WSA-2026-046 | MEDIUM | PROVEN | OPEN | release composition / public-member product path | AI-Verse-Skills, ai-verse-distribution, AI-Verse-System | A2.8 |
+| WSA-2026-047 | MEDIUM | PROVEN | OPEN | migration release evidence / cross-owner persistence | AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, ai-verse-distribution | A3.2 |
 
 Current counts:
 
@@ -120,14 +121,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 20 |
-| MEDIUM | 12 |
+| MEDIUM | 13 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 46 |
+| PROVEN | 47 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 46 |
+| OPEN | 47 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1362,6 +1363,30 @@ Create a new immutable Agent candidate containing an exact accepted Skills ref w
 
 ---
 
+### WSA-2026-047 - semantic migration-drop lacks real composed owner acceptance
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A3.2  
+**Root area:** migration release evidence / cross-owner persistence  
+**Affected repos:** AI-Verse-OS, AI-Verse-Gateway, AI-Verse-Memory, AI-Verse-Data, ai-verse-distribution
+
+**Summary:**  
+Semantic migration-drop is a current user-facing migration path. OS/Gateway tests verify classification, clarification, source binding, owner request shape and replay, but replace real sibling Memory/Data/workspace owners with stubs or fixtures. No reviewed composed acceptance executes the full migration through real owners and verifies persistence/restart/replay.
+
+**Contradiction:** C-A3.2-001.
+
+**Primary evidence:** E-A3.2-002 through E-A3.2-010.
+
+**Impact:**  
+A3 cannot fully verify the no-loss cross-owner migration journey. This is an acceptance-evidence gap, not proof that real owner routing currently fails.
+
+**Required closure evidence:**  
+Add a composed acceptance using exact admitted refs that imports a raw prior-assistant context drop through real OS, workspace, Memory and Data owners, survives restart/clarification resume, proves replay does not duplicate writes, verifies no wholesale raw-source copy, and exercises one downstream owner rejection/failure.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1450,6 +1475,11 @@ Create a new immutable Agent candidate containing an exact accepted Skills ref w
 | C-A3.1-001 | A3.1 | public Python requirement vs executable Agent requirement | yes | WSA-2026-035 | OPEN |
 | C-A3.1-002 | A3.1 | sanitized failure fields vs raw ProcessError message | yes | WSA-2026-036 | OPEN |
 | C-A3.1-003 | A3.1 | accepted Video Editor vs default Distribution composition | yes | WSA-2026-046 | OPEN |
+| C-A3.2-001 | A3.2 | semantic migration current user journey vs stubbed owner acceptance | yes | WSA-2026-047 | OPEN |
+| C-A3.2-002 | A3.2 | Memory singular-authority migration law vs non-atomic handoff | yes | WSA-2026-014 | OPEN |
+| C-A3.2-003 | A3.2 | migration-required lifecycle state vs native Memory write admission | yes | WSA-2026-013 | OPEN |
+| C-A3.2-004 | A3.2 | existing-system lifecycle containment vs Memory parent-symlink path | yes | WSA-2026-012 | OPEN |
+| C-A3.2-005 | A3.2 | Brain native destination scope law vs symlinked parent acceptance | yes | WSA-2026-009 | OPEN |
 
 ### C-A0.1-001
 
@@ -2032,6 +2062,37 @@ See `WSA-2026-002`.
 **Source A:** Video Editor is accepted/member-facing at current Skills head.  
 **Source B:** the ordinary Distribution Agent path contains older Skills refs.  
 **Finding:** existing `WSA-2026-046`.
+
+### C-A3.2-001
+
+**Source A:** semantic migration-drop is current user-facing behavior and OS hosted QC passes.  
+**Source B:** OS migration tests stub workspace/Memory/Data owner calls and Gateway tests use migration fixtures.  
+**Source C:** reviewed Distribution cross-owner acceptance does not execute semantic migration through real sibling owners.  
+**Finding:** new `WSA-2026-047`.
+
+### C-A3.2-002
+
+**Source A:** Memory migration law requires singular writable authority after handoff.  
+**Source B:** target complete is published before durable source/writer retirement with no cross-root transaction journal.  
+**Finding:** existing `WSA-2026-014`.
+
+### C-A3.2-003
+
+**Source A:** migration-required state is intended to block normal canonical writes.  
+**Source B:** native Memory mutation does not enforce lifecycle attachment/enable/setup/migration state.  
+**Finding:** existing `WSA-2026-013`.
+
+### C-A3.2-004
+
+**Source A:** existing-system lifecycle must stay physically inside the selected AI-Verse root.  
+**Source B:** Memory lifecycle parent symlinks can redirect supported writes/deletes outside it.  
+**Finding:** existing `WSA-2026-012`.
+
+### C-A3.2-005
+
+**Source A:** Brain adoption must stay inside the selected native root/scope.  
+**Source B:** native destination parent containment is incomplete.  
+**Finding:** existing `WSA-2026-009`.
 
 ## 6. Evidence ID register
 
@@ -2759,6 +2820,33 @@ A2.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`
 
 A3.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-047`.
 
+### A3.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.2-001 | fresh A3.2 frozen-ref/open-PR gate | journeys/A3.2-EXISTING-SYSTEM-ATTACH-ADOPT-MIGRATION.md |
+| E-A3.2-002 | migration-drop current capability contract | same |
+| E-A3.2-003 | direct migration-import trusted OS transport | same |
+| E-A3.2-004 | OS migration owner-routing/idempotency tests | same |
+| E-A3.2-005 | OS semantic clarification/resume tests | same |
+| E-A3.2-006 | OS Repository QC run 34988213763 | same |
+| E-A3.2-007 | OS QC job 104445713230 migration steps | same |
+| E-A3.2-008 | OS migration test owner-method stubbing proof | same |
+| E-A3.2-009 | Gateway migration fixture-based acceptance | same |
+| E-A3.2-010 | Distribution cross-owner workflow negative-space check | same |
+| E-A3.2-011 | Brain standalone-to-native adoption semantics | same |
+| E-A3.2-012 | Brain destination containment defect | same |
+| E-A3.2-013 | Memory snapshot-bound migration contract | same |
+| E-A3.2-014 | Memory handoff ordering | same |
+| E-A3.2-015 | Memory lifecycle write-authority defect | same |
+| E-A3.2-016 | Memory lifecycle containment blocker | same |
+| E-A3.2-017 | Memory exact-head run 34983522129 | same |
+| E-A3.2-018 | Memory Ubuntu public-beta migration evidence | same |
+| E-A3.2-019 | Data schema migration and restore/import safety | same |
+| E-A3.2-020 | Distribution bounded existing-install safe reconcile | same |
+| E-A3.2-021 | existing profile/root/release lock refusal | same |
+| E-A3.2-022 | global no-data-loss/singular-authority assessment | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -2809,7 +2897,8 @@ A3.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-047`
 | WSA-2026-044 | allocated A1.14 |
 | WSA-2026-045 | allocated A2.5 |
 | WSA-2026-046 | allocated A2.8 |
-| WSA-2026-047 | **NEXT UNUSED** |
+| WSA-2026-047 | allocated A3.2 |
+| WSA-2026-048 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
