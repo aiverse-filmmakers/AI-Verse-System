@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 73 / 100.**
+**Current accepted progress: 75 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -218,10 +218,10 @@ Status: COMPLETE
 Status: COMPLETE
 
 ### A3.9 Token/usage/cost truth - 2
-Status: NEXT
+Status: COMPLETE
 
 ### A3.10 Lifecycle/recovery/two-system isolation/cross-platform - 2
-Status: PENDING
+Status: NEXT
 
 A3 exit:
 All currently supported public-beta journeys have end-to-end evidence or explicit findings.
