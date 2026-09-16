@@ -1484,6 +1484,7 @@ Add a composed acceptance using exact admitted refs that imports a raw prior-ass
 | C-A3.3-002 | A3.3 | authenticated pause/cancel vs stale asynchronous writer | yes | WSA-2026-008 | OPEN |
 | C-A3.3-003 | A3.3 | lifecycle status wording vs real process ownership | yes | WSA-2026-007 | OPEN |
 | C-A3.3-004 | A3.3 | exact-source freshness vs per-run deep-retrieval cache | yes | WSA-2026-045 | OPEN |
+| C-A3.4-001 | A3.4 | exact-source freshness law vs per-run deep-context cache | yes | WSA-2026-045 | OPEN |
 
 ### C-A0.1-001
 
@@ -2120,6 +2121,12 @@ See `WSA-2026-002`.
 
 **Source A:** exact-source reads are required to revalidate source freshness.  
 **Source B:** repeated per-run deep-context cache replay can bypass a new source read.  
+**Finding:** existing `WSA-2026-045`.
+
+### C-A3.4-001
+
+**Source A:** real J2/Memory exact-source retrieval revalidates source fingerprint/version and fails stale.  
+**Source B:** Gateway per-run deep-context dedupe can replay a prior identical exact result without executing that owner/source revalidation again.  
 **Finding:** existing `WSA-2026-045`.
 
 ## 6. Evidence ID register
@@ -2900,6 +2907,32 @@ A3.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-047`
 | E-A3.3-019 | deep-context cache freshness limitation | same |
 
 A3.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`.
+
+### A3.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.4-001 | fresh A3.4 frozen-ref/open-PR gate | journeys/A3.4-CONTEXT-MEMORY-CONTEXT-LADDER.md |
+| E-A3.4-002 | Gateway Context Ladder Integrated Acceptance run 34990219367 | same |
+| E-A3.4-003 | job 104452629493 exact current Gateway/OS/Memory composition | same |
+| E-A3.4-004 | real OS Alpha/Beta workspace preparation | same |
+| E-A3.4-005 | real Memory installation/index/doctor in OS | same |
+| E-A3.4-006 | ordinary conversation catalog-only behavior | same |
+| E-A3.4-007 | progressive catalog/summary/detail/source descent | same |
+| E-A3.4-008 | exact Memory source retrieval | same |
+| E-A3.4-009 | session-digest external Gateway source fallback | same |
+| E-A3.4-010 | Gateway source fingerprint revalidation/stale fail-closed | same |
+| E-A3.4-011 | durable-only Memory promotion | same |
+| E-A3.4-012 | correction/supersession behavior | same |
+| E-A3.4-013 | long-context fold plus exact recent raw tail | same |
+| E-A3.4-014 | Alpha/Beta Memory and fold scope isolation | same |
+| E-A3.4-015 | derived Memory rebuild preserves canonical state | same |
+| E-A3.4-016 | restart preserves fold/durable context state | same |
+| E-A3.4-017 | branch catalog rejection remains safe | same |
+| E-A3.4-018 | exact evidence reference requirement | same |
+| E-A3.4-019 | A2.5 repeated deep-context cache defect | same |
+
+A3.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`.
 
 ## 7. Finding allocation ledger
 
