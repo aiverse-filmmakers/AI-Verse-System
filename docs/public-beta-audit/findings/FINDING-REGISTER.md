@@ -1977,6 +1977,30 @@ Add immutable clean-machine acceptance that begins through `aiverse start`, conf
 | C-A5.4-009 | A5.4 | final Agent PR attempt-1 Windows failure vs unchanged successful rerun | no | none | EVIDENCE LIMITATION |
 | C-A5.4-010 | A5.4 | current model/provider generation vs hard-coded obsolete provider | no | none | VERIFIED ADAPTER/CONFIG DRIVEN |
 
+### A6.2 root-cause synthesis result
+
+A6.2 groups the 63 stable findings into **9 primary architectural root-cause families** without merging or closing findings.
+
+Primary assignment is exact:
+
+- RC-01 trusted boundary binding: 17 findings — 4 BLOCKER / 13 HIGH;
+- RC-02 atomic/serialized canonical mutation: 10 findings — 7 HIGH / 3 MEDIUM;
+- RC-03 authoritative lifecycle/readiness truth: 6 findings — 4 HIGH / 2 MEDIUM;
+- RC-04 long-lived state retention/freshness/indexing: 4 MEDIUM;
+- RC-05 final diagnostics/receipt sanitization: 2 MEDIUM;
+- RC-06 release/current-state synchronization: 15 findings — 3 MEDIUM / 12 LOW;
+- RC-07 composed qualification completeness: 6 findings — 5 MEDIUM / 1 INFO;
+- RC-08 Dashboard projection/browser semantics: 2 MEDIUM;
+- RC-09 Gateway pre-auth resource admission: 1 MEDIUM.
+
+All **4 BLOCKERs and all 24 HIGHs** are concentrated in RC-01/RC-02/RC-03.
+
+Canonical graph:
+
+`docs/public-beta-audit/synthesis/A6.2-ROOT-CAUSE-FINDING-GRAPH.md`
+
+No finding state, severity, confidence or ID changed.
+
 ### A6.1 global deduplication result
 
 A6.1 has completed the whole-system contradiction dedupe.
@@ -4435,6 +4459,24 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A6.1-008 | non-material contradiction classification inventory | same |
 | E-A6.1-009 | stable finding-ID dedupe mapping | same |
 | E-A6.1-010 | no finding severity/confidence/state mutation | same |
+
+### A6.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.2-001 | fresh A6.2 frozen-ref/open-PR gate | synthesis/A6.2-ROOT-CAUSE-FINDING-GRAPH.md |
+| E-A6.2-002 | A6.1 63-family contradiction register | same |
+| E-A6.2-003 | canonical finding severities/roots/repos | same |
+| E-A6.2-004 | source contradiction phase mapping | same |
+| E-A6.2-005 | 63/63 primary root assignment check | same |
+| E-A6.2-006 | zero duplicate primary assignments | same |
+| E-A6.2-007 | RC-01 4 BLOCKER / 13 HIGH concentration | same |
+| E-A6.2-008 | RC-02 7 HIGH / 3 MEDIUM concentration | same |
+| E-A6.2-009 | RC-03 4 HIGH / 2 MEDIUM concentration | same |
+| E-A6.2-010 | RC-06 15-finding release/current truth family | same |
+| E-A6.2-011 | RC-07 6-finding composed qualification family | same |
+| E-A6.2-012 | root-to-root relationship graph | same |
+| E-A6.2-013 | whole-system laws G1-G10 | same |
 
 ## 7. Finding allocation ledger
 
