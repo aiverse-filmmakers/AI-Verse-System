@@ -72,7 +72,7 @@ Rules:
 | `WSA-2026-003` | INFO | PROVEN | OPEN | hosted CI / evidence availability | `AI-Verse-Connections`, `AI-Verse-System` | A0.2 |
 | `WSA-2026-004` | LOW | PROVEN | OPEN | audit control-document drift | `AI-Verse-System` | A0.3 |
 | `WSA-2026-005` | LOW | PROVEN | OPEN | capability source-of-truth / contract metadata drift | `AI-Verse-OS` | A1.1 |
-| `WSA-2026-006` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem safety | `AI-Verse-Gateway` | A1.2 |
+| `WSA-2026-006` | BLOCKER | PROVEN | CLOSED | destructive lifecycle / filesystem safety | `AI-Verse-Gateway` | A1.2 |
 | `WSA-2026-007` | HIGH | PROVEN | OPEN | setup/disable/uninstall/status lifecycle truth | `AI-Verse-Gateway` | A1.2 |
 | `WSA-2026-008` | HIGH | PROVEN | OPEN | concurrency / idempotency / session binding / run control | `AI-Verse-Gateway` | A1.2 |
 | `WSA-2026-009` | HIGH | PROVEN | OPEN | filesystem containment / scope isolation | `AI-Verse-Brain` | A1.3 |
@@ -144,8 +144,8 @@ Current counts:
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 63 |
-| CLOSED | 0 |
+| OPEN | 62 |
+| CLOSED | 1 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
 
@@ -328,7 +328,7 @@ After A6 authorizes repair: align `AI-VERSE.yaml` with `system/capabilities/`; u
 
 **Severity:** BLOCKER  
 **Confidence:** PROVEN  
-**State:** OPEN  
+**State:** CLOSED  
 **Opened by:** A1.2  
 **Root area:** destructive lifecycle / filesystem safety  
 **Affected repos:** `AI-Verse-Gateway`  
@@ -350,6 +350,26 @@ A typo, unsafe automation argument or custom home can delete unrelated user/syst
 
 **Required closure evidence:**  
 After A6 authorizes repair: require and verify an exact Gateway ownership marker at the target realpath; reject root/broad/symlink/foreign targets; prefer removal of known Gateway-owned children; add cross-platform negative tests for unrelated directory, missing/wrong marker, root-like target and safe custom home; re-audit uninstall/reinstall on the repaired exact ref.
+
+
+#### Post-audit closure - 2026-09-17
+
+**State transition:** `OPEN -> CLOSED`  
+**Repair PR:** `AI-Verse-Gateway#32`  
+**Repair PR head:** `94a1416724f076f06783385c4df07cf18bdbd788`  
+**Merged repair ref:** `5347a0b7e3f3f302f4570e9bc37d515192753610`  
+**Closure packet:** `../repairs/WSA-2026-006-GATEWAY-DESTRUCTIVE-PURGE.md`
+
+Closure evidence proves that Gateway destructive purge now requires persistent ownership bound to the canonical real root, refuses broad/root/symlink/foreign targets, refuses to claim unrelated non-empty directories, deletes only known Gateway-owned entries and preserves unknown entries.
+
+PR-head CI run `35152574719` passed all six Ubuntu/macOS/Windows Node 20/22 jobs. The observed Ubuntu Node 22 suite reported 104 passed / 0 failed, including the new lifecycle-containment regressions. Four composed Gateway workflows also passed. PR-head to merged-main comparison contained zero file changes, proving the tested product bytes are the merged bytes.
+
+Finding-specific rechecks:
+- A1.2: WSA-006 failure mechanism no longer exists at the repaired ref;
+- A3.10: Gateway branch of destructive lifecycle contradiction C-A3.10-001 resolved; other lifecycle blockers remain;
+- A4.1: Gateway branch of owner-root contradiction C-A4.1-003 resolved; other security findings remain.
+
+Overall system verdict remains **NO-GO**. Remaining open BLOCKERs are WSA-2026-012, WSA-2026-016 and WSA-2026-029.
 
 ---
 
