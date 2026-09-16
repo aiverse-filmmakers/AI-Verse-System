@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-054`.
+**Next unused finding ID:** `WSA-2026-057`.
 
 ## 2. Allowed classifications
 
@@ -120,21 +120,24 @@ Rules:
 | WSA-2026-051 | HIGH | PROVEN | OPEN | SSRF / DNS rebinding / credential-bearing provider edge | AI-Verse-Connections | A4.1 |
 | WSA-2026-052 | HIGH | PROVEN | OPEN | migration concurrency / source-level idempotency | AI-Verse-OS | A4.2 |
 | WSA-2026-053 | HIGH | PROVEN | OPEN | structured Data concurrency / natural-key uniqueness | AI-Verse-OS, AI-Verse-Brain, AI-Verse-Data | A4.2 |
+| WSA-2026-054 | HIGH | PROVEN | OPEN | crash recovery / state-lock ownership / external-effect receipt safety | AI-Verse-Connections | A4.3 |
+| WSA-2026-055 | MEDIUM | PROVEN | OPEN | external-effect idempotency / crash uncertainty / recovery | AI-Verse-Connections | A4.3 |
+| WSA-2026-056 | MEDIUM | PROVEN | OPEN | canonical receipt corruption / health truth / recovery | AI-Verse-Connections | A4.3 |
 
 Current counts:
 
 | Dimension | Count |
 |---|---:|
 | BLOCKER | 4 |
-| HIGH | 23 |
-| MEDIUM | 16 |
+| HIGH | 24 |
+| MEDIUM | 18 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 53 |
+| PROVEN | 56 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 53 |
+| OPEN | 56 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1537,6 +1540,79 @@ Move semantic uniqueness into the Data owner via atomic unique constraint/upsert
 
 ---
 
+
+### WSA-2026-054 - Connections crash can orphan the global write lock and indefinitely wedge canonical mutations
+
+**Severity:** HIGH  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.3  
+**Root area:** crash recovery / state-lock ownership / external-effect receipt safety  
+**Affected repo:** AI-Verse-Connections
+
+**Summary:**  
+Connections serializes canonical mutation with a persistent `.write.lock` directory. The lock has no holder identity, liveness check, stale age protocol or crashed-holder recovery. If the owning process terminates before its `finally` cleanup, the directory remains and all later `withLock` mutations time out.
+
+**Contradiction:** C-A4.3-006.
+
+**Primary evidence:** E-A4.3-021, E-A4.3-022, E-A4.3-023.
+
+**Impact:**  
+Lifecycle, registry, idempotency and terminal receipt mutations can remain unavailable until manual filesystem intervention. Doctor does not detect the stale lock. Requests without an idempotency key can also reach an external provider and only then fail terminal receipt publication against the orphaned lock, creating effect-without-durable-receipt risk.
+
+**Required closure evidence:**  
+Add holder-aware crash recovery, expose lock health through doctor, prove dead holders can be reclaimed without stealing live locks, and add process-death tests around reservation and terminal receipt publication.
+
+---
+
+### WSA-2026-055 - Connections crash after reservation can leave an external effect permanently unknown under a pending idempotency key
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.3  
+**Root area:** external-effect idempotency / crash uncertainty / recovery  
+**Affected repo:** AI-Verse-Connections
+
+**Summary:**  
+Connections persists a pending idempotency reservation before provider execution, but the reservation remains `attemptedExternal:false` until a later terminal receipt is appended. A crash after provider-edge entry but before that terminal append leaves the same key permanently pending with no durable unknown-effect state or recovery protocol.
+
+**Contradiction:** C-A4.3-007.
+
+**Primary evidence:** E-A4.3-023, E-A4.3-024, E-A4.3-027.
+
+**Impact:**  
+The same key cannot be safely retried or explicitly reconciled, and durable state cannot distinguish pre-effect crash from an effect that may already have occurred. Usage-budget accounting also counts only `attemptedExternal:true` receipts, so unknown post-edge attempts are not represented correctly.
+
+**Required closure evidence:**  
+Persist a provider-edge/unknown state, classify abandoned reservations on restart, require explicit reconciliation or provider-supported safe replay, include unknown attempts in budget semantics, and fault-test every pre/post-provider crash boundary.
+
+---
+
+### WSA-2026-056 - Connections receipt-log corruption can disable execution while health checks remain unaware
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.3  
+**Root area:** canonical receipt corruption / health truth / recovery  
+**Affected repo:** AI-Verse-Connections
+
+**Summary:**  
+Connections reads its append-only NDJSON receipt log by parsing every non-empty line. A single malformed/truncated line makes the entire receipt read fail. External execution depends on that history, while doctor does not validate receipt-store readability.
+
+**Contradiction:** C-A4.3-008.
+
+**Primary evidence:** E-A4.3-025, E-A4.3-026, E-A4.3-028.
+
+**Impact:**  
+Corruption can block external execution and make idempotency/budget evidence unavailable while lifecycle/registry-based health can remain apparently ready. The behavior fails closed rather than silently discarding history, which bounds severity to MEDIUM.
+
+**Required closure evidence:**  
+Define a receipt corruption/quarantine protocol, surface corruption in doctor, preserve trustworthy prior evidence, provide explicit recovery/rebuild semantics, and add deterministic malformed/truncated receipt tests.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -2502,6 +2578,49 @@ Existing credential/failure-path findings remain active alongside the new DNS-re
 **Source A:** automatic structured truth expects one canonical record for one natural key.  
 **Source B:** OS query-before-create plus candidate-specific idempotency and generated record IDs allow concurrent duplicate natural-key rows.  
 **Finding:** new `WSA-2026-053`.
+
+
+### C-A4.3-001
+
+**Finding:** existing `WSA-2026-007`.
+
+### C-A4.3-002
+
+**Finding:** existing `WSA-2026-014`.
+
+### C-A4.3-003
+
+**Finding:** existing `WSA-2026-025`.
+
+### C-A4.3-004
+
+**Finding:** existing `WSA-2026-026`.
+
+### C-A4.3-005
+
+**Finding:** existing `WSA-2026-034`.
+
+### C-A4.3-006
+
+**Source A:** Connections canonical state mutations are intended to serialize through one write lock.  
+**Source B:** the directory lock has no crashed-holder recovery and survives process termination.  
+**Finding:** new `WSA-2026-054`.
+
+### C-A4.3-007
+
+**Source A:** a pre-effect pending receipt is intended to make an external-effect idempotency key replay-safe.  
+**Source B:** process death after provider-edge entry has no durable unknown-effect transition and leaves the key permanently pending.  
+**Finding:** new `WSA-2026-055`.
+
+### C-A4.3-008
+
+**Source A:** Connections status/doctor can project ready/healthy from lifecycle, registry, credential and live-verification checks.  
+**Source B:** one malformed receipt line can make execution receipt reads fail, and doctor does not inspect the receipt store.  
+**Finding:** new `WSA-2026-056`.
+
+### C-A4.3-009
+
+**Finding:** existing `WSA-2026-052`.
 
 ## 6. Evidence ID register
 
@@ -3533,6 +3652,42 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A4.2-023 | OS >1 natural-key match becomes ambiguous | same |
 | E-A4.2-024 | no competing-candidate natural-key race test found | same |
 
+
+### A4.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.3-001 | fresh A4.3 frozen-ref/open-PR gate | adversarial/A4.3-PARTIAL-FAILURE-CORRUPTION-RECOVERY.md |
+| E-A4.3-002 | Gateway lifecycle setup publication ordering | same |
+| E-A4.3-003 | Gateway run restart/recovery | same |
+| E-A4.3-004 | Memory same-root lock/journal/effect recovery | same |
+| E-A4.3-005 | Memory cross-root handoff WSA-014 | same |
+| E-A4.3-006 | Skills immutable generation/active pointer | same |
+| E-A4.3-007 | Skills stale-lock WSA-017 | same |
+| E-A4.3-008 | Data corruption inspection/staged recovery | same |
+| E-A4.3-009 | Data quarantine write block | same |
+| E-A4.3-010 | Automations transactional occurrence/event behavior | same |
+| E-A4.3-011 | Automations unknown-delivery recovery fence | same |
+| E-A4.3-012 | Automations DB ownership/format WSA-026 | same |
+| E-A4.3-013 | Multiple Bots stale execution recovery | same |
+| E-A4.3-014 | Multiple Bots atomic recovery preconditions | same |
+| E-A4.3-015 | Token pricing failure atomicity WSA-025 | same |
+| E-A4.3-016 | Distribution atomic receipt file writer | same |
+| E-A4.3-017 | Distribution owner effect / receipt gap WSA-034 | same |
+| E-A4.3-018 | no admitted changed cross-release Distribution transition | same |
+| E-A4.3-019 | OS migration deterministic subaction idempotency | same |
+| E-A4.3-020 | OS late final migration receipt | same |
+| E-A4.3-021 | Connections directory lock lacks crash recovery | same |
+| E-A4.3-022 | Connections doctor omits state-lock validation | same |
+| E-A4.3-023 | Connections pending reservation / terminal receipt flow | same |
+| E-A4.3-024 | Connections budget counts attemptedExternal true only | same |
+| E-A4.3-025 | Connections all-or-nothing NDJSON receipt parser | same |
+| E-A4.3-026 | Connections doctor omits receipt-store validation | same |
+| E-A4.3-027 | same-key tests have no abandoned-pending recovery | same |
+| E-A4.3-028 | no stale-lock or receipt-corruption recovery test found | same |
+| E-A4.3-029 | A4.2 migration source reservation finding WSA-052 | same |
+| E-A4.3-030 | inherited failure/recovery finding matrix | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -3590,7 +3745,10 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-051 | allocated A4.1 |
 | WSA-2026-052 | allocated A4.2 |
 | WSA-2026-053 | allocated A4.2 |
-| WSA-2026-054 | **NEXT UNUSED** |
+| WSA-2026-054 | allocated A4.3 |
+| WSA-2026-055 | allocated A4.3 |
+| WSA-2026-056 | allocated A4.3 |
+| WSA-2026-057 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
