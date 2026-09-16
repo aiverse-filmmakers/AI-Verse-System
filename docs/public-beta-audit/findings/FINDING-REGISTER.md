@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-063`.
+**Next unused finding ID:** `WSA-2026-064`.
 
 ## 2. Allowed classifications
 
@@ -129,6 +129,7 @@ Rules:
 | WSA-2026-060 | LOW | PROVEN | OPEN | machine-readable release compatibility / blocker truth | ai-verse-distribution | A5.2 |
 | WSA-2026-061 | LOW | PROVEN | OPEN | release-acceptance documentation / version and CI status truth | ai-verse-token | A5.3 |
 | WSA-2026-062 | LOW | PROVEN | OPEN | profile composition documentation / release scope truth | AI-Verse-Multiple-Bots | A5.3 |
+| WSA-2026-063 | MEDIUM | PROVEN | OPEN | product runtime release evidence / supported runtime boundary | AI-Verse-Gateway, ai-verse-distribution | A5.4 |
 
 Current counts:
 
@@ -136,14 +137,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 24 |
-| MEDIUM | 21 |
+| MEDIUM | 22 |
 | LOW | 12 |
 | INFO | 1 |
-| PROVEN | 62 |
+| PROVEN | 63 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 62 |
+| OPEN | 63 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1763,6 +1764,30 @@ Correct the Agent profile sentence, preserve Connections only as the owner of ex
 
 ---
 
+### WSA-2026-063 - Agent clean-machine release evidence substitutes Gateway's deterministic test runtime for the supported runtime edge
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A5.4  
+**Root area:** product runtime release evidence / supported runtime boundary  
+**Affected repos:** AI-Verse-Gateway, ai-verse-distribution
+
+**Summary:**  
+Distribution's clean-machine Agent release gate uses the real `aiverse start` entrypoint, real owner lifecycles and real Gateway HTTP API, but configures Gateway with the `deterministic` zero-network runtime that Gateway itself labels for local testing. No reviewed default or candidate clean-machine Agent acceptance drives the documented non-test runtime boundary such as `openai-compatible`.
+
+**Contradiction:** C-A5.4-002.
+
+**Primary evidence:** E-A5.4-009 through E-A5.4-025.
+
+**Impact:**  
+A release can pass without proving the final member-facing model/runtime network edge: upstream URL handling, environment-backed bearer injection, model/tool-call mapping, usage mapping, timeout/error behavior and clean-machine runtime readiness can remain outside composed release evidence. This is an evidence gap, not proof that the adapter currently fails.
+
+**Required closure evidence:**  
+Add immutable clean-machine acceptance that begins through `aiverse start`, configures an admitted exact Agent set through a supported non-test runtime boundary, exercises the actual `openai-compatible` network adapter with a deterministic protocol-faithful local upstream if necessary, verifies credential/model/tool/usage/error handling, preserves runtime binding across restart, and passes on Ubuntu/macOS/Windows. Keep the deterministic runtime gate as supplemental coverage rather than the sole composed runtime proof.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1941,6 +1966,16 @@ Correct the Agent profile sentence, preserve Connections only as the owner of ex
 | C-A5.3-008 | A5.3 | Multiple Bots Agent composition vs Distribution profile | yes | WSA-2026-062 | OPEN |
 | C-A5.3-009 | A5.3 | component safety/readiness prose vs known executable defects | yes | existing technical findings | DEDUPED |
 | C-A5.3-010 | A5.3 | dated historical snapshots vs later implementation | no | none | HISTORICAL / BOUNDED |
+| C-A5.4-001 | A5.4 | clean-machine claim vs actual public Distribution entrypoint | no | none | VERIFIED REAL AIVERSE START PATH |
+| C-A5.4-002 | A5.4 | real composed Agent claim vs deterministic test runtime edge | yes | WSA-2026-063 | OPEN |
+| C-A5.4-003 | A5.4 | default Agent age vs later accepted explicit candidates | no | none | INTENTIONAL IMMUTABLE CHANNEL BOUNDARY |
+| C-A5.4-004 | A5.4 | strongest candidate current refs vs current Skills/Video Editor | yes | WSA-2026-046 | OPEN |
+| C-A5.4-005 | A5.4 | semantic migration current path vs composed owner acceptance | yes | WSA-2026-047 | OPEN |
+| C-A5.4-006 | A5.4 | current self-learning path vs one composed release journey | yes | WSA-2026-048 | OPEN |
+| C-A5.4-007 | A5.4 | multi-system isolation intent vs one-root clean-machine gates | yes | WSA-2026-049 | OPEN |
+| C-A5.4-008 | A5.4 | public Agent prerequisites vs executable compatibility | yes | WSA-2026-035 | OPEN |
+| C-A5.4-009 | A5.4 | final Agent PR attempt-1 Windows failure vs unchanged successful rerun | no | none | EVIDENCE LIMITATION |
+| C-A5.4-010 | A5.4 | current model/provider generation vs hard-coded obsolete provider | no | none | VERIFIED ADAPTER/CONFIG DRIVEN |
 
 ### C-A0.1-001
 
@@ -3010,6 +3045,56 @@ Current component documentation can promise safety/readiness behavior later disp
 ### C-A5.3-010
 
 Explicitly dated or snapshot-scoped status/release evidence may be older than current implementation without being a current-state contradiction.  
+**Finding:** none.
+
+### C-A5.4-001
+
+The clean-machine Agent acceptance starts through the real `aiverse start` CLI and uses the same explicit `--release-set` product option for admitted candidates.  
+**Finding:** none.
+
+### C-A5.4-002
+
+The composed Agent gate reaches Gateway through real HTTP and real owner boundaries, but the final model/runtime adapter is `deterministic`, which Gateway documents as a local-testing runtime rather than the documented non-test selected runtime edge.  
+**Finding:** new `WSA-2026-063`.
+
+### C-A5.4-003
+
+The default immutable Agent remains older than later explicit candidates by design; candidates do not silently replace the default channel.  
+**Finding:** none.
+
+### C-A5.4-004
+
+The Context Ladder candidate matches eight of nine frozen current Agent component heads but pins Skills before the accepted member-facing Video Editor generation.  
+**Finding:** existing `WSA-2026-046`.
+
+### C-A5.4-005
+
+Semantic migration-drop remains current user-facing behavior without one exact-ref composed real-owner release journey.  
+**Finding:** existing `WSA-2026-047`.
+
+### C-A5.4-006
+
+The complete Goal -> learning -> promoted Skill -> later reuse chain remains unproven by one immutable composed Distribution acceptance.  
+**Finding:** existing `WSA-2026-048`.
+
+### C-A5.4-007
+
+Current clean-machine acceptance creates one AI-Verse root at a time and does not prove simultaneous two-system A/B isolation.  
+**Finding:** existing `WSA-2026-049`.
+
+### C-A5.4-008
+
+Distribution's ordinary Agent README advertises Python 3.9+ while executable Agent compatibility/preflight requires Python 3.11.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A5.4-009
+
+The final PR Agent gate needed an unchanged Windows rerun after one transient Gateway atomic-rename EPERM, while the original default Agent and current Context candidate have attempt-1 clean-machine successes.  
+**Finding:** none; evidence limitation retained.
+
+### C-A5.4-010
+
+Gateway runtime selection is adapter/config driven and no obsolete hard-coded provider/model prevents current composition.  
 **Finding:** none.
 
 ## 6. Evidence ID register
@@ -4280,6 +4365,43 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A5.3-032 | finding-register dedupe map | same |
 | E-A5.3-033 | historical-vs-current classification pass | same |
 
+### A5.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.4-001 | fresh A5.4 frozen-ref/open-PR gate | release/A5.4-PRODUCT-PATH-CLEAN-MACHINE-CURRENT-GENERATION.md |
+| E-A5.4-002 | A5.4 program requirement | same |
+| E-A5.4-003 | Distribution ordinary aiverse start path | same |
+| E-A5.4-004 | Distribution CLI start parser/dispatch | same |
+| E-A5.4-005 | Orchestrator.start fresh-install behavior | same |
+| E-A5.4-006 | immutable Orchestrator.install behavior | same |
+| E-A5.4-007 | component staging/runtime-source model | same |
+| E-A5.4-008 | trusted owner lifecycle adapters | same |
+| E-A5.4-009 | Agent acceptance enters through aiverse start | same |
+| E-A5.4-010 | Agent first-run/exact-ref/authority assertions | same |
+| E-A5.4-011 | Agent real owner-use/lifecycle continuation | same |
+| E-A5.4-012 | three-platform clean-machine Agent workflow | same |
+| E-A5.4-013 | default Agent run 34852469415 | same |
+| E-A5.4-014 | final PR Agent run 34997085354 | same |
+| E-A5.4-015 | Context candidate run 34994419265 | same |
+| E-A5.4-016 | Context workflow exact expected refs | same |
+| E-A5.4-017 | candidate 8/9 current-head comparison | same |
+| E-A5.4-018 | Gateway deterministic local-testing documentation | same |
+| E-A5.4-019 | Gateway openai-compatible/first-supported-path documentation | same |
+| E-A5.4-020 | Distribution acceptance runtime-term inventory | same |
+| E-A5.4-021 | Gateway three runtime kinds | same |
+| E-A5.4-022 | Gateway openai-compatible network adapter | same |
+| E-A5.4-023 | Gateway runtime test inventory | same |
+| E-A5.4-024 | Gateway json-subprocess product-path local test | same |
+| E-A5.4-025 | no setup-level openai-compatible test in current Gateway test inventory | same |
+| E-A5.4-026 | existing WSA-035 product prerequisite mismatch | same |
+| E-A5.4-027 | existing WSA-046 Video Editor composition gap | same |
+| E-A5.4-028 | existing WSA-047 migration acceptance gap | same |
+| E-A5.4-029 | existing WSA-048 learning acceptance gap | same |
+| E-A5.4-030 | existing WSA-049 two-system acceptance gap | same |
+| E-A5.4-031 | A4.5 current runtime/platform validation | same |
+| E-A5.4-032 | A5.2 release/candidate identity reconstruction | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -4346,7 +4468,8 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-060 | allocated A5.2 |
 | WSA-2026-061 | allocated A5.3 |
 | WSA-2026-062 | allocated A5.3 |
-| WSA-2026-063 | **NEXT UNUSED** |
+| WSA-2026-063 | allocated A5.4 |
+| WSA-2026-064 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
