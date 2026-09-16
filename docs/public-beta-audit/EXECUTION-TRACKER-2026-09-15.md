@@ -21,7 +21,7 @@ Before each task:
 
 Audit weighting totals **100 points**.
 
-**Current accepted progress: 57 / 100.**
+**Current accepted progress: 59 / 100.**
 
 Planning/creation of this audit program does not count as audit evidence.
 
@@ -194,10 +194,10 @@ A2 exit:
 # A3 - End-to-end product journeys - 20 points
 
 ### A3.1 Clean install and first use - 2
-Status: NEXT
+Status: COMPLETE
 
 ### A3.2 Existing-system attach/adopt/migration - 2
-Status: PENDING
+Status: NEXT
 
 ### A3.3 Gateway chat/run/restart - 2
 Status: PENDING

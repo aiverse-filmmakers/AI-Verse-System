@@ -1447,6 +1447,9 @@ Create a new immutable Agent candidate containing an exact accepted Skills ref w
 | C-A2.8-004 | A2.8 | System current release/meta surfaces lag accepted candidates | yes | WSA-2026-044 | OPEN |
 | C-A2.8-005 | A2.8 | component current source vs immutable release identity | yes | WSA-2026-011 / WSA-2026-015 / WSA-2026-019 / WSA-2026-021 | OPEN |
 | C-A2.8-006 | A2.8 | accepted member-facing Video Editor vs every Distribution release set | yes | WSA-2026-046 | OPEN |
+| C-A3.1-001 | A3.1 | public Python requirement vs executable Agent requirement | yes | WSA-2026-035 | OPEN |
+| C-A3.1-002 | A3.1 | sanitized failure fields vs raw ProcessError message | yes | WSA-2026-036 | OPEN |
+| C-A3.1-003 | A3.1 | accepted Video Editor vs default Distribution composition | yes | WSA-2026-046 | OPEN |
 
 ### C-A0.1-001
 
@@ -2011,6 +2014,24 @@ See `WSA-2026-002`.
 **Source B:** every admitted Distribution release set pins an older Skills ref; newest candidate uses `71264af6...`.  
 **Source C:** exact Video Editor package is absent at `71264af6...` and present at `8c321c...`.  
 **Finding:** new `WSA-2026-046`.
+
+### C-A3.1-001
+
+**Source A:** ordinary Distribution prerequisites state Python 3.9+.  
+**Source B:** executable Agent compatibility/preflight requires Python 3.11.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A3.1-002
+
+**Source A:** explicit child stdout/stderr fields are sanitized.  
+**Source B:** ProcessError string can retain raw child output in the top-level CLI message.  
+**Finding:** existing `WSA-2026-036`.
+
+### C-A3.1-003
+
+**Source A:** Video Editor is accepted/member-facing at current Skills head.  
+**Source B:** the ordinary Distribution Agent path contains older Skills refs.  
+**Finding:** existing `WSA-2026-046`.
 
 ## 6. Evidence ID register
 
@@ -2712,6 +2733,31 @@ A2.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`
 | E-A2.8-018 | self-only candidate update/rollback transition enforcement | same |
 | E-A2.8-019 | component release identity drift findings | same |
 | E-A2.8-020 | System current release propagation drift | same |
+
+### A3.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.1-001 | fresh A3.1 frozen-ref/open-PR gate | journeys/A3.1-CLEAN-INSTALL-FIRST-USE.md |
+| E-A3.1-002 | current aiverse start CLI dispatch | same |
+| E-A3.1-003 | Orchestrator fresh-start implementation | same |
+| E-A3.1-004 | release-specific preflight/runtime enforcement | same |
+| E-A3.1-005 | exact source verification/install receipts | same |
+| E-A3.1-006 | owner setup ordering/composed OS reconciliation | same |
+| E-A3.1-007 | product bootstrap unit tests | same |
+| E-A3.1-008 | real Agent first-run acceptance assertions | same |
+| E-A3.1-009 | persisted first-run/authority assertions | same |
+| E-A3.1-010 | Clean Machine Agent run 34997085354 | same |
+| E-A3.1-011 | Windows job 104477919264 | same |
+| E-A3.1-012 | macOS job 104477921127 | same |
+| E-A3.1-013 | Ubuntu job 104477975938 | same |
+| E-A3.1-014 | tested final PR tree to frozen head file-equivalence | same |
+| E-A3.1-015 | fail-closed first-run status/reconcile behavior | same |
+| E-A3.1-016 | first-use prerequisite contradiction | same |
+| E-A3.1-017 | first-use diagnostics redaction contradiction | same |
+| E-A3.1-018 | accepted Video Editor composition limitation | same |
+
+A3.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-047`.
 
 ## 7. Finding allocation ledger
 
