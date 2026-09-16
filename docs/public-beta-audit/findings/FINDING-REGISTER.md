@@ -1520,6 +1520,11 @@ Add one composed acceptance at exact admitted refs that creates a real Brain Goa
 | C-A3.7-002 | A3.7 | Automations canonical store ownership vs foreign SQLite adoption | yes | WSA-2026-026 | OPEN |
 | C-A3.7-003 | A3.7 | one canonical scheduler authority vs post-setup legacy definition | yes | WSA-2026-027 | OPEN |
 | C-A3.7-004 | A3.7 | Automations owner lifecycle vs OS attachment state | yes | WSA-2026-028 | OPEN |
+| C-A3.8-001 | A3.8 | Connections installation system identity vs connection/execution identity | yes | WSA-2026-030 | OPEN |
+| C-A3.8-002 | A3.8 | MCP credential-origin isolation vs reauth | yes | WSA-2026-031 | OPEN |
+| C-A3.8-003 | A3.8 | complete final-edge authority law vs partial recheck | yes | WSA-2026-032 | OPEN |
+| C-A3.8-004 | A3.8 | admitted Generic API path prefix vs normalized provider path | yes | WSA-2026-033 | OPEN |
+| C-A3.8-005 | A3.8 | expected hosted current-head execution vs private-repo Actions infrastructure | yes | WSA-2026-003 | OPEN |
 
 ### C-A0.1-001
 
@@ -2225,6 +2230,36 @@ See `WSA-2026-002`.
 **Source A:** OS attachment metadata should reflect Automations lifecycle state.  
 **Source B:** component enable/disable/uninstall and OS registration can diverge.  
 **Finding:** existing `WSA-2026-028`.
+
+### C-A3.8-001
+
+**Source A:** Connections setup binds one installation system ID.  
+**Source B:** connection registration/execution can use another system ID.  
+**Finding:** existing `WSA-2026-030`.
+
+### C-A3.8-002
+
+**Source A:** one MCP bearer handle must remain origin-bound.  
+**Source B:** reauth can assign an existing foreign-origin credential handle.  
+**Finding:** existing `WSA-2026-031`.
+
+### C-A3.8-003
+
+**Source A:** final provider edge should recompute the complete current authority intersection.  
+**Source B:** lifecycle readiness and shared budgets are not rechecked atomically at that edge.  
+**Finding:** existing `WSA-2026-032`.
+
+### C-A3.8-004
+
+**Source A:** Generic API effect must remain within admitted path prefixes.  
+**Source B:** raw-prefix checking occurs before URL normalization, allowing normalized escape.  
+**Finding:** existing `WSA-2026-033`.
+
+### C-A3.8-005
+
+**Source A:** exact-head hosted tests are required for strong release evidence.  
+**Source B:** frozen Connections Actions jobs terminate without executing steps.  
+**Finding:** existing `WSA-2026-003`.
 
 ## 6. Evidence ID register
 
@@ -3114,6 +3149,34 @@ A3.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A3.7-022 | WSA-028 OS attachment/lifecycle divergence | same |
 
 A3.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
+
+### A3.8 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.8-001 | fresh A3.8 frozen-ref/open-PR gate | journeys/A3.8-CONNECTION-EXTERNAL-EFFECT-APPROVAL.md |
+| E-A3.8-002 | Connections canonical owner/effect model | same |
+| E-A3.8-003 | opaque vault credential boundary | same |
+| E-A3.8-004 | core integration secret non-persistence check | same |
+| E-A3.8-005 | registration/verification/admission/approval separation | same |
+| E-A3.8-006 | system/workspace rejection tests | same |
+| E-A3.8-007 | final-edge connection revocation test | same |
+| E-A3.8-008 | Generic API provider path/credential boundary | same |
+| E-A3.8-009 | MCP discovery/admission/approval/tool execution | same |
+| E-A3.8-010 | MCP capability drift revokes approval | same |
+| E-A3.8-011 | same-key concurrent idempotency reservation | same |
+| E-A3.8-012 | terminal receipt replay without re-execution | same |
+| E-A3.8-013 | rate/call limits test | same |
+| E-A3.8-014 | private-network default deny | same |
+| E-A3.8-015 | WSA-030 lifecycle-system binding defect | same |
+| E-A3.8-016 | WSA-031 MCP credential-origin defect | same |
+| E-A3.8-017 | WSA-032 final-edge lifecycle/budget defect | same |
+| E-A3.8-018 | WSA-033 normalized-path authorization defect | same |
+| E-A3.8-019 | WSA-029 purge blocker | same |
+| E-A3.8-020 | hosted run 34775251071 no-step evidence limitation / WSA-003 | same |
+| E-A3.8-021 | current Distribution release graph excludes Connections/Full | same |
+
+A3.8 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
 
 ## 7. Finding allocation ledger
 
