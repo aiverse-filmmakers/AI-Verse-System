@@ -25,7 +25,7 @@ Rules:
 9. If source evidence drifts, preserve the original record and append the recheck result rather than mutating history.
 10. Dashboard MC1.4 remains paused regardless of the absence of BLOCKER/HIGH findings because the whole-system audit itself is incomplete.
 
-**Next unused finding ID:** `WSA-2026-058`.
+**Next unused finding ID:** `WSA-2026-060`.
 
 ## 2. Allowed classifications
 
@@ -124,6 +124,8 @@ Rules:
 | WSA-2026-055 | MEDIUM | PROVEN | OPEN | external-effect idempotency / crash uncertainty / recovery | AI-Verse-Connections | A4.3 |
 | WSA-2026-056 | MEDIUM | PROVEN | OPEN | canonical receipt corruption / health truth / recovery | AI-Verse-Connections | A4.3 |
 | WSA-2026-057 | MEDIUM | PROVEN | OPEN | provider-error diagnostics / receipt minimization / secret-at-rest boundary | AI-Verse-Connections | A4.4 |
+| WSA-2026-058 | MEDIUM | PROVEN | OPEN | long-lived runtime state scale / idempotency indexing | AI-Verse-Gateway | A4.5 |
+| WSA-2026-059 | MEDIUM | PROVEN | OPEN | external-effect history scale / receipt indexing / budget lookup | AI-Verse-Connections | A4.5 |
 
 Current counts:
 
@@ -131,14 +133,14 @@ Current counts:
 |---|---:|
 | BLOCKER | 4 |
 | HIGH | 24 |
-| MEDIUM | 19 |
+| MEDIUM | 21 |
 | LOW | 9 |
 | INFO | 1 |
-| PROVEN | 57 |
+| PROVEN | 59 |
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 57 |
+| OPEN | 59 |
 | CLOSED | 0 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
@@ -1638,6 +1640,54 @@ Add a provider-error sanitization/minimization boundary before receipt and CLI o
 
 ---
 
+### WSA-2026-058 - Gateway idempotency state has unbounded whole-file growth on supported recurring paths
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.5  
+**Root area:** long-lived runtime state scale / idempotency indexing  
+**Affected repo:** AI-Verse-Gateway
+
+**Summary:**  
+Gateway stores every idempotency record in one JSON object. Each claim and commit reads/parses and rewrites the whole file. Supported recurring Automations generate a unique invocation ID on every occurrence, so ordinary always-on operation grows this hot-path state indefinitely.
+
+**Contradiction:** C-A4.5-001.
+
+**Primary evidence:** E-A4.5-005 through E-A4.5-009.
+
+**Impact:**  
+Idempotency request latency, memory use and write amplification grow with lifetime key count. This can degrade recurring Automation delivery and other idempotent Gateway operations even when individual requests are small and valid.
+
+**Required closure evidence:**  
+Move hot-path idempotency to an indexed transactional or equivalently bounded design, define safe replay retention/compaction, preserve changed-payload rejection, benchmark realistic 100k+ key histories, and re-run Gateway/Automation replay acceptance.
+
+---
+
+### WSA-2026-059 - Connections performs unbounded lifetime receipt scans on every external execution
+
+**Severity:** MEDIUM  
+**Confidence:** PROVEN  
+**State:** OPEN  
+**Opened by:** A4.5  
+**Root area:** external-effect history scale / receipt indexing / budget lookup  
+**Affected repo:** AI-Verse-Connections
+
+**Summary:**  
+Connections keeps one lifetime append-only receipt log and reparses the entire file on every external execution. Budget checks and idempotency lookup repeatedly scan all historical receipts, including records too old to affect current minute/day budgets.
+
+**Contradiction:** C-A4.5-002.
+
+**Primary evidence:** E-A4.5-023 through E-A4.5-028.
+
+**Impact:**  
+Normal valid lifetime growth increases disk read, parse, allocation and filtering cost for every provider call. Long-lived external-effect use can progressively degrade without corruption or hostile input.
+
+**Required closure evidence:**  
+Use indexed recent-window/idempotency state while retaining auditable historical receipts, define safe partition/archive semantics, benchmark 100k+ receipts, prove bounded hot-path latency/memory, and re-run budget/idempotency/recovery tests.
+
+---
+
 ## 5. Contradiction register
 
 | Contradiction | Task | Classification | Material? | Finding | Status |
@@ -1787,6 +1837,11 @@ Add a provider-error sanitization/minimization boundary before receipt and CLI o
 | C-A4.4-005 | A4.4 | trusted Data scope provenance vs structural public scope | yes | WSA-2026-020 | OPEN |
 | C-A4.4-006 | A4.4 | Distribution sanitized diagnostics vs raw exception message | yes | WSA-2026-036 | OPEN |
 | C-A4.4-007 | A4.4 | Connections opaque credential/receipt minimization vs raw provider-error propagation | yes | WSA-2026-057 | OPEN |
+| C-A4.5-001 | A4.5 | Gateway replay safety vs unbounded whole-file idempotency state | yes | WSA-2026-058 | OPEN |
+| C-A4.5-002 | A4.5 | Connections bounded request budgets vs lifetime receipt scans | yes | WSA-2026-059 | OPEN |
+| C-A4.5-003 | A4.5 | Agent current-generation floor vs ordinary Python prerequisite UX | yes | WSA-2026-035 | OPEN |
+| C-A4.5-004 | A4.5 | current supported platform claim vs clean-machine evidence | no | none | VERIFIED |
+| C-A4.5-005 | A4.5 | Memory/Token/Data bounded read claims vs executable query limits | no | none | VERIFIED |
 
 ### C-A0.1-001
 
@@ -2702,6 +2757,32 @@ Token normal projections remove sensitive provenance identifiers, while raw prov
 **Source A:** Connections keeps credentials behind opaque handles, minimizes normal terminal effect receipts and proves the ordinary Generic API bearer does not persist in registry/receipt state.  
 **Source B:** MCP provider error message/details cross the adapter unsanitized; the message is persisted in a terminal failure receipt and the full RPC error object can be emitted by CLI diagnostics.  
 **Finding:** new `WSA-2026-057`.
+
+### C-A4.5-001
+
+**Source A:** Gateway treats idempotency as durable replay/safety state and recurring Automation wakes are supported.  
+**Source B:** every unique key is retained in one JSON object that is fully read and rewritten for each new claim/commit, with no retention/index.  
+**Finding:** new `WSA-2026-058`.
+
+### C-A4.5-002
+
+**Source A:** Connections enforces per-minute/per-day call budgets and bounded request/response sizes.  
+**Source B:** budget/idempotency enforcement reparses every lifetime receipt on every execution, including receipts too old to affect current budgets.  
+**Finding:** new `WSA-2026-059`.
+
+### C-A4.5-003
+
+**Finding:** existing `WSA-2026-035`.
+
+### C-A4.5-004
+
+Current Agent release compatibility explicitly covers darwin/linux/win32 and current clean-machine release evidence exercises Ubuntu/macOS/Windows.  
+**Finding:** none.
+
+### C-A4.5-005
+
+Reviewed Memory, Token and Data normal read paths contain explicit executable result/candidate/page bounds.  
+**Finding:** none.
 
 ## 6. Evidence ID register
 
@@ -3803,6 +3884,45 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | E-A4.4-028 | A3.8 Connections external-effect journey | same |
 | E-A4.4-029 | A3.10 two-system isolation journey | same |
 
+### A4.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.5-001 | fresh A4.5 frozen-ref/open-PR gate | adversarial/A4.5-SCALE-CURRENT-GENERATION-NEGATIVE-SPACE.md |
+| E-A4.5-002 | Gateway request body/message/budget bounds | same |
+| E-A4.5-003 | Gateway Context Governor hard/soft pressure enforcement | same |
+| E-A4.5-004 | Gateway J1 Context Ladder benchmark | same |
+| E-A4.5-005 | Gateway one-file idempotency path | same |
+| E-A4.5-006 | Gateway claim/commit full JSON read-rewrite behavior | same |
+| E-A4.5-007 | Gateway recurring Automation idempotency path | same |
+| E-A4.5-008 | Gateway whole run-directory recovery scans | same |
+| E-A4.5-009 | no Gateway idempotency retention/index/large-store benchmark found | same |
+| E-A4.5-010 | Memory recall candidate/result limits | same |
+| E-A4.5-011 | Memory Context Ladder/neighbor benchmarks and budgets | same |
+| E-A4.5-012 | Data query pagination/protocol limit enforcement | same |
+| E-A4.5-013 | Token bounded read/aggregate interfaces | same |
+| E-A4.5-014 | Token 500-event read-performance baseline | same |
+| E-A4.5-015 | Dashboard Markdown 256 KiB/source limits | same |
+| E-A4.5-016 | Dashboard inbox/event page limits | same |
+| E-A4.5-017 | Multiple Bots bounded event reads | same |
+| E-A4.5-018 | Multiple Bots full-workspace projection scans | same |
+| E-A4.5-019 | Automations indexed SQLite schema | same |
+| E-A4.5-020 | Automations unbounded due-trigger claim set | same |
+| E-A4.5-021 | Automations missed occurrence coalescing | same |
+| E-A4.5-022 | OS semantic migration request/count bounds | same |
+| E-A4.5-023 | Connections one-file append-only receipt store | same |
+| E-A4.5-024 | Connections full receipt parsing | same |
+| E-A4.5-025 | Connections budget full-history filter | same |
+| E-A4.5-026 | Connections repeated idempotency receipt scans | same |
+| E-A4.5-027 | Connections current default request/call limits | same |
+| E-A4.5-028 | no Connections long-duration receipt performance/index test found | same |
+| E-A4.5-029 | Distribution compatibility matrix Python/Node/platform floors | same |
+| E-A4.5-030 | Distribution current Agent clean-machine runtime matrix | same |
+| E-A4.5-031 | current component runtime floors | same |
+| E-A4.5-032 | existing Python prerequisite contradiction WSA-035 | same |
+| E-A4.5-033 | current provider/model adapter generation review | same |
+| E-A4.5-034 | inherited missing-enforcement finding matrix | same |
+
 ## 7. Finding allocation ledger
 
 | Range | Status |
@@ -3864,7 +3984,9 @@ A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`
 | WSA-2026-055 | allocated A4.3 |
 | WSA-2026-056 | allocated A4.3 |
 | WSA-2026-057 | allocated A4.4 |
-| WSA-2026-058 | **NEXT UNUSED** |
+| WSA-2026-058 | allocated A4.5 |
+| WSA-2026-059 | allocated A4.5 |
+| WSA-2026-060 | **NEXT UNUSED** |
 
 Future tasks must inspect this register before allocating a new finding ID.
 
