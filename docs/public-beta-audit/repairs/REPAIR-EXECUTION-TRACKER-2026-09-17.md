@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Audit findings entering repair:** **63 PROVEN / 63 OPEN / 0 CLOSED**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-029`
+**Current active finding:** `WSA-2026-009`
 
 ## 1. Purpose
 
@@ -49,15 +49,15 @@ Exactly one finding should normally be ACTIVE.
 | R0.1 | WSA-2026-006 Gateway destructive purge containment | AI-Verse-Gateway | **CLOSED** |
 | R0.2 | WSA-2026-012 Memory lifecycle parent-symlink containment | AI-Verse-Memory | **CLOSED** |
 | R0.3 | WSA-2026-016 Skills lifecycle-controller containment | AI-Verse-Skills | **CLOSED** |
-| R0.4 | WSA-2026-029 Connections destructive purge containment | AI-Verse-Connections | **ACTIVE** |
+| R0.4 | WSA-2026-029 Connections destructive purge containment | AI-Verse-Connections | **CLOSED** |
 
-**R0 exit:** all four BLOCKERs CLOSED after exact-ref negative regression evidence plus lifecycle/security rechecks.
+**R0 exit:** **COMPLETE - 4 / 4 BLOCKERs CLOSED.** Exact-ref destructive-containment repairs and finding-specific lifecycle/security rechecks are recorded for all four findings. Hosted Connections runner availability remains separately OPEN as WSA-2026-003 and is not misclassified as a WSA-029 product-test failure.
 
 ### Phase R1 — Trusted authority, scope, identity and final-edge security
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
-| R1.1 | WSA-2026-009 Brain physical host-root containment | AI-Verse-Brain | PENDING |
+| R1.1 | WSA-2026-009 Brain physical host-root containment | AI-Verse-Brain | **ACTIVE** |
 | R1.2 | WSA-2026-020 Data trusted scope provenance | AI-Verse-Data | PENDING |
 | R1.3 | WSA-2026-022 Multiple Bots operator authority binding | AI-Verse-Multiple-Bots | PENDING |
 | R1.4 | WSA-2026-023 Worker workspace isolation | AI-Verse-Multiple-Bots | PENDING |
@@ -208,6 +208,39 @@ The early macOS lexical `/var` vs `/private/var` interruption-test mismatch was 
 
 This repair does not close WSA-2026-017, WSA-2026-018 or WSA-2026-019.
 
+## 5A. Completed task - R0.4 / WSA-2026-029
+
+**Owner:** `AI-Verse-Connections`  
+**Original audited ref:** `baaac641558dbff1c2eabb0b5ec785a633f49a5b`  
+**Live pre-repair ref:** `53b62bc636b9f1f367073c977050d12faf6509ec` (zero product-file diff from audited ref)  
+**Repair PR:** `AI-Verse-Connections#2`  
+**Final PR head:** `c4bb77f680298d91ce619db91a39d69daaaa76a8`  
+**Merged Connections:** `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016`  
+**Status:** CLOSED  
+**Closure packet:** `repairs/WSA-2026-029-CONNECTIONS-DESTRUCTIVE-PURGE.md`
+
+Closure evidence:
+- durable exact-realpath `ownership.json` added;
+- install refuses unrelated non-empty foreign homes;
+- recognizable legacy Connections state can receive the ownership marker;
+- broad filesystem/user/system homes are refused;
+- exact home symlink/junction targets are refused;
+- missing, wrong/foreign and copied markers fail closed;
+- purge no longer recursively deletes an arbitrary configured root;
+- only known Connections-owned entries are removed;
+- unknown/unowned children are preserved;
+- exact repaired destructive lifecycle harness: **10 / 10 PASS**;
+- actual `install -> setup -> uninstall({purge:true})` lifecycle path: PASS;
+- final PR head and merged product files have zero differences;
+- open Connections PRs after merge: 0;
+- PR run `35219295977`, unchanged-main run `35218943165` and post-merge run `35219652570` all exhibit inherited WSA-2026-003 no-runner infrastructure behavior (`steps: []`, `runner_id: 0`), so no hosted product test executed and no hosted cross-platform pass is claimed;
+- A1.10 finding-specific recheck: PASS for WSA-029 only;
+- A3.10 destructive lifecycle containment branch: RESOLVED for all four R0 findings; A3.10 remains PARTIAL overall;
+- A4.1 Connections destructive-purge branch: RESOLVED; adversarial task remains FAIL overall;
+- finding state: `OPEN -> CLOSED`.
+
+This repair does not close WSA-2026-003 or WSA-2026-030 through WSA-2026-033, WSA-2026-051, WSA-2026-054 through WSA-2026-057, or WSA-2026-059.
+
 ## 6. Repair log
 
 ### R0.1 / WSA-2026-006 - CLOSED
@@ -255,14 +288,26 @@ This repair does not close WSA-2026-017, WSA-2026-018 or WSA-2026-019.
 - A4.1 Skills controller-confinement branch: RESOLVED; adversarial task remains FAIL
 - finding state: `OPEN -> CLOSED`
 
-### R0.4 / WSA-2026-029 - ACTIVE
+### R0.4 / WSA-2026-029 - CLOSED
 
-Next dependency-safe task: AI-Verse-Connections destructive purge containment. No implementation has begun in this tracker update.
+- audited Connections: `baaac641558dbff1c2eabb0b5ec785a633f49a5b`
+- live pre-repair product tree: `53b62bc636b9f1f367073c977050d12faf6509ec`, zero changed files from audited ref
+- repair PR: `AI-Verse-Connections#2`
+- final PR head: `c4bb77f680298d91ce619db91a39d69daaaa76a8`
+- merged Connections: `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016`
+- exact destructive lifecycle harness: 10 / 10 PASS
+- actual service lifecycle install/setup/purge: PASS
+- exact PR-head to merge comparison: zero changed files
+- hosted matrix unavailable: six jobs allocate no runner and execute zero steps, retained under WSA-2026-003
+- A1.10 finding-specific recheck: PASS for WSA-029 only
+- A3.10 destructive-containment branch: all four R0 findings RESOLVED; journey remains PARTIAL
+- A4.1 Connections purge branch: RESOLVED; adversarial task remains FAIL overall
+- finding state: `OPEN -> CLOSED`
 
-## 7. Current task - R0.4 / WSA-2026-029
+## 7. Current task - R1.1 / WSA-2026-009
 
-**Owner:** `AI-Verse-Connections`  
+**Owner:** `AI-Verse-Brain`  
 **Status:** ACTIVE  
-**Execution state:** not yet implemented. The next repair session must first recheck Connections main/open PRs and the exact WSA-2026-029 evidence before creating the owner repair branch.
+**Execution state:** not yet implemented. The next repair session must first recheck Brain main/open PRs and the exact WSA-2026-009 evidence before creating the owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-029 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-009 reaches CLOSED or an explicitly recorded BLOCKED state.
