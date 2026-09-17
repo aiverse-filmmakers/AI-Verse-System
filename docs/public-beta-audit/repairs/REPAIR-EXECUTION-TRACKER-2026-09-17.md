@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-022`
+**Current active finding:** `WSA-2026-023`
 
 ## 1. Preserved execution history
 
@@ -56,8 +56,8 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 |---:|---|---|---|
 | R1.1 | WSA-2026-009 Brain physical host-root containment | AI-Verse-Brain | **CLOSED** |
 | R1.2 | WSA-2026-020 Data trusted scope provenance | AI-Verse-Data | **CLOSED** |
-| R1.3 | WSA-2026-022 Multiple Bots operator authority binding | AI-Verse-Multiple-Bots | **ACTIVE** |
-| R1.4 | WSA-2026-023 Worker workspace isolation | AI-Verse-Multiple-Bots | PENDING |
+| R1.3 | WSA-2026-022 Multiple Bots operator authority binding | AI-Verse-Multiple-Bots | **CLOSED** |
+| R1.4 | WSA-2026-023 Worker workspace isolation | AI-Verse-Multiple-Bots | **ACTIVE** |
 | R1.5 | WSA-2026-024 Token trusted ACTUAL source authority | ai-verse-token | PENDING |
 | R1.6 | WSA-2026-030 Connections installation/system binding | AI-Verse-Connections | PENDING |
 | R1.7 | WSA-2026-031 Connections credential-origin binding | AI-Verse-Connections | PENDING |
@@ -68,7 +68,7 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
 
-**R1 progress: 2 / 13 CLOSED = 15.38%.**
+**R1 progress: 3 / 13 CLOSED = 23.08%.**
 
 ### Later phases
 
@@ -93,6 +93,7 @@ Phase sizes remain:
 | R0.4 | WSA-2026-029 | Connections | #2 | `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016` | `WSA-2026-029-CONNECTIONS-DESTRUCTIVE-PURGE.md` |
 | R1.1 | WSA-2026-009 | Brain | #24 | `908f9a9a06c2b12204ada7f71cd761bae97b52ce` | `WSA-2026-009-BRAIN-NATIVE-HOST-ROOT-CONTAINMENT.md` |
 | R1.2 | WSA-2026-020 | Data | #17 | `491e22084418f34b849c7d9e700a40973888dcf6` | `WSA-2026-020-DATA-TRUSTED-SCOPE-PROVENANCE.md` |
+| R1.3 | WSA-2026-022 | Multiple Bots | #69 | `cb20bfd014530a7faa26e6abc868d8f85226ec79` | `WSA-2026-022-MULTIPLE-BOTS-OPERATOR-AUTHORITY-BINDING.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -124,22 +125,70 @@ Acceptance:
 - A4.1 Data forged-scope/path branch: RESOLVED for this finding, adversarial phase still incomplete overall;
 - WSA-2026-021: unchanged and OPEN.
 
-## 6. Current task - R1.3 / WSA-2026-022
+## 6. R1.3 closure record - WSA-2026-022
+
+**Baseline Multiple Bots:** `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`  
+**Repair PR:** `AI-Verse-Multiple-Bots#69`  
+**Final tested head:** `7c31c18fa789f5b4a7f377fa781db85764f1b7a9`  
+**Merged Multiple Bots:** `cb20bfd014530a7faa26e6abc868d8f85226ec79`  
+**Tested/merged tree:** `4c2bd28712cd10c43af57ad1f9c1c5cf875e350b`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- ordinary bearer transport remains transport access only, not operator/domain mutation authority: PASS;
+- explicit host/session operator binding: PASS;
+- authenticated operator principal and claimed operator provenance exact-match enforcement: PASS;
+- Bot lifecycle/rebind operator control: PASS;
+- Approval operator decision control: PASS;
+- dead-letter retry operator control: PASS;
+- Task cancellation operator override: PASS;
+- Team Run termination operator override: PASS;
+- Handoff rejection operator override: PASS;
+- legitimate Task creator/owner/assignee and Team Run leader cancellation semantics preserved: PASS;
+- legitimate Team Run leader termination and Handoff-target rejection preserved: PASS;
+- request authority reset between inbound requests: PASS;
+- dedicated operator-authority adversarial regressions: PASS;
+- PR-head CI `35284371590`: SUCCESS;
+- PR-head `npm test`: 519/519;
+- PR-head Phase 4 eval: 5/5;
+- PR-head pack check: PASS;
+- PR-head release eval: 7/7;
+- exact PR-head and merged product tree: identical;
+- post-merge CI `35284559449`: SUCCESS;
+- post-merge `npm test`: 519/519;
+- post-merge Phase 4 eval: 5/5;
+- post-merge pack check: PASS;
+- post-merge release eval: 7/7;
+- open Multiple Bots PRs after merge: 0;
+- A1.7 / C-A1.7-001 finding-specific recheck: RESOLVED for WSA-2026-022;
+- secure-remote operator-control seam recheck: PASS;
+- adversarial forged/mismatched operator identity recheck: PASS;
+- cancellation/control domain-law recheck: PASS;
+- WSA-2026-023: unchanged and OPEN.
+
+Pre-merge review caught and corrected three issues before acceptance:
+
+1. the repo-local Node shim initially lacked `node:async_hooks`;
+2. an adversarial cancellation fixture raced the live supervisor and was made deterministically approval-gated;
+3. a green intermediate implementation over-fenced legitimate owner/leader cancellation and was narrowed before merge so only operator overrides require trusted operator authority.
+
+## 7. Current task - R1.4 / WSA-2026-023
 
 **Owner:** `AI-Verse-Multiple-Bots`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Multiple Bots `main`, open PRs and the exact WSA-2026-022 evidence before creating any owner repair branch.
+The next repair session must first recheck Multiple Bots `main`, open PRs and the exact WSA-2026-023 evidence before creating any owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-022 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-023 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 7. Program progress
+## 8. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
-- R1: **2 / 13 CLOSED = 15.38%**
-- Findings: **6 / 63 CLOSED = 9.52%**
-- Remaining: **57 / 63 OPEN = 90.48%**
+- R1: **3 / 13 CLOSED = 23.08%**
+- Findings: **7 / 63 CLOSED = 11.11%**
+- Remaining: **56 / 63 OPEN = 88.89%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
