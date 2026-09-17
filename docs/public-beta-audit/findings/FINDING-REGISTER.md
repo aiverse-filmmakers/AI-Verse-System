@@ -95,7 +95,7 @@ Rules:
 | `WSA-2026-026` | HIGH | PROVEN | OPEN | canonical store ownership / lifecycle safety / health truth | `AI-Verse-Automations` | A1.9 |
 | `WSA-2026-027` | HIGH | PROVEN | OPEN | canonical schedule authority / migration handoff / readiness truth | `AI-Verse-Automations` | A1.9 |
 | `WSA-2026-028` | MEDIUM | PROVEN | OPEN | native attachment lifecycle / host discovery truth | `AI-Verse-Automations` | A1.9 |
-| `WSA-2026-029` | BLOCKER | PROVEN | CLOSED | destructive lifecycle / filesystem containment | `AI-Verse-Connections` | A1.10 |
+| `WSA-2026-029` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem containment | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-030` | HIGH | PROVEN | OPEN | system scope isolation / canonical installation binding | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-031` | HIGH | PROVEN | OPEN | credential origin binding / token passthrough prevention | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-032` | HIGH | PROVEN | OPEN | final-edge authority / concurrency / safety budgets | `AI-Verse-Connections` | A1.10 |
@@ -144,8 +144,8 @@ Current counts:
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 59 |
-| CLOSED | 4 |
+| OPEN | 60 |
+| CLOSED | 3 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
 
@@ -1019,7 +1019,7 @@ Synchronize component and registry lifecycle under existing lock controls, or de
 
 **Severity:** BLOCKER  
 **Confidence:** PROVEN  
-**State:** CLOSED  
+**State:** OPEN  
 **Opened by:** A1.10  
 **Root area:** destructive lifecycle / filesystem containment  
 **Affected repos:** `AI-Verse-Connections`
@@ -1036,31 +1036,6 @@ A typo or unsafe lifecycle invocation can delete unrelated user data. This is a 
 
 **Required closure evidence:**  
 Require a verified Connections ownership marker/realpath, reject root/broad/foreign targets, prefer known-owned-child deletion and add negative purge tests.
-
-#### Post-audit closure - 2026-09-17
-
-**State transition:** `OPEN -> CLOSED`  
-**Repair PR:** `AI-Verse-Connections#2`  
-**Final tested/reviewed PR head:** `c4bb77f680298d91ce619db91a39d69daaaa76a8`  
-**Merged repair ref:** `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016`  
-**Closure packet:** `../repairs/WSA-2026-029-CONNECTIONS-DESTRUCTIVE-PURGE.md`
-
-Connections now requires durable exact-realpath ownership before destructive purge. Broad filesystem/user/system homes, foreign non-empty homes, missing/wrong/copied ownership markers and an exact-home symlink/junction target fail closed. Purge removes only known Connections-owned children and preserves unexpected/unowned entries rather than recursively erasing the selected root.
-
-Permanent regressions cover unrelated non-empty homes, legacy-state ownership migration, missing/foreign/copied markers, broad roots, safe custom owned purge, unknown sentinel preservation and exact-home symlink/Windows-junction rejection.
-
-Exact repaired destructive-boundary validation reported **10 / 10 PASS**, and the actual lifecycle `install -> setup -> uninstall({purge:true})` path passed. Final PR head and merged product files have zero differences and there are no open Connections PRs after merge.
-
-Hosted cross-platform execution is **not claimed** for this repair. Connections workflow run `35219295977`, unchanged-main run `35218943165` and post-merge run `35219652570` all produced the inherited private-repository no-runner condition: jobs have `steps: []` and `runner_id: 0`. This remains separately OPEN as WSA-2026-003 and is not a product-test failure.
-
-Finding-specific rechecks:
-- A1.10: the arbitrary configured-root recursive purge mechanism is closed at the repaired exact ref;
-- A3.10: all four destructive lifecycle containment branches in C-A3.10-001 are now resolved; A3.10 remains PARTIAL overall because other lifecycle/recovery and two-system findings remain;
-- A4.1: the WSA-029 Connections purge branch of owner-root contradiction C-A4.1-003 is resolved; other security/path findings remain.
-
-This closure does not alter WSA-2026-003, WSA-2026-030 through WSA-2026-033, WSA-2026-051, WSA-2026-054 through WSA-2026-057, or WSA-2026-059.
-
-All four historical BLOCKER findings are now CLOSED. Phase R0 is **4 / 4 complete**. Overall system verdict remains **NO-GO** pending later repair phases and the bounded final independent recheck.
 
 ---
 
@@ -1886,8 +1861,6 @@ Add immutable clean-machine acceptance that begins through `aiverse start`, conf
 
 ## 5. Contradiction register
 
-The contradiction register below remains historical audit evidence. Post-audit finding closure is recorded in each finding's appended closure record and does not rewrite the original A0-A6 contradiction rows.
-
 | Contradiction | Task | Classification | Material? | Finding | Status |
 |---|---|---|---:|---|---|
 | `C-A0.1-001` | A0.1 | historical-only wording | no | none | RECORDED / EXPLICITLY SUPERSEDED |
@@ -2184,4 +2157,2636 @@ Canonical deduped view:
 
 The raw phase-local contradiction rows below remain immutable audit history. A6.1 does not renumber, erase or rewrite them.
 
-[The remainder of this file, including all historical contradiction detail, evidence ID registers, finding allocation ledger, negative-space checks, downstream rules and A0.3 task completion record, is unchanged from blob `f7648b3eb684b2fa0bed4fc439d096a1758b20d5`.]
+### C-A0.1-001
+
+**Source A:** older `docs/PUBLIC-BETA-EXECUTION-PLAN.md` language says Agent remained blocked.  
+**Source B:** current release record and public-beta tracker say Agent Distribution is released/accepted and explicitly supersede the older wording.  
+**Higher-authority source:** current release record + current tracker.  
+**Classification:** historical-only wording.  
+**Finding:** none.
+
+### C-A0.2-001
+
+See `WSA-2026-001`.  
+**Classification:** stale release metadata / documentation conflict.  
+**Higher-authority resolution:** deliberately not collapsed during A0-A6; machine-readable and System sources remain separately recorded pending later revalidation/repair.
+
+### C-A0.2-002
+
+See `WSA-2026-002`.  
+**Classification:** stale documentation.  
+**Higher-authority source for current implementation state:** live executable Connections repository.
+
+### C-A0.3-001
+
+**Source A:** `docs/public-beta-audit/README.md` at `eba8f2e7a7005a4e597bbb75fef7913927e2f738` says audit execution begins at A0.1.  
+**Source B:** `docs/public-beta-audit/EXECUTION-TRACKER-2026-09-15.md` at `eba8f2e7a7005a4e597bbb75fef7913927e2f738` says A0.1/A0.2 COMPLETE and A0.3 NEXT.  
+**Higher-authority source:** canonical execution tracker.  
+**Classification:** stale audit control documentation.  
+**Finding:** `WSA-2026-004`.
+
+### C-A1.1-001
+
+**Source A:** `AI-VERSE.yaml` at OS `924a21a3dc1094d0fb6cc422f55fdfc714634e4d` names `.claude/skills/` as `source_of_truth.shared_skill_methodology`.  
+**Source B:** current synchronizer, capability registry, runtime contract, capability architecture and architecture-check script all name `system/capabilities/` as canonical and `.claude/skills/` / `.agents/skills/` as generated peers.  
+**Higher-authority source:** executable synchronizer/resolver + current exact-head tests/CI.  
+**Classification:** stale machine-readable architecture metadata.  
+**Finding:** `WSA-2026-005`.
+
+### C-A1.1-002
+
+**Source A:** `system/contracts/capability-provider-v1/README.md` still says external discovery/built-in migration are future/not activated.  
+**Source B:** current resolver/synchronizer/architecture and exact-head real-provider integration show Provider v1 discovery and `system/capabilities/` migration implemented.  
+**Higher-authority source:** executable implementation + current tests/CI.  
+**Classification:** stale implementation-status prose in an otherwise active contract.  
+**Finding:** `WSA-2026-005`.
+
+### C-A1.1-003
+
+**Source A:** dated `docs/SHIP-READINESS-AUDIT-2026-09-12.md` contains pre-fix “do not ship unchanged” wording and old blockers.  
+**Source B:** later same-repository release/public-beta status records plus current implementation/tests show the bounded repairs.  
+**Higher-authority source:** current executable implementation + current CI.  
+**Classification:** historical-only superseded readiness wording.  
+**Finding:** none.
+
+### C-A1.2-001
+
+**Source A:** Gateway README/lifecycle surfaces present setup, disable and uninstall as authoritative lifecycle transitions.  
+**Source B:** current executable lifecycle/server code publishes config before setup verification completes, checks enabled only at server startup, leaves doctor independent of disabled state, and has no live-process stop/refusal path for uninstall.  
+**Higher-authority source:** executable lifecycle/server implementation.  
+**Classification:** implementation defect / lifecycle truth split.  
+**Finding:** `WSA-2026-007`.
+
+### C-A1.2-002
+
+**Source A:** README says `Idempotency-Key` durably binds retries to the original payload and changed reuse is rejected.  
+**Source B:** `claimIdempotency` performs the semantic read/check outside the serialized file-write critical section, so concurrent first claims can both be admitted.  
+**Higher-authority source:** executable store implementation.  
+**Classification:** implementation defect / concurrency gap.  
+**Finding:** `WSA-2026-008`.
+
+### C-A1.2-003
+
+**Source A:** security/README present pause and cancel as authenticated privileged controls.  
+**Source B:** `saveRun` can persist a stale execution candidate after a newer pause/cancel state because the transition has no revision/CAS or terminal/control guard.  
+**Higher-authority source:** executable run/store implementation.  
+**Classification:** implementation defect / control-state race.  
+**Finding:** `WSA-2026-008`.
+
+### C-A1.3-001
+
+**Source A:** Brain security/architecture says state paths are validated for scope/path safety.  
+**Source B:** native host/storage/installation code follows a symlinked `operator/` or `workspaces/` parent and validates descendants relative to that already-resolved outside parent.  
+**Higher-authority source:** executable implementation.  
+**Classification:** implementation defect / filesystem containment.  
+**Finding:** `WSA-2026-009`.
+
+### C-A1.3-002
+
+**Source A:** Brain Goal contract says operation IDs are replay-safe/idempotent and changed reuse is rejected.  
+**Source B:** non-create mutations use Goal-keyed locks while durable receipts are operation-ID keyed, leaving concurrent cross-Goal first use unserialized.  
+**Higher-authority source:** executable Goal implementation.  
+**Classification:** implementation defect / concurrency-idempotency gap.  
+**Finding:** `WSA-2026-010`.
+
+### C-A1.3-003
+
+**Source A:** accepted release descriptor pins beta.2 to `80019be5e6df29aee70371544bd96cedbf0329b9`.  
+**Source B:** frozen current main is 13 commits later with production-code changes and still reports/builds `0.1.0-beta.2`.  
+**Higher-authority source:** current version source + immutable release descriptor + commit comparison.  
+**Classification:** release/version identity drift.  
+**Finding:** `WSA-2026-011`.
+
+### C-A1.4-001
+
+**Source A:** Memory safety/docs say escaping destination paths are rejected.  
+**Source B:** lifecycle runtime/adapter copy/removal validates only final paths and can follow symlinked parents outside target before `shutil.rmtree`.  
+**Higher-authority source:** executable lifecycle/installer implementation.  
+**Classification:** implementation defect / destructive lifecycle path containment.  
+**Finding:** `WSA-2026-012`.
+
+### C-A1.4-002
+
+**Source A:** public lifecycle separates install/setup/enablement and reports disabled/detached/uninstalled states.  
+**Source B:** effective native canonical writer's authority helper returns without checking those native lifecycle states.  
+**Higher-authority source:** executable writer/lifecycle implementation.  
+**Classification:** implementation defect / lifecycle write authority.  
+**Finding:** `WSA-2026-013`.
+
+### C-A1.4-003
+
+**Source A:** migration contract says no migration leaves two writable canonical Memory stores.  
+**Source B:** target complete authority marker is written before source retirement is durably completed, with no cross-root transaction journal.  
+**Higher-authority source:** executable migration implementation.  
+**Classification:** implementation defect / migration handoff atomicity.  
+**Finding:** `WSA-2026-014`.
+
+### C-A1.4-004
+
+**Source A:** accepted descriptor pins beta.1 and README says accepted bootstrap refs are immutable.  
+**Source B:** current main is 119 commits newer under the same version and remote bootstrap hardcodes mutable main.  
+**Higher-authority source:** current version/installer code + immutable descriptor + commit comparison.  
+**Classification:** release/version/bootstrap drift.  
+**Finding:** `WSA-2026-015`.
+
+### C-A1.5-001
+
+**Source A:** Skills filesystem architecture requires canonicalized targets.  
+**Source B:** lifecycle controller state derives from `root/.aiverse` without equivalent physical containment.  
+**Higher-authority source:** executable lifecycle implementation.  
+**Finding:** `WSA-2026-016`.
+
+### C-A1.5-002
+
+**Source A:** immutable-generation docs say lifecycle mutation is serialized and only stale locks recover.  
+**Source B:** recovery uses age without holder-liveness verification.  
+**Higher-authority source:** executable lifecycle lock.  
+**Finding:** `WSA-2026-017`.
+
+### C-A1.5-003
+
+**Source A:** a generation pin is documented as complete for an execution lifetime.  
+**Source B:** retention protection has no active-execution lease/reference input.  
+**Higher-authority source:** executable retention implementation.  
+**Finding:** `WSA-2026-018`.
+
+### C-A1.5-004
+
+**Source A:** accepted descriptor binds beta.1 to `042fda1e…`.  
+**Source B:** frozen current main is 190 commits newer under the same version and mutable-main bootstrap.  
+**Higher-authority source:** current source + immutable descriptor + commit comparison.  
+**Finding:** `WSA-2026-019`.
+
+### C-A1.6-001
+
+**Source A:** client/security docs require a trusted `DataDatabaseScope` derived from `TrustedDataRoot`.  
+**Source B:** runtime client validation accepts structural scope identity and trusts supplied path/binding without nominal provenance.  
+**Higher-authority source:** executable client/scope implementation.  
+**Finding:** `WSA-2026-020`.
+
+### C-A1.6-002
+
+**Source A:** accepted descriptor binds alpha.0 to `189b1326…`.  
+**Source B:** frozen current main is 10 commits newer under the same version and mutable GitHub install route.  
+**Higher-authority source:** current package/source + immutable descriptor + commit comparison.  
+**Finding:** `WSA-2026-021`.
+
+### C-A1.7-001
+
+**Source A:** secure-remote contract says transport authentication does not grant domain authority.  
+**Source B:** sensitive operator controls accept caller-supplied actor identity and validate operator status syntactically rather than through trusted authenticated identity.  
+**Higher-authority source:** executable server/Gateway/recovery/control implementation.  
+**Finding:** `WSA-2026-022`.
+
+### C-A1.7-002
+
+**Source A:** temporary Workers are documented and implemented as Team Run/workspace-scoped principals.  
+**Source B:** generic coordination policy does not apply equivalent Worker workspace validation before delegation/message persistence, while failure handling can update the resolved Worker after a mismatched Task is rejected.  
+**Higher-authority source:** executable policy, delegation, queue/store and principal-runner implementation.  
+**Finding:** `WSA-2026-023`.
+
+### C-A1.8-001
+
+**Source A:** Token truth/collector contracts require trusted provider/runtime evidence for ACTUAL and say collectors do not gain pricing truth.  
+**Source B:** protocol validation and generic collector/ledger ingest accept a pre-attached actual charge without trusted actual-source registry proof.  
+**Source C:** cost engine promotes attached actual charge to ACTUAL before calculation.  
+**Higher-authority source:** executable protocol, collector, ledger and cost implementation.  
+**Finding:** `WSA-2026-024`.
+
+### C-A1.8-002
+
+**Source A:** pricing synchronization describes one updated response as storing its immutable snapshots plus source-check observation and failed refreshes as preserving prior successful state.  
+**Source B:** snapshot batch persistence writes individual files sequentially with no batch transaction/staging visibility barrier.  
+**Higher-authority source:** executable pricing store/synchronizer.  
+**Finding:** `WSA-2026-025`.
+
+### C-A1.9-001
+
+**Source A:** Automations architecture defines SQLite as the component-owned canonical scheduler store.  
+**Source B:** database initialization opens any selected `automations.db`, creates/alters tables and stamps metadata without proving Automations ownership or compatible format.  
+**Source C:** health checks generic SQLite integrity rather than exact Automations schema identity.  
+**Higher-authority source:** executable database/lifecycle implementation.  
+**Finding:** `WSA-2026-026`.
+
+### C-A1.9-002
+
+**Source A:** README states discovered legacy OS automation definitions require migration and keep execution disabled to prevent competing authorities.  
+**Source B:** live legacy discovery after setup is doctor-only; status and Engine execution use stored migration flags and can remain ready/active.  
+**Higher-authority source:** executable lifecycle/engine implementation.  
+**Finding:** `WSA-2026-027`.
+
+### C-A1.9-003
+
+**Source A:** public lifecycle includes enable/disable/uninstall and README describes uninstall/detach with canonical state preservation.  
+**Source B:** attached OS registry/files are not synchronized or detached by those component lifecycle commands.  
+**Higher-authority source:** executable lifecycle and OS-extension implementation.  
+**Finding:** `WSA-2026-028`.
+
+### C-A1.10-001
+
+**Source A:** Connections exposes destructive purge as a lifecycle command.  
+**Source B:** configured home is arbitrary and purge recursively force-removes that whole path without ownership validation.  
+**Higher-authority source:** executable lifecycle/state-store implementation.  
+**Finding:** `WSA-2026-029`.
+
+### C-A1.10-002
+
+**Source A:** setup claims to bind one installation to an explicit AI-Verse system.  
+**Source B:** connection creation/execution trusts each connection's independently supplied system ID and does not intersect it with lifecycle system ID.  
+**Higher-authority source:** executable lifecycle/registry/policy/execute implementation.  
+**Finding:** `WSA-2026-030`.
+
+### C-A1.10-003
+
+**Source A:** MCP security/research contract forbids bearer token passthrough and cross-origin credential-handle reuse.  
+**Source B:** initial add enforces this rule, while reauth replaces the handle without cross-origin validation and verify subsequently transmits it.  
+**Higher-authority source:** executable registry/admission/MCP adapter.  
+**Finding:** `WSA-2026-031`.
+
+### C-A1.10-004
+
+**Source A:** security contract says component lifecycle and current call budgets are part of the authority intersection recalculated at the final provider edge.  
+**Source B:** execute checks lifecycle/budgets only before planning and final-edge code reloads only connection/capability state.  
+**Higher-authority source:** executable execution/policy implementation.  
+**Finding:** `WSA-2026-032`.
+
+### C-A1.10-005
+
+**Source A:** Generic API security contract claims explicit path-prefix admission.  
+**Source B:** raw path is prefix-checked before URL normalization and normalized pathname is not rechecked.  
+**Runtime proof:** `/v1/%2e%2e/admin` normalizes to `/admin` under Node WHATWG URL handling.  
+**Higher-authority source:** executable Generic API adapter plus required runtime semantics.  
+**Finding:** `WSA-2026-033`.
+
+
+### C-A1.12-001
+
+**Source A:** README says the released Agent beta requires Python 3.9+.  
+**Source B:** package metadata permits Python >=3.9.  
+**Source C:** machine Agent compatibility requires Python 3.11.  
+**Source D:** executable preflight enforces the machine release floor.  
+**Higher-authority source:** compatibility plus executable preflight.  
+**Finding:** WSA-2026-035.
+
+### C-A1.12-002
+
+**Source A:** diagnostic/support behavior claims sensitive output is redacted.  
+**Source B:** explicit stdout/stderr fields are sanitized.  
+**Source C:** ProcessError embeds raw child output and CLI emits raw str(exc) as message.  
+**Higher-authority source:** executable process/CLI implementation.  
+**Finding:** WSA-2026-036.
+
+### C-A1.12-003
+
+**Source A:** current release catalog and README say Agent is released.  
+**Source B:** current architecture says Agent is modeled but blocked.  
+**Source C:** current roadmap still leaves the release-branch merge incomplete.  
+**Higher-authority source:** current machine-readable catalog plus implementation/history.  
+**Finding:** WSA-2026-037.
+
+### C-A1.12-004
+
+**Source A:** Distribution lock is described as recoverable release/install truth.  
+**Source B:** StateStore only guarantees atomic individual file replacement.  
+**Source C:** mutating lifecycle paths perform load -> owner effect -> stale-capable receipt write with no cross-process lock/CAS/version.  
+**Higher-authority source:** executable state/orchestrator implementation.  
+**Finding:** WSA-2026-034.
+
+
+### C-A1.13-001
+
+**Source A:** Dashboard architecture requires workspace-scoped subscriptions and no context leakage across workspace switches.  
+**Source B:** WebSocket resubscribe creates a new hub subscription without removing the previous one.  
+**Higher-authority source:** executable server and SubscriptionHub.  
+**Finding:** WSA-2026-038.
+
+### C-A1.13-002
+
+**Source A:** systemId is documented as one explicitly approved OS identity boundary.  
+**Source B:** implementation stores only a pathname and later follows the current filesystem target at that path.  
+**Higher-authority source:** executable registry/path resolver.  
+**Finding:** WSA-2026-039.
+
+### C-A1.13-003
+
+**Source A:** architecture defines a local authenticated control/read gateway.  
+**Source B:** current Dashboard-local server authenticates neither HTTP nor WebSocket clients and accepts missing Origin.  
+**Higher-authority source:** executable server.  
+**Finding:** WSA-2026-040.
+
+### C-A1.13-004
+
+**Source A:** architecture expects a separate local browser/Vite UI consuming the Gateway.  
+**Source B:** Origin comparison rejects loopback origins containing explicit ports.  
+**Higher-authority source:** executable server.  
+**Finding:** WSA-2026-041.
+
+### C-A1.13-005
+
+**Source A:** Dashboard owns zero domain truth.  
+**Source B:** current read models create health/inbox classifications from generic files and filenames.  
+**Source C:** current preservation report explicitly calls this shadow-authority risk.  
+**Higher-authority source:** executable read models.  
+**Finding:** WSA-2026-042.
+
+
+### C-A1.14-001
+
+**Source A:** Whole-Release Preservation JSON Schema requires only kind/status/revision in an evidence item and defines run_id/job_id/url as optional.  
+**Source B:** contract prose says evidence may include those metadata fields.  
+**Source C:** semantic validator requires all six keys exactly.  
+**Higher-authority resolution:** unresolved inside the canonical contract surfaces; repair must align them.  
+**Finding:** WSA-2026-043.
+
+### C-A1.14-002
+
+**Source A:** Living Specification Protocol requires accepted changes to update current component and system records.  
+**Source B:** Context Ladder is 25/25 accepted with an immutable candidate and accepted OS/Brain/Memory/Gateway refs.  
+**Source C:** Public Beta Tracker, Blueprint and multiple component records remain at older current-state/release evidence.  
+**Source D:** Gateway lacks the standard first-class System component record, while Token current-state surfaces also disagree.  
+**Higher-authority source:** exact accepted owner/release evidence plus the completed project plans.  
+**Finding:** WSA-2026-044.
+
+### C-A2.1-001
+
+**Source A:** Automations supplies one stable `invocation_id` and defines it as the downstream idempotency key for Gateway delivery.  
+**Source B:** Gateway accepts Automation wake ingress and maps it into run creation.  
+**Source C:** Gateway concurrent first-claim idempotency admission is not linearizable; two simultaneous first claims can both become new runs.  
+**Higher-authority source:** executable Automations/Gateway implementation already captured in A1.2 and A1.9.  
+**Finding:** existing `WSA-2026-008`. No duplicate finding opened.
+
+### C-A2.2-001
+
+**Source A:** Dashboard is projection/presentation only and must not own canonical domain truth.  
+**Source B:** current Dashboard Health/Inbox read models synthesize owner-like semantics from generic filesystem observations.  
+**Finding:** existing `WSA-2026-042`.
+
+### C-A2.2-002
+
+**Source A:** Token is the sole canonical normalized telemetry/pricing/cost owner and ACTUAL requires trusted monetary evidence.  
+**Source B:** generic collector/direct ingest may supply syntactically valid actual_charge without mandatory trusted-source proof.  
+**Finding:** existing `WSA-2026-024`.
+
+### C-A2.2-003
+
+**Source A:** Distribution receipt is release/install truth and owner live state remains authoritative.  
+**Source B:** concurrent Distribution lifecycle operations can commit stale receipt snapshots after different owner effects complete.  
+**Finding:** existing `WSA-2026-034`.
+
+### C-A2.2-004
+
+**Source A:** Automations owns schedule truth while OS extension registry is attachment metadata only.  
+**Source B:** component lifecycle can diverge from the attached OS registry state.  
+**Finding:** existing `WSA-2026-028`.
+
+### C-A2.3-001
+
+**Source A:** OS registry is attachment/discovery metadata and Automations owns schedule execution truth.  
+**Source B:** Automations enable/disable/uninstall does not synchronize the OS extension entry.  
+**Finding:** existing `WSA-2026-028`.
+
+### C-A2.3-002
+
+**Source A:** Automations forbids dual legacy/canonical scheduler authority.  
+**Source B:** legacy conflict is enforced during setup but a later legacy definition does not continuously fence readiness/execution.  
+**Finding:** existing `WSA-2026-027`.
+
+### C-A2.3-003
+
+**Source A:** Distribution correctly delegates lifecycle mutations to component owners.  
+**Source B:** Gateway, Memory, Skills and Connections each have existing destructive lifecycle containment defects on supported or future-admitted owner surfaces.  
+**Findings:** existing `WSA-2026-006`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-029`.
+
+### C-A2.3-004
+
+**Source A:** Distribution coordinates owner effects and stores release/install receipt truth.  
+**Source B:** concurrent mutating Distribution commands can commit stale receipt snapshots after owner effects complete.  
+**Finding:** existing `WSA-2026-034`.
+
+### C-A2.4-001
+
+**Source A:** Gateway/Tailscale bearer authentication proves transport access only.  
+**Source B:** Multiple Bots sensitive operator controls authorize caller-supplied actor identity rather than trusted authenticated operator identity.  
+**Finding:** existing `WSA-2026-022`.
+
+### C-A2.4-002
+
+**Source A:** managed Team Run Workers are bound to Task/run/workspace and leases.  
+**Source B:** generic Worker paths do not preserve equivalent pre-persistence workspace binding.  
+**Finding:** existing `WSA-2026-023`.
+
+### C-A2.4-003
+
+**Source A:** Data public-client contract requires TrustedDataRoot-derived scope.  
+**Source B:** exported structural DataDatabaseScope can be forged without trusted-root provenance.  
+**Finding:** existing `WSA-2026-020`.
+
+### C-A2.4-004
+
+**Source A:** Connections setup binds one installation system ID.  
+**Source B:** canonical connection/execution state can use another system ID.  
+**Finding:** existing `WSA-2026-030`.
+
+### C-A2.4-005
+
+**Source A:** MCP bearer credentials are origin scoped and cross-origin reuse is blocked on add.  
+**Source B:** reauth can replace a credential handle without the same origin-binding check.  
+**Finding:** existing `WSA-2026-031`.
+
+### C-A2.4-006
+
+**Source A:** Dashboard architecture calls for an authenticated local control/read gateway.  
+**Source B:** current scratch Dashboard Gateway accepts unauthenticated local read clients.  
+**Finding:** existing `WSA-2026-040`.
+
+### C-A2.4-007
+
+**Source A:** Dashboard systemId/workspaceId are intended stable authority/context boundaries.  
+**Source B:** registered root replacement can rebind a systemId and WebSocket resubscribe can retain the prior workspace listener.  
+**Findings:** existing `WSA-2026-038`, `WSA-2026-039`.
+
+### C-A2.5-001
+
+**Source A:** Memory exact-source retrieval revalidates current source version and fails stale.  
+**Source B:** Gateway external exact fallback revalidates source fingerprint and fails stale.  
+**Source C:** Gateway repeated deep-context request cache returns the prior result without owner/fingerprint revalidation.  
+**Finding:** new `WSA-2026-045`.
+
+### C-A2.5-002
+
+**Source A:** Dashboard is projection-only.  
+**Source B:** current Health/Inbox read models synthesize owner-like semantics.  
+**Finding:** existing `WSA-2026-042`.
+
+### C-A2.5-003
+
+**Source A:** Data native reads require TrustedDataRoot-derived scope.  
+**Source B:** public client accepts structurally forgeable scope provenance.  
+**Finding:** existing `WSA-2026-020`.
+
+### C-A2.5-004
+
+**Source A:** Skills execution pins an immutable generation.  
+**Source B:** retention can remove a generation while a live execution still relies on it.  
+**Finding:** existing `WSA-2026-018`.
+
+### C-A2.6-001
+
+**Source A:** Automations supplies stable invocation identity and reuses it on retry.  
+**Source B:** Gateway concurrent first-claim idempotency admission can create duplicate runs.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A2.6-002
+
+**Source A:** pause/cancel are authenticated privileged Gateway controls.  
+**Source B:** asynchronous stale execution state can overwrite a newer persisted pause/cancel.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A2.6-003
+
+**Source A:** Multiple Bots transport authentication is not domain authority.  
+**Source B:** sensitive operator controls authorize caller-supplied actor identity.  
+**Finding:** existing `WSA-2026-022`.
+
+### C-A2.6-004
+
+**Source A:** managed Worker execution is tightly workspace-bound.  
+**Source B:** generic Worker delegation/message paths can persist cross-workspace state before rejection.  
+**Finding:** existing `WSA-2026-023`.
+
+### C-A2.6-005
+
+**Source A:** Automations forbids dual scheduler authority.  
+**Source B:** a legacy definition appearing after setup does not continuously fence canonical scheduler execution.  
+**Finding:** existing `WSA-2026-027`.
+
+### C-A2.7-001
+
+**Source A:** Token defines ACTUAL as trusted provider/runtime real-charge truth.  
+**Source B:** generic ingest can submit syntactically valid actual_charge without mandatory trusted-source-registry proof.  
+**Finding:** existing `WSA-2026-024`.
+
+### C-A2.7-002
+
+**Source A:** pricing refresh is one source observation whose accepted snapshots should be coherent.  
+**Source B:** sequential immutable snapshot writes can leave an earlier subset committed when a later write fails.  
+**Finding:** existing `WSA-2026-025`.
+
+### C-A2.7-003
+
+**Source A:** Connections final authority includes current component lifecycle and rate/call budget.  
+**Source B:** final provider edge does not recompute the complete lifecycle/budget intersection.  
+**Finding:** existing `WSA-2026-032`.
+
+### C-A2.7-004
+
+**Source A:** Distribution sanitizes child stdout/stderr for user-facing diagnostics.  
+**Source B:** ProcessError can embed the raw child output in the unsanitized top-level message.  
+**Finding:** existing `WSA-2026-036`.
+
+### C-A2.8-001
+
+**Source A:** Invisible Intelligence candidate is an explicitly installable released candidate with later qualification evidence.  
+**Source B:** nested Distribution acceptance metadata still says qualification-pending.  
+**Finding:** existing `WSA-2026-001`.
+
+### C-A2.8-002
+
+**Source A:** Agent compatibility and executable preflight require Python 3.11 and Node 22.5.  
+**Source B:** ordinary Distribution README says Python 3.9+ and Node 22+.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A2.8-003
+
+**Source A:** Agent public beta is already an admitted immutable released set.  
+**Source B:** Full compatibility blocker text still says Agent lacks an admitted immutable release set.  
+**Finding:** existing `WSA-2026-037`.
+
+### C-A2.8-004
+
+**Source A:** later candidate/component release evidence is accepted.  
+**Source B:** System current release/meta surfaces do not consistently reflect those accepted states.  
+**Finding:** existing `WSA-2026-044`.
+
+### C-A2.8-005
+
+**Source A:** several frozen current component trees are newer than their component-level immutable release identity surfaces.  
+**Source B:** version/bootstrap/descriptor surfaces still name older accepted artifacts.  
+**Findings:** existing `WSA-2026-011`, `WSA-2026-015`, `WSA-2026-019`, `WSA-2026-021`.
+
+### C-A2.8-006
+
+**Source A:** Video Editor is a 100% complete canonical Skills release and member-facing capability at `8c321c...`.  
+**Source B:** every admitted Distribution release set pins an older Skills ref; newest candidate uses `71264af6...`.  
+**Source C:** exact Video Editor package is absent at `71264af6...` and present at `8c321c...`.  
+**Finding:** new `WSA-2026-046`.
+
+### C-A3.1-001
+
+**Source A:** ordinary Distribution prerequisites state Python 3.9+.  
+**Source B:** executable Agent compatibility/preflight requires Python 3.11.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A3.1-002
+
+**Source A:** explicit child stdout/stderr fields are sanitized.  
+**Source B:** ProcessError string can retain raw child output in the top-level CLI message.  
+**Finding:** existing `WSA-2026-036`.
+
+### C-A3.1-003
+
+**Source A:** Video Editor is accepted/member-facing at current Skills head.  
+**Source B:** the ordinary Distribution Agent path contains older Skills refs.  
+**Finding:** existing `WSA-2026-046`.
+
+### C-A3.2-001
+
+**Source A:** semantic migration-drop is current user-facing behavior and OS hosted QC passes.  
+**Source B:** OS migration tests stub workspace/Memory/Data owner calls and Gateway tests use migration fixtures.  
+**Source C:** reviewed Distribution cross-owner acceptance does not execute semantic migration through real sibling owners.  
+**Finding:** new `WSA-2026-047`.
+
+### C-A3.2-002
+
+**Source A:** Memory migration law requires singular writable authority after handoff.  
+**Source B:** target complete is published before durable source/writer retirement with no cross-root transaction journal.  
+**Finding:** existing `WSA-2026-014`.
+
+### C-A3.2-003
+
+**Source A:** migration-required state is intended to block normal canonical writes.  
+**Source B:** native Memory mutation does not enforce lifecycle attachment/enable/setup/migration state.  
+**Finding:** existing `WSA-2026-013`.
+
+### C-A3.2-004
+
+**Source A:** existing-system lifecycle must stay physically inside the selected AI-Verse root.  
+**Source B:** Memory lifecycle parent symlinks can redirect supported writes/deletes outside it.  
+**Finding:** existing `WSA-2026-012`.
+
+### C-A3.2-005
+
+**Source A:** Brain adoption must stay inside the selected native root/scope.  
+**Source B:** native destination parent containment is incomplete.  
+**Finding:** existing `WSA-2026-009`.
+
+### C-A3.3-001
+
+**Source A:** client retry/idempotency contract says one key binds one request.  
+**Source B:** concurrent first claims can both become new runs.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A3.3-002
+
+**Source A:** pause/cancel are authenticated privileged durable controls.  
+**Source B:** stale asynchronous execution state can overwrite newer persisted pause/cancel state.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A3.3-003
+
+**Source A:** Gateway lifecycle exposes enable/disable/status semantics.  
+**Source B:** Gateway does not own a real service manager, so lifecycle state can diverge from a live process.  
+**Finding:** existing `WSA-2026-007`.
+
+### C-A3.3-004
+
+**Source A:** exact-source reads are required to revalidate source freshness.  
+**Source B:** repeated per-run deep-context cache replay can bypass a new source read.  
+**Finding:** existing `WSA-2026-045`.
+
+### C-A3.4-001
+
+**Source A:** real J2/Memory exact-source retrieval revalidates source fingerprint/version and fails stale.  
+**Source B:** Gateway per-run deep-context dedupe can replay a prior identical exact result without executing that owner/source revalidation again.  
+**Finding:** existing `WSA-2026-045`.
+
+### C-A3.5-001
+
+**Source A:** current architecture supports Goal-bound runs plus governed Skills learning.  
+**Source B:** clean-machine Goal acceptance does not exercise learning.  
+**Source C:** real OS/Brain/Skills learning acceptance does not begin from a Goal-bound Gateway user run.  
+**Source D:** Gateway learned-Skill user journey uses a fixture host rather than real owners.  
+**Finding:** new `WSA-2026-048`.
+
+### C-A3.5-002
+
+**Source A:** Skills lifecycle mutation is intended to be serialized.  
+**Source B:** stale lock recovery is age-based and can reclaim a live long-running holder.  
+**Finding:** existing `WSA-2026-017`.
+
+### C-A3.5-003
+
+**Source A:** a capability execution pins one immutable generation for its lifetime.  
+**Source B:** explicit retention can remove a generation without accounting for live execution pins.  
+**Finding:** existing `WSA-2026-018`.
+
+### C-A3.5-004
+
+**Source A:** Brain Goal operation IDs are intended to bind replay.  
+**Source B:** cross-Goal concurrent operation-ID admission is not fully serialized.  
+**Finding:** existing `WSA-2026-010`.
+
+### C-A3.6-001
+
+**Source A:** sensitive Multiple Bots operator controls require trusted operator authority.  
+**Source B:** caller-supplied actor identity can satisfy that authority on affected paths.  
+**Finding:** existing `WSA-2026-022`.
+
+### C-A3.6-002
+
+**Source A:** managed Team Run Workers are strictly bound to Task/run/workspace.  
+**Source B:** generic Worker delegation/message paths can cross workspace before execution rejection and can mutate the foreign Worker.  
+**Finding:** existing `WSA-2026-023`.
+
+### C-A3.7-001
+
+**Source A:** Automations retries/replays with one stable invocation identity.  
+**Source B:** Gateway simultaneous first claims can both create runs.  
+**Finding:** existing `WSA-2026-008`.
+
+### C-A3.7-002
+
+**Source A:** Automations scheduler SQLite is canonical owner state.  
+**Source B:** owner lifecycle can adopt/mutate a foreign SQLite without proving Automations ownership.  
+**Finding:** existing `WSA-2026-026`.
+
+### C-A3.7-003
+
+**Source A:** one canonical scheduler authority is required.  
+**Source B:** a legacy definition appearing after setup does not fence the active Automations scheduler.  
+**Finding:** existing `WSA-2026-027`.
+
+### C-A3.7-004
+
+**Source A:** OS attachment metadata should reflect Automations lifecycle state.  
+**Source B:** component enable/disable/uninstall and OS registration can diverge.  
+**Finding:** existing `WSA-2026-028`.
+
+### C-A3.8-001
+
+**Source A:** Connections setup binds one installation system ID.  
+**Source B:** connection registration/execution can use another system ID.  
+**Finding:** existing `WSA-2026-030`.
+
+### C-A3.8-002
+
+**Source A:** one MCP bearer handle must remain origin-bound.  
+**Source B:** reauth can assign an existing foreign-origin credential handle.  
+**Finding:** existing `WSA-2026-031`.
+
+### C-A3.8-003
+
+**Source A:** final provider edge should recompute the complete current authority intersection.  
+**Source B:** lifecycle readiness and shared budgets are not rechecked atomically at that edge.  
+**Finding:** existing `WSA-2026-032`.
+
+### C-A3.8-004
+
+**Source A:** Generic API effect must remain within admitted path prefixes.  
+**Source B:** raw-prefix checking occurs before URL normalization, allowing normalized escape.  
+**Finding:** existing `WSA-2026-033`.
+
+### C-A3.8-005
+
+**Source A:** exact-head hosted tests are required for strong release evidence.  
+**Source B:** frozen Connections Actions jobs terminate without executing steps.  
+**Finding:** existing `WSA-2026-003`.
+
+### C-A3.9-001
+
+**Source A:** Token monetary truth requires trusted real-charge evidence for ACTUAL.  
+**Source B:** generic collector/direct canonical ingest can attach syntactically valid actual_charge without mandatory trusted-source proof.  
+**Finding:** existing `WSA-2026-024`.
+
+### C-A3.9-002
+
+**Source A:** a failed pricing refresh should not alter usable accepted pricing evidence.  
+**Source B:** earlier immutable snapshots from a later-failing sequential batch can remain visible and usable.  
+**Finding:** existing `WSA-2026-025`.
+
+### C-A3.10-001
+
+**Source A:** normal owner uninstall/reinstall is intended to preserve canonical state and remain inside owned roots.  
+**Source B:** Gateway, Memory, Skills and Connections retain destructive path-containment defects.  
+**Findings:** existing `WSA-2026-006`, `012`, `016`, `029`.
+
+### C-A3.10-002
+
+**Source A:** lifecycle status/attachment should fence runtime/write authority.  
+**Source B:** Gateway live process, Memory native writes and Automations OS attachment can diverge from lifecycle state.  
+**Findings:** existing `WSA-2026-007`, `013`, `028`.
+
+### C-A3.10-003
+
+**Source A:** lifecycle/recovery effects require one serialized truth.  
+**Source B:** Gateway, Skills and Distribution retain stale/concurrent-writer races.  
+**Findings:** existing `WSA-2026-008`, `017`, `034`.
+
+### C-A3.10-004
+
+**Source A:** Memory migration requires one writable authority after handoff.  
+**Source B:** target-complete and source-retirement are not one failure-atomic transaction.  
+**Finding:** existing `WSA-2026-014`.
+
+### C-A3.10-005
+
+**Source A:** A3.10 explicitly requires two-system A/B isolation.  
+**Source B:** exhaustive Distribution product acceptance contains only one-root Agent/Core acceptance scripts.  
+**Finding:** new `WSA-2026-049`.
+
+### C-A4.1-001
+
+**Source A:** Gateway exposes a principal-scoped request rate limiter.  
+**Source B:** bearer verification performs synchronous scrypt before the limiter and invalid credentials never enter the limiter.  
+**Finding:** new `WSA-2026-050`.
+
+### C-A4.1-002
+
+**Source A:** Connections blocks private/reserved network destinations by DNS/IP policy.  
+**Source B:** policy DNS resolution and actual global fetch resolution are separate, after trusted credentials are attached.  
+**Finding:** new `WSA-2026-051`.
+
+### C-A4.1-003
+
+Existing destructive/path confinement findings remain active across Gateway, Brain, Memory, Skills, Connections and Dashboard.  
+**Findings:** `WSA-2026-006`, `009`, `012`, `016`, `029`, `033`, `039`.
+
+### C-A4.1-004
+
+Existing trusted-authority/isolation defects remain active in Data, Multiple Bots, Connections and Dashboard.  
+**Findings:** `WSA-2026-020`, `022`, `023`, `030`, `032`, `038`, `040`.
+
+### C-A4.1-005
+
+Existing credential/failure-path findings remain active alongside the new DNS-rebinding path.  
+**Findings:** `WSA-2026-031`, `036`, `051`.
+
+### C-A4.2-001
+
+**Finding:** existing `WSA-2026-008`.
+
+### C-A4.2-002
+
+**Finding:** existing `WSA-2026-010`.
+
+### C-A4.2-003
+
+**Finding:** existing `WSA-2026-017`.
+
+### C-A4.2-004
+
+**Finding:** existing `WSA-2026-025`.
+
+### C-A4.2-005
+
+**Finding:** existing `WSA-2026-032`.
+
+### C-A4.2-006
+
+**Finding:** existing `WSA-2026-034`.
+
+### C-A4.2-007
+
+**Source A:** migration source identity is intended to suppress re-execution under classifier-plan variation.  
+**Source B:** the same-source check is not reserved/serialized before owner effects, and subaction keys differ by plan-derived import key.  
+**Finding:** new `WSA-2026-052`.
+
+### C-A4.2-008
+
+**Source A:** automatic structured truth expects one canonical record for one natural key.  
+**Source B:** OS query-before-create plus candidate-specific idempotency and generated record IDs allow concurrent duplicate natural-key rows.  
+**Finding:** new `WSA-2026-053`.
+
+
+### C-A4.3-001
+
+**Finding:** existing `WSA-2026-007`.
+
+### C-A4.3-002
+
+**Finding:** existing `WSA-2026-014`.
+
+### C-A4.3-003
+
+**Finding:** existing `WSA-2026-025`.
+
+### C-A4.3-004
+
+**Finding:** existing `WSA-2026-026`.
+
+### C-A4.3-005
+
+**Finding:** existing `WSA-2026-034`.
+
+### C-A4.3-006
+
+**Source A:** Connections canonical state mutations are intended to serialize through one write lock.  
+**Source B:** the directory lock has no crashed-holder recovery and survives process termination.  
+**Finding:** new `WSA-2026-054`.
+
+### C-A4.3-007
+
+**Source A:** a pre-effect pending receipt is intended to make an external-effect idempotency key replay-safe.  
+**Source B:** process death after provider-edge entry has no durable unknown-effect transition and leaves the key permanently pending.  
+**Finding:** new `WSA-2026-055`.
+
+### C-A4.3-008
+
+**Source A:** Connections status/doctor can project ready/healthy from lifecycle, registry, credential and live-verification checks.  
+**Source B:** one malformed receipt line can make execution receipt reads fail, and doctor does not inspect the receipt store.  
+**Finding:** new `WSA-2026-056`.
+
+### C-A4.3-009
+
+**Finding:** existing `WSA-2026-052`.
+
+### C-A4.4-001
+
+Memory progressive exact-source descent revalidates the evidence scope against current allowed scopes before serving canonical content.  
+**Finding:** none.
+
+### C-A4.4-002
+
+Token normal projections remove sensitive provenance identifiers, while raw provenance export is explicit opt-in behind the read authorization boundary.  
+**Finding:** none.
+
+### C-A4.4-003
+
+**Finding:** existing `WSA-2026-038`.
+
+### C-A4.4-004
+
+**Finding:** existing `WSA-2026-040`.
+
+### C-A4.4-005
+
+**Finding:** existing `WSA-2026-020`.
+
+### C-A4.4-006
+
+**Finding:** existing `WSA-2026-036`.
+
+### C-A4.4-007
+
+**Source A:** Connections keeps credentials behind opaque handles, minimizes normal terminal effect receipts and proves the ordinary Generic API bearer does not persist in registry/receipt state.  
+**Source B:** MCP provider error message/details cross the adapter unsanitized; the message is persisted in a terminal failure receipt and the full RPC error object can be emitted by CLI diagnostics.  
+**Finding:** new `WSA-2026-057`.
+
+### C-A4.5-001
+
+**Source A:** Gateway treats idempotency as durable replay/safety state and recurring Automation wakes are supported.  
+**Source B:** every unique key is retained in one JSON object that is fully read and rewritten for each new claim/commit, with no retention/index.  
+**Finding:** new `WSA-2026-058`.
+
+### C-A4.5-002
+
+**Source A:** Connections enforces per-minute/per-day call budgets and bounded request/response sizes.  
+**Source B:** budget/idempotency enforcement reparses every lifetime receipt on every execution, including receipts too old to affect current budgets.  
+**Finding:** new `WSA-2026-059`.
+
+### C-A4.5-003
+
+**Finding:** existing `WSA-2026-035`.
+
+### C-A4.5-004
+
+Current Agent release compatibility explicitly covers darwin/linux/win32 and current clean-machine release evidence exercises Ubuntu/macOS/Windows.  
+**Finding:** none.
+
+### C-A4.5-005
+
+Reviewed Memory, Token and Data normal read paths contain explicit executable result/candidate/page bounds.  
+**Finding:** none.
+
+### C-A5.1-001
+
+**Source A:** GitHub labels current Connections/System workflow runs as failed.  
+**Source B:** the associated jobs contain zero executed steps.  
+**Higher-authority interpretation:** no test executed; this is evidence-infrastructure unavailability rather than a product-test result.  
+**Finding:** existing `WSA-2026-003`.
+
+### C-A5.1-002
+
+**Source A:** Distribution Clean Machine Agent run `34997085354` ends successful on run attempt 2.  
+**Source B:** attempt 1 Windows reached real Gateway execution and failed on an `EPERM` run-state atomic rename before an unchanged retry passed.  
+**Classification:** acceptance-evidence nuance / transient supported-platform instability.  
+**Finding:** none; retained for A5.4/A6.
+
+### C-A5.1-003
+
+**Source A:** standard current-head CI is green for implemented public repos.  
+**Source B:** specialized release/integration workflows may be PR-only, manually dispatched or path-filtered and therefore absent from that exact head.  
+**Classification:** bounded evidence scope, not a false result.  
+**Finding:** none.
+
+### C-A5.1-004
+
+**Source A:** some supplemental OS/Brain compatibility workflows clone sibling current `main`.  
+**Source B:** immutable release-composition proof requires exact refs.  
+**Higher-authority resolution:** Distribution clean-machine release gates pin exact refs; mutable-main jobs remain supplemental compatibility sentinels only.  
+**Finding:** none.
+
+### C-A5.1-005
+
+Dedicated Video Editor acceptance ran at Skills `47ca55b11850b1432882a1c1c015e0a253d4c1d0`; frozen Skills head is one commit ahead with zero changed files.  
+**Finding:** none.
+
+### C-A5.1-006
+
+Distribution final eight-workflow qualification ran at `7190141935c2e4d8829a859572c87fb9432d83c8`; current Distribution main is one commit ahead with zero changed files.  
+**Finding:** none.
+
+### C-A5.1-007
+
+System current hosted validation again fails before any step, while externally qualified canonical contract code remains unchanged and current post-freeze System changes are audit records only.  
+**Finding:** existing `WSA-2026-003`.
+
+### C-A5.2-001
+
+The Invisible Intelligence candidate manifest remains `qualification-pending` even though exact PR #7 qualification workflows passed and the candidate merged.  
+**Finding:** existing `WSA-2026-001`.
+
+### C-A5.2-002
+
+Frozen current Skills `8c321c...` contains accepted Video Editor work, while the newest accepted Agent candidate pins older Skills `71264af...`.  
+**Finding:** existing `WSA-2026-046`.
+
+### C-A5.2-003
+
+Current owner repositories may retain older accepted component-release descriptors while main advances. The descriptors explicitly classify themselves as release metadata rather than live-health/current-main truth.  
+**Finding:** no new finding; existing owner release/version findings remain applicable.
+
+### C-A5.2-004
+
+Token current package is `0.1.0-beta.3` while Git tags stop at beta.2. Distribution pins the exact beta.3 commit and acceptance evidence to that SHA.  
+**Finding:** none.
+
+### C-A5.2-005
+
+Finalized Agent manifests are empirically unchanged from their final accepted/final-candidate PR heads, but no historical same-ID anti-repointing regression was found.  
+**Finding:** none; negative-space limitation retained.
+
+### C-A5.2-006
+
+**Source A:** `full-public-beta-pending` release manifest lists only the Connections/Dashboard/Apps compatible-Full-set blocker.  
+**Source B:** canonical compatibility metadata additionally claims no immutable Agent public-beta release exists, while `channels.agent` points to released `agent-public-beta-2026-09-14`.  
+**Finding:** new `WSA-2026-060`.
+
+### C-A5.2-007
+
+Distribution's newest accepted explicit Agent candidate is Context Ladder, while System current-state propagation remains incomplete.  
+**Finding:** existing `WSA-2026-044`.
+
+### C-A5.3-001
+
+The audit README still says execution begins at A0.1 while the canonical tracker has advanced through A5.2 and A5.3 is active.  
+**Finding:** existing `WSA-2026-004`.
+
+### C-A5.3-002
+
+System's Connections component spec still says implementation has not started while frozen live Connections is an executable beta.1 candidate.  
+**Finding:** existing `WSA-2026-002`.
+
+### C-A5.3-003
+
+System current-state surfaces remain incompletely propagated after later accepted owner/release evolution including Context Ladder and current component heads.  
+**Finding:** existing `WSA-2026-044`.
+
+### C-A5.3-004
+
+Distribution README says released Agent requires Python 3.9+, while machine compatibility/preflight require Python 3.11.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A5.3-005
+
+Distribution architecture/roadmap retain stale Agent blocked/incomplete wording after the immutable Agent release merged.  
+**Finding:** existing `WSA-2026-037`.
+
+### C-A5.3-006
+
+Full compatibility metadata says Agent lacks an admitted immutable release while the same catalog defaults to released Agent.  
+**Finding:** existing `WSA-2026-060`.
+
+### C-A5.3-007
+
+Token's beta.3 acceptance document contains beta.1 verification labels and future-tense beta.3 hosted-CI status despite exact-head run `34778240376` succeeding.  
+**Finding:** new `WSA-2026-061`.
+
+### C-A5.3-008
+
+Multiple Bots current release acceptance places Connections in the Agent component list; canonical Distribution Agent excludes Connections and Full includes it.  
+**Finding:** new `WSA-2026-062`.
+
+### C-A5.3-009
+
+Current component documentation can promise safety/readiness behavior later disproved by executable negative-space findings. Those contradictions remain evidence for the existing technical findings and are not duplicated as prose-only defects.  
+**Finding:** existing implementation findings, deduped.
+
+### C-A5.3-010
+
+Explicitly dated or snapshot-scoped status/release evidence may be older than current implementation without being a current-state contradiction.  
+**Finding:** none.
+
+### C-A5.4-001
+
+The clean-machine Agent acceptance starts through the real `aiverse start` CLI and uses the same explicit `--release-set` product option for admitted candidates.  
+**Finding:** none.
+
+### C-A5.4-002
+
+The composed Agent gate reaches Gateway through real HTTP and real owner boundaries, but the final model/runtime adapter is `deterministic`, which Gateway documents as a local-testing runtime rather than the documented non-test selected runtime edge.  
+**Finding:** new `WSA-2026-063`.
+
+### C-A5.4-003
+
+The default immutable Agent remains older than later explicit candidates by design; candidates do not silently replace the default channel.  
+**Finding:** none.
+
+### C-A5.4-004
+
+The Context Ladder candidate matches eight of nine frozen current Agent component heads but pins Skills before the accepted member-facing Video Editor generation.  
+**Finding:** existing `WSA-2026-046`.
+
+### C-A5.4-005
+
+Semantic migration-drop remains current user-facing behavior without one exact-ref composed real-owner release journey.  
+**Finding:** existing `WSA-2026-047`.
+
+### C-A5.4-006
+
+The complete Goal -> learning -> promoted Skill -> later reuse chain remains unproven by one immutable composed Distribution acceptance.  
+**Finding:** existing `WSA-2026-048`.
+
+### C-A5.4-007
+
+Current clean-machine acceptance creates one AI-Verse root at a time and does not prove simultaneous two-system A/B isolation.  
+**Finding:** existing `WSA-2026-049`.
+
+### C-A5.4-008
+
+Distribution's ordinary Agent README advertises Python 3.9+ while executable Agent compatibility/preflight requires Python 3.11.  
+**Finding:** existing `WSA-2026-035`.
+
+### C-A5.4-009
+
+The final PR Agent gate needed an unchanged Windows rerun after one transient Gateway atomic-rename EPERM, while the original default Agent and current Context candidate have attempt-1 clean-machine successes.  
+**Finding:** none; evidence limitation retained.
+
+### C-A5.4-010
+
+Gateway runtime selection is adapter/config driven and no obsolete hard-coded provider/model prevents current composition.  
+**Finding:** none.
+
+## 6. Evidence ID register
+
+Evidence IDs remain local to their originating task. This section indexes published IDs without replacing the source packets.
+
+### A0.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A0.1-001` | live owner repository inventory | `snapshots/A0-REPOSITORY-UNIVERSE.md` |
+| `E-A0.1-002` | canonical audit program/tracker | same |
+| `E-A0.1-003` | System identity/current component family | same |
+| `E-A0.1-004` | public-beta repository/product decisions | same |
+| `E-A0.1-005` | current Agent release boundary | same |
+| `E-A0.1-006` | `hub` identity evidence | same |
+| `E-A0.1-007` | `real-estate-visuals` identity evidence | same |
+| `E-A0.1-008` | `animation-shorts` identity evidence | same |
+| `E-A0.1-009` | `JujiStats` identity evidence | same |
+| `E-A0.1-010` | current System GitHub/runner state | same |
+
+### A0.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A0.2-001` | metadata/default branches/visibility/license | `snapshots/A0-SNAPSHOT.md` |
+| `E-A0.2-002` | exact default-branch refs | same |
+| `E-A0.2-003` | open PR state | same |
+| `E-A0.2-004` | exact-head GitHub Actions | same |
+| `E-A0.2-005` | private-runner job detail | same |
+| `E-A0.2-006` | Distribution release catalog | same |
+| `E-A0.2-007` | Agent release manifests | same |
+| `E-A0.2-008` | Core/Full release manifests | same |
+| `E-A0.2-009` | Distribution product path | same |
+| `E-A0.2-010` | Token tag namespace | same |
+| `E-A0.2-011` | GitHub Releases state | same |
+| `E-A0.2-012` | current milestone evidence | same |
+
+### A0.3 evidence IDs
+
+#### E-A0.3-001 — current audit control state
+
+**Sources:**
+- `docs/public-beta-audit/EXECUTION-TRACKER-2026-09-15.md`
+- `docs/public-beta-audit/EVIDENCE-FINDING-PROTOCOL.md`
+- `docs/public-beta-audit/PROGRAM-2026-09-15.md`
+
+**Ref:** `eba8f2e7a7005a4e597bbb75fef7913927e2f738`  
+**Claim supported:** A0.3 is the only NEXT task; finding ID format/severity/confidence/state law; product repos remain read-only; every task gets its own checkpoint.
+
+#### E-A0.3-002 — frozen product snapshot drift recheck
+
+**Source:** live GitHub `refs/heads/main` for the 13 non-System scoped repositories.  
+**Frozen refs:** A0.2 Section 3.  
+**Result:** all 13 non-System scoped repository heads still exactly match the A0.2 freeze.
+
+#### E-A0.3-003 — System audit-only drift classification
+
+**Source:** compare `a10bf0e8ea230a6460adf45354f314bba68bb614...eba8f2e7a7005a4e597bbb75fef7913927e2f738`.  
+**Result:** System is ahead only by A0.2 audit records:
+- `docs/public-beta-audit/EXECUTION-TRACKER-2026-09-15.md`;
+- `docs/public-beta-audit/snapshots/A0-SNAPSHOT.md`.
+
+**Claim supported:** System drift since the frozen pre-A0.2 baseline is audit-record-only and does not invalidate product/meta baseline truth.
+
+#### E-A0.3-004 — live open PR state
+
+**Source:** GitHub PR search across all 14 scoped repositories.  
+**Result:** zero open PRs before A0.3 branch creation.
+
+#### E-A0.3-005 — stale audit README
+
+**Source A:** `docs/public-beta-audit/README.md` at `eba8f2e7a7005a4e597bbb75fef7913927e2f738`.  
+**Source B:** canonical tracker at `eba8f2e7a7005a4e597bbb75fef7913927e2f738`.  
+**Claim supported:** README says execution begins at A0.1 while tracker says A0.3 NEXT.
+
+#### E-A0.3-006 — pre-existing register negative-space check
+
+**Source:** live `docs/public-beta-audit/` tree at `eba8f2e7a7005a4e597bbb75fef7913927e2f738`.  
+**Result:** no `findings/` directory or `FINDING-REGISTER.md` existed before A0.3.
+
+### A0.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A0.4-001` | relationship-matrix protocol | `seams/RELATIONSHIP-MATRIX.md` |
+| `E-A0.4-002` | frozen repository universe and refs | same |
+| `E-A0.4-003` | pre-task drift recheck | same |
+| `E-A0.4-004` | open PR state | same |
+| `E-A0.4-005` | deterministic 182-pair enumeration | same |
+| `E-A0.4-006` | canonical finding-register allocation state | same |
+
+### A0.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A0.5-001` | canonical freeze-gate contract | `snapshots/A0-FREEZE-GATE.md` |
+| `E-A0.5-002` | frozen non-System ref recheck | same |
+| `E-A0.5-003` | System audit-only drift classification | same |
+| `E-A0.5-004` | scoped open PR state | same |
+| `E-A0.5-005` | Dashboard MC1.4 pause state | same |
+| `E-A0.5-006` | release-surface tag recheck | same |
+| `E-A0.5-007` | GitHub Release recheck | same |
+| `E-A0.5-008` | accepted A0 control artifacts | same |
+
+### A1.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.1-001` | frozen OS tree and repository metadata | `repos/AI-Verse-OS.md` |
+| `E-A1.1-002` | product/runtime identity | same |
+| `E-A1.1-003` | architecture/ownership/source layers | same |
+| `E-A1.1-004` | canonical capability implementation | same |
+| `E-A1.1-005` | stale capability metadata/contract | same |
+| `E-A1.1-006` | lifecycle implementation | same |
+| `E-A1.1-007` | permissions and write edge | same |
+| `E-A1.1-008` | direction/current-context ownership | same |
+| `E-A1.1-009` | workspace/profile owner automation | same |
+| `E-A1.1-010` | host adapter and owner routes | same |
+| `E-A1.1-011` | Data host boundary | same |
+| `E-A1.1-012` | semantic migration | same |
+| `E-A1.1-013` | progressive onboarding | same |
+| `E-A1.1-014` | exact-head push CI | same |
+| `E-A1.1-015` | merged PR-head owner-route CI | same |
+| `E-A1.1-016` | current release/status boundaries | same |
+| `E-A1.1-017` | history/repair provenance | same |
+| `E-A1.1-018` | live pre/post evidence-collection control state | same |
+| `E-A1.1-019` | branch-protection evidence limitation | same |
+
+### A1.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.2-001` | frozen Gateway tree and repository metadata | `repos/AI-Verse-Gateway.md` |
+| `E-A1.2-002` | identity/package/component contract | same |
+| `E-A1.2-003` | architecture/protocol/security | same |
+| `E-A1.2-004` | lifecycle/CLI implementation | same |
+| `E-A1.2-005` | server/auth boundary | same |
+| `E-A1.2-006` | store/durability implementation | same |
+| `E-A1.2-007` | run engine and privileged controls | same |
+| `E-A1.2-008` | adapter/runtime/subprocess boundaries | same |
+| `E-A1.2-009` | Context Ladder implementation | same |
+| `E-A1.2-010` | core test suite | same |
+| `E-A1.2-011` | exact-head CI | same |
+| `E-A1.2-012` | current merged PR-head integration | same |
+| `E-A1.2-013` | lifecycle test coverage gap | same |
+| `E-A1.2-014` | concurrency test coverage gap | same |
+| `E-A1.2-015` | destructive purge implementation trace | same |
+| `E-A1.2-016` | rejected architecture evaluations | same |
+| `E-A1.2-017` | history and research provenance | same |
+| `E-A1.2-018` | GitHub Release state | same |
+| `E-A1.2-019` | live control-state recheck | same |
+
+### A1.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.3-001` | frozen Brain tree and repository metadata | `repos/AI-Verse-Brain.md` |
+| `E-A1.3-002` | README/BRAIN/package/version/license identity | same |
+| `E-A1.3-003` | protocol/security ownership and authority laws | same |
+| `E-A1.3-004` | storage/scope/object-write implementation | same |
+| `E-A1.3-005` | integration/native paths/write readiness | same |
+| `E-A1.3-006` | installation/lifecycle/adoption implementation | same |
+| `E-A1.3-007` | direction ownership implementation/tests | same |
+| `E-A1.3-008` | canonical Goal implementation | same |
+| `E-A1.3-009` | effective policy / permission intersection | same |
+| `E-A1.3-010` | action replay/receipt implementation | same |
+| `E-A1.3-011` | owner-write / learning / Data candidate gates | same |
+| `E-A1.3-012` | bridge/vendor subprocess hardening | same |
+| `E-A1.3-013` | 26-module test inventory | same |
+| `E-A1.3-014` | exact-head CI run 34969997987 | same |
+| `E-A1.3-015` | exact-head Skills contract run 34969998014 | same |
+| `E-A1.3-016` | exact-head OS direction run 34969997970 | same |
+| `E-A1.3-017` | accepted beta.2 release descriptor | same |
+| `E-A1.3-018` | accepted beta.2 -> frozen-main 13-commit comparison | same |
+| `E-A1.3-019` | recent PR/repair history | same |
+| `E-A1.3-020` | live pre-write ref/open-PR recheck | same |
+
+### A1.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.4-001` | frozen Memory tree and repository metadata | `repos/AI-Verse-Memory.md` |
+| `E-A1.4-002` | README/manifest/SKILL/security identity and ownership | same |
+| `E-A1.4-003` | architecture/protocol/migration contracts | same |
+| `E-A1.4-004` | public wrapper and public-beta patch installation | same |
+| `E-A1.4-005` | canonical path containment implementation | same |
+| `E-A1.4-006` | mutation lock/atomic/idempotency implementation | same |
+| `E-A1.4-007` | capture/forget/supersession implementation | same |
+| `E-A1.4-008` | session digest/promotion implementation | same |
+| `E-A1.4-009` | progressive recall/orientation/relationship implementation | same |
+| `E-A1.4-010` | component lifecycle implementation | same |
+| `E-A1.4-011` | installer/extension registry implementation | same |
+| `E-A1.4-012` | migration authority-handoff ordering | same |
+| `E-A1.4-013` | 18-module test inventory | same |
+| `E-A1.4-014` | exact-head Test run 34983522129 | same |
+| `E-A1.4-015` | 12 exact-head successful jobs and executed steps | same |
+| `E-A1.4-016` | lifecycle disabled-write coverage gap | same |
+| `E-A1.4-017` | lifecycle parent-symlink coverage gap | same |
+| `E-A1.4-018` | migration interruption coverage gap | same |
+| `E-A1.4-019` | accepted beta.1 descriptor | same |
+| `E-A1.4-020` | accepted beta.1 -> frozen-main 119-commit comparison | same |
+| `E-A1.4-021` | remote bootstrap mutable-main sources | same |
+| `E-A1.4-022` | recent Context Ladder/relationship/benchmark history | same |
+| `E-A1.4-023` | live pre-write ref/open-PR recheck | same |
+
+### A1.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.5-001` | frozen Skills tree and repository metadata | `repos/AI-Verse-Skills.md` |
+| `E-A1.5-002` | README/architecture ownership model | same |
+| `E-A1.5-003` | registry counts, source pins and trust policy | same |
+| `E-A1.5-004` | immutable generation lifecycle | same |
+| `E-A1.5-005` | provider path/digest/index validation | same |
+| `E-A1.5-006` | admission/security/trust implementation | same |
+| `E-A1.5-007` | readiness v2 | same |
+| `E-A1.5-008` | execution receipt v2 | same |
+| `E-A1.5-009` | governed learning lifecycle | same |
+| `E-A1.5-010` | public lifecycle/retention implementation | same |
+| `E-A1.5-011` | controller-path construction | same |
+| `E-A1.5-012` | stale-lock recovery | same |
+| `E-A1.5-013` | retention protection inputs | same |
+| `E-A1.5-014` | generation lifecycle tests | same |
+| `E-A1.5-015` | exact-head Validate run 34901693154 | same |
+| `E-A1.5-016` | exact-head Readiness run 34901693118 | same |
+| `E-A1.5-017` | exact-head Full E2E run 34901693143 | same |
+| `E-A1.5-018` | Video Editor PR #14 evidence | same |
+| `E-A1.5-019` | Video Editor acceptance run 34901198219 | same |
+| `E-A1.5-020` | accepted component descriptor | same |
+| `E-A1.5-021` | accepted-to-current 190-commit comparison | same |
+| `E-A1.5-022` | current distribution version | same |
+| `E-A1.5-023` | mutable-main bootstrap route | same |
+| `E-A1.5-024` | live pre-write ref/open-PR recheck | same |
+
+### A1.6 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.6-001` | frozen Data tree and repository metadata | `repos/AI-Verse-Data.md` |
+| `E-A1.6-002` | README/architecture ownership reconstruction | same |
+| `E-A1.6-003` | trusted-root and workspace path implementation | same |
+| `E-A1.6-004` | SQLite identity/binding/open behavior | same |
+| `E-A1.6-005` | OCC and separate-process race evidence | same |
+| `E-A1.6-006` | idempotency implementation | same |
+| `E-A1.6-007` | events/receipts provenance implementation | same |
+| `E-A1.6-008` | transaction/bulk safety | same |
+| `E-A1.6-009` | internal/user-schema migration contracts | same |
+| `E-A1.6-010` | backup/export/import implementation/tests | same |
+| `E-A1.6-011` | quarantine/recovery implementation | same |
+| `E-A1.6-012` | native registry/materialization/lifecycle | same |
+| `E-A1.6-013` | Bots/App authority narrowing | same |
+| `E-A1.6-014` | Brain/Memory/Dashboard/Connections/Automation boundaries | same |
+| `E-A1.6-015` | public client scope validation/open path | same |
+| `E-A1.6-016` | exported structural DataDatabaseScope | same |
+| `E-A1.6-017` | secure-client scope wrapper | same |
+| `E-A1.6-018` | exact-head CI run 34864837334 | same |
+| `E-A1.6-019` | six exact-head cross-platform CI jobs | same |
+| `E-A1.6-020` | accepted component descriptor | same |
+| `E-A1.6-021` | accepted-to-current 10-commit comparison | same |
+| `E-A1.6-022` | current package/index alpha.0 identity | same |
+| `E-A1.6-023` | documented mutable GitHub install path | same |
+| `E-A1.6-024` | live pre-write ref/open-PR recheck | same |
+
+### A1.7 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.7-001` | frozen Multiple Bots tree and repository metadata | `repos/AI-Verse-Multiple-Bots.md` |
+| `E-A1.7-002` | ownership reconstruction | same |
+| `E-A1.7-003` | Bot/Worker distinction and managed Worker binding | same |
+| `E-A1.7-004` | durable Bot coordination policy | same |
+| `E-A1.7-005` | remote lease narrowing and receipt checks | same |
+| `E-A1.7-006` | operational budget enforcement | same |
+| `E-A1.7-007` | Token ownership boundary | same |
+| `E-A1.7-008` | execution queue/concurrency/recovery | same |
+| `E-A1.7-009` | Handoff ownership/lease transfer | same |
+| `E-A1.7-010` | secure remote Gateway contract | same |
+| `E-A1.7-011` | bearer/loopback implementation | same |
+| `E-A1.7-012` | public operator-control routes | same |
+| `E-A1.7-013` | operator validation implementation | same |
+| `E-A1.7-014` | release acceptance security interpretation | same |
+| `E-A1.7-015` | generic Worker policy scope behavior | same |
+| `E-A1.7-016` | generic delegation route | same |
+| `E-A1.7-017` | Worker execution workspace validation | same |
+| `E-A1.7-018` | runner failure Worker update path | same |
+| `E-A1.7-019` | Worker mailbox/delivery scope behavior | same |
+| `E-A1.7-020` | OS write-command owner boundary | same |
+| `E-A1.7-021` | Brain/Memory/Skills/Automations boundaries | same |
+| `E-A1.7-022` | native registry/materialization/lifecycle | same |
+| `E-A1.7-023` | uninstall ownership/preservation tests | same |
+| `E-A1.7-024` | exact-head CI run 34872178884 | same |
+| `E-A1.7-025` | exact-head CI job 104070507325 | same |
+| `E-A1.7-026` | beta.1 release merge to frozen-current comparison | same |
+| `E-A1.7-027` | current release-evaluation source | same |
+| `E-A1.7-028` | live pre-write ref/open-PR recheck | same |
+
+### A1.8 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.8-001` | frozen Token tree/repository metadata | `repos/ai-verse-token.md` |
+| `E-A1.8-002` | README/package/provenance identity | same |
+| `E-A1.8-003` | architecture/ownership reconstruction | same |
+| `E-A1.8-004` | usage protocol and validation | same |
+| `E-A1.8-005` | immutable ledger schema/triggers | same |
+| `E-A1.8-006` | ingest/dedupe/checkpoint transaction | same |
+| `E-A1.8-007` | collector SDK/runner enforcement | same |
+| `E-A1.8-008` | actual-cost registry/trusted sources | same |
+| `E-A1.8-009` | provider/Hermes actual-cost adapters | same |
+| `E-A1.8-010` | ACTUAL/CALCULATED/UNKNOWN cost engine | same |
+| `E-A1.8-011` | pricing source registry/source assessment | same |
+| `E-A1.8-012` | pricing synchronizer source stamping/freshness | same |
+| `E-A1.8-013` | immutable pricing store/batch writes | same |
+| `E-A1.8-014` | identity resolver exact-match behavior | same |
+| `E-A1.8-015` | read authorization/filter floor | same |
+| `E-A1.8-016` | privacy-safe read/export/MCP | same |
+| `E-A1.8-017` | native filesystem/registry/lifecycle | same |
+| `E-A1.8-018` | runtime setup/doctor behavior | same |
+| `E-A1.8-019` | hardening audit provenance | same |
+| `E-A1.8-020` | exact-head CI run 34778240376 | same |
+| `E-A1.8-021` | six exact-head successful jobs | same |
+| `E-A1.8-022` | packed release acceptance | same |
+| `E-A1.8-023` | alpha.1/beta.1/beta.2 tag lineage | same |
+| `E-A1.8-024` | beta.3 current-head provenance/version | same |
+| `E-A1.8-025` | live pre-write ref/open-PR recheck | same |
+
+### A1.9 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.9-001` | frozen Automations tree/repository metadata | `repos/AI-Verse-Automations.md` |
+| `E-A1.9-002` | README/manifest/package ownership identity | same |
+| `E-A1.9-003` | architecture/owner contract | same |
+| `E-A1.9-004` | schedule parser/DST/misfire behavior | same |
+| `E-A1.9-005` | canonical SQLite schema | same |
+| `E-A1.9-006` | database initialize/connect/integrity implementation | same |
+| `E-A1.9-007` | automation/trigger store validation | same |
+| `E-A1.9-008` | atomic definition creation/idempotency | same |
+| `E-A1.9-009` | due-claim transactional concurrency | same |
+| `E-A1.9-010` | definition/version kill fences | same |
+| `E-A1.9-011` | OS permission binding/retry reauthorization | same |
+| `E-A1.9-012` | crash recovery/unknown retry | same |
+| `E-A1.9-013` | event replay/source/type binding | same |
+| `E-A1.9-014` | webhook HMAC/replay window | same |
+| `E-A1.9-015` | target credential/network validation | same |
+| `E-A1.9-016` | Brain owner adapter | same |
+| `E-A1.9-017` | Multiple Bots projection/payload | same |
+| `E-A1.9-018` | Gateway owner adapter/stable envelope | same |
+| `E-A1.9-019` | setup/status/doctor/enable/disable/update/uninstall | same |
+| `E-A1.9-020` | live legacy-definition discovery | same |
+| `E-A1.9-021` | OS extension registry/owner bridge | same |
+| `E-A1.9-022` | OS extension attachment tests | same |
+| `E-A1.9-023` | exact-head CI run 34875408692 | same |
+| `E-A1.9-024` | nine exact-head successful CI jobs | same |
+| `E-A1.9-025` | accepted marker to current 10-commit comparison | same |
+| `E-A1.9-026` | live pre-write ref/open-PR recheck | same |
+
+### A1.10 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.10-001` | frozen Connections tree/repository metadata | `repos/AI-Verse-Connections.md` |
+| `E-A1.10-002` | README/component/package ownership identity | same |
+| `E-A1.10-003` | security/research trust and final-edge laws | same |
+| `E-A1.10-004` | credential manager/vault implementation | same |
+| `E-A1.10-005` | canonical state-store/lifecycle implementation | same |
+| `E-A1.10-006` | generic connection registration/verification | same |
+| `E-A1.10-007` | MCP registration/origin credential reuse guard | same |
+| `E-A1.10-008` | capability admission/connection approval | same |
+| `E-A1.10-009` | revoke/reauth implementation | same |
+| `E-A1.10-010` | system/workspace/delegated policy | same |
+| `E-A1.10-011` | final-edge execution/idempotency/receipts | same |
+| `E-A1.10-012` | rate/call budget implementation | same |
+| `E-A1.10-013` | generic API path/header policy | same |
+| `E-A1.10-014` | MCP discovery/execution adapter | same |
+| `E-A1.10-015` | bounded HTTP/network controls | same |
+| `E-A1.10-016` | repository-local core integration tests | same |
+| `E-A1.10-017` | repository-local limits integration tests | same |
+| `E-A1.10-018` | repository-local MCP/idempotency tests | same |
+| `E-A1.10-019` | Node URL encoded-dot-segment normalization reproduction | same |
+| `E-A1.10-020` | exact-head CI run 34775251071 | same |
+| `E-A1.10-021` | six exact-head no-step hosted jobs | same |
+| `E-A1.10-022` | implementation/founding commit history | same |
+| `E-A1.10-023` | live pre-write ref/open-PR recheck | same |
+
+
+### A1.11 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| `E-A1.11-001` | frozen Apps repository metadata/head/history | `repos/AI-Verse-Apps.md` |
+| `E-A1.11-002` | exact one-file tracked-tree reconstruction | same |
+| `E-A1.11-003` | README product identity / research-seed status | same |
+| `E-A1.11-004` | intended ownership and non-ownership boundaries | same |
+| `E-A1.11-005` | planned lifecycle and trust model | same |
+| `E-A1.11-006` | planned security and multi-system isolation laws | same |
+| `E-A1.11-007` | outbound sibling relationship claims | same |
+| `E-A1.11-008` | research/inspiration provenance | same |
+| `E-A1.11-009` | negative-space proof: no executable/package/test/CI surface | same |
+| `E-A1.11-010` | current-head combined status with no contexts | same |
+| `E-A1.11-011` | A0 snapshot Full-profile/research-seed classification | same |
+| `E-A1.11-012` | live pre-write head/open-PR recheck | same |
+
+A1.11 opened no finding IDs. The next unused finding ID remains `WSA-2026-034`.
+
+
+### A1.12 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A1.12-001 | frozen Distribution repository metadata/head/open-PR state | repos/ai-verse-distribution.md |
+| E-A1.12-002 | merged PR history and canonical file inventory | same |
+| E-A1.12-003 | README/package/version/product identity | same |
+| E-A1.12-004 | architecture and release-set contracts | same |
+| E-A1.12-005 | profiles and compatibility model | same |
+| E-A1.12-006 | current immutable release manifests | same |
+| E-A1.12-007 | executable catalog validation | same |
+| E-A1.12-008 | StateStore receipt implementation | same |
+| E-A1.12-009 | exact source and staging enforcement | same |
+| E-A1.12-010 | install and incremental receipt lifecycle | same |
+| E-A1.12-011 | setup/workspace/start/safe-reconcile behavior | same |
+| E-A1.12-012 | owner-backed status and doctor | same |
+| E-A1.12-013 | component lifecycle and update/rollback | same |
+| E-A1.12-014 | trusted owner adapter revision allowlists | same |
+| E-A1.12-015 | shell-false subprocess and ProcessError behavior | same |
+| E-A1.12-016 | redaction and support bundle implementation | same |
+| E-A1.12-017 | state/orchestrator unit tests | same |
+| E-A1.12-018 | catalog/manifest mirror tests | same |
+| E-A1.12-019 | CLI/bootstrap tests | same |
+| E-A1.12-020 | Core clean-machine acceptance | same |
+| E-A1.12-021 | Agent clean-machine acceptance | same |
+| E-A1.12-022 | post-merge Distribution CI 34998241632 | same |
+| E-A1.12-023 | PR #8 final-head eight-workflow acceptance matrix | same |
+| E-A1.12-024 | final PR head -> merge tree zero-file-diff proof | same |
+| E-A1.12-025 | immutable System contract qualification snapshot | same |
+| E-A1.12-026 | history/roadmap release-status evidence | same |
+| E-A1.12-027 | stale-writer lifecycle concurrency trace | same |
+| E-A1.12-028 | ProcessError redaction bypass trace | same |
+| E-A1.12-029 | Agent Python-floor contradiction | same |
+| E-A1.12-030 | final live pre-write recheck | same |
+
+
+### A1.13 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A1.13-001 | frozen Dashboard repository metadata/head/open-PR state | repos/AI-Verse-Dashboard.md |
+| E-A1.13-002 | Dashboard commit/PR evolution | same |
+| E-A1.13-003 | README ownership/isolation law | same |
+| E-A1.13-004 | architecture blueprint | same |
+| E-A1.13-005 | Mission Control PRD and current tracker | same |
+| E-A1.13-006 | baseline preservation report | same |
+| E-A1.13-007 | protocol enforcement | same |
+| E-A1.13-008 | OS registry implementation | same |
+| E-A1.13-009 | server-side path containment | same |
+| E-A1.13-010 | Markdown/SQLite read boundaries | same |
+| E-A1.13-011 | local HTTP/WebSocket Gateway server | same |
+| E-A1.13-012 | loopback Origin implementation | same |
+| E-A1.13-013 | WebSocket resubscribe/subscription lifecycle trace | same |
+| E-A1.13-014 | query router supported reads | same |
+| E-A1.13-015 | unauthenticated local read trace | same |
+| E-A1.13-016 | registered root substitution trace | same |
+| E-A1.13-017 | synthetic read-model semantics | same |
+| E-A1.13-018 | repository shadow-authority acknowledgment | same |
+| E-A1.13-019 | live session/runtime scaffolding | same |
+| E-A1.13-020 | client/web shell model | same |
+| E-A1.13-021 | Gateway tests and coverage gaps | same |
+| E-A1.13-022 | registry/isolation tests and coverage gaps | same |
+| E-A1.13-023 | Phase 1 gate | same |
+| E-A1.13-024 | Mission Control MC1 automation | same |
+| E-A1.13-025 | third-party provenance | same |
+| E-A1.13-026 | cross-platform Dashboard CI definition | same |
+| E-A1.13-027 | PR #8 runtime-proof CI 34994307940 | same |
+| E-A1.13-028 | PR #10 pause-head CI 34997395259 | same |
+| E-A1.13-029 | current merge-head hosted status limitation | same |
+| E-A1.13-030 | final live pre-write recheck | same |
+
+
+### A1.14 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A1.14-001 | frozen System product ref and audit-only drift classification | repos/AI-Verse-System.md |
+| E-A1.14-002 | Living Specification Protocol propagation law | same |
+| E-A1.14-003 | immutable Agent release evidence | same |
+| E-A1.14-004 | completed Context Ladder immutable release handoff | same |
+| E-A1.14-005 | incomplete propagation after Context Ladder closure | same |
+| E-A1.14-006 | stale OS/Brain/Memory component authority records | same |
+| E-A1.14-007 | missing first-class Gateway component record | same |
+| E-A1.14-008 | Token current-state contradiction | same |
+| E-A1.14-009 | Blueprint/current-state release drift | same |
+| E-A1.14-010 | inherited Connections System-spec drift | same |
+| E-A1.14-011 | Component Release Descriptor contract | same |
+| E-A1.14-012 | Whole-Release Preservation contract | same |
+| E-A1.14-013 | preservation Schema/validator mismatch | same |
+| E-A1.14-014 | missing optional-evidence regression | same |
+| E-A1.14-015 | private System hosted CI no-step limitation | same |
+| E-A1.14-016 | external exact contract qualification 34997085576 | same |
+| E-A1.14-017 | qualified contract code equals frozen contract code | same |
+| E-A1.14-018 | Safe Update remains truthfully incomplete | same |
+
+### A2.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.1-001 | live frozen-ref/open-PR drift recheck across all 14 repos | seams/A2.1-RELATIONSHIP-MATRIX-RESOLUTION.md |
+| E-A2.1-002 | completed 14-packet A1 claim set | same |
+| E-A2.1-003 | Gateway -> OS focused host-adapter check | same |
+| E-A2.1-004 | Gateway -> Brain Goal-owner check | same |
+| E-A2.1-005 | Gateway owner-routing policy | same |
+| E-A2.1-006 | Automations owner adapters | same |
+| E-A2.1-007 | Automations -> Gateway idempotency contradiction | same |
+| E-A2.1-008 | Multiple Bots <-> Token ownership boundary | same |
+| E-A2.1-009 | Data integration adapter boundaries | same |
+| E-A2.1-010 | Connections credential/effect owner boundary | same |
+| E-A2.1-011 | Dashboard projection/non-ownership boundary | same |
+| E-A2.1-012 | Distribution revision-bounded owner lifecycle adapters | same |
+| E-A2.1-013 | Apps plan-only/current-forbidden write boundary | same |
+| E-A2.1-014 | System meta/release boundary | same |
+| E-A2.1-015 | sensitive NONE pair validation | same |
+| E-A2.1-016 | mechanical 182-pair / 2,184-cell matrix validation | same |
+
+A2.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
+
+### A2.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.2-001 | live A2.2 ref/open-PR freeze | seams/A2.2-CANONICAL-OWNERSHIP-WRITE-PATHS.md |
+| E-A2.2-002 | A2.1 resolved relationship matrix | same |
+| E-A2.2-003 | OS host action and write-command boundary | same |
+| E-A2.2-004 | Brain direction handover/handback and policy intersection | same |
+| E-A2.2-005 | Gateway runtime action admission and non-owner negative space | same |
+| E-A2.2-006 | Memory canonical/derived state and write boundary | same |
+| E-A2.2-007 | Skills immutable generation owner boundary | same |
+| E-A2.2-008 | Data adapters and trusted-scope write admission | same |
+| E-A2.2-009 | Multiple Bots coordination and Token boundary | same |
+| E-A2.2-010 | Token canonical telemetry/pricing/cost boundary | same |
+| E-A2.2-011 | Automations owner bridge/adapters/projection | same |
+| E-A2.2-012 | Connections final-edge effect/credential ownership | same |
+| E-A2.2-013 | Dashboard read-only/shadow-semantics evidence | same |
+| E-A2.2-014 | Distribution revision-bounded owner adapters | same |
+| E-A2.2-015 | System vs Distribution meta/release split | same |
+| E-A2.2-016 | direct cross-owner write inventory | same |
+| E-A2.2-017 | duplicate-ledger/shadow-cache classification | same |
+| E-A2.2-018 | Brain/model security-authority check | same |
+
+A2.2 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
+
+### A2.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.3-001 | fresh A2.3 frozen-ref/open-PR gate | seams/A2.3-LIFECYCLE-DISCOVERY-ADOPTION-RECONCILE.md |
+| E-A2.3-002 | A2.1 relationship matrix | same |
+| E-A2.3-003 | A2.2 ownership/write graph | same |
+| E-A2.3-004 | OS lifecycle/install-order/discovery/reconcile | same |
+| E-A2.3-005 | Brain install/adopt/migrate/update/detach | same |
+| E-A2.3-006 | Memory lifecycle/readiness/migration | same |
+| E-A2.3-007 | Skills immutable-generation lifecycle | same |
+| E-A2.3-008 | Data native lifecycle/state preservation | same |
+| E-A2.3-009 | Multiple Bots bounded native lifecycle | same |
+| E-A2.3-010 | Token lifecycle/state preservation | same |
+| E-A2.3-011 | Automations owner/OS attachment and legacy authority | same |
+| E-A2.3-012 | Connections lifecycle/preserve/purge boundary | same |
+| E-A2.3-013 | Gateway lifecycle and recovery | same |
+| E-A2.3-014 | Distribution lifecycle completeness and adapters | same |
+| E-A2.3-015 | Dashboard registration/future lifecycle | same |
+| E-A2.3-016 | Apps PLAN-ONLY lifecycle boundary | same |
+| E-A2.3-017 | adoption/migration graph | same |
+| E-A2.3-018 | discovery/readiness graph | same |
+| E-A2.3-019 | disable/detach/uninstall preservation graph | same |
+| E-A2.3-020 | update/rollback support boundary | same |
+| E-A2.3-021 | restart/recovery graph | same |
+
+A2.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
+
+### A2.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.4-001 | fresh A2.4 frozen-ref/open-PR gate | seams/A2.4-IDENTITY-SCOPE-ISOLATION-AUTHENTICATION.md |
+| E-A2.4-002 | Gateway bearer verifier/principal derivation | same |
+| E-A2.4-003 | Gateway session/run system-workspace-principal binding | same |
+| E-A2.4-004 | Gateway principal-owned run controls and approval | same |
+| E-A2.4-005 | Gateway trusted-field stripping and OS request construction | same |
+| E-A2.4-006 | OS action-permission v1 strict scope/policy contract | same |
+| E-A2.4-007 | OS workspace physical isolation/permission floor | same |
+| E-A2.4-008 | Brain operator/workspace scope + host permission intersection | same |
+| E-A2.4-009 | Memory workspace/operator visibility | same |
+| E-A2.4-010 | Data trusted-root model + structurally forgeable scope | same |
+| E-A2.4-011 | Multiple Bots managed Worker identity/scope | same |
+| E-A2.4-012 | Multiple Bots transport-vs-operator authority defect | same |
+| E-A2.4-013 | Token host authorization envelope/filter floor | same |
+| E-A2.4-014 | Automations OS scope reauthorization + adapter identity | same |
+| E-A2.4-015 | Connections delegated authority/final-edge scope model | same |
+| E-A2.4-016 | Connections system/credential-origin identity defects | same |
+| E-A2.4-017 | Dashboard identity/auth/isolation defects | same |
+| E-A2.4-018 | Distribution non-authority identity role | same |
+| E-A2.4-019 | end-to-end trust-chain synthesis | same |
+| E-A2.4-020 | single-operator-model classification | same |
+
+A2.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-045`.
+
+### A2.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.5-001 | fresh A2.5 frozen-ref/open-PR gate | seams/A2.5-READ-RETRIEVAL-CONTEXT-DATA-FLOWS.md |
+| E-A2.5-002 | OS current-context/direction-owner read boundary | same |
+| E-A2.5-003 | Gateway progressive owner-context assembly | same |
+| E-A2.5-004 | Gateway context governor/fold/raw-tail preservation | same |
+| E-A2.5-005 | Gateway deep-context trusted-field rejection | same |
+| E-A2.5-006 | Memory progressive recall and exact-source freshness | same |
+| E-A2.5-007 | Memory digest/raw-transcript authority separation | same |
+| E-A2.5-008 | Gateway external exact-source visibility/fingerprint checks | same |
+| E-A2.5-009 | direct Gateway deep-context cache implementation | same |
+| E-A2.5-010 | test proving equivalent repeated read skips owner | same |
+| E-A2.5-011 | no exact-source cache invalidation regression | same |
+| E-A2.5-012 | Brain bounded retrieval/current-context semantics | same |
+| E-A2.5-013 | Skills exact generation/digest read binding | same |
+| E-A2.5-014 | Data bounded query/read adapters/provenance | same |
+| E-A2.5-015 | Dashboard projection/path/read-model behavior | same |
+| E-A2.5-016 | Apps plan-only read relationships | same |
+| E-A2.5-017 | provenance truth-class synthesis | same |
+| E-A2.5-018 | scope/visibility synthesis | same |
+
+### A2.6 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.6-001 | fresh A2.6 frozen-ref/open-PR gate | seams/A2.6-RUNTIME-TASK-BOT-AUTOMATION-EVENT-FLOWS.md |
+| E-A2.6-002 | Gateway run/session/event state machine | same |
+| E-A2.6-003 | Gateway action/approval/control flow | same |
+| E-A2.6-004 | Gateway idempotency/control concurrency defect | same |
+| E-A2.6-005 | Brain Goal continuation/evaluation/action receipts | same |
+| E-A2.6-006 | Automations occurrence identity/scheduler claim transaction | same |
+| E-A2.6-007 | Automations permission-on-retry/crash uncertainty | same |
+| E-A2.6-008 | Automations -> Gateway stable invocation contract | same |
+| E-A2.6-009 | Automations -> Brain idempotency handoff | same |
+| E-A2.6-010 | Multiple Bots automation wake ingress implementation | same |
+| E-A2.6-011 | Multiple Bots automation replay/source-binding tests | same |
+| E-A2.6-012 | Multiple Bots Task/Worker/Team Run recovery | same |
+| E-A2.6-013 | Data mutation event/idempotency/receipt atomicity | same |
+| E-A2.6-014 | permanent Bot consent composition | same |
+| E-A2.6-015 | recurring Automation consent composition | same |
+| E-A2.6-016 | restart/recovery graph | same |
+| E-A2.6-017 | event ownership map | same |
+
+A2.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`.
+
+### A2.7 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.7-001 | fresh A2.7 frozen-ref/open-PR gate | seams/A2.7-TELEMETRY-TOKEN-COST-AUDIT-RECEIPTS.md |
+| E-A2.7-002 | Token ownership/truth model | same |
+| E-A2.7-003 | immutable usage ledger/correlation semantics | same |
+| E-A2.7-004 | Token runtime/provider/model identity resolution | same |
+| E-A2.7-005 | trusted actual-cost source registry | same |
+| E-A2.7-006 | generic ACTUAL admission bypass | same |
+| E-A2.7-007 | immutable pricing/freshness/source authority | same |
+| E-A2.7-008 | pricing batch failure atomicity defect | same |
+| E-A2.7-009 | Token read projection privacy | same |
+| E-A2.7-010 | Gateway operational usage/audit boundary | same |
+| E-A2.7-011 | Multiple Bots Token non-ownership boundary | same |
+| E-A2.7-012 | Brain external action receipts | same |
+| E-A2.7-013 | Data mutation events/receipts | same |
+| E-A2.7-014 | Skills execution receipt v2 | same |
+| E-A2.7-015 | Automations wake/replay receipts | same |
+| E-A2.7-016 | Connections idempotency/effect receipts | same |
+| E-A2.7-017 | Connections final-edge budget contradiction | same |
+| E-A2.7-018 | Distribution diagnostic redaction boundary | same |
+| E-A2.7-019 | global receipt/provenance ownership map | same |
+
+A2.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-046`.
+
+### A2.8 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A2.8-001 | fresh A2.8 frozen-ref/open-PR gate | seams/A2.8-VERSION-COMPATIBILITY-RELEASE-INSTALL-ORDER.md |
+| E-A2.8-002 | Distribution profile definitions/dependency graph | same |
+| E-A2.8-003 | Distribution compatibility matrix | same |
+| E-A2.8-004 | default Agent immutable release manifest | same |
+| E-A2.8-005 | Invisible Intelligence explicit candidate manifest | same |
+| E-A2.8-006 | Context Ladder explicit candidate manifest | same |
+| E-A2.8-007 | Full blocked manifest | same |
+| E-A2.8-008 | release channel catalog | same |
+| E-A2.8-009 | executable Catalog validation | same |
+| E-A2.8-010 | catalog tests for defaults/candidates/custom/Full/transitions | same |
+| E-A2.8-011 | A1.12 Distribution acceptance/clean-machine evidence | same |
+| E-A2.8-012 | frozen current Agent refs vs Context candidate comparison | same |
+| E-A2.8-013 | accepted Skills Video Editor final release evidence | same |
+| E-A2.8-014 | current Skills README member-facing Video Editor claim | same |
+| E-A2.8-015 | Skills compare 71264af6 -> 8c321c03, 98 commits | same |
+| E-A2.8-016 | Video Editor SKILL.md absent at candidate ref, present at accepted current ref | same |
+| E-A2.8-017 | Distribution runtime-floor/public-requirement contradiction | same |
+| E-A2.8-018 | self-only candidate update/rollback transition enforcement | same |
+| E-A2.8-019 | component release identity drift findings | same |
+| E-A2.8-020 | System current release propagation drift | same |
+
+### A3.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.1-001 | fresh A3.1 frozen-ref/open-PR gate | journeys/A3.1-CLEAN-INSTALL-FIRST-USE.md |
+| E-A3.1-002 | current aiverse start CLI dispatch | same |
+| E-A3.1-003 | Orchestrator fresh-start implementation | same |
+| E-A3.1-004 | release-specific preflight/runtime enforcement | same |
+| E-A3.1-005 | exact source verification/install receipts | same |
+| E-A3.1-006 | owner setup ordering/composed OS reconciliation | same |
+| E-A3.1-007 | product bootstrap unit tests | same |
+| E-A3.1-008 | real Agent first-run acceptance assertions | same |
+| E-A3.1-009 | persisted first-run/authority assertions | same |
+| E-A3.1-010 | Clean Machine Agent run 34997085354 | same |
+| E-A3.1-011 | Windows job 104477919264 | same |
+| E-A3.1-012 | macOS job 104477921127 | same |
+| E-A3.1-013 | Ubuntu job 104477975938 | same |
+| E-A3.1-014 | tested final PR tree to frozen head file-equivalence | same |
+| E-A3.1-015 | fail-closed first-run status/reconcile behavior | same |
+| E-A3.1-016 | first-use prerequisite contradiction | same |
+| E-A3.1-017 | first-use diagnostics redaction contradiction | same |
+| E-A3.1-018 | accepted Video Editor composition limitation | same |
+
+A3.1 opened no new finding ID. The next unused finding ID remains `WSA-2026-047`.
+
+### A3.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.2-001 | fresh A3.2 frozen-ref/open-PR gate | journeys/A3.2-EXISTING-SYSTEM-ATTACH-ADOPT-MIGRATION.md |
+| E-A3.2-002 | migration-drop current capability contract | same |
+| E-A3.2-003 | direct migration-import trusted OS transport | same |
+| E-A3.2-004 | OS migration owner-routing/idempotency tests | same |
+| E-A3.2-005 | OS semantic clarification/resume tests | same |
+| E-A3.2-006 | OS Repository QC run 34988213763 | same |
+| E-A3.2-007 | OS QC job 104445713230 migration steps | same |
+| E-A3.2-008 | OS migration test owner-method stubbing proof | same |
+| E-A3.2-009 | Gateway migration fixture-based acceptance | same |
+| E-A3.2-010 | Distribution cross-owner workflow negative-space check | same |
+| E-A3.2-011 | Brain standalone-to-native adoption semantics | same |
+| E-A3.2-012 | Brain destination containment defect | same |
+| E-A3.2-013 | Memory snapshot-bound migration contract | same |
+| E-A3.2-014 | Memory handoff ordering | same |
+| E-A3.2-015 | Memory lifecycle write-authority defect | same |
+| E-A3.2-016 | Memory lifecycle containment blocker | same |
+| E-A3.2-017 | Memory exact-head run 34983522129 | same |
+| E-A3.2-018 | Memory Ubuntu public-beta migration evidence | same |
+| E-A3.2-019 | Data schema migration and restore/import safety | same |
+| E-A3.2-020 | Distribution bounded existing-install safe reconcile | same |
+| E-A3.2-021 | existing profile/root/release lock refusal | same |
+| E-A3.2-022 | global no-data-loss/singular-authority assessment | same |
+
+### A3.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.3-001 | fresh A3.3 frozen-ref/open-PR gate | journeys/A3.3-GATEWAY-CHAT-RUN-RESTART.md |
+| E-A3.3-002 | Gateway auth/server request boundary | same |
+| E-A3.3-003 | session/run identity binding | same |
+| E-A3.3-004 | context assembly/runtime tool boundary | same |
+| E-A3.3-005 | Gateway run state machine | same |
+| E-A3.3-006 | Distribution real prove_gateway_goal acceptance | same |
+| E-A3.3-007 | real chat completion ID/run retrieval assertions | same |
+| E-A3.3-008 | real Brain Goal event/binding preservation | same |
+| E-A3.3-009 | default Agent clean-machine run 34997085354 | same |
+| E-A3.3-010 | default Agent hosted Gateway/restart summary | same |
+| E-A3.3-011 | Context Ladder candidate clean-machine run 34994419265 | same |
+| E-A3.3-012 | Context candidate Ubuntu job 104467441328 exact current Gateway evidence | same |
+| E-A3.3-013 | Context candidate Windows/macOS job success | same |
+| E-A3.3-014 | current Gateway exact-head CI 34992616000 | same |
+| E-A3.3-015 | current restart recovery unit test | same |
+| E-A3.3-016 | completed-run/digest restart separation | same |
+| E-A3.3-017 | Gateway concurrency/idempotency/control defect | same |
+| E-A3.3-018 | Gateway lifecycle service-truth defect | same |
+| E-A3.3-019 | deep-context cache freshness limitation | same |
+
+A3.3 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`.
+
+### A3.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.4-001 | fresh A3.4 frozen-ref/open-PR gate | journeys/A3.4-CONTEXT-MEMORY-CONTEXT-LADDER.md |
+| E-A3.4-002 | Gateway Context Ladder Integrated Acceptance run 34990219367 | same |
+| E-A3.4-003 | job 104452629493 exact current Gateway/OS/Memory composition | same |
+| E-A3.4-004 | real OS Alpha/Beta workspace preparation | same |
+| E-A3.4-005 | real Memory installation/index/doctor in OS | same |
+| E-A3.4-006 | ordinary conversation catalog-only behavior | same |
+| E-A3.4-007 | progressive catalog/summary/detail/source descent | same |
+| E-A3.4-008 | exact Memory source retrieval | same |
+| E-A3.4-009 | session-digest external Gateway source fallback | same |
+| E-A3.4-010 | Gateway source fingerprint revalidation/stale fail-closed | same |
+| E-A3.4-011 | durable-only Memory promotion | same |
+| E-A3.4-012 | correction/supersession behavior | same |
+| E-A3.4-013 | long-context fold plus exact recent raw tail | same |
+| E-A3.4-014 | Alpha/Beta Memory and fold scope isolation | same |
+| E-A3.4-015 | derived Memory rebuild preserves canonical state | same |
+| E-A3.4-016 | restart preserves fold/durable context state | same |
+| E-A3.4-017 | branch catalog rejection remains safe | same |
+| E-A3.4-018 | exact evidence reference requirement | same |
+| E-A3.4-019 | A2.5 repeated deep-context cache defect | same |
+
+A3.4 opened no new finding ID. The next unused finding ID remains `WSA-2026-048`.
+
+### A3.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.5-001 | fresh A3.5 frozen-ref/open-PR gate | journeys/A3.5-GOAL-SELF-LEARNING-SKILLS.md |
+| E-A3.5-002 | Brain Goal/evaluation journey from A3.3 | same |
+| E-A3.5-003 | current Brain Skills learning-candidate gate | same |
+| E-A3.5-004 | Brain gate byte-equivalence between accepted and frozen current refs | same |
+| E-A3.5-005 | current OS production skills.learning-candidate route | same |
+| E-A3.5-006 | OS Four Repo Acceptance run 34988213651 | same |
+| E-A3.5-007 | job 104445712220 real Brain/Skills owner composition | same |
+| E-A3.5-008 | initial propose-mode learning + replay | same |
+| E-A3.5-009 | trivial/unsafe candidate rejection | same |
+| E-A3.5-010 | real auto-promotion to immutable Skills generation | same |
+| E-A3.5-011 | fresh-host learned capability rediscovery/bound use | same |
+| E-A3.5-012 | real Skills quarantine and rollback | same |
+| E-A3.5-013 | Skills accepted-to-current changed-file comparison | same |
+| E-A3.5-014 | current Skills governed-learning tests | same |
+| E-A3.5-015 | Distribution Invisible Intelligence A-F run 34997085620 | same |
+| E-A3.5-016 | job 104475921027 C/D learning evidence | same |
+| E-A3.5-017 | Gateway learned-Skill persistence fixture proof | same |
+| E-A3.5-018 | real clean-machine Goal journey does not invoke learning | same |
+| E-A3.5-019 | negative-space search for one Goal-to-Skills composed acceptance | same |
+| E-A3.5-020 | Skills lifecycle/retention findings affecting learned generations | same |
+
+### A3.6 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.6-001 | fresh A3.6 frozen-ref/open-PR gate | journeys/A3.6-MULTIPLE-BOTS-TEAM-EXECUTION.md |
+| E-A3.6-002 | Context candidate exact current Multiple Bots pin | same |
+| E-A3.6-003 | candidate Ubuntu durable Bot collaboration/restart | same |
+| E-A3.6-004 | Distribution G-M run 34997085437 | same |
+| E-A3.6-005 | G-M job 104475920006 exact current Multiple Bots | same |
+| E-A3.6-006 | exact-current Multiple Bots npm test, 513 passes | same |
+| E-A3.6-007 | real two-durable-Bot HTTP Artifact handoff | same |
+| E-A3.6-008 | real managed temporary Worker Task execution | same |
+| E-A3.6-009 | Worker identity preservation | same |
+| E-A3.6-010 | run-scoped automatic Worker execution/cleanup | same |
+| E-A3.6-011 | Team Run aggregate/absolute budget enforcement | same |
+| E-A3.6-012 | Team Run live cancellation | same |
+| E-A3.6-013 | stale/restart Worker execution recovery | same |
+| E-A3.6-014 | Room/Thread discussion execution/restart | same |
+| E-A3.6-015 | Handoff ownership transfer/reopen | same |
+| E-A3.6-016 | adaptive collaboration topology | same |
+| E-A3.6-017 | verifier/disagreement resolution | same |
+| E-A3.6-018 | final synthesis/idempotent settlement | same |
+| E-A3.6-019 | Task Memory bounded recall/non-persistence | same |
+| E-A3.6-020 | operational usage vs canonical Token boundary | same |
+| E-A3.6-021 | G-M Gateway temporary Worker consent/authority boundary | same |
+| E-A3.6-022 | WSA-022 operator identity defect | same |
+| E-A3.6-023 | WSA-023 generic Worker workspace defect | same |
+
+A3.6 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
+
+### A3.7 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.7-001 | fresh A3.7 frozen-ref/open-PR gate | journeys/A3.7-AUTOMATION-CONSENT-SCHEDULE-REPLAY.md |
+| E-A3.7-002 | Gateway Automation Recommendation Boundary run 34990219479 | same |
+| E-A3.7-003 | recommendation job 104452631004 no schedule/trigger | same |
+| E-A3.7-004 | recurring-consent job 104452630613 | same |
+| E-A3.7-005 | exact current Automations ref caaed83b in composition | same |
+| E-A3.7-006 | direct consent creates one canonical Automation/trigger | same |
+| E-A3.7-007 | no-consent repetition suppressed | same |
+| E-A3.7-008 | actual owner run_now trigger firing | same |
+| E-A3.7-009 | scheduled Gateway run completion/provenance | same |
+| E-A3.7-010 | Gateway restart exact wake replay -> same run | same |
+| E-A3.7-011 | changed wake replay -> HTTP 409 | same |
+| E-A3.7-012 | canonical schedule/trigger provenance verification | same |
+| E-A3.7-013 | OS Automation Consent run 34987737337 | same |
+| E-A3.7-014 | OS job 104444093471 exact owner schedule creation | same |
+| E-A3.7-015 | Distribution installed Agent Automations -> Multiple Bots wake | same |
+| E-A3.7-016 | exact current Automations CI 34875408692 | same |
+| E-A3.7-017 | stable retry/unknown recovery semantics | same |
+| E-A3.7-018 | event/webhook replay binding | same |
+| E-A3.7-019 | WSA-008 concurrent Gateway replay defect | same |
+| E-A3.7-020 | WSA-026 store ownership defect | same |
+| E-A3.7-021 | WSA-027 legacy dual-authority defect | same |
+| E-A3.7-022 | WSA-028 OS attachment/lifecycle divergence | same |
+
+A3.7 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
+
+### A3.8 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.8-001 | fresh A3.8 frozen-ref/open-PR gate | journeys/A3.8-CONNECTION-EXTERNAL-EFFECT-APPROVAL.md |
+| E-A3.8-002 | Connections canonical owner/effect model | same |
+| E-A3.8-003 | opaque vault credential boundary | same |
+| E-A3.8-004 | core integration secret non-persistence check | same |
+| E-A3.8-005 | registration/verification/admission/approval separation | same |
+| E-A3.8-006 | system/workspace rejection tests | same |
+| E-A3.8-007 | final-edge connection revocation test | same |
+| E-A3.8-008 | Generic API provider path/credential boundary | same |
+| E-A3.8-009 | MCP discovery/admission/approval/tool execution | same |
+| E-A3.8-010 | MCP capability drift revokes approval | same |
+| E-A3.8-011 | same-key concurrent idempotency reservation | same |
+| E-A3.8-012 | terminal receipt replay without re-execution | same |
+| E-A3.8-013 | rate/call limits test | same |
+| E-A3.8-014 | private-network default deny | same |
+| E-A3.8-015 | WSA-030 lifecycle-system binding defect | same |
+| E-A3.8-016 | WSA-031 MCP credential-origin defect | same |
+| E-A3.8-017 | WSA-032 final-edge lifecycle/budget defect | same |
+| E-A3.8-018 | WSA-033 normalized-path authorization defect | same |
+| E-A3.8-019 | WSA-029 purge blocker | same |
+| E-A3.8-020 | hosted run 34775251071 no-step evidence limitation / WSA-003 | same |
+| E-A3.8-021 | current Distribution release graph excludes Connections/Full | same |
+
+A3.8 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
+
+### A3.9 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.9-001 | fresh A3.9 frozen-ref/open-PR gate | journeys/A3.9-TOKEN-USAGE-COST-TRUTH.md |
+| E-A3.9-002 | exact current Token identity/version | same |
+| E-A3.9-003 | Token exact-current CI run 34778240376 | same |
+| E-A3.9-004 | six OS/Node matrix jobs execute ci/release acceptance | same |
+| E-A3.9-005 | Context candidate exact Token ref | same |
+| E-A3.9-006 | candidate Ubuntu token_collection_projection | same |
+| E-A3.9-007 | Distribution Agent runtime-work ordering before Token collection | same |
+| E-A3.9-008 | Distribution prove_token owner/no-error/projection assertions | same |
+| E-A3.9-009 | collector/runtime normalization suite | same |
+| E-A3.9-010 | immutable usage ledger/dedupe/correlation | same |
+| E-A3.9-011 | runtime/provider/model identity | same |
+| E-A3.9-012 | trusted actual-cost source tests | same |
+| E-A3.9-013 | WSA-024 generic ACTUAL admission bypass | same |
+| E-A3.9-014 | authoritative pricing/CALCULATED tests | same |
+| E-A3.9-015 | historical effective-tariff test | same |
+| E-A3.9-016 | pricing source/freshness authority | same |
+| E-A3.9-017 | WSA-025 partial pricing-batch publication | same |
+| E-A3.9-018 | UNKNOWN/zero/missingness tests | same |
+| E-A3.9-019 | Gateway/Brain/Dashboard projection tests | same |
+| E-A3.9-020 | lifecycle preservation across uninstall/reinstall | same |
+| E-A3.9-021 | release story preserves ACTUAL/CALCULATED/UNKNOWN | same |
+| E-A3.9-022 | privacy-safe read/transport behavior | same |
+
+A3.9 opened no new finding ID. The next unused finding ID remains `WSA-2026-049`.
+
+### A3.10 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A3.10-001 | fresh A3.10 frozen-ref/open-PR gate | journeys/A3.10-LIFECYCLE-RECOVERY-TWO-SYSTEM-ISOLATION-CROSS-PLATFORM.md |
+| E-A3.10-002 | A2.3 whole-system lifecycle/recovery graph | same |
+| E-A3.10-003 | Distribution real Agent lifecycle acceptance | same |
+| E-A3.10-004 | Context candidate run 34994419265 | same |
+| E-A3.10-005 | Ubuntu candidate job 104467441328 | same |
+| E-A3.10-006 | Windows candidate job 104467441640 | same |
+| E-A3.10-007 | macOS candidate job 104467441767 | same |
+| E-A3.10-008 | disable/enable composed lifecycle | same |
+| E-A3.10-009 | all-component uninstall/reinstall preservation | same |
+| E-A3.10-010 | same-release update/rollback | same |
+| E-A3.10-011 | changed cross-release transitions fail closed | same |
+| E-A3.10-012 | Gateway restart/recovery | same |
+| E-A3.10-013 | Memory recovery/lifecycle | same |
+| E-A3.10-014 | Skills update/rollback/recovery | same |
+| E-A3.10-015 | Data transaction/quarantine/recovery | same |
+| E-A3.10-016 | Multiple Bots queue/lease/restart recovery | same |
+| E-A3.10-017 | Automations retry/unknown recovery | same |
+| E-A3.10-018 | Token lifecycle preservation | same |
+| E-A3.10-019 | exact current owner cross-platform matrices | same |
+| E-A3.10-020 | Distribution acceptance inventory contains exactly two scripts | same |
+| E-A3.10-021 | Agent acceptance creates one root only | same |
+| E-A3.10-022 | profile acceptance creates one root only | same |
+| E-A3.10-023 | A2.4 component identity/isolation graph | same |
+| E-A3.10-024 | destructive lifecycle BLOCKER set | same |
+| E-A3.10-025 | lifecycle/concurrency/recovery HIGH findings | same |
+
+### A4.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.1-001 | fresh 14-repo A4.1 freeze | adversarial/A4.1-SECURITY-PATH-SECRET-REMOTE.md |
+| E-A4.1-002 | Gateway loopback/remote bind guard | same |
+| E-A4.1-003 | Gateway request order, bearer before rate limiter | same |
+| E-A4.1-004 | Gateway synchronous scrypt verifier | same |
+| E-A4.1-005 | no pre-auth invalid-bearer limiter/test found | same |
+| E-A4.1-006 | Gateway path/auth/permission A1 evidence | same |
+| E-A4.1-007 | Brain symlink/permission boundary | same |
+| E-A4.1-008 | Memory lifecycle/path/secret boundary | same |
+| E-A4.1-009 | Skills lifecycle path boundary | same |
+| E-A4.1-010 | Data trusted-scope provenance finding | same |
+| E-A4.1-011 | Multiple Bots operator/Worker authority findings | same |
+| E-A4.1-012 | Connections private-network screening | same |
+| E-A4.1-013 | Connections shared boundedFetch implementation | same |
+| E-A4.1-014 | Generic API credential-bearing fetch | same |
+| E-A4.1-015 | MCP credential-bearing fetch | same |
+| E-A4.1-016 | no DNS-rebinding protection/test found | same |
+| E-A4.1-017 | Connections path/origin/final-edge findings | same |
+| E-A4.1-018 | Distribution secret-redaction finding | same |
+| E-A4.1-019 | Dashboard local-auth/root/subscription findings | same |
+| E-A4.1-020 | whole-system A2.4 identity/auth graph | same |
+
+### A4.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.2-001 | fresh A4.2 frozen-ref/open-PR gate | adversarial/A4.2-CONCURRENCY-IDEMPOTENCY-REPLAY.md |
+| E-A4.2-002 | Gateway concurrency/idempotency WSA-008 | same |
+| E-A4.2-003 | Brain Goal replay WSA-010 | same |
+| E-A4.2-004 | Skills lifecycle lock WSA-017 | same |
+| E-A4.2-005 | Token pricing publication WSA-025 | same |
+| E-A4.2-006 | Connections final-edge budget WSA-032 | same |
+| E-A4.2-007 | Distribution lifecycle receipt race WSA-034 | same |
+| E-A4.2-008 | Memory canonical mutation lock/recovery | same |
+| E-A4.2-009 | Automations BEGIN IMMEDIATE occurrence claim | same |
+| E-A4.2-010 | Automations unique invocation/event receipt | same |
+| E-A4.2-011 | Multiple Bots message idempotency/restart | same |
+| E-A4.2-012 | Multiple Bots stale execution/lease recovery | same |
+| E-A4.2-013 | OS migration source/plan/import-key construction | same |
+| E-A4.2-014 | OS pre-effect exact/same-source receipt checks | same |
+| E-A4.2-015 | OS plan-dependent migration subaction keys | same |
+| E-A4.2-016 | OS late migration receipt publication | same |
+| E-A4.2-017 | migration sequential-only replay tests | same |
+| E-A4.2-018 | Brain Data candidate identity/natural-key contract | same |
+| E-A4.2-019 | OS Data query-then-create path | same |
+| E-A4.2-020 | candidate-derived Data create idempotency key | same |
+| E-A4.2-021 | Data transactional record.create/idempotency | same |
+| E-A4.2-022 | Data storage key lacks semantic natural-key uniqueness | same |
+| E-A4.2-023 | OS >1 natural-key match becomes ambiguous | same |
+| E-A4.2-024 | no competing-candidate natural-key race test found | same |
+
+
+### A4.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.3-001 | fresh A4.3 frozen-ref/open-PR gate | adversarial/A4.3-PARTIAL-FAILURE-CORRUPTION-RECOVERY.md |
+| E-A4.3-002 | Gateway lifecycle setup publication ordering | same |
+| E-A4.3-003 | Gateway run restart/recovery | same |
+| E-A4.3-004 | Memory same-root lock/journal/effect recovery | same |
+| E-A4.3-005 | Memory cross-root handoff WSA-014 | same |
+| E-A4.3-006 | Skills immutable generation/active pointer | same |
+| E-A4.3-007 | Skills stale-lock WSA-017 | same |
+| E-A4.3-008 | Data corruption inspection/staged recovery | same |
+| E-A4.3-009 | Data quarantine write block | same |
+| E-A4.3-010 | Automations transactional occurrence/event behavior | same |
+| E-A4.3-011 | Automations unknown-delivery recovery fence | same |
+| E-A4.3-012 | Automations DB ownership/format WSA-026 | same |
+| E-A4.3-013 | Multiple Bots stale execution recovery | same |
+| E-A4.3-014 | Multiple Bots atomic recovery preconditions | same |
+| E-A4.3-015 | Token pricing failure atomicity WSA-025 | same |
+| E-A4.3-016 | Distribution atomic receipt file writer | same |
+| E-A4.3-017 | Distribution owner effect / receipt gap WSA-034 | same |
+| E-A4.3-018 | no admitted changed cross-release Distribution transition | same |
+| E-A4.3-019 | OS migration deterministic subaction idempotency | same |
+| E-A4.3-020 | OS late final migration receipt | same |
+| E-A4.3-021 | Connections directory lock lacks crash recovery | same |
+| E-A4.3-022 | Connections doctor omits state-lock validation | same |
+| E-A4.3-023 | Connections pending reservation / terminal receipt flow | same |
+| E-A4.3-024 | Connections budget counts attemptedExternal true only | same |
+| E-A4.3-025 | Connections all-or-nothing NDJSON receipt parser | same |
+| E-A4.3-026 | Connections doctor omits receipt-store validation | same |
+| E-A4.3-027 | same-key tests have no abandoned-pending recovery | same |
+| E-A4.3-028 | no stale-lock or receipt-corruption recovery test found | same |
+| E-A4.3-029 | A4.2 migration source reservation finding WSA-052 | same |
+| E-A4.3-030 | inherited failure/recovery finding matrix | same |
+
+### A4.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.4-001 | fresh A4.4 frozen-ref/open-PR gate | adversarial/A4.4-PRIVACY-VISIBILITY-PROVENANCE.md |
+| E-A4.4-002 | Gateway bearer/run-principal ownership | same |
+| E-A4.4-003 | Gateway session/system/workspace/principal binding | same |
+| E-A4.4-004 | Gateway audit request-digest minimization | same |
+| E-A4.4-005 | Memory normal allowed-scope model | same |
+| E-A4.4-006 | Memory progressive exact-source scope revalidation | same |
+| E-A4.4-007 | Memory relationship projection scope filter | same |
+| E-A4.4-008 | Data trusted-scope provenance WSA-020 | same |
+| E-A4.4-009 | Token read authorization immutable scope floor | same |
+| E-A4.4-010 | Token default export/projection privacy | same |
+| E-A4.4-011 | Brain minimal durable action receipts | same |
+| E-A4.4-012 | Automations wake/run/wake-receipt storage model | same |
+| E-A4.4-013 | Automations local-only ordinary read surfaces | same |
+| E-A4.4-014 | Multiple Bots inbound bearer authentication | same |
+| E-A4.4-015 | Multiple Bots workspace-filtered Dashboard projections/events | same |
+| E-A4.4-016 | Dashboard local unauthenticated read WSA-040 | same |
+| E-A4.4-017 | Dashboard stale subscription WSA-038 | same |
+| E-A4.4-018 | Distribution failure-path redaction WSA-036 | same |
+| E-A4.4-019 | Connections normal credential/receipt minimization | same |
+| E-A4.4-020 | Connections MCP JSON-RPC error propagation | same |
+| E-A4.4-021 | Connections terminal failure receipt errorMessage persistence | same |
+| E-A4.4-022 | Connections CLI error details serialization | same |
+| E-A4.4-023 | Connections Generic API secret non-persistence regression | same |
+| E-A4.4-024 | no MCP secret-like error redaction regression found | same |
+| E-A4.4-025 | A2.4 identity/scope/isolation graph | same |
+| E-A4.4-026 | A2.7 receipt/provenance ownership/privacy graph | same |
+| E-A4.4-027 | A3.4 Context/Memory journey | same |
+| E-A4.4-028 | A3.8 Connections external-effect journey | same |
+| E-A4.4-029 | A3.10 two-system isolation journey | same |
+
+### A4.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A4.5-001 | fresh A4.5 frozen-ref/open-PR gate | adversarial/A4.5-SCALE-CURRENT-GENERATION-NEGATIVE-SPACE.md |
+| E-A4.5-002 | Gateway request body/message/budget bounds | same |
+| E-A4.5-003 | Gateway Context Governor hard/soft pressure enforcement | same |
+| E-A4.5-004 | Gateway J1 Context Ladder benchmark | same |
+| E-A4.5-005 | Gateway one-file idempotency path | same |
+| E-A4.5-006 | Gateway claim/commit full JSON read-rewrite behavior | same |
+| E-A4.5-007 | Gateway recurring Automation idempotency path | same |
+| E-A4.5-008 | Gateway whole run-directory recovery scans | same |
+| E-A4.5-009 | no Gateway idempotency retention/index/large-store benchmark found | same |
+| E-A4.5-010 | Memory recall candidate/result limits | same |
+| E-A4.5-011 | Memory Context Ladder/neighbor benchmarks and budgets | same |
+| E-A4.5-012 | Data query pagination/protocol limit enforcement | same |
+| E-A4.5-013 | Token bounded read/aggregate interfaces | same |
+| E-A4.5-014 | Token 500-event read-performance baseline | same |
+| E-A4.5-015 | Dashboard Markdown 256 KiB/source limits | same |
+| E-A4.5-016 | Dashboard inbox/event page limits | same |
+| E-A4.5-017 | Multiple Bots bounded event reads | same |
+| E-A4.5-018 | Multiple Bots full-workspace projection scans | same |
+| E-A4.5-019 | Automations indexed SQLite schema | same |
+| E-A4.5-020 | Automations unbounded due-trigger claim set | same |
+| E-A4.5-021 | Automations missed occurrence coalescing | same |
+| E-A4.5-022 | OS semantic migration request/count bounds | same |
+| E-A4.5-023 | Connections one-file append-only receipt store | same |
+| E-A4.5-024 | Connections full receipt parsing | same |
+| E-A4.5-025 | Connections budget full-history filter | same |
+| E-A4.5-026 | Connections repeated idempotency receipt scans | same |
+| E-A4.5-027 | Connections current default request/call limits | same |
+| E-A4.5-028 | no Connections long-duration receipt performance/index test found | same |
+| E-A4.5-029 | Distribution compatibility matrix Python/Node/platform floors | same |
+| E-A4.5-030 | Distribution current Agent clean-machine runtime matrix | same |
+| E-A4.5-031 | current component runtime floors | same |
+| E-A4.5-032 | existing Python prerequisite contradiction WSA-035 | same |
+| E-A4.5-033 | current provider/model adapter generation review | same |
+| E-A4.5-034 | inherited missing-enforcement finding matrix | same |
+
+### A5.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.1-001 | fresh frozen-ref/open-PR gate | release/A5.1-TESTS-CI-EVIDENCE.md |
+| E-A5.1-002 | exact-head workflow-run inventory | same |
+| E-A5.1-003 | Connections six no-step hosted jobs | same |
+| E-A5.1-004 | current System two no-step hosted jobs | same |
+| E-A5.1-005 | repeated private-runner limitation | same |
+| E-A5.1-006 | external System contract run 34997085576 | same |
+| E-A5.1-007 | external System contract executed job steps | same |
+| E-A5.1-008 | A0 System baseline to current audit-only diff | same |
+| E-A5.1-009 | OS seven exact-head successful workflows | same |
+| E-A5.1-010 | OS current workflow trigger scopes | same |
+| E-A5.1-011 | OS pinned Four/Five Component refs | same |
+| E-A5.1-012 | OS supplemental mutable-main compatibility clone | same |
+| E-A5.1-013 | Gateway exact-head CI | same |
+| E-A5.1-014 | Gateway package check/test scope | same |
+| E-A5.1-015 | Gateway specialized PR/manual workflows | same |
+| E-A5.1-016 | Brain exact-head CI/contract runs | same |
+| E-A5.1-017 | Brain mutable-current OS compatibility workflow | same |
+| E-A5.1-018 | Memory exact-head Test workflow | same |
+| E-A5.1-019 | Skills exact-head Validate/Readiness/E2E runs | same |
+| E-A5.1-020 | Video Editor acceptance run 34901198219 | same |
+| E-A5.1-021 | Skills Video Editor acceptance tree equivalence | same |
+| E-A5.1-022 | Data exact-head CI and PR/manual release workflows | same |
+| E-A5.1-023 | Multiple Bots exact-head release-evaluation CI | same |
+| E-A5.1-024 | Token six-leg exact-head CI | same |
+| E-A5.1-025 | Automations nine-leg exact-head CI | same |
+| E-A5.1-026 | Connections repository-local test source | same |
+| E-A5.1-027 | Apps no-workflow/no-run current state | same |
+| E-A5.1-028 | Dashboard exact-head cross-platform CI | same |
+| E-A5.1-029 | Distribution exact-head six-leg unit CI | same |
+| E-A5.1-030 | Distribution PR #8 eight-workflow qualification matrix | same |
+| E-A5.1-031 | Distribution final PR/current tree equivalence | same |
+| E-A5.1-032 | clean-machine Agent/Core/Context job steps | same |
+| E-A5.1-033 | Agent run 34997085354 attempt-1 Windows failure | same |
+| E-A5.1-034 | Windows Gateway EPERM atomic rename diagnostic | same |
+| E-A5.1-035 | Agent unchanged attempt-2 success | same |
+| E-A5.1-036 | original default Agent gate attempt-1 success | same |
+| E-A5.1-037 | current Context Ladder candidate attempt-1 success | same |
+| E-A5.1-038 | known-finding versus CI coverage matrix | same |
+| E-A5.1-039 | path-filter/manual-trigger negative space | same |
+| E-A5.1-040 | prior A1 exact-head execution packets | same |
+
+### A5.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.2-001 | fresh A5.2 frozen-ref/open-PR gate | release/A5.2-ACCEPTED-REFS-RELEASE-CANDIDATE-IMMUTABLE-IDENTITY.md |
+| E-A5.2-002 | runtime release catalog and channels | same |
+| E-A5.2-003 | public release-set manifest set | same |
+| E-A5.2-004 | public/runtime release mirror equality | same |
+| E-A5.2-005 | public/runtime compatibility mirror equality | same |
+| E-A5.2-006 | public/runtime profile mirror equality | same |
+| E-A5.2-007 | default Agent exact component map | same |
+| E-A5.2-008 | default Agent component SHA existence | same |
+| E-A5.2-009 | default Agent qualification head existence | same |
+| E-A5.2-010 | Distribution PR #2 merge/final identity | same |
+| E-A5.2-011 | default Agent manifest final-head/current equality | same |
+| E-A5.2-012 | Invisible candidate exact component map | same |
+| E-A5.2-013 | Invisible candidate component SHA existence | same |
+| E-A5.2-014 | candidate explicit-only promotion flags | same |
+| E-A5.2-015 | Distribution PR #7 merge/final identity | same |
+| E-A5.2-016 | PR #7 six green exact-head qualification workflows | same |
+| E-A5.2-017 | Invisible qualification-pending metadata | same |
+| E-A5.2-018 | Invisible manifest final-head/current equality | same |
+| E-A5.2-019 | Context Ladder exact component map | same |
+| E-A5.2-020 | Context candidate component SHA existence | same |
+| E-A5.2-021 | Context accepted qualification head existence | same |
+| E-A5.2-022 | Distribution PR #8 final/merge identity | same |
+| E-A5.2-023 | Context manifest final-head/current equality | same |
+| E-A5.2-024 | candidate cross-release transition isolation | same |
+| E-A5.2-025 | Core/first-member ref existence | same |
+| E-A5.2-026 | Data companion dependency identities | same |
+| E-A5.2-027 | owner component-release descriptor semantics | same |
+| E-A5.2-028 | Token beta.3 package identity | same |
+| E-A5.2-029 | Token tag namespace and peeled commits | same |
+| E-A5.2-030 | other scoped repos have no tag namespace | same |
+| E-A5.2-031 | no GitHub Release objects across scoped repos | same |
+| E-A5.2-032 | release-set exact-ref contract | same |
+| E-A5.2-033 | catalog full-SHA validation | same |
+| E-A5.2-034 | finalized manifest historical preservation | same |
+| E-A5.2-035 | no historical same-ID anti-repointing regression found | same |
+| E-A5.2-036 | Full release-manifest blocker | same |
+| E-A5.2-037 | stale Full compatibility blocker | same |
+| E-A5.2-038 | catalog blocker-consistency validation gap | same |
+| E-A5.2-039 | default Agent channel disproves obsolete blocker | same |
+| E-A5.2-040 | System release/current-candidate evidence | same |
+| E-A5.2-041 | frozen current-head/newest candidate comparison | same |
+
+### A5.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.3-001 | fresh A5.3 ref/open-PR gate | release/A5.3-DOCUMENTATION-STATUS-CONTRADICTION-SCAN.md |
+| E-A5.3-002 | A5.3 program scope | same |
+| E-A5.3-003 | OS README/current public-beta status scan | same |
+| E-A5.3-004 | OS known capability metadata drift | same |
+| E-A5.3-005 | Gateway README/architecture vs existing findings | same |
+| E-A5.3-006 | Brain release docs/current identity vs WSA-011 | same |
+| E-A5.3-007 | Memory README/architecture vs existing findings | same |
+| E-A5.3-008 | Skills dated status/shipping scope | same |
+| E-A5.3-009 | Skills current public-beta contract | same |
+| E-A5.3-010 | Data dated release-acceptance scope | same |
+| E-A5.3-011 | Multiple Bots current README | same |
+| E-A5.3-012 | Multiple Bots current release acceptance | same |
+| E-A5.3-013 | Multiple Bots machine-readable release acceptance | same |
+| E-A5.3-014 | Distribution canonical Agent profile list | same |
+| E-A5.3-015 | Token beta.3 package/current identity | same |
+| E-A5.3-016 | Token current packaging/release-acceptance text | same |
+| E-A5.3-017 | Token exact-head CI run 34778240376 | same |
+| E-A5.3-018 | Automations README/acceptance scan | same |
+| E-A5.3-019 | Connections README/current claims | same |
+| E-A5.3-020 | Apps README status | same |
+| E-A5.3-021 | Dashboard current-direction README | same |
+| E-A5.3-022 | Dashboard Mission Control tracker audit override | same |
+| E-A5.3-023 | Dashboard proposed architecture labeling | same |
+| E-A5.3-024 | Distribution README | same |
+| E-A5.3-025 | Distribution architecture/roadmap | same |
+| E-A5.3-026 | Distribution machine release/compatibility truth | same |
+| E-A5.3-027 | System audit README current text | same |
+| E-A5.3-028 | System Connections component spec | same |
+| E-A5.3-029 | System Public Beta tracker | same |
+| E-A5.3-030 | System Final Blueprint/current synthesis | same |
+| E-A5.3-031 | System living-spec propagation evidence | same |
+| E-A5.3-032 | finding-register dedupe map | same |
+| E-A5.3-033 | historical-vs-current classification pass | same |
+
+### A5.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A5.4-001 | fresh A5.4 frozen-ref/open-PR gate | release/A5.4-PRODUCT-PATH-CLEAN-MACHINE-CURRENT-GENERATION.md |
+| E-A5.4-002 | A5.4 program requirement | same |
+| E-A5.4-003 | Distribution ordinary aiverse start path | same |
+| E-A5.4-004 | Distribution CLI start parser/dispatch | same |
+| E-A5.4-005 | Orchestrator.start fresh-install behavior | same |
+| E-A5.4-006 | immutable Orchestrator.install behavior | same |
+| E-A5.4-007 | component staging/runtime-source model | same |
+| E-A5.4-008 | trusted owner lifecycle adapters | same |
+| E-A5.4-009 | Agent acceptance enters through aiverse start | same |
+| E-A5.4-010 | Agent first-run/exact-ref/authority assertions | same |
+| E-A5.4-011 | Agent real owner-use/lifecycle continuation | same |
+| E-A5.4-012 | three-platform clean-machine Agent workflow | same |
+| E-A5.4-013 | default Agent run 34852469415 | same |
+| E-A5.4-014 | final PR Agent run 34997085354 | same |
+| E-A5.4-015 | Context candidate run 34994419265 | same |
+| E-A5.4-016 | Context workflow exact expected refs | same |
+| E-A5.4-017 | candidate 8/9 current-head comparison | same |
+| E-A5.4-018 | Gateway deterministic local-testing documentation | same |
+| E-A5.4-019 | Gateway openai-compatible/first-supported-path documentation | same |
+| E-A5.4-020 | Distribution acceptance runtime-term inventory | same |
+| E-A5.4-021 | Gateway three runtime kinds | same |
+| E-A5.4-022 | Gateway openai-compatible network adapter | same |
+| E-A5.4-023 | Gateway runtime test inventory | same |
+| E-A5.4-024 | Gateway json-subprocess product-path local test | same |
+| E-A5.4-025 | no setup-level openai-compatible test in current Gateway test inventory | same |
+| E-A5.4-026 | existing WSA-035 product prerequisite mismatch | same |
+| E-A5.4-027 | existing WSA-046 Video Editor composition gap | same |
+| E-A5.4-028 | existing WSA-047 migration acceptance gap | same |
+| E-A5.4-029 | existing WSA-048 learning acceptance gap | same |
+| E-A5.4-030 | existing WSA-049 two-system acceptance gap | same |
+| E-A5.4-031 | A4.5 current runtime/platform validation | same |
+| E-A5.4-032 | A5.2 release/candidate identity reconstruction | same |
+
+### A6.1 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.1-001 | fresh A6.1 frozen-ref/open-PR gate | synthesis/A6.1-GLOBAL-CONTRADICTION-REGISTER.md |
+| E-A6.1-002 | Program A6.1 dedupe requirement | same |
+| E-A6.1-003 | canonical A0-A5 contradiction source table | same |
+| E-A6.1-004 | canonical 63-finding summary | same |
+| E-A6.1-005 | 184/165/19 source-row inventory | same |
+| E-A6.1-006 | 63/63 finding coverage check | same |
+| E-A6.1-007 | sole no-exact-ID material umbrella row C-A5.3-009 | same |
+| E-A6.1-008 | non-material contradiction classification inventory | same |
+| E-A6.1-009 | stable finding-ID dedupe mapping | same |
+| E-A6.1-010 | no finding severity/confidence/state mutation | same |
+
+### A6.2 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.2-001 | fresh A6.2 frozen-ref/open-PR gate | synthesis/A6.2-ROOT-CAUSE-FINDING-GRAPH.md |
+| E-A6.2-002 | A6.1 63-family contradiction register | same |
+| E-A6.2-003 | canonical finding severities/roots/repos | same |
+| E-A6.2-004 | source contradiction phase mapping | same |
+| E-A6.2-005 | 63/63 primary root assignment check | same |
+| E-A6.2-006 | zero duplicate primary assignments | same |
+| E-A6.2-007 | RC-01 4 BLOCKER / 13 HIGH concentration | same |
+| E-A6.2-008 | RC-02 7 HIGH / 3 MEDIUM concentration | same |
+| E-A6.2-009 | RC-03 4 HIGH / 2 MEDIUM concentration | same |
+| E-A6.2-010 | RC-06 15-finding release/current truth family | same |
+| E-A6.2-011 | RC-07 6-finding composed qualification family | same |
+| E-A6.2-012 | root-to-root relationship graph | same |
+| E-A6.2-013 | whole-system laws G1-G10 | same |
+
+### A6.3 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.3-001 | fresh A6.3 drift/open-PR gate | synthesis/A6.3-WHOLE-SYSTEM-VERDICT.md |
+| E-A6.3-002 | canonical allowed verdicts | same |
+| E-A6.3-003 | canonical dogfood gate | same |
+| E-A6.3-004 | canonical 4/24/22/12/1 finding counts | same |
+| E-A6.3-005 | WSA-006 Gateway destructive purge blocker | same |
+| E-A6.3-006 | WSA-012 Memory destructive containment blocker | same |
+| E-A6.3-007 | WSA-016 Skills controller containment blocker | same |
+| E-A6.3-008 | WSA-029 Connections destructive purge blocker | same |
+| E-A6.3-009 | A6.2 RC-01/02/03 severe-risk concentration | same |
+| E-A6.3-010 | A5.4 real product-path verification | same |
+| E-A6.3-011 | A5.2 immutable release identity | same |
+| E-A6.3-012 | A6.1 63-family dedupe proof | same |
+| E-A6.3-013 | current composed-acceptance gaps | same |
+| E-A6.3-014 | product refs unchanged through verdict | same |
+
+### A6.4 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.4-001 | fresh A6.4 ref/open-PR gate | synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md |
+| E-A6.4-002 | A6.3 NO-GO verdict | same |
+| E-A6.4-003 | A6.2 nine-root graph | same |
+| E-A6.4-004 | 63/63 finding coverage check | same |
+| E-A6.4-005 | Wave 0 blocker ordering | same |
+| E-A6.4-006 | Wave 1 final-edge authority ordering | same |
+| E-A6.4-007 | Wave 2 lifecycle-before-handoff dependency | same |
+| E-A6.4-008 | Wave 3 atomicity/crash dependency graph | same |
+| E-A6.4-009 | Wave 4 runtime hardening dependencies | same |
+| E-A6.4-010 | Wave 5 runtime-before-metadata synchronization | same |
+| E-A6.4-011 | Wave 6 composed qualification sequence | same |
+| E-A6.4-012 | bounded final independent recheck scope | same |
+| E-A6.4-013 | repository impact map | same |
+| E-A6.4-014 | repair milestones / dogfood gates | same |
+
+### A6.5 evidence IDs
+
+| Evidence ID | Short description | Canonical source packet |
+|---|---|---|
+| E-A6.5-001 | fresh final System/open-PR gate | synthesis/A6.5-FINAL-AUDIT-FREEZE.md |
+| E-A6.5-002 | all 13 product/distribution refs unchanged from A0 | same |
+| E-A6.5-003 | final tracker state | same |
+| E-A6.5-004 | A6.1 contradiction synthesis | same |
+| E-A6.5-005 | A6.2 nine-root graph | same |
+| E-A6.5-006 | A6.3 NO-GO verdict | same |
+| E-A6.5-007 | A6.4 63/63 repair program | same |
+| E-A6.5-008 | final finding counts | same |
+| E-A6.5-009 | canonical audit authority set | same |
+| E-A6.5-010 | still-open documentation findings intentionally preserved | same |
+| E-A6.5-011 | mandatory post-repair recheck scope | same |
+| E-A6.5-012 | Dashboard/owner-dogfood gate remains closed | same |
+
+## 7. Finding allocation ledger
+
+| Range | Status |
+|---|---|
+| `WSA-2026-001` | allocated A0.2 |
+| `WSA-2026-002` | allocated A0.2 |
+| `WSA-2026-003` | allocated A0.2 |
+| `WSA-2026-004` | allocated A0.3 |
+| `WSA-2026-005` | allocated A1.1 |
+| `WSA-2026-006` | allocated A1.2 |
+| `WSA-2026-007` | allocated A1.2 |
+| `WSA-2026-008` | allocated A1.2 |
+| `WSA-2026-009` | allocated A1.3 |
+| `WSA-2026-010` | allocated A1.3 |
+| `WSA-2026-011` | allocated A1.3 |
+| `WSA-2026-012` | allocated A1.4 |
+| `WSA-2026-013` | allocated A1.4 |
+| `WSA-2026-014` | allocated A1.4 |
+| `WSA-2026-015` | allocated A1.4 |
+| `WSA-2026-016` | allocated A1.5 |
+| `WSA-2026-017` | allocated A1.5 |
+| `WSA-2026-018` | allocated A1.5 |
+| `WSA-2026-019` | allocated A1.5 |
+| `WSA-2026-020` | allocated A1.6 |
+| `WSA-2026-021` | allocated A1.6 |
+| `WSA-2026-022` | allocated A1.7 |
+| `WSA-2026-023` | allocated A1.7 |
+| `WSA-2026-024` | allocated A1.8 |
+| `WSA-2026-025` | allocated A1.8 |
+| `WSA-2026-026` | allocated A1.9 |
+| `WSA-2026-027` | allocated A1.9 |
+| `WSA-2026-028` | allocated A1.9 |
+| `WSA-2026-029` | allocated A1.10 |
+| `WSA-2026-030` | allocated A1.10 |
+| `WSA-2026-031` | allocated A1.10 |
+| `WSA-2026-032` | allocated A1.10 |
+| `WSA-2026-033` | allocated A1.10 |
+| WSA-2026-034 | allocated A1.12 |
+| WSA-2026-035 | allocated A1.12 |
+| WSA-2026-036 | allocated A1.12 |
+| WSA-2026-037 | allocated A1.12 |
+| WSA-2026-038 | allocated A1.13 |
+| WSA-2026-039 | allocated A1.13 |
+| WSA-2026-040 | allocated A1.13 |
+| WSA-2026-041 | allocated A1.13 |
+| WSA-2026-042 | allocated A1.13 |
+| WSA-2026-043 | allocated A1.14 |
+| WSA-2026-044 | allocated A1.14 |
+| WSA-2026-045 | allocated A2.5 |
+| WSA-2026-046 | allocated A2.8 |
+| WSA-2026-047 | allocated A3.2 |
+| WSA-2026-048 | allocated A3.5 |
+| WSA-2026-049 | allocated A3.10 |
+| WSA-2026-050 | allocated A4.1 |
+| WSA-2026-051 | allocated A4.1 |
+| WSA-2026-052 | allocated A4.2 |
+| WSA-2026-053 | allocated A4.2 |
+| WSA-2026-054 | allocated A4.3 |
+| WSA-2026-055 | allocated A4.3 |
+| WSA-2026-056 | allocated A4.3 |
+| WSA-2026-057 | allocated A4.4 |
+| WSA-2026-058 | allocated A4.5 |
+| WSA-2026-059 | allocated A4.5 |
+| WSA-2026-060 | allocated A5.2 |
+| WSA-2026-061 | allocated A5.3 |
+| WSA-2026-062 | allocated A5.3 |
+| WSA-2026-063 | allocated A5.4 |
+| WSA-2026-064 | **NEXT UNUSED** |
+
+Future tasks must inspect this register before allocating a new finding ID.
+
+## 8. Negative-space checks
+
+A0.3 explicitly checked:
+
+- no pre-existing canonical finding register existed under `docs/public-beta-audit/`;
+- no product repository head drifted from the frozen A0.2 snapshot;
+- no open PR existed across the scoped 14-repository universe before the A0.3 branch was created;
+- System drift from the pre-A0.2 frozen baseline was confined to audit tracker/snapshot records;
+- no published finding ID above `WSA-2026-003` was present in the completed A0.1/A0.2 packets;
+- no finding was silently closed merely because its severity is LOW/INFO;
+- no historical contradiction was promoted into a defect without material impact;
+- no product repair was performed while instantiating the ledger.
+
+## 9. Evidence limitations
+
+- GitHub code-search indexing is not used as proof that IDs are absent; allocation is based on completed canonical A0 packets plus the live audit tree.
+- A0.3 does not independently re-prove the underlying technical substance of A0.2 findings. It verifies and registers the published records.
+- Future findings may raise severity or confidence when later repository/seam/journey evidence exposes broader impact.
+- Finding severity/state may change only with explicit new evidence and must preserve change history.
+- The private-repository runner limitation remains unresolved and may constrain hosted validation of this checkpoint.
+
+## 10. Downstream rules for later audit tasks
+
+Every later task must:
+
+1. read this register before allocating a new finding ID;
+2. continue from `WSA-2026-005`;
+3. cite local evidence IDs and exact source refs;
+4. add every material contradiction to the contradiction register;
+5. update affected finding state/severity/confidence only with cited new evidence;
+6. preserve prior wording/history rather than overwriting the record silently;
+7. leave product repair for the repair phase unless emergency containment is required.
+
+A0.4 may now create the relationship-matrix skeleton with all relations initially UNKNOWN as required by its own protocol. It must not begin seam auditing yet.
+
+## 11. Task completion record
+
+**Task:** A0.3 Evidence/finding ledger  
+**System task baseline:** `eba8f2e7a7005a4e597bbb75fef7913927e2f738`  
+**Frozen product refs rechecked:** all 13 non-System product/distribution repos unchanged from A0.2; System audit-only drift classified by `E-A0.3-003`  
+**Evidence read:** A0.1/A0.2 completed packets; canonical tracker; audit program; evidence/finding protocol; audit README; live PR/ref/tree state  
+**Claims verified:** stable ID law instantiated; existing evidence/contradiction IDs indexed; four findings registered with severity/confidence/state; next finding ID reserved as `WSA-2026-005`  
+**Contradictions:** inherited `C-A0.1-001`, `C-A0.2-001`, `C-A0.2-002`; opened `C-A0.3-001`  
+**Findings:** inherited `WSA-2026-001` through `003`; opened `WSA-2026-004`  
+**Negative-space checks:** Section 8  
+**Evidence limitations:** Section 9  
+**Verdict:** COMPLETE / PASS for audit ledger instantiation  
+**Tracker change:** A0.3 COMPLETE; accepted progress 3/100; A0.4 NEXT  
+**Next task:** A0.4 Relationship matrix skeleton
