@@ -95,7 +95,7 @@ Rules:
 | `WSA-2026-026` | HIGH | PROVEN | OPEN | canonical store ownership / lifecycle safety / health truth | `AI-Verse-Automations` | A1.9 |
 | `WSA-2026-027` | HIGH | PROVEN | OPEN | canonical schedule authority / migration handoff / readiness truth | `AI-Verse-Automations` | A1.9 |
 | `WSA-2026-028` | MEDIUM | PROVEN | OPEN | native attachment lifecycle / host discovery truth | `AI-Verse-Automations` | A1.9 |
-| `WSA-2026-029` | BLOCKER | PROVEN | OPEN | destructive lifecycle / filesystem containment | `AI-Verse-Connections` | A1.10 |
+| `WSA-2026-029` | BLOCKER | PROVEN | CLOSED | destructive lifecycle / filesystem containment | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-030` | HIGH | PROVEN | OPEN | system scope isolation / canonical installation binding | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-031` | HIGH | PROVEN | OPEN | credential origin binding / token passthrough prevention | `AI-Verse-Connections` | A1.10 |
 | `WSA-2026-032` | HIGH | PROVEN | OPEN | final-edge authority / concurrency / safety budgets | `AI-Verse-Connections` | A1.10 |
@@ -144,8 +144,8 @@ Current counts:
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 60 |
-| CLOSED | 3 |
+| OPEN | 59 |
+| CLOSED | 4 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
 
@@ -1019,7 +1019,7 @@ Synchronize component and registry lifecycle under existing lock controls, or de
 
 **Severity:** BLOCKER  
 **Confidence:** PROVEN  
-**State:** OPEN  
+**State:** CLOSED  
 **Opened by:** A1.10  
 **Root area:** destructive lifecycle / filesystem containment  
 **Affected repos:** `AI-Verse-Connections`
@@ -1036,6 +1036,31 @@ A typo or unsafe lifecycle invocation can delete unrelated user data. This is a 
 
 **Required closure evidence:**  
 Require a verified Connections ownership marker/realpath, reject root/broad/foreign targets, prefer known-owned-child deletion and add negative purge tests.
+
+#### Post-audit closure - 2026-09-17
+
+**State transition:** `OPEN -> CLOSED`  
+**Repair PR:** `AI-Verse-Connections#2`  
+**Final tested/reviewed PR head:** `c4bb77f680298d91ce619db91a39d69daaaa76a8`  
+**Merged repair ref:** `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016`  
+**Closure packet:** `../repairs/WSA-2026-029-CONNECTIONS-DESTRUCTIVE-PURGE.md`
+
+Connections now requires durable exact-realpath ownership before destructive purge. Broad filesystem/user/system homes, foreign non-empty homes, missing/wrong/copied ownership markers and an exact-home symlink/junction target fail closed. Purge removes only known Connections-owned children and preserves unexpected/unowned entries rather than recursively erasing the selected root.
+
+Permanent regressions cover unrelated non-empty homes, legacy-state ownership migration, missing/foreign/copied markers, broad roots, safe custom owned purge, unknown sentinel preservation and exact-home symlink/Windows-junction rejection.
+
+Exact repaired destructive-boundary validation reported **10 / 10 PASS**, and the actual lifecycle `install -> setup -> uninstall({purge:true})` path passed. Final PR head and merged product files have zero differences and there are no open Connections PRs after merge.
+
+Hosted cross-platform execution is **not claimed** for this repair. Connections workflow run `35219295977`, unchanged-main run `35218943165` and post-merge run `35219652570` all produced the inherited private-repository no-runner condition: jobs have `steps: []` and `runner_id: 0`. This remains separately OPEN as WSA-2026-003 and is not a product-test failure.
+
+Finding-specific rechecks:
+- A1.10: the arbitrary configured-root recursive purge mechanism is closed at the repaired exact ref;
+- A3.10: the destructive lifecycle containment branch is resolved for all four R0 findings; A3.10 remains PARTIAL overall because other lifecycle/recovery and two-system findings remain;
+- A4.1: the Connections destructive-purge branch of owner-root confinement is resolved; A4.1 remains FAIL overall because other security/path findings remain.
+
+This closure does not alter WSA-2026-003 or WSA-2026-030 through WSA-2026-033, WSA-2026-051, WSA-2026-054 through WSA-2026-057, or WSA-2026-059.
+
+Overall system verdict remains **NO-GO**. All four original BLOCKER findings are now closed, but HIGH/MEDIUM/LOW/INFO findings and the mandatory final independent recheck remain.
 
 ---
 
