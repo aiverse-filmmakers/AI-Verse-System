@@ -30,19 +30,19 @@ A finding is not CLOSED merely because a code PR merged.
 
 ## 2. Status vocabulary
 
-- `NEXT` - first eligible repair after all dependencies are satisfied
-- `ACTIVE` - the one repair currently being implemented/rechecked
-- `PENDING` - waiting for earlier repair dependencies
-- `FIXED-PENDING-RECHECK` - implementation merged but required closure evidence incomplete
-- `CLOSED` - repair plus required regression/re-audit evidence accepted
-- `DEFERRED` - explicitly risk-accepted only where audit policy permits
-- `BLOCKED` - cannot proceed because required evidence/access/precondition is missing
+- `NEXT` — first eligible repair after all dependencies are satisfied
+- `ACTIVE` — the one repair currently being implemented/rechecked
+- `PENDING` — waiting for earlier repair dependencies
+- `FIXED-PENDING-RECHECK` — implementation merged but required closure evidence incomplete
+- `CLOSED` — repair plus required regression/re-audit evidence accepted
+- `DEFERRED` — explicitly risk-accepted only where audit policy permits
+- `BLOCKED` — cannot proceed because required evidence/access/precondition is missing
 
 Exactly one finding should normally be ACTIVE.
 
 ## 3. Repair phases and tasks
 
-### Phase R0 - Destructive containment BLOCKERs
+### Phase R0 — Destructive containment BLOCKERs
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
@@ -53,7 +53,7 @@ Exactly one finding should normally be ACTIVE.
 
 **R0 exit:** all four BLOCKERs CLOSED after exact-ref negative regression evidence plus lifecycle/security rechecks.
 
-### Phase R1 - Trusted authority, scope, identity and final-edge security
+### Phase R1 — Trusted authority, scope, identity and final-edge security
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
@@ -71,7 +71,7 @@ Exactly one finding should normally be ACTIVE.
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
 
-### Phase R2 - Authoritative lifecycle/readiness truth
+### Phase R2 — Authoritative lifecycle/readiness truth
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
@@ -81,7 +81,7 @@ Exactly one finding should normally be ACTIVE.
 | R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | PENDING |
 | R2.5 | WSA-2026-028 Automations attachment reconciliation | AI-Verse-Automations | PENDING |
 
-### Phase R3 - Atomicity, serialization, migration and crash safety
+### Phase R3 — Atomicity, serialization, migration and crash safety
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
@@ -96,7 +96,7 @@ Exactly one finding should normally be ACTIVE.
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-### Phase R4 - Remaining runtime MEDIUM hardening
+### Phase R4 — Remaining runtime MEDIUM hardening
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
@@ -111,7 +111,7 @@ Exactly one finding should normally be ACTIVE.
 | R4.9 | WSA-2026-058 Gateway idempotency-state scale | AI-Verse-Gateway | PENDING |
 | R4.10 | WSA-2026-059 Connections receipt-history scale | AI-Verse-Connections | PENDING |
 
-### Phase R5 - Release/current-state/documentation synchronization
+### Phase R5 — Release/current-state/documentation synchronization
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
@@ -131,7 +131,7 @@ Exactly one finding should normally be ACTIVE.
 | R5.14 | WSA-2026-044 System living-spec propagation | AI-Verse-System | PENDING |
 | R5.15 | WSA-2026-004 stale audit README entrypoint | AI-Verse-System | PENDING |
 
-### Phase R6 - Composed release requalification
+### Phase R6 — Composed release requalification
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
@@ -142,7 +142,7 @@ Exactly one finding should normally be ACTIVE.
 | R6.5 | WSA-2026-049 two-system A/B isolation acceptance | multi-owner | PENDING |
 | R6.6 | WSA-2026-063 real non-test Gateway runtime release evidence | Gateway / Distribution | PENDING |
 
-### Phase RF - Bounded final independent recheck
+### Phase RF — Bounded final independent recheck
 
 Status: PENDING
 
@@ -171,7 +171,7 @@ Acceptance:
 6. transition the finding register only after closure evidence exists;
 7. mark exactly one next finding ACTIVE.
 
-## 5. Most recently completed task - R0.3 / WSA-2026-016
+## 5. Most recently completed task — R0.3 / WSA-2026-016
 
 **Owner:** `AI-Verse-Skills`  
 **Original baseline:** `8c321c03421a2e0e470280cc40e588a27c1a510d`  
