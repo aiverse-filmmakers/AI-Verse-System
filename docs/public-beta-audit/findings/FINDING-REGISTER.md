@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R1.2 / `WSA-2026-020` closure, 2026-09-17  
+**Live repair-state checkpoint:** R1.3 / `WSA-2026-022` closure, 2026-09-17  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **57** |
-| CLOSED | **6** |
+| OPEN | **56** |
+| CLOSED | **7** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-029`.
+`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-029`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `022`, `023`, `024`, `025`, `026`, `027`, `028`, `030`, `031`, `032`, `033`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `023`, `024`, `025`, `026`, `027`, `028`, `030`, `031`, `032`, `033`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -75,6 +75,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-029` | `AI-Verse-Connections` | `#2` | `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016` | `../repairs/WSA-2026-029-CONNECTIONS-DESTRUCTIVE-PURGE.md` |
 | `WSA-2026-009` | `AI-Verse-Brain` | `#24` | `908f9a9a06c2b12204ada7f71cd761bae97b52ce` | `../repairs/WSA-2026-009-BRAIN-NATIVE-HOST-ROOT-CONTAINMENT.md` |
 | `WSA-2026-020` | `AI-Verse-Data` | `#17` | `491e22084418f34b849c7d9e700a40973888dcf6` | `../repairs/WSA-2026-020-DATA-TRUSTED-SCOPE-PROVENANCE.md` |
+| `WSA-2026-022` | `AI-Verse-Multiple-Bots` | `#69` | `cb20bfd014530a7faa26e6abc868d8f85226ec79` | `../repairs/WSA-2026-022-MULTIPLE-BOTS-OPERATOR-AUTHORITY-BINDING.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -108,17 +109,46 @@ Closure evidence:
 
 `WSA-2026-021` remains OPEN and was not modified.
 
-## 6. Current repair position
+## 6. WSA-2026-022 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Audited/live pre-repair Multiple Bots ref:** `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`  
+**Repair PR:** `AI-Verse-Multiple-Bots#69`  
+**Final tested PR head:** `7c31c18fa789f5b4a7f377fa781db85764f1b7a9`  
+**Merged Multiple Bots ref:** `cb20bfd014530a7faa26e6abc868d8f85226ec79`  
+**Reviewed/merged product tree:** `4c2bd28712cd10c43af57ad1f9c1c5cf875e350b`
+
+Closure evidence:
+
+- normal bearer transport remains Gateway access only and carries no operator/domain mutation authority;
+- trusted operator authority is explicitly host/session bound;
+- claimed operator provenance must match the authenticated bound operator principal;
+- Bot lifecycle/rebind, Approval decisions, dead-letter retry, Task/Team Run operator overrides and Handoff operator override fail closed without trusted operator authority;
+- existing Task creator/owner/assignee, Team Run leader and Handoff-target rights remain intact;
+- dedicated regressions prove transport-only bearer cannot self-grant operator controls and cannot switch operator identity;
+- PR-head CI `35284371590`: SUCCESS; npm test 519/519, Phase 4 eval 5/5, pack check PASS, release eval 7/7;
+- exact PR-head and merged product tree: identical;
+- merged-main CI `35284559449`: SUCCESS; npm test 519/519, Phase 4 eval 5/5, pack check PASS, release eval 7/7;
+- open Multiple Bots PRs after merge: 0;
+- A1.7 finding-specific recheck: PASS for WSA-2026-022 / C-A1.7-001;
+- secure-remote operator-control seam: RESOLVED for this finding;
+- adversarial operator identity spoofing recheck: PASS;
+- cancellation/control domain-law recheck: PASS with legitimate non-operator rights preserved.
+
+`WSA-2026-023` remains OPEN and was not modified.
+
+## 7. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
-- R1: **2 / 13 CLOSED = 15.38%**.
-- Total: **6 / 63 CLOSED = 9.52%**.
-- Remaining: **57 / 63 OPEN = 90.48%**.
+- R1: **3 / 13 CLOSED = 23.08%**.
+- Total: **7 / 63 CLOSED = 11.11%**.
+- Remaining: **56 / 63 OPEN = 88.89%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R1.3 / WSA-2026-022`.
-- WSA-2026-022 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R1.4 / WSA-2026-023`.
+- WSA-2026-023 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 7. Navigation rule
+## 8. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
