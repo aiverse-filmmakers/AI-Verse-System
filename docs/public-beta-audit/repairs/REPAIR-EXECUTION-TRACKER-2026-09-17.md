@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Audit findings entering repair:** **63 PROVEN / 63 OPEN / 0 CLOSED**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-009`
+**Current active finding:** `WSA-2026-020`
 
 ## 1. Purpose
 
@@ -57,8 +57,8 @@ Exactly one finding should normally be ACTIVE.
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
-| R1.1 | WSA-2026-009 Brain physical host-root containment | AI-Verse-Brain | **ACTIVE** |
-| R1.2 | WSA-2026-020 Data trusted scope provenance | AI-Verse-Data | PENDING |
+| R1.1 | WSA-2026-009 Brain physical host-root containment | AI-Verse-Brain | **CLOSED** |
+| R1.2 | WSA-2026-020 Data trusted scope provenance | AI-Verse-Data | **ACTIVE** |
 | R1.3 | WSA-2026-022 Multiple Bots operator authority binding | AI-Verse-Multiple-Bots | PENDING |
 | R1.4 | WSA-2026-023 Worker workspace isolation | AI-Verse-Multiple-Bots | PENDING |
 | R1.5 | WSA-2026-024 Token trusted ACTUAL source authority | ai-verse-token | PENDING |
@@ -70,6 +70,8 @@ Exactly one finding should normally be ACTIVE.
 | R1.11 | WSA-2026-038 Dashboard WebSocket workspace isolation | AI-Verse-Dashboard | PENDING |
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
+
+**R1 progress:** **1 / 13 CLOSED = 7.69%.** WSA-2026-020 is the only ACTIVE R1 finding.
 
 ### Phase R2 — Authoritative lifecycle/readiness truth
 
@@ -171,7 +173,7 @@ Acceptance:
 6. transition the finding register only after closure evidence exists;
 7. mark exactly one next finding ACTIVE.
 
-## 5. Most recently completed task — R0.3 / WSA-2026-016
+## 5. Completed task - R0.3 / WSA-2026-016
 
 **Owner:** `AI-Verse-Skills`  
 **Original baseline:** `8c321c03421a2e0e470280cc40e588a27c1a510d`  
@@ -241,6 +243,43 @@ Closure evidence:
 
 This repair does not close WSA-2026-003 or WSA-2026-030 through WSA-2026-033, WSA-2026-051, WSA-2026-054 through WSA-2026-057, or WSA-2026-059.
 
+## 5B. Most recently completed task - R1.1 / WSA-2026-009
+
+**Owner:** `AI-Verse-Brain`  
+**Original audited / pre-repair ref:** `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`  
+**Repair PR:** `AI-Verse-Brain#24`  
+**Final tested PR head:** `f35a3f683f9014bbe3b508af341c09992ae2c1c3`  
+**Merged Brain:** `908f9a9a06c2b12204ada7f71cd761bae97b52ce`  
+**Product tree:** `66b650a63879898b936b7c8c550d10654caed366`  
+**Status:** CLOSED  
+**Closure packet:** `repairs/WSA-2026-009-BRAIN-NATIVE-HOST-ROOT-CONTAINMENT.md`
+
+Closure evidence:
+- one shared native physical-path guard added;
+- native `operator` and `workspaces` symlink/junction/reparse parents fail host compatibility;
+- operator state, workspace state and individual workspace parents are physically confined;
+- native runtime and nested runtime-lock paths are physically confined and revalidated before mutation;
+- initialization and `installation.json` paths use the same containment law;
+- standalone-to-native adoption transaction, staging, retirement, destination and runtime paths are confined and revalidated between phases;
+- permanent external-sentinel regressions cover ten hostile path layouts;
+- Windows directory attacks use real `mklink /J` junctions;
+- PR-head CI run `35228628402`: SUCCESS, package smoke plus all six Ubuntu/macOS/Windows Python matrix legs;
+- Windows Python 3.12 job `105226554049`: 237 tests successful, nine executable WSA-009 junction/path attacks pass, one ordinary file-symlink test intentionally skipped;
+- macOS Python 3.12 job `105226553976`: 237 / 237 tests passed including all ten containment attacks;
+- PR-head Skills Receipt Contract run `35228628604`: SUCCESS;
+- PR-head OS Direction Ownership Contract run `35228628938`: SUCCESS;
+- final tested PR tree equals merged tree `66b650a63879898b936b7c8c550d10654caed366`;
+- post-merge CI run `35228849333`: 7 / 7 jobs SUCCESS;
+- post-merge Skills Receipt Contract run `35228849545`: SUCCESS;
+- post-merge OS Direction Ownership Contract run `35228849499`: SUCCESS;
+- open Brain PRs after merge: 0;
+- A1.3 finding-specific recheck: PASS for WSA-009 only;
+- A3.2 Brain destination-scope branch: RESOLVED; journey remains PARTIAL overall;
+- A4.1 Brain owner-root branch: RESOLVED; adversarial task remains FAIL overall;
+- finding state: `OPEN -> CLOSED`.
+
+This repair does not close WSA-2026-010 or WSA-2026-011.
+
 ## 6. Repair log
 
 ### R0.1 / WSA-2026-006 - CLOSED
@@ -304,10 +343,26 @@ This repair does not close WSA-2026-003 or WSA-2026-030 through WSA-2026-033, WS
 - A4.1 Connections purge branch: RESOLVED; adversarial task remains FAIL overall
 - finding state: `OPEN -> CLOSED`
 
-## 7. Current task - R1.1 / WSA-2026-009
+### R1.1 / WSA-2026-009 - CLOSED
 
-**Owner:** `AI-Verse-Brain`  
+- baseline Brain: `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`
+- repair PR: `AI-Verse-Brain#24`
+- final tested PR head: `f35a3f683f9014bbe3b508af341c09992ae2c1c3`
+- merged Brain: `908f9a9a06c2b12204ada7f71cd761bae97b52ce`
+- exact PR-head and merged product tree: `66b650a63879898b936b7c8c550d10654caed366`
+- PR-head CI: all seven jobs SUCCESS
+- PR-head contract workflows: 2 / 2 SUCCESS
+- post-merge CI: all seven jobs SUCCESS
+- post-merge contract workflows: 2 / 2 SUCCESS
+- A1.3 finding-specific recheck: PASS for WSA-009 only
+- A3.2 Brain destination-containment branch: RESOLVED; journey remains PARTIAL
+- A4.1 Brain path-containment branch: RESOLVED; adversarial task remains FAIL overall
+- finding state: `OPEN -> CLOSED`
+
+## 7. Current task - R1.2 / WSA-2026-020
+
+**Owner:** `AI-Verse-Data`  
 **Status:** ACTIVE  
-**Execution state:** not yet implemented. The next repair session must first recheck Brain main/open PRs and the exact WSA-2026-009 evidence before creating the owner repair branch.
+**Execution state:** not yet implemented. The next repair session must first recheck Data main/open PRs and the exact WSA-2026-020 evidence before creating the owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-009 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-020 reaches CLOSED or an explicitly recorded BLOCKED state.
