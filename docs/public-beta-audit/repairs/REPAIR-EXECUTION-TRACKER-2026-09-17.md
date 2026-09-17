@@ -51,7 +51,7 @@ Exactly one finding should normally be ACTIVE.
 | R0.3 | WSA-2026-016 Skills lifecycle-controller containment | AI-Verse-Skills | **CLOSED** |
 | R0.4 | WSA-2026-029 Connections destructive purge containment | AI-Verse-Connections | **CLOSED** |
 
-**R0 exit:** **COMPLETE — 4 / 4 BLOCKERs CLOSED.** Exact-ref destructive-containment repairs and finding-specific lifecycle/security rechecks are recorded for all four findings. Hosted Connections runner availability remains separately OPEN as WSA-2026-003 and is not misclassified as a WSA-029 product-test failure.
+**R0 exit:** **COMPLETE - 4 / 4 BLOCKERs CLOSED.** Exact-ref destructive-containment repairs and finding-specific lifecycle/security rechecks are recorded for all four findings. Hosted Connections runner availability remains separately OPEN as WSA-2026-003 and is not misclassified as a WSA-029 product-test failure.
 
 ### Phase R1 — Trusted authority, scope, identity and final-edge security
 
@@ -171,7 +171,44 @@ Acceptance:
 6. transition the finding register only after closure evidence exists;
 7. mark exactly one next finding ACTIVE.
 
-## 5. Most recently completed task — R0.4 / WSA-2026-029
+## 5. Most recently completed task — R0.3 / WSA-2026-016
+
+**Owner:** `AI-Verse-Skills`  
+**Original baseline:** `8c321c03421a2e0e470280cc40e588a27c1a510d`  
+**Repair PR:** `AI-Verse-Skills#15`  
+**Final PR head:** `62b49d6420a6034fd08c47c2070ec473f128a392`  
+**Merged Skills:** `3541d2a7af1b20ca12736ed7454d119295d8e193`  
+**Status:** CLOSED  
+**Closure packet:** `repairs/WSA-2026-016-SKILLS-CONTROLLER-CONTAINMENT.md`
+
+Closure evidence:
+- one shared `controller_path` physical containment primitive added;
+- POSIX symlinks and Windows junction/reparse controller indirection rejected;
+- controller, generation, active-pointer, setup/integration and learning state routed through the same confinement law;
+- destructive generation purge validates confined generation paths before recursive deletion;
+- external-sentinel regressions cover redirected `.aiverse`, generation storage, learning state, status, commit and purge;
+- Windows tests use real `mklink /J` directory junctions;
+- corrected final PR-head Validate run `35192350269`: SUCCESS;
+- corrected final PR-head Containment run `35192350296`: 6 / 6 jobs SUCCESS;
+- corrected final PR-head Runtime Readiness run `35192350294`: 6 / 6 jobs SUCCESS;
+- corrected final PR-head Full E2E run `35192350298`: SUCCESS;
+- Windows 3.9 containment job `105107547111`: 10 tests / OK;
+- final PR tree and merged main tree both `3e5f72ed405aec0cc015afb52a98505178cf0c3f`;
+- zero open Skills PRs after merge;
+- post-merge Containment run `35201821336`: SUCCESS;
+- post-merge Runtime Readiness run `35201821346`: SUCCESS;
+- post-merge Full E2E run `35201821359`: SUCCESS;
+- post-merge Validate run `35201821414`: SUCCESS;
+- A1.5 finding-specific recheck: PASS for WSA-016 only;
+- A3.10 Skills destructive-containment branch: RESOLVED; journey remains PARTIAL;
+- A4.1 Skills controller-confinement branch: RESOLVED; adversarial task remains FAIL;
+- finding state: `OPEN -> CLOSED`.
+
+The early macOS lexical `/var` vs `/private/var` interruption-test mismatch was caught before merge, corrected to compare physical paths, and the corrected head passed the full supported matrix. It is retained in the closure packet as repair evidence.
+
+This repair does not close WSA-2026-017, WSA-2026-018 or WSA-2026-019.
+
+## 5A. Completed task - R0.4 / WSA-2026-029
 
 **Owner:** `AI-Verse-Connections`  
 **Original audited ref:** `baaac641558dbff1c2eabb0b5ec785a633f49a5b`  
@@ -267,7 +304,7 @@ This repair does not close WSA-2026-003 or WSA-2026-030 through WSA-2026-033, WS
 - A4.1 Connections purge branch: RESOLVED; adversarial task remains FAIL overall
 - finding state: `OPEN -> CLOSED`
 
-## 7. Current task — R1.1 / WSA-2026-009
+## 7. Current task - R1.1 / WSA-2026-009
 
 **Owner:** `AI-Verse-Brain`  
 **Status:** ACTIVE  
