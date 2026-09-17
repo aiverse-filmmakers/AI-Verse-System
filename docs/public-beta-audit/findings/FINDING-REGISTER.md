@@ -82,7 +82,7 @@ Rules:
 | `WSA-2026-013` | HIGH | PROVEN | OPEN | lifecycle authority / canonical writes | `AI-Verse-Memory` | A1.4 |
 | `WSA-2026-014` | HIGH | PROVEN | OPEN | migration / canonical authority transfer | `AI-Verse-Memory` | A1.4 |
 | `WSA-2026-015` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Memory` | A1.4 |
-| `WSA-2026-016` | BLOCKER | PROVEN | OPEN | lifecycle controller containment | `AI-Verse-Skills` | A1.5 |
+| `WSA-2026-016` | BLOCKER | PROVEN | CLOSED | lifecycle controller containment | `AI-Verse-Skills` | A1.5 |
 | `WSA-2026-017` | HIGH | PROVEN | OPEN | lifecycle concurrency / serialization | `AI-Verse-Skills` | A1.5 |
 | `WSA-2026-018` | MEDIUM | PROVEN | OPEN | immutable generation retention | `AI-Verse-Skills` | A1.5 |
 | `WSA-2026-019` | LOW | PROVEN | OPEN | release/version/bootstrap reproducibility | `AI-Verse-Skills` | A1.5 |
@@ -144,8 +144,8 @@ Current counts:
 | STRONG | 0 |
 | POSSIBLE | 0 |
 | UNVERIFIED | 0 |
-| OPEN | 61 |
-| CLOSED | 2 |
+| OPEN | 60 |
+| CLOSED | 3 |
 
 These counts do **not** imply public-beta approval. See the canonical execution tracker for current weighted audit progress.
 
@@ -680,7 +680,7 @@ After repair/release authorization: distinguish post-release main by version or 
 
 **Severity:** BLOCKER  
 **Confidence:** PROVEN  
-**State:** OPEN  
+**State:** CLOSED  
 **Opened by:** A1.5  
 **Root area:** lifecycle controller containment  
 **Affected repos:** `AI-Verse-Skills`
@@ -697,6 +697,33 @@ Lifecycle state may resolve outside the selected root, making destructive mainte
 
 **Required closure evidence:**  
 Add one controller-path safety primitive, reject unsafe controller indirection, prove all controller/generation/state paths remain inside the selected root, and add platform containment regressions.
+
+#### Post-audit closure - 2026-09-17
+
+**State transition:** `OPEN -> CLOSED`  
+**Repair PR:** `AI-Verse-Skills#15`  
+**Final tested PR head:** `62b49d6420a6034fd08c47c2070ec473f128a392`  
+**Merged repair ref:** `3541d2a7af1b20ca12736ed7454d119295d8e193`  
+**Closure packet:** `../repairs/WSA-2026-016-SKILLS-CONTROLLER-CONTAINMENT.md`
+
+Skills now derives controller, generation, active-pointer, setup/integration and learning state through one physical controller-containment law. POSIX symlink and Windows junction/reparse indirection fail closed, and destructive generation purge validates confined generation paths before recursive deletion.
+
+Final PR-head evidence is green across Validate, Full E2E, six-leg Runtime Readiness and six-leg Lifecycle Controller Containment. Windows Python 3.9 job `105107547111` ran all 10 lifecycle/controller tests including real `mklink /J` junction attacks and reported OK. The reviewed PR head and merged main share product tree `3e5f72ed405aec0cc015afb52a98505178cf0c3f`.
+
+Merged-main recheck is also fully green:
+- Containment run `35201821336`;
+- Runtime Readiness run `35201821346`;
+- Full E2E run `35201821359`;
+- Validate run `35201821414`.
+
+Finding-specific rechecks:
+- A1.5: the WSA-016 controller-redirection mechanism is closed at the repaired exact ref;
+- A3.10: the Skills branch of destructive lifecycle contradiction C-A3.10-001 is resolved; Connections WSA-029 remains;
+- A4.1: the Skills branch of owner-root contradiction C-A4.1-003 is resolved; other security/path findings remain.
+
+This closure does not alter WSA-2026-017, WSA-2026-018 or WSA-2026-019.
+
+Overall system verdict remains **NO-GO**. The only remaining open BLOCKER is WSA-2026-029.
 
 ---
 
