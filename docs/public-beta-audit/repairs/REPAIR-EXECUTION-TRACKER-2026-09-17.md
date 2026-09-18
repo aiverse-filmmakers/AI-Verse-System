@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-030`
+**Current active finding:** `WSA-2026-031`
 
 ## 1. Preserved execution history
 
@@ -59,8 +59,8 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.3 | WSA-2026-022 Multiple Bots operator authority binding | AI-Verse-Multiple-Bots | **CLOSED** |
 | R1.4 | WSA-2026-023 Worker workspace isolation | AI-Verse-Multiple-Bots | **CLOSED** |
 | R1.5 | WSA-2026-024 Token trusted ACTUAL source authority | ai-verse-token | **CLOSED** |
-| R1.6 | WSA-2026-030 Connections installation/system binding | AI-Verse-Connections | **ACTIVE** |
-| R1.7 | WSA-2026-031 Connections credential-origin binding | AI-Verse-Connections | PENDING |
+| R1.6 | WSA-2026-030 Connections installation/system binding | AI-Verse-Connections | **CLOSED** |
+| R1.7 | WSA-2026-031 Connections credential-origin binding | AI-Verse-Connections | **ACTIVE** |
 | R1.8 | WSA-2026-033 Connections normalized path authorization | AI-Verse-Connections | PENDING |
 | R1.9 | WSA-2026-051 Connections DNS/private-network containment | AI-Verse-Connections | PENDING |
 | R1.10 | WSA-2026-032 Connections final-edge lifecycle/budget authority | AI-Verse-Connections | PENDING |
@@ -68,7 +68,7 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
 
-**R1 progress: 5 / 13 CLOSED = 38.46%.**
+**R1 progress: 6 / 13 CLOSED = 46.15%.**
 
 ### Later phases
 
@@ -96,6 +96,7 @@ Phase sizes remain:
 | R1.3 | WSA-2026-022 | Multiple Bots | #69 | `cb20bfd014530a7faa26e6abc868d8f85226ec79` | `WSA-2026-022-MULTIPLE-BOTS-OPERATOR-AUTHORITY-BINDING.md` |
 | R1.4 | WSA-2026-023 | Multiple Bots | #70 | `e84090f932762316a985e30054859bb846bca963` | `WSA-2026-023-MULTIPLE-BOTS-WORKER-WORKSPACE-ISOLATION.md` |
 | R1.5 | WSA-2026-024 | Token | #1 | `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3` | `WSA-2026-024-TOKEN-TRUSTED-ACTUAL-ADMISSION.md` |
+| R1.6 | WSA-2026-030 | Connections | #3 | `ac8e34cffeaaa0417aaf5011a2379af1b044bf96` | `WSA-2026-030-CONNECTIONS-INSTALLATION-SYSTEM-BINDING.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -249,22 +250,60 @@ Acceptance:
 - A1.8 / C-A1.8-001: RESOLVED for WSA-2026-024;
 - WSA-2026-025 and later Token findings: unchanged and OPEN.
 
-## 9. Current task - R1.6 / WSA-2026-030
+## 9. R1.6 closure record - WSA-2026-030
+
+**Baseline Connections:** `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016`  
+**Repair PR:** `AI-Verse-Connections#3`  
+**Final reviewed head:** `8f724c74aef5b8dc22d138f9115f0b1d8de55cb7`  
+**Merged Connections:** `ac8e34cffeaaa0417aaf5011a2379af1b044bf96`  
+**Reviewed/merged tree:** `0c32b64c87338f708990cc37f218b1c8a86669a5`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- lifecycle system ID is canonical installation binding: PASS;
+- Generic creation binding: PASS by exact merged-code recheck;
+- MCP creation binding: PASS by exact merged-code recheck;
+- verify rejects foreign binding before network and before state commit: PASS by exact merged-code recheck;
+- capability admission binding: PASS by exact merged-code recheck;
+- approval binding: PASS by exact merged-code recheck;
+- reauth binding: PASS by exact merged-code recheck;
+- execution planning binding: PASS by exact merged-code recheck;
+- final provider-edge system binding reload: PASS by exact merged-code recheck;
+- ordinary setup system rebind rejection: PASS;
+- legacy foreign-registry setup rejection: PASS;
+- explicit source-bound rebind workflow: PASS;
+- third-system registry rejection: PASS;
+- migration clears verification, health, authorization, approval and capability admission: PASS;
+- interrupted registry-first migration remains fail-closed and retryable: PASS;
+- doctor exposes connection/lifecycle binding mismatch: PASS;
+- dedicated regression suite contains 17 permanent two-system/rebind/recovery scenarios;
+- changed JavaScript/test files all pass V8 syntax parsing on exact final head;
+- complete exact-head structural authority checklist: PASS;
+- exact reviewed PR tree and merged product tree: identical;
+- open Connections PRs after merge: 0;
+- PR-head Actions `35334960224`: inherited WSA-2026-003 no-runner condition, all 6 jobs `steps: null`;
+- merged-main Actions `35335199615`: same inherited WSA-2026-003 no-runner condition, all 6 jobs `steps: null`;
+- no hosted product-test pass claim is made because no hosted test step executed;
+- A1.10 / C-A1.10-002: RESOLVED for WSA-2026-030;
+- WSA-2026-031, WSA-2026-032, WSA-2026-033, WSA-2026-051 and later Connections findings remain unchanged and OPEN.
+
+## 10. Current task - R1.7 / WSA-2026-031
 
 **Owner:** `AI-Verse-Connections`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Connections `main`, open PRs and the exact WSA-2026-030 evidence before creating any owner repair branch.
+The next repair session must first recheck Connections `main`, open PRs and the exact WSA-2026-031 evidence before creating any owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-030 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-031 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 10. Program progress
+## 11. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
-- R1: **5 / 13 CLOSED = 38.46%**
-- Findings: **9 / 63 CLOSED = 14.29%**
-- Remaining: **54 / 63 OPEN = 85.71%**
+- R1: **6 / 13 CLOSED = 46.15%**
+- Findings: **10 / 63 CLOSED = 15.87%**
+- Remaining: **53 / 63 OPEN = 84.13%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
