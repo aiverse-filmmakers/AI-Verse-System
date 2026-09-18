@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R1.4 / `WSA-2026-023` closure, 2026-09-17  
+**Live repair-state checkpoint:** R1.5 / `WSA-2026-024` closure, 2026-09-18  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **55** |
-| CLOSED | **8** |
+| OPEN | **54** |
+| CLOSED | **9** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-029`.
+`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `024`, `025`, `026`, `027`, `028`, `030`, `031`, `032`, `033`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `030`, `031`, `032`, `033`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -77,6 +77,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-020` | `AI-Verse-Data` | `#17` | `491e22084418f34b849c7d9e700a40973888dcf6` | `../repairs/WSA-2026-020-DATA-TRUSTED-SCOPE-PROVENANCE.md` |
 | `WSA-2026-022` | `AI-Verse-Multiple-Bots` | `#69` | `cb20bfd014530a7faa26e6abc868d8f85226ec79` | `../repairs/WSA-2026-022-MULTIPLE-BOTS-OPERATOR-AUTHORITY-BINDING.md` |
 | `WSA-2026-023` | `AI-Verse-Multiple-Bots` | `#70` | `e84090f932762316a985e30054859bb846bca963` | `../repairs/WSA-2026-023-MULTIPLE-BOTS-WORKER-WORKSPACE-ISOLATION.md` |
+| `WSA-2026-024` | `ai-verse-token` | `#1` | `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3` | `../repairs/WSA-2026-024-TOKEN-TRUSTED-ACTUAL-ADMISSION.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -171,17 +172,51 @@ Closure evidence:
 
 `WSA-2026-024` remains OPEN and was not modified.
 
-## 8. Current repair position
+## 8. WSA-2026-024 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Audited/live pre-repair Token ref:** `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4`  
+**Repair PR:** `ai-verse-token#1`  
+**Final tested PR head:** `2656bc110b21cbf89ff10a866c8ddf7c45244eab`  
+**Merged Token ref:** `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3`  
+**Reviewed/merged product tree:** `486cc2da61648e02179e2dbeb0b0c9d448ec6d1f`
+
+Closure evidence:
+
+- TokenLedger rejects non-null ACTUAL money without internal trusted-source admission before canonical persistence;
+- plain objects, generic storage callers and arbitrary collectors cannot self-assert ACTUAL;
+- public ActualCostSourceRegistry attachment alone does not grant canonical ledger authority;
+- trusted OpenRouter, Hermes and Command Code implementations issue exact-event internal admission;
+- admission is non-enumerable/non-serializable, bound to registered source route and exact canonical event JSON;
+- JSON clones and post-seal mutations fail closed;
+- CollectorRunner preserves a valid proof only across exact canonical normalization;
+- rejected arbitrary collector ACTUAL does not advance its checkpoint;
+- trusted-admission implementation is absent from package public exports;
+- initial CI `35329251285` correctly exposed legacy synthetic-ACTUAL test fixtures using the now-forbidden generic path;
+- production admission was not weakened; only intentional ACTUAL test fixtures were migrated to the internal test-only trusted path;
+- final PR-head CI `35329691387`: SUCCESS, 6/6 Ubuntu/macOS/Windows × Node 22/24 jobs;
+- representative PR-head suite: 262/262 tests plus 3/3 release acceptance;
+- exact tested PR tree and merged product tree: identical;
+- merged-main CI `35329970704`: SUCCESS, 6/6 matrix jobs;
+- representative merged-main suite: 262/262 tests plus 3/3 release acceptance;
+- open Token PRs after merge: 0;
+- A1.8 / C-A1.8-001 finding-specific recheck: RESOLVED for WSA-2026-024;
+- direct-storage, collector, public-registry, trusted-source and structural-forgery seams: PASS.
+
+`WSA-2026-025` remains OPEN and was not modified.
+
+## 9. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
-- R1: **4 / 13 CLOSED = 30.77%**.
-- Total: **8 / 63 CLOSED = 12.70%**.
-- Remaining: **55 / 63 OPEN = 87.30%**.
+- R1: **5 / 13 CLOSED = 38.46%**.
+- Total: **9 / 63 CLOSED = 14.29%**.
+- Remaining: **54 / 63 OPEN = 85.71%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R1.5 / WSA-2026-024`.
-- WSA-2026-024 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R1.6 / WSA-2026-030`.
+- WSA-2026-030 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 9. Navigation rule
+## 10. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
