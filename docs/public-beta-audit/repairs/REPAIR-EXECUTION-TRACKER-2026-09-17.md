@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-024`
+**Current active finding:** `WSA-2026-030`
 
 ## 1. Preserved execution history
 
@@ -58,8 +58,8 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.2 | WSA-2026-020 Data trusted scope provenance | AI-Verse-Data | **CLOSED** |
 | R1.3 | WSA-2026-022 Multiple Bots operator authority binding | AI-Verse-Multiple-Bots | **CLOSED** |
 | R1.4 | WSA-2026-023 Worker workspace isolation | AI-Verse-Multiple-Bots | **CLOSED** |
-| R1.5 | WSA-2026-024 Token trusted ACTUAL source authority | ai-verse-token | **ACTIVE** |
-| R1.6 | WSA-2026-030 Connections installation/system binding | AI-Verse-Connections | PENDING |
+| R1.5 | WSA-2026-024 Token trusted ACTUAL source authority | ai-verse-token | **CLOSED** |
+| R1.6 | WSA-2026-030 Connections installation/system binding | AI-Verse-Connections | **ACTIVE** |
 | R1.7 | WSA-2026-031 Connections credential-origin binding | AI-Verse-Connections | PENDING |
 | R1.8 | WSA-2026-033 Connections normalized path authorization | AI-Verse-Connections | PENDING |
 | R1.9 | WSA-2026-051 Connections DNS/private-network containment | AI-Verse-Connections | PENDING |
@@ -68,7 +68,7 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
 
-**R1 progress: 4 / 13 CLOSED = 30.77%.**
+**R1 progress: 5 / 13 CLOSED = 38.46%.**
 
 ### Later phases
 
@@ -95,6 +95,7 @@ Phase sizes remain:
 | R1.2 | WSA-2026-020 | Data | #17 | `491e22084418f34b849c7d9e700a40973888dcf6` | `WSA-2026-020-DATA-TRUSTED-SCOPE-PROVENANCE.md` |
 | R1.3 | WSA-2026-022 | Multiple Bots | #69 | `cb20bfd014530a7faa26e6abc868d8f85226ec79` | `WSA-2026-022-MULTIPLE-BOTS-OPERATOR-AUTHORITY-BINDING.md` |
 | R1.4 | WSA-2026-023 | Multiple Bots | #70 | `e84090f932762316a985e30054859bb846bca963` | `WSA-2026-023-MULTIPLE-BOTS-WORKER-WORKSPACE-ISOLATION.md` |
+| R1.5 | WSA-2026-024 | Token | #1 | `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3` | `WSA-2026-024-TOKEN-TRUSTED-ACTUAL-ADMISSION.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -211,22 +212,59 @@ Acceptance:
 - valid fan-out, manager execution, final publication, handoff, Brain/Memory/workspace projection Worker flows remain green;
 - WSA-2026-024: unchanged and OPEN.
 
-## 8. Current task - R1.5 / WSA-2026-024
+## 8. R1.5 closure record - WSA-2026-024
 
-**Owner:** `ai-verse-token`  
+**Baseline Token:** `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4`  
+**Repair PR:** `ai-verse-token#1`  
+**Final tested head:** `2656bc110b21cbf89ff10a866c8ddf7c45244eab`  
+**Merged Token:** `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3`  
+**Tested/merged tree:** `486cc2da61648e02179e2dbeb0b0c9d448ec6d1f`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- canonical ledger rejects ACTUAL without internal trusted-source admission: PASS;
+- generic direct storage ACTUAL forgery rejection: PASS;
+- arbitrary collector ACTUAL forgery rejection with no checkpoint advance: PASS;
+- public ActualCostSourceRegistry alone cannot grant canonical authority: PASS;
+- trusted OpenRouter ACTUAL path: PASS;
+- trusted Hermes runtime-reported ACTUAL path: PASS;
+- trusted Command Code ACTUAL path: PASS;
+- exact-event/source binding: PASS;
+- JSON clone authority loss: PASS;
+- post-seal mutation rejection: PASS;
+- CollectorRunner exact proof preservation: PASS;
+- trusted admission module absent from public package exports: PASS;
+- initial PR CI `35329251285` correctly rejected legacy tests that inserted synthetic ACTUAL through the newly forbidden generic path;
+- production authority was not weakened; intentional ACTUAL fixtures were migrated to a test-only internal trusted path;
+- final PR-head CI `35329691387`: SUCCESS, 6/6 matrix jobs;
+- representative PR-head primary suite: 262/262;
+- representative PR-head release acceptance: 3/3;
+- npm pack dry-run and CLI help smoke: PASS on all six matrix jobs;
+- exact PR-head and merged product tree: identical;
+- post-merge CI `35329970704`: SUCCESS, 6/6 matrix jobs;
+- representative post-merge primary suite: 262/262;
+- representative post-merge release acceptance: 3/3;
+- open Token PRs after merge: 0;
+- A1.8 / C-A1.8-001: RESOLVED for WSA-2026-024;
+- WSA-2026-025 and later Token findings: unchanged and OPEN.
+
+## 9. Current task - R1.6 / WSA-2026-030
+
+**Owner:** `AI-Verse-Connections`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Token `main`, open PRs and the exact WSA-2026-024 evidence before creating any owner repair branch.
+The next repair session must first recheck Connections `main`, open PRs and the exact WSA-2026-030 evidence before creating any owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-024 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-030 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 9. Program progress
+## 10. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
-- R1: **4 / 13 CLOSED = 30.77%**
-- Findings: **8 / 63 CLOSED = 12.70%**
-- Remaining: **55 / 63 OPEN = 87.30%**
+- R1: **5 / 13 CLOSED = 38.46%**
+- Findings: **9 / 63 CLOSED = 14.29%**
+- Remaining: **54 / 63 OPEN = 85.71%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
