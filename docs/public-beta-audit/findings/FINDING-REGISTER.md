@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R2.5 / `WSA-2026-028` closure, 2026-10-02  
+**Live repair-state checkpoint:** R3.1 / `WSA-2026-008` closure, 2026-10-02  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **41** |
-| CLOSED | **22** |
+| OPEN | **40** |
+| CLOSED | **23** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `008`, `010`, `011`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `034`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `010`, `011`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `034`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -71,6 +71,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 |---|---|---|---|---|
 | `WSA-2026-006` | `AI-Verse-Gateway` | `#32` | `5347a0b7e3f3f302f4570e9bc37d515192753610` | `../repairs/WSA-2026-006-GATEWAY-DESTRUCTIVE-PURGE.md` |
 | `WSA-2026-007` | `AI-Verse-Gateway` | `#33` | `b27cebe11e536aa5a0f9bad707f38b0c2471879d` | `../repairs/WSA-2026-007-GATEWAY-LIVE-LIFECYCLE-TRUTH.md` |
+| `WSA-2026-008` | `AI-Verse-Gateway` | `#34` | `cd0789401ddf7c536558a27d84328e963b10c882` | `../repairs/WSA-2026-008-GATEWAY-STATE-LINEARIZABILITY.md` |
 | `WSA-2026-012` | `AI-Verse-Memory` | `#30` | `7a1ed5777fd11616375501d730fcbd488beff8b8` | `../repairs/WSA-2026-012-MEMORY-LIFECYCLE-CONTAINMENT.md` |
 | `WSA-2026-013` | `AI-Verse-Memory` | `#31` | `cbc6651d60d42c63015bc1b25b5cd8f0c49d5904` | `../repairs/WSA-2026-013-MEMORY-WRITE-LIFECYCLE-AUTHORITY.md` |
 | `WSA-2026-026` | `AI-Verse-Automations` | `#4` | `e5ec241f1d86e76b15bab5be81e720a827e4fa09` | `../repairs/WSA-2026-026-AUTOMATIONS-STORE-OWNERSHIP.md` |
@@ -656,19 +657,64 @@ Closure evidence:
 
 **Wave R2 is now complete: 5 / 5 CLOSED.**
 
-## 22. Current repair position
+## 22. WSA-2026-008 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Live pre-repair Gateway ref:** `b27cebe11e536aa5a0f9bad707f38b0c2471879d`  
+**Repair PR:** `AI-Verse-Gateway#34`  
+**Final tested PR head:** `da359b8db45eb11b04fd1907500117bb8c122bbc`  
+**Merged Gateway ref:** `cd0789401ddf7c536558a27d84328e963b10c882`  
+**Tested/merged product tree:** `fe02f4271b3f47b25210d81d77caad5c728d708c`
+
+Closure evidence:
+
+- idempotency claim/check/reservation is one serialized mutation;
+- concurrent identical first claims admit exactly one reservation and the competing first claim is in-progress rather than a second new operation;
+- concurrent changed-payload reuse fails with idempotency conflict;
+- idempotency result commit uses the same serialized ledger mutation;
+- first session binding is an atomic create-or-validate transition;
+- conflicting concurrent first bindings choose one durable binding and reject the loser;
+- every run carries a durable revision and normal run mutation increments it;
+- stale `saveRun()` uses compare-and-swap and fails with `RUN_REVISION_CONFLICT`;
+- pause, resume and cancel mutate current canonical run state atomically;
+- runtime return rechecks durable run revision/control authority before result application;
+- assistant delta emission rechecks current authority before each emitted chunk;
+- owner effects recheck current run authority immediately before delivery;
+- approval execution rechecks current awaiting-approval authority before owner delivery;
+- pause/cancel during a runtime that ignores control produces no stale assistant stream, completion or owner handoff;
+- startup session-digest and organization recovery are serialized;
+- graceful server close drains active execution and startup recovery before process handover;
+- WSA-008 regressions are included in canonical `npm test`;
+- PR-head CI `37055012899`: Ubuntu/macOS/Windows Node 20/22, 6 / 6 jobs PASS;
+- representative exact-head suite: 113 / 113 tests PASS;
+- exact-head Context Ladder `37055012896`: PASS;
+- exact-head Temporary Worker Composition `37055012893`: PASS;
+- exact-head Permanent Bot Composition `37055012914`: PASS;
+- exact-head Automation Recommendation Boundary `37055012900`: PASS;
+- merged-main CI `37055200397`: Ubuntu/macOS/Windows Node 20/22, 6 / 6 jobs PASS;
+- representative merged-main suite: 113 / 113 tests PASS;
+- exact tested PR tree and merged product tree are identical;
+- open Gateway PRs after merge: 0;
+- A1.2 / C-A1.2-002: RESOLVED for WSA-2026-008;
+- A1.2 / C-A1.2-003: RESOLVED for WSA-2026-008;
+- Gateway state-linearizability branch of R3: RESOLVED for this finding.
+
+`WSA-2026-010` is now the next dependency-safe finding and was not modified.
+
+## 23. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
-- R3: **0 / 10 CLOSED = 0%**.
-- Total: **22 / 63 CLOSED = 34.92%**.
-- Remaining: **41 / 63 OPEN = 65.08%**.
+- R3: **1 / 10 CLOSED = 10%**.
+- Total: **23 / 63 CLOSED = 36.51%**.
+- Remaining: **40 / 63 OPEN = 63.49%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R3.1 / WSA-2026-008`.
-- WSA-2026-008 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R3.2 / WSA-2026-010`.
+- WSA-2026-010 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 23. Navigation rule
+## 24. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.

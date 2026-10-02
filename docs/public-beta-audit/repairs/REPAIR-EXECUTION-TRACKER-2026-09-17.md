@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-008`
+**Current active finding:** `WSA-2026-010`
 
 ## 1. Preserved execution history
 
@@ -86,8 +86,8 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
-| R3.1 | WSA-2026-008 Gateway state linearizability | AI-Verse-Gateway | **ACTIVE** |
-| R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | PENDING |
+| R3.1 | WSA-2026-008 Gateway state linearizability | AI-Verse-Gateway | **CLOSED** |
+| R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | **ACTIVE** |
 | R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | PENDING |
 | R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | PENDING |
 | R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | PENDING |
@@ -97,7 +97,7 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 0 / 10 CLOSED = 0%.**
+**R3 progress: 1 / 10 CLOSED = 10%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
@@ -135,6 +135,7 @@ Remaining phase sizes:
 | R2.3 | WSA-2026-026 | Automations | #4 | `e5ec241f1d86e76b15bab5be81e720a827e4fa09` | `WSA-2026-026-AUTOMATIONS-STORE-OWNERSHIP.md` |
 | R2.4 | WSA-2026-027 | Automations | #5 | `017eaf3e74d604208c606cc08f4137006f723625` | `WSA-2026-027-AUTOMATIONS-LIVE-LEGACY-FENCE.md` |
 | R2.5 | WSA-2026-028 | Automations | #6 | `287ce9d6718ef06e4589a2a3e767c6a9ba376755` | `WSA-2026-028-AUTOMATIONS-ATTACHMENT-LIFECYCLE.md` |
+| R3.1 | WSA-2026-008 | Gateway | #34 | `cd0789401ddf7c536558a27d84328e963b10c882` | `WSA-2026-008-GATEWAY-STATE-LINEARIZABILITY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -751,26 +752,77 @@ Acceptance:
 
 **Wave R2 is complete: 5 / 5 CLOSED.**
 
-## 22. Current task - R3.1 / WSA-2026-008
+## 22. R3.1 closure record - WSA-2026-008
 
-**Owner:** `AI-Verse-Gateway`  
+**Baseline Gateway:** `b27cebe11e536aa5a0f9bad707f38b0c2471879d`  
+**Repair PR:** `AI-Verse-Gateway#34`  
+**Final tested head:** `da359b8db45eb11b04fd1907500117bb8c122bbc`  
+**Merged Gateway:** `cd0789401ddf7c536558a27d84328e963b10c882`  
+**Tested/merged tree:** `fe02f4271b3f47b25210d81d77caad5c728d708c`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- atomic idempotency claim/check/reservation: PASS;
+- exact replay after committed idempotency result: PASS;
+- changed-payload concurrent key conflict: PASS;
+- atomic first session create-or-validate: PASS;
+- conflicting concurrent first binding: exactly one durable winner;
+- durable run revision: PASS;
+- compare-and-swap stale run save rejection: PASS;
+- stale writer cannot overwrite newer cancel: PASS;
+- pause current-state atomic transition: PASS;
+- resume current-state atomic transition: PASS;
+- cancel current-state atomic transition: PASS;
+- runtime-return current authority recheck: PASS;
+- assistant streaming current authority recheck: PASS;
+- final owner-effect current authority recheck: PASS;
+- approval owner-effect authority recheck: PASS;
+- concurrent cancel with runtime ignoring abort: zero stale assistant delta / zero completion / zero owner call;
+- concurrent pause with runtime ignoring abort: zero stale assistant delta / zero completion;
+- serialized session-digest then organization startup recovery: PASS;
+- graceful close drains active execution and recovery before restart: PASS;
+- canonical `npm test` includes WSA-008 dedicated regression file: PASS;
+- PR-head CI `37055012899`: Ubuntu/macOS/Windows Node 20/22, 6 / 6 PASS;
+- representative exact-head suite: 113 / 113 tests;
+- Context Ladder Integrated Acceptance `37055012896`: PASS;
+- Temporary Worker Composition `37055012893`: PASS;
+- Permanent Bot Composition `37055012914`: PASS;
+- Automation Recommendation Boundary `37055012900`: PASS;
+- merged-main CI `37055200397`: Ubuntu/macOS/Windows Node 20/22, 6 / 6 PASS;
+- representative merged-main suite: 113 / 113 tests;
+- exact tested PR tree and merged product tree: identical;
+- open Gateway PRs after merge: 0;
+- A1.2 / C-A1.2-002: RESOLVED for WSA-2026-008;
+- A1.2 / C-A1.2-003: RESOLVED for WSA-2026-008.
+
+Validation-driven refinements before final acceptance:
+
+- the first owner-effect guard was too narrow for intentional direct composed `queued` run execution; final policy admits queued only with unchanged durable revision and valid control state;
+- CAS exposed concurrent post-completion startup recoveries mutating the same completed run; the recovery passes are now serialized;
+- restart acceptance exposed that HTTP close did not quiesce old execution/recovery; graceful close now drains both before returning;
+- the first 107/107 green-looking result did not include the newly created regression file because the package script enumerated tests; final accepted `npm test` explicitly includes it and reports 113/113.
+
+## 23. Current task - R3.2 / WSA-2026-010
+
+**Owner:** `AI-Verse-Brain`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Gateway `main`, open PRs and the exact WSA-2026-008 state-linearizability evidence before creating any owner repair branch.
+The next repair session must first recheck Brain `main`, open PRs and the exact WSA-2026-010 Goal operation-ID race evidence before creating any owner repair branch.
 
-Wave R3 begins with Gateway state serialization because later concurrency and migration closures depend on trustworthy owner mutation primitives.
+Required R3 ordering now moves from Gateway state linearizability to Brain Goal operation-ID serialization.
 
-No later finding may become ACTIVE until WSA-2026-008 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-010 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 23. Program progress
+## 24. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **0 / 10 CLOSED = 0%**
-- Findings: **22 / 63 CLOSED = 34.92%**
-- Remaining: **41 / 63 OPEN = 65.08%**
+- R3: **1 / 10 CLOSED = 10%**
+- Findings: **23 / 63 CLOSED = 36.51%**
+- Remaining: **40 / 63 OPEN = 63.49%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
