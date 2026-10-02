@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R1.6 / `WSA-2026-030` closure, 2026-09-18  
+**Live repair-state checkpoint:** R1.7 / `WSA-2026-031` closure, 2026-10-02  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **53** |
-| CLOSED | **10** |
+| OPEN | **52** |
+| CLOSED | **11** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`.
+`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `031`, `032`, `033`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `032`, `033`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -79,6 +79,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-023` | `AI-Verse-Multiple-Bots` | `#70` | `e84090f932762316a985e30054859bb846bca963` | `../repairs/WSA-2026-023-MULTIPLE-BOTS-WORKER-WORKSPACE-ISOLATION.md` |
 | `WSA-2026-024` | `ai-verse-token` | `#1` | `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3` | `../repairs/WSA-2026-024-TOKEN-TRUSTED-ACTUAL-ADMISSION.md` |
 | `WSA-2026-030` | `AI-Verse-Connections` | `#3` | `ac8e34cffeaaa0417aaf5011a2379af1b044bf96` | `../repairs/WSA-2026-030-CONNECTIONS-INSTALLATION-SYSTEM-BINDING.md` |
+| `WSA-2026-031` | `AI-Verse-Connections` | `#4` | `78a9843e338f2e301e7a8c7c3153d5b43cb69ea4` | `../repairs/WSA-2026-031-CONNECTIONS-CREDENTIAL-ORIGIN-BINDING.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -238,19 +239,50 @@ Closure evidence:
 - A1.10 / C-A1.10-002 finding-specific recheck: RESOLVED for WSA-2026-030;
 - creation, verify/admit/approve, execution, final-edge system-binding, setup/rebind and diagnostic seams: PASS by exact merged-code recheck.
 
-`WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-051` and later Connections findings remain OPEN and were not modified.
+`WSA-2026-032`, `WSA-2026-033`, `WSA-2026-051` and later Connections findings remain OPEN and were not modified.
 
-## 10. Current repair position
+## 10. WSA-2026-031 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Live pre-repair Connections ref:** `ac8e34cffeaaa0417aaf5011a2379af1b044bf96`  
+**Repair PR:** `AI-Verse-Connections#4`  
+**Final tested PR head:** `bcd7c8617ec96e36dd6652c969c1dae8d015d928`  
+**Merged Connections ref:** `78a9843e338f2e301e7a8c7c3153d5b43cb69ea4`  
+**Tested/merged product tree:** `56f6e4e674876e1fe5b38d905800612548bbe838`
+
+Closure evidence:
+
+- one shared MCP credential-origin guard now owns the cross-origin reuse invariant;
+- registered MCP security origin is derived from canonical connection URL state;
+- add applies the shared guard before persistence;
+- reauth applies the same guard before changing the credential handle;
+- failed cross-origin reauth preserves the old handle;
+- same-origin credential rotation remains allowed;
+- verify rechecks the invariant before credential resolution and before any provider request;
+- dedicated regression proves cross-origin add and reauth rejection plus same-origin rotation;
+- corrupted legacy state using an unavailable conflicting secret fails with `MCP_CREDENTIAL_REUSE_FORBIDDEN` before secret resolution;
+- the conflicting origin receives zero HTTP requests in the regression;
+- exact-head and post-merge Ubuntu/macOS Node 20/22 checks pass, with 26/26 tests on the successful jobs;
+- Windows jobs fail before tests on the pre-existing package-script glob portability issue, not on WSA-2026-031 product logic;
+- final tested PR tree and merged product tree are identical;
+- open Connections PRs after merge: 0;
+- A1.10 / C-A1.10-003: RESOLVED for WSA-2026-031;
+- A4.1 credential-origin secret-boundary branch: RESOLVED for this finding.
+
+`WSA-2026-032`, `WSA-2026-033`, `WSA-2026-051` and later Connections findings remain OPEN and were not modified.
+
+## 11. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
-- R1: **6 / 13 CLOSED = 46.15%**.
-- Total: **10 / 63 CLOSED = 15.87%**.
-- Remaining: **53 / 63 OPEN = 84.13%**.
+- R1: **7 / 13 CLOSED = 53.85%**.
+- Total: **11 / 63 CLOSED = 17.46%**.
+- Remaining: **52 / 63 OPEN = 82.54%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R1.7 / WSA-2026-031`.
-- WSA-2026-031 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R1.8 / WSA-2026-033`.
+- WSA-2026-033 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 11. Navigation rule
+## 12. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
