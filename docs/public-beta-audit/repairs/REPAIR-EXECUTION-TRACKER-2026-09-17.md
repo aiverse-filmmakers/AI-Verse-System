@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-031`
+**Current active finding:** `WSA-2026-033`
 
 ## 1. Preserved execution history
 
@@ -60,15 +60,15 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.4 | WSA-2026-023 Worker workspace isolation | AI-Verse-Multiple-Bots | **CLOSED** |
 | R1.5 | WSA-2026-024 Token trusted ACTUAL source authority | ai-verse-token | **CLOSED** |
 | R1.6 | WSA-2026-030 Connections installation/system binding | AI-Verse-Connections | **CLOSED** |
-| R1.7 | WSA-2026-031 Connections credential-origin binding | AI-Verse-Connections | **ACTIVE** |
-| R1.8 | WSA-2026-033 Connections normalized path authorization | AI-Verse-Connections | PENDING |
+| R1.7 | WSA-2026-031 Connections credential-origin binding | AI-Verse-Connections | **CLOSED** |
+| R1.8 | WSA-2026-033 Connections normalized path authorization | AI-Verse-Connections | **ACTIVE** |
 | R1.9 | WSA-2026-051 Connections DNS/private-network containment | AI-Verse-Connections | PENDING |
 | R1.10 | WSA-2026-032 Connections final-edge lifecycle/budget authority | AI-Verse-Connections | PENDING |
 | R1.11 | WSA-2026-038 Dashboard WebSocket workspace isolation | AI-Verse-Dashboard | PENDING |
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
 
-**R1 progress: 6 / 13 CLOSED = 46.15%.**
+**R1 progress: 7 / 13 CLOSED = 53.85%.**
 
 ### Later phases
 
@@ -97,6 +97,7 @@ Phase sizes remain:
 | R1.4 | WSA-2026-023 | Multiple Bots | #70 | `e84090f932762316a985e30054859bb846bca963` | `WSA-2026-023-MULTIPLE-BOTS-WORKER-WORKSPACE-ISOLATION.md` |
 | R1.5 | WSA-2026-024 | Token | #1 | `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3` | `WSA-2026-024-TOKEN-TRUSTED-ACTUAL-ADMISSION.md` |
 | R1.6 | WSA-2026-030 | Connections | #3 | `ac8e34cffeaaa0417aaf5011a2379af1b044bf96` | `WSA-2026-030-CONNECTIONS-INSTALLATION-SYSTEM-BINDING.md` |
+| R1.7 | WSA-2026-031 | Connections | #4 | `78a9843e338f2e301e7a8c7c3153d5b43cb69ea4` | `WSA-2026-031-CONNECTIONS-CREDENTIAL-ORIGIN-BINDING.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -288,22 +289,54 @@ Acceptance:
 - A1.10 / C-A1.10-002: RESOLVED for WSA-2026-030;
 - WSA-2026-031, WSA-2026-032, WSA-2026-033, WSA-2026-051 and later Connections findings remain unchanged and OPEN.
 
-## 10. Current task - R1.7 / WSA-2026-031
+## 10. R1.7 closure record - WSA-2026-031
+
+**Baseline Connections:** `ac8e34cffeaaa0417aaf5011a2379af1b044bf96`  
+**Repair PR:** `AI-Verse-Connections#4`  
+**Final tested head:** `bcd7c8617ec96e36dd6652c969c1dae8d015d928`  
+**Merged Connections:** `78a9843e338f2e301e7a8c7c3153d5b43cb69ea4`  
+**Tested/merged tree:** `56f6e4e674876e1fe5b38d905800612548bbe838`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- shared MCP credential-origin binding guard: PASS;
+- add-path cross-origin handle reuse rejection: PASS;
+- reauth-path cross-origin handle reuse rejection before mutation: PASS;
+- failed reauth preserves previous handle: PASS;
+- same-origin credential rotation remains supported: PASS;
+- verify-path conflict check before credential resolution: PASS;
+- verify-path conflict check before provider/network transmission: PASS;
+- dedicated two-origin regression: PASS;
+- corrupted legacy-state regression with unavailable secret: PASS;
+- conflicting origin receives zero requests: PASS;
+- PR-head Actions `36994384660`: Ubuntu/macOS Node 20/22 PASS;
+- representative successful exact-head suite: 26/26 tests;
+- merged-main Actions `36994536871`: Ubuntu/macOS Node 20/22 PASS;
+- Windows Node 20/22 jobs fail before tests because the existing `npm run check` uses shell globs that PowerShell does not expand;
+- no Windows product-test failure is claimed for WSA-2026-031;
+- exact tested PR tree and merged product tree: identical;
+- open Connections PRs after merge: 0;
+- A1.10 / C-A1.10-003: RESOLVED for WSA-2026-031;
+- A4.1 credential-origin secret-boundary branch: RESOLVED for this finding;
+- WSA-2026-032, WSA-2026-033 and WSA-2026-051 remain OPEN.
+
+## 11. Current task - R1.8 / WSA-2026-033
 
 **Owner:** `AI-Verse-Connections`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Connections `main`, open PRs and the exact WSA-2026-031 evidence before creating any owner repair branch.
+The next repair session must first recheck Connections `main`, open PRs and the exact WSA-2026-033 normalized-path evidence before creating any owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-031 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-033 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 11. Program progress
+## 12. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
-- R1: **6 / 13 CLOSED = 46.15%**
-- Findings: **10 / 63 CLOSED = 15.87%**
-- Remaining: **53 / 63 OPEN = 84.13%**
+- R1: **7 / 13 CLOSED = 53.85%**
+- Findings: **11 / 63 CLOSED = 17.46%**
+- Remaining: **52 / 63 OPEN = 82.54%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
