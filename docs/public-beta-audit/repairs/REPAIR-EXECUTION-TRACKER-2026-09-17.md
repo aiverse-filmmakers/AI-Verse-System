@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-013`
+**Current active finding:** `WSA-2026-026`
 
 ## 1. Preserved execution history
 
@@ -75,12 +75,12 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
 | R2.1 | WSA-2026-007 Gateway live lifecycle truth | AI-Verse-Gateway | **CLOSED** |
-| R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | **ACTIVE** |
-| R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | PENDING |
+| R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | **CLOSED** |
+| R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | **ACTIVE** |
 | R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | PENDING |
 | R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | PENDING |
 
-**R2 progress: 1 / 5 CLOSED = 20%.**
+**R2 progress: 2 / 5 CLOSED = 40%.**
 
 R3-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full pre-R1.2 task tables are preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
@@ -114,6 +114,7 @@ Remaining phase sizes:
 | R1.12 | WSA-2026-039 | Dashboard | #12 | `c9e29ab660c7f56bea83dd00050a1342286734dc` | `WSA-2026-039-DASHBOARD-REGISTERED-ROOT-IDENTITY.md` |
 | R1.13 | WSA-2026-040 | Dashboard | #13 | `359a19f683a15485299cb2bab4e844d8d05b4fd6` | `WSA-2026-040-DASHBOARD-LOCAL-READ-AUTHENTICATION.md` |
 | R2.1 | WSA-2026-007 | Gateway | #33 | `b27cebe11e536aa5a0f9bad707f38b0c2471879d` | `WSA-2026-007-GATEWAY-LIVE-LIFECYCLE-TRUTH.md` |
+| R2.2 | WSA-2026-013 | Memory | #31 | `cbc6651d60d42c63015bc1b25b5cd8f0c49d5904` | `WSA-2026-013-MEMORY-WRITE-LIFECYCLE-AUTHORITY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -584,25 +585,62 @@ Acceptance:
 - A3.10 / C-A3.10-002 Gateway branch: RESOLVED for this finding;
 - WSA-2026-008 remains OPEN and untouched.
 
-## 18. Current task - R2.2 / WSA-2026-013
+## 18. R2.2 closure record - WSA-2026-013
 
-**Owner:** `AI-Verse-Memory`  
+**Baseline Memory:** `7a1ed5777fd11616375501d730fcbd488beff8b8`  
+**Repair PR:** `AI-Verse-Memory#31`  
+**Final tested head:** `d998cb2612b42d11727d39429fb45b3b11999062`  
+**Merged Memory:** `cbc6651d60d42c63015bc1b25b5cd8f0c49d5904`  
+**Tested/merged tree:** `4444ff070fd55c604a80c072081068bb265ccde6`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- native canonical writes consume current local registry and component setup authority: PASS;
+- supported / installed / attached / enabled / setup-complete are all required: PASS;
+- pre-setup writes fail closed: PASS;
+- loaded native writer after disable fails closed: PASS;
+- loaded native writer after detach fails closed: PASS;
+- loaded native writer after uninstall fails closed: PASS;
+- reinstall without setup remains write-blocked while preserved canonical data remains readable: PASS;
+- registry `supported=false` and `installed=false` each block canonical mutation: PASS;
+- migration-required blocks ordinary writes: PASS;
+- explicit migration/recovery uses a narrow migration intent while retaining base lifecycle requirements: PASS;
+- standalone retired-authority behavior remains unchanged: PASS;
+- atomics, session digests, promotion and metadata mutation are covered by lifecycle-transition regressions: PASS;
+- same-process mutation serialization preserves the durable cross-process mutation lock contract: PASS;
+- PR-head workflow `37037225207`: 12 / 12 jobs PASS across Ubuntu/macOS/Windows;
+- representative exact-head unit suite: 127 tests, 126 pass, 0 fail, 1 existing skip;
+- both dedicated WSA-2026-013 regressions present and PASS on exact head;
+- merged-main workflow `37037623090`: 12 / 12 jobs PASS;
+- representative merged-main unit suite: 127 tests, 126 pass, 0 fail, 1 existing skip;
+- both dedicated WSA-2026-013 regressions present and PASS after merge;
+- final tested PR tree and merged product tree are identical;
+- open Memory PRs after merge: 0;
+- A1.4 / C-A1.4-002: RESOLVED for WSA-2026-013;
+- A2.3 Memory lifecycle/write-admission branch: RESOLVED for this finding;
+- A3.10 / C-A3.10-002 Memory branch: RESOLVED for this finding;
+- WSA-2026-014 and WSA-2026-015 remain OPEN and untouched.
+
+## 19. Current task - R2.3 / WSA-2026-026
+
+**Owner:** `AI-Verse-Automations`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Memory `main`, open PRs and the exact WSA-2026-013 write-authority-vs-lifecycle evidence before creating any owner repair branch.
+The next repair session must first recheck Automations `main`, open PRs and the exact WSA-2026-026 canonical-store-ownership evidence before creating any owner repair branch.
 
-Required R2 ordering from A6.4 now moves from Gateway live lifecycle control to Memory native write gating.
+Required R2 ordering now moves from Memory native write gating to Automations canonical SQLite store ownership.
 
-No later finding may become ACTIVE until WSA-2026-013 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-026 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 19. Program progress
+## 20. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
-- R2: **1 / 5 CLOSED = 20%**
-- Findings: **18 / 63 CLOSED = 28.57%**
-- Remaining: **45 / 63 OPEN = 71.43%**
+- R2: **2 / 5 CLOSED = 40%**
+- Findings: **19 / 63 CLOSED = 30.16%**
+- Remaining: **44 / 63 OPEN = 69.84%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
