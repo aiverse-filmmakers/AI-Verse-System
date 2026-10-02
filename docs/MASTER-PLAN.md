@@ -52,6 +52,28 @@ Components should be:
 - migration-aware for existing users with older state;
 - safe to disable, detach, reinstall or replace without unnecessary loss of canonical user data.
 
+### Accepted future cross-owner layer: Purpose Context
+
+AI-Verse has accepted a Telos-inspired **Purpose Context** direction.
+
+It is not a new component or canonical database. It is a derived, scope-bound context envelope over existing owners so an agent can understand mission/purpose, goals, priorities, strategies, constraints, KPIs, current state and material changes without forcing the user to repeatedly restate them.
+
+Owner boundaries remain strict:
+
+- OS owns operator/workspace identity, scope and OS-owned current context;
+- Brain/current direction owner owns strategic intent, goals and strategy;
+- Data owns current structured operational truth/KPI values;
+- Memory owns historical evidence;
+- Gateway/runtime owns live session state.
+
+Implementation is explicitly sequenced as the first eligible new cross-owner capability after the active public-beta repair/requalification program establishes a new safe baseline.
+
+Canonical detail:
+
+- `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+
 ## Canonical lifecycle target
 
 Every component should eventually distinguish these states:
