@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R1.10 / `WSA-2026-032` closure, 2026-10-02  
+**Live repair-state checkpoint:** R1.11 / `WSA-2026-038` closure, 2026-10-02  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **49** |
-| CLOSED | **14** |
+| OPEN | **48** |
+| CLOSED | **15** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-051`.
+`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-051`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `034`, `035`, `036`, `037`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -83,6 +83,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-033` | `AI-Verse-Connections` | `#5` | `5759425fcf3692ce64f4834aaa1b101c483c8a34` | `../repairs/WSA-2026-033-CONNECTIONS-NORMALIZED-PATH-AUTHORIZATION.md` |
 | `WSA-2026-051` | `AI-Verse-Connections` | `#6` | `63f8698545d731654f76684bf6ba40248996fc6a` | `../repairs/WSA-2026-051-CONNECTIONS-DNS-REBINDING-CONTAINMENT.md` |
 | `WSA-2026-032` | `AI-Verse-Connections` | `#7` | `65566b6cc99cc8e26bcacf1a985a1f43c6a42fe6` | `../repairs/WSA-2026-032-CONNECTIONS-FINAL-EDGE-AUTHORITY.md` |
+| `WSA-2026-038` | `AI-Verse-Dashboard` | `#11` | `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c` | `../repairs/WSA-2026-038-DASHBOARD-WEBSOCKET-WORKSPACE-ISOLATION.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -365,17 +366,47 @@ Closure evidence:
 
 Later Connections findings remain OPEN and were not modified.
 
-## 14. Current repair position
+## 14. WSA-2026-038 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Live pre-repair Dashboard ref:** `bf6a3a019b07b189c9c701f4edf01e0ded1e7a00`  
+**Repair PR:** `AI-Verse-Dashboard#11`  
+**Final tested PR head:** `2e1926891c9b74274f89b7be807bce8902ce0853`  
+**Merged Dashboard ref:** `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c`  
+**Tested/merged product tree:** `8d0ee475e86b4fd963db8b4d013c7fe32e0fcb1a`
+
+Closure evidence:
+
+- WebSocket subscribe frames use the canonical workspace protocol schema;
+- requested workspace scope resolves through the registered system/workspace boundary before state changes;
+- successful A -> B and B -> A switches remove the previous hub subscription before installing the new one;
+- exactly one successful workspace subscription remains active per socket;
+- invalid protocol or unregistered replacement scopes are rejected without replacing the current valid scope;
+- stale A events do not reach the socket after B becomes active;
+- stale B events do not reach the socket after switching back to A;
+- socket close removes every tracked subscription and returns the hub to zero subscribers;
+- PR-head Actions `37016702464`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative exact-head suite: 68 tests, 67 pass, 0 fail, 1 pre-existing skip;
+- merged-main Actions `37016845362`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative merged-main suite: 68 tests, 67 pass, 0 fail, 1 pre-existing skip;
+- final tested PR tree and merged product tree are identical;
+- open Dashboard PRs after merge: 0;
+- A1.13 / C-A1.13-001: RESOLVED for WSA-2026-038.
+
+`WSA-2026-039`, `WSA-2026-040`, `WSA-2026-041` and `WSA-2026-042` remain OPEN and were not modified.
+
+## 15. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
-- R1: **10 / 13 CLOSED = 76.92%**.
-- Total: **14 / 63 CLOSED = 22.22%**.
-- Remaining: **49 / 63 OPEN = 77.78%**.
+- R1: **11 / 13 CLOSED = 84.62%**.
+- Total: **15 / 63 CLOSED = 23.81%**.
+- Remaining: **48 / 63 OPEN = 76.19%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R1.11 / WSA-2026-038`.
-- WSA-2026-038 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R1.12 / WSA-2026-039`.
+- WSA-2026-039 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 15. Navigation rule
+## 16. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
