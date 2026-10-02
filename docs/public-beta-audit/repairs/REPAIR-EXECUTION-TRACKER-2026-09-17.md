@@ -103,7 +103,7 @@ R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPA
 
 Remaining phase sizes:
 
-- R3: 10 findings, 10 remaining
+- R3: 10 findings, 9 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
