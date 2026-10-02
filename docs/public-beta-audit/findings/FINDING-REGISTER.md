@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R1.11 / `WSA-2026-038` closure, 2026-10-02  
+**Live repair-state checkpoint:** R1.12 / `WSA-2026-039` closure, 2026-10-02  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **48** |
-| CLOSED | **15** |
+| OPEN | **47** |
+| CLOSED | **16** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-051`.
+`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-051`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `034`, `035`, `036`, `037`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `034`, `035`, `036`, `037`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -84,6 +84,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-051` | `AI-Verse-Connections` | `#6` | `63f8698545d731654f76684bf6ba40248996fc6a` | `../repairs/WSA-2026-051-CONNECTIONS-DNS-REBINDING-CONTAINMENT.md` |
 | `WSA-2026-032` | `AI-Verse-Connections` | `#7` | `65566b6cc99cc8e26bcacf1a985a1f43c6a42fe6` | `../repairs/WSA-2026-032-CONNECTIONS-FINAL-EDGE-AUTHORITY.md` |
 | `WSA-2026-038` | `AI-Verse-Dashboard` | `#11` | `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c` | `../repairs/WSA-2026-038-DASHBOARD-WEBSOCKET-WORKSPACE-ISOLATION.md` |
+| `WSA-2026-039` | `AI-Verse-Dashboard` | `#12` | `c9e29ab660c7f56bea83dd00050a1342286734dc` | `../repairs/WSA-2026-039-DASHBOARD-REGISTERED-ROOT-IDENTITY.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -396,17 +397,48 @@ Closure evidence:
 
 `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-041` and `WSA-2026-042` remain OPEN and were not modified.
 
-## 15. Current repair position
+## 15. WSA-2026-039 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Live pre-repair Dashboard ref:** `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c`  
+**Repair PR:** `AI-Verse-Dashboard#12`  
+**Final tested PR head:** `facdbfcf58cc36ad92ea28a82410e467d348ccf0`  
+**Merged Dashboard ref:** `c9e29ab660c7f56bea83dd00050a1342286734dc`  
+**Tested/merged product tree:** `bd150bacf338597cfa72678496fa82d23db46257`
+
+Closure evidence:
+
+- registration binds each approved `systemId` to canonical realpath plus durable filesystem identity;
+- root identity remains privileged server-side state and is excluded from public Dashboard views;
+- every `resolveRoot()` rechecks the approved filesystem identity before workspace/content reads;
+- missing, renamed, same-path replacement and symlink/junction redirection cases fail closed;
+- first identity drift marks the system unauthorized and records sticky drift state;
+- ordinary `revalidate()` cannot silently bless a replacement root after identity drift;
+- explicit `rebind(systemId, candidateRoot)` is the only supported operation that clears drift and approves a changed root;
+- rebind preserves duplicate/overlap protections and stable `systemId`;
+- replacement workspace content remains unreachable until explicit rebind;
+- PR-head Actions `37018365465`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative exact-head suite: 73 tests, 72 pass, 0 fail, 1 pre-existing skip;
+- merged-main Actions `37018487192`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative merged-main suite: 73 tests, 72 pass, 0 fail, 1 pre-existing skip;
+- final tested PR tree and merged product tree are identical;
+- open Dashboard PRs after merge: 0;
+- A1.13 / C-A1.13-002: RESOLVED for WSA-2026-039.
+
+`WSA-2026-040`, `WSA-2026-041` and `WSA-2026-042` remain OPEN and were not modified.
+
+## 16. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
-- R1: **11 / 13 CLOSED = 84.62%**.
-- Total: **15 / 63 CLOSED = 23.81%**.
-- Remaining: **48 / 63 OPEN = 76.19%**.
+- R1: **12 / 13 CLOSED = 92.31%**.
+- Total: **16 / 63 CLOSED = 25.40%**.
+- Remaining: **47 / 63 OPEN = 74.60%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R1.12 / WSA-2026-039`.
-- WSA-2026-039 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R1.13 / WSA-2026-040`.
+- WSA-2026-040 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 16. Navigation rule
+## 17. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
