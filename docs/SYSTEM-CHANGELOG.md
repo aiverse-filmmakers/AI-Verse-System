@@ -1,3 +1,19 @@
+## 2026-10-02: Added TheAlgorithm as a future task-quality inspiration candidate
+
+- Added Daniel Miessler's TheAlgorithm to the canonical inspiration radar.
+- Recorded its potentially useful patterns: current-to-ideal-state framing, verifiable definition-of-done criteria, negative/edge criteria, evidence-gated completion, original-request re-read and commitment-boundary review.
+- Recorded the likely AI-Verse fit inside existing Brain + Gateway task/Goal execution rather than as a new component or second PRD/Goal database.
+- Added a future Verifiable Task-Completion Loop research card.
+- Marked the idea **NEEDS-SCOPING**, not implemented or committed to a release.
+- Explicitly left the active public-beta repair/requalification sequence and Purpose Context priority unchanged.
+
+Canonical detail:
+
+- `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md`
+- `docs/IDEA-INBOX.md`
+
+---
+
 ## 2026-10-02: Accepted Telos-inspired Purpose Context as first post-repair cross-owner capability
 
 - Accepted a first-class **Purpose Context** direction inspired by Daniel Miessler's Telos project.
