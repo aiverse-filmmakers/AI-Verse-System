@@ -17,6 +17,36 @@ Once an idea has a clear architectural home, promote it into the relevant compon
 
 ---
 
+## 2026-10-02 - TheAlgorithm-inspired verifiable task-solving loop
+
+**Status:** NEEDS-SCOPING
+
+The owner wants Daniel Miessler's TheAlgorithm preserved as a future AI-Verse inspiration/upgrade candidate.
+
+Potentially useful ideas include:
+
+- current-state -> ideal-state task framing;
+- explicit, testable definition-of-done criteria;
+- positive, negative and edge acceptance criteria;
+- evidence-gated completion rather than "should work";
+- original-request re-read before declaring completion;
+- independent review at important commitment boundaries;
+- post-task learning routed into existing AI-Verse learning owners.
+
+This is **not an implementation commitment** and does not change the current roadmap or public-beta repair order.
+
+Before adoption, AI-Verse should compare these ideas against existing Brain Goals/completion contracts, Gateway execution, Multiple Bots Tasks, self-learning and audit verification, then adopt only the parts that measurably improve task quality without creating duplicate truth or unnecessary ceremony.
+
+External inspiration:
+
+- https://github.com/danielmiessler/TheAlgorithm
+
+Tracked in:
+
+- `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md`
+
+---
+
 ## 2026-10-02 - Purpose Context / Telos-inspired deep context
 
 **Status:** PROMOTED

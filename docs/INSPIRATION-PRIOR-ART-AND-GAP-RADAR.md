@@ -831,6 +831,73 @@ Canonical adoption note:
 
 ---
 
+## 5.11 TheAlgorithm
+
+**Repository:** https://github.com/danielmiessler/TheAlgorithm  
+**Status:** experimental research project.  
+**Verified:** 2026-10-02 from the public repository README and version inventory. The standalone repository exposes `versions/TheAlgorithm_Latest.md` / v6.3.0, while its README notes that the shipping version now lives in LifeOS.
+
+### What it does particularly well
+
+TheAlgorithm treats problem-solving as a disciplined transition from **current state -> ideal state**, with explicit verification before completion.
+
+Its strongest current ideas include:
+
+- a staged work loop: Observe -> Think -> Plan -> Build -> Execute -> Verify -> Learn;
+- reverse-engineering vague user intent into explicit, testable definition-of-done criteria;
+- Ideal State Criteria (ISC) covering functional, structural, behavioral, negative and edge conditions;
+- evidence-gated completion, where a criterion should not be marked complete merely because it "should work";
+- a final re-read against the user's original request;
+- independent/second-opinion review at durable commitment boundaries;
+- durable task/spec artifacts that survive long work and session compaction;
+- deliberate attention to negative criteria and regressions, not only happy-path output.
+
+### What AI-Verse already has
+
+AI-Verse already contains substantial overlap:
+
+- Brain owns Goals, desired states, completion contracts, evaluation and strategic reasoning;
+- Gateway/runtime owns execution and bounded continuation;
+- Multiple Bots owns delegated task coordination;
+- Skills owns reusable capability packages;
+- the audit/repair methodology already requires evidence, negative-space checks and exact acceptance;
+- self-learning contracts already provide governed learn/evaluate/promote loops.
+
+Therefore AI-Verse should **not** import TheAlgorithm wholesale or create a second Brain, Goal store, task database or universal PRD authority.
+
+### Best ideas to evaluate later
+
+1. **Definition-of-done compiler**: turn vague task intent into concise, verifiable acceptance criteria before expensive work begins.
+2. **Evidence-gated completion**: important criteria close only from current tool/runtime evidence where verification is possible.
+3. **Negative/edge criteria by default** for substantial tasks so regressions and failure modes are explicit.
+4. **Original-request re-read gate** before declaring substantial work complete.
+5. **Commitment-boundary review** for durable/high-impact outputs, using an independent reviewer/model where justified.
+6. **Task learning closure** that feeds useful lessons into AI-Verse's existing Memory/Skills learning paths without creating another learning owner.
+7. **Hard-to-vary specification checks** as a quality heuristic for ambiguous plans/specs, evaluated rather than adopted as universal doctrine.
+
+### Correct AI-Verse form
+
+The likely fit is **inside the existing Brain + Gateway task/Goal execution contract**, with verification evidence coming from the owning runtime/tools and learning routed through existing Memory/Skills owners.
+
+Any task-spec/criteria artifact should either be Brain-owned or derived from Brain-owned Goal/task state. It must not become a parallel canonical PRD/ISA database.
+
+### Implementation posture
+
+This is a **future research/upgrade candidate only**.
+
+Do not change the active public-beta repair order, release gates, Purpose Context sequencing or current runtime behavior because of this entry.
+
+Before implementation:
+
+1. compare TheAlgorithm against current Brain Goals, completion contracts, self-learning and audit verification;
+2. identify only genuinely missing behaviors;
+3. benchmark whether the added ceremony improves real task quality enough to justify its cost;
+4. implement the smallest owner-correct pieces rather than copying the framework wholesale.
+
+**Priority:** P1/P2 research candidate after the active repair/requalification program; exact implementation priority remains uncommitted until overlap/benefit benchmarking.
+
+---
+
 # 6. Prior inspirations already inside AI-Verse-System
 
 This section consolidates previous System research so future work does not have to rediscover it.
@@ -1240,6 +1307,40 @@ AI-Verse can answer, in a scope-correct way:
 - the feature interrupts the active repair/requalification program.
 
 Detailed plan: `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
+
+---
+
+## Card B3: Verifiable task-completion loop
+
+**Priority:** P1/P2 research candidate
+
+**Inspired by:** TheAlgorithm.
+
+### Evaluate
+
+A bounded task-quality layer that can:
+
+- turn vague intent into verifiable definition-of-done criteria;
+- include negative and edge criteria for substantial work;
+- track criteria against actual execution evidence;
+- re-read the original request before completion;
+- request independent review at durable/high-impact commitment boundaries when worthwhile;
+- route post-task lessons into existing Memory/Skills learning owners.
+
+### Correct owners
+
+- Brain: task/Goal intent, completion contract and evaluation semantics
+- Gateway/runtime: execution, live probes and evidence collection
+- Multiple Bots: delegated task execution where used
+- Memory/Skills: existing governed learning paths
+
+### Reject if
+
+- it creates a second Goal/task/PRD canonical store;
+- every trivial task gains heavy ceremony;
+- an LLM assertion counts as verification where deterministic evidence is available;
+- it duplicates the existing audit/repair machinery;
+- it changes current repair/release sequencing before benchmark evidence exists.
 
 ---
 
