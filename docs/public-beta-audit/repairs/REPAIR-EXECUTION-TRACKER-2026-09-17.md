@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-010`
+**Current active finding:** `WSA-2026-017`
 
 ## 1. Preserved execution history
 
@@ -87,8 +87,8 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
 | R3.1 | WSA-2026-008 Gateway state linearizability | AI-Verse-Gateway | **CLOSED** |
-| R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | **ACTIVE** |
-| R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | PENDING |
+| R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | **CLOSED** |
+| R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | **ACTIVE** |
 | R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | PENDING |
 | R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | PENDING |
 | R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | PENDING |
@@ -97,13 +97,13 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 1 / 10 CLOSED = 10%.**
+**R3 progress: 2 / 10 CLOSED = 20%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 9 remaining
+- R3: 10 findings, 8 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -136,6 +136,7 @@ Remaining phase sizes:
 | R2.4 | WSA-2026-027 | Automations | #5 | `017eaf3e74d604208c606cc08f4137006f723625` | `WSA-2026-027-AUTOMATIONS-LIVE-LEGACY-FENCE.md` |
 | R2.5 | WSA-2026-028 | Automations | #6 | `287ce9d6718ef06e4589a2a3e767c6a9ba376755` | `WSA-2026-028-AUTOMATIONS-ATTACHMENT-LIFECYCLE.md` |
 | R3.1 | WSA-2026-008 | Gateway | #34 | `cd0789401ddf7c536558a27d84328e963b10c882` | `WSA-2026-008-GATEWAY-STATE-LINEARIZABILITY.md` |
+| R3.2 | WSA-2026-010 | Brain | #25 | `39b3feb6ad03aa185a4ba6f5f24614e55c4b969f` | `WSA-2026-010-BRAIN-GOAL-OPERATION-ID-SERIALIZATION.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -803,26 +804,65 @@ Validation-driven refinements before final acceptance:
 - restart acceptance exposed that HTTP close did not quiesce old execution/recovery; graceful close now drains both before returning;
 - the first 107/107 green-looking result did not include the newly created regression file because the package script enumerated tests; final accepted `npm test` explicitly includes it and reports 113/113.
 
-## 23. Current task - R3.2 / WSA-2026-010
+## 23. R3.2 closure record - WSA-2026-010
 
-**Owner:** `AI-Verse-Brain`  
+**Baseline Brain:** `908f9a9a06c2b12204ada7f71cd761bae97b52ce`  
+**Repair PR:** `AI-Verse-Brain#25`  
+**Final tested head:** `7a2189a3761bc6f11411691d3a664ab48c133b1b`  
+**Merged Brain:** `39b3feb6ad03aa185a4ba6f5f24614e55c4b969f`  
+**Tested/merged tree:** `2c5ce89d3b9ca4412547ba0a04b730811c6da1fe`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- operation receipt namespace and mutation admission namespace now agree on scope + operation ID: PASS;
+- create operation-ID serialization preserved: PASS;
+- edit operation-ID then Goal revision serialization: PASS;
+- transition operation-ID then Goal revision serialization: PASS;
+- shared criteria add/remove/clear mutation path uses the same order: PASS;
+- progress recording uses the same order: PASS;
+- concurrent cross-Goal same-operation-ID edit: exactly one mutation commits;
+- concurrent cross-Goal same-operation-ID transition: exactly one mutation commits;
+- concurrent cross-Goal same-operation-ID criteria mutation: exactly one mutation commits;
+- concurrent cross-Goal same-operation-ID progress recording: exactly one mutation commits;
+- losing changed-payload caller receives the established idempotency ValidationError: PASS;
+- durable receipt identifies the single winning Goal/version: PASS;
+- operation ID equal to Goal ID does not self-conflict: PASS;
+- RuntimeKeyLock implementation, TTL and reclaim logic remain unchanged: PASS;
+- PR-head CI `37059407803`: package smoke plus Ubuntu/macOS/Windows Python 3.9/3.12, 7 / 7 PASS;
+- representative exact-head suite: 242 / 242 tests;
+- all five dedicated WSA-2026-010 regressions present on exact head;
+- exact-head OS Direction Ownership Contract `37059407731`: PASS;
+- exact-head Skills Receipt Contract `37059408161`: PASS;
+- merged-main CI `37059636663`: 7 / 7 PASS;
+- representative merged-main suite: 242 / 242 tests;
+- all five dedicated WSA-2026-010 regressions present after merge;
+- merged-main OS Direction Ownership Contract `37059636656`: PASS;
+- merged-main Skills Receipt Contract `37059636711`: PASS;
+- exact tested PR tree and merged product tree: identical;
+- open Brain PRs after merge: 0;
+- A1.3 / C-A1.3-002: RESOLVED for WSA-2026-010.
+
+## 24. Current task - R3.3 / WSA-2026-017
+
+**Owner:** `AI-Verse-Skills`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Brain `main`, open PRs and the exact WSA-2026-010 Goal operation-ID race evidence before creating any owner repair branch.
+The next repair session must first recheck Skills `main`, open PRs and the exact WSA-2026-017 live-holder lock reclaim evidence before creating any owner repair branch.
 
-Required R3 ordering now moves from Gateway state linearizability to Brain Goal operation-ID serialization.
+This repair must remain separate from the Brain Goal operation-ID fix. The Brain closure intentionally left runtime lock TTL/reclaim behavior unchanged.
 
-No later finding may become ACTIVE until WSA-2026-010 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-017 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 24. Program progress
+## 25. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **1 / 10 CLOSED = 10%**
-- Findings: **23 / 63 CLOSED = 36.51%**
-- Remaining: **40 / 63 OPEN = 63.49%**
+- R3: **2 / 10 CLOSED = 20%**
+- Findings: **24 / 63 CLOSED = 38.10%**
+- Remaining: **39 / 63 OPEN = 61.90%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
