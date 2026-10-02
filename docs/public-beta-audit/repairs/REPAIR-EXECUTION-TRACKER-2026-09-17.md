@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-017`
+**Current active finding:** `WSA-2026-053`
 
 ## 1. Preserved execution history
 
@@ -88,8 +88,8 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 |---:|---|---|---|
 | R3.1 | WSA-2026-008 Gateway state linearizability | AI-Verse-Gateway | **CLOSED** |
 | R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | **CLOSED** |
-| R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | **ACTIVE** |
-| R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | PENDING |
+| R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | **CLOSED** |
+| R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | **ACTIVE** |
 | R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | PENDING |
 | R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | PENDING |
 | R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | PENDING |
@@ -97,13 +97,13 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 2 / 10 CLOSED = 20%.**
+**R3 progress: 3 / 10 CLOSED = 30%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 8 remaining
+- R3: 10 findings, 7 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -137,6 +137,7 @@ Remaining phase sizes:
 | R2.5 | WSA-2026-028 | Automations | #6 | `287ce9d6718ef06e4589a2a3e767c6a9ba376755` | `WSA-2026-028-AUTOMATIONS-ATTACHMENT-LIFECYCLE.md` |
 | R3.1 | WSA-2026-008 | Gateway | #34 | `cd0789401ddf7c536558a27d84328e963b10c882` | `WSA-2026-008-GATEWAY-STATE-LINEARIZABILITY.md` |
 | R3.2 | WSA-2026-010 | Brain | #25 | `39b3feb6ad03aa185a4ba6f5f24614e55c4b969f` | `WSA-2026-010-BRAIN-GOAL-OPERATION-ID-SERIALIZATION.md` |
+| R3.3 | WSA-2026-017 | Skills | #16 | `4fc240593929ebce9d82632479384d1cd45980b7` | `WSA-2026-017-SKILLS-LIVE-HOLDER-LOCK-RECLAIM.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -843,26 +844,64 @@ Acceptance:
 - open Brain PRs after merge: 0;
 - A1.3 / C-A1.3-002: RESOLVED for WSA-2026-010.
 
-## 24. Current task - R3.3 / WSA-2026-017
+## 24. R3.3 closure record - WSA-2026-017
 
-**Owner:** `AI-Verse-Skills`  
+**Baseline Skills:** `3541d2a7af1b20ca12736ed7454d119295d8e193`  
+**Repair PR:** `AI-Verse-Skills#16`  
+**Final tested head:** `8705a1f31d7b25ca03176c9936e76e631a9bb78d`  
+**Merged Skills:** `4fc240593929ebce9d82632479384d1cd45980b7`  
+**Tested/merged tree:** `92fb45c0ec4e6a6b4e88805ab491a06c0d5a2f1e`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- stale lock age alone no longer authorizes reclaim: PASS;
+- new lifecycle lock metadata records token, PID, hostname and acquisition time: PASS;
+- live local holder remains protected beyond stale threshold: PASS;
+- dead/crashed local holder remains reclaimable after stale threshold: PASS;
+- foreign-host holder state fails closed: PASS;
+- malformed or otherwise unverifiable holder state fails closed: PASS;
+- legacy no-hostname holder metadata remains locally PID-checkable: PASS;
+- POSIX process liveness probing: PASS;
+- Windows process liveness probing through process-query/exit-code semantics: PASS;
+- stale reclaim token identity is re-read before unlink: PASS;
+- normal token-bound release remains unchanged: PASS;
+- deterministic live-old-holder regression: PASS;
+- deterministic child-process crash/orphan recovery regression: PASS;
+- PR-head Validate `37063765194`: PASS, 131 / 131 tests;
+- both WSA-2026-017 dedicated regressions present in canonical discovered suite;
+- PR-head Lifecycle Controller Containment `37063765080`: Ubuntu/macOS/Windows Python 3.9/3.12, 6 / 6 PASS;
+- representative lifecycle suite: 12 / 12 tests;
+- PR-head Full E2E Install `37063765131`: PASS;
+- merged-main Validate `37064093509`: PASS, 131 / 131 tests;
+- both dedicated regressions present after merge;
+- merged-main Lifecycle Controller Containment `37064093519`: 6 / 6 PASS;
+- representative merged-main lifecycle suite: 12 / 12 tests;
+- merged-main Full E2E Install `37064093517`: PASS;
+- exact tested PR tree and merged product tree: identical;
+- open Skills PRs after merge: 0;
+- A1.5 / C-A1.5-002: RESOLVED for WSA-2026-017.
+
+## 25. Current task - R3.4 / WSA-2026-053
+
+**Owner:** `AI-Verse-Data`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Skills `main`, open PRs and the exact WSA-2026-017 live-holder lock reclaim evidence before creating any owner repair branch.
+The next repair session must first recheck Data `main`, open PRs and the exact WSA-2026-053 natural-key uniqueness evidence before creating any owner repair branch.
 
-This repair must remain separate from the Brain Goal operation-ID fix. The Brain closure intentionally left runtime lock TTL/reclaim behavior unchanged.
+This repair remains separate from Skills execution-generation retention and release/bootstrap identity findings.
 
-No later finding may become ACTIVE until WSA-2026-017 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-053 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 25. Program progress
+## 26. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **2 / 10 CLOSED = 20%**
-- Findings: **24 / 63 CLOSED = 38.10%**
-- Remaining: **39 / 63 OPEN = 61.90%**
+- R3: **3 / 10 CLOSED = 30%**
+- Findings: **25 / 63 CLOSED = 39.68%**
+- Remaining: **38 / 63 OPEN = 60.32%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
