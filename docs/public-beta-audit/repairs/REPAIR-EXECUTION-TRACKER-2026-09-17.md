@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-027`
+**Current active finding:** `WSA-2026-028`
 
 ## 1. Preserved execution history
 
@@ -77,10 +77,10 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R2.1 | WSA-2026-007 Gateway live lifecycle truth | AI-Verse-Gateway | **CLOSED** |
 | R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | **CLOSED** |
 | R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | **CLOSED** |
-| R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | **ACTIVE** |
-| R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | PENDING |
+| R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | **CLOSED** |
+| R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | **ACTIVE** |
 
-**R2 progress: 3 / 5 CLOSED = 60%.**
+**R2 progress: 4 / 5 CLOSED = 80%.**
 
 R3-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full pre-R1.2 task tables are preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
@@ -116,6 +116,7 @@ Remaining phase sizes:
 | R2.1 | WSA-2026-007 | Gateway | #33 | `b27cebe11e536aa5a0f9bad707f38b0c2471879d` | `WSA-2026-007-GATEWAY-LIVE-LIFECYCLE-TRUTH.md` |
 | R2.2 | WSA-2026-013 | Memory | #31 | `cbc6651d60d42c63015bc1b25b5cd8f0c49d5904` | `WSA-2026-013-MEMORY-WRITE-LIFECYCLE-AUTHORITY.md` |
 | R2.3 | WSA-2026-026 | Automations | #4 | `e5ec241f1d86e76b15bab5be81e720a827e4fa09` | `WSA-2026-026-AUTOMATIONS-STORE-OWNERSHIP.md` |
+| R2.4 | WSA-2026-027 | Automations | #5 | `017eaf3e74d604208c606cc08f4137006f723625` | `WSA-2026-027-AUTOMATIONS-LIVE-LEGACY-FENCE.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -659,25 +660,61 @@ Acceptance:
 - existing replay/recovery behavior remains green under the full owner suite;
 - WSA-2026-027 and WSA-2026-028 remain OPEN and untouched.
 
-## 20. Current task - R2.4 / WSA-2026-027
+## 20. R2.4 closure record - WSA-2026-027
+
+**Baseline Automations:** `e5ec241f1d86e76b15bab5be81e720a827e4fa09`  
+**Repair PR:** `AI-Verse-Automations#5`  
+**Final tested head:** `d9b2d9bbbfdf0175dae75b70422d20f335d61c3b`  
+**Merged Automations:** `017eaf3e74d604208c606cc08f4137006f723625`  
+**Tested/merged tree:** `47193905f91583ed82aa197062d724e2ed515fd5`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- shared live configured/discovered legacy-authority reader: PASS;
+- post-setup conflict changes status to migration-required: PASS;
+- status/doctor live-state agreement: PASS;
+- enable blocked by post-setup discovered conflict: PASS;
+- scheduled tick does not claim or advance due work during conflict: PASS;
+- manual/event ingress rejected before run creation: PASS;
+- already-claimed run blocked before execution: PASS;
+- blocked run explicit recovery after conflict removal: PASS;
+- final pre-delivery live-authority recheck: PASS;
+- conflict injected during OS permission produces zero delivery: PASS;
+- post-setup conflict removal restores dynamic readiness: PASS;
+- configured setup-time migration still requires explicit setup/handoff clearing path: PASS;
+- PR-head CI `37048094225`: 9 / 9 Ubuntu/macOS/Windows Python 3.11/3.12/3.13 jobs PASS;
+- representative exact-head suite: 46 / 46 tests;
+- merged-main CI `37048371219`: 9 / 9 jobs PASS;
+- representative merged-main suite: 46 / 46 tests;
+- exact tested PR tree and merged product tree: identical;
+- open Automations PRs after merge: 0;
+- A1.9 / C-A1.9-002: RESOLVED for WSA-2026-027;
+- A2.3 Automations lifecycle/readiness branch: RESOLVED for this finding;
+- A3.2 legacy-authority handoff fence: RESOLVED for this finding;
+- A3.7 replay behavior remains green;
+- A3.10 lifecycle/recovery remains green;
+- WSA-2026-028 remains OPEN and untouched.
+
+## 21. Current task - R2.5 / WSA-2026-028
 
 **Owner:** `AI-Verse-Automations`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Automations `main`, open PRs and the exact WSA-2026-027 live-legacy-authority evidence before creating any owner repair branch.
+The next repair session must first recheck Automations `main`, open PRs and the exact WSA-2026-028 attachment/component lifecycle divergence evidence before creating any owner repair branch.
 
-Required R2 ordering now moves from Automations canonical store ownership to the live legacy-definition execution fence.
+Required R2 ordering now moves from the live legacy-definition execution fence to OS attachment lifecycle reconciliation.
 
-No later finding may become ACTIVE until WSA-2026-027 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-028 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 21. Program progress
+## 22. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
-- R2: **3 / 5 CLOSED = 60%**
-- Findings: **20 / 63 CLOSED = 31.75%**
-- Remaining: **43 / 63 OPEN = 68.25%**
+- R2: **4 / 5 CLOSED = 80%**
+- Findings: **21 / 63 CLOSED = 33.33%**
+- Remaining: **42 / 63 OPEN = 66.67%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
