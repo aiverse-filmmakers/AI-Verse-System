@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-007`
+**Current active finding:** `WSA-2026-013`
 
 ## 1. Preserved execution history
 
@@ -74,13 +74,13 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 
 | Order | Finding | Owner | Status |
 |---:|---|---|---|
-| R2.1 | WSA-2026-007 Gateway live lifecycle truth | AI-Verse-Gateway | **ACTIVE** |
-| R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | PENDING |
+| R2.1 | WSA-2026-007 Gateway live lifecycle truth | AI-Verse-Gateway | **CLOSED** |
+| R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | **ACTIVE** |
 | R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | PENDING |
 | R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | PENDING |
 | R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | PENDING |
 
-**R2 progress: 0 / 5 CLOSED = 0%.**
+**R2 progress: 1 / 5 CLOSED = 20%.**
 
 R3-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full pre-R1.2 task tables are preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
@@ -113,6 +113,7 @@ Remaining phase sizes:
 | R1.11 | WSA-2026-038 | Dashboard | #11 | `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c` | `WSA-2026-038-DASHBOARD-WEBSOCKET-WORKSPACE-ISOLATION.md` |
 | R1.12 | WSA-2026-039 | Dashboard | #12 | `c9e29ab660c7f56bea83dd00050a1342286734dc` | `WSA-2026-039-DASHBOARD-REGISTERED-ROOT-IDENTITY.md` |
 | R1.13 | WSA-2026-040 | Dashboard | #13 | `359a19f683a15485299cb2bab4e844d8d05b4fd6` | `WSA-2026-040-DASHBOARD-LOCAL-READ-AUTHENTICATION.md` |
+| R2.1 | WSA-2026-007 | Gateway | #33 | `b27cebe11e536aa5a0f9bad707f38b0c2471879d` | `WSA-2026-007-GATEWAY-LIVE-LIFECYCLE-TRUTH.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -537,25 +538,71 @@ Acceptance:
 
 **Wave R1 is now complete: 13 / 13 CLOSED.**
 
-## 17. Current task - R2.1 / WSA-2026-007
+## 17. R2.1 closure record - WSA-2026-007
 
-**Owner:** `AI-Verse-Gateway`  
+**Baseline Gateway:** `5347a0b7e3f3f302f4570e9bc37d515192753610`  
+**Repair PR:** `AI-Verse-Gateway#33`  
+**Final tested head:** `8f19c4e70a4014c6e1ab164753999be85e9e3fd4`  
+**Merged Gateway:** `b27cebe11e536aa5a0f9bad707f38b0c2471879d`  
+**Tested/merged tree:** `f25d6483395416affdf55fe8c05933163594740e`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- setup config validation before ready publication: PASS;
+- host compatibility verification before ready publication: PASS;
+- failed setup preserves prior ready config: PASS;
+- failed first setup remains setup-required: PASS;
+- invalid remote setup cannot publish config/host authority: PASS;
+- single current owner lifecycle reader: PASS;
+- service generation on successful setup: PASS;
+- startServer authoritative lifecycle/config re-read: PASS;
+- stale setup generation rejection: PASS;
+- per-request lifecycle recheck: PASS;
+- live disable fences operational requests: PASS;
+- CLI status / doctor / live status disabled semantics: PASS;
+- live health disabled 503 semantics: PASS;
+- live re-enable recovery within the same generation: PASS;
+- live uninstall fences operational requests: PASS;
+- CLI status / doctor / live status absent semantics: PASS;
+- live health absent 503 semantics: PASS;
+- stale old process fenced after reinstall/setup: PASS;
+- fresh server restart on new setup generation: PASS;
+- pre-existing serve-time remote-bind guard: PASS;
+- PR-head CI `37032145023`: Ubuntu/macOS/Windows Node 20/22 PASS;
+- representative exact-head suite: 107/107 tests;
+- Context Ladder Integrated Acceptance `37032144965`: PASS;
+- Permanent Bot Composition `37032144825`: PASS;
+- Temporary Worker Composition `37032145348`: PASS;
+- Automation Recommendation Boundary `37032145079`: PASS;
+- merged-main CI `37032364023`: Ubuntu/macOS/Windows Node 20/22 PASS;
+- representative merged-main suite: 107/107 tests;
+- exact tested PR tree and merged product tree: identical;
+- open Gateway PRs after merge: 0;
+- A1.2 / C-A1.2-001: RESOLVED for WSA-2026-007;
+- A2.3 Gateway lifecycle branch: RESOLVED for this finding;
+- A3.10 / C-A3.10-002 Gateway branch: RESOLVED for this finding;
+- WSA-2026-008 remains OPEN and untouched.
+
+## 18. Current task - R2.2 / WSA-2026-013
+
+**Owner:** `AI-Verse-Memory`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Gateway `main`, open PRs and the exact WSA-2026-007 live-lifecycle-truth evidence before creating any owner repair branch.
+The next repair session must first recheck Memory `main`, open PRs and the exact WSA-2026-013 write-authority-vs-lifecycle evidence before creating any owner repair branch.
 
-Required R2 ordering from A6.4 begins with Gateway live lifecycle control before Memory and Automations lifecycle/readiness repairs.
+Required R2 ordering from A6.4 now moves from Gateway live lifecycle control to Memory native write gating.
 
-No later finding may become ACTIVE until WSA-2026-007 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-013 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 18. Program progress
+## 19. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
-- R2: **0 / 5 CLOSED = 0%**
-- Findings: **17 / 63 CLOSED = 26.98%**
-- Remaining: **46 / 63 OPEN = 73.02%**
+- R2: **1 / 5 CLOSED = 20%**
+- Findings: **18 / 63 CLOSED = 28.57%**
+- Remaining: **45 / 63 OPEN = 71.43%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
