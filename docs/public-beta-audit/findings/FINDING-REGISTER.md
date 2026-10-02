@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R3.2 / `WSA-2026-010` closure, 2026-10-02  
+**Live repair-state checkpoint:** R3.3 / `WSA-2026-017` closure, 2026-10-02  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **39** |
-| CLOSED | **24** |
+| OPEN | **38** |
+| CLOSED | **25** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `034`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `014`, `015`, `018`, `019`, `021`, `025`, `034`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -78,6 +78,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-027` | `AI-Verse-Automations` | `#5` | `017eaf3e74d604208c606cc08f4137006f723625` | `../repairs/WSA-2026-027-AUTOMATIONS-LIVE-LEGACY-FENCE.md` |
 | `WSA-2026-028` | `AI-Verse-Automations` | `#6` | `287ce9d6718ef06e4589a2a3e767c6a9ba376755` | `../repairs/WSA-2026-028-AUTOMATIONS-ATTACHMENT-LIFECYCLE.md` |
 | `WSA-2026-016` | `AI-Verse-Skills` | `#15` | `3541d2a7af1b20ca12736ed7454d119295d8e193` | `../repairs/WSA-2026-016-SKILLS-CONTROLLER-CONTAINMENT.md` |
+| `WSA-2026-017` | `AI-Verse-Skills` | `#16` | `4fc240593929ebce9d82632479384d1cd45980b7` | `../repairs/WSA-2026-017-SKILLS-LIVE-HOLDER-LOCK-RECLAIM.md` |
 | `WSA-2026-029` | `AI-Verse-Connections` | `#2` | `a04f655c6f0c9b57d17e64b5c1ff8eb88aab4016` | `../repairs/WSA-2026-029-CONNECTIONS-DESTRUCTIVE-PURGE.md` |
 | `WSA-2026-009` | `AI-Verse-Brain` | `#24` | `908f9a9a06c2b12204ada7f71cd761bae97b52ce` | `../repairs/WSA-2026-009-BRAIN-NATIVE-HOST-ROOT-CONTAINMENT.md` |
 | `WSA-2026-010` | `AI-Verse-Brain` | `#25` | `39b3feb6ad03aa185a4ba6f5f24614e55c4b969f` | `../repairs/WSA-2026-010-BRAIN-GOAL-OPERATION-ID-SERIALIZATION.md` |
@@ -744,19 +745,59 @@ Closure evidence:
 
 `WSA-2026-017` is now the next dependency-safe finding and was not modified.
 
-## 24. Current repair position
+## 24. WSA-2026-017 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Live pre-repair Skills ref:** `3541d2a7af1b20ca12736ed7454d119295d8e193`  
+**Repair PR:** `AI-Verse-Skills#16`  
+**Final tested PR head:** `8705a1f31d7b25ca03176c9936e76e631a9bb78d`  
+**Merged Skills ref:** `4fc240593929ebce9d82632479384d1cd45980b7`  
+**Tested/merged product tree:** `92fb45c0ec4e6a6b4e88805ab491a06c0d5a2f1e`
+
+Closure evidence:
+
+- lifecycle stale age is no longer sufficient authority to delete a lock;
+- new lock metadata records token, PID, hostname and acquisition time;
+- stale local holder liveness is checked before reclaim;
+- POSIX uses non-destructive process existence probing;
+- Windows uses process query / exit-code state rather than destructive signal semantics;
+- live holders remain protected even when the lock mtime is older than the 300-second stale threshold;
+- foreign-host, malformed, invalid-PID and otherwise unverifiable holders fail closed as busy;
+- legacy no-hostname lock metadata remains locally checkable by recorded PID;
+- stale dead-holder reclaim re-reads the token before unlink and proceeds only when identity is unchanged;
+- normal owner release remains token-bound;
+- deterministic live-old-holder regression: PASS;
+- deterministic child-process crash/orphan recovery regression: PASS;
+- PR-head Validate workflow `37063765194`: PASS, 131 / 131 tests;
+- both dedicated WSA-2026-017 regressions present in canonical discovered suite;
+- PR-head Lifecycle Controller Containment `37063765080`: Ubuntu/macOS/Windows Python 3.9/3.12, 6 / 6 PASS;
+- representative lifecycle suite: 12 / 12 tests;
+- PR-head Full E2E Install `37063765131`: PASS;
+- merged-main Validate workflow `37064093509`: PASS, 131 / 131 tests;
+- both dedicated WSA-2026-017 regressions present after merge;
+- merged-main Lifecycle Controller Containment `37064093519`: 6 / 6 PASS;
+- representative merged-main lifecycle suite: 12 / 12 tests;
+- merged-main Full E2E Install `37064093517`: PASS;
+- exact tested PR tree and merged product tree are identical;
+- open Skills PRs after merge: 0;
+- A1.5 / C-A1.5-002: RESOLVED for WSA-2026-017.
+
+`WSA-2026-053` is now the next dependency-safe finding and was not modified.
+
+## 25. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
-- R3: **2 / 10 CLOSED = 20%**.
-- Total: **24 / 63 CLOSED = 38.10%**.
-- Remaining: **39 / 63 OPEN = 61.90%**.
+- R3: **3 / 10 CLOSED = 30%**.
+- Total: **25 / 63 CLOSED = 39.68%**.
+- Remaining: **38 / 63 OPEN = 60.32%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R3.3 / WSA-2026-017`.
-- WSA-2026-017 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R3.4 / WSA-2026-053`.
+- WSA-2026-053 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 25. Navigation rule
+## 26. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
