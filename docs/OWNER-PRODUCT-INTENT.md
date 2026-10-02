@@ -397,6 +397,50 @@ friction/correction
 The system should distinguish explicit user correction from merely inferred frustration. Model-detected frustration is evidence, not authority, and must never by itself justify destructive state changes, permission changes or silent global product updates.
 
 
+## 9C. Purpose Context / Telos-inspired deep context
+
+The owner wants AI-Verse to develop a first-class **Purpose Context** layer inspired by Daniel Miessler's Telos concept.
+
+The desired experience is that the agent can understand, without repeatedly asking the user:
+
+- why this person/workspace/organization exists;
+- what it is trying to achieve;
+- what matters most right now;
+- which goals, priorities, strategies and constraints are active;
+- which KPIs define progress;
+- what the current state is;
+- which recent changes materially altered the plan.
+
+The simple product distinction is:
+
+```text
+Purpose Context = why / what matters / where we are going
+Memory         = what happened before
+Data           = structured current operational truth
+Skills         = how to do something
+```
+
+This must **not** become another canonical store. Purpose Context should be a derived, scope-bound projection over existing owners.
+
+The current ownership model remains authoritative:
+
+- OS owns operator/workspace identity, current operating scope and OS-owned profile/context;
+- Brain owns explicit strategic intent, goals, desired states, priorities, strategies and evaluation when it owns strategic direction;
+- Data owns current structured operational values such as KPI measurements;
+- Memory owns historical evidence and durable past context;
+- Gateway/runtime owns live run/session state.
+
+Mission, top-level goals, priority ordering, values and strategic constraints are high-impact intent. AI-Verse may propose changes to them, but must not silently rewrite them. Durable changes must route to the correct owner and require explicit user confirmation where they materially change strategic direction.
+
+A Telos-style activity/current-state view is desirable, but it should be projected from owner-backed events, receipts and state rather than becoming a second editable activity database.
+
+**Implementation timing:** this is accepted intent and should become the **first eligible new cross-owner capability project after the active whole-system repair/requalification program establishes a new safe baseline**. It should not be deferred behind unrelated long-range expansion such as Apps, packs, broad channels or federation.
+
+Canonical implementation note:
+
+- `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
+
+
 ## 10. What the owner does not want
 
 Avoid product drift toward:
@@ -586,6 +630,7 @@ As of this document's creation, the following product-intent areas require conti
 - lossless hierarchical conversation folding with exact-source recovery in Gateway if benchmarks prove it beneficial;
 - derived compact context maps/relationships only where they measurably improve retrieval without creating duplicate canonical truth;
 - a focused single-user product shell that keeps chat primary while making Multiple Bots / AI employees visible and directly usable;
-- clear runtime/product wiring showing when permanent Bots, temporary Workers, Rooms/Threads and delegated work are used instead of leaving Multiple Bots as an invisible backend capability.
+- clear runtime/product wiring showing when permanent Bots, temporary Workers, Rooms/Threads and delegated work are used instead of leaving Multiple Bots as an invisible backend capability;
+- a first-class Purpose Context projection that composes mission, goals, priorities, strategies, constraints, KPIs, current state and material changes from canonical owners without creating duplicate truth.
 
 These are product gaps, not reasons to collapse component ownership or bypass permission/migration rules.

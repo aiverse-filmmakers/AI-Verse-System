@@ -773,6 +773,64 @@ AI-Verse already has cleaner canonical owners for those concerns.
 
 ---
 
+## 5.10 Telos
+
+**Repository:** https://github.com/danielmiessler/telos  
+**License:** MIT.  
+**Verified:** 2026-10-02 from the public repository and its `corporate_telos.md` example.
+
+### What it does particularly well
+
+Telos makes the **deep context around purpose** explicit.
+
+Its example structure captures:
+
+- mission;
+- goals;
+- KPIs;
+- risks/problems;
+- strategies;
+- projects;
+- team/operational context;
+- current-state/activity updates that can change how earlier goals should be interpreted.
+
+The strongest idea is not the Markdown file itself. It is giving an AI one coherent answer to:
+
+> What are we trying to achieve, what matters most, what is true now, and what recent change should alter our decisions?
+
+### What AI-Verse already has
+
+AI-Verse already has stronger separated canonical owners:
+
+- OS for scope/current operating context;
+- Brain for goals/strategy/evaluation;
+- Data for current structured operational truth;
+- Memory for history/provenance;
+- Gateway/runtime for live session state.
+
+Therefore AI-Verse should **not** copy Telos as one new canonical file/database that duplicates these owners.
+
+### Best ideas to borrow
+
+1. A first-class **Purpose Context** envelope.
+2. Explicit mission -> goals -> priorities/strategies -> KPIs -> current-state orientation.
+3. A compact material-change/activity projection that can change current planning.
+4. A product surface that makes purpose and progress legible without exposing internal component plumbing.
+
+### Correct AI-Verse form
+
+The Purpose Context object should be derived/rebuildable and owner-backed.
+
+High-impact mission/goal/priority/value changes must route to the canonical owner and require appropriate user confirmation.
+
+**Priority:** **EARLY P1**, first eligible new cross-owner capability after the active whole-system repair/requalification program establishes a safe baseline.
+
+Canonical adoption note:
+
+- `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
+
+---
+
 # 6. Prior inspirations already inside AI-Verse-System
 
 This section consolidates previous System research so future work does not have to rediscover it.
@@ -1145,6 +1203,43 @@ The user should be able to say:
 > “Use my Gmail for this workspace.”
 
 AI-Verse should handle the internal component routing and only ask the real authorization question.
+
+---
+
+## Card B2: Purpose Context / Telos projection
+
+**Priority:** EARLY P1 / first post-repair cross-owner capability
+
+**Inspired by:** Telos.
+
+### Target experience
+
+AI-Verse can answer, in a scope-correct way:
+
+- what are we trying to achieve?
+- what matters most right now?
+- what are the active goals and constraints?
+- how do we measure progress?
+- what is the current state?
+- what recently changed enough to alter the plan?
+
+### Correct owners
+
+- OS: identity, scope and OS-owned current context
+- Brain/current direction owner: mission, goals, priorities, strategy
+- Data: current structured KPI/operational truth
+- Memory: historical evidence/provenance
+- Gateway/runtime: bounded context assembly
+
+### Reject if
+
+- it creates a second editable Goal/Memory/Data/profile store;
+- the projection can overrule current owner state;
+- mission/priority changes happen silently;
+- Dashboard becomes the hidden owner;
+- the feature interrupts the active repair/requalification program.
+
+Detailed plan: `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
 
 ---
 

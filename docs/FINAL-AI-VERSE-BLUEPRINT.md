@@ -754,6 +754,34 @@ When the user/system explicitly hands strategic direction to Brain:
 
 No crash, restart, stale runtime or duplicated file may create simultaneous strategic authority.
 
+### 14A. Purpose Context / Telos-inspired deep context
+
+AI-Verse should add a first-class **Purpose Context** layer that answers:
+
+> Why does this scope exist, what matters most, where is it trying to go, and what changed recently?
+
+This is an **INTENDED derived context layer**, not a new component and not a new canonical owner.
+
+It composes existing owner truth:
+
+- OS: operator/workspace identity, current scope and OS-owned current context;
+- Brain/current direction owner: mission/purpose, goals, desired states, priorities, strategies, initiatives and strategic constraints;
+- Data: current structured operational truth and KPI values;
+- Memory: historical evidence, lessons and provenance;
+- Gateway/runtime: live run/session state.
+
+Purpose Context may expose a bounded envelope containing mission, goals, priorities, strategies, constraints, KPIs, current state and recent material changes. The envelope must be rebuildable and must preserve owner/source provenance.
+
+### LAW
+
+Purpose Context must never become a second editable Goal store, Memory store, Data store, OS profile store or Dashboard database.
+
+Mission, goal, priority, value and strategic-constraint changes must route to the current canonical owner. Material strategic changes require explicit user confirmation; a model-generated projection cannot silently redefine intent.
+
+Detailed accepted intent and execution gate:
+
+- `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
+
 ---
 
 ## 15. Capability model
@@ -1010,9 +1038,28 @@ Moving development branches cannot be the long-term member release mechanism.
 
 Cross-component acceptance must run against the current supported lifecycle generation, not historical fixtures or direct internal imports.
 
+### EARLY P1: Purpose Context / Telos-inspired deep context
+
+Once the active whole-system repair program, composed requalification and bounded post-repair independent recheck establish a new safe exact-ref baseline, Purpose Context becomes the **first eligible new cross-owner capability project**.
+
+It must not interrupt the repair sequence, but it also must not be pushed behind unrelated long-range expansion.
+
+Initial implementation should be read-only and owner-backed:
+
+1. versioned Purpose Context projection;
+2. OS + Brain + Data composition with optional Memory evidence;
+3. context-ladder integration;
+4. controlled owner-routed strategic mutation proposals;
+5. material-change/current-state projection;
+6. simple Dashboard/product projection later.
+
+It is intentionally **not** a new repository or canonical database.
+
 ---
 
 ## 23. Recommended implementation order from this blueprint
+
+> **Current sequencing override, 2026-10-02:** the Independent Whole-System Public-Beta repair/requalification program is the active execution authority. Do not start new Purpose Context implementation inside those repair waves. Immediately after that program's bounded final recheck establishes a safe baseline, implement the Purpose Context/Telos-inspired project before unrelated lower-priority expansion. Safety or failed-acceptance repairs always retain priority.
 
 The system should now be completed in dependency-safe layers.
 

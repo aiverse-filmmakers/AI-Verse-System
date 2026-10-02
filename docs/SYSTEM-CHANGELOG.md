@@ -1,3 +1,23 @@
+## 2026-10-02: Accepted Telos-inspired Purpose Context as first post-repair cross-owner capability
+
+- Accepted a first-class **Purpose Context** direction inspired by Daniel Miessler's Telos project.
+- Defined Purpose Context as a derived, rebuildable context envelope rather than a new component or canonical database.
+- Preserved canonical ownership: OS for identity/scope/current operating context, Brain/current direction owner for strategic intent/goals/priorities/strategy, Data for current structured KPI/operational truth, Memory for history/provenance, and Gateway/runtime for live context assembly.
+- Added the requirement that mission, top-level goal, priority, value and strategic-constraint changes cannot be silently rewritten and must route through the correct owner/confirmation path.
+- Added Telos to the external inspiration radar and recorded the non-copy rule: borrow the deep-context pattern, not a duplicate monolithic truth store.
+- Sequenced implementation as the **first eligible new cross-owner capability after the active whole-system repair/requalification program establishes a safe baseline**, before unrelated long-range expansion.
+- Did not alter the active ordered repair tracker or claim the feature is implemented.
+
+Canonical detail:
+
+- `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md`
+- `docs/IDEA-INBOX.md`
+
+---
+
 ## 2026-09-16: Independent Whole-System Public-Beta Audit completed at 100/100
 
 - Completed phases A0-A6 of the Independent Whole-System Public-Beta Audit.
