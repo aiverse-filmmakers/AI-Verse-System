@@ -17,6 +17,47 @@ Once an idea has a clear architectural home, promote it into the relevant compon
 
 ---
 
+## 2026-10-02 - Purpose Context / Telos-inspired deep context
+
+**Status:** PROMOTED
+
+The owner wants AI-Verse to gain a Telos-inspired layer that gives agents explicit deep context about:
+
+- mission/purpose;
+- goals and priorities;
+- strategies and constraints;
+- KPIs/success measures;
+- current state;
+- recent material changes that should alter decisions.
+
+The feature must use AI-Verse's existing canonical owners rather than create a new monolithic Telos database.
+
+Accepted architecture:
+
+- OS -> identity/scope/current operating context;
+- Brain/current direction owner -> strategic intent/goals/priorities/strategy;
+- Data -> current structured KPI/operational truth;
+- Memory -> historical evidence/provenance;
+- Gateway/runtime -> derived context assembly.
+
+High-impact mission/goal/priority/value changes must not be silently rewritten.
+
+**Execution priority:** first eligible new cross-owner capability after the active whole-system repair/requalification program establishes a safe baseline. Do not append it to the end of unrelated long-range expansion.
+
+External inspiration:
+
+- https://github.com/danielmiessler/telos
+
+Promoted to:
+
+- `docs/PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md`
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/MASTER-PLAN.md`
+- `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md`
+
+---
+
 ## 2026-09-12 - Living system specification
 
 **Status:** PROMOTED
