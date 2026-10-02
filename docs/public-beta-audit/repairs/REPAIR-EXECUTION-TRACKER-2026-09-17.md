@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-040`
+**Current active finding:** `WSA-2026-007`
 
 ## 1. Preserved execution history
 
@@ -66,17 +66,26 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.10 | WSA-2026-032 Connections final-edge lifecycle/budget authority | AI-Verse-Connections | **CLOSED** |
 | R1.11 | WSA-2026-038 Dashboard WebSocket workspace isolation | AI-Verse-Dashboard | **CLOSED** |
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | **CLOSED** |
-| R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | **ACTIVE** |
+| R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | **CLOSED** |
 
-**R1 progress: 12 / 13 CLOSED = 92.31%.**
+**R1 progress: 13 / 13 CLOSED = 100%.**
 
-### Later phases
+### R2 - Authoritative lifecycle and readiness truth
 
-R2-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full pre-R1.2 task tables are preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
+| Order | Finding | Owner | Status |
+|---:|---|---|---|
+| R2.1 | WSA-2026-007 Gateway live lifecycle truth | AI-Verse-Gateway | **ACTIVE** |
+| R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | PENDING |
+| R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | PENDING |
+| R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | PENDING |
+| R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | PENDING |
 
-Phase sizes remain:
+**R2 progress: 0 / 5 CLOSED = 0%.**
 
-- R2: 5 findings
+R3-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full pre-R1.2 task tables are preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
+
+Remaining phase sizes:
+
 - R3: 10 findings
 - R4: 10 findings
 - R5: 15 findings
@@ -103,6 +112,7 @@ Phase sizes remain:
 | R1.10 | WSA-2026-032 | Connections | #7 | `65566b6cc99cc8e26bcacf1a985a1f43c6a42fe6` | `WSA-2026-032-CONNECTIONS-FINAL-EDGE-AUTHORITY.md` |
 | R1.11 | WSA-2026-038 | Dashboard | #11 | `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c` | `WSA-2026-038-DASHBOARD-WEBSOCKET-WORKSPACE-ISOLATION.md` |
 | R1.12 | WSA-2026-039 | Dashboard | #12 | `c9e29ab660c7f56bea83dd00050a1342286734dc` | `WSA-2026-039-DASHBOARD-REGISTERED-ROOT-IDENTITY.md` |
+| R1.13 | WSA-2026-040 | Dashboard | #13 | `359a19f683a15485299cb2bab4e844d8d05b4fd6` | `WSA-2026-040-DASHBOARD-LOCAL-READ-AUTHENTICATION.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -490,22 +500,62 @@ Acceptance:
 - A1.13 / C-A1.13-002: RESOLVED for WSA-2026-039;
 - WSA-2026-040, WSA-2026-041 and WSA-2026-042 remain OPEN.
 
-## 16. Current task - R1.13 / WSA-2026-040
+## 16. R1.13 closure record - WSA-2026-040
 
-**Owner:** `AI-Verse-Dashboard`  
+**Baseline Dashboard:** `c9e29ab660c7f56bea83dd00050a1342286734dc`  
+**Repair PR:** `AI-Verse-Dashboard#13`  
+**Final tested head:** `91fcd67ab9e1ae0dfca1f7ffd73f196f5de632cc`  
+**Merged Dashboard:** `359a19f683a15485299cb2bab4e844d8d05b4fd6`  
+**Tested/merged tree:** `f05af17ed355845468bfb9eabe2863f79fe8e878`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- strong per-Gateway local session token: PASS;
+- weak configured token rejected before listener binding: PASS;
+- all HTTP routes default-deny before dispatch: PASS;
+- unauthenticated health/read/future-route/command requests return 401: PASS;
+- wrong bearer token rejected: PASS;
+- WebSocket upgrade authentication before path/system handling: PASS;
+- browser-style WebSocket auth subprotocol: PASS;
+- native/non-browser bearer WebSocket auth: PASS;
+- credential-bearing WebSocket protocol not selected/echoed: PASS;
+- loopback Origin without token remains unauthenticated: PASS;
+- valid token does not bypass non-loopback Origin rejection: PASS;
+- loopback-only network binding preserved: PASS;
+- current/future RPC methods inherit the transport authentication gate: PASS;
+- `DashboardClient` requires and sends the local bearer token: PASS;
+- token absent from HTTP response bodies and negotiated WebSocket protocol: PASS;
+- PR-head Actions `37029230010`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative exact-head suite: 76 tests, 75 pass, 0 fail, 1 pre-existing skip;
+- merged-main Actions `37029380753`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative merged-main suite: 76 tests, 75 pass, 0 fail, 1 pre-existing skip;
+- exact tested PR tree and merged product tree: identical;
+- open Dashboard PRs after merge: 0;
+- A1.13 / C-A1.13-003: RESOLVED for WSA-2026-040;
+- WSA-2026-041 and WSA-2026-042 remain OPEN.
+
+**Wave R1 is now complete: 13 / 13 CLOSED.**
+
+## 17. Current task - R2.1 / WSA-2026-007
+
+**Owner:** `AI-Verse-Gateway`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Dashboard `main`, open PRs and the exact WSA-2026-040 local read-authentication evidence before creating any owner repair branch.
+The next repair session must first recheck Gateway `main`, open PRs and the exact WSA-2026-007 live-lifecycle-truth evidence before creating any owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-040 reaches CLOSED or an explicitly recorded BLOCKED state.
+Required R2 ordering from A6.4 begins with Gateway live lifecycle control before Memory and Automations lifecycle/readiness repairs.
 
-## 17. Program progress
+No later finding may become ACTIVE until WSA-2026-007 reaches CLOSED or an explicitly recorded BLOCKED state.
+
+## 18. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
-- R1: **12 / 13 CLOSED = 92.31%**
-- Findings: **16 / 63 CLOSED = 25.40%**
-- Remaining: **47 / 63 OPEN = 74.60%**
+- R1: **13 / 13 CLOSED = 100%**
+- R2: **0 / 5 CLOSED = 0%**
+- Findings: **17 / 63 CLOSED = 26.98%**
+- Remaining: **46 / 63 OPEN = 73.02%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
