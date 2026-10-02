@@ -1,3 +1,17 @@
+## 2026-10-02: Added SecLists as a future security test-data inspiration
+
+- Added Daniel Miessler's SecLists to the canonical inspiration radar.
+- Recorded only the AI-Verse-relevant use: selectively borrowing security test corpora for LLM/adversarial testing, Gateway/API fuzzing, sensitive-data checks, route discovery and negative regression cases.
+- Explicitly rejected treating SecLists as a new AI-Verse component or vendoring the full corpus by default.
+- Left the active repair/requalification order and product roadmap unchanged.
+
+Canonical detail:
+
+- `docs/INSPIRATION-PRIOR-ART-AND-GAP-RADAR.md`
+- https://github.com/danielmiessler/SecLists
+
+---
+
 ## 2026-10-02: Added TheAlgorithm as a future task-quality inspiration candidate
 
 - Added Daniel Miessler's TheAlgorithm to the canonical inspiration radar.
