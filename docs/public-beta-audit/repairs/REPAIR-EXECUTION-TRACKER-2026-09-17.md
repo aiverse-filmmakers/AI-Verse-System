@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-026`
+**Current active finding:** `WSA-2026-027`
 
 ## 1. Preserved execution history
 
@@ -76,11 +76,11 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 |---:|---|---|---|
 | R2.1 | WSA-2026-007 Gateway live lifecycle truth | AI-Verse-Gateway | **CLOSED** |
 | R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | **CLOSED** |
-| R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | **ACTIVE** |
-| R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | PENDING |
+| R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | **CLOSED** |
+| R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | **ACTIVE** |
 | R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | PENDING |
 
-**R2 progress: 2 / 5 CLOSED = 40%.**
+**R2 progress: 3 / 5 CLOSED = 60%.**
 
 R3-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full pre-R1.2 task tables are preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
@@ -115,6 +115,7 @@ Remaining phase sizes:
 | R1.13 | WSA-2026-040 | Dashboard | #13 | `359a19f683a15485299cb2bab4e844d8d05b4fd6` | `WSA-2026-040-DASHBOARD-LOCAL-READ-AUTHENTICATION.md` |
 | R2.1 | WSA-2026-007 | Gateway | #33 | `b27cebe11e536aa5a0f9bad707f38b0c2471879d` | `WSA-2026-007-GATEWAY-LIVE-LIFECYCLE-TRUTH.md` |
 | R2.2 | WSA-2026-013 | Memory | #31 | `cbc6651d60d42c63015bc1b25b5cd8f0c49d5904` | `WSA-2026-013-MEMORY-WRITE-LIFECYCLE-AUTHORITY.md` |
+| R2.3 | WSA-2026-026 | Automations | #4 | `e5ec241f1d86e76b15bab5be81e720a827e4fa09` | `WSA-2026-026-AUTOMATIONS-STORE-OWNERSHIP.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -622,25 +623,61 @@ Acceptance:
 - A3.10 / C-A3.10-002 Memory branch: RESOLVED for this finding;
 - WSA-2026-014 and WSA-2026-015 remain OPEN and untouched.
 
-## 19. Current task - R2.3 / WSA-2026-026
+## 19. R2.3 closure record - WSA-2026-026
+
+**Baseline Automations:** `caaed83b98026dd955640fc015d181529b91a1c6`  
+**Repair PR:** `AI-Verse-Automations#4`  
+**Final tested head:** `2fca42703abcb22a54ac55113c3f9e4d6d5e62d5`  
+**Merged Automations:** `e5ec241f1d86e76b15bab5be81e720a827e4fa09`  
+**Tested/merged tree:** `1c5d09d9c0d287b1eb42f031482c6c0f9819899a`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- durable Automations SQLite owner marker: PASS;
+- durable SQLite format-version marker: PASS;
+- durable meta owner/schema identity: PASS;
+- exact required table/column/foreign-key/index schema verification: PASS;
+- non-empty foreign SQLite rejection before Automations schema mutation: PASS;
+- clean new database creation and identity stamping: PASS;
+- exact known unmarked v2 adoption: PASS;
+- exact known v1 migration including `runs.claim_owner`: PASS;
+- incompatible/wrong schema-version rejection: PASS;
+- missing required table rejection: PASS;
+- missing required index rejection: PASS;
+- lifecycle descriptor unhealthy truth on identity/schema mismatch: PASS;
+- doctor avoids operational queries against invalid canonical store: PASS;
+- PR-head CI `37045314691`: 9 / 9 Ubuntu/macOS/Windows Python 3.11/3.12/3.13 jobs PASS;
+- representative exact-head suite: 41 / 41 tests;
+- merged-main CI `37045503553`: 9 / 9 jobs PASS;
+- representative merged-main suite: 41 / 41 tests;
+- exact tested PR tree and merged product tree: identical;
+- open Automations PRs after merge: 0;
+- A1.9 / C-A1.9-001: RESOLVED for WSA-2026-026;
+- A2.3 canonical-store health/readiness branch: RESOLVED for this finding;
+- A3.2 known-compatible store adoption branch: RESOLVED for this finding;
+- existing replay/recovery behavior remains green under the full owner suite;
+- WSA-2026-027 and WSA-2026-028 remain OPEN and untouched.
+
+## 20. Current task - R2.4 / WSA-2026-027
 
 **Owner:** `AI-Verse-Automations`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Automations `main`, open PRs and the exact WSA-2026-026 canonical-store-ownership evidence before creating any owner repair branch.
+The next repair session must first recheck Automations `main`, open PRs and the exact WSA-2026-027 live-legacy-authority evidence before creating any owner repair branch.
 
-Required R2 ordering now moves from Memory native write gating to Automations canonical SQLite store ownership.
+Required R2 ordering now moves from Automations canonical store ownership to the live legacy-definition execution fence.
 
-No later finding may become ACTIVE until WSA-2026-026 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-027 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 20. Program progress
+## 21. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
-- R2: **2 / 5 CLOSED = 40%**
-- Findings: **19 / 63 CLOSED = 30.16%**
-- Remaining: **44 / 63 OPEN = 69.84%**
+- R2: **3 / 5 CLOSED = 60%**
+- Findings: **20 / 63 CLOSED = 31.75%**
+- Remaining: **43 / 63 OPEN = 68.25%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
