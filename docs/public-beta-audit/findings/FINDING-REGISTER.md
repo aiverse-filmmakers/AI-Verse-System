@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R3.3 / `WSA-2026-017` closure, 2026-10-02  
+**Live repair-state checkpoint:** R3.4 / `WSA-2026-053` closure, 2026-10-03  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **38** |
-| CLOSED | **25** |
+| OPEN | **37** |
+| CLOSED | **26** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-053`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `014`, `015`, `018`, `019`, `021`, `025`, `034`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `014`, `015`, `018`, `019`, `021`, `025`, `034`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `052`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -83,6 +83,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-009` | `AI-Verse-Brain` | `#24` | `908f9a9a06c2b12204ada7f71cd761bae97b52ce` | `../repairs/WSA-2026-009-BRAIN-NATIVE-HOST-ROOT-CONTAINMENT.md` |
 | `WSA-2026-010` | `AI-Verse-Brain` | `#25` | `39b3feb6ad03aa185a4ba6f5f24614e55c4b969f` | `../repairs/WSA-2026-010-BRAIN-GOAL-OPERATION-ID-SERIALIZATION.md` |
 | `WSA-2026-020` | `AI-Verse-Data` | `#17` | `491e22084418f34b849c7d9e700a40973888dcf6` | `../repairs/WSA-2026-020-DATA-TRUSTED-SCOPE-PROVENANCE.md` |
+| `WSA-2026-053` | `AI-Verse-Data` + `AI-Verse-OS` | `Data #18 / OS #45` | `5cbf9908440ca7e11506991ba1dd7d3344f2b1fd` / `53c6806bf4c8205062096ab7d6247c732823df41` | `../repairs/WSA-2026-053-DATA-NATURAL-KEY-UNIQUENESS.md` |
 | `WSA-2026-022` | `AI-Verse-Multiple-Bots` | `#69` | `cb20bfd014530a7faa26e6abc868d8f85226ec79` | `../repairs/WSA-2026-022-MULTIPLE-BOTS-OPERATOR-AUTHORITY-BINDING.md` |
 | `WSA-2026-023` | `AI-Verse-Multiple-Bots` | `#70` | `e84090f932762316a985e30054859bb846bca963` | `../repairs/WSA-2026-023-MULTIPLE-BOTS-WORKER-WORKSPACE-ISOLATION.md` |
 | `WSA-2026-024` | `ai-verse-token` | `#1` | `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3` | `../repairs/WSA-2026-024-TOKEN-TRUSTED-ACTUAL-ADMISSION.md` |
@@ -783,21 +784,54 @@ Closure evidence:
 - open Skills PRs after merge: 0;
 - A1.5 / C-A1.5-002: RESOLVED for WSA-2026-017.
 
-`WSA-2026-053` is now the next dependency-safe finding and was not modified.
+## 25. WSA-2026-053 closure overlay
 
-## 25. Current repair position
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Data repair PR:** `AI-Verse-Data#18`  
+**Final tested Data head:** `cc2dfd66daba27f3ce7df4949bd243bc0fffcf0b`  
+**Merged Data ref:** `5cbf9908440ca7e11506991ba1dd7d3344f2b1fd`  
+**Data tested/merged product tree:** `05e46bb4034cfe4b010bdb8b6f5d1c77dc71221e`  
+**OS adoption PR:** `AI-Verse-OS#45`  
+**Final tested OS head:** `9e2e592624e3d64847cf061cb044a6ac005670dd`  
+**Merged OS ref:** `53c6806bf4c8205062096ab7d6247c732823df41`  
+**OS tested/merged product tree:** `3710b9e747c265429b31f3d006d99b82bce683b9`
+
+Closure evidence:
+
+- the Data owner now performs semantic natural-key lookup and possible create atomically inside one `BEGIN IMMEDIATE` transaction;
+- Data rejects natural-key/payload mismatch and ambiguous pre-existing canonical state;
+- durable replay for the winning identity is preserved while a different candidate identity cannot create a duplicate row for the committed key;
+- the privileged natural-key extension is trusted-host-only;
+- real multi-process competing candidate IDs on one natural key produce exactly one canonical row;
+- Data PR-head CI `37067680122`: 6 / 6 PASS with 369 / 369 tests;
+- Data Release Smoke `37067680146`: PASS;
+- Data Five-Component Release Acceptance `37067680205`: 3 / 3 PASS;
+- Data merged-main CI `37068103906`: 6 / 6 PASS with 369 / 369 tests;
+- Data exact tested and merged tree: identical;
+- the real OS automatic structured Data create path now forwards Brain's admitted `match.field/value` as Data `naturalKey`;
+- OS focused routing exact-head `37071822264`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- all 10 exact-head OS workflow groups: PASS;
+- OS merged-main focused routing `37072044292`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- merged-main Repository QC, Four Repo Acceptance, Five-Component Public Beta, Direction Ownership, Write Command Boundary and Brain Permission: PASS;
+- OS exact tested and merged tree: identical;
+- A4.2 / C-A4.2-008: RESOLVED for WSA-2026-053.
+
+`WSA-2026-052` is now the next dependency-safe finding and was not modified.
+
+## 26. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
-- R3: **3 / 10 CLOSED = 30%**.
-- Total: **25 / 63 CLOSED = 39.68%**.
-- Remaining: **38 / 63 OPEN = 60.32%**.
+- R3: **4 / 10 CLOSED = 40%**.
+- Total: **26 / 63 CLOSED = 41.27%**.
+- Remaining: **37 / 63 OPEN = 58.73%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R3.4 / WSA-2026-053`.
-- WSA-2026-053 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R3.5 / WSA-2026-052`.
+- WSA-2026-052 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 26. Navigation rule
+## 27. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
