@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-053`
+**Current active finding:** `WSA-2026-052`
 
 ## 1. Preserved execution history
 
@@ -89,21 +89,21 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.1 | WSA-2026-008 Gateway state linearizability | AI-Verse-Gateway | **CLOSED** |
 | R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | **CLOSED** |
 | R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | **CLOSED** |
-| R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | **ACTIVE** |
-| R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | PENDING |
+| R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | **CLOSED** |
+| R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | **ACTIVE** |
 | R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | PENDING |
 | R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | PENDING |
 | R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | PENDING |
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 3 / 10 CLOSED = 30%.**
+**R3 progress: 4 / 10 CLOSED = 40%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 7 remaining
+- R3: 10 findings, 6 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -138,6 +138,7 @@ Remaining phase sizes:
 | R3.1 | WSA-2026-008 | Gateway | #34 | `cd0789401ddf7c536558a27d84328e963b10c882` | `WSA-2026-008-GATEWAY-STATE-LINEARIZABILITY.md` |
 | R3.2 | WSA-2026-010 | Brain | #25 | `39b3feb6ad03aa185a4ba6f5f24614e55c4b969f` | `WSA-2026-010-BRAIN-GOAL-OPERATION-ID-SERIALIZATION.md` |
 | R3.3 | WSA-2026-017 | Skills | #16 | `4fc240593929ebce9d82632479384d1cd45980b7` | `WSA-2026-017-SKILLS-LIVE-HOLDER-LOCK-RECLAIM.md` |
+| R3.4 | WSA-2026-053 | Data + OS | Data #18 / OS #45 | `5cbf9908440ca7e11506991ba1dd7d3344f2b1fd` / `53c6806bf4c8205062096ab7d6247c732823df41` | `WSA-2026-053-DATA-NATURAL-KEY-UNIQUENESS.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -882,26 +883,71 @@ Acceptance:
 - open Skills PRs after merge: 0;
 - A1.5 / C-A1.5-002: RESOLVED for WSA-2026-017.
 
-## 25. Current task - R3.4 / WSA-2026-053
+## 25. R3.4 closure record - WSA-2026-053
 
-**Owner:** `AI-Verse-Data`  
+**Primary owner:** `AI-Verse-Data`  
+**Adopting seam:** `AI-Verse-OS` automatic structured Data routing  
+**Data repair PR:** `AI-Verse-Data#18`  
+**Final tested Data head:** `cc2dfd66daba27f3ce7df4949bd243bc0fffcf0b`  
+**Merged Data:** `5cbf9908440ca7e11506991ba1dd7d3344f2b1fd`  
+**Data tested/merged tree:** `05e46bb4034cfe4b010bdb8b6f5d1c77dc71221e`  
+**OS adoption PR:** `AI-Verse-OS#45`  
+**Final tested OS head:** `9e2e592624e3d64847cf061cb044a6ac005670dd`  
+**Merged OS:** `53c6806bf4c8205062096ab7d6247c732823df41`  
+**OS tested/merged tree:** `3710b9e747c265429b31f3d006d99b82bce683b9`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- Data owns natural-key admission inside one `BEGIN IMMEDIATE` transaction: PASS;
+- natural-key field/value must match proposed record data: PASS;
+- zero matches permits one canonical create: PASS;
+- one existing row preserves winning durable replay semantics: PASS;
+- different candidate/idempotency identity for the same committed key cannot create another row: PASS;
+- more than one pre-existing natural-key row fails closed as ambiguous: PASS;
+- privileged natural-key create requires trusted host-bound actor/authorization: PASS;
+- real multi-process different-candidate same-key race creates exactly one canonical row: PASS;
+- mismatch and legacy/untrusted host negative coverage: PASS;
+- Data PR-head CI `37067680122`: Ubuntu/macOS/Windows Node 22/24, 6 / 6 PASS;
+- Data canonical suite on exact head: 369 / 369 PASS;
+- Data Release Smoke `37067680146`: PASS;
+- Data Five-Component Release Acceptance `37067680205`: 3 / 3 PASS;
+- Data merged-main CI `37068103906`: 6 / 6 PASS, 369 / 369 tests;
+- Data exact tested and merged product tree: identical;
+- OS automatic zero-match create now passes Brain's admitted `{field,value}` as Data `naturalKey`: PASS;
+- OS existing one-match update and multi-match ambiguity behavior remains unchanged: PASS;
+- focused OS routing workflow exact-head `37071822264`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- all 10 exact-head OS workflow groups: PASS;
+- OS merged-main routing `37072044292`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- merged-main Repository QC `37072044212`: PASS;
+- merged-main Four Repo Acceptance `37072044295`: PASS;
+- merged-main Five-Component Public Beta `37072044301`: PASS;
+- merged-main Direction Ownership `37072044288`: PASS;
+- merged-main OS Write Command Boundary `37072044192`: PASS;
+- merged-main OS Brain Permission Contract `37072044299`: PASS;
+- OS exact tested and merged product tree: identical;
+- A4.2 / C-A4.2-008: RESOLVED for WSA-2026-053.
+
+## 26. Current task - R3.5 / WSA-2026-052
+
+**Owner:** `AI-Verse-OS`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Data `main`, open PRs and the exact WSA-2026-053 natural-key uniqueness evidence before creating any owner repair branch.
+The next repair session must first recheck OS `main`, open PRs and the exact WSA-2026-052 semantic migration source-concurrency evidence before creating any owner repair branch.
 
-This repair remains separate from Skills execution-generation retention and release/bootstrap identity findings.
+This repair remains separate from the completed structured Data natural-key uniqueness repair.
 
-No later finding may become ACTIVE until WSA-2026-053 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-052 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 26. Program progress
+## 27. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **3 / 10 CLOSED = 30%**
-- Findings: **25 / 63 CLOSED = 39.68%**
-- Remaining: **38 / 63 OPEN = 60.32%**
+- R3: **4 / 10 CLOSED = 40%**
+- Findings: **26 / 63 CLOSED = 41.27%**
+- Remaining: **37 / 63 OPEN = 58.73%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
