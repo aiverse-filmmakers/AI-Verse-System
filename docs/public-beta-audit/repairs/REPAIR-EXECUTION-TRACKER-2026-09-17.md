@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-032`
+**Current active finding:** `WSA-2026-038`
 
 ## 1. Preserved execution history
 
@@ -63,12 +63,12 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.7 | WSA-2026-031 Connections credential-origin binding | AI-Verse-Connections | **CLOSED** |
 | R1.8 | WSA-2026-033 Connections normalized path authorization | AI-Verse-Connections | **CLOSED** |
 | R1.9 | WSA-2026-051 Connections DNS/private-network containment | AI-Verse-Connections | **CLOSED** |
-| R1.10 | WSA-2026-032 Connections final-edge lifecycle/budget authority | AI-Verse-Connections | **ACTIVE** |
-| R1.11 | WSA-2026-038 Dashboard WebSocket workspace isolation | AI-Verse-Dashboard | PENDING |
+| R1.10 | WSA-2026-032 Connections final-edge lifecycle/budget authority | AI-Verse-Connections | **CLOSED** |
+| R1.11 | WSA-2026-038 Dashboard WebSocket workspace isolation | AI-Verse-Dashboard | **ACTIVE** |
 | R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
 
-**R1 progress: 9 / 13 CLOSED = 69.23%.**
+**R1 progress: 10 / 13 CLOSED = 76.92%.**
 
 ### Later phases
 
@@ -100,6 +100,7 @@ Phase sizes remain:
 | R1.7 | WSA-2026-031 | Connections | #4 | `78a9843e338f2e301e7a8c7c3153d5b43cb69ea4` | `WSA-2026-031-CONNECTIONS-CREDENTIAL-ORIGIN-BINDING.md` |
 | R1.8 | WSA-2026-033 | Connections | #5 | `5759425fcf3692ce64f4834aaa1b101c483c8a34` | `WSA-2026-033-CONNECTIONS-NORMALIZED-PATH-AUTHORIZATION.md` |
 | R1.9 | WSA-2026-051 | Connections | #6 | `63f8698545d731654f76684bf6ba40248996fc6a` | `WSA-2026-051-CONNECTIONS-DNS-REBINDING-CONTAINMENT.md` |
+| R1.10 | WSA-2026-032 | Connections | #7 | `65566b6cc99cc8e26bcacf1a985a1f43c6a42fe6` | `WSA-2026-032-CONNECTIONS-FINAL-EDGE-AUTHORITY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -392,22 +393,55 @@ Acceptance:
 - A4.1 / C-A4.1-005: RESOLVED for WSA-2026-051;
 - WSA-2026-032 remains OPEN.
 
-## 13. Current task - R1.10 / WSA-2026-032
+## 13. R1.10 closure record - WSA-2026-032
 
-**Owner:** `AI-Verse-Connections`  
+**Baseline Connections:** `63f8698545d731654f76684bf6ba40248996fc6a`  
+**Repair PR:** `AI-Verse-Connections#7`  
+**Final tested head:** `303741c330cca01bfef6dc90af03f7ca49c3f47b`  
+**Merged Connections:** `65566b6cc99cc8e26bcacf1a985a1f43c6a42fe6`  
+**Tested/merged tree:** `150a6fcd5a8916a0b06257e4dac1397446492ef6`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- final-edge lifecycle ready-state re-read: PASS;
+- final installation-system binding re-read: PASS;
+- final current connection/capability authority recomputation: PASS;
+- atomic minute/day budget check and reservation: PASS;
+- provider-edge reservations immediately count against budget: PASS;
+- linked terminal reservation state without double-counting: PASS;
+- deterministic pre-provider idempotency terminalization: PASS;
+- concurrent disable fence: PASS;
+- concurrent uninstall fence: PASS;
+- distinct-key maxCallsPerMinute race: exactly one provider call;
+- distinct-key maxCallsPerDay race: exactly one provider call;
+- adapter failure reservation terminalization: PASS;
+- PR-head Actions `37015229692`: Ubuntu/macOS Node 20/22 PASS;
+- representative exact-head suite: 38/38 tests;
+- merged-main Actions `37015386279`: Ubuntu/macOS Node 20/22 PASS;
+- representative merged-main suite: 38/38 tests;
+- Windows Node 20/22 jobs fail before tests because the existing `npm run check` shell globs are not expanded by PowerShell;
+- no Windows product-test failure is attributed to WSA-2026-032;
+- exact tested PR tree and merged product tree: identical;
+- open Connections PRs after merge: 0;
+- A1.10 / C-A1.10-004: RESOLVED for WSA-2026-032.
+
+## 14. Current task - R1.11 / WSA-2026-038
+
+**Owner:** `AI-Verse-Dashboard`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Connections `main`, open PRs and the exact WSA-2026-032 final-edge lifecycle/budget evidence before creating any owner repair branch.
+The next repair session must first recheck Dashboard `main`, open PRs and the exact WSA-2026-038 WebSocket workspace-isolation evidence before creating any owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-032 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-038 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 14. Program progress
+## 15. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
-- R1: **9 / 13 CLOSED = 69.23%**
-- Findings: **13 / 63 CLOSED = 20.63%**
-- Remaining: **50 / 63 OPEN = 79.37%**
+- R1: **10 / 13 CLOSED = 76.92%**
+- Findings: **14 / 63 CLOSED = 22.22%**
+- Remaining: **49 / 63 OPEN = 77.78%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
