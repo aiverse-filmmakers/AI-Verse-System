@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R1.7 / `WSA-2026-031` closure, 2026-10-02  
+**Live repair-state checkpoint:** R1.8 / `WSA-2026-033` closure, 2026-10-02  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **52** |
-| CLOSED | **11** |
+| OPEN | **51** |
+| CLOSED | **12** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`.
+`WSA-2026-006`, `WSA-2026-009`, `WSA-2026-012`, `WSA-2026-016`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-033`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `032`, `033`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `007`, `008`, `010`, `011`, `013`, `014`, `015`, `017`, `018`, `019`, `021`, `025`, `026`, `027`, `028`, `032`, `034`, `035`, `036`, `037`, `038`, `039`, `040`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `051`, `052`, `053`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -80,6 +80,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-024` | `ai-verse-token` | `#1` | `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3` | `../repairs/WSA-2026-024-TOKEN-TRUSTED-ACTUAL-ADMISSION.md` |
 | `WSA-2026-030` | `AI-Verse-Connections` | `#3` | `ac8e34cffeaaa0417aaf5011a2379af1b044bf96` | `../repairs/WSA-2026-030-CONNECTIONS-INSTALLATION-SYSTEM-BINDING.md` |
 | `WSA-2026-031` | `AI-Verse-Connections` | `#4` | `78a9843e338f2e301e7a8c7c3153d5b43cb69ea4` | `../repairs/WSA-2026-031-CONNECTIONS-CREDENTIAL-ORIGIN-BINDING.md` |
+| `WSA-2026-033` | `AI-Verse-Connections` | `#5` | `5759425fcf3692ce64f4834aaa1b101c483c8a34` | `../repairs/WSA-2026-033-CONNECTIONS-NORMALIZED-PATH-AUTHORIZATION.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -270,19 +271,48 @@ Closure evidence:
 - A1.10 / C-A1.10-003: RESOLVED for WSA-2026-031;
 - A4.1 credential-origin secret-boundary branch: RESOLVED for this finding.
 
-`WSA-2026-032`, `WSA-2026-033`, `WSA-2026-051` and later Connections findings remain OPEN and were not modified.
+`WSA-2026-032`, `WSA-2026-051` and later Connections findings remain OPEN and were not modified.
 
-## 11. Current repair position
+## 11. WSA-2026-033 closure overlay
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Live pre-repair Connections ref:** `78a9843e338f2e301e7a8c7c3153d5b43cb69ea4`  
+**Repair PR:** `AI-Verse-Connections#5`  
+**Final tested PR head:** `5104ba8412374af69842b86e49b2bbc5235d59c4`  
+**Merged Connections ref:** `5759425fcf3692ce64f4834aaa1b101c483c8a34`  
+**Tested/merged product tree:** `100bf2d82f6935c745dd33aa5174fb300b3974a2`
+
+Closure evidence:
+
+- admitted Generic API path prefixes are canonicalized before use;
+- raw and encoded dot-segment/path-separator confusion forms fail closed;
+- URL construction now happens before path authorization;
+- normalized `target.pathname`, not the raw caller string, is authorized;
+- path-boundary matching prevents `/v1` from authorizing `/v10`;
+- query-only encoded traversal text does not alter pathname authorization;
+- the final normalized outbound pathname is rechecked against current admitted prefixes immediately before fetch;
+- dedicated WSA-2026-033 regressions cover plain, encoded, mixed-case, nested, separator, boundary, query-only and final-edge cases;
+- exact-head and merged-main Ubuntu/macOS Node 20/22 checks pass with 29/29 tests on representative successful jobs;
+- Windows jobs still fail before tests on the pre-existing shell-glob portability defect;
+- final tested PR tree and merged product tree are identical;
+- open Connections PRs after merge: 0;
+- A1.10 / C-A1.10-005: RESOLVED for WSA-2026-033;
+- A4.1 normalized path-authorization branch: RESOLVED for this finding.
+
+`WSA-2026-032`, `WSA-2026-051` and later Connections findings remain OPEN and were not modified.
+
+## 12. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
-- R1: **7 / 13 CLOSED = 53.85%**.
-- Total: **11 / 63 CLOSED = 17.46%**.
-- Remaining: **52 / 63 OPEN = 82.54%**.
+- R1: **8 / 13 CLOSED = 61.54%**.
+- Total: **12 / 63 CLOSED = 19.05%**.
+- Remaining: **51 / 63 OPEN = 80.95%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R1.8 / WSA-2026-033`.
-- WSA-2026-033 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R1.9 / WSA-2026-051`.
+- WSA-2026-051 implementation has **not begun** in this closure.
 - Whole-system verdict: **NO-GO**.
 
-## 12. Navigation rule
+## 13. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
