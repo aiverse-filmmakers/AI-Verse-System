@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-038`
+**Current active finding:** `WSA-2026-039`
 
 ## 1. Preserved execution history
 
@@ -64,11 +64,11 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R1.8 | WSA-2026-033 Connections normalized path authorization | AI-Verse-Connections | **CLOSED** |
 | R1.9 | WSA-2026-051 Connections DNS/private-network containment | AI-Verse-Connections | **CLOSED** |
 | R1.10 | WSA-2026-032 Connections final-edge lifecycle/budget authority | AI-Verse-Connections | **CLOSED** |
-| R1.11 | WSA-2026-038 Dashboard WebSocket workspace isolation | AI-Verse-Dashboard | **ACTIVE** |
-| R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | PENDING |
+| R1.11 | WSA-2026-038 Dashboard WebSocket workspace isolation | AI-Verse-Dashboard | **CLOSED** |
+| R1.12 | WSA-2026-039 Dashboard registered-root identity binding | AI-Verse-Dashboard | **ACTIVE** |
 | R1.13 | WSA-2026-040 Dashboard local read authentication | AI-Verse-Dashboard | PENDING |
 
-**R1 progress: 10 / 13 CLOSED = 76.92%.**
+**R1 progress: 11 / 13 CLOSED = 84.62%.**
 
 ### Later phases
 
@@ -101,6 +101,7 @@ Phase sizes remain:
 | R1.8 | WSA-2026-033 | Connections | #5 | `5759425fcf3692ce64f4834aaa1b101c483c8a34` | `WSA-2026-033-CONNECTIONS-NORMALIZED-PATH-AUTHORIZATION.md` |
 | R1.9 | WSA-2026-051 | Connections | #6 | `63f8698545d731654f76684bf6ba40248996fc6a` | `WSA-2026-051-CONNECTIONS-DNS-REBINDING-CONTAINMENT.md` |
 | R1.10 | WSA-2026-032 | Connections | #7 | `65566b6cc99cc8e26bcacf1a985a1f43c6a42fe6` | `WSA-2026-032-CONNECTIONS-FINAL-EDGE-AUTHORITY.md` |
+| R1.11 | WSA-2026-038 | Dashboard | #11 | `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c` | `WSA-2026-038-DASHBOARD-WEBSOCKET-WORKSPACE-ISOLATION.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -426,22 +427,53 @@ Acceptance:
 - open Connections PRs after merge: 0;
 - A1.10 / C-A1.10-004: RESOLVED for WSA-2026-032.
 
-## 14. Current task - R1.11 / WSA-2026-038
+## 14. R1.11 closure record - WSA-2026-038
+
+**Baseline Dashboard:** `bf6a3a019b07b189c9c701f4edf01e0ded1e7a00`  
+**Repair PR:** `AI-Verse-Dashboard#11`  
+**Final tested head:** `2e1926891c9b74274f89b7be807bce8902ce0853`  
+**Merged Dashboard:** `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c`  
+**Tested/merged tree:** `8d0ee475e86b4fd963db8b4d013c7fe32e0fcb1a`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- subscribe-frame canonical workspace schema validation: PASS;
+- registered system/workspace resolution before subscription mutation: PASS;
+- A -> B prior-subscription removal: PASS;
+- B -> A prior-subscription removal: PASS;
+- one active successful workspace subscription per socket: PASS;
+- stale A event rejection after B switch: PASS;
+- stale B event rejection after A switch: PASS;
+- invalid protocol workspace rejection: PASS;
+- unknown registered-workspace rejection: PASS;
+- rejected replacement preserves the current valid scope: PASS;
+- socket-close cleanup of all tracked subscription ids: PASS;
+- PR-head Actions `37016702464`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative exact-head suite: 68 tests, 67 pass, 0 fail, 1 pre-existing skip;
+- merged-main Actions `37016845362`: Ubuntu/macOS/Windows Node 22 PASS;
+- representative merged-main suite: 68 tests, 67 pass, 0 fail, 1 pre-existing skip;
+- exact tested PR tree and merged product tree: identical;
+- open Dashboard PRs after merge: 0;
+- A1.13 / C-A1.13-001: RESOLVED for WSA-2026-038;
+- WSA-2026-039, WSA-2026-040, WSA-2026-041 and WSA-2026-042 remain OPEN.
+
+## 15. Current task - R1.12 / WSA-2026-039
 
 **Owner:** `AI-Verse-Dashboard`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Dashboard `main`, open PRs and the exact WSA-2026-038 WebSocket workspace-isolation evidence before creating any owner repair branch.
+The next repair session must first recheck Dashboard `main`, open PRs and the exact WSA-2026-039 registered-root identity-binding evidence before creating any owner repair branch.
 
-No later finding may become ACTIVE until WSA-2026-038 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-039 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 15. Program progress
+## 16. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
-- R1: **10 / 13 CLOSED = 76.92%**
-- Findings: **14 / 63 CLOSED = 22.22%**
-- Remaining: **49 / 63 OPEN = 77.78%**
+- R1: **11 / 13 CLOSED = 84.62%**
+- Findings: **15 / 63 CLOSED = 23.81%**
+- Remaining: **48 / 63 OPEN = 76.19%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
