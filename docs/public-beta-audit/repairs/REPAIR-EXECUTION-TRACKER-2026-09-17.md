@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-028`
+**Current active finding:** `WSA-2026-008`
 
 ## 1. Preserved execution history
 
@@ -78,15 +78,32 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R2.2 | WSA-2026-013 Memory write authority vs lifecycle | AI-Verse-Memory | **CLOSED** |
 | R2.3 | WSA-2026-026 Automations canonical store ownership | AI-Verse-Automations | **CLOSED** |
 | R2.4 | WSA-2026-027 Automations legacy authority live fence | AI-Verse-Automations | **CLOSED** |
-| R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | **ACTIVE** |
+| R2.5 | WSA-2026-028 Automations attachment/component lifecycle divergence | AI-Verse-Automations | **CLOSED** |
 
-**R2 progress: 4 / 5 CLOSED = 80%.**
+**R2 progress: 5 / 5 CLOSED = 100%.**
 
-R3-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full pre-R1.2 task tables are preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
+### R3 - Atomicity, serialization, migration and crash safety
+
+| Order | Finding | Owner | Status |
+|---:|---|---|---|
+| R3.1 | WSA-2026-008 Gateway state linearizability | AI-Verse-Gateway | **ACTIVE** |
+| R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | PENDING |
+| R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | PENDING |
+| R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | PENDING |
+| R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | PENDING |
+| R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | PENDING |
+| R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | PENDING |
+| R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | PENDING |
+| R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
+| R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
+
+**R3 progress: 0 / 10 CLOSED = 0%.**
+
+R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings
+- R3: 10 findings, 10 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -117,6 +134,7 @@ Remaining phase sizes:
 | R2.2 | WSA-2026-013 | Memory | #31 | `cbc6651d60d42c63015bc1b25b5cd8f0c49d5904` | `WSA-2026-013-MEMORY-WRITE-LIFECYCLE-AUTHORITY.md` |
 | R2.3 | WSA-2026-026 | Automations | #4 | `e5ec241f1d86e76b15bab5be81e720a827e4fa09` | `WSA-2026-026-AUTOMATIONS-STORE-OWNERSHIP.md` |
 | R2.4 | WSA-2026-027 | Automations | #5 | `017eaf3e74d604208c606cc08f4137006f723625` | `WSA-2026-027-AUTOMATIONS-LIVE-LEGACY-FENCE.md` |
+| R2.5 | WSA-2026-028 | Automations | #6 | `287ce9d6718ef06e4589a2a3e767c6a9ba376755` | `WSA-2026-028-AUTOMATIONS-ATTACHMENT-LIFECYCLE.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -696,25 +714,63 @@ Acceptance:
 - A3.10 lifecycle/recovery remains green;
 - WSA-2026-028 remains OPEN and untouched.
 
-## 21. Current task - R2.5 / WSA-2026-028
+## 21. R2.5 closure record - WSA-2026-028
 
-**Owner:** `AI-Verse-Automations`  
+**Baseline Automations:** `017eaf3e74d604208c606cc08f4137006f723625`  
+**Repair PR:** `AI-Verse-Automations#6`  
+**Final tested head:** `edd096f51523659c3aae899008567ef291f1b15e`  
+**Merged Automations:** `287ce9d6718ef06e4589a2a3e767c6a9ba376755`  
+**Tested/merged tree:** `9791f8bd1c0c3a2aaf262d76809dd1c440d05a66`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- attached registry enable follows component enable/disable: PASS;
+- attach-os reconciles divergent registry enabled state to component truth: PASS;
+- status exposes attachment truth and consistency: PASS;
+- doctor marks attachment divergence unhealthy: PASS;
+- synchronization uses existing exclusive registry lock: PASS;
+- raw-text lost-update check remains in the registry write path: PASS;
+- lifecycle mutation rollback on busy registry lock: PASS;
+- unattached standalone lifecycle creates no integration artifacts: PASS;
+- uninstall removes owned registry entry: PASS;
+- uninstall removes exact owned engine/instructions bridge files: PASS;
+- uninstall preserves canonical SQLite state: PASS;
+- modified/unsafe owned-file removal fails closed: PASS;
+- unrelated registry fields and entries are preserved: PASS;
+- uninstall/re-setup/re-attach path: PASS;
+- PR-head CI `37050123823`: 9 / 9 Ubuntu/macOS/Windows Python 3.11/3.12/3.13 jobs PASS;
+- representative exact-head suite: 51 / 51 tests;
+- merged-main CI `37050285820`: 9 / 9 jobs PASS;
+- representative merged-main suite: 51 / 51 tests;
+- exact tested PR tree and merged product tree: identical;
+- open Automations PRs after merge: 0;
+- A1.9 / C-A1.9-003: RESOLVED for WSA-2026-028;
+- A2.3 attachment/component lifecycle branch: RESOLVED for this finding;
+- A3.10 uninstall/reinstall lifecycle branch: RESOLVED for this finding.
+
+**Wave R2 is complete: 5 / 5 CLOSED.**
+
+## 22. Current task - R3.1 / WSA-2026-008
+
+**Owner:** `AI-Verse-Gateway`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Automations `main`, open PRs and the exact WSA-2026-028 attachment/component lifecycle divergence evidence before creating any owner repair branch.
+The next repair session must first recheck Gateway `main`, open PRs and the exact WSA-2026-008 state-linearizability evidence before creating any owner repair branch.
 
-Required R2 ordering now moves from the live legacy-definition execution fence to OS attachment lifecycle reconciliation.
+Wave R3 begins with Gateway state serialization because later concurrency and migration closures depend on trustworthy owner mutation primitives.
 
-No later finding may become ACTIVE until WSA-2026-028 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-008 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 22. Program progress
+## 23. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
-- R2: **4 / 5 CLOSED = 80%**
-- Findings: **21 / 63 CLOSED = 33.33%**
-- Remaining: **42 / 63 OPEN = 66.67%**
+- R2: **5 / 5 CLOSED = 100%**
+- R3: **0 / 10 CLOSED = 0%**
+- Findings: **22 / 63 CLOSED = 34.92%**
+- Remaining: **41 / 63 OPEN = 65.08%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
