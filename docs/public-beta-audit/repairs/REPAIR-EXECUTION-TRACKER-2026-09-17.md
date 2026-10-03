@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-052`
+**Current active finding:** `WSA-2026-014`
 
 ## 1. Preserved execution history
 
@@ -90,20 +90,20 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.2 | WSA-2026-010 Brain Goal operation-ID race | AI-Verse-Brain | **CLOSED** |
 | R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | **CLOSED** |
 | R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | **CLOSED** |
-| R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | **ACTIVE** |
-| R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | PENDING |
+| R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | **CLOSED** |
+| R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | **ACTIVE** |
 | R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | PENDING |
 | R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | PENDING |
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 4 / 10 CLOSED = 40%.**
+**R3 progress: 5 / 10 CLOSED = 50%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 6 remaining
+- R3: 10 findings, 5 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -139,6 +139,7 @@ Remaining phase sizes:
 | R3.2 | WSA-2026-010 | Brain | #25 | `39b3feb6ad03aa185a4ba6f5f24614e55c4b969f` | `WSA-2026-010-BRAIN-GOAL-OPERATION-ID-SERIALIZATION.md` |
 | R3.3 | WSA-2026-017 | Skills | #16 | `4fc240593929ebce9d82632479384d1cd45980b7` | `WSA-2026-017-SKILLS-LIVE-HOLDER-LOCK-RECLAIM.md` |
 | R3.4 | WSA-2026-053 | Data + OS | Data #18 / OS #45 | `5cbf9908440ca7e11506991ba1dd7d3344f2b1fd` / `53c6806bf4c8205062096ab7d6247c732823df41` | `WSA-2026-053-DATA-NATURAL-KEY-UNIQUENESS.md` |
+| R3.5 | WSA-2026-052 | OS | #46 | `9effe3869a87fb2c11287ae4821f93620abcc055` | `WSA-2026-052-OS-SEMANTIC-MIGRATION-SOURCE-CONCURRENCY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -928,26 +929,58 @@ Acceptance:
 - OS exact tested and merged product tree: identical;
 - A4.2 / C-A4.2-008: RESOLVED for WSA-2026-053.
 
-## 26. Current task - R3.5 / WSA-2026-052
+## 26. R3.5 closure record - WSA-2026-052
 
 **Owner:** `AI-Verse-OS`  
+**Repair PR:** `AI-Verse-OS#46`  
+**Final tested head:** `ab9e10abd44417707761f8479e46c9ea8f7c3f59`  
+**Merged OS:** `9effe3869a87fb2c11287ae4821f93620abcc055`  
+**Tested/merged product tree:** `3868653c83d22f3f43f09f113ef18b8341dd6357`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- normal semantic imports serialize on one cross-process lock per source digest before owner effects: PASS;
+- first admission writes durable `in-progress` source state before any owner action: PASS;
+- source reservation binds the winning plan digest and import idempotency identity: PASS;
+- concurrent same-source / same-plan first import produces one owner effect, one receipt and replay: PASS;
+- concurrent same-source / different-plan first import produces one winning plan and one owner effect; the contender source-replays the winner: PASS;
+- interrupted source recovery accepts only the originally bound plan/import identity: PASS;
+- a different plan during interrupted recovery fails closed: PASS;
+- crash after owner effect but before receipt recovers through the same owner idempotency identity without duplicating the already-fired effect: PASS;
+- committed receipt can be adopted after crash-before-reservation-finalization: PASS;
+- multiple pre-existing receipts for one source fail closed for reconciliation: PASS;
+- migration Data candidate timestamp remains stable across interrupted-plan recovery: PASS;
+- clarification-resolution imports preserve their prior independent path: PASS;
+- first-run coordination directory races are tolerated and revalidated for directory/symlink safety: PASS;
+- exact-head Migration Source Concurrency `37127337259`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- all 11 exact-head triggered workflow groups: PASS;
+- merged-main Migration Source Concurrency `37127474697`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- all 8 merged-main triggered workflow groups: PASS;
+- focused merged-main jobs pass `Prove source-level serialization and crash recovery` on Windows, macOS and Ubuntu;
+- exact tested PR tree and merged product tree: identical;
+- A4.2 / C-A4.2-007: RESOLVED for WSA-2026-052.
+
+## 27. Current task - R3.6 / WSA-2026-014
+
+**Owner:** `AI-Verse-Memory`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck OS `main`, open PRs and the exact WSA-2026-052 semantic migration source-concurrency evidence before creating any owner repair branch.
+The next repair session must first recheck Memory `main`, open PRs and the exact WSA-2026-014 migration-handoff atomicity evidence before creating any owner repair branch.
 
-This repair remains separate from the completed structured Data natural-key uniqueness repair.
+This repair remains separate from the completed OS semantic migration source-concurrency repair.
 
-No later finding may become ACTIVE until WSA-2026-052 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-014 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 27. Program progress
+## 28. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **4 / 10 CLOSED = 40%**
-- Findings: **26 / 63 CLOSED = 41.27%**
-- Remaining: **37 / 63 OPEN = 58.73%**
+- R3: **5 / 10 CLOSED = 50%**
+- Findings: **27 / 63 CLOSED = 42.86%**
+- Remaining: **36 / 63 OPEN = 57.14%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
