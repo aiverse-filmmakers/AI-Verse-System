@@ -38,13 +38,13 @@ All seven regressions are in the canonical dedicated test suite and passed on th
 - Merged-main Core clean-machine acceptance `37158621979`: Ubuntu/macOS/Windows, 3/3 PASS.
 - Merged-main Scenarios A-F `37158676435`: both jobs PASS.
 - Merged-main Invisible Intelligence Candidate `37158659570`: Ubuntu/macOS/Windows, 3/3 PASS.
-- Merged-main Agent clean-machine acceptance `37158642893`: Ubuntu/macOS passed. The first Windows attempt failed in the downstream Gateway owner during a composed chat run: Windows reported `EPERM` replacing a Gateway run-state file, then Gateway returned `RUN_NOT_COMPLETED`. Distribution installation had succeeded before this unrelated owner failure. A failed-job-only Windows retry was started; its outcome is recorded below when complete.
+- Merged-main Agent clean-machine acceptance `37158642893`: initial Ubuntu/macOS PASS; initial Windows attempt failed in the downstream Gateway owner during a composed chat run because Windows reported `EPERM` replacing a Gateway run-state file, followed by `RUN_NOT_COMPLETED`. Distribution installation had succeeded before this unrelated owner failure. Failed-job-only retry of the same workflow: Ubuntu/macOS remained PASS and Windows PASS; final matrix 3/3 PASS.
 - Exact PR-head review verified all 20 required GitHub Actions jobs green on the tested head. The six changed-file blobs are byte-identical between tested head and merged main.
 - Open Distribution PRs after merge: 0.
 
 ### Composed Agent Windows retry
 
-<!-- Update this subsection from the failed-job-only retry before merging this packet. -->
+The failed-job-only retry completed successfully: Windows Agent clean-machine acceptance PASS on the merged Distribution ref. The original Gateway `EPERM` observation did not reproduce. All four merged-main composed acceptance workflows are green: Core 3/3, Agent 3/3 after retry, Invisible Intelligence Candidate 3/3, and Scenarios A-F 2/2.
 
 ## Closure boundary
 
