@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-014`
+**Current active finding:** `WSA-2026-025`
 
 ## 1. Preserved execution history
 
@@ -91,19 +91,19 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.3 | WSA-2026-017 Skills live-holder lock reclaim | AI-Verse-Skills | **CLOSED** |
 | R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | **CLOSED** |
 | R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | **CLOSED** |
-| R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | **ACTIVE** |
-| R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | PENDING |
+| R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | **CLOSED** |
+| R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | **ACTIVE** |
 | R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | PENDING |
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 5 / 10 CLOSED = 50%.**
+**R3 progress: 6 / 10 CLOSED = 60%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 5 remaining
+- R3: 10 findings, 4 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -140,6 +140,7 @@ Remaining phase sizes:
 | R3.3 | WSA-2026-017 | Skills | #16 | `4fc240593929ebce9d82632479384d1cd45980b7` | `WSA-2026-017-SKILLS-LIVE-HOLDER-LOCK-RECLAIM.md` |
 | R3.4 | WSA-2026-053 | Data + OS | Data #18 / OS #45 | `5cbf9908440ca7e11506991ba1dd7d3344f2b1fd` / `53c6806bf4c8205062096ab7d6247c732823df41` | `WSA-2026-053-DATA-NATURAL-KEY-UNIQUENESS.md` |
 | R3.5 | WSA-2026-052 | OS | #46 | `9effe3869a87fb2c11287ae4821f93620abcc055` | `WSA-2026-052-OS-SEMANTIC-MIGRATION-SOURCE-CONCURRENCY.md` |
+| R3.6 | WSA-2026-014 | Memory | #32 | `3f715bf43c8dc5f0ad8888e07d857b581482569e` | `WSA-2026-014-MEMORY-MIGRATION-HANDOFF-ATOMICITY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -961,26 +962,69 @@ Acceptance:
 - exact tested PR tree and merged product tree: identical;
 - A4.2 / C-A4.2-007: RESOLVED for WSA-2026-052.
 
-## 27. Current task - R3.6 / WSA-2026-014
+## 27. R3.6 closure record - WSA-2026-014
 
 **Owner:** `AI-Verse-Memory`  
+**Accepted pre-repair Memory:** `cbc6651d60d42c63015bc1b25b5cd8f0c49d5904`  
+**Restored repair baseline:** `fb4b1871bab73be22336d05b8aa3db5782ef641e`  
+**Baseline product tree:** `4444ff070fd55c604a80c072081068bb265ccde6`  
+**Repair PR:** `AI-Verse-Memory#32`  
+**Final tested head:** `860d55d4dc72307d59063a245b0e8d4f1f58b082`  
+**Merged Memory:** `3f715bf43c8dc5f0ad8888e07d857b581482569e`  
+**Tested/merged product tree:** `1c890c174e8c38c0b8b0aa150f3a6daf1365aeee`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- accidental temporary `noop` main commit was immediately reverted before repair branching: PASS;
+- restored baseline tree exactly equals the accepted WSA-2026-013 tree: PASS;
+- stable handoff ID binds the reviewed source fingerprint and target root: PASS;
+- target authority stages through `prepared -> pending -> complete`: PASS;
+- native normal writes remain blocked before verified `complete`: PASS;
+- `complete` without `source_retirement_verified=true` remains non-authoritative: PASS;
+- source enters `retiring` before target `pending`: PASS;
+- legacy executable is backed up and replaced by the retirement stub before source retirement completes: PASS;
+- source Memory bytes are reverified under the source mutation lock: PASS;
+- source `retired` state is re-read and verified before target `complete`: PASS;
+- faults after all six explicit cross-root transitions never expose two writable canonical routes: PASS;
+- interrupted prepared/pending handoffs recover idempotently: PASS;
+- historical premature target `complete` without retirement proof is fenced and repaired: PASS;
+- target-only prepared crash followed by reviewed source drift can safely replace the stale prepared reservation only before source-side handoff state exists: PASS;
+- replaced prepared handoff identity remains recorded through completion: PASS;
+- mismatched handoff identity fails closed: PASS;
+- migration-complete rejects receipts without verified source retirement: PASS;
+- exact-head Migration Handoff Atomicity `37134074299`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- exact-head Test `37134074348`: 12 / 12 jobs PASS;
+- representative exact-head suite: 130 tests, 129 pass, 0 fail, 1 pre-existing skip;
+- all three dedicated WSA-2026-014 adversarial regressions present and PASS on exact head;
+- merged-main Migration Handoff Atomicity `37134269429`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- merged-main Test `37134269425`: 12 / 12 jobs PASS;
+- representative merged-main suite: 130 tests, 129 pass, 0 fail, 1 pre-existing skip;
+- all three dedicated WSA-2026-014 regressions present and PASS after merge;
+- exact tested PR tree and merged Memory product tree: identical;
+- open Memory PRs after merge: 0;
+- C-A1.4-003: RESOLVED for WSA-2026-014.
+
+## 28. Current task - R3.7 / WSA-2026-025
+
+**Owner:** `ai-verse-token`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Memory `main`, open PRs and the exact WSA-2026-014 migration-handoff atomicity evidence before creating any owner repair branch.
+The next repair session must first recheck Token `main`, open PRs and the exact WSA-2026-025 pricing-transactionality evidence before creating any owner repair branch.
 
-This repair remains separate from the completed OS semantic migration source-concurrency repair.
+This repair remains separate from the completed Memory migration-handoff atomicity repair.
 
-No later finding may become ACTIVE until WSA-2026-014 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-025 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 28. Program progress
+## 29. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **5 / 10 CLOSED = 50%**
-- Findings: **27 / 63 CLOSED = 42.86%**
-- Remaining: **36 / 63 OPEN = 57.14%**
+- R3: **6 / 10 CLOSED = 60%**
+- Findings: **28 / 63 CLOSED = 44.44%**
+- Remaining: **35 / 63 OPEN = 55.56%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
