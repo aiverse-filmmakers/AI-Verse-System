@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R3.7 / `WSA-2026-025` closure, 2026-10-03  
+**Live repair-state checkpoint:** R3.8 / `WSA-2026-034` closure, 2026-10-04  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **34** |
-| CLOSED | **29** |
+| OPEN | **33** |
+| CLOSED | **30** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `018`, `019`, `021`, `034`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `018`, `019`, `021`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `054`, `055`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -98,6 +98,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-038` | `AI-Verse-Dashboard` | `#11` | `fe0119235df5227560b3a0ef9be8cf85d8aa1d4c` | `../repairs/WSA-2026-038-DASHBOARD-WEBSOCKET-WORKSPACE-ISOLATION.md` |
 | `WSA-2026-039` | `AI-Verse-Dashboard` | `#12` | `c9e29ab660c7f56bea83dd00050a1342286734dc` | `../repairs/WSA-2026-039-DASHBOARD-REGISTERED-ROOT-IDENTITY.md` |
 | `WSA-2026-040` | `AI-Verse-Dashboard` | `#13` | `359a19f683a15485299cb2bab4e844d8d05b4fd6` | `../repairs/WSA-2026-040-DASHBOARD-LOCAL-READ-AUTHENTICATION.md` |
+| `WSA-2026-034` | `ai-verse-distribution` | `#9` | `c67ffbdda38717da6f19811b07421f0293285778` | `../repairs/WSA-2026-034-DISTRIBUTION-LIFECYCLE-RECEIPT-CONCURRENCY.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -914,19 +915,33 @@ Closure evidence:
 
 `WSA-2026-034` is now the next dependency-safe finding and was not modified.
 
-## 29. Current repair position
+## 29. R3.8 closure overlay - WSA-2026-034
+
+**Transition:** `OPEN -> CLOSED`  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Audited Distribution baseline:** `31888c74235cc262910fb094335fd3a994f0ecf1`  
+**Repair PR:** `ai-verse-distribution#9`  
+**Final tested PR head:** `51710800675d0d85cfea404056d14966b5988155`  
+**Merged Distribution:** `c67ffbdda38717da6f19811b07421f0293285778`  
+**Closure packet:** `../repairs/WSA-2026-034-DISTRIBUTION-LIFECYCLE-RECEIPT-CONCURRENCY.md`
+
+The closure packet preserves the original A1.12 contradiction/evidence, implementation boundary, adversarial regressions, exact-head and merged-main validation, and the downstream Agent Windows acceptance observation. The dedicated WSA-034 lifecycle concurrency workflow passed on Ubuntu, macOS and Windows on exact head and merged main. Distribution CI passed 6/6 on exact head and merged main; all seven permanent WSA-034 regressions pass after merge. Exact tested PR files and merged changed-file blobs are identical. Distribution has zero open PRs.
+
+`WSA-2026-035`, `-036` and `-037` remain OPEN and were not modified. The next dependency-safe finding is `R3.9 / WSA-2026-054`.
+
+## 30. Current repair position
 
 - R0: **4 / 4 CLOSED = 100%**.
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
-- R3: **7 / 10 CLOSED = 70%**.
-- Total: **29 / 63 CLOSED = 46.03%**.
-- Remaining: **34 / 63 OPEN = 53.97%**.
+- R3: **8 / 10 CLOSED = 80%**.
+- Total: **30 / 63 CLOSED = 47.62%**.
+- Remaining: **33 / 63 OPEN = 52.38%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R3.8 / WSA-2026-034`.
-- WSA-2026-034 implementation has **not begun** in this closure.
+- Current ACTIVE repair: `R3.9 / WSA-2026-054`.
+- WSA-2026-034 is CLOSED by the linked closure packet.
 - Whole-system verdict: **NO-GO**.
 
-## 30. Navigation rule
+## 31. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
