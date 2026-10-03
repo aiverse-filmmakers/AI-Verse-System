@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-034`
+**Current active finding:** `WSA-2026-054`
 
 ## 1. Preserved execution history
 
@@ -93,11 +93,11 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | **CLOSED** |
 | R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | **CLOSED** |
 | R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | **CLOSED** |
-| R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | **ACTIVE** |
-| R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
+| R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | **CLOSED** |
+| R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | **ACTIVE** |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 7 / 10 CLOSED = 70%.**
+**R3 progress: 8 / 10 CLOSED = 80%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
@@ -142,6 +142,7 @@ Remaining phase sizes:
 | R3.5 | WSA-2026-052 | OS | #46 | `9effe3869a87fb2c11287ae4821f93620abcc055` | `WSA-2026-052-OS-SEMANTIC-MIGRATION-SOURCE-CONCURRENCY.md` |
 | R3.6 | WSA-2026-014 | Memory | #32 | `3f715bf43c8dc5f0ad8888e07d857b581482569e` | `WSA-2026-014-MEMORY-MIGRATION-HANDOFF-ATOMICITY.md` |
 | R3.7 | WSA-2026-025 | Token | #2 | `69b15e59ad117e147730dbc30dfef7cbc083c8de` | `WSA-2026-025-TOKEN-PRICING-TRANSACTIONALITY.md` |
+| R3.8 | WSA-2026-034 | Distribution | #9 | `c67ffbdda38717da6f19811b07421f0293285778` | `WSA-2026-034-DISTRIBUTION-LIFECYCLE-RECEIPT-CONCURRENCY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -1048,26 +1049,26 @@ Acceptance:
 - open Token PRs after merge: 0;
 - C-A1.8-002: RESOLVED for WSA-2026-025.
 
-## 29. Current task - R3.8 / WSA-2026-034
+## 29. R3.8 closure record - WSA-2026-034
 
 **Owner:** `ai-verse-distribution`  
-**Status:** **ACTIVE**  
-**Execution state:** not yet implemented.
+**Status:** **CLOSED**  
+**Merged owner ref:** `c67ffbdda38717da6f19811b07421f0293285778`  
+**Repair PR:** `ai-verse-distribution#9`  
+**Closure packet:** `WSA-2026-034-DISTRIBUTION-LIFECYCLE-RECEIPT-CONCURRENCY.md`
 
-The next repair session must first recheck Distribution `main`, open PRs and the exact WSA-2026-034 lifecycle-receipt concurrency evidence before creating any owner repair branch.
+Cross-process lifecycle serialization, receipt-generation CAS, pending-effect recovery and exact-operation resume are accepted. The dedicated cross-platform workflow passed 3/3 on exact head and merged main; Distribution CI passed 6/6 on both. The packet records composed acceptance, including one unrelated downstream Gateway Windows failure and the failed-job-only retry outcome.
 
-This repair remains separate from the completed Token pricing-transactionality repair.
-
-No later finding may become ACTIVE until WSA-2026-034 reaches CLOSED or an explicitly recorded BLOCKED state.
+**R3.9 / WSA-2026-054 is the sole next ACTIVE repair.**
 
 ## 30. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **7 / 10 CLOSED = 70%**
-- Findings: **29 / 63 CLOSED = 46.03%**
-- Remaining: **34 / 63 OPEN = 53.97%**
+- R3: **8 / 10 CLOSED = 80%**
+- Findings: **30 / 63 CLOSED = 47.62%**
+- Remaining: **33 / 63 OPEN = 52.38%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
