@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-025`
+**Current active finding:** `WSA-2026-034`
 
 ## 1. Preserved execution history
 
@@ -92,18 +92,18 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.4 | WSA-2026-053 Data natural-key uniqueness | AI-Verse-Data | **CLOSED** |
 | R3.5 | WSA-2026-052 OS semantic migration source concurrency | AI-Verse-OS | **CLOSED** |
 | R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | **CLOSED** |
-| R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | **ACTIVE** |
-| R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | PENDING |
+| R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | **CLOSED** |
+| R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | **ACTIVE** |
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | PENDING |
 | R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
 
-**R3 progress: 6 / 10 CLOSED = 60%.**
+**R3 progress: 7 / 10 CLOSED = 70%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 4 remaining
+- R3: 10 findings, 3 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -141,6 +141,7 @@ Remaining phase sizes:
 | R3.4 | WSA-2026-053 | Data + OS | Data #18 / OS #45 | `5cbf9908440ca7e11506991ba1dd7d3344f2b1fd` / `53c6806bf4c8205062096ab7d6247c732823df41` | `WSA-2026-053-DATA-NATURAL-KEY-UNIQUENESS.md` |
 | R3.5 | WSA-2026-052 | OS | #46 | `9effe3869a87fb2c11287ae4821f93620abcc055` | `WSA-2026-052-OS-SEMANTIC-MIGRATION-SOURCE-CONCURRENCY.md` |
 | R3.6 | WSA-2026-014 | Memory | #32 | `3f715bf43c8dc5f0ad8888e07d857b581482569e` | `WSA-2026-014-MEMORY-MIGRATION-HANDOFF-ATOMICITY.md` |
+| R3.7 | WSA-2026-025 | Token | #2 | `69b15e59ad117e147730dbc30dfef7cbc083c8de` | `WSA-2026-025-TOKEN-PRICING-TRANSACTIONALITY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -1005,26 +1006,68 @@ Acceptance:
 - open Memory PRs after merge: 0;
 - C-A1.4-003: RESOLVED for WSA-2026-014.
 
-## 28. Current task - R3.7 / WSA-2026-025
+## 28. R3.7 closure record - WSA-2026-025
 
 **Owner:** `ai-verse-token`  
+**Accepted pre-repair Token:** `1a85d0da0e529b659b62d3c9a3e2d40c853d67d3`  
+**Baseline product tree:** `486cc2da61648e02179e2dbeb0b0c9d448ec6d1f`  
+**Repair PR:** `ai-verse-token#2`  
+**Final tested head:** `d59aa7a8e74bb73eeb23aee123793e2901a200cb`  
+**Merged Token:** `69b15e59ad117e147730dbc30dfef7cbc083c8de`  
+**Tested/merged product tree:** `7f388e99a1d2694e688dc09f23932498ac502388`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- new immutable snapshot batches stage outside normal pricing authority: PASS;
+- full staged batch and manifest are validated before publication: PASS;
+- one atomic directory rename publishes the whole batch: PASS;
+- `get` and `list` ignore incomplete staging artifacts: PASS;
+- legacy immutable snapshot files remain readable: PASS;
+- committed manifests bind snapshot IDs to canonical-content SHA-256 digests: PASS;
+- successful `updated` sync truth is embedded in the same atomic batch publication: PASS;
+- `syncState` consumes committed-batch success observations and legacy state observations: PASS;
+- cross-process publication is serialized by a token/PID/hostname-bound lock: PASS;
+- live local holders are never reclaimed by age alone: PASS;
+- dead local holders are re-read and identity-checked before reclaim: PASS;
+- later staged-member I/O failure exposes zero members of the failed batch: PASS;
+- real competing-process conflicting batch race publishes exactly one whole winner: PASS;
+- writer crash after first staged member leaves its subset invisible and permits safe dead-holder recovery: PASS;
+- full synchronizer success publishes new snapshots and success observation together: PASS;
+- synchronizer manifest-write failure returns failed / `SYNC_INVALID` with zero new snapshots visible: PASS;
+- exact-head Pricing Transactionality `37151667552`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- exact-head CI `37151667585`: Ubuntu/macOS/Windows x Node 22/24, 6 / 6 PASS;
+- representative exact-head canonical suite: 268 / 268 PASS;
+- exact-head release acceptance: 3 / 3 PASS;
+- merged-main Pricing Transactionality `37151877209`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- merged-main CI `37151877242`: Ubuntu/macOS/Windows x Node 22/24, 6 / 6 PASS;
+- representative merged-main canonical suite: 268 / 268 PASS, 0 fail, 0 skipped;
+- merged-main release acceptance: 3 / 3 PASS;
+- all six dedicated WSA-2026-025 regression cases are present and PASS after merge;
+- exact tested PR tree and merged Token product tree: identical;
+- open Token PRs after merge: 0;
+- C-A1.8-002: RESOLVED for WSA-2026-025.
+
+## 29. Current task - R3.8 / WSA-2026-034
+
+**Owner:** `ai-verse-distribution`  
 **Status:** **ACTIVE**  
 **Execution state:** not yet implemented.
 
-The next repair session must first recheck Token `main`, open PRs and the exact WSA-2026-025 pricing-transactionality evidence before creating any owner repair branch.
+The next repair session must first recheck Distribution `main`, open PRs and the exact WSA-2026-034 lifecycle-receipt concurrency evidence before creating any owner repair branch.
 
-This repair remains separate from the completed Memory migration-handoff atomicity repair.
+This repair remains separate from the completed Token pricing-transactionality repair.
 
-No later finding may become ACTIVE until WSA-2026-025 reaches CLOSED or an explicitly recorded BLOCKED state.
+No later finding may become ACTIVE until WSA-2026-034 reaches CLOSED or an explicitly recorded BLOCKED state.
 
-## 29. Program progress
+## 30. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **6 / 10 CLOSED = 60%**
-- Findings: **28 / 63 CLOSED = 44.44%**
-- Remaining: **35 / 63 OPEN = 55.56%**
+- R3: **7 / 10 CLOSED = 70%**
+- Findings: **29 / 63 CLOSED = 46.03%**
+- Remaining: **34 / 63 OPEN = 53.97%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
