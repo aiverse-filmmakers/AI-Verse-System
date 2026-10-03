@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-055`
+**Current active finding:** `WSA-2026-018`
 
 ## 1. Preserved execution history
 
@@ -95,16 +95,16 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | **CLOSED** |
 | R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | **CLOSED** |
 | R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | **CLOSED** |
-| R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | **ACTIVE** |
+| R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | **CLOSED** |
 
-**R3 progress: 9 / 10 CLOSED = 90%.**
+**R3 progress: 10 / 10 CLOSED = 100%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 2 remaining
-- R4: 10 findings
+- R3: 10 findings, 0 remaining
+- R4: 10 findings, 10 remaining; ACTIVE starts at R4.1 / WSA-2026-018
 - R5: 15 findings
 - R6: 6 findings
 - then RF: bounded independent final recheck
@@ -144,6 +144,7 @@ Remaining phase sizes:
 | R3.7 | WSA-2026-025 | Token | #2 | `69b15e59ad117e147730dbc30dfef7cbc083c8de` | `WSA-2026-025-TOKEN-PRICING-TRANSACTIONALITY.md` |
 | R3.8 | WSA-2026-034 | Distribution | #9 | `c67ffbdda38717da6f19811b07421f0293285778` | `WSA-2026-034-DISTRIBUTION-LIFECYCLE-RECEIPT-CONCURRENCY.md` |
 | R3.9 | WSA-2026-054 | Connections | #8 | `938ead7282541a5e92c0bbe3b966dda9a80d2b65` | `WSA-2026-054-CONNECTIONS-CRASHED-HOLDER-WRITE-LOCK.md` |
+| R3.10 | WSA-2026-055 | Connections | #9 | `6f1da00b955ce7b31e20a625a48d866d6c3a7e54` | `WSA-2026-055-CONNECTIONS-UNKNOWN-EXTERNAL-EFFECT-RECOVERY.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -1082,15 +1083,36 @@ Acceptance: holder metadata is atomically published; live local holders cannot b
 - zero open Connections PRs;
 - WSA-054 is closed; WSA-055 is the next ACTIVE item.
 
-## 31. Program progress
+## 31. R3.10 closure record - WSA-2026-055
+
+**Owner:** `AI-Verse-Connections`  
+**Audited baseline:** `938ead7282541a5e92c0bbe3b966dda9a80d2b65`  
+**Repair PR:** `AI-Verse-Connections#9`  
+**Final tested head:** `cad314102bfa62776dea453e631ecd215fcd3d59`  
+**Merged Connections:** `6f1da00b955ce7b31e20a625a48d866d6c3a7e54`  
+**Status:** **CLOSED**
+
+Acceptance: provider-edge uncertainty is durably recorded before outbound calls and coupled to budget reservation; dead pre-edge work is safely abandoned, while post-edge unknown effects block same-key replay, surface through doctor and remain budget-accounted until explicit local reconciliation. Reconciliation requires an explicit resolution, confirmation and a factual non-secret note. Four child-process crash boundaries and applied/not-applied recovery are covered. Provider-safe replay is not claimed.
+
+- exact-head WSA-055 `37162219755`: Ubuntu/macOS/Windows, 3 / 3 PASS;
+- exact-head WSA-054 `37162219760`: 3 / 3 PASS;
+- exact-head full CI `37162219780`: 6 / 6 PASS, representative suite 49 / 49;
+- merged-main WSA-055 `37162302267`: 3 / 3 PASS;
+- merged-main WSA-054 `37162302270`: 3 / 3 PASS;
+- merged-main full CI `37162302260`: 6 / 6 PASS;
+- all ten changed-file blobs are identical between exact tested head and merged main;
+- zero open Connections PRs.
+
+## 32. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **9 / 10 CLOSED = 90%**
-- Findings: **31 / 63 CLOSED = 49.21%**
-- Remaining: **32 / 63 OPEN = 50.79%**
+- R3: **10 / 10 CLOSED = 100%**
+- Findings: **32 / 63 CLOSED = 50.79%**
+- Remaining: **31 / 63 OPEN = 49.21%**
 - Open BLOCKERs: **0**
+- Current ACTIVE: `R4.1 / WSA-2026-018` (AI-Verse-Skills active-generation retention)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
