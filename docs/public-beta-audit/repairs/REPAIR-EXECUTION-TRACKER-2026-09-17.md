@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-054`
+**Current active finding:** `WSA-2026-055`
 
 ## 1. Preserved execution history
 
@@ -94,16 +94,16 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 | R3.6 | WSA-2026-014 Memory migration handoff atomicity | AI-Verse-Memory | **CLOSED** |
 | R3.7 | WSA-2026-025 Token pricing transactionality | ai-verse-token | **CLOSED** |
 | R3.8 | WSA-2026-034 Distribution lifecycle receipt concurrency | ai-verse-distribution | **CLOSED** |
-| R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | **ACTIVE** |
-| R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | PENDING |
+| R3.9 | WSA-2026-054 Connections crashed-holder write lock | AI-Verse-Connections | **CLOSED** |
+| R3.10 | WSA-2026-055 Connections unknown external-effect recovery | AI-Verse-Connections | **ACTIVE** |
 
-**R3 progress: 8 / 10 CLOSED = 80%.**
+**R3 progress: 9 / 10 CLOSED = 90%.**
 
 R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
-- R3: 10 findings, 3 remaining
+- R3: 10 findings, 2 remaining
 - R4: 10 findings
 - R5: 15 findings
 - R6: 6 findings
@@ -143,6 +143,7 @@ Remaining phase sizes:
 | R3.6 | WSA-2026-014 | Memory | #32 | `3f715bf43c8dc5f0ad8888e07d857b581482569e` | `WSA-2026-014-MEMORY-MIGRATION-HANDOFF-ATOMICITY.md` |
 | R3.7 | WSA-2026-025 | Token | #2 | `69b15e59ad117e147730dbc30dfef7cbc083c8de` | `WSA-2026-025-TOKEN-PRICING-TRANSACTIONALITY.md` |
 | R3.8 | WSA-2026-034 | Distribution | #9 | `c67ffbdda38717da6f19811b07421f0293285778` | `WSA-2026-034-DISTRIBUTION-LIFECYCLE-RECEIPT-CONCURRENCY.md` |
+| R3.9 | WSA-2026-054 | Connections | #8 | `938ead7282541a5e92c0bbe3b966dda9a80d2b65` | `WSA-2026-054-CONNECTIONS-CRASHED-HOLDER-WRITE-LOCK.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -1061,14 +1062,34 @@ Cross-process lifecycle serialization, receipt-generation CAS, pending-effect re
 
 **R3.9 / WSA-2026-054 is the sole next ACTIVE repair.**
 
-## 30. Program progress
+## 30. R3.9 closure record - WSA-2026-054
+
+**Owner:** `AI-Verse-Connections`  
+**Audited baseline:** `65566b6cc99cc8e26bcacf1a985a1f43c6a42fe6`  
+**Repair PR:** `AI-Verse-Connections#8`  
+**Final tested head:** `fe2b7a34b5d2d45d31a79f0e6de4d18c3130dc96`  
+**Merged Connections:** `938ead7282541a5e92c0bbe3b966dda9a80d2b65`  
+**Status:** **CLOSED**
+
+Acceptance: holder metadata is atomically published; live local holders cannot be stolen; dead local holders are token-checked and reclaimed under a serialized recovery claim; doctor exposes lock health; child-process faults cover lock acquisition, concurrent writes, reservation, and terminal receipt boundaries. Legacy locks without holder identity fail closed and require operator verification.
+
+- exact-head dedicated workflow `37160381903`: Ubuntu/macOS/Windows, 3/3 PASS;
+- exact-head full CI `37160381905`: six OS/Node jobs, 6/6 PASS;
+- merged-main dedicated workflow `37160478608`: Ubuntu/macOS/Windows, 3/3 PASS;
+- merged-main full CI `37160478577`: six OS/Node jobs, 6/6 PASS;
+- all eight changed-file blobs match tested head to merged main;
+- seven adversarial WSA-054 regressions pass on merged main;
+- zero open Connections PRs;
+- WSA-054 is closed; WSA-055 is the next ACTIVE item.
+
+## 31. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
-- R3: **8 / 10 CLOSED = 80%**
-- Findings: **30 / 63 CLOSED = 47.62%**
-- Remaining: **33 / 63 OPEN = 52.38%**
+- R3: **9 / 10 CLOSED = 90%**
+- Findings: **31 / 63 CLOSED = 49.21%**
+- Remaining: **32 / 63 OPEN = 50.79%**
 - Open BLOCKERs: **0**
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
