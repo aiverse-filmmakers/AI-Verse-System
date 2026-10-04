@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-001`
+**Current active finding:** `WSA-2026-011`
 
 ## 1. Preserved execution history
 
@@ -105,7 +105,7 @@ Remaining phase sizes:
 
 - R3: 10 findings, 0 remaining
 - R4: 10 findings, 0 remaining
-- R5: 15 findings, ACTIVE starts at R5.1 / WSA-2026-001
+- R5: 15 findings, ACTIVE starts at R5.1 / WSA-2026-011
 - R6: 6 findings
 - then RF: bounded independent final recheck
 
@@ -1366,7 +1366,7 @@ Acceptance:
 
 System Contract Validation exact closure head `37ef89a67b658a9029f55c3a9e9cfc92bfc86daa`, run `37171700305`, passed Python 3.11 and 3.13. Merged-main validation on `2d71fe8532a9968753ff39926a5d05d435b42722`, run `37171736538`, also passed both Python versions.
 
-WSA-2026-036, WSA-2026-058 and WSA-2026-059 are CLOSED. WSA-2026-001 is ACTIVE. NO-GO and release pauses remain unchanged.
+WSA-2026-036, WSA-2026-058 and WSA-2026-059 are CLOSED. WSA-2026-011 is ACTIVE. NO-GO and release pauses remain unchanged.
 
 ## 39. Program progress
 
@@ -1378,7 +1378,7 @@ WSA-2026-036, WSA-2026-058 and WSA-2026-059 are CLOSED. WSA-2026-001 is ACTIVE. 
 - Findings: **42 / 63 CLOSED = 66.67%**
 - Remaining: **21 / 63 OPEN = 33.33%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.1 / WSA-2026-001` (Invisible candidate acceptance metadata)
+- Current ACTIVE: `R5.1 / WSA-2026-011` (Brain release/version identity)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1404,4 +1404,4 @@ Acceptance:
 - Exact-head WSA-059 Receipt Index Scale `37174364891`, attempt 4: passed.
 - Tested and merged owner trees are identical; zero open Connections PRs remain.
 
-The whole-system NO-GO verdict and release pauses remain unchanged. The exact closure packets are `WSA-2026-036-DISTRIBUTION-FINAL-ERROR-REDACTION.md` and `WSA-2026-059-CONNECTIONS-RECEIPT-HISTORY-SCALE.md`. R5.1 / WSA-2026-001 is now ACTIVE.
+The whole-system NO-GO verdict and release pauses remain unchanged. The exact closure packets are `WSA-2026-036-DISTRIBUTION-FINAL-ERROR-REDACTION.md` and `WSA-2026-059-CONNECTIONS-RECEIPT-HISTORY-SCALE.md`. R5.1 / WSA-2026-011 is now ACTIVE.

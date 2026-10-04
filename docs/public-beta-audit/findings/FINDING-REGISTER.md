@@ -1202,7 +1202,7 @@ WSA-2026-058 is closed for AI-Verse-Gateway. WSA-2026-059 becomes ACTIVE. Whole-
 
 WSA-2026-059 is CLOSED for AI-Verse-Connections. Owner PR #12 merged at `602a1c52ab782cc9a8b7a4caa60ccb29efe403d1` with tested tree `cfb2688c673dc8a1ff8c4f3e0114807654d17023`. Exact-head owner CI, WSA-054, WSA-055 and receipt-scale workflows passed on all required platforms. System Contract Validation passed on exact closure PR head `fa9089e7a1e58a21b0ee3b9632c2dfc6a523d329` and merged System main `d75aac5bcd79f766bfe9d44e6732cae7cf906475`, Python 3.11 and 3.13. R4.2 / WSA-2026-036 is now ACTIVE; whole-system NO-GO and release pauses remain unchanged.
 
-R4.2 / WSA-2026-036 is CLOSED with its owner and System validation recorded above. R5.1 / WSA-2026-001 is now ACTIVE under the ordered Wave 5 dependency sequence; whole-system NO-GO and release pauses remain unchanged.
+R4.2 / WSA-2026-036 is CLOSED with its owner and System validation recorded above. R5.1 / WSA-2026-011 is now ACTIVE under the ordered Wave 5 dependency sequence; whole-system NO-GO and release pauses remain unchanged.
 
 
 ## 38. Navigation rule
