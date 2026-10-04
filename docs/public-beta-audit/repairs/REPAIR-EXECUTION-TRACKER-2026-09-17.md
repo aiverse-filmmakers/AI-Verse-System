@@ -1520,7 +1520,7 @@ The composed acceptance now starts the exact immutable Agent candidate and route
 **Merged-main Distribution CI:** `37190186089` — six Python 3.11/3.12 Linux/macOS/Windows jobs passed  
 **Status:** CLOSED
 
-The release now has one composed acceptance for Goal creation, Goal-bound learning, and later learned-Skill reuse against the immutable Agent candidate. It passed on Ubuntu, macOS, and Windows, and the merged-main Distribution matrix passed all six jobs. R5.12 / WSA-2026-049 is now ACTIVE.
+The release now has one composed acceptance for Goal creation, Goal-bound learning, and later learned-Skill reuse against the immutable Agent candidate. It passed on Ubuntu, macOS, and Windows, and the merged-main Distribution matrix passed all six jobs. R5.12 / WSA-2026-005 is now ACTIVE.
 
 ## 55. Program progress
 
@@ -1532,7 +1532,7 @@ The release now has one composed acceptance for Goal creation, Goal-bound learni
 - Findings: **53 / 63 CLOSED = 84.13%**
 - Remaining: **10 / 63 OPEN = 15.87%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.12 / WSA-2026-049`
+- Current ACTIVE: `R5.12 / WSA-2026-005`
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
