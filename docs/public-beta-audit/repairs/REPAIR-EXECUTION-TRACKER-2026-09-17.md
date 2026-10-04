@@ -1375,10 +1375,10 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
 - R4: **10 / 10 CLOSED = 100%**
-- Findings: **50 / 63 CLOSED = 79.37%**
-- Remaining: **13 / 63 OPEN = 20.63%**
+- Findings: **51 / 63 CLOSED = 80.95%**
+- Remaining: **12 / 63 OPEN = 19.05%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.9 / WSA-2026-046` (current Video Editor absent from admitted Agent)
+- Current ACTIVE: `R5.10 / WSA-2026-047` (composed semantic-migration acceptance)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1485,3 +1485,15 @@ The System Connections component specification now reflects the public-beta exec
 **Status:** CLOSED
 
 The former hosted-evidence gap was caused by the repository visibility/runner state captured in the original audit. Both System and Connections are now public. Connections `main` CI completed successfully on the current merged revision, and no open Connections PRs remain. R5.9 / WSA-2026-046 is now ACTIVE.
+
+## 52. R5.9 closure record - WSA-2026-046
+
+**Owner:** AI-Verse-Skills / ai-verse-distribution / AI-Verse-System  
+**Candidate PR:** [Distribution #13](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/13)  
+**Evidence PR:** [Distribution #14](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/14)  
+**Final tested candidate head:** `84a706d8fcb2d7881cf459af2d364e7057a0bd8a`  
+**Merged candidate ref:** `c3055f8db13d744416032ac61ad65cf8344aef48`  
+**Evidence merge ref:** `6838eaa28871f22f7e9920e4d66f95ded936722e`  
+**Status:** CLOSED
+
+Distribution now has immutable candidate `agent-video-editor-rc1-2026-10-04`, pinning Skills `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`. The member-facing `video-editor` capability is present and discoverable in the accepted Skills tree. Candidate clean-machine acceptance passed on Ubuntu, macOS and Windows in run `37185675385`; merged-main Distribution CI passed all six Python 3.11/3.12 Linux/macOS/Windows jobs in run `37186142306`. Distribution local tests passed 85/85. R5.10 / WSA-2026-047 is now ACTIVE.
