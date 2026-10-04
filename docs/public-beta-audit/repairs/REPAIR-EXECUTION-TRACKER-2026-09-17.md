@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-035`
+**Current active finding:** `WSA-2026-001`
 
 ## 1. Preserved execution history
 
@@ -1375,10 +1375,10 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
 - R4: **10 / 10 CLOSED = 100%**
-- Findings: **46 / 63 CLOSED = 73.02%**
-- Remaining: **17 / 63 OPEN = 26.98%**
+- Findings: **47 / 63 CLOSED = 74.60%**
+- Remaining: **16 / 63 OPEN = 25.40%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.5 / WSA-2026-035` (Distribution Agent Python prerequisite)
+- Current ACTIVE: `R5.6 / WSA-2026-001` (OS candidate qualification metadata)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1435,6 +1435,16 @@ Memory `main` now carries distinct post-beta development identity `0.3.0-beta.2.
 **Status:** CLOSED
 
 Data now carries distinct post-alpha development identity `0.1.0-alpha.1.dev0` across package metadata, runtime constants, extension metadata, documentation and release descriptor. Development descriptors cannot claim accepted evidence. Hosted Node 22/24 validation passed on Linux/macOS/Windows, including release smoke and ordering checks. R5.5 / WSA-2026-035 is now ACTIVE.
+
+## 48. R5.5 closure record - WSA-2026-035
+
+**Owner:** ai-verse-distribution  
+**Repair PR:** [#11](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/11)  
+**Final tested owner head:** `8e51e242efdb0bda0d4ce2b1cc588a7fde009c1b`  
+**Merged owner ref:** `aa8a226fb45dd155ae44ceefff89d4c8da0d05f5`  
+**Status:** CLOSED
+
+Distribution now states and enforces the executable Agent Python floor of 3.11+, with package metadata, public requirements, acceptance documentation and CI matrices aligned. Local tests passed 84/84. Hosted unit, core, adversarial, error-redaction and clean-machine Agent checks passed on Linux/macOS/Windows; Python 3.11 and 3.12 both passed. R5.6 / WSA-2026-001 is now ACTIVE.
 
 ## 46. R5.3 closure record - WSA-2026-019
 
