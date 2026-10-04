@@ -1344,17 +1344,39 @@ Acceptance:
 
 WSA-2026-057 is CLOSED. WSA-2026-058 is ACTIVE. Whole-system NO-GO and release pauses remain in force.
 
+## 42. R4.9 closure record - WSA-2026-058
+
+**Owner:** AI-Verse-Gateway  
+**Repair PR:** [#37](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/37)  
+**Final tested PR head:** `c73f803315cdafbbe0daed46fb8b00579683ba3f`  
+**Merged owner ref:** `089aaa6440bbbbb9f41195eafe123ad2e06d5625`  
+**Reviewed/merged owner tree:** `2e802e3039a9cffaf61ac6fe627c00fadca89bd2`  
+**Status:** CLOSED
+
+Acceptance:
+
+- Indexed SHA-256 key records make claim/commit work independent of global history size.
+- Atomic exclusive claim publication and cross-process serialized commits prevent conflicting writers from exposing partial state.
+- Stale lock reclaim and restart-safe legacy migration are covered; no unsafe retention expiry is introduced.
+- Benchmark: 25-sample median claim+commit was 3.045 ms at 1,000 records and 3.312 ms at 100,000 records (1.09x).
+- Exact-head CI `37171337867`: six Node 20/22 Ubuntu/macOS/Windows jobs passed.
+- Permanent Bot Composition `37171337863`, Automation Recommendation Boundary `37171337866`, Context Ladder Integrated Acceptance `37171337875`, Temporary Worker Composition `37171337916`: PASS.
+- Merged-main CI `37171433540`, retry attempt 2: six of six jobs passed, including the benchmark; the first attempt's unrelated review-budget test failure passed unchanged on retry.
+- Tested and merged owner trees are identical; zero open Gateway PRs remain.
+
+WSA-2026-058 is CLOSED. WSA-2026-059 becomes ACTIVE. NO-GO and release pauses remain unchanged.
+
 ## 39. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- R4: **8 / 10 CLOSED = 80%**
-- Findings: **40 / 63 CLOSED = 63.49%**
-- Remaining: **23 / 63 OPEN = 36.51%**
+- R4: **9 / 10 CLOSED = 90%**
+- Findings: **41 / 63 CLOSED = 65.08%**
+- Remaining: **22 / 63 OPEN = 34.92%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.9 / WSA-2026-058` (Gateway idempotency state scale)
+- Current ACTIVE: `R4.10 / WSA-2026-059` (Connections receipt-history scale)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
