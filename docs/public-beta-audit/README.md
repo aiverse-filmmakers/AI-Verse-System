@@ -1,15 +1,16 @@
 # Independent Whole-System Public-Beta Audit
 
-**Current state:** planned; execution begins at **A0.1 Product/repository universe** after this planning PR is merged.
+**Current state:** the independent audit phases A0-A6 are complete; the ordered repair program is active. The repair tracker is authoritative for the current finding, exact owner work, closure evidence and next action.
 
-For any new chat or auditor, read only these files first:
+For any new chat or auditor, read these files first:
 
-1. `PROGRAM-2026-09-15.md` - scope, phases, invariants and stop rules.
-2. `EXECUTION-TRACKER-2026-09-15.md` - exact next task and progress.
-3. `EVIDENCE-FINDING-PROTOCOL.md` - how to record proof and findings.
-4. `RELATIONSHIP-MATRIX-PROTOCOL.md` - how every repo is checked against every other repo.
+1. `repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` - current repair, exact closure evidence and next action.
+2. `PROGRAM-2026-09-15.md` - original scope, phases, invariants and stop rules.
+3. `EXECUTION-TRACKER-2026-09-15.md` - preserved audit-phase history.
+4. `EVIDENCE-FINDING-PROTOCOL.md` - how audit proof and findings were recorded.
+5. `RELATIONSHIP-MATRIX-PROTOCOL.md` - how every repo was checked against every other repo.
 
-Then recheck current GitHub state and execute **only the first NEXT task**.
+Then recheck current GitHub state and execute only the current **ACTIVE repair** or its explicitly recorded next task.
 
 Do not reconstruct the audit from chat history.
 
