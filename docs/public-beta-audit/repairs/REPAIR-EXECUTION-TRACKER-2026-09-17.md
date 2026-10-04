@@ -1677,3 +1677,42 @@ The accepted Agent release now has cross-platform evidence for the real non-test
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
+
+## 66. R5.5 closure record - WSA-2026-043
+
+**Owner:** AI-Verse-System  
+**Repair PR:** [System #184](https://github.com/aiverse-filmmakers/AI-Verse-System/pull/184)  
+**Final tested PR head:** `e9a51c1`  
+**Merged System ref:** `18c79831a8fc1898977196715d605a031e2112d2`  
+**Exact-head Contract Validation:** Python 3.11 + 3.13 — both passed  
+**Status:** CLOSED
+
+The published whole-release preservation schema now requires the same explicit evidence provenance keys as the semantic validator: `run_id`, `job_id`, and `url` (nullable when unavailable). Regression coverage proves omitted provenance fields are rejected, eliminating the schema/validator disagreement.
+
+## 67. R5.6 closure record - WSA-2026-060
+
+**Owner:** ai-verse-distribution  
+**Repair PR:** [Distribution #19](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/19)  
+**Final tested PR head:** `749e27d`  
+**Merged Distribution ref:** `9d5b509bcb046144a6050d4f3858497860ce5820`  
+**Exact-head PR checks:** all required checks passed on Ubuntu, macOS and Windows  
+**Merged-main Distribution CI:** `37239391973` — six Python 3.11/3.12 Linux/macOS/Windows jobs passed  
+**Local canonical suite:** 86/86 passed  
+**Status:** CLOSED
+
+The public and packaged compatibility matrices no longer claim that Agent is inadmitted when a released immutable Agent channel exists. The real Connections/Dashboard/Apps blocker remains. Catalog validation now requires blocked compatibility blockers to match canonical release-set blockers, with regression coverage.
+
+## 68. Program progress
+
+- R0: **4 / 4 CLOSED = 100%**
+- R1: **13 / 13 CLOSED = 100%**
+- R2: **5 / 5 CLOSED = 100%**
+- R3: **10 / 10 CLOSED = 100%**
+- R4: **10 / 10 CLOSED = 100%**
+- Findings: **60 / 63 CLOSED = 95.24%**
+- Remaining: **3 / 63 OPEN = 4.76%**
+- Open BLOCKERs: **0**
+- Current ACTIVE: next ordered finding after `R5.6 / WSA-2026-060`
+- Whole-system verdict: **NO-GO**
+- Dashboard MC1.4: paused
+- Owner dogfood: paused
