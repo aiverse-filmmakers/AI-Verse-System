@@ -5,8 +5,8 @@
 - Component: AI-Verse Connections
 - Source repository: `aiverse-filmmakers/AI-Verse-Connections`
 - Default branch reviewed: `main`
-- Exact reviewed revision: `76be3558eb6670b21195064b04acdd7d6dd41490`
-- Review date: 2026-09-13
+- Exact reviewed revision: `602a1c52ab782cc9a8b7a4caa60ccb29efe403d1`
+- Review date: 2026-10-04
 - Audit method: `docs/AUDIT-METHODOLOGY.md`
 - Evidence boundary: Connections repository only for the standalone reconstruction. Cross-component statements are included only where the Connections repository itself defines those boundaries. Shared-system propagation is handled separately after the baseline.
 
@@ -16,7 +16,7 @@
 
 ## CURRENT
 
-AI-Verse Connections is currently a **founding architecture and research seed**.
+AI-Verse Connections is currently a **public-beta implementation candidate**.
 
 The reviewed repository contains one canonical tracked file:
 
@@ -24,10 +24,10 @@ The reviewed repository contains one canonical tracked file:
 
 The repository itself states:
 
-- `Status: Founding architecture / research seed`
-- `Implementation status: Not started`
+- `Status: Public-beta implementation candidate`
+- `Implementation status: Executable v1 boundary`
 
-No executable registry, provider adapter, credential broker, capability resolver, connection lifecycle runtime, live verification path, execution API, event ingress, CLI, package metadata, test suite, CI workflow, release artifact, install command, attach command, activation command or reconciliation command is implemented in the reviewed revision.
+The repository now provides an executable registry and execution boundary, provider adapters, opaque credential handles, capability admission and approval, lifecycle/health checks, live verification, CLI commands, package metadata, tests, CI and release documentation. It remains a candidate and does not claim broad provider coverage or unrestricted external authority.
 
 ## INTENDED
 
@@ -42,13 +42,13 @@ It is also incorrect to describe the current repository as already being an exec
 
 ## GAP
 
-The entire operational layer remains to be implemented.
+Further provider breadth and product integration remain planned, but the core operational boundary is implemented and tested.
 
 At this revision, a connection cannot be installed, registered, live-verified, discovered, scoped, authorized, executed, revoked, reconciled or adopted by an existing agent through a supported Connections runtime because no such runtime exists yet.
 
 ## Current milestone verdict
 
-The repository-declared current milestone is **Founding architecture / research seed**.
+The repository-declared current milestone is **Public-beta implementation candidate**.
 
 That narrow milestone is substantially achieved: the README defines the product boundary, major safety laws, intended ownership, provider strategy, scope model, external canonicality and implementation direction.
 
@@ -96,7 +96,7 @@ Connections exists because external access combines canonical identity, secret h
 
 ## CURRENT
 
-Operationally, neither.
+Operationally, Connections now provides both registry/control-plane and external execution-boundary behavior.
 
 The repository contains architecture prose only.
 
@@ -535,7 +535,7 @@ Provider credentials should exist only inside the trusted adapter/backend bounda
 
 ## GAP
 
-No implementation exists for:
+The current candidate implements the core credential boundary; remaining gaps include:
 
 - secret backend selection;
 - opaque secret reference schema;
@@ -761,7 +761,7 @@ Consumers should not bypass Connections to read raw credential stores or connect
 
 ## GAP
 
-No implementation exists for:
+The current candidate provides bounded projections and redaction; remaining gaps include:
 
 - pagination;
 - bounded response size;
@@ -1186,13 +1186,13 @@ Before Connections can be called safe:
 - cross-workspace isolation tests;
 - secret-leak regression tests.
 
-CURRENT: architecture only.
+CURRENT: executable public-beta candidate; provider breadth and wider host integration remain limited.
 
 ---
 
 # 27. Performance and scalability
 
-No implementation exists, so performance is unverified.
+The current implementation includes bounded receipt/index paths and cross-platform CI coverage; broad production-scale performance remains unclaimed.
 
 A production design should avoid:
 
@@ -1297,7 +1297,7 @@ At minimum:
 
 ## HISTORICAL
 
-The visible reviewed history contains one commit:
+The original audit snapshot contained one architecture commit:
 
 `76be3558eb6670b21195064b04acdd7d6dd41490`
 
@@ -1380,11 +1380,11 @@ The System documentation must keep CURRENT and INTENDED separate.
 
 ## Repository-declared milestone
 
-**Founding architecture / research seed.**
+**Public-beta implementation candidate (`0.1.0-beta.1`).**
 
 ## Verdict
 
-**COMPLETE WITH LIMITATIONS** for that narrow architecture milestone.
+**IMPLEMENTED WITH LIMITATIONS** for the current public-beta candidate milestone.
 
 The seed successfully defines:
 
@@ -1404,9 +1404,9 @@ The seed successfully defines:
 - inspirations;
 - a sensible future implementation sequence.
 
-## Remaining work even before implementation
+## Remaining work for later milestones
 
-The architecture seed still needs to be converted into versioned exact contracts for:
+Later expansion still needs broader and/or more deeply versioned contracts for:
 
 - registry schema;
 - provider adapter interface;
@@ -1426,18 +1426,18 @@ That conversion is the natural next milestone.
 
 | Dimension | Status | Evidence/verdict |
 |---|---|---|
-| ENGINE / CORE | MISSING | No executable implementation |
-| ARCHITECTURE / CONTRACT | PARTIAL | Strong prose architecture, no exact versioned machine contract |
-| INSTALL / PACKAGE | MISSING | No package metadata or install path |
-| HOST INTEGRATION | PLAN-ONLY | Boundaries described, no host adapter |
-| ATTACH / REGISTER | MISSING | No component attach or connection register API |
-| ACTIVATE / ADOPT | MISSING | No late-install adoption flow |
-| SCOPE INITIALIZATION | MISSING | Scope model is prose only |
-| MIGRATION / LEGACY | MISSING | No existing connector/credential adoption |
-| HEALTH / DOCTOR | PLAN-ONLY | Health states/checks described, no verifier |
-| PERMISSION / SAFETY | ARCHITECTURE ONLY | Strong laws, no enforcement |
-| CROSS-COMPONENT READ | PLAN-ONLY | Boundaries described, no public API |
-| CROSS-COMPONENT WRITE | PLAN-ONLY | Execution/receipt path described, no implementation |
+| ENGINE / CORE | IMPLEMENTED | Executable registry, lifecycle and execution boundary |
+| ARCHITECTURE / CONTRACT | IMPLEMENTED WITH LIMITATIONS | Public CLI/API behavior is documented; broader versioning remains planned |
+| INSTALL / PACKAGE | IMPLEMENTED | Node package metadata and install path |
+| HOST INTEGRATION | PARTIAL | Explicit system/workspace binding and CLI boundary; wider host adapters remain planned |
+| ATTACH / REGISTER | IMPLEMENTED | Connection registration and setup commands |
+| ACTIVATE / ADOPT | PARTIAL | Explicit setup/rebind exists; broader late-install adoption remains planned |
+| SCOPE INITIALIZATION | IMPLEMENTED | System/workspace scope is enforced by the runtime |
+| MIGRATION / LEGACY | PARTIAL | Explicit rebind exists; legacy connector migration remains limited |
+| HEALTH / DOCTOR | IMPLEMENTED | Status, doctor and bounded live verification paths |
+| PERMISSION / SAFETY | IMPLEMENTED WITH LIMITATIONS | Admission, approval, revocation and final-edge checks are enforced |
+| CROSS-COMPONENT READ | PARTIAL | Stable CLI/metadata boundary; wider host APIs remain planned |
+| CROSS-COMPONENT WRITE | IMPLEMENTED | External execution and structured receipts through Connections |
 | UPDATE / UPGRADE | MISSING | No package version/runtime |
 | DISABLE / DETACH / UNINSTALL | MISSING | Concepts only |
 | REINSTALL / RECONCILE | MISSING | No rediscovery path |
