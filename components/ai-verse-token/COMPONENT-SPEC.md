@@ -4,9 +4,8 @@
 
 **Update date:** 2026-09-13  
 **Canonical repository:** `aiverse-filmmakers/ai-verse-token`  
-**Current public-beta package:** `@ai-verse/token@0.1.0-beta.2`  
-**Canonical main:** `8b24891cd9c230e191b2637b6db2122b3dd9984d`  
-**Immutable tag:** `v0.1.0-beta.2`
+**Current accepted candidate package:** `@ai-verse/token@0.1.0-beta.3`  
+**Canonical accepted revision:** `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4`
 
 The canonical remote repository has now been restored from the verified alpha.1 provenance line and completed beta implementation. The original `artifact-0.1.0-alpha.1` and `v0.1.0-beta.1` tags remain immutable. Beta.2 fixes only the hosted Windows portability defects exposed by real CI and does not weaken or move the beta.1 provenance.
 

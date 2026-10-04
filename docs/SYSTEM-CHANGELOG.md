@@ -1,3 +1,9 @@
+## 2026-10-05: Synchronized current release truth
+
+- Synchronized current System release truth with the accepted Context Ladder candidate and exact owner revisions.
+- Added the canonical Gateway component specification, source map and QC record.
+- Aligned Token current candidate identity with beta.3 and preserved earlier release records as historical provenance.
+
 ## 2026-10-02: Added SecLists as a future security test-data inspiration
 
 - Added Daniel Miessler's SecLists to the canonical inspiration radar.

@@ -1,7 +1,7 @@
 # AI-Verse Public Beta Tracker
 
 **Status:** Agent Distribution release complete; Invisible Intelligence candidate qualified; independent whole-system public-beta audit is now the active pre-dogfood gate  
-**Updated:** 2026-09-15  
+**Updated:** 2026-10-05
 **Target:** First complete **Agent public beta** unless explicitly widened.
 
 This file tracks execution state only. Architectural law remains in the Final Blueprint and public-beta contracts.
@@ -40,15 +40,15 @@ Connections is not an Agent-profile blocker. Dashboard and Apps are not Agent-pr
 | Area | Current evidence | State | Next action |
 |---|---|---|---|
 | System contracts | Goals, Self-Learning, Install/Setup and Public Beta contracts exist | READY | Keep tracker/blueprint current |
-| OS | Agent release ref `d961ef8e2422d6f713d6519cf5a48916c600d63a`; owner workflows recorded in Distribution manifest | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Brain | Agent release ref `619dd17daac9c1bd7eaf4381a5889e56ab05ec59`; UTF-8 Goal/context owner path accepted | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Memory | `031e1e77c97ed3c9012235c7ffe0a4ece05e3695` | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Skills | `042fda1ea2ddd8b79b74f1db9d3f65212953b64a` | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Data | `189b13264ab86115d2f21fee3ba8cd5a8dac6581` with Distribution companion dependency lock | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Gateway | `240c2b1b71abc7a8dbdc4d573da7fd85a110ca8f`; composed Brain Goal run accepted | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Automations | `494469a496d479cfec618bcd9511033c0cd3e815`; bounded wake into Multiple Bots accepted | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Multiple Bots | Phase 5.14 ref `9bffdffd07fb8abcea848213642936a23ecf4ecf`; durable two-bot collaboration, restart and automation ingress accepted | AGENT RELEASE ACCEPTED | Do not reopen absent a release regression |
-| Token | `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4` (`0.1.0-beta.3`); collection/projection accepted | AGENT RELEASE ACCEPTED | Preserve Token as canonical normalized telemetry/pricing/cost truth |
+| OS | Context Ladder candidate ref `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`; accepted release-set evidence | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Brain | Context Ladder candidate ref `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4` | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Memory | Context Ladder candidate ref `406b14fb4398eb1b16dd5f30e50520e8c3540972` | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Skills | Context Ladder candidate ref `71264af6b2b9a575812fe18858d75a54ea2ff545` | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Data | Context Ladder candidate ref `8edde7dca5afa34e300130cc6b8ee2b4170ad40f` with companion dependency lock | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Gateway | Context Ladder candidate ref `46c15ee58b028dd7fb8b310327ea705ef618805e`; composed owner path accepted | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Automations | Context Ladder candidate ref `caaed83b98026dd955640fc015d181529b91a1c6` | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Multiple Bots | Context Ladder candidate ref `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec` | CURRENT CANDIDATE ACCEPTED | Preserve exact release-set identity |
+| Token | `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4` (`0.1.0-beta.3`); collection/projection accepted | CURRENT CANDIDATE ACCEPTED | Preserve Token as canonical normalized telemetry/pricing/cost truth |
 | Distribution | PR #2 immutable Agent release remains default; PR #7 `a215c8777da55b299247ec9e564cca020cfe2020` freezes the explicit-only Invisible Intelligence candidate | AGENT RELEASE + NEXT CANDIDATE ACCEPTED | Keep cross-release transition closed until Safe Update admits it |
 | Connections | Separate implementation track; not an Agent Distribution blocker | OUTSIDE THIS RELEASE | Handle independently |
 | Dashboard | Separate UI track | POST-AGENT-DISTRIBUTION | Do not use as retroactive release blocker |
@@ -60,16 +60,16 @@ Canonical release set:
 
 `agent-public-beta-2026-09-14`
 
-Exact immutable component refs:
+Exact immutable component refs for the accepted Context Ladder candidate `agent-context-ladder-rc1-2026-09-15`:
 
-- OS: `d961ef8e2422d6f713d6519cf5a48916c600d63a`
-- Brain: `619dd17daac9c1bd7eaf4381a5889e56ab05ec59`
-- Memory: `031e1e77c97ed3c9012235c7ffe0a4ece05e3695`
-- Skills: `042fda1ea2ddd8b79b74f1db9d3f65212953b64a`
-- Data: `189b13264ab86115d2f21fee3ba8cd5a8dac6581`
-- Gateway: `240c2b1b71abc7a8dbdc4d573da7fd85a110ca8f`
-- Automations: `494469a496d479cfec618bcd9511033c0cd3e815`
-- Multiple Bots: `9bffdffd07fb8abcea848213642936a23ecf4ecf`
+- OS: `924a21a3dc1094d0fb6cc422f55fdfc714634e4d`
+- Brain: `6f986e8d06c7f9c069fbf05aa92ae7b7a1af9bf4`
+- Memory: `406b14fb4398eb1b16dd5f30e50520e8c3540972`
+- Skills: `71264af6b2b9a575812fe18858d75a54ea2ff545`
+- Data: `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
+- Gateway: `46c15ee58b028dd7fb8b310327ea705ef618805e`
+- Automations: `caaed83b98026dd955640fc015d181529b91a1c6`
+- Multiple Bots: `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
 - Token: `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4`
 
 Qualification evidence frozen in the Distribution manifest:

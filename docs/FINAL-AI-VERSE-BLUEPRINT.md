@@ -1,11 +1,11 @@
 # AI-Verse Final System Blueprint
 
 **Status:** Canonical living system synthesis  
-**Baseline date:** 2026-09-13  
+**Baseline date:** 2026-10-05
 **Scope:** AI-Verse OS family across the original 10 audited component repositories plus current first-class Gateway and Automations platform components  
 **Authority:** System-level architecture, ownership, lifecycle, interoperability, readiness and roadmap synthesis
 
-This document is the final cross-component synthesis of the ten independent AI-Verse audits, extended by CURRENT first-class implementation evidence for Gateway and Automations.
+This document is the final cross-component synthesis of the ten independent AI-Verse audits, extended by CURRENT first-class implementation evidence for Gateway and Automations. Current release truth is the accepted Context Ladder candidate `agent-context-ladder-rc1-2026-09-15`; exact owner revisions are recorded in `docs/PUBLIC-BETA-TRACKER.md`. Older release snapshots remain historical evidence.
 
 It is called the Final System Blueprint because it is the single canonical big-picture map of AI-Verse. It is not frozen. AI-Verse-System is a living specification, so this blueprint must evolve whenever component reality, system law, lifecycle, ownership or product intent changes.
 
