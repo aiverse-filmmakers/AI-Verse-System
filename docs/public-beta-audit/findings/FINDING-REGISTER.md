@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R4.2 / `WSA-2026-036` closure, 2026-10-04  
+**Live repair-state checkpoint:** R4.3 / `WSA-2026-041` closure, 2026-10-04  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **29** |
-| CLOSED | **34** |
+| OPEN | **28** |
+| CLOSED | **35** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -103,6 +103,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-055` | `AI-Verse-Connections` | `#9` | `6f1da00b955ce7b31e20a625a48d866d6c3a7e54` | `../repairs/WSA-2026-055-CONNECTIONS-UNKNOWN-EXTERNAL-EFFECT-RECOVERY.md` |
 | `WSA-2026-018` | `AI-Verse-Skills` | `#18` | `fa455961c17691862bd86b7e0f658690e9ecb86d` | `../repairs/WSA-2026-018-SKILLS-ACTIVE-GENERATION-RETENTION.md` |
 | `WSA-2026-036` | `ai-verse-distribution` | `#10` | `36a670ff263c9a16fbf6b7ab4a464cc4ef35efa9` | `../repairs/WSA-2026-036-DISTRIBUTION-FINAL-ERROR-REDACTION.md` |
+| `WSA-2026-041` | `AI-Verse-Dashboard` | `#14` | `005c781111418cdde6cc6b1082efeaf8010fd880` | `../repairs/WSA-2026-041-DASHBOARD-LOCALHOST-ORIGIN-POLICY.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -974,14 +975,53 @@ C-A4.3-007 is resolved for Connections. A durable provider-edge marker and unkno
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
 - R3: **10 / 10 CLOSED = 100%**.
-- R4: **2 / 10 CLOSED = 20%**.
-- Total: **34 / 63 CLOSED = 53.97%**.
-- Remaining: **29 / 63 OPEN = 46.03%**.
+- R4: **3 / 10 CLOSED = 30%**.
+- Total: **35 / 63 CLOSED = 55.56%**.
+- Remaining: **28 / 63 OPEN = 44.44%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R4.3 / WSA-2026-041` (Dashboard localhost Origin policy).
-- WSA-2026-018 and WSA-2026-036 are CLOSED by their linked owner and System closure evidence.
+- Current ACTIVE repair: `R4.4 / WSA-2026-042` (Dashboard synthetic projection semantics).
+- WSA-2026-018, WSA-2026-036 and WSA-2026-041 are CLOSED by their linked owner and System closure evidence.
 - WSA-2026-034, WSA-2026-054 and WSA-2026-055 are CLOSED by their linked closure packets.
 - Whole-system verdict: **NO-GO**.
+
+## 34. R4.3 closure record - WSA-2026-041
+
+# WSA-2026-041 — Dashboard localhost Origin policy
+
+**Transition:** `ACTIVE -> CLOSED`  
+**Severity / confidence:** MEDIUM / PROVEN, unchanged  
+**Owner:** `AI-Verse-Dashboard`  
+**Audited baseline:** `359a19f683a15485299cb2bab4e844d8d05b4fd6`  
+**Original evidence:** AI-Verse-System A1.13 / WSA-2026-041  
+**Repair PR:** [AI-Verse-Dashboard #14](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/pull/14)  
+**Final tested owner head:** `c7a77551ac35fef4e0de5db5593bae735dfa4778`  
+**Merged owner main:** `005c781111418cdde6cc6b1082efeaf8010fd880`  
+**Tested / merged product tree:** `75ab3f32f7916e7604f8a4b22f577209f28e96ca`
+
+## Finding and accepted closure law
+
+The audited allowlist compared full origins against only `http://localhost` and `http://127.0.0.1`, rejecting ordinary browser origins carrying a development port such as `http://localhost:5173`.
+
+The accepted policy allows only HTTP origins on the exact `localhost` or `127.0.0.1` host, with a valid optional explicit port in 1–65535. Credentials, paths, queries, fragments, HTTPS and non-loopback hosts are rejected. Missing Origin remains allowed for non-browser clients. Authentication remains a separate mandatory gate.
+
+## Repair and permanent regression coverage
+
+The Gateway uses the validated loopback-host/HTTP policy consistently for RPC and WebSocket upgrades. Authenticated RPC tests cover localhost and 127.0.0.1 with representative ports and bare origins. Negative cases cover HTTPS, hostname suffix attacks, private LAN IPs, out-of-range ports, path-bearing origins and userinfo. Browser-style WebSocket handshakes exercise both localhost and 127.0.0.1 with explicit ports and valid Dashboard authentication. Existing WSA-040 auth-negative checks remain intact.
+
+## Owner validation
+
+| Gate | Exact tested PR head | Merged main |
+|---|---:|---:|
+| Dashboard CI / Node 22 | `37166508321` — Ubuntu, macOS, Windows 3/3 PASS | `37166552466` — Ubuntu, macOS, Windows 3/3 PASS |
+
+The exact tested head and merged product tree are identical (`75ab3f32f7916e7604f8a4b22f577209f28e96ca`). Both changed-file Git blobs match between exact tested head and merged main. Dashboard has zero open PRs after merge.
+
+System Contract Validation on the exact closure PR head and merged System main is recorded after both validations complete.
+
+## Outcome
+
+The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042 remains OPEN. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+
 
 ## 34. Navigation rule
 
