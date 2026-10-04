@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R4.5 / `WSA-2026-045` closure, 2026-10-04  
+**Live repair-state checkpoint:** R4.6 / `WSA-2026-050` closure, 2026-10-04  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **26** |
-| CLOSED | **37** |
+| OPEN | **25** |
+| CLOSED | **38** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`, `WSA-2026-045`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`, `WSA-2026-045`, `WSA-2026-050`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `043`, `044`, `046`, `047`, `048`, `049`, `050`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `043`, `044`, `046`, `047`, `048`, `049`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -106,6 +106,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-041` | `AI-Verse-Dashboard` | `#14` | `005c781111418cdde6cc6b1082efeaf8010fd880` | `../repairs/WSA-2026-041-DASHBOARD-LOCALHOST-ORIGIN-POLICY.md` |
 | `WSA-2026-042` | `AI-Verse-Dashboard` | `#15` | `2c1d1a57f7cb27eec166d4fea10dbb335250c518` | `../repairs/WSA-2026-042-DASHBOARD-PROJECTION-AUTHORITY.md` |
 | `WSA-2026-045` | `AI-Verse-Gateway` | `#35` | `3fd9618f693ec71e186cc47da66c2b2694837a17` | `../repairs/WSA-2026-045-GATEWAY-EXACT-SOURCE-FRESHNESS.md` |
+| `WSA-2026-050` | `AI-Verse-Gateway` | `#36` | `dec450e622b3bdfbb5b0c51cc325ea34a08dcb5d` | `../repairs/WSA-2026-050-GATEWAY-PREAUTH-CPU-ADMISSION.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -977,11 +978,11 @@ C-A4.3-007 is resolved for Connections. A durable provider-edge marker and unkno
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
 - R3: **10 / 10 CLOSED = 100%**.
-- R4: **5 / 10 CLOSED = 50%**.
-- Total: **37 / 63 CLOSED = 58.73%**.
-- Remaining: **26 / 63 OPEN = 41.27%**.
+- R4: **6 / 10 CLOSED = 60%**.
+- Total: **38 / 63 CLOSED = 60.32%**.
+- Remaining: **25 / 63 OPEN = 39.68%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R4.6 / WSA-2026-050` (Gateway pre-auth CPU admission).
+- Current ACTIVE repair: `R4.7 / WSA-2026-056` (Connections receipt corruption and doctor health).
 - WSA-2026-018, WSA-2026-036, WSA-2026-041 and WSA-2026-042 are CLOSED by their linked owner and System closure evidence.
 - WSA-2026-034, WSA-2026-054 and WSA-2026-055 are CLOSED by their linked closure packets.
 - Whole-system verdict: **NO-GO**.
@@ -1070,6 +1071,50 @@ The exact tested head and merged main have identical product tree `ab6cc47a3972f
 WSA-2026-045 is closed for AI-Verse-Gateway. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
 
 
-## 37. Navigation rule
+
+## 37. R4.6 closure record - WSA-2026-050
+
+# WSA-2026-050 — Gateway pre-auth CPU admission
+
+**Transition:** ACTIVE -> CLOSED  
+**Severity / confidence:** MEDIUM / PROVEN, unchanged  
+**Owner:** AI-Verse-Gateway  
+**Audited/live pre-repair main:** 3fd9618f693ec71e186cc47da66c2b2694837a17  
+**Repair PR:** [AI-Verse-Gateway #36](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/36)  
+**Final tested owner head:** 5cfca65d05f599415ae6e7d8d551fe330c478354  
+**Merged owner main:** dec450e622b3bdfbb5b0c51cc325ea34a08dcb5d  
+**Tested / merged product tree:** a3d9e5a14ba8b2183515f65089179f3216e7c0ae
+
+## Finding and accepted closure law
+
+The audit found synchronous scrypt bearer verification before the only principal-scoped rate limiter. Request-time bearer checks now use asynchronous scrypt, and a fixed-window pre-auth limiter admits work by the TCP peer address before any KDF. Concurrent authentication work is capped at 64 process-wide and 32 per peer. Rate-limit bucket memory is capped at 4,096 and fails closed at capacity.
+
+Only the TCP peer address is trusted. Forwarded client-address headers are ignored. In direct mode the bucket applies to the client transport address; behind a TLS proxy all forwarded users share the proxy peer bucket, and the trusted proxy must enforce any per-client limits.
+
+## Permanent regression coverage
+
+- Asynchronous scrypt remains pending while the event loop gets a turn.
+- Pre-auth limiter buckets follow the transport peer, ignore forged X-Forwarded-For, reject over-limit attempts, and fail closed when bucket capacity is exhausted.
+- Concurrent pre-auth KDF work is bounded and its capacity is released after completion.
+- An integrated invalid-bearer flood returns authentication failures while a valid authenticated status request succeeds and the event loop continues making progress.
+
+## Owner validation
+
+| Gate | Exact tested PR head | Merged main |
+|---|---:|---:|
+| Gateway CI / Node 20 and 22 | 37168685440 — Ubuntu/macOS/Windows 6/6 PASS | 37168784273 — Ubuntu/macOS/Windows 6/6 PASS |
+| Context Ladder Integrated Acceptance | 37168685460 — PASS | included in merged-main CI 6/6 PASS |
+| Temporary Worker Composition | 37168685442 — PASS | included in merged-main CI 6/6 PASS |
+| Permanent Bot Composition | 37168685438 — PASS | included in merged-main CI 6/6 PASS |
+| Automation Recommendation Boundary | 37168685444 — PASS | included in merged-main CI 6/6 PASS |
+
+The exact tested head and merged main have identical product tree a3d9e5a14ba8b2183515f65089179f3216e7c0ae. Gateway has zero open PRs after merge. System Contract Validation on the exact closure PR head and merged System main will be recorded after both validations pass.
+
+## Outcome
+
+WSA-2026-050 is closed for AI-Verse-Gateway. This finding-specific closure preserves the whole-system NO-GO verdict and existing release pauses.
+
+
+## 38. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
