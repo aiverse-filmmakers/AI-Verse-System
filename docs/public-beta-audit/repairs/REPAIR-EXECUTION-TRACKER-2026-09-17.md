@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-045`
+**Current active finding:** `WSA-2026-050`
 
 ## 1. Preserved execution history
 
@@ -1192,7 +1192,7 @@ System Contract Validation passed on closure PR #146 head `cb14b9169269486851ec1
 
 ## Outcome
 
-The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042 is closed below; WSA-2026-045 becomes ACTIVE. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042 and WSA-2026-045 are closed below; WSA-2026-050 becomes ACTIVE. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
 
 
 ## 36. R4.4 closure record - WSA-2026-042
@@ -1238,17 +1238,44 @@ System Contract Validation on the exact closure PR head and merged System main w
 The WSA-2026-042 shadow Health/Inbox/Task semantics are closed for AI-Verse-Dashboard. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
 
 
-## 37. Program progress
+## 37. R4.5 closure record - WSA-2026-045
+
+**Baseline Gateway:** `cd0789401ddf7c536558a27d84328e963b10c882`  
+**Repair PR:** [AI-Verse-Gateway #35](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/35)  
+**Final tested head:** `f7c415b20d8e6637cdc5f30cf04d6c56edda1053`  
+**Merged Gateway:** `3fd9618f693ec71e186cc47da66c2b2694837a17`  
+**Tested/merged tree:** `ab6cc47a3972f93acf9c2b5eba376b9adb3b0ca8`  
+**Status:** **CLOSED**
+
+Acceptance:
+
+- repeated exact-source request no longer replays by request fingerprint alone: PASS;
+- repeated Memory source request rereads owner and returns changed current content: PASS;
+- repeated Gateway external-source request revalidates fingerprint and returns stale/no content on drift: PASS;
+- summary/detail request deduplication remains intact: PASS;
+- PR-head CI `37167702013`: Ubuntu/macOS/Windows Node 20/22, 6 / 6 PASS;
+- Context Ladder Integrated Acceptance `37167701999`: PASS;
+- Temporary Worker Composition `37167702199`: PASS;
+- Permanent Bot Composition `37167701980`: PASS;
+- Automation Recommendation Boundary `37167701923`: PASS;
+- merged-main CI `37167789207`: Ubuntu/macOS/Windows Node 20/22, 6 / 6 PASS;
+- exact tested PR tree and merged product tree: identical;
+- open Gateway PRs after merge: 0;
+- System Contract Validation exact-head and merged-main each passed Python 3.11 and 3.13.
+
+The WSA-2026-045 stale exact-source replay failure is closed for AI-Verse-Gateway. WSA-2026-050 becomes ACTIVE. Whole-system `NO-GO` and release pauses remain in force.
+
+## 38. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- R4: **4 / 10 CLOSED = 40%**
-- Findings: **36 / 63 CLOSED = 57.14%**
-- Remaining: **27 / 63 OPEN = 42.86%**
+- R4: **5 / 10 CLOSED = 50%**
+- Findings: **37 / 63 CLOSED = 58.73%**
+- Remaining: **26 / 63 OPEN = 41.27%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.5 / WSA-2026-045` (Gateway exact-source freshness cache)
+- Current ACTIVE: `R4.6 / WSA-2026-050` (Gateway pre-auth CPU admission)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
