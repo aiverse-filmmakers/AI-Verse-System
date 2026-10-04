@@ -1375,10 +1375,10 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
 - R4: **10 / 10 CLOSED = 100%**
-- Findings: **49 / 63 CLOSED = 77.78%**
-- Remaining: **14 / 63 OPEN = 22.22%**
+- Findings: **50 / 63 CLOSED = 79.37%**
+- Remaining: **13 / 63 OPEN = 20.63%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.8 / WSA-2026-003` (hosted CI evidence availability)
+- Current ACTIVE: `R5.9 / WSA-2026-046` (current Video Editor absent from admitted Agent)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1476,3 +1476,12 @@ The OS candidate release-set metadata now records `qualification-passed` in both
 **Status:** CLOSED
 
 The System Connections component specification now reflects the public-beta executable candidate instead of the stale research-only snapshot. It records the current registry, credential, lifecycle, health, admission, approval, execution and receipt capabilities, while preserving explicit limits for broader host integration and provider expansion. System Contract Validation passed on Python 3.11 and 3.13. R5.8 / WSA-2026-003 is now ACTIVE.
+
+## 51. R5.8 closure record - WSA-2026-003
+
+**Owner:** AI-Verse-System / AI-Verse-Connections  
+**Evidence:** [Connections CI run 37182362458](https://github.com/aiverse-filmmakers/AI-Verse-Connections/actions/runs/37182362458)  
+**Connections main:** `602a1c52ab782cc9a8b7a4caa60ccb29efe403d1`  
+**Status:** CLOSED
+
+The former hosted-evidence gap was caused by the repository visibility/runner state captured in the original audit. Both System and Connections are now public. Connections `main` CI completed successfully on the current merged revision, and no open Connections PRs remain. R5.9 / WSA-2026-046 is now ACTIVE.
