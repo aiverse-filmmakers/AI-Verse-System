@@ -49,4 +49,4 @@ All eight changed-file Git blobs match between the exact tested head and merged 
 
 The active-generation retention failure is resolved for AI-Verse-Skills. Generation bytes selected by a live execution are protected from explicit purge, and crash recovery does not use age as a substitute for process liveness. This finding-specific closure does not change the whole-system `NO-GO` verdict or close adjacent findings.
 
-System Contract Validation on the closure PR head and merged System main is recorded after both validations complete.
+System Contract Validation passed on closure PR #142 head `59c2b1074baae3f263958f5a02be5e702a528b6b` in run `37164618325`: Python 3.11 and 3.13 both completed all contract tests successfully. Merged-main Contract Validation passed on System merge commit `025396943f930cda151843996365d5f682284210` in run `37164659454`: both Python versions completed all contract tests successfully.
