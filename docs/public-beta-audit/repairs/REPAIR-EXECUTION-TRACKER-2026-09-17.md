@@ -1364,7 +1364,9 @@ Acceptance:
 - Merged-main CI `37171433540`, retry attempt 2: six of six jobs passed, including the benchmark; the first attempt's unrelated review-budget test failure passed unchanged on retry.
 - Tested and merged owner trees are identical; zero open Gateway PRs remain.
 
-WSA-2026-058 is CLOSED. WSA-2026-059 becomes ACTIVE. NO-GO and release pauses remain unchanged.
+System Contract Validation exact closure head `37ef89a67b658a9029f55c3a9e9cfc92bfc86daa`, run `37171700305`, passed Python 3.11 and 3.13. Merged-main validation on `2d71fe8532a9968753ff39926a5d05d435b42722`, run `37171736538`, also passed both Python versions.
+
+WSA-2026-058 is CLOSED. WSA-2026-059 is ACTIVE. NO-GO and release pauses remain unchanged.
 
 ## 39. Program progress
 
