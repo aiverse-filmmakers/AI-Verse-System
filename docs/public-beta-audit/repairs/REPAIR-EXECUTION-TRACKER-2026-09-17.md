@@ -1128,17 +1128,47 @@ Execution-generation leases are serialized with explicit retention purge and rel
 - all eight changed-file blobs match the exact tested head and merged main;
 - Skills main has zero open PRs.
 
-## 33. Program progress
+## 34. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- R4: **1 / 10 CLOSED = 10%**
-- Findings: **33 / 63 CLOSED = 52.38%**
-- Remaining: **30 / 63 OPEN = 47.62%**
+- R4: **2 / 10 CLOSED = 20%**
+- Findings: **34 / 63 CLOSED = 53.97%**
+- Remaining: **29 / 63 OPEN = 46.03%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.2 / WSA-2026-036` (Distribution final error redaction)
+- Current ACTIVE: `R4.3 / WSA-2026-041` (Dashboard localhost Origin policy)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
+
+## 34. R4.2 closure record - WSA-2026-036
+
+**Owner:** `ai-verse-distribution`  
+**Severity / confidence:** MEDIUM / PROVEN, unchanged  
+**Audited baseline:** `c67ffbdda38717da6f19811b07421f0293285778`  
+**Repair PR:** [ai-verse-distribution #10](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/10)  
+**Final tested head:** `1e8f0253bd648fde69ec0e6220e844e3e85f9e78`  
+**Merged Distribution main:** `36a670ff263c9a16fbf6b7ab4a464cc4ef35efa9`  
+**Tested / merged product tree:** `14c1d9e66c9ddbf5f1b6da8acfef441253fb4315`  
+**Status:** **CLOSED**
+
+The final error boundary sanitizes child-process messages, stdout/stderr, secret-bearing argv, structured JSON error text, CLI JSON and human output, and errors surfaced by status/doctor. Regressions cover process failures, split and inline argv secrets, opaque credentials, structured errors, direct status/doctor consumers and both CLI output modes.
+
+- Original evidence E-A1.12-015 identified raw child output embedded in ProcessError; E-A1.12-019 recorded the missing ProcessError-to-CLI secret regression.
+- Exact-head WSA-036 `37165501648`: Ubuntu/macOS/Windows × Python 3.9/3.12, 6 / 6 PASS.
+- Exact-head Distribution CI `37165501622`: PASS.
+- Exact-head Lifecycle Receipt Concurrency `37165501618`: PASS.
+- Exact-head Invisible Intelligence Scenarios A-F `37165501624`: PASS.
+- Exact-head Clean Machine Core Acceptance `37165501620`: all 3 OS PASS.
+- Exact-head Clean Machine Agent Release Gate `37165501616`: all 3 OS PASS.
+- Exact-head Clean Machine Invisible Intelligence Candidate `37165501617`: all 3 OS PASS.
+- Merged-main Distribution CI `37165826606`: all 6 matrix jobs PASS.
+- Merged-main WSA-036 `37165826622`: all 6 OS/Python jobs PASS.
+- Merged-main Lifecycle Receipt Concurrency `37165826610`: all 3 OS jobs PASS.
+- The exact tested PR tree and merged product tree are identical; changed-file blobs match.
+- Distribution has zero open PRs after merge.
+- Exact-head and merged-main System Contract Validation will be recorded once both have passed.
+
+`WSA-2026-037` remains OPEN. This finding-specific closure preserves the whole-system `NO-GO` verdict and all existing release pauses.
