@@ -31,7 +31,7 @@ The original A2.5 evidence found that repeated identical source-depth requests r
 
 The exact tested head and merged main have identical product tree `ab6cc47a3972f93acf9c2b5eba376b9adb3b0ca8`. Gateway has zero open PRs after merge.
 
-System Contract Validation on the exact closure PR head and merged System main will be recorded after both validations pass.
+System Contract Validation passed on closure PR #150 exact head `92c78e8e1a6d3e86bff147f3d6f2dd47b546862f` in run `37168083648` (Python 3.11 and 3.13). Merged-main Contract Validation passed on System merge commit `81fb3e40491097e04a3c3e040a43dba45dbbd1c2` in run `37168117528` (Python 3.11 and 3.13).
 
 ## Outcome
 
