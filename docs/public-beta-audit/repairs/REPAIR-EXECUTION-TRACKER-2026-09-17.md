@@ -1657,7 +1657,7 @@ The release now has one composed acceptance for Goal creation, Goal-bound learni
 **Repair PR:** [Distribution #18](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/18)
 **Final tested PR head:** `05428aa604036cce9f910a150a185eb7c6a1289d`
 **Merged Distribution ref:** `16914342a752cabb37ab90c98cfcb22b53f5de89`
-**Non-test runtime acceptance:** `37238124339` — Ubuntu, macOS and Windows passed
+**Non-test runtime acceptance:** `37238124211` — Ubuntu `111541232513`, macOS `111541232492`, Windows `111541232394` — all passed
 **Merged-main Distribution CI:** `37238645581` — Python 3.11/3.12 Linux/macOS/Windows passed
 **Status:** CLOSED
 
