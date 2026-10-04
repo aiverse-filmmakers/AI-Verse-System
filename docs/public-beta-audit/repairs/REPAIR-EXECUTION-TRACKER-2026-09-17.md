@@ -1383,6 +1383,35 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
 
+## 60. R5.15 closure record - WSA-2026-004
+
+**Owner:** AI-Verse-System  
+**Repair PR:** [AI-Verse-System #180](https://github.com/aiverse-filmmakers/AI-Verse-System/pull/180)  
+**Final tested PR head:** `ed4be01`  
+**Merged System ref:** `31e39c4`  
+**Exact-head Contract Validation:** `37235289082` — Python 3.11 and 3.13 passed  
+**Merged-main Contract Validation:** `37235314947` — Python 3.11 and 3.13 passed  
+**Status:** CLOSED
+
+The public-beta audit README now routes fresh auditors to the completed A0-A6 state and the authoritative repair tracker. The original execution tracker remains explicitly preserved as historical phase evidence, and the entrypoint no longer instructs auditors to restart at A0.1.
+
+R6.5 / WSA-2026-049 is now ACTIVE; earlier R6 items already closed in this register are not reopened.
+
+## 61. Program progress
+
+- R0: **4 / 4 CLOSED = 100%**
+- R1: **13 / 13 CLOSED = 100%**
+- R2: **5 / 5 CLOSED = 100%**
+- R3: **10 / 10 CLOSED = 100%**
+- R4: **10 / 10 CLOSED = 100%**
+- Findings: **56 / 63 CLOSED = 88.89%**
+- Remaining: **7 / 63 OPEN = 11.11%**
+- Open BLOCKERs: **0**
+- Current ACTIVE: `R6.5 / WSA-2026-049`
+- Whole-system verdict: **NO-GO**
+- Dashboard MC1.4: paused
+- Owner dogfood: paused
+
 ## 58. R5.14 closure record - WSA-2026-044
 
 **Owner:** AI-Verse-System  
