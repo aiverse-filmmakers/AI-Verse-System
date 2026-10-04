@@ -32,7 +32,7 @@ Health, Inbox and Task/Now now explicitly report unavailable when the canonical 
 
 The first exact-head CI attempt caught stale adapter wiring in the Gateway projection call; that call was removed and the corrected final head passed all platforms. The exact tested head and merged main have identical tree `da80a0159b10c0addd3ce8ebf1affc0bea29549c`. All six changed-file blobs are identical. Dashboard has zero open PRs after merge.
 
-System Contract Validation on the exact closure PR head and merged System main will be recorded after both validations pass.
+System Contract Validation passed on the exact closure PR head in run `37167492113` (Python 3.11 and 3.13), and on merged System main in run `37167593426` (Python 3.11 and 3.13). The closure record was merged in System PR #149 at `a8579e83171f37a6013e075a4c9e4c9414d37c9a`.
 
 ## Outcome
 
