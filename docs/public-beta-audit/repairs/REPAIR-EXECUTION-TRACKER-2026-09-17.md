@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-056`
+**Current active finding:** `WSA-2026-057`
 
 ## 1. Preserved execution history
 
@@ -1192,7 +1192,7 @@ System Contract Validation passed on closure PR #146 head `cb14b9169269486851ec1
 
 ## Outcome
 
-The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042, WSA-2026-045 and WSA-2026-050 are closed below; WSA-2026-056 becomes ACTIVE. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042, WSA-2026-045 and WSA-2026-050 are closed below; WSA-2026-056 is CLOSED as recorded below. WSA-2026-057 becomes ACTIVE. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
 
 
 ## 36. R4.4 closure record - WSA-2026-042
@@ -1294,17 +1294,43 @@ Acceptance:
 
 WSA-2026-050 is closed for AI-Verse-Gateway. WSA-2026-056 becomes ACTIVE. Whole-system NO-GO and existing release pauses remain.
 
+## 40. R4.7 closure record - WSA-2026-056
+
+**Owner:** AI-Verse-Connections  
+**Repair PR:** [#10](https://github.com/aiverse-filmmakers/AI-Verse-Connections/pull/10)  
+**Final tested PR head:** `b007be2d42908c3cefdf75db52e1359f7915870f`  
+**Merged owner ref:** `2e608a3061ea1cd5db9ccd27d1b0779396707d4f`  
+**Reviewed/merged owner tree:** `06478712ae67744b32491ca06882846715dc6add`  
+**Status:** CLOSED
+
+Acceptance:
+
+- Malformed receipt interior and truncated final line are detected without modifying the source; trustworthy prior records remain diagnostically available.
+- Receipt consumers fail closed and do not skip corrupt rows or silently consume partial history.
+- Doctor reports receipt-log integrity and external-effect recovery is unavailable while receipt history is corrupt.
+- Recovery procedure requires byte-exact quarantine, complete validated restoration/reconstruction, explicit reconciliation of possible external effects and healthy doctor output before resuming.
+- Exact-head CI `37169364292`: six Node 20/22 Ubuntu/macOS/Windows jobs passed.
+- Exact-head WSA-055 External Effect Recovery `37169364254` and WSA-054 Write Lock Recovery `37169364258`: all three OS jobs passed on each workflow.
+- Merged-main CI `37169420860`: retry attempt 2 passed; the first Windows Node 20 attempt hit an intermittent unrelated WSA-032 daily-budget race test failure, 50/51, and the retried Windows job passed unchanged on the same merged SHA.
+- Merged-main WSA-055 `37169420861` and WSA-054 `37169420885`: all three OS jobs passed on each workflow.
+- Owner main tree is identical to the exact tested PR tree; zero open Connections PRs remain.
+- System Contract Validation exact closure head and merged System main each passed Python 3.11 and 3.13; post-evidence-sync main validation `37169433735` passed.
+- Closure scope is limited to WSA-056; the WSA-054/055 laws remain intact and were revalidated.
+
+WSA-2026-056 is closed. WSA-2026-057 is ACTIVE. NO-GO and release pauses remain unchanged.
+
+
 ## 39. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- R4: **6 / 10 CLOSED = 60%**
-- Findings: **38 / 63 CLOSED = 60.32%**
-- Remaining: **25 / 63 OPEN = 39.68%**
+- R4: **7 / 10 CLOSED = 70%**
+- Findings: **39 / 63 CLOSED = 61.90%**
+- Remaining: **24 / 63 OPEN = 38.10%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.7 / WSA-2026-056` (Connections receipt corruption and doctor health)
+- Current ACTIVE: `R4.8 / WSA-2026-057` (Connections provider error redaction)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
