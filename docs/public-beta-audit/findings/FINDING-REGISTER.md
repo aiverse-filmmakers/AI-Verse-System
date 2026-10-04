@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R4.4 / `WSA-2026-042` closure, 2026-10-04  
+**Live repair-state checkpoint:** R4.5 / `WSA-2026-045` closure, 2026-10-04  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **27** |
-| CLOSED | **36** |
+| OPEN | **26** |
+| CLOSED | **37** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`, `WSA-2026-045`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `043`, `044`, `046`, `047`, `048`, `049`, `050`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -105,6 +105,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-036` | `ai-verse-distribution` | `#10` | `36a670ff263c9a16fbf6b7ab4a464cc4ef35efa9` | `../repairs/WSA-2026-036-DISTRIBUTION-FINAL-ERROR-REDACTION.md` |
 | `WSA-2026-041` | `AI-Verse-Dashboard` | `#14` | `005c781111418cdde6cc6b1082efeaf8010fd880` | `../repairs/WSA-2026-041-DASHBOARD-LOCALHOST-ORIGIN-POLICY.md` |
 | `WSA-2026-042` | `AI-Verse-Dashboard` | `#15` | `2c1d1a57f7cb27eec166d4fea10dbb335250c518` | `../repairs/WSA-2026-042-DASHBOARD-PROJECTION-AUTHORITY.md` |
+| `WSA-2026-045` | `AI-Verse-Gateway` | `#35` | `3fd9618f693ec71e186cc47da66c2b2694837a17` | `../repairs/WSA-2026-045-GATEWAY-EXACT-SOURCE-FRESHNESS.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -976,11 +977,11 @@ C-A4.3-007 is resolved for Connections. A durable provider-edge marker and unkno
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
 - R3: **10 / 10 CLOSED = 100%**.
-- R4: **4 / 10 CLOSED = 40%**.
-- Total: **36 / 63 CLOSED = 57.14%**.
-- Remaining: **27 / 63 OPEN = 42.86%**.
+- R4: **5 / 10 CLOSED = 50%**.
+- Total: **37 / 63 CLOSED = 58.73%**.
+- Remaining: **26 / 63 OPEN = 41.27%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R4.5 / WSA-2026-045` (Gateway exact-source freshness cache).
+- Current ACTIVE repair: `R4.6 / WSA-2026-050` (Gateway pre-auth CPU admission).
 - WSA-2026-018, WSA-2026-036, WSA-2026-041 and WSA-2026-042 are CLOSED by their linked owner and System closure evidence.
 - WSA-2026-034, WSA-2026-054 and WSA-2026-055 are CLOSED by their linked closure packets.
 - Whole-system verdict: **NO-GO**.
@@ -1029,6 +1030,46 @@ System Contract Validation on the exact closure PR head and merged System main w
 The WSA-2026-042 shadow Health/Inbox/Task semantics are closed for AI-Verse-Dashboard. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
 
 
-## 36. Navigation rule
+## 36. R4.5 closure record - WSA-2026-045
+
+# WSA-2026-045 — Gateway exact-source freshness cache
+
+**Transition:** `ACTIVE -> CLOSED`  
+**Severity / confidence:** MEDIUM / PROVEN, unchanged  
+**Owner:** `AI-Verse-Gateway`  
+**Audited/live pre-repair main:** `cd0789401ddf7c536558a27d84328e963b10c882`  
+**Repair PR:** [AI-Verse-Gateway #35](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/35)  
+**Final tested owner head:** `f7c415b20d8e6637cdc5f30cf04d6c56edda1053`  
+**Merged owner main:** `3fd9618f693ec71e186cc47da66c2b2694837a17`  
+**Tested / merged product tree:** `ab6cc47a3972f93acf9c2b5eba376b9adb3b0ca8`
+
+## Finding and accepted closure law
+
+The original A2.5 evidence found that repeated identical source-depth requests replayed a prior per-run result by request fingerprint alone, skipping Memory owner freshness checks and Gateway external-source fingerprint validation. Exact-source requests now always perform a fresh owner retrieval and external source validation; request deduplication remains for non-source summary/detail reads. Changed Memory evidence returns current owner content. Changed Gateway-held external evidence returns an explicit `stale` result with no source messages.
+
+## Permanent regression coverage
+
+- Memory exact-source drift between identical requests performs a second owner read and returns updated content.
+- Gateway external-source drift between identical requests performs a second owner read, detects `source_fingerprint_mismatch`, returns `stale`, and exposes no old source content.
+- Existing equivalent summary/detail requests continue to deduplicate.
+
+## Owner validation
+
+| Gate | Exact tested PR head | Merged main |
+|---|---:|---:|
+| Gateway CI / Node 20 and 22 | `37167702013` — Ubuntu/macOS/Windows 6/6 PASS | `37167789207` — Ubuntu/macOS/Windows 6/6 PASS |
+| Context Ladder Integrated Acceptance | `37167701999` — PASS | merged-main CI `37167789207` — 6/6 PASS |
+| Temporary Worker Composition | `37167702199` — PASS | merged-main CI `37167789207` — 6/6 PASS |
+| Permanent Bot Composition | `37167701980` — PASS | merged-main CI `37167789207` — 6/6 PASS |
+| Automation Recommendation Boundary | `37167701923` — PASS | merged-main CI `37167789207` — 6/6 PASS |
+
+The exact tested head and merged main have identical product tree `ab6cc47a3972f93acf9c2b5eba376b9adb3b0ca8`. Gateway has zero open PRs after merge. System Contract Validation exact-head and merged-main results are recorded after passing.
+
+## Outcome
+
+WSA-2026-045 is closed for AI-Verse-Gateway. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+
+
+## 37. Navigation rule
 
 Use this file for current state. Use the preserved detailed registers for historical audit evidence and prior overlays. Use the exact closure packet for each CLOSED finding, and use `../repairs/REPAIR-EXECUTION-TRACKER-2026-09-17.md` plus `../synthesis/A6.4-ORDERED-REPAIR-PROGRAM.md` for execution order.
