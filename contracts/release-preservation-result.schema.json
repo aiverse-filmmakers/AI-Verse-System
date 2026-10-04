@@ -252,7 +252,10 @@
       "required": [
         "kind",
         "status",
-        "revision"
+        "revision",
+        "run_id",
+        "job_id",
+        "url"
       ],
       "properties": {
         "kind": {
