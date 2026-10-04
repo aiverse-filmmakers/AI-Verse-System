@@ -1716,3 +1716,54 @@ The public and packaged compatibility matrices no longer claim that Agent is ina
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
+
+## 69. R5.7 closure record - WSA-2026-037
+
+**Owner:** ai-verse-distribution  
+**Repair PR:** [Distribution #20](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/20)  
+**Final tested PR head:** `7a69446`  
+**Merged Distribution ref:** `b54014c2215c7686a0858e2516095c2cc3772821`  
+**Exact-head PR checks:** all required checks passed on Ubuntu, macOS and Windows  
+**Status:** CLOSED
+
+Distribution’s canonical architecture and roadmap now describe the immutable Agent public-beta release truth. Stale claims that Agent remained blocked or that its release branch still awaited a final rerun were removed, while Full remains explicitly blocked by Connections, Dashboard and Apps.
+
+## 70. R5.8 closure record - WSA-2026-061
+
+**Owner:** ai-verse-token  
+**Repair PR:** [Token #3](https://github.com/aiverse-filmmakers/ai-verse-token/pull/3)  
+**Final tested PR head:** `dd03298`  
+**Merged Token ref:** `d36916323abb5f396bd8fd6b7f5c3ef84af519d0`  
+**Exact-head PR checks:** six-leg Node 22/24 Linux/macOS/Windows matrix passed  
+**Merged-main Token CI:** `37151877242` — six Node 22/24 Linux/macOS/Windows jobs passed  
+**Local validation:** 268/268 normal tests and 3/3 release-acceptance tests passed  
+**Status:** CLOSED
+
+Token’s release acceptance documentation now consistently describes beta.3, labels earlier beta.1 material as historical, and records the completed exact-head hosted matrix instead of future-tense pending language.
+
+## 71. R5.9 closure record - WSA-2026-062
+
+**Owner:** AI-Verse-Multiple-Bots  
+**Repair PR:** [Multiple Bots #71](https://github.com/aiverse-filmmakers/AI-Verse-Multiple-Bots/pull/71)  
+**Final tested PR head:** `010c1b7`  
+**Merged Multiple Bots ref:** `ddf70ac19736f6ca7f8d604901c20af9e46614fe`  
+**Exact-head release evaluation:** 7/7 passed  
+**Merged-main CI:** `37240126310` — test passed  
+**Status:** CLOSED
+
+The component acceptance contract now explicitly separates the released Agent composition from Full-profile additions: Agent excludes Connections, Dashboard and Apps; those are listed as Full additions. The machine-readable manifest and executable regression test enforce the same boundary.
+
+## 72. Program progress
+
+- R0: **4 / 4 CLOSED = 100%**
+- R1: **13 / 13 CLOSED = 100%**
+- R2: **5 / 5 CLOSED = 100%**
+- R3: **10 / 10 CLOSED = 100%**
+- R4: **10 / 10 CLOSED = 100%**
+- Findings: **63 / 63 CLOSED = 100%**
+- Remaining: **0 / 63 OPEN = 0%**
+- Open BLOCKERs: **0**
+- Current ACTIVE: none; all ordered findings are closed
+- Whole-system verdict: **NO-GO pending final release-governance recheck**
+- Dashboard MC1.4: paused
+- Owner dogfood: paused
