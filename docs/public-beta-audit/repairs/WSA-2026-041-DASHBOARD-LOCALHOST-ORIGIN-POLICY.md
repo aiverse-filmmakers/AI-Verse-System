@@ -28,7 +28,7 @@ The Gateway uses the validated loopback-host/HTTP policy consistently for RPC an
 
 The exact tested head and merged product tree are identical (`75ab3f32f7916e7604f8a4b22f577209f28e96ca`). Both changed-file Git blobs match between exact tested head and merged main. Dashboard has zero open PRs after merge.
 
-System Contract Validation on the exact closure PR head and merged System main is recorded after both validations complete.
+System Contract Validation passed on closure PR #146 head `cb14b9169269486851ec102c589ce49435d99806` in run `37166733815`: Python 3.11 and 3.13 both passed. Merged-main Contract Validation passed on System merge commit `5680b33114b0066e17de9776ec20e09ed2fa5b73` in run `37166763565`: Python 3.11 and 3.13 both passed.
 
 ## Outcome
 
