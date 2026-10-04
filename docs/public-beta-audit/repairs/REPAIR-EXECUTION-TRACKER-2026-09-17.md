@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-057`
+**Current active finding:** `WSA-2026-058`
 
 ## 1. Preserved execution history
 
@@ -1320,17 +1320,41 @@ Acceptance:
 WSA-2026-056 is closed. WSA-2026-057 is ACTIVE. NO-GO and release pauses remain unchanged.
 
 
+## 41. R4.8 closure record - WSA-2026-057
+
+**Owner:** AI-Verse-Connections  
+**Repair PR:** [#11](https://github.com/aiverse-filmmakers/AI-Verse-Connections/pull/11)  
+**Final tested PR head:** `ac54373104a180fe27ce74a6e4371a0e0b7cb147`  
+**Merged owner ref:** `fb8b10deb6e05656e1e3b97e8d93650d58c57a7b`  
+**Reviewed/merged owner tree:** `4bd49c355cda5828b9eb77091dce0250340e077e`  
+**Status:** CLOSED
+
+Acceptance:
+
+- The MCP adapter discards provider-controlled error message/data and emits a fixed local message with only a safe numeric RPC code.
+- CLI diagnostics serialize the same minimized error form.
+- Failure receipts preserve outcome/error-code and external-effect uncertainty without provider text/data.
+- The deterministic bearer-echo regression verifies actual credential/private context absence from receipt bytes and CLI JSON diagnostics.
+- Exact-head CI `37170064211`: six Node 20/22 Ubuntu/macOS/Windows jobs passed; 51/51 suite tests passed.
+- Exact-head WSA-054 Write Lock Recovery `37170064219` and WSA-055 External Effect Recovery `37170064209`: all three OS jobs passed for both.
+- Merged-main CI `37170167486`: six Node 20/22 Ubuntu/macOS/Windows jobs passed.
+- Merged-main WSA-054 `37170167519` and WSA-055 `37170167543`: all three OS jobs passed for both.
+- Tested and merged owner trees are identical; zero open Connections PRs remain.
+- WSA-2026-056 receipt-integrity safeguards and WSA-2026-054/055 recovery gates remain intact.
+
+WSA-2026-057 is CLOSED. WSA-2026-058 is ACTIVE. Whole-system NO-GO and release pauses remain in force.
+
 ## 39. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- R4: **7 / 10 CLOSED = 70%**
-- Findings: **39 / 63 CLOSED = 61.90%**
-- Remaining: **24 / 63 OPEN = 38.10%**
+- R4: **8 / 10 CLOSED = 80%**
+- Findings: **40 / 63 CLOSED = 63.49%**
+- Remaining: **23 / 63 OPEN = 36.51%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.8 / WSA-2026-057` (Connections provider error redaction)
+- Current ACTIVE: `R4.9 / WSA-2026-058` (Gateway idempotency state scale)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused

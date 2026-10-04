@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R4.7 / `WSA-2026-056` closure, 2026-10-04  
+**Live repair-state checkpoint:** R4.8 / `WSA-2026-057` closure, 2026-10-04  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **24** |
-| CLOSED | **39** |
+| OPEN | **23** |
+| CLOSED | **40** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,7 +57,7 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`, `WSA-2026-045`, `WSA-2026-050`, `WSA-2026-056`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`, `WSA-2026-045`, `WSA-2026-050`, `WSA-2026-056`, `WSA-2026-057`.
 
 ### OPEN
 
@@ -108,6 +108,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-045` | `AI-Verse-Gateway` | `#35` | `3fd9618f693ec71e186cc47da66c2b2694837a17` | `../repairs/WSA-2026-045-GATEWAY-EXACT-SOURCE-FRESHNESS.md` |
 | `WSA-2026-050` | `AI-Verse-Gateway` | `#36` | `dec450e622b3bdfbb5b0c51cc325ea34a08dcb5d` | `../repairs/WSA-2026-050-GATEWAY-PREAUTH-CPU-ADMISSION.md` |
 | `WSA-2026-056` | `AI-Verse-Connections` | `#10` | `2e608a3061ea1cd5db9ccd27d1b0779396707d4f` | `../repairs/WSA-2026-056-CONNECTIONS-RECEIPT-CORRUPTION.md` |
+| `WSA-2026-057` | `AI-Verse-Connections` | `#11` | `fb8b10deb6e05656e1e3b97e8d93650d58c57a7b` | `../repairs/WSA-2026-057-CONNECTIONS-MCP-ERROR-REDACTION.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -1143,6 +1144,32 @@ Closure evidence:
 - WSA-054 write-lock and WSA-055 unknown-effect recovery guarantees remain intact and were revalidated; this closure is limited to WSA-056 receipt corruption visibility and recovery.
 
 WSA-2026-056 is closed for AI-Verse-Connections. WSA-2026-057 becomes ACTIVE. Whole-system NO-GO and dashboard/dogfood pauses remain in force.
+
+
+## 41. R4.8 closure overlay - WSA-2026-057
+
+**Transition:** OPEN -> CLOSED  
+**Severity/confidence:** MEDIUM / PROVEN, unchanged  
+**Owner:** AI-Verse-Connections  
+**Repair PR:** [AI-Verse-Connections #11](https://github.com/aiverse-filmmakers/AI-Verse-Connections/pull/11)  
+**Final tested PR head:** `ac54373104a180fe27ce74a6e4371a0e0b7cb147`  
+**Merged Connections ref:** `fb8b10deb6e05656e1e3b97e8d93650d58c57a7b`  
+**Reviewed/merged product tree:** `4bd49c355cda5828b9eb77091dce0250340e077e`
+
+Closure evidence:
+
+- MCP JSON-RPC provider-controlled `message` and `data` are discarded before becoming a local error; the adapter emits a fixed summary and only a safe integer provider code.
+- CLI JSON diagnostics use the same fixed summary and bounded details. Raw RPC fields are not copied to captured output.
+- External-effect failure receipts contain the stable local error code and uncertainty state, without raw message/data fields.
+- Permanent adversarial regression makes the MCP server echo the actual bearer and private context in RPC error message/data, then asserts both values are absent from receipt bytes and serialized CLI diagnostics.
+- Exact-head CI `37170064211`: six Node 20/22 Ubuntu/macOS/Windows jobs passed; suite reports 51/51.
+- Exact-head WSA-054 Write Lock Recovery `37170064219` and WSA-055 External Effect Recovery `37170064209`: all three OS jobs passed for each.
+- Merged-main CI `37170167486`: six Node 20/22 Ubuntu/macOS/Windows jobs passed.
+- Merged-main WSA-054 Write Lock Recovery `37170167519` and WSA-055 External Effect Recovery `37170167543`: all three OS jobs passed for each.
+- Exact tested PR tree and merged owner tree are identical; Connections main is `fb8b10deb6e05656e1e3b97e8d93650d58c57a7b`, tree `4bd49c355cda5828b9eb77091dce0250340e077e`; open Connections PRs after merge: 0.
+- The WSA-056 receipt corruption safeguards and WSA-054/055 lock/effect recovery behavior remain present and pass their dedicated workflows.
+
+WSA-2026-057 is closed for AI-Verse-Connections. WSA-2026-058 becomes ACTIVE. Whole-system NO-GO and all release pauses remain in force.
 
 
 ## 38. Navigation rule
