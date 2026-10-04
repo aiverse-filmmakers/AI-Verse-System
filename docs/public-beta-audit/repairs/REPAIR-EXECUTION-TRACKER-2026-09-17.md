@@ -1375,10 +1375,10 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
 - R4: **10 / 10 CLOSED = 100%**
-- Findings: **51 / 63 CLOSED = 80.95%**
-- Remaining: **12 / 63 OPEN = 19.05%**
+- Findings: **52 / 63 CLOSED = 82.54%**
+- Remaining: **11 / 63 OPEN = 17.46%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.10 / WSA-2026-047` (composed semantic-migration acceptance)
+- Current ACTIVE: `R5.11 / WSA-2026-048` (composed Goal-to-learned-Skill acceptance)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1497,3 +1497,15 @@ The former hosted-evidence gap was caused by the repository visibility/runner st
 **Status:** CLOSED
 
 Distribution now has immutable candidate `agent-video-editor-rc1-2026-10-04`, pinning Skills `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`. The member-facing `video-editor` capability is present and discoverable in the accepted Skills tree. Candidate clean-machine acceptance passed on Ubuntu, macOS and Windows in run `37185675385`; merged-main Distribution CI passed all six Python 3.11/3.12 Linux/macOS/Windows jobs in run `37186142306`. Distribution local tests passed 85/85. R5.10 / WSA-2026-047 is now ACTIVE.
+
+## 53. R5.10 closure record - WSA-2026-047
+
+**Owner:** AI-Verse-OS / AI-Verse-Gateway / AI-Verse-Memory / AI-Verse-Data / ai-verse-distribution  
+**Repair PR:** [Distribution #15](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/15)  
+**Final tested PR head:** `fee123656becda57d3dec6e4d3ebe04bdb157bc0`  
+**Merged owner ref:** `974443e7e130ce0168fcc742c9ddb23dcb430f25`  
+**Composed acceptance run:** `37186947115` — Ubuntu `111390783953`, macOS `111390783917`, Windows `111390783740` — all passed  
+**Merged-main Distribution CI:** `37187174426` — six Python 3.11/3.12 Linux/macOS/Windows jobs passed  
+**Status:** CLOSED
+
+The composed acceptance now starts the exact immutable Agent candidate and routes a semantic migration through the real OS workspace, Memory and Data owner paths. It verifies a separate-process replay produces no second effect and confirms the raw migration source is not copied into the canonical receipt. The acceptance passes on Ubuntu, macOS and Windows. R5.11 / WSA-2026-048 is now ACTIVE.
