@@ -1383,6 +1383,35 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
 
+## 62. R6.5 closure record - WSA-2026-049
+
+**Owner:** AI-Verse-OS / AI-Verse-Gateway / AI-Verse-Memory / AI-Verse-Data / AI-Verse-Multiple-Bots / AI-Verse-Automations / ai-verse-token / ai-verse-distribution  
+**Repair PR:** [Distribution #17](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/17)  
+**Final tested PR head:** `1df9a121e1fa360816e36659c3edde155ce6434e`  
+**Merged Distribution ref:** `8c5486241df17ed7d34cb28df595808ad10da5a8`  
+**Composed two-system acceptance:** `37235845011` — Ubuntu, macOS and Windows passed concurrently  
+**Merged-main Distribution CI:** `37236283933` — six Python 3.11/3.12 Linux/macOS/Windows jobs passed  
+**Status:** CLOSED
+
+The supported Agent path now has a cross-platform two-system acceptance. It launches two complete systems concurrently with separate roots, Distribution homes, Gateway ports and tokens, while each system runs the full lifecycle acceptance independently. The Windows Git long-path and macOS Node/npm environment requirements are pinned in the workflow.
+
+R6.6 / WSA-2026-063 is now ACTIVE.
+
+## 63. Program progress
+
+- R0: **4 / 4 CLOSED = 100%**
+- R1: **13 / 13 CLOSED = 100%**
+- R2: **5 / 5 CLOSED = 100%**
+- R3: **10 / 10 CLOSED = 100%**
+- R4: **10 / 10 CLOSED = 100%**
+- Findings: **57 / 63 CLOSED = 90.48%**
+- Remaining: **6 / 63 OPEN = 9.52%**
+- Open BLOCKERs: **0**
+- Current ACTIVE: `R6.6 / WSA-2026-063`
+- Whole-system verdict: **NO-GO**
+- Dashboard MC1.4: paused
+- Owner dogfood: paused
+
 ## 60. R5.15 closure record - WSA-2026-004
 
 **Owner:** AI-Verse-System  
