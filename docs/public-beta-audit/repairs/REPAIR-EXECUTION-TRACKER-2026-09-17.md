@@ -1375,10 +1375,10 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
 - R4: **10 / 10 CLOSED = 100%**
-- Findings: **47 / 63 CLOSED = 74.60%**
-- Remaining: **16 / 63 OPEN = 25.40%**
+- Findings: **48 / 63 CLOSED = 76.19%**
+- Remaining: **15 / 63 OPEN = 23.81%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.6 / WSA-2026-001` (OS candidate qualification metadata)
+- Current ACTIVE: `R5.7 / WSA-2026-002` (System/Connections documentation drift)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1455,3 +1455,13 @@ Distribution now states and enforces the executable Agent Python floor of 3.11+,
 **Status:** CLOSED
 
 Skills `main` now carries distinct post-beta development identity `1.1.0-beta.2.dev0`. VERSION, public-beta documentation and release descriptor are aligned. Development descriptors require empty CI/acceptance evidence and cannot claim accepted release proof. Local suite passed 143 tests; hosted validation passed on Linux/macOS/Windows with Python 3.9/3.12. R5.4 / WSA-2026-021 is now ACTIVE.
+
+## 49. R5.6 closure record - WSA-2026-001
+
+**Owner:** ai-verse-distribution  
+**Repair PR:** [#12](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/12)  
+**Final tested owner head:** `b59a63eeab607029f5b69926d7b54b34ecb252a4`  
+**Merged owner ref:** `3c5015779c2ef371b5a48b87bddf901357c9e88e`  
+**Status:** CLOSED
+
+The OS candidate release-set metadata now records `qualification-passed` in both the source manifest and generated catalog. A regression test prevents the stale `qualification-pending` state from returning. Local Distribution tests passed 84/84. Hosted unit, core, adversarial, error-redaction, clean-machine Agent and Candidate validation passed on Linux/macOS/Windows, including Python 3.11 and 3.12. R5.7 / WSA-2026-002 is now ACTIVE.
