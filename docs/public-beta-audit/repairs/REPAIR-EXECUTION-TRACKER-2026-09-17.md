@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-059` pending System closure validation
+**Current active finding:** `WSA-2026-036`
 
 ## 1. Preserved execution history
 
@@ -1366,7 +1366,7 @@ Acceptance:
 
 System Contract Validation exact closure head `37ef89a67b658a9029f55c3a9e9cfc92bfc86daa`, run `37171700305`, passed Python 3.11 and 3.13. Merged-main validation on `2d71fe8532a9968753ff39926a5d05d435b42722`, run `37171736538`, also passed both Python versions.
 
-WSA-2026-058 is CLOSED. WSA-2026-059 is ACTIVE. NO-GO and release pauses remain unchanged.
+WSA-2026-058 and WSA-2026-059 are CLOSED. WSA-2026-036 is ACTIVE. NO-GO and release pauses remain unchanged.
 
 ## 39. Program progress
 
@@ -1374,11 +1374,11 @@ WSA-2026-058 is CLOSED. WSA-2026-059 is ACTIVE. NO-GO and release pauses remain 
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- R4: **9 / 10 CLOSED = 90%**
-- Findings: **41 / 63 CLOSED = 65.08%**
-- Remaining: **22 / 63 OPEN = 34.92%**
+- R4: **10 / 10 CLOSED = 100%**
+- Findings: **42 / 63 CLOSED = 66.67%**
+- Remaining: **21 / 63 OPEN = 33.33%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.10 / WSA-2026-059` (Connections receipt-history scale)
+- Current ACTIVE: `R4.2 / WSA-2026-036` (Distribution diagnostic output secret leakage)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1390,7 +1390,7 @@ WSA-2026-058 is CLOSED. WSA-2026-059 is ACTIVE. NO-GO and release pauses remain 
 **Final tested PR head:** `d46478297f79c31335a5f942ddb4a41b8cce2359`  
 **Merged owner ref:** `602a1c52ab782cc9a8b7a4caa60ccb29efe403d1`  
 **Tested / merged owner tree:** `cfb2688c673dc8a1ff8c4f3e0114807654d17023`  
-**Status:** CLOSED pending System Contract Validation
+**Status:** CLOSED
 
 Acceptance:
 
@@ -1404,4 +1404,4 @@ Acceptance:
 - Exact-head WSA-059 Receipt Index Scale `37174364891`, attempt 4: passed.
 - Tested and merged owner trees are identical; zero open Connections PRs remain.
 
-The whole-system NO-GO verdict and release pauses remain unchanged. The exact closure packet is `WSA-2026-059-CONNECTIONS-RECEIPT-HISTORY-SCALE.md`. System Contract Validation is required before the tracker advances to the next finding.
+The whole-system NO-GO verdict and release pauses remain unchanged. The exact closure packet is `WSA-2026-059-CONNECTIONS-RECEIPT-HISTORY-SCALE.md`. R4.2 / WSA-2026-036 is now ACTIVE.

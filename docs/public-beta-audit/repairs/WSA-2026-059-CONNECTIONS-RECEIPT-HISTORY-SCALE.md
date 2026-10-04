@@ -27,8 +27,11 @@ The latest receipt state is stored in compact hash-partitioned shards. Rebuilds 
 
 ## System closure validation
 
-System Contract Validation must be recorded on the closure PR head and on merged System main before this packet is finalised.
+| Gate | System ref | Contract Validation run | Python 3.11 | Python 3.13 |
+|---|---|---:|---|---|
+| Exact closure PR head | `fa9089e7a1e58a21b0ee3b9632c2dfc6a523d329` | `37182476422` | PASS | PASS |
+| Merged System main | `d75aac5bcd79f766bfe9d44e6732cae7cf906475` | `37182502507` | PASS | PASS |
 
 ## Outcome
 
-WSA-2026-059 is closed for AI-Verse-Connections. The whole-system NO-GO verdict and release pauses remain in force. R4.10 is complete; R5 remains pending until the ordered tracker advances through the next dependency-safe finding.
+WSA-2026-059 is closed for AI-Verse-Connections. The whole-system NO-GO verdict and release pauses remain in force. R4.10 is complete; R4.2 / WSA-2026-036 is now the next active dependency-safe finding.
