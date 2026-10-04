@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-018`
+**Current active finding:** `WSA-2026-036`
 
 ## 1. Preserved execution history
 
@@ -99,12 +99,12 @@ Status vocabulary: `PENDING`, `ACTIVE`, `FIXED-PENDING-RECHECK`, `CLOSED`, `DEFE
 
 **R3 progress: 10 / 10 CLOSED = 100%.**
 
-R4-R6 remain PENDING in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`. Their full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
+R4 is ACTIVE in the exact dependency order defined by `A6.4-ORDERED-REPAIR-PROGRAM.md`; R5-R6 remain PENDING. The full task tables remain preserved in `REPAIR-EXECUTION-TRACKER-THROUGH-R1.1-2026-09-17.md`.
 
 Remaining phase sizes:
 
 - R3: 10 findings, 0 remaining
-- R4: 10 findings, 10 remaining; ACTIVE starts at R4.1 / WSA-2026-018
+- R4: 10 findings, 9 remaining; R4.1 / WSA-2026-018 is CLOSED; ACTIVE starts at R4.2 / WSA-2026-036
 - R5: 15 findings
 - R6: 6 findings
 - then RF: bounded independent final recheck
@@ -145,6 +145,7 @@ Remaining phase sizes:
 | R3.8 | WSA-2026-034 | Distribution | #9 | `c67ffbdda38717da6f19811b07421f0293285778` | `WSA-2026-034-DISTRIBUTION-LIFECYCLE-RECEIPT-CONCURRENCY.md` |
 | R3.9 | WSA-2026-054 | Connections | #8 | `938ead7282541a5e92c0bbe3b966dda9a80d2b65` | `WSA-2026-054-CONNECTIONS-CRASHED-HOLDER-WRITE-LOCK.md` |
 | R3.10 | WSA-2026-055 | Connections | #9 | `6f1da00b955ce7b31e20a625a48d866d6c3a7e54` | `WSA-2026-055-CONNECTIONS-UNKNOWN-EXTERNAL-EFFECT-RECOVERY.md` |
+| R4.1 | WSA-2026-018 | Skills | #18 | `fa455961c17691862bd86b7e0f658690e9ecb86d` | `WSA-2026-018-SKILLS-ACTIVE-GENERATION-RETENTION.md` |
 
 ## 5. R1.2 closure record - WSA-2026-020
 
@@ -1103,16 +1104,41 @@ Acceptance: provider-edge uncertainty is durably recorded before outbound calls 
 - all ten changed-file blobs are identical between exact tested head and merged main;
 - zero open Connections PRs.
 
-## 32. Program progress
+## 32. R4.1 closure record - WSA-2026-018
+
+**Owner:** `AI-Verse-Skills`  
+**Repair PR:** `AI-Verse-Skills#18`  
+**Final tested head:** `747cfc1bdde81ff4f06522ff8c9a9a816f97d13b`  
+**Merged Skills:** `fa455961c17691862bd86b7e0f658690e9ecb86d`  
+**Tested/merged product tree:** `c316450944dcdb4e2f60cb1f950b47c170734fb8`  
+**Status:** **CLOSED**
+
+Execution-generation leases are serialized with explicit retention purge and release. Exact previously resolved generations can be leased after pointer changes; requested packages validate before lease publication. Purge preserves live local holders regardless of age and fails closed for foreign or unverifiable leases.
+
+- exact-head WSA-018 Generation Lease Retention `37164076127`: six Ubuntu/macOS/Windows × Python 3.9/3.12 jobs, 6 / 6 PASS;
+- exact-head Lifecycle Controller Containment `37164076072`: 6 / 6 PASS;
+- exact-head Validate AI-Verse Skills `37164076308`: PASS;
+- exact-head Full E2E Install `37164076087`: PASS;
+- exact-head Runtime Readiness `37164076178`: PASS;
+- merged-main WSA-018 Generation Lease Retention `37164305329`: 6 / 6 PASS;
+- merged-main Lifecycle Controller Containment `37164305333`: 6 / 6 PASS;
+- merged-main Validate AI-Verse Skills `37164305338`: PASS;
+- merged-main Full E2E Install `37164305289`: PASS;
+- merged-main Runtime Readiness `37164305362`: PASS;
+- all eight changed-file blobs match the exact tested head and merged main;
+- Skills main has zero open PRs.
+
+## 33. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- Findings: **32 / 63 CLOSED = 50.79%**
-- Remaining: **31 / 63 OPEN = 49.21%**
+- R4: **1 / 10 CLOSED = 10%**
+- Findings: **33 / 63 CLOSED = 52.38%**
+- Remaining: **30 / 63 OPEN = 47.62%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.1 / WSA-2026-018` (AI-Verse-Skills active-generation retention)
+- Current ACTIVE: `R4.2 / WSA-2026-036` (Distribution final error redaction)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
