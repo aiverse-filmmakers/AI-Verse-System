@@ -29,7 +29,12 @@ Idempotency state is now indexed into SHA-256-keyed record files. A claim become
 
 ## System closure validation
 
-System Contract Validation for the closure PR head and merged System main will be recorded after both Python 3.11 and 3.13 gates pass.
+| Gate | System ref | Contract Validation run | Python 3.11 | Python 3.13 |
+|---|---|---:|---|---|
+| Exact closure PR head | `37ef89a67b658a9029f55c3a9e9cfc92bfc86daa` | `37171700305` | PASS | PASS |
+| Merged System main | `2d71fe8532a9968753ff39926a5d05d435b42722` | `37171736538` | PASS | PASS |
+
+Both runs validate the exact System closure head and its merged-main record.
 
 The canonical register and tracker record WSA-2026-058 as CLOSED and WSA-2026-059 as ACTIVE. Whole-system NO-GO, Dashboard MC1.4 pause, and owner-dogfood pause remain in force.
 
