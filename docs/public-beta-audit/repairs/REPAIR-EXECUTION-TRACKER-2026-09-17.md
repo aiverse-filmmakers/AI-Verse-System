@@ -1650,3 +1650,30 @@ The release now has one composed acceptance for Goal creation, Goal-bound learni
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
+
+## 64. R6.6 closure record - WSA-2026-063
+
+**Owner:** ai-verse-distribution / AI-Verse-Gateway / AI-Verse-Brain
+**Repair PR:** [Distribution #18](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/18)
+**Final tested PR head:** `05428aa604036cce9f910a150a185eb7c6a1289d`
+**Merged Distribution ref:** `16914342a752cabb37ab90c98cfcb22b53f5de89`
+**Non-test runtime acceptance:** `37238124339` — Ubuntu, macOS and Windows passed
+**Merged-main Distribution CI:** `37238645581` — Python 3.11/3.12 Linux/macOS/Windows passed
+**Status:** CLOSED
+
+The accepted Agent release now has cross-platform evidence for the real non-test Gateway `openai-compatible` runtime. A protocol-faithful local upstream verified configured-model forwarding, environment-backed bearer injection without credential persistence, normal response and usage mapping, admitted tool-schema forwarding, upstream failure mapping, and Gateway restart persistence. The exact PR checks passed on Ubuntu, macOS and Windows, and merged-main Distribution CI passed all six jobs. R6.7 / the next ordered finding is now ACTIVE.
+
+## 65. Program progress
+
+- R0: **4 / 4 CLOSED = 100%**
+- R1: **13 / 13 CLOSED = 100%**
+- R2: **5 / 5 CLOSED = 100%**
+- R3: **10 / 10 CLOSED = 100%**
+- R4: **10 / 10 CLOSED = 100%**
+- Findings: **58 / 63 CLOSED = 92.06%**
+- Remaining: **5 / 63 OPEN = 7.94%**
+- Open BLOCKERs: **0**
+- Current ACTIVE: next ordered finding after `R6.6 / WSA-2026-063`
+- Whole-system verdict: **NO-GO**
+- Dashboard MC1.4: paused
+- Owner dogfood: paused
