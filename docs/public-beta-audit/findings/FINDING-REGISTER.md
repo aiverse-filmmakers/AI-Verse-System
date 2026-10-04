@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R4.1 / `WSA-2026-018` closure, 2026-10-04  
+**Live repair-state checkpoint:** R4.2 / `WSA-2026-036` closure, 2026-10-04  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **30** |
-| CLOSED | **33** |
+| OPEN | **29** |
+| CLOSED | **34** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `036`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `041`, `042`, `043`, `044`, `045`, `046`, `047`, `048`, `049`, `050`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -102,6 +102,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-054` | `AI-Verse-Connections` | `#8` | `938ead7282541a5e92c0bbe3b966dda9a80d2b65` | `../repairs/WSA-2026-054-CONNECTIONS-CRASHED-HOLDER-WRITE-LOCK.md` |
 | `WSA-2026-055` | `AI-Verse-Connections` | `#9` | `6f1da00b955ce7b31e20a625a48d866d6c3a7e54` | `../repairs/WSA-2026-055-CONNECTIONS-UNKNOWN-EXTERNAL-EFFECT-RECOVERY.md` |
 | `WSA-2026-018` | `AI-Verse-Skills` | `#18` | `fa455961c17691862bd86b7e0f658690e9ecb86d` | `../repairs/WSA-2026-018-SKILLS-ACTIVE-GENERATION-RETENTION.md` |
+| `WSA-2026-036` | `ai-verse-distribution` | `#10` | `36a670ff263c9a16fbf6b7ab4a464cc4ef35efa9` | `../repairs/WSA-2026-036-DISTRIBUTION-FINAL-ERROR-REDACTION.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -973,12 +974,12 @@ C-A4.3-007 is resolved for Connections. A durable provider-edge marker and unkno
 - R1: **13 / 13 CLOSED = 100%**.
 - R2: **5 / 5 CLOSED = 100%**.
 - R3: **10 / 10 CLOSED = 100%**.
-- R4: **1 / 10 CLOSED = 10%**.
-- Total: **33 / 63 CLOSED = 52.38%**.
-- Remaining: **30 / 63 OPEN = 47.62%**.
+- R4: **2 / 10 CLOSED = 20%**.
+- Total: **34 / 63 CLOSED = 53.97%**.
+- Remaining: **29 / 63 OPEN = 46.03%**.
 - Open BLOCKERs: **0**.
-- Current ACTIVE repair: `R4.2 / WSA-2026-036` (Distribution final error redaction).
-- WSA-2026-018 is CLOSED by its linked owner and System closure evidence.
+- Current ACTIVE repair: `R4.3 / WSA-2026-041` (Dashboard localhost Origin policy).
+- WSA-2026-018 and WSA-2026-036 are CLOSED by their linked owner and System closure evidence.
 - WSA-2026-034, WSA-2026-054 and WSA-2026-055 are CLOSED by their linked closure packets.
 - Whole-system verdict: **NO-GO**.
 
