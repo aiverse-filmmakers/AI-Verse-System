@@ -38,7 +38,12 @@ Connections main is `2e608a3061ea1cd5db9ccd27d1b0779396707d4f`, with tree `06478
 
 ## System closure validation
 
-System closure PR validation and merged-main validation are required for this register/tracker update. Record exact-head and merged-main Contract Validation workflow IDs, with Python 3.11 and 3.13 results, here before final System closure. Preserve the whole-system NO-GO verdict and existing dashboard/dogfood pauses.
+| Gate | System ref | Contract Validation run | Python 3.11 | Python 3.13 |
+|---|---|---:|---|---|
+| Exact closure PR head | `b950c753a2a31699ce7ca8b75969e059c4d0d5fe` | `37169719130` | PASS | PASS |
+| Merged System main | `09546014d18eafe586ebed65dc6cd3637a86a012` | `37169783495` | PASS | PASS |
+
+System PR #154 merged after exact-head validation. The tested closure tree and merged System tree were based on the recorded PR head; both Python contract jobs passed on the PR and merged main. The canonical Finding Register and Repair Execution Tracker record WSA-2026-056 as CLOSED and WSA-2026-057 as ACTIVE. Whole-system NO-GO, dashboard pause and owner-dogfood pause remain in force.
 
 ## Outcome
 
