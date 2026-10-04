@@ -38,7 +38,12 @@ The exact PR tree and merged main tree are identical. Connections main is `fb8b1
 
 ## System closure validation
 
-System exact-head and merged-main Contract Validation must both pass Python 3.11 and Python 3.13. Their run IDs will be recorded here after verification. Preserve the whole-system NO-GO verdict and existing dashboard/dogfood pauses.
+| Gate | System ref | Contract Validation run | Python 3.11 | Python 3.13 |
+|---|---|---:|---|---|
+| Exact closure PR head | `65c3c181cc2c30f336904b8471fe9b426162e620` | `37170356078` | PASS | PASS |
+| Merged System main | `da040a6d2bac2fca0be099ba1a5c61f8d7054af6` | `37170460920` | PASS | PASS |
+
+The exact-head and merged-main Contract Validation jobs passed on Python 3.11 and 3.13. The canonical register and tracker record WSA-2026-057 as CLOSED and WSA-2026-058 as ACTIVE. The whole-system NO-GO verdict, Dashboard MC1.4 pause and owner-dogfood pause remain in force.
 
 ## Outcome
 
