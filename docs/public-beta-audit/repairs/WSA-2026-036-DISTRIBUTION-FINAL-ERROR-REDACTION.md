@@ -36,7 +36,7 @@ Permanent regressions cover process failures, serialized command results, nested
 
 All seven exact-head gates passed. The exact tested PR tree and merged product tree are identical, all changed-file blobs match, and Distribution has zero open PRs after merge.
 
-System Contract Validation on the exact closure PR head and merged System main is recorded after both validations complete.
+System Contract Validation passed on closure PR #144 head `7f3710845e08d2621472bd032419b14bd3d25d6d` in run `37166230769`: Python 3.11 and 3.13 both passed. Merged-main Contract Validation passed on System merge commit `ddf237f1c6c11b6a06d49135f2e8962824052332` in run `37166265321`: Python 3.11 and 3.13 both passed.
 
 ## Outcome
 
