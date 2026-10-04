@@ -34,7 +34,7 @@ Only the TCP peer address is trusted. Forwarded client-address headers are ignor
 
 The exact tested head and merged main have identical product tree a3d9e5a14ba8b2183515f65089179f3216e7c0ae. Gateway has zero open PRs after merge.
 
-System Contract Validation exact-head and merged-main results will be recorded after both pass.
+System Contract Validation passed on closure PR #152 exact head `c05b5eea558ad899c35c95dfe5bce81c8765ae60` in run `37169095229` (Python 3.11 and 3.13). Merged-main Contract Validation passed on System merge commit `12e6084868a423d7253d89210e5498cab0b114fb` in run `37169176739` (Python 3.11 and 3.13).
 
 ## Outcome
 
