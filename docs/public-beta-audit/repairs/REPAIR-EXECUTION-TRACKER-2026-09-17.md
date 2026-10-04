@@ -1375,10 +1375,10 @@ WSA-2026-036, WSA-2026-058, WSA-2026-059 and WSA-2026-011 are CLOSED. WSA-2026-0
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
 - R4: **10 / 10 CLOSED = 100%**
-- Findings: **48 / 63 CLOSED = 76.19%**
-- Remaining: **15 / 63 OPEN = 23.81%**
+- Findings: **49 / 63 CLOSED = 77.78%**
+- Remaining: **14 / 63 OPEN = 22.22%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R5.7 / WSA-2026-002` (System/Connections documentation drift)
+- Current ACTIVE: `R5.8 / WSA-2026-003` (hosted CI evidence availability)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
@@ -1465,3 +1465,14 @@ Skills `main` now carries distinct post-beta development identity `1.1.0-beta.2.
 **Status:** CLOSED
 
 The OS candidate release-set metadata now records `qualification-passed` in both the source manifest and generated catalog. A regression test prevents the stale `qualification-pending` state from returning. Local Distribution tests passed 84/84. Hosted unit, core, adversarial, error-redaction, clean-machine Agent and Candidate validation passed on Linux/macOS/Windows, including Python 3.11 and 3.12. R5.7 / WSA-2026-002 is now ACTIVE.
+
+## 50. R5.7 closure record - WSA-2026-002
+
+**Owner:** AI-Verse-System / AI-Verse-Connections  
+**Repair PR:** [#170](https://github.com/aiverse-filmmakers/AI-Verse-System/pull/170)  
+**Final tested System head:** `dbbc157803ff35aefbd7c766586722546dca50be`  
+**Merged System ref:** `63ecdbdf72cb720e8f1b80c32fe4648e4bfe1c26`  
+**Connections evidence ref:** `602a1c52ab782cc9a8b7a4caa60ccb29efe403d1`  
+**Status:** CLOSED
+
+The System Connections component specification now reflects the public-beta executable candidate instead of the stale research-only snapshot. It records the current registry, credential, lifecycle, health, admission, approval, execution and receipt capabilities, while preserving explicit limits for broader host integration and provider expansion. System Contract Validation passed on Python 3.11 and 3.13. R5.8 / WSA-2026-003 is now ACTIVE.
