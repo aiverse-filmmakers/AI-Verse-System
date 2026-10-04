@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-050`
+**Current active finding:** `WSA-2026-056`
 
 ## 1. Preserved execution history
 
@@ -1192,7 +1192,7 @@ System Contract Validation passed on closure PR #146 head `cb14b9169269486851ec1
 
 ## Outcome
 
-The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042 and WSA-2026-045 are closed below; WSA-2026-050 becomes ACTIVE. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042, WSA-2026-045 and WSA-2026-050 are closed below; WSA-2026-056 becomes ACTIVE. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
 
 
 ## 36. R4.4 closure record - WSA-2026-042
@@ -1265,17 +1265,46 @@ Acceptance:
 
 The WSA-2026-045 stale exact-source replay failure is closed for AI-Verse-Gateway. WSA-2026-050 becomes ACTIVE. Whole-system `NO-GO` and release pauses remain in force.
 
-## 38. Program progress
+
+## 39. R4.6 closure record - WSA-2026-050
+
+**Baseline Gateway:** 3fd9618f693ec71e186cc47da66c2b2694837a17  
+**Repair PR:** [AI-Verse-Gateway #36](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/36)  
+**Final tested head:** 5cfca65d05f599415ae6e7d8d551fe330c478354  
+**Merged Gateway:** dec450e622b3bdfbb5b0c51cc325ea34a08dcb5d  
+**Tested/merged tree:** a3d9e5a14ba8b2183515f65089179f3216e7c0ae  
+**Status:** CLOSED
+
+Acceptance:
+
+- fixed-window peer-keyed pre-auth request limiting occurs before bearer KDF: PASS;
+- async scrypt keeps request-time KDF work off the event loop: PASS;
+- process-wide/per-peer in-flight work and rate-limit bucket memory are bounded: PASS;
+- forged forwarded-address headers cannot bypass the pre-auth peer bucket: PASS;
+- invalid-bearer flood returns 401 for invalid tokens while valid authenticated status traffic succeeds: PASS;
+- PR-head CI 37168685440: Ubuntu/macOS/Windows Node 20/22, 6 / 6 PASS;
+- Context Ladder Integrated Acceptance 37168685460: PASS;
+- Temporary Worker Composition 37168685442: PASS;
+- Permanent Bot Composition 37168685438: PASS;
+- Automation Recommendation Boundary 37168685444: PASS;
+- merged-main CI 37168784273: Ubuntu/macOS/Windows Node 20/22, 6 / 6 PASS;
+- exact tested PR tree and merged product tree: identical;
+- open Gateway PRs after merge: 0;
+- System Contract Validation exact-head and merged-main each passed Python 3.11 and 3.13.
+
+WSA-2026-050 is closed for AI-Verse-Gateway. WSA-2026-056 becomes ACTIVE. Whole-system NO-GO and existing release pauses remain.
+
+## 39. Program progress
 
 - R0: **4 / 4 CLOSED = 100%**
 - R1: **13 / 13 CLOSED = 100%**
 - R2: **5 / 5 CLOSED = 100%**
 - R3: **10 / 10 CLOSED = 100%**
-- R4: **5 / 10 CLOSED = 50%**
-- Findings: **37 / 63 CLOSED = 58.73%**
-- Remaining: **26 / 63 OPEN = 41.27%**
+- R4: **6 / 10 CLOSED = 60%**
+- Findings: **38 / 63 CLOSED = 60.32%**
+- Remaining: **25 / 63 OPEN = 39.68%**
 - Open BLOCKERs: **0**
-- Current ACTIVE: `R4.6 / WSA-2026-050` (Gateway pre-auth CPU admission)
+- Current ACTIVE: `R4.7 / WSA-2026-056` (Connections receipt corruption and doctor health)
 - Whole-system verdict: **NO-GO**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
