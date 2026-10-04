@@ -5,7 +5,7 @@
 **Audit verdict entering repair:** **NO-GO**  
 **Historical audit findings:** **63 PROVEN**  
 **Execution rule:** one finding or tightly coupled single-owner closure unit at a time.  
-**Current active finding:** `WSA-2026-042`
+**Current active finding:** `WSA-2026-045`
 
 ## 1. Preserved execution history
 
@@ -1128,21 +1128,6 @@ Execution-generation leases are serialized with explicit retention purge and rel
 - all eight changed-file blobs match the exact tested head and merged main;
 - Skills main has zero open PRs.
 
-## 35. Program progress
-
-- R0: **4 / 4 CLOSED = 100%**
-- R1: **13 / 13 CLOSED = 100%**
-- R2: **5 / 5 CLOSED = 100%**
-- R3: **10 / 10 CLOSED = 100%**
-- R4: **3 / 10 CLOSED = 30%**
-- Findings: **35 / 63 CLOSED = 55.56%**
-- Remaining: **28 / 63 OPEN = 44.44%**
-- Open BLOCKERs: **0**
-- Current ACTIVE: `R4.4 / WSA-2026-042` (Dashboard synthetic projection semantics)
-- Whole-system verdict: **NO-GO**
-- Dashboard MC1.4: paused
-- Owner dogfood: paused
-
 ## 34. R4.2 closure record - WSA-2026-036
 
 **Owner:** `ai-verse-distribution`  
@@ -1171,67 +1156,7 @@ The final error boundary sanitizes child-process messages, stdout/stderr, secret
 - Distribution has zero open PRs after merge.
 - Exact-head and merged-main System Contract Validation will be recorded once both have passed.
 
-`WSA-2026-037` remains OPEN. This finding-specific closure preserves the whole-system `NO-GO` verdict and all existing release pauses.## 34. Program progress
-
-- R0: **4 / 4 CLOSED = 100%**
-- R1: **13 / 13 CLOSED = 100%**
-- R2: **5 / 5 CLOSED = 100%**
-- R3: **10 / 10 CLOSED = 100%**
-- R4: **2 / 10 CLOSED = 20%**
-- Findings: **34 / 63 CLOSED = 53.97%**
-- Remaining: **29 / 63 OPEN = 46.03%**
-- Open BLOCKERs: **0**
-- Current ACTIVE: `R4.3 / WSA-2026-041` (Dashboard localhost Origin policy)
-- Whole-system verdict: **NO-GO**
-- Dashboard MC1.4: paused
-- Owner dogfood: paused
-
-# WSA-2026-036 — Distribution final error redaction
-
-**Transition:** `ACTIVE -> CLOSED`  
-**Severity / confidence:** MEDIUM / PROVEN, unchanged  
-**Original evidence:** E-A1.12-015 and E-A1.12-019  
-**Owner:** `ai-verse-distribution`  
-**Audited baseline:** `c67ffbdda38717da6f19811b07421f0293285778`  
-**Repair PR:** [ai-verse-distribution #10](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/10)  
-**Final tested owner head:** `1e8f0253bd648fde69ec0e6220e844e3e85f9e78`  
-**Merged owner main:** `36a670ff263c9a16fbf6b7ab4a464cc4ef35efa9`  
-**Tested / merged product tree:** `14c1d9e66c9ddbf5f1b6da8acfef441253fb4315`
-
-## Finding and accepted closure law
-
-The original audit found that `ProcessError` embedded raw child stdout/stderr and the CLI surfaced `str(exc)` in its top-level error message even when separate output fields were sanitized. It also found no ProcessError-to-CLI secret regression.
-
-The closure law requires one final minimization/redaction boundary for child/provider output before it reaches exceptions, direct API results, structured JSON, terminal output or captured diagnostics. Secret-bearing argv values must also be covered.
-
-## Repair
-
-Distribution sanitizes structured and plain-text child output, argv (including split and inline secret arguments), process exception fields/messages, command result serialization, CLI JSON and human output, and errors returned by status/doctor. Credential coverage includes labeled secrets, environment-key forms, bearer values and common opaque token formats.
-
-Permanent regressions cover process failures, serialized command results, nested structured errors, split/inline argv credentials, CLI human and JSON output, and direct status/doctor consumers.
-
-## Owner validation
-
-| Gate | Exact tested PR head | Merged main |
-|---|---:|---:|
-| WSA-036 Final Error Redaction | `37165501648` — 6/6 Ubuntu/macOS/Windows × Python 3.9/3.12 | `37165826622` — 6/6 PASS |
-| Distribution CI | `37165501622` — PASS | `37165826606` — 6/6 PASS |
-| Lifecycle Receipt Concurrency | `37165501618` — PASS | `37165826610` — 3/3 PASS |
-| Invisible Intelligence Scenarios A-F | `37165501624` — PASS | — |
-| Clean Machine Core Acceptance | `37165501620` — 3 OS PASS | — |
-| Clean Machine Agent Release Gate | `37165501616` — 3 OS PASS | — |
-| Clean Machine Invisible Intelligence Candidate | `37165501617` — 3 OS PASS | — |
-
-All seven exact-head gates passed. The exact tested PR tree and merged product tree are identical, all changed-file blobs match, and Distribution has zero open PRs after merge.
-
-System Contract Validation on the exact closure PR head and merged System main is recorded after both validations complete.
-
-## Outcome
-
-The WSA-2026-036 secret-leak path is closed for Distribution. WSA-2026-037 remains OPEN. This finding-specific closure does not change the whole-system `NO-GO` verdict or existing release pauses.
-
-
-## 35. R4.3 closure record - WSA-2026-041
+`WSA-2026-037` remains OPEN. This finding-specific closure preserves the whole-system `NO-GO` verdict and all existing release pauses.## 35. R4.3 closure record - WSA-2026-041
 
 # WSA-2026-041 — Dashboard localhost Origin policy
 
@@ -1263,8 +1188,67 @@ The Gateway uses the validated loopback-host/HTTP policy consistently for RPC an
 
 The exact tested head and merged product tree are identical (`75ab3f32f7916e7604f8a4b22f577209f28e96ca`). Both changed-file Git blobs match between exact tested head and merged main. Dashboard has zero open PRs after merge.
 
-System Contract Validation on the exact closure PR head and merged System main is recorded after both validations complete.
+System Contract Validation passed on closure PR #146 head `cb14b9169269486851ec102c589ce49435d99806` in run `37166733815`: Python 3.11 and 3.13 passed. Merged-main Contract Validation passed on System merge commit `5680b33114b0066e17de9776ec20e09ed2fa5b73` in run `37166763565`: both Python versions passed.
 
 ## Outcome
 
-The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042 remains OPEN. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+The WSA-2026-041 localhost browser-origin failure is closed for AI-Verse-Dashboard. WSA-2026-042 is closed below; WSA-2026-045 becomes ACTIVE. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+
+
+## 36. R4.4 closure record - WSA-2026-042
+
+# WSA-2026-042 — Dashboard owner-declared Health, Inbox and Task truth
+
+**Transition:** `ACTIVE -> CLOSED`  
+**Severity / confidence:** MEDIUM / PROVEN, unchanged  
+**Owner:** `AI-Verse-Dashboard`  
+**Audited baseline:** `005c781111418cdde6cc6b1082efeaf8010fd880`  
+**Original evidence:** AI-Verse-System A1.13 / WSA-2026-042  
+**Repair PR:** [AI-Verse-Dashboard #15](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/pull/15)  
+**Final tested owner head:** `8ab1743ad8108df47250511ade5546d5f209dff4`  
+**Merged owner main:** `2c1d1a57f7cb27eec166d4fea10dbb335250c518`  
+**Tested / merged product tree:** `da80a0159b10c0addd3ce8ebf1affc0bea29549c`
+
+## Finding and accepted closure law
+
+The audit found that generic workspace-file presence and Markdown headings were being converted into Health judgments, inbox filenames into synthetic review items with generated `createdAt`, and missing owner task data into an apparently available empty task list. These were Dashboard-authored interpretations without owner-declared Health, Inbox or Task records.
+
+Health, Inbox and Task/Now now explicitly report unavailable when the canonical owner projection is absent. Health remains `unknown` with no invented dimensions; Inbox returns no fabricated items; Task summary marks `available: false`, and Now marks work, inbox and health unavailable. Owner-backed live session/run routes remain unchanged.
+
+## Permanent regression coverage
+
+- Workspace files, even when present and populated, do not create healthy/warning/critical owner health dimensions.
+- Inbox filenames are not converted to approvals, review items, severities or timestamps.
+- Missing task-owner data is distinguished from an available empty task list.
+- Now reports unavailable flags and does not imply there are no running or attention items.
+- Cross-system/workspace isolation and live owner-backed session/run routes remain covered by the existing suite.
+
+## Owner validation
+
+| Gate | Exact tested PR head | Merged main |
+|---|---:|---:|
+| Dashboard CI / Node 22 | `37167214458` — Ubuntu, macOS, Windows 3/3 PASS | `37167268099` — Ubuntu, macOS, Windows 3/3 PASS |
+
+The first exact-head CI attempt caught stale adapter wiring in the Gateway projection call; that call was removed and the corrected final head passed all platforms. The exact tested head and merged main have identical tree `da80a0159b10c0addd3ce8ebf1affc0bea29549c`. All six changed-file blobs are identical. Dashboard has zero open PRs after merge.
+
+System Contract Validation on the exact closure PR head and merged System main will be recorded after both validations pass.
+
+## Outcome
+
+The WSA-2026-042 shadow Health/Inbox/Task semantics are closed for AI-Verse-Dashboard. This finding-specific closure preserves the whole-system `NO-GO` verdict and existing release pauses.
+
+
+## 37. Program progress
+
+- R0: **4 / 4 CLOSED = 100%**
+- R1: **13 / 13 CLOSED = 100%**
+- R2: **5 / 5 CLOSED = 100%**
+- R3: **10 / 10 CLOSED = 100%**
+- R4: **4 / 10 CLOSED = 40%**
+- Findings: **36 / 63 CLOSED = 57.14%**
+- Remaining: **27 / 63 OPEN = 42.86%**
+- Open BLOCKERs: **0**
+- Current ACTIVE: `R4.5 / WSA-2026-045` (Gateway exact-source freshness cache)
+- Whole-system verdict: **NO-GO**
+- Dashboard MC1.4: paused
+- Owner dogfood: paused
