@@ -2,7 +2,7 @@
 
 **Program:** Independent Whole-System Public-Beta Audit  
 **Established:** 2026-09-15  
-**Live repair-state checkpoint:** R4.8 / `WSA-2026-057` closure, 2026-10-04  
+**Live repair-state checkpoint:** R4.9 / `WSA-2026-058` closure, 2026-10-04  
 **Status:** CANONICAL LIVE FINDING INDEX / POST-AUDIT REPAIR STATE
 
 ## 1. Authority and preserved history
@@ -44,8 +44,8 @@ Rules:
 |---|---:|
 | Historical findings | 63 |
 | PROVEN | 63 |
-| OPEN | **23** |
-| CLOSED | **40** |
+| OPEN | **22** |
+| CLOSED | **41** |
 | Historical BLOCKERs | 4 |
 | OPEN BLOCKERs | **0** |
 
@@ -57,11 +57,11 @@ The whole-system verdict remains **NO-GO**.
 
 ### CLOSED
 
-`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`, `WSA-2026-045`, `WSA-2026-050`, `WSA-2026-056`, `WSA-2026-057`.
+`WSA-2026-006`, `WSA-2026-007`, `WSA-2026-008`, `WSA-2026-009`, `WSA-2026-010`, `WSA-2026-012`, `WSA-2026-013`, `WSA-2026-014`, `WSA-2026-016`, `WSA-2026-017`, `WSA-2026-020`, `WSA-2026-022`, `WSA-2026-023`, `WSA-2026-024`, `WSA-2026-025`, `WSA-2026-026`, `WSA-2026-027`, `WSA-2026-028`, `WSA-2026-029`, `WSA-2026-030`, `WSA-2026-031`, `WSA-2026-032`, `WSA-2026-033`, `WSA-2026-038`, `WSA-2026-039`, `WSA-2026-040`, `WSA-2026-051`, `WSA-2026-052`, `WSA-2026-053`, `WSA-2026-034`, `WSA-2026-054`, `WSA-2026-055`, `WSA-2026-018`, `WSA-2026-036`, `WSA-2026-041`, `WSA-2026-042`, `WSA-2026-045`, `WSA-2026-050`, `WSA-2026-056`, `WSA-2026-057`, `WSA-2026-058`.
 
 ### OPEN
 
-`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `043`, `044`, `046`, `047`, `048`, `049`, `056`, `057`, `058`, `059`, `060`, `061`, `062`, `063`.
+`WSA-2026-001`, `002`, `003`, `004`, `005`, `011`, `015`, `019`, `021`, `035`, `037`, `043`, `044`, `046`, `047`, `048`, `049`, `059`, `060`, `061`, `062`, `063`.
 
 For each finding's original title, severity, confidence, root area, affected repositories, expected/observed law, evidence IDs, impact and required closure evidence, use the preserved detailed registers above.
 
@@ -109,6 +109,7 @@ For each finding's original title, severity, confidence, root area, affected rep
 | `WSA-2026-050` | `AI-Verse-Gateway` | `#36` | `dec450e622b3bdfbb5b0c51cc325ea34a08dcb5d` | `../repairs/WSA-2026-050-GATEWAY-PREAUTH-CPU-ADMISSION.md` |
 | `WSA-2026-056` | `AI-Verse-Connections` | `#10` | `2e608a3061ea1cd5db9ccd27d1b0779396707d4f` | `../repairs/WSA-2026-056-CONNECTIONS-RECEIPT-CORRUPTION.md` |
 | `WSA-2026-057` | `AI-Verse-Connections` | `#11` | `fb8b10deb6e05656e1e3b97e8d93650d58c57a7b` | `../repairs/WSA-2026-057-CONNECTIONS-MCP-ERROR-REDACTION.md` |
+| `WSA-2026-058` | `AI-Verse-Gateway` | `#37` | `089aaa6440bbbbb9f41195eafe123ad2e06d5625` | `../repairs/WSA-2026-058-GATEWAY-IDEMPOTENCY-SCALE.md` |
 
 ## 5. WSA-2026-020 closure overlay
 
@@ -1170,6 +1171,32 @@ Closure evidence:
 - The WSA-056 receipt corruption safeguards and WSA-054/055 lock/effect recovery behavior remain present and pass their dedicated workflows.
 
 WSA-2026-057 is closed for AI-Verse-Connections. WSA-2026-058 becomes ACTIVE. Whole-system NO-GO and all release pauses remain in force.
+
+
+## 42. R4.9 closure overlay - WSA-2026-058
+
+**Transition:** OPEN -> CLOSED  
+**Severity/confidence:** HIGH / PROVEN, unchanged  
+**Owner:** AI-Verse-Gateway  
+**Repair PR:** [AI-Verse-Gateway #37](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/37)  
+**Final tested PR head:** `c73f803315cdafbbe0daed46fb8b00579683ba3f`  
+**Merged Gateway ref:** `089aaa6440bbbbb9f41195eafe123ad2e06d5625`  
+**Tested / merged product tree:** `2e802e3039a9cffaf61ac6fe627c00fadca89bd2`
+
+Closure evidence:
+
+- Idempotency reservations are stored as independently indexed SHA-256 key records; claims no longer parse or rewrite a globally growing JSON map.
+- Claim publication uses an atomic exclusive link; commit is serialized cross-process and atomically replaces the complete record.
+- Crashed/stale writers and interrupted legacy migration have recovery coverage. Legacy records are copied and verified before the completion marker is published and the old file is removed.
+- No expiry is introduced: replay and changed-payload rejection remain indefinite because no safe retention horizon was established.
+- Permanent regressions cover cross-process reservation, replay/conflict behavior, migration recovery, stale lock recovery, and state preservation.
+- The canonical Ubuntu Node 22 CI benchmark seeds 1,000 and 100,000 records and measures 25 claim+commit samples; median was 3.045 ms versus 3.312 ms (1.09x).
+- Exact-head CI `37171337867`: six Node 20/22 Ubuntu/macOS/Windows jobs passed; Ubuntu Node 22 ran the scale benchmark.
+- Permanent Bot Composition `37171337863`, Automation Recommendation Boundary `37171337866`, Context Ladder Integrated Acceptance `37171337875`, and Temporary Worker Composition `37171337916`: PASS.
+- Merged-main CI `37171433540`, attempt 2: all six jobs passed, including the 100k benchmark; attempt 1's unrelated over-budget review assertion failure passed on retry at the unchanged merged SHA.
+- Exact tested head and merged main have identical product tree `2e802e3039a9cffaf61ac6fe627c00fadca89bd2`; Gateway has zero open PRs after merge.
+
+WSA-2026-058 is closed for AI-Verse-Gateway. WSA-2026-059 becomes ACTIVE. Whole-system NO-GO and existing release pauses remain in force.
 
 
 ## 38. Navigation rule
