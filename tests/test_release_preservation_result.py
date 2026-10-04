@@ -70,6 +70,13 @@ class ReleasePreservationResultTests(unittest.TestCase):
         result["evidence"][0]["revision"] = "f" * 40
         self.assertInvalid(result, "must equal target_distribution_revision")
 
+    def test_evidence_requires_explicit_provenance_fields(self):
+        result = copy.deepcopy(self.valid)
+        for field in ("run_id", "job_id", "url"):
+            result["evidence"][0].pop(field)
+        errors = preservation_validator.validate_result(result)
+        self.assertTrue(any("missing keys" in error for error in errors), errors)
+
     def test_acceptance_result_cannot_duplicate_canonical_state(self):
         result = copy.deepcopy(self.valid)
         result["semantics"]["duplicates_canonical_state"] = True
