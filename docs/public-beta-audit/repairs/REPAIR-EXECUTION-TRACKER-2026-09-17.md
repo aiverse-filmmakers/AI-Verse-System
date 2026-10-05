@@ -1764,6 +1764,14 @@ The component acceptance contract now explicitly separates the released Agent co
 - Remaining: **0 / 63 OPEN = 0%**
 - Open BLOCKERs: **0**
 - Current ACTIVE: none; all ordered findings are closed
-- Whole-system verdict: **NO-GO pending final release-governance recheck**
+- Whole-system verdict: **CONDITIONAL GO FOR CONTROLLED DOGFOOD**
 - Dashboard MC1.4: paused
 - Owner dogfood: paused
+
+## 73. Final bounded independent recheck — 2026-10-05
+
+The final bounded independent recheck is documented in `repairs/FINAL-INDEPENDENT-RECHECK-2026-10-05.md`.
+
+**Decision:** **CONDITIONAL GO FOR CONTROLLED DOGFOOD**
+
+The decision applies only to a disposable, supervised local Agent trial with synthetic data and no real credentials or irreversible external effects. Full remains blocked by Connections, Dashboard and Apps. The local Multiple Bots listener test was sandbox-limited by localhost `EPERM`; hosted merged-main CI passed that test.
