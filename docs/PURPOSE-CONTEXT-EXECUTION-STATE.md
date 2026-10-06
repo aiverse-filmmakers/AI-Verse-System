@@ -17,9 +17,10 @@
 - **Audited Data ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
 - **Audited Memory ref:** `aiverse-filmmakers/AI-Verse-Memory@b0cae8cd8da38aa657fbc736c575177aa75e5ec7`
 - **Audited Gateway ref:** `aiverse-filmmakers/AI-Verse-Gateway@089aaa6440bbbbb9f41195eafe123ad2e06d5625`
-- **Completed in Slice 1.3:** Tasks 1-4
-- **NEXT task:** **Slice 1.3 / Task 5 — audit Dashboard read/write boundaries**
-- **Do not start Task 6 until Task 5 is complete and recorded here.**
+- **Audited Dashboard ref:** `aiverse-filmmakers/AI-Verse-Dashboard@2c1d1a57f7cb27eec166d4fea10dbb335250c518`
+- **Completed in Slice 1.3:** Tasks 1-5
+- **NEXT task:** **Slice 1.3 / Task 6 — audit exact workspace scoping behavior in each component**
+- **Do not begin Slice 2.1 until Task 6 is complete, Slice 1.3 closure is written, and this pointer is advanced.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 remains audit-only.
 
 ---
@@ -53,8 +54,7 @@ Key retained decisions:
 
 **Status:** COMPLETE / ACCEPTED FOR CONTINUATION WITH CARRIED FINDINGS  
 **Audited ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`  
-**Detailed closure:** `docs/PURPOSE-CONTEXT-SLICE-1.2-AUDIT.md`  
-**Closure commit:** `16f119325f5a00ef7a5a65c038e72db0ac8661e9`
+**Detailed closure:** `docs/PURPOSE-CONTEXT-SLICE-1.2-AUDIT.md`
 
 Final Telos→Brain mapping:
 
@@ -68,19 +68,11 @@ Final Telos→Brain mapping:
 | Strategy | minimal new strategic semantic required; prefer `intent:strategy`; **not** `strategy_rule` |
 | Initiative | existing canonical `initiative` |
 
-Key retained Brain decisions:
+Carried Brain requirements:
 
-- Add one stable bounded read-only Brain strategic snapshot contract in Phase 3; OS must not read Brain private storage.
-- Validate trajectory refs before exposing them as authoritative graph edges; current `serves`/gap/source refs are not fully typed/referentially enforced.
-- Preserve one strategic owner per scope; never infer owner from object presence or Brain availability.
-- Keep strategic intent Goal semantics separate from execution-grade Goal service semantics.
-- `strategy_rule` is learned operating doctrine and must not be used as the Telos business/project Strategy node.
-- Narrative and Challenge should remain derived in v1 unless usage proves a canonical lifecycle is necessary.
-
-Carried Brain repair requirement:
-
-- Repair the pre-existing Brain release-descriptor red gate on or before the first Purpose-related Brain descendant is accepted and before Core vNext qualification.
-- Final Purpose cross-owner acceptance must pin exact component refs.
+- Add one stable bounded read-only Brain strategic snapshot contract in Phase 3.
+- Validate trajectory refs before exposing them as authoritative graph edges.
+- Repair the pre-existing Brain release-descriptor red gate before Purpose Brain acceptance/Core vNext.
 
 ---
 
@@ -92,7 +84,7 @@ Audit in this exact order:
 2. [x] Data freshness/provenance metadata
 3. [x] Memory recent changes/history/provenance queries
 4. [x] runtime/context-ladder injection points
-5. [ ] Dashboard read/write boundaries
+5. [x] Dashboard read/write boundaries
 6. [ ] exact workspace scoping behavior in each component
 
 ## Slice 1.3 / Task 1 — Data current KPI values and operational truth
@@ -100,59 +92,67 @@ Audit in this exact order:
 **Status:** COMPLETE  
 **Audited ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
 
-- Data public records/query/aggregate surfaces are sufficient for current operational values when an explicit schema/source binding exists.
-- Purpose must not infer KPI semantics from arbitrary Data fields; KPI definitions/targets remain strategic-owner truth and current values come from an explicit Data binding.
-- Purpose must use public Data interfaces, never SQLite/private storage.
+- Public records/query/aggregate surfaces are sufficient for mapped current values.
+- KPI definitions/targets stay strategic-owner truth; current Data values require an explicit owner-backed Data binding.
+- No private SQLite reads from Purpose.
 
 ## Slice 1.3 / Task 2 — Data freshness/provenance metadata
 
 **Status:** COMPLETE  
 **Audited ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
 
-- Records expose version/createdAt/updatedAt; immutable Data events/receipts expose committedAt, trusted scope, actor, before/after versions and integrity-checked provenance.
-- Brain-adapter `answeredAt` is read time, not source freshness.
-- Aggregate values do not intrinsically expose a source freshness watermark; Purpose must carry companion freshness evidence or mark freshness unknown.
-- Data has no universal freshness TTL. Purpose applies field-specific freshness policy over owner metadata.
+- Record versions/timestamps and immutable event/receipt provenance provide source recency/evidence.
+- Adapter `answeredAt` is read time, not source freshness.
+- Aggregate freshness needs companion evidence/watermark or must remain unknown.
 
 ## Slice 1.3 / Task 3 — Memory recent changes/history/provenance queries
 
 **Status:** COMPLETE  
 **Audited ref:** `aiverse-filmmakers/AI-Verse-Memory@b0cae8cd8da38aa657fbc736c575177aa75e5ec7`
 
-- Memory owns historical context and defers to current owner state.
-- Existing recall/orientation/progressive recall/session-digest/relationship surfaces are strong and bounded.
-- No dedicated Purpose material-change API exists; Phase 6 should add at most a thin bounded adapter over existing Memory reads, while Purpose/Brain decides semantic materiality against current owner state.
-- Purpose must use Memory APIs, never canonical files or derived SQLite directly.
+- Memory owns historical evidence, never current authority.
+- Existing bounded recall/orientation/progressive recall/session-digest surfaces are sufficient foundations.
+- Phase 6 needs at most a thin material-change evidence adapter, not a new history store.
 
 ## Slice 1.3 / Task 4 — runtime/context-ladder injection points
 
 **Status:** COMPLETE  
-**Audited ref:** `aiverse-filmmakers/AI-Verse-Gateway@089aaa6440bbbbb9f41195eafe123ad2e06d5625`  
-**Gateway `main` at audit:** same exact ref.
+**Audited ref:** `aiverse-filmmakers/AI-Verse-Gateway@089aaa6440bbbbb9f41195eafe123ad2e06d5625`
+
+- Gateway is the runtime/context assembly owner.
+- OS should compose Purpose; Gateway should relevance-gate and inject it into the existing owner-context bundle.
+- Add a small owner-routed Purpose host read after OS Purpose P1/P2 exists; do not make Gateway read Brain/Data/Memory internals.
+- Purpose must share existing ContextGovernor budgets/diagnostics and create zero reads on trivial tasks.
+- Do not introduce another persistent cross-owner orientation graph.
+
+## Slice 1.3 / Task 5 — Dashboard read/write boundaries
+
+**Status:** COMPLETE  
+**Audited Dashboard ref:** `aiverse-filmmakers/AI-Verse-Dashboard@2c1d1a57f7cb27eec166d4fea10dbb335250c518`  
+**Audited Data projection ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
 
 Durable findings:
 
-- Gateway is the current runtime/context-assembly owner. Its `RunEngine.assembleContext()` calls `assembleProgressiveOwnerContext()` using the exact run scope and last user text, then injects the resulting bounded owner context as a Gateway-marked system message before runtime invocation.
-- `assembleProgressiveOwnerContext()` already composes owner-routed current context, capabilities, connections and Memory's progressive history ladder. Ordinary queries receive catalog-level history only; historical/detail/exact wording escalates deterministically to summary/detail/source. Exact source descent remains bounded and scope checked.
-- Gateway's `ContextGovernor` separately manages invocation pressure, protects system messages/recent raw tail, schedules/executes compaction at configured thresholds, measures token layers, and fails closed when safe compaction cannot fit. Purpose must remain subject to this existing context-pressure mechanism rather than invent a separate token manager.
-- Existing `aiverse_context` is a bounded read-only deep-history tool for summary/detail/source escalation. Purpose should **not** overload that Memory-focused tool with strategic Purpose semantics unless Phase 7 proves a single generic owner-context tool is cleaner; the default path should be automatic relevance-gated injection.
-- Gateway currently has no host operation such as `read_purpose_context`. `HostClient` exposes describe/read_context/history/capabilities/connections/action operations only. Therefore Purpose runtime integration will require one small owner-routed read operation or equivalent stable host contract after OS P1/P2 Purpose composition exists.
-- The correct ownership split is: OS composes the derived Purpose projection from canonical owners; Gateway decides **when a run needs it** and injects the returned bounded projection. Gateway must not independently read Brain/Data/Memory private storage or become a second Purpose composer.
-- Recommended Phase 7 integration point: add a Purpose relevance classifier beside (not inside) the Memory history-depth classifier; when the current task is strategic/planning/prioritization/trajectory-sensitive, Gateway requests Purpose for the already-bound scope and adds `purpose_context` to the owner context bundle before the system message is formed. For trivial/operational tasks the classifier must produce zero Purpose owner reads.
-- Purpose must be additive to the existing ladder, not a new cross-owner orientation map. Gateway's prior I1 evaluation explicitly rejected a duplicate cross-owner map because current owner views already cover direction, Memory, Data and Skills; the correct architecture is on-demand owner composition without another persistent graph.
-- Purpose graph/trajectory data may be richer than the current direction fragment because it answers a new causal question (`why does this current work matter?`), but it must remain an ephemeral owner projection in the Gateway bundle, not persisted Gateway state.
-- Runtime diagnostics should record whether Purpose was requested/injected, byte/token contribution, scope, owner-projection version/freshness and skip reason. This is necessary for the Slice 7.3 anti-bloat value gate.
-- Existing integrated context-ladder acceptance already proves catalog-only ordinary retrieval, bounded escalation, superseded-history behavior, exact-source validation and no raw historical leakage. Purpose integration should extend this test family rather than create a parallel runtime acceptance stack.
+- Dashboard's declared architecture is exactly compatible with Purpose: it owns **zero domain truth**, may cache only disposable projections, and requires mutations to go through the selected OS command interface rather than writing canonical state itself.
+- Dashboard separates registered OS installations by `systemId`; all normal OS-bound work is system-bound and workspace operations are server-validated. The browser supplies IDs, never arbitrary OS roots.
+- Current Dashboard Gateway is still deliberately query-only. Protocol command names exist, but `assertQueryOnly()` blocks commands until the OS command boundary exists. Therefore Purpose Phase 10 must not add an ad-hoc Dashboard mutation path merely to make mission/goal editing convenient.
+- Current QueryRouter validates the registered system/workspace before workspace reads and does not fall back to another registered system when a source is absent. Owner-unavailable surfaces are represented as unavailable/unknown instead of synthetic truth.
+- Existing `source.preview` is a bounded workspace file projection with source path/modified time/freshness metadata, but Purpose must **not** implement its Dashboard surface by previewing a generated Purpose file; that would encourage a pseudo-canonical file contract. Dashboard should query the actual Purpose projection API.
+- Data already exposes a purpose-compatible precedent through `@ai-verse/data/dashboard`: a read-only projection adapter with spaces/schemas/tables/record detail/aggregates/events/receipts/health, bounded proof metadata, no raw DB paths, no `systemId` in Data durable identity and no mutations.
+- Dashboard currently has no `purpose.get` / `purpose.explain` query. Phase 10 should add a versioned read-only Purpose query surface that resolves `systemId` to the selected OS and then asks that OS for the derived Purpose projection/explanation.
+- Purpose edits, when Phase 8 mutation routing exists, should use the normal Dashboard→selected OS command boundary and then OS/Brain owner routing/confirmation. Dashboard must never edit a cached Purpose object or local Purpose file.
+- A significant current protocol constraint: nearly every non-system Dashboard method is workspace-scoped. Purpose supports both `operator` and `workspace:<id>`, so Phase 10 must deliberately add a **system-scoped operator Purpose read** (or a typed scope parameter) instead of inventing a fake workspace to represent operator Purpose.
+- Workspace Purpose UI should remain workspace-scoped. Operator/global Purpose UI must not silently aggregate workspaces; cross-scope relationships are explicit only.
+- Presentation state (panels/layouts/HUD visibility) remains Dashboard-owned and is safe to persist because it is not Purpose/domain truth.
 
 Primary evidence inspected:
 
-- `src/run-engine.mjs`
-- `src/progressive-context.mjs`
-- `src/context-governor.mjs`
-- `src/host-adapter.mjs`
-- `scripts/test-context-ladder-integrated-composition.mjs`
-- `docs/I1-CROSS-OWNER-ORIENTATION-EVALUATION.md`
-- `.github/workflows/context-ladder-integrated-acceptance.yml` (presence/current tree)
+- Dashboard `README.md`
+- `apps/gateway/src/query-router.ts`
+- `packages/protocol/src/index.ts`
+- `packages/protocol/src/methods.ts`
+- repository tree at exact Dashboard ref
+- Data `docs/DASHBOARD-PROJECTION-V0.1.md`
 
 ### Slice 1.3 acceptance criteria
 
@@ -166,7 +166,6 @@ Primary evidence inspected:
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for the live pointer.
-3. Read completed slice audit files only when their detailed evidence/decisions are needed.
-4. Continue **only** with **Phase 1 / Slice 1.3 / Task 5 — audit Dashboard read/write boundaries**.
-5. Discover the current Dashboard/product-surface owner from source before assuming a repository; include Data's existing Dashboard projection adapter in the audit.
-6. After Task 5, update this file before Task 6.
+3. Continue **only** with **Phase 1 / Slice 1.3 / Task 6 — audit exact workspace scoping behavior in each component**.
+4. Synthesize exact scope/visibility contracts from OS, Brain, Data, Memory, Gateway and Dashboard; inspect any source needed to resolve differences rather than normalizing them by assumption.
+5. After Task 6, persist it, create `docs/PURPOSE-CONTEXT-SLICE-1.3-AUDIT.md`, mark Slice 1.3 complete and advance the live pointer to Phase 2 / Slice 2.1 / Task 1 without executing Phase 2 yet.
