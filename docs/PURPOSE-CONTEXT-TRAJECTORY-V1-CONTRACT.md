@@ -46,70 +46,43 @@ Invalid kind pairs never enter the authoritative graph and are never coerced.
 - Explanations terminate before rejected cycle edges and disclose incomplete trajectory.
 - Any `supersedes` cycle is invalid; timestamps alone cannot choose a winner.
 
----
-
 ## Task 4 — missing-parent behavior — FROZEN
 
-A **missing parent** occurs when a relationship points to a target node/ref that cannot be resolved and validated under the current scope/authority contract. This is different from an **orphan** that has no parent relationship at all; orphan behavior is frozen in Task 6.
+A missing parent is a declared relationship whose target cannot be resolved and validated. It differs from an orphan, which has no parent relation at all.
 
-### Target resolution states
+Target states are exactly `resolved`, `stubbed`, `unavailable`, `missing`, `forbidden`, `invalid`. Only `resolved` and `stubbed` targets participate in authoritative traversal.
 
-For a declared edge target, Purpose recognizes:
+If bounded pruning removes target detail for a retained edge, Purpose keeps a minimum identity stub rather than creating a fake missing parent. A broken target never fuzzy-matches by title/name, crosses workspace boundaries, substitutes Memory as current truth, or invokes model inference to repair the path.
 
-- `resolved` — exact target identity exists and passes kind/scope/version validation;
-- `stubbed` — exact target is validated but only minimum identity/provenance is materialized because bounded projection detail was not requested or was pruned;
-- `unavailable` — exact target cannot currently be read/revalidated from its owner;
-- `missing` — owner confirms the exact target identity no longer exists;
-- `forbidden` — target exists outside allowed scope/visibility/authority;
-- `invalid` — target identity/kind/version conflicts with the edge contract.
+When a broken parent is encountered, explanation returns the verified path so far, stops that branch, and marks the branch incomplete with a stable reason. Other independently valid branches may continue.
 
-Only `resolved` and `stubbed` targets may participate in authoritative trajectory traversal.
+## Task 5 — supersession behavior — FROZEN
 
-### Bounded identity stubs
+`supersedes` is historical replacement evidence, not a generic “newer than” relation.
 
-Budget/relevance pruning MUST NOT create a fake missing-parent condition for a retained edge. If an edge is retained while target detail is pruned, retain a minimum target stub containing:
+Rules:
 
-```yaml
-node_id: <deterministic id>
-kind: <semantic kind>
-canonical_ref: <exact canonical ref>   # owner-backed node
-state: stubbed
-```
+- The source node is the newer confirmed owner-backed replacement; the target node is the older object it supersedes.
+- Source and target MUST have the same Purpose semantic node kind.
+- A `supersedes` edge is authoritative only when the canonical owner explicitly exposes supersession/replacement semantics or a frozen deterministic owner adapter maps an owner-native supersession record without guessing.
+- Timestamps, higher revision numbers, matching titles, semantic similarity, model judgment, or “latest-looking” state are insufficient to create a supersession edge.
+- Supersession is acyclic. A cycle invalidates every cycle-involved supersession edge for authoritative use.
+- Superseded objects remain historical/provenance-addressable; replacement never erases the older canonical ref from history.
+- Purpose does not mutate the older object, rewrite owner history, or manufacture a reciprocal `superseded_by` edge unless the owner itself exposes one.
 
-For a derived node, the stub retains deterministic derivation identity + source refs instead of a canonical ref.
+### Current-object selection
 
-A stub proves identity only. It MUST NOT fabricate the omitted target's descriptive content/status.
+Purpose MUST NOT decide the active/current strategic object merely by walking to the end of a supersession chain. Currentness comes from the active canonical strategic owner and its status/current-selection semantics.
 
-### Broken-reference handling
+A supersession chain may corroborate why an older object is no longer current, but it cannot override owner state.
 
-When the target is `unavailable`, `missing`, `forbidden`, or `invalid`:
-
-1. the edge MUST NOT enter the authoritative traversal graph;
-2. Purpose retains safe evidence/ref identity in validation diagnostics when visibility permits;
-3. the trajectory section is marked `partial` if the rejected edge affects emitted trajectory content;
-4. use a stable reason such as `trajectory_parent_unavailable`, `trajectory_parent_missing`, `trajectory_parent_forbidden`, or `trajectory_parent_invalid`;
-5. Purpose MUST NOT fuzzy-match another node by title/name, jump to another workspace, substitute Memory history as current parent, or ask the model to invent the missing relation;
-6. the canonical owner is not mutated merely because Purpose found the broken reference.
-
-### Cross-scope privacy rule
-
-If a target is outside the current scope and the later cross-scope contract/owner authorization does not explicitly allow visibility, classify it as `forbidden`. The projection/explanation may state that a relationship cannot be resolved under the current scope, but MUST NOT leak the hidden target's content.
+If two candidate replacements supersede the same object and the owner does not identify which is current, Purpose keeps the ambiguity explicit and MUST NOT choose a winner by timestamp, version, ordering, or model inference.
 
 ### Explain behavior
 
-If an explanation reaches a source node whose declared parent edge is rejected because the target is missing/unavailable/forbidden/invalid:
+`supersedes` is not a normal upward “why are we doing this?” parent edge. Explain may surface it as replacement/history context, for example “Strategy S2 replaced S1,” but must continue causal ascent through valid `serves`, `advances`, `executes`, or `addresses` relationships of the current node.
 
-- return the verified path accumulated so far;
-- terminate that branch;
-- mark it incomplete with the safe resolution reason;
-- do not claim the path reaches mission/problem merely because that would be likely.
-
-If other independently valid parent branches exist, they may continue. A broken branch does not invalidate unrelated verified branches.
-
-### Missing relation vs missing target
-
-- **No declared parent relation exists:** not a broken ref; defer to Task 6 orphan rules.
-- **Declared relation exists but target fails resolution:** this Task 4 behavior applies.
+If the only available context is an older superseded node, Purpose may show it as historical evidence but MUST NOT silently treat it as current strategy/goal/mission.
 
 ---
 
@@ -119,7 +92,7 @@ If other independently valid parent branches exist, they may continue. A broken 
 2. [x] allowed source/target kinds
 3. [x] cycle behavior
 4. [x] missing-parent behavior
-5. [ ] supersession behavior
+5. [x] supersession behavior
 6. [ ] orphan initiative/current-work behavior
 7. [ ] explain traversal rules
 8. [ ] deterministic graph ordering
