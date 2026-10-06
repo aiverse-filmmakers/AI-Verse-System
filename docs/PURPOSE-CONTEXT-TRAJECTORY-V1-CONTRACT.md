@@ -10,7 +10,7 @@ This contract defines the bounded, explainable relationship graph used by Purpos
 
 ## Task 1 — relation vocabulary — FROZEN
 
-Purpose Context v1 admits exactly these trajectory relation tokens:
+Purpose Context v1 admits exactly:
 
 - `addresses`
 - `serves`
@@ -21,129 +21,96 @@ Purpose Context v1 admits exactly these trajectory relation tokens:
 - `affects`
 - `supersedes`
 
-No arbitrary/free-form edge type is valid in v1.
+No free-form edge type is valid. Edges require canonical evidence; similarity, embeddings, co-occurrence, shared tags, matching names, or model inference alone cannot create an authoritative edge.
 
 Directional meanings:
 
-- `addresses`: source responds to/reduces target problem or challenge.
-- `serves`: source exists in service of a higher-level mission/goal/outcome.
-- `advances`: source contributes progress toward target goal/outcome.
+- `addresses`: source responds to target problem/challenge.
+- `serves`: source exists in service of higher-level mission/goal/outcome.
+- `advances`: source contributes progress toward goal/outcome.
 - `blocks`: source impedes target progress/feasibility.
 - `executes`: source is concrete execution of a higher-level plan.
-- `measures`: KPI/metric measures target goal/outcome.
-- `affects`: source changes feasibility/priority/risk/state of target without asserting stronger hierarchy.
+- `measures`: KPI measures goal/outcome.
+- `affects`: source changes feasibility/priority/risk/state without asserting stronger hierarchy.
 - `supersedes`: newer confirmed owner-backed object replaces older object; never inferred from similarity/timestamps alone.
-
-Authoritative relations require canonical evidence. Text similarity, embeddings, co-occurrence, shared tags, matching names, or model inference alone cannot create a v1 edge.
 
 ---
 
 ## Task 2 — allowed source/target kinds — FROZEN
 
-### Purpose graph node kinds
+V1 graph node kinds:
 
-The v1 trajectory graph admits exactly these semantic node kinds:
+`problem`, `mission`, `desired_outcome`, `goal`, `challenge`, `strategy`, `initiative`, `kpi`, `risk`, `current_work`, `material_change`.
 
-- `problem`
-- `mission`
-- `desired_outcome`
-- `goal`
-- `challenge`
-- `strategy`
-- `initiative`
-- `kpi`
-- `risk`
-- `current_work`
-- `material_change`
+`narrative`, `priority`, `constraint`, `current_state` remain evidence/semantic sections, not graph nodes in v1.
 
-`narrative`, `priority`, `constraint`, and `current_state` may inform/explain a trajectory but are not first-class graph node kinds in v1. They may remain semantic sections/evidence.
+Owner-backed nodes carry deterministic `node_id`, semantic `kind`, canonical ref and source refs. Derived nodes carry deterministic `node_id`, semantic kind, stable derivation rule and ordered source refs. Generated node IDs never become canonical owner IDs.
 
-### Node identity
+Allowed relation matrix:
 
-An owner-backed node MUST carry:
+- `addresses`: mission→problem; strategy→problem|challenge; initiative→problem|challenge.
+- `serves`: goal→mission|desired_outcome; initiative→goal.
+- `advances`: strategy|initiative|current_work→goal|desired_outcome.
+- `blocks`: challenge|risk→goal|strategy|initiative|current_work.
+- `executes`: initiative→strategy; current_work→initiative|strategy.
+- `measures`: kpi→goal|desired_outcome.
+- `affects`: risk→mission|desired_outcome|goal|strategy|initiative|current_work; material_change→problem|mission|desired_outcome|goal|challenge|strategy|initiative|risk|current_work.
+- `supersedes`: same semantic node kind only; further rules in Task 5.
 
-```yaml
-node_id: <deterministic Purpose node id>
-kind: goal
-canonical_ref: <Slice 2.1 canonical ref>
-source_refs:
-  - <canonical ref>
-```
+Invalid kind pairs never enter the authoritative graph and are never coerced to fit.
 
-A derived node, such as a derived `challenge`, MUST carry:
+---
 
-```yaml
-node_id: <deterministic Purpose node id>
-kind: challenge
-derivation:
-  rule: <stable rule id>
-  source_refs:
-    - <canonical ref>
-source_refs:
-  - <canonical ref>
-```
+## Task 3 — cycle behavior — FROZEN
 
-Rules:
+### Self-cycle rule
 
-- owner-backed `node_id` is deterministically derived from semantic kind + canonical ref identity;
-- derived `node_id` is deterministically derived from semantic kind + derivation rule + ordered source-ref identities;
-- generated node IDs never become canonical owner IDs;
-- a node with neither canonical owner ref nor valid deterministic derivation provenance is not authoritative.
+Any edge where `from == to` is invalid for every v1 relation and MUST NOT enter the authoritative graph.
 
-Edges therefore use Purpose node IDs while retaining evidence refs:
+### Structural ancestry relations
 
-```yaml
-from: <node_id>
-relation: serves
-to: <node_id>
-source_refs:
-  - <canonical ref>
-```
+For cycle validation, these relations define structural/temporal ancestry:
 
-This refines Task 1 endpoint representation without changing the frozen relation vocabulary.
+- `serves`
+- `advances`
+- `executes`
+- `supersedes`
 
-### Allowed relation matrix
+The authoritative subgraph formed by those relations MUST be acyclic.
 
-`addresses`
-- `mission` → `problem`
-- `strategy` → `problem | challenge`
-- `initiative` → `problem | challenge`
+`addresses`, `blocks`, `measures`, and `affects` are contextual/impact relations rather than parentage. They do not define structural ancestry, but traversal still uses a visited-node/visited-edge guard so malformed data can never cause infinite traversal.
 
-`serves`
-- `goal` → `mission | desired_outcome`
-- `initiative` → `goal`
+### Deterministic cycle detection
 
-`advances`
-- `strategy` → `goal | desired_outcome`
-- `initiative` → `goal | desired_outcome`
-- `current_work` → `goal | desired_outcome`
+- Cycle detection is graph-based, not “first edge wins”.
+- If a structural strongly connected component contains more than one node, every structural edge wholly inside that component is considered cycle-involved.
+- A structural self-loop is cycle-involved by definition.
+- Purpose MUST NOT arbitrarily keep one cycle edge based on storage/API arrival order.
 
-`blocks`
-- `challenge` → `goal | strategy | initiative | current_work`
-- `risk` → `goal | strategy | initiative | current_work`
+### Cycle handling
 
-`executes`
-- `initiative` → `strategy`
-- `current_work` → `initiative | strategy`
+When an owner-backed or deterministically derived cycle is detected:
 
-`measures`
-- `kpi` → `goal | desired_outcome`
+1. retain the underlying evidence refs in validation diagnostics;
+2. exclude all cycle-involved structural edges from the **authoritative traversal graph**;
+3. mark the trajectory section `partial` through the Slice 2.1 `section_states` mechanism when the rejected cycle affects emitted graph content;
+4. emit a stable content-free reason such as `trajectory_cycle_detected`;
+5. do not rewrite, reverse, or invent replacement relationships;
+6. do not mutate the canonical owner merely because Purpose detected the inconsistency.
 
-`affects`
-- `risk` → `mission | desired_outcome | goal | strategy | initiative | current_work`
-- `material_change` → `problem | mission | desired_outcome | goal | challenge | strategy | initiative | risk | current_work`
+The non-cyclic remainder of the graph may still be returned if it remains truthful and useful.
 
-`supersedes`
-- source and target MUST have the same semantic node kind;
-- additional owner/scope/revision rules are frozen in Task 5.
+### Explain behavior under a cycle
 
-### Validation law
+An explanation path MUST terminate before a rejected cyclic edge. It may return the verified path accumulated so far plus an explicit incomplete/cycle limitation. It MUST NOT loop, choose an arbitrary edge to “break” the cycle silently, or claim a complete upward trajectory.
 
-- A relation whose source/target semantic kinds are not allowed by this matrix is invalid and MUST NOT enter the authoritative trajectory graph.
-- Purpose MUST NOT coerce a node kind merely to make an edge fit.
-- Canonical owner record kind and Purpose semantic node kind are distinct concepts. Example: Brain may expose canonical `kind: intent` while the owner-backed semantic classification is Purpose `goal` or `mission`.
-- Semantic kind classification must come from the owner API/contract or a frozen deterministic derivation rule; it may not be guessed from free-text labels.
-- An invalid edge may be reported in content-free diagnostics with its evidence ref identity, but it cannot participate in explanation/traversal.
+### Supersession safety
+
+Any cycle containing `supersedes` is invalid. A→B→A supersession can never be interpreted as “latest wins” based only on timestamps. The owner must resolve the contradiction through its canonical semantics; Purpose only reports/excludes it.
+
+### Validation vs owner authority
+
+Cycle rejection from the Purpose traversal graph does **not** delete or supersede the owner records. It means only that Purpose cannot present those relationships as a coherent authoritative trajectory until the canonical owner state is consistent.
 
 ---
 
@@ -151,7 +118,7 @@ This refines Task 1 endpoint representation without changing the frozen relation
 
 1. [x] relation vocabulary
 2. [x] allowed source/target kinds
-3. [ ] cycle behavior
+3. [x] cycle behavior
 4. [ ] missing-parent behavior
 5. [ ] supersession behavior
 6. [ ] orphan initiative/current-work behavior
