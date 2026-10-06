@@ -70,11 +70,74 @@ The Purpose composer receives an already-resolved canonical scope. It may valida
 
 ---
 
+## Task 3 — required vs optional fields — FROZEN
+
+### Required top-level fields
+
+Every valid Purpose Context v1 envelope MUST contain exactly these contract-required top-level fields:
+
+```yaml
+schema_version: "1.0"
+scope: operator | workspace:<id>
+scope_kind: operator | workspace
+identity: {...}
+provenance: {...}
+```
+
+`identity` is required because OS owns the bound operator/workspace identity even when no strategic content exists yet. Its required minimum is:
+
+```yaml
+identity:
+  kind: operator | workspace
+  id: operator | <workspace-id>
+```
+
+Optional identity fields such as `name`, `type`, `status`, or other owner-backed descriptive metadata may be emitted only when supplied by the canonical identity owner.
+
+`provenance` is always required because Purpose is a derived projection and every projection must declare how it was assembled. Its exact format is frozen in Task 4.
+
+### Optional semantic sections
+
+The following top-level semantic sections are optional in v1 and MUST be emitted only when relevant, applicable, requested by the projection profile, or necessary to represent an explicit owner-read state:
+
+- `problems`
+- `purpose`
+- `narratives`
+- `goals`
+- `priorities`
+- `challenges`
+- `strategies`
+- `initiatives`
+- `constraints`
+- `kpis`
+- `risks`
+- `current_state`
+- `current_work`
+- `recent_material_changes`
+- `trajectory`
+
+`purpose`, when present, may contain owner-backed `mission` and `desired_outcomes` fields. Neither subfield is individually required simply because the `purpose` section exists; explicit unknown/unavailable semantics are frozen in Task 8.
+
+### Presence semantics
+
+- **Absent optional section** means the section was not emitted because it was not relevant/applicable/requested for this bounded projection. Absence MUST NOT be interpreted as `unknown`, `unavailable`, or `known empty`.
+- **Present empty collection** means the relevant owner read succeeded for that section and the owner-backed result is known to contain zero items under the requested bounds.
+- A producer MUST NOT emit meaningless empty rich-corporate sections merely to fill a template.
+- A producer MUST NOT invent placeholder records so that a section appears populated.
+- If an owner read was attempted but its truth could not be obtained, the producer must use the explicit unknown/unavailable representation frozen in Task 8 rather than silently omitting the failure.
+- Optional fields within emitted items follow the same law: omission means not emitted/not applicable; it does not automatically mean unknown or false.
+
+### Mutability law
+
+No top-level or nested Purpose field is independently editable merely because it appears in the projection. Any durable change must route to that field's canonical owner under the existing authority/confirmation rules.
+
+---
+
 ## Slice 2.1 freeze progress
 
 1. [x] `schema_version`
 2. [x] supported scope kinds
-3. [ ] required vs optional fields
+3. [x] required vs optional fields
 4. [ ] provenance format
 5. [ ] freshness format
 6. [ ] canonical ref format
