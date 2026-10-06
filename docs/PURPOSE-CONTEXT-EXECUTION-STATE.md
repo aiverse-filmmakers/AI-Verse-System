@@ -11,9 +11,9 @@
 - **Current slice:** **2.2 — Trajectory graph contract**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1
-- **Completed Slice 2.2 tasks:** 1–6 of 8
-- **NEXT:** **Slice 2.2 / Task 7 — freeze explain traversal rules**
-- Do not start Task 8 until Task 7 is complete and recorded here.
+- **Completed Slice 2.2 tasks:** 1–7 of 8
+- **NEXT:** **Slice 2.2 / Task 8 — freeze deterministic graph ordering**
+- Do not start Slice 2.3 until Task 8 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -31,8 +31,8 @@ Contracts:
 3. [x] cycle behavior — structural cycles excluded; no silent repair. `1d9b7de2631d3328bfa7771584d2b095a4bcc90e`
 4. [x] missing-parent behavior — explicit target states + identity stubs + no fuzzy fallback. `271891898cf94fefb11388e46a7cee4fc0877d1c`
 5. [x] supersession behavior — owner-confirmed same-kind replacement only; currentness remains owner-defined. `6e4032c8f525c840fe5b9ed942f5623d7d1e2773`
-6. [x] orphan behavior — valid unlinked initiative/current-work remains visible with `trajectory_orphan`; Purpose never fabricates a parent; tiny workspaces are allowed to stay simple. `a40fdbb7c52e99c97bdcc5c6c8fcdc57d105cf48`
-7. [ ] explain traversal rules
+6. [x] orphan behavior — valid unlinked initiative/current-work remains visible; no fabricated parent. `a40fdbb7c52e99c97bdcc5c6c8fcdc57d105cf48`
+7. [x] explain traversal — exact start node; causal ascent uses validated `executes|serves|advances|addresses` (+ KPI measures), contextual edges stay side evidence, branches report complete/partial/orphan and never invent missing ancestry. `722f6104ff98f8b60d74474a4e8252218da7a567`
 8. [ ] deterministic graph ordering
 
 ## Carried repair register
@@ -49,5 +49,5 @@ Contracts:
 1. Read plan.
 2. Read this file.
 3. Read both contract docs.
-4. Continue only with **Slice 2.2 / Task 7 — explain traversal rules**.
-5. Persist this file after Task 7 before Task 8.
+4. Continue only with **Slice 2.2 / Task 8 — deterministic graph ordering**.
+5. Persist this file after Task 8 before starting Slice 2.3.
