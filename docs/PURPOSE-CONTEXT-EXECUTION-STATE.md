@@ -15,9 +15,9 @@
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Slice:** 1.1 — Audit current OS scope, current-context, workspace, and direction-owner contracts
 - **Slice state:** IN PROGRESS
-- **Completed tasks:** 6 / 10
-- **NEXT task:** **Task 7 — audit Brain-owned generated direction views**
-- **Do not start Task 8 until Task 7 is completed and recorded here.**
+- **Completed tasks:** 7 / 10
+- **NEXT task:** **Task 8 — audit write assertions and handover/handback behavior**
+- **Do not start Task 9 until Task 8 is completed and recorded here.**
 
 No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit-only.
 
@@ -31,7 +31,7 @@ No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit
 4. [x] current-context resolver
 5. [x] strategic direction ownership marker
 6. [x] OS-owned strategic files/sections
-7. [ ] Brain-owned generated direction views
+7. [x] Brain-owned generated direction views
 8. [ ] write assertions and handover/handback behavior
 9. [ ] current context-ladder/relevance surfaces if OS owns them
 10. [ ] tests and CI touching direction/current-context/workspaces
@@ -284,6 +284,64 @@ This is **not a new Purpose defect and is not changed during this audit**, but P
 
 ---
 
+## Task 7 — Brain-owned generated direction views
+
+**Status:** COMPLETE  
+**Repo/ref:** `aiverse-filmmakers/AI-Verse-OS@e74a4e05b1f891e6f871f34a298bf10363a11d88`
+
+### Files inspected
+
+- `scripts/current-context.mjs`
+- `scripts/test-current-context.mjs`
+- `system/architecture/direction-ownership.md`
+- `system/architecture/source-of-truth.md`
+- `.gitignore`
+
+### View contract
+
+Brain handover may emit an OS-side generated reference view under:
+
+```text
+.aiverse/direction/views/<scope>.md
+```
+
+For example:
+
+```text
+operator -> .aiverse/direction/views/operator.md
+workspace:film -> .aiverse/direction/views/workspace_film.md
+```
+
+### Findings
+
+- The generated direction view is explicitly a **reference/display projection**, not the canonical strategic store; Brain intent remains canonical while Brain owns direction.
+- `.aiverse/direction/` is local/user-owned coordination state and is gitignored.
+- `current-context.mjs` validates that the direction directory, `views/` directory, and selected view are non-symlinked and physically contained in the generated-view boundary.
+- The resolver exposes view **path/status**, but does not parse the view body into canonical strategic facts.
+- Missing or invalid views are reported as `missing` / `invalid`; they never trigger fallback to frozen OS strategic sections.
+- The resolver separately validates canonical Brain intent refs (`brain:intent:<id>`), which is stronger provenance than treating arbitrary generated Markdown as truth.
+- Existing tests prove the expected workspace view mapping and stale-OS exclusion behavior.
+- `source-of-truth.md` explicitly classifies generated summaries/catalogs/dashboards as non-canonical unless their underlying source remains recoverable.
+
+### Purpose Context decision
+
+- Do **not** use generated direction-view Markdown as the primary Brain strategic read API for Purpose Context.
+- Prefer the Brain canonical read surface audited in Slice 1.2; preserve Brain refs and view path/status as provenance/display metadata.
+- A generated view may support human display/debugging, but stale/missing/invalid view state must never override canonical Brain data or resurrect OS strategy.
+- If the Brain canonical read is unavailable, Purpose should surface strategic data as unavailable rather than promote the view into a second strategic authority unless a future explicit contract deliberately defines a verified snapshot fallback.
+
+### Interface classification
+
+**Derived/reference artifact:** `.aiverse/direction/views/<scope>.md`.  
+**Safe OS metadata read:** `current-context.mjs` direction-view path/status + validated Brain refs.  
+**Not canonical strategic truth:** generated view body.
+
+### Verdict
+
+**PASS.** The existing view contract is compatible with Purpose Context as long as it remains provenance/display rather than a competing owner read.
+
+---
+
 # Open findings carried forward
 
 1. **Workspace schema/runtime ID length mismatch** — manifest schema lacks runtime `maxLength: 128`.
@@ -295,6 +353,7 @@ This is **not a new Purpose defect and is not changed during this audit**, but P
 7. **Ownership marker durability observation** — missing marker is indistinguishable at the low-level resolver from fresh/pre-handover absence; do not add Purpose heuristics, and ensure marker persistence/migration is covered by later hardening/requalification evidence.
 8. **Ownership record is coordination, not strategic content** — Purpose must read actual strategic content from the canonical owner API.
 9. **OS-owned strategy is currently Markdown/section based** — Purpose needs a bounded deterministic adapter/projection; no arbitrary Markdown scraping.
+10. **Generated Brain direction views are derived only** — Purpose must not promote `.aiverse/direction/views/*.md` into a second canonical strategic store.
 
 These findings are not blockers for continuing the audit.
 
@@ -304,7 +363,7 @@ These findings are not blockers for continuing the audit.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` first.
 2. Read this file second for the exact task-level checkpoint.
-3. Continue **only** with **Phase 1 / Slice 1.1 / Task 7 — Brain-owned generated direction views**.
-4. Do not redo Tasks 1–6 unless later evidence shows the audited OS ref changed before implementation begins.
+3. Continue **only** with **Phase 1 / Slice 1.1 / Task 8 — write assertions and handover/handback behavior**.
+4. Do not redo Tasks 1–7 unless later evidence shows the audited OS ref changed before implementation begins.
 5. After each task, update this file and advance the pointer by exactly one task.
 6. At Slice 1.1 completion, update the canonical implementation plan with source-backed interface map, findings, exact evidence, status `COMPLETE`, and NEXT pointer to Slice 1.2.
