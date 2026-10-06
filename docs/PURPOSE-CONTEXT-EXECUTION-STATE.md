@@ -11,9 +11,9 @@
 - **Current slice:** **2.3 — Operator and workspace profile rules**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2
-- **Completed Slice 2.3 tasks:** 1–3 of 7
-- **NEXT:** **Slice 2.3 / Task 4 — freeze auto-detection rules**
-- Do not start Task 5 until Task 4 is complete and recorded here.
+- **Completed Slice 2.3 tasks:** 1–4 of 7
+- **NEXT:** **Slice 2.3 / Task 5 — decide whether `WORKSPACE.yaml` gets optional `purpose_context` metadata**
+- Do not start Task 6 until Task 5 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -30,8 +30,8 @@ Contracts:
 
 1. [x] operator default shape — sparse global/operator projection; no implicit all-workspace aggregation. `29f23e7173f0fdcafee8bb33f2829ffb37d0a988`
 2. [x] workspace basic shape — exact workspace shell + bounded basic strategic/current-work trajectory; no forced corporate bureaucracy. `9a2d9e776fe1f1c680af266dcba35c5502b9702e`
-3. [x] rich workspace fields — additive read profile over same v1 schema; may activate narratives/KPIs/risks/richer constraints/current-state/material changes when owner-backed; no invented top-level team/resources/customers/infrastructure/budget fields in v1. `c25e0bf8e6a209491aeba34be258acbd810cf034`
-4. [ ] auto-detection rules
+3. [x] rich workspace fields — additive read profile over same v1 schema; richer domains only when owner-backed/relevant; no invented corporate top-level fields. `c25e0bf8e6a209491aeba34be258acbd810cf034`
+4. [x] auto-detection — workspace auto starts basic and resolves rich only when a rich domain is both owner-backed and relevant/requested; workspace type/name/model judgment/unused budget alone are insufficient; explicit basic/rich requests never bypass truth/authority. `37e6c629e92febcf4cc2bd52a0a5b0bf84f84360`
 5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
 6. [ ] disabled/irrelevant behavior
 7. [ ] explicit cross-scope relationship rules
@@ -47,4 +47,4 @@ Contracts:
 
 ## Resume instructions
 
-Continue only with **Slice 2.3 / Task 4 — auto-detection rules**, then persist this file before Task 5.
+Continue only with **Slice 2.3 / Task 5 — `WORKSPACE.yaml` optional `purpose_context` decision**, then persist this file before Task 6.
