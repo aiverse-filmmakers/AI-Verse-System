@@ -16,9 +16,10 @@
 - **Completed slices:** 0.1, 1.1, 1.2
 - **Audited Data ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
 - **Audited Memory ref:** `aiverse-filmmakers/AI-Verse-Memory@b0cae8cd8da38aa657fbc736c575177aa75e5ec7`
-- **Completed in Slice 1.3:** Tasks 1-3
-- **NEXT task:** **Slice 1.3 / Task 4 — audit runtime/context-ladder injection points**
-- **Do not start Task 5 until Task 4 is complete and recorded here.**
+- **Audited Gateway ref:** `aiverse-filmmakers/AI-Verse-Gateway@089aaa6440bbbbb9f41195eafe123ad2e06d5625`
+- **Completed in Slice 1.3:** Tasks 1-4
+- **NEXT task:** **Slice 1.3 / Task 5 — audit Dashboard read/write boundaries**
+- **Do not start Task 6 until Task 5 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 remains audit-only.
 
 ---
@@ -64,7 +65,7 @@ Final Telos→Brain mapping:
 | Narrative | derive from owner-backed state for v1 |
 | Goal | existing strategic `intent:goal`; keep execution `goal` service distinct |
 | Challenge | derive from active gaps/blockers/constraints for v1 |
-| Strategy | minimal new canonical strategic semantic required; prefer `intent:strategy`; **not** `strategy_rule` |
+| Strategy | minimal new strategic semantic required; prefer `intent:strategy`; **not** `strategy_rule` |
 | Initiative | existing canonical `initiative` |
 
 Key retained Brain decisions:
@@ -76,17 +77,10 @@ Key retained Brain decisions:
 - `strategy_rule` is learned operating doctrine and must not be used as the Telos business/project Strategy node.
 - Narrative and Challenge should remain derived in v1 unless usage proves a canonical lifecycle is necessary.
 
-Exact-ref Brain test evidence:
-
-- CI run `37183204509` — **SUCCESS** — 6 OS/Python matrix jobs + package smoke; Ubuntu/Python 3.12 reports **242 tests passed**.
-- OS Direction Ownership Contract run `37183204505` — **SUCCESS**.
-- Skills Receipt Contract run `37183204511` — **SUCCESS**.
-- Release Descriptor run `37183204489` — **FAILURE** due a pre-existing invalid/unreachable declared descriptor revision (`5d29b42a337bd078898c2e2ec876831a9ea421fa`).
-
 Carried Brain repair requirement:
 
-- The release-descriptor red gate must be repaired on or before the first Purpose-related Brain descendant is accepted, and before final Core vNext qualification.
-- Final Purpose cross-owner acceptance must pin exact component refs; the existing OS Direction workflow clones moving OS `main` and cannot be the sole qualification evidence.
+- Repair the pre-existing Brain release-descriptor red gate on or before the first Purpose-related Brain descendant is accepted and before Core vNext qualification.
+- Final Purpose cross-owner acceptance must pin exact component refs.
 
 ---
 
@@ -97,7 +91,7 @@ Audit in this exact order:
 1. [x] Data current KPI values and operational truth
 2. [x] Data freshness/provenance metadata
 3. [x] Memory recent changes/history/provenance queries
-4. [ ] runtime/context-ladder injection points
+4. [x] runtime/context-ladder injection points
 5. [ ] Dashboard read/write boundaries
 6. [ ] exact workspace scoping behavior in each component
 
@@ -123,30 +117,42 @@ Audit in this exact order:
 ## Slice 1.3 / Task 3 — Memory recent changes/history/provenance queries
 
 **Status:** COMPLETE  
-**Audited ref:** `aiverse-filmmakers/AI-Verse-Memory@b0cae8cd8da38aa657fbc736c575177aa75e5ec7`  
-**Memory `main` at audit:** same exact repaired Core ref.
+**Audited ref:** `aiverse-filmmakers/AI-Verse-Memory@b0cae8cd8da38aa657fbc736c575177aa75e5ec7`
+
+- Memory owns historical context and defers to current owner state.
+- Existing recall/orientation/progressive recall/session-digest/relationship surfaces are strong and bounded.
+- No dedicated Purpose material-change API exists; Phase 6 should add at most a thin bounded adapter over existing Memory reads, while Purpose/Brain decides semantic materiality against current owner state.
+- Purpose must use Memory APIs, never canonical files or derived SQLite directly.
+
+## Slice 1.3 / Task 4 — runtime/context-ladder injection points
+
+**Status:** COMPLETE  
+**Audited ref:** `aiverse-filmmakers/AI-Verse-Gateway@089aaa6440bbbbb9f41195eafe123ad2e06d5625`  
+**Gateway `main` at audit:** same exact ref.
 
 Durable findings:
 
-- Memory is explicitly the canonical owner of **historical** context and must defer to newer current-owner state. Purpose must never use Memory to override current OS/Data/Brain truth.
-- Existing public/read surfaces are already strong and relevance-bounded: `recall()`, `get_orientation_map`, `progressive_recall` (`catalog`/`summary`/`detail`/`source`), session-digest reads/recall, and the rebuildable relationship projection.
-- Legacy `recall()` supports exact operator/workspace scope and bounded retrieval. In native mode, workspace recall never crosses into another workspace unless explicit all-workspace recall is requested.
-- Progressive recall is especially suitable for Purpose provenance: summary/detail give bounded navigation/evidence pointers; source depth revalidates canonical path, scope, identity and source version before returning exact Memory-owned text. Changed refs return `stale`; removed/unsafe refs return `unavailable`.
-- Session digests are compact historical context with explicit `significant_outcomes`, `unresolved_items`, `source_refs`, `source_coverage`, `source_fingerprint`, `source_version`, bounded provenance and completion/update timestamps. They do not replace Gateway-owned raw conversation history.
-- Orientation maps expose compact counts/routes/topics plus recent session-digest pointers without copying canonical text. Their source fingerprint changes when authorized underlying Memory/current-source/digest versions change.
-- Memory atomics retain source/evidence refs and correction/supersession chronology. The relationship projection derives only explicit metadata/provenance edges; it does not infer relationships from embeddings/model similarity.
-- There is **no dedicated Purpose-specific `recent_material_changes` API** that guarantees “all changes since T that materially affect goal/priority/feasibility.” Existing Memory recall/digests can provide evidence, but semantic materiality is not a Memory ownership concept.
-- Therefore Phase 6 should add, at most, a thin bounded Memory adapter/query contract for Purpose material-change retrieval that composes existing recall/session-digest/provenance surfaces. It must not create a new event store, duplicate Data events, or make Memory decide current strategy.
-- A future material-change query should return historical evidence candidates with timestamps/source refs/scope and leave the final “does this affect a current goal/strategy/blocker?” decision to the Purpose/Brain projection against current owner state.
-- Purpose must use Memory APIs, never read `operator/memory/atomic/`, workspace Memory files, or the derived SQLite index directly.
+- Gateway is the current runtime/context-assembly owner. Its `RunEngine.assembleContext()` calls `assembleProgressiveOwnerContext()` using the exact run scope and last user text, then injects the resulting bounded owner context as a Gateway-marked system message before runtime invocation.
+- `assembleProgressiveOwnerContext()` already composes owner-routed current context, capabilities, connections and Memory's progressive history ladder. Ordinary queries receive catalog-level history only; historical/detail/exact wording escalates deterministically to summary/detail/source. Exact source descent remains bounded and scope checked.
+- Gateway's `ContextGovernor` separately manages invocation pressure, protects system messages/recent raw tail, schedules/executes compaction at configured thresholds, measures token layers, and fails closed when safe compaction cannot fit. Purpose must remain subject to this existing context-pressure mechanism rather than invent a separate token manager.
+- Existing `aiverse_context` is a bounded read-only deep-history tool for summary/detail/source escalation. Purpose should **not** overload that Memory-focused tool with strategic Purpose semantics unless Phase 7 proves a single generic owner-context tool is cleaner; the default path should be automatic relevance-gated injection.
+- Gateway currently has no host operation such as `read_purpose_context`. `HostClient` exposes describe/read_context/history/capabilities/connections/action operations only. Therefore Purpose runtime integration will require one small owner-routed read operation or equivalent stable host contract after OS P1/P2 Purpose composition exists.
+- The correct ownership split is: OS composes the derived Purpose projection from canonical owners; Gateway decides **when a run needs it** and injects the returned bounded projection. Gateway must not independently read Brain/Data/Memory private storage or become a second Purpose composer.
+- Recommended Phase 7 integration point: add a Purpose relevance classifier beside (not inside) the Memory history-depth classifier; when the current task is strategic/planning/prioritization/trajectory-sensitive, Gateway requests Purpose for the already-bound scope and adds `purpose_context` to the owner context bundle before the system message is formed. For trivial/operational tasks the classifier must produce zero Purpose owner reads.
+- Purpose must be additive to the existing ladder, not a new cross-owner orientation map. Gateway's prior I1 evaluation explicitly rejected a duplicate cross-owner map because current owner views already cover direction, Memory, Data and Skills; the correct architecture is on-demand owner composition without another persistent graph.
+- Purpose graph/trajectory data may be richer than the current direction fragment because it answers a new causal question (`why does this current work matter?`), but it must remain an ephemeral owner projection in the Gateway bundle, not persisted Gateway state.
+- Runtime diagnostics should record whether Purpose was requested/injected, byte/token contribution, scope, owner-projection version/freshness and skip reason. This is necessary for the Slice 7.3 anti-bloat value gate.
+- Existing integrated context-ladder acceptance already proves catalog-only ordinary retrieval, bounded escalation, superseded-history behavior, exact-source validation and no raw historical leakage. Purpose integration should extend this test family rather than create a parallel runtime acceptance stack.
 
 Primary evidence inspected:
 
-- `protocol/MEMORY-PROTOCOL.md`
-- `README.md`
-- `scripts/memory.py`
-- `scripts/session_digest.py`
-- repository tree / current exact `main`
+- `src/run-engine.mjs`
+- `src/progressive-context.mjs`
+- `src/context-governor.mjs`
+- `src/host-adapter.mjs`
+- `scripts/test-context-ladder-integrated-composition.mjs`
+- `docs/I1-CROSS-OWNER-ORIENTATION-EVALUATION.md`
+- `.github/workflows/context-ladder-integrated-acceptance.yml` (presence/current tree)
 
 ### Slice 1.3 acceptance criteria
 
@@ -161,6 +167,6 @@ Primary evidence inspected:
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for the live pointer.
 3. Read completed slice audit files only when their detailed evidence/decisions are needed.
-4. Continue **only** with **Phase 1 / Slice 1.3 / Task 4 — audit runtime/context-ladder injection points**.
-5. Audit the current exact owner repo(s) discovered for runtime/context assembly; do not assume Gateway is the owner until source-backed inspection proves it.
-6. After Task 4, update this file before Task 5.
+4. Continue **only** with **Phase 1 / Slice 1.3 / Task 5 — audit Dashboard read/write boundaries**.
+5. Discover the current Dashboard/product-surface owner from source before assuming a repository; include Data's existing Dashboard projection adapter in the audit.
+6. After Task 5, update this file before Task 6.
