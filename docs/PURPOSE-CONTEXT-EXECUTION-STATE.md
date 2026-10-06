@@ -15,9 +15,10 @@
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2
 - **Audited Data ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
-- **Completed in Slice 1.3:** Tasks 1-2
-- **NEXT task:** **Slice 1.3 / Task 3 — audit Memory recent changes/history/provenance queries**
-- **Do not start Task 4 until Task 3 is complete and recorded here.**
+- **Audited Memory ref:** `aiverse-filmmakers/AI-Verse-Memory@b0cae8cd8da38aa657fbc736c575177aa75e5ec7`
+- **Completed in Slice 1.3:** Tasks 1-3
+- **NEXT task:** **Slice 1.3 / Task 4 — audit runtime/context-ladder injection points**
+- **Do not start Task 5 until Task 4 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 remains audit-only.
 
 ---
@@ -95,7 +96,7 @@ Audit in this exact order:
 
 1. [x] Data current KPI values and operational truth
 2. [x] Data freshness/provenance metadata
-3. [ ] Memory recent changes/history/provenance queries
+3. [x] Memory recent changes/history/provenance queries
 4. [ ] runtime/context-ladder injection points
 5. [ ] Dashboard read/write boundaries
 6. [ ] exact workspace scoping behavior in each component
@@ -103,15 +104,10 @@ Audit in this exact order:
 ## Slice 1.3 / Task 1 — Data current KPI values and operational truth
 
 **Status:** COMPLETE  
-**Audited ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`  
-**Data `main` at audit:** same exact repaired Core ref.
+**Audited ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
 
-Durable findings:
-
-- Data exposes stable public read surfaces including client/query/provenance and a deliberately read-only Brain adapter.
-- Existing records plus bounded queries/aggregates are sufficient for current KPI/operational values when an application schema explicitly stores or deterministically derives them.
-- Data must not infer KPI meaning by scanning arbitrary schemas. A strategic KPI definition must carry or resolve to an owner-backed Data binding; without one, the current value is unavailable.
-- Strategic KPI definitions/targets remain strategic-owner truth; Data provides mapped current values/evidence only.
+- Data public records/query/aggregate surfaces are sufficient for current operational values when an explicit schema/source binding exists.
+- Purpose must not infer KPI semantics from arbitrary Data fields; KPI definitions/targets remain strategic-owner truth and current values come from an explicit Data binding.
 - Purpose must use public Data interfaces, never SQLite/private storage.
 
 ## Slice 1.3 / Task 2 — Data freshness/provenance metadata
@@ -119,24 +115,38 @@ Durable findings:
 **Status:** COMPLETE  
 **Audited ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
 
+- Records expose version/createdAt/updatedAt; immutable Data events/receipts expose committedAt, trusted scope, actor, before/after versions and integrity-checked provenance.
+- Brain-adapter `answeredAt` is read time, not source freshness.
+- Aggregate values do not intrinsically expose a source freshness watermark; Purpose must carry companion freshness evidence or mark freshness unknown.
+- Data has no universal freshness TTL. Purpose applies field-specific freshness policy over owner metadata.
+
+## Slice 1.3 / Task 3 — Memory recent changes/history/provenance queries
+
+**Status:** COMPLETE  
+**Audited ref:** `aiverse-filmmakers/AI-Verse-Memory@b0cae8cd8da38aa657fbc736c575177aa75e5ec7`  
+**Memory `main` at audit:** same exact repaired Core ref.
+
 Durable findings:
 
-- Canonical Data records expose `version`, `createdAt`, `updatedAt`, actor attribution, schema version and delete metadata. These are the primary record-level recency/current-version signals.
-- The read-only Brain adapter adds `answeredAt`, scope, actor, authorization and record count. `answeredAt` is the **read time**, not proof that the underlying record itself changed recently; Purpose must never confuse answer time with source freshness.
-- Data provenance provides immutable mutation events and durable receipts with `committedAt`, trusted workspace binding, space/entity/record identity, before/after versions, actor, request/transaction/idempotency IDs and integrity-checked event/receipt linkage.
-- Event/receipt readers verify SHA-256 integrity and fail closed on corruption. Data events are structured audit facts and explicitly are **not Memory**.
-- There is no universal Data-wide freshness TTL/staleness policy. Purpose must evaluate freshness from the owner record/event timestamps plus the freshness requirement of the specific Purpose field/KPI contract.
-- Query pages return full record snapshots and therefore retain per-record `updatedAt`/version metadata. Aggregate results return only aggregate values; they do not intrinsically expose a `max(updatedAt)`/source-watermark freshness proof.
-- Therefore an aggregate-backed KPI needs one of: a declared companion freshness query/event watermark, a typed Purpose/Data wrapper that returns source freshness metadata, or an explicit `freshness: unknown` state. Purpose must not label a bare aggregate as fresh merely because it was computed now.
-- `DataProvenance.listEvents` is bounded/filterable and can support material-change detection for Data-owned operational facts, but those events remain audit evidence; semantic materiality belongs to Purpose/Brain/Memory projection logic, not Data.
+- Memory is explicitly the canonical owner of **historical** context and must defer to newer current-owner state. Purpose must never use Memory to override current OS/Data/Brain truth.
+- Existing public/read surfaces are already strong and relevance-bounded: `recall()`, `get_orientation_map`, `progressive_recall` (`catalog`/`summary`/`detail`/`source`), session-digest reads/recall, and the rebuildable relationship projection.
+- Legacy `recall()` supports exact operator/workspace scope and bounded retrieval. In native mode, workspace recall never crosses into another workspace unless explicit all-workspace recall is requested.
+- Progressive recall is especially suitable for Purpose provenance: summary/detail give bounded navigation/evidence pointers; source depth revalidates canonical path, scope, identity and source version before returning exact Memory-owned text. Changed refs return `stale`; removed/unsafe refs return `unavailable`.
+- Session digests are compact historical context with explicit `significant_outcomes`, `unresolved_items`, `source_refs`, `source_coverage`, `source_fingerprint`, `source_version`, bounded provenance and completion/update timestamps. They do not replace Gateway-owned raw conversation history.
+- Orientation maps expose compact counts/routes/topics plus recent session-digest pointers without copying canonical text. Their source fingerprint changes when authorized underlying Memory/current-source/digest versions change.
+- Memory atomics retain source/evidence refs and correction/supersession chronology. The relationship projection derives only explicit metadata/provenance edges; it does not infer relationships from embeddings/model similarity.
+- There is **no dedicated Purpose-specific `recent_material_changes` API** that guarantees “all changes since T that materially affect goal/priority/feasibility.” Existing Memory recall/digests can provide evidence, but semantic materiality is not a Memory ownership concept.
+- Therefore Phase 6 should add, at most, a thin bounded Memory adapter/query contract for Purpose material-change retrieval that composes existing recall/session-digest/provenance surfaces. It must not create a new event store, duplicate Data events, or make Memory decide current strategy.
+- A future material-change query should return historical evidence candidates with timestamps/source refs/scope and leave the final “does this affect a current goal/strategy/blocker?” decision to the Purpose/Brain projection against current owner state.
+- Purpose must use Memory APIs, never read `operator/memory/atomic/`, workspace Memory files, or the derived SQLite index directly.
 
 Primary evidence inspected:
 
-- `src/protocol/types.ts`
-- `src/query/types.ts`
-- `src/brain/adapter.ts`
-- `src/provenance/types.ts`
-- `docs/EVENTS-RECEIPTS-PROVENANCE-V0.1.md`
+- `protocol/MEMORY-PROTOCOL.md`
+- `README.md`
+- `scripts/memory.py`
+- `scripts/session_digest.py`
+- repository tree / current exact `main`
 
 ### Slice 1.3 acceptance criteria
 
@@ -151,6 +161,6 @@ Primary evidence inspected:
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for the live pointer.
 3. Read completed slice audit files only when their detailed evidence/decisions are needed.
-4. Continue **only** with **Phase 1 / Slice 1.3 / Task 3 — audit Memory recent changes/history/provenance queries**.
-5. Start from repaired Memory baseline `b0cae8cd8da38aa657fbc736c575177aa75e5ec7` unless fresh inspection proves current `main` is a deliberate descendant; record the exact ref actually audited.
-6. After Task 3, update this file before Task 4.
+4. Continue **only** with **Phase 1 / Slice 1.3 / Task 4 — audit runtime/context-ladder injection points**.
+5. Audit the current exact owner repo(s) discovered for runtime/context assembly; do not assume Gateway is the owner until source-backed inspection proves it.
+6. After Task 4, update this file before Task 5.
