@@ -304,6 +304,76 @@ as_of: <RFC3339 UTC timestamp>
 
 ---
 
+## Task 6 — canonical ref format — FROZEN
+
+Purpose Context v1 uses structured canonical refs, never ad-hoc path strings or guessed URLs.
+
+```yaml
+owner: ai-verse-brain
+scope: workspace:ai-verse
+kind: intent
+id: goal-public-beta
+version: "7"
+```
+
+### Required ref fields
+
+`owner`
+- required stable component owner ID;
+- v1 registered owner IDs are `ai-verse-os`, `ai-verse-brain`, `ai-verse-data`, `ai-verse-memory`, and `ai-verse-gateway`;
+- adding another owner requires an explicit Purpose owner-map/contract update and cannot happen silently at runtime.
+
+`scope`
+- required exact Purpose-visible canonical scope: `operator` or `workspace:<id>`;
+- MUST obey Task 2 scope rules;
+- a ref outside the projection's permitted visibility cannot be used merely because its ID is known.
+
+`kind`
+- required owner-defined stable canonical record kind;
+- interpreted only by the owning component/API;
+- Purpose may validate an allowed kind but MUST NOT reinterpret one owner's kind as another owner's object type.
+
+`id`
+- required non-empty owner-defined stable canonical record identifier;
+- opaque to Purpose consumers; consumers MUST NOT parse it as a filesystem path, URL, database key layout, or authority token.
+
+### Version field
+
+`version`
+- optional only when the referenced identity is immutable/content-addressed or the owner has no meaningful mutable revision for that ref;
+- otherwise REQUIRED for mutable owner records used to support authoritative current claims;
+- serialized as a non-empty UTF-8 string even when the owner internally uses an integer revision, hash, ETag, or other scalar token;
+- identifies the exact owner-backed revision/fingerprint observed by the composer.
+
+If a mutable claim's owner cannot provide a stable version token, the ref may still identify the record, but it cannot satisfy exact-version verification on its own. The projection must then retain explicit freshness/verification limitations rather than pretending the mutable revision is pinned.
+
+### Canonical identity
+
+The canonical record identity tuple is:
+
+```text
+(owner, scope, kind, id)
+```
+
+`version` identifies an observed revision of that identity; it is not part of the durable logical identity.
+
+Two refs with the same identity tuple but different versions refer to different observed revisions of the same canonical record.
+
+### Ref safety rules
+
+- Canonical refs MUST NOT contain raw repository roots, filesystem paths, DB paths, credentials, bearer tokens, secrets, raw SQL, private transport addresses, or Dashboard-local `systemId` values.
+- A canonical ref grants no read/write authority. It is an evidence locator only and must still pass the owner's normal scope/authorization checks when resolved.
+- The composer MUST obtain refs from owner APIs/contracts; it may not manufacture refs by scanning another component's private storage layout.
+- A missing/deleted/stale ref MUST remain explicit when revalidation occurs; it must not be rebound by fuzzy matching to a different owner record.
+- Cross-scope refs are accepted only where the later trajectory contract explicitly permits them and existing isolation/visibility rules authorize them.
+- `source_refs`, `provenance.owner_reads[].refs`, derivation refs, KPI definition/value refs, material-change refs and trajectory evidence refs all use this same canonical ref structure.
+
+### Verification law
+
+Resolving a canonical ref must return the exact owner identity requested or fail closed. Purpose MUST NOT substitute a similarly named record, latest record from another scope, or historical Memory record when the canonical current owner ref is unavailable.
+
+---
+
 ## Slice 2.1 freeze progress
 
 1. [x] `schema_version`
@@ -311,7 +381,7 @@ as_of: <RFC3339 UTC timestamp>
 3. [x] required vs optional fields
 4. [x] provenance format
 5. [x] freshness format
-6. [ ] canonical ref format
+6. [x] canonical ref format
 7. [ ] deterministic ordering rules
 8. [ ] unknown/unavailable field behavior
 9. [ ] bounded size/budget rules
