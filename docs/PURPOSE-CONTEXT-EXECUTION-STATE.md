@@ -1,7 +1,7 @@
 # Purpose Context — Task-Level Execution State
 
 **Purpose:** durable continuation checkpoint for `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
-**Rule:** read the implementation plan first, then this file, then any completed slice audit linked below. Update this file after every individual task.  
+**Rule:** read the implementation plan first, then this file, then completed slice audits linked here. Update this file after every individual task.  
 **Execution discipline:** execute exactly one task at a time and in plan order unless the user explicitly requests a bounded number of consecutive tasks; even then, complete and persist each task before beginning the next.  
 **Current admitted Core baseline:** `core-repaired-public-beta-2026-10-06`  
 **Last updated:** 2026-10-06
@@ -15,14 +15,14 @@
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1
 - **Audited Brain ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`
-- **Completed in Slice 1.2:** Tasks 1-8
-- **NEXT task:** **Slice 1.2 / Task 9 — audit current strategy rollback behavior**
-- **Do not start Task 10 until Task 9 is complete and recorded here.**
-- No Purpose Context behavior/code has been implemented yet; Phase 1 is audit-only.
+- **Completed in Slice 1.2:** Tasks 1-9
+- **NEXT task:** **Slice 1.2 / Task 10 — audit Brain tests/CI**
+- **Do not begin Slice 1.3 until Task 10 is complete, Slice 1.2 closure is written, and this pointer is advanced.**
+- No Purpose Context behavior/code has been implemented yet; Phase 1 remains audit-only.
 
-### Important continuation note
+### Continuation note
 
-Slice 1.1 is fully closed and accepted in `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md` (creation commit `a373d9badd1954e925429db60fead8aff2dea6bf`). The long-form implementation plan retains the original static task specifications; this execution-state file is the authoritative live pointer.
+Slice 1.1 is fully closed in `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md` (creation commit `a373d9badd1954e925429db60fead8aff2dea6bf`). The implementation-plan file contains the static task specification; this file is the authoritative live progress pointer.
 
 ---
 
@@ -45,7 +45,7 @@ Slice 1.1 is fully closed and accepted in `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.
 Durable decisions retained from Slice 1.1:
 
 - Purpose reuses only `operator` / exact `workspace:<id>` strategic scopes.
-- Workspace Purpose reads exact selected scope only; no normalized-name scanning.
+- Workspace reads exact selected scope only; no normalized-name scanning.
 - No mandatory `purpose_context` block is needed in `WORKSPACE.yaml` for v1.
 - Use `scripts/current-context.mjs` as the ownership-aware current-context read boundary.
 - Use the direction-owner contract as the sole strategic-owner selector; never infer owner from availability/files/model judgment.
@@ -57,9 +57,9 @@ Durable decisions retained from Slice 1.1:
 
 ---
 
-# Current Slice 1.2 task checklist
+# Slice 1.2 — Brain strategic model/direction audit
 
-Audit Brain in this exact order:
+## Checklist
 
 1. [x] Brain object kinds
 2. [x] intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics
@@ -69,91 +69,113 @@ Audit Brain in this exact order:
 6. [x] source/evidence refs
 7. [x] supersession/versioning
 8. [x] query/list/read surfaces
-9. [ ] current strategy rollback behavior
+9. [x] current strategy rollback behavior
 10. [ ] tests/CI
 
-## Slice 1.2 / Task 1 — Brain object kinds
+### Task 1 — Brain object kinds
 
 **Status:** COMPLETE
 
-- Brain has 13 canonical kinds; Purpose-relevant strategic/execution kinds already exist, but no dedicated `mission`, `problem`, `narrative`, or `challenge` kind exists at this baseline.
+- Brain has 13 canonical kinds: `intent`, `practice`, `gap`, `opportunity`, `initiative`, `objective`, `goal`, `model_belief`, `evaluation`, `learning`, `learning_candidate`, `strategy_rule`, `policy`.
+- No canonical kinds named `mission`, `problem`, `narrative`, or `challenge` exist at this baseline.
+- Scope contract is `operator` or exact `workspace:<id>`.
 
-## Slice 1.2 / Task 2 — strategic object semantics
-
-**Status:** COMPLETE
-
-- Strategic intent, execution Goal, Action objective, gap, opportunity, initiative and learned `strategy_rule` have deliberately different semantics.
-- Telos `Strategy` must not be mapped directly to Brain `strategy_rule`.
-
-## Slice 1.2 / Task 3 — Goal API
+### Task 2 — strategic object semantics
 
 **Status:** COMPLETE
 
-- Stable Goal read/mutation/continuation service exists with idempotency, optimistic versioning, bounded continuation and evidence-gated completion.
+- `intent` is canonical strategic direction when Brain owns the scope; subtypes include `desired_state`, `goal`, `boundary`, `constraint`, `success_definition`.
+- `goal` is a durable execution/continuation contract; `objective` is a bounded Action Loop work unit.
+- `gap` is Brain interpretation between desired and current state; `opportunity` is a hypothesis for reducing gaps; `initiative` is a qualified/proposed portfolio item.
+- Brain `strategy_rule` is a learned/self-improvement operating rule, **not** a general business/project strategy object. Telos `Strategy` must not map directly to `strategy_rule`.
 
-## Slice 1.2 / Task 4 — DirectionService
-
-**Status:** COMPLETE
-
-- DirectionService provides bounded `gap -> opportunity -> initiative` qualification but not a typed normalized public trajectory read API.
-
-## Slice 1.2 / Task 5 — direction ownership integration
+### Task 3 — Goal API
 
 **Status:** COMPLETE
 
-- One durable owner per native scope; explicit provenance-bearing handover/handback; no availability-based authority fallback.
+- Stable Goal `get/list` reads plus create/edit/lifecycle/criteria/evaluate/progress/continuation operations exist.
+- Mutations are idempotent and version-bound where applicable.
+- Completion is evidence-gated; model inference alone cannot pass a material criterion.
+- Goal presence must not be used to infer strategic-direction ownership.
+- Goal lacks a canonical Telos-style parent/`serves` relation, so it cannot reconstruct the Purpose trajectory alone.
 
-## Slice 1.2 / Task 6 — source/evidence refs
-
-**Status:** COMPLETE
-
-- `source_refs` are provenance pointers; `evidence_refs` carry structured evidence class/freshness/provenance semantics.
-- Raw refs are not automatically referentially or cross-scope validated, so Purpose must resolve/validate sensitive graph relations.
-
-## Slice 1.2 / Task 7 — supersession/versioning
+### Task 4 — DirectionService
 
 **Status:** COMPLETE
 
-- Generic object revision is an optimistic concurrency/current-version counter, not a retained historical revision log.
-- Generic supersession fields are not automatically maintained as a fully enforced bidirectional chain.
-- Strategy revisions have a stronger dedicated known-good previous-revision/rollback model.
+- Deterministic chain is `gap -> opportunity -> initiative` with eligibility, dedupe, cooldown and active-gap checks.
+- Initiative proposal does not equal acceptance.
+- `initiative.serves` and gap desired/current refs are stored but are not fully typed/referentially validated graph edges.
+- No normalized public direction snapshot/read API exists.
+
+### Task 5 — direction ownership integration
+
+**Status:** COMPLETE
+
+- Native OS mode has one durable strategic owner per exact scope.
+- OS→Brain and Brain→OS handovers require explicit confirmation and preserve provenance.
+- Brain unavailability never silently returns strategic ownership to OS.
+- Interrupted handovers have bounded recovery paths.
+
+### Task 6 — source/evidence refs
+
+**Status:** COMPLETE
+
+- `source_refs` are provenance/lineage pointers.
+- `evidence_refs` carry structured evidence class, freshness, source and independence semantics.
+- Raw refs are not automatically referentially or cross-scope validated; Purpose must resolve/validate sensitive graph relations before presenting them as authoritative trajectory edges.
+
+### Task 7 — supersession/versioning
+
+**Status:** COMPLETE
+
+- Generic Brain revision is optimistic concurrency/current-version state, not an immutable historical revision log.
+- Generic `supersedes` / `superseded_by` fields are not automatically maintained as a complete bidirectional lineage.
+- Strategy revisions have a stronger dedicated previous-revision/rollback model.
 - Purpose must distinguish object revision, lifecycle supersession and strategy revision lineage.
 
-## Slice 1.2 / Task 8 — query/list/read surfaces
+### Task 8 — query/list/read surfaces
+
+**Status:** COMPLETE
+
+- `ObjectStore.load/list` are exact scoped canonical reads but are private storage-level interfaces; OS Purpose must not couple to Brain storage layout.
+- Goal `get/list` is the strongest existing stable Goal read surface.
+- Direction ownership APIs expose ownership, not normalized strategic content.
+- `BrainController.orientation()` is useful but partial: it omits gaps/opportunities and is not a provenance/relationship resolver.
+- `ContextAssembler` already proves Brain uses bounded, purpose-sensitive context rather than dumping all state, but it remains an internal cognition builder.
+- There is no dedicated exported strategic `purpose-snapshot` / `direction-snapshot` API or CLI.
+- Phase 3 therefore remains justified: build one stable bounded read-only Brain strategic snapshot contract that validates refs and preserves provenance without exposing private storage.
+
+### Task 9 — current strategy rollback behavior
 
 **Status:** COMPLETE  
 **Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
 
 Durable findings:
 
-- `ObjectStore.load()` / `ObjectStore.list()` provide exact scoped canonical reads for Brain internals, with path/scope containment through `StorageLayout`, but `ObjectStore` is a private storage-level interface and is not exported as the intended cross-component public contract. Purpose in OS must not couple directly to Brain's on-disk kind directories or storage implementation.
-- `GoalService.get()` and `GoalService.list()` are the strongest existing stable strategic/execution read surface for canonical Goal objects; the CLI exposes these via `goal show/status`.
-- `DirectionOwnershipService.owner()/status()/plan()` and the exported `direction_owner_for()`/registry reader expose the owner coordination state, not the normalized strategic content itself.
-- `OnboardingService.plan()` reads Brain-owned strategic `intent` and practices to decide what direction information is missing, but it is onboarding-specific and is not an appropriate Purpose read API.
-- `BrainController.orientation(scope)` provides a bounded orientation view of confirmed/active strategic intent (only when Brain owns direction), active practices, active initiatives, current objectives and policies. It deliberately returns no Brain intent goals when OS owns direction. However, it omits gaps/opportunities, does not normalize the full Telos trajectory, and is not a provenance/relationship-resolution contract.
-- `ContextAssembler` already performs bounded purpose-sensitive internal reads using per-cognition-kind live status filters and combines canonical Brain state with host current context/history/capabilities/connections. This proves the architecture already favors relevance-bounded context rather than dumping all Brain state.
-- `ContextAssembler` still reads Brain objects through `controller.store.list()` and emits raw canonical object dictionaries into ephemeral cognition context. It is an internal reasoning context builder, not a cross-owner strategic snapshot API, and it does not resolve `serves`/gap/source refs into a typed verified trajectory graph.
-- The retrieval subsystem builds bounded semantic queries for history/capabilities from the actual cognition task and current canonical signals; it is retrieval-query construction, not strategic object querying. It should not be repurposed as the Purpose owner API.
-- Brain's package exports `GoalService`, `DirectionOwnershipService`, `BrainController`, `ContextAssembler`, etc., but there is currently **no dedicated exported `purpose-snapshot` / `direction-snapshot` read service** that returns mission/goals/gaps/initiatives/relations with validated refs and provenance.
-- CLI likewise has public Goal reads and direction-owner inspection, but no generic strategic snapshot/list command covering `intent + gap + opportunity + initiative + execution Goal + relations`.
-- Therefore Phase 3 remains justified: add one stable read-only Brain strategic snapshot contract. It should compose existing canonical services internally, enforce exact scope/active-state/ownership semantics, validate relationship refs, preserve provenance/evidence, and prevent OS from depending on Brain private storage.
-- The snapshot should reuse existing bounded/relevance principles rather than becoming an unbounded “dump all Brain state” endpoint.
+- Brain's rollback facility applies specifically to canonical `strategy_rule` revisions — the learned/self-improvement operating-rule model — **not** to general product/business/project strategy. Purpose must not treat this facility as rollback for the Telos `Strategy` concept.
+- `StrategyRevisionService.link_previous()` only links a `CANDIDATE` to an `ACTIVE` prior strategy rule, rejects self-links, and stores both `previous_revision_ref` and a snapshot of the previous revision.
+- `promote_revision()` is lock-protected. For a linked revision it requires the candidate still be `CANDIDATE` and the previous revision still be `ACTIVE`; it activates the candidate then retires the previous rule. If retirement fails, it compensates by retiring the newly activated candidate rather than leaving both intentionally active.
+- `rollback()` requires explicit user authority. It acquires a scoped lock, requires the current rule to be `ACTIVE` and the referenced previous rule to be `RETIRED`, writes a restoration transaction receipt before mutation, restores the previous rule to `ACTIVE`, then transitions the current rule to `ROLLED_BACK`.
+- If cleanup fails after the previous rule has been restored, the transaction records `previous_restored_current_cleanup_required` instead of pretending success. `reconcile()` can finish the known partial state where previous and current are both active; unknown/inconsistent states fail closed for operator review.
+- The CLI exposes `strategy-rollback` with dry-run by default and `--apply` for the explicit mutation path.
+- Rollback restores the actual persisted previous object, not merely the stored snapshot. Therefore missing/corrupt previous canonical state causes failure rather than reconstruction from a possibly stale snapshot. This is safer for authority but means the snapshot is evidence/recovery context, not an alternate canonical store.
+- Strategy rollback is already tested in `tests/test_public_beta_goals.py` for the normal known-good restoration path.
+- Purpose v1 should at most expose `strategy_rule` as learned-method/operating-strategy context when relevant. It should not use `strategy_rule.previous_revision_ref` as the main Purpose trajectory's Strategy relation.
 
 Primary evidence inspected:
 
-- `engine/aiverse_brain/storage.py`
-- `engine/aiverse_brain/goal.py`
-- `engine/aiverse_brain/direction_ownership.py`
-- `engine/aiverse_brain/controller.py`
-- `engine/aiverse_brain/onboarding.py`
-- `engine/aiverse_brain/reasoner.py`
-- `engine/aiverse_brain/retrieval.py`
-- `engine/aiverse_brain/__init__.py`
+- `engine/aiverse_brain/strategy_revision.py`
+- `engine/aiverse_brain/state_machine.py`
 - `engine/aiverse_brain/cli.py`
+- `protocol/LEARNING-EVOLUTION.md`
+- `tests/test_public_beta_goals.py`
 
-### Slice 1.2 required output
+---
 
-At slice completion produce the source-backed Telos mapping:
+## Slice 1.2 required closure output
+
+At Task 10 completion create `docs/PURPOSE-CONTEXT-SLICE-1.2-AUDIT.md` with the final source-backed mapping:
 
 ```text
 Problem -> ?
@@ -180,7 +202,6 @@ Do not force fake one-to-one Telos mappings.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for live progress.
-3. Continue **only** with **Phase 1 / Slice 1.2 / Task 9 — audit current strategy rollback behavior**.
+3. Continue **only** with **Phase 1 / Slice 1.2 / Task 10 — audit Brain tests/CI**.
 4. Continue against exact Brain ref `7c77b053df627e61b3d7f11d029500ab61095c9c` unless a deliberate re-audit is started on a newer descendant.
-5. After Task 9, update this file before Task 10.
-6. At Slice 1.2 completion, create/record a Brain audit closure and advance to Slice 1.3.
+5. After Task 10, create the Slice 1.2 closure document, update this file to point to Slice 1.3 Task 1, and only then continue.
