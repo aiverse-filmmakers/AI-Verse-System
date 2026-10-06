@@ -8,32 +8,34 @@
 ## Current execution pointer
 
 - **Phase:** 2 — Freeze the Purpose Context v1 contract
-- **Current slice:** **2.2 — Trajectory graph contract**
-- **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1
-- **Completed Slice 2.2 tasks:** 1–7 of 8
-- **NEXT:** **Slice 2.2 / Task 8 — freeze deterministic graph ordering**
-- Do not start Slice 2.3 until Task 8 is complete and recorded here.
+- **Current slice:** **2.3 — Operator and workspace profile rules**
+- **Slice state:** NOT STARTED
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2
+- **NEXT:** **Slice 2.3 / Task 1 — freeze operator default shape**
+- Do not start Task 2 until Task 1 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
 - envelope: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`
 - trajectory: `docs/PURPOSE-CONTEXT-TRAJECTORY-V1-CONTRACT.md`
+- profile contract: to be created in Slice 2.3 Task 1
 
 ## Slice 2.1 closure
 
 **COMPLETE / CONTRACT FROZEN** at `c784436ecaafc2f19da58782f8802247a235c1db`.
 
-## Slice 2.2 progress
+## Slice 2.2 closure
 
-1. [x] relation vocabulary — eight evidence-backed relation tokens. `b871db6a4849c5d76cee0181d4c890895d6fde6a`
-2. [x] source/target kinds — bounded node kinds + exact relation matrix. `164d57b00eaa5a5e6d942a824d68eba57fcdea18`
-3. [x] cycle behavior — structural cycles excluded; no silent repair. `1d9b7de2631d3328bfa7771584d2b095a4bcc90e`
-4. [x] missing-parent behavior — explicit target states + identity stubs + no fuzzy fallback. `271891898cf94fefb11388e46a7cee4fc0877d1c`
-5. [x] supersession behavior — owner-confirmed same-kind replacement only; currentness remains owner-defined. `6e4032c8f525c840fe5b9ed942f5623d7d1e2773`
-6. [x] orphan behavior — valid unlinked initiative/current-work remains visible; no fabricated parent. `a40fdbb7c52e99c97bdcc5c6c8fcdc57d105cf48`
-7. [x] explain traversal — exact start node; causal ascent uses validated `executes|serves|advances|addresses` (+ KPI measures), contextual edges stay side evidence, branches report complete/partial/orphan and never invent missing ancestry. `722f6104ff98f8b60d74474a4e8252218da7a567`
-8. [ ] deterministic graph ordering
+**COMPLETE / CONTRACT FROZEN** at `7e2193451894b7e5b6f8b3d1def9c04afd2a2f31`.
+
+Frozen trajectory laws:
+- exactly eight relation types;
+- bounded node-kind/relation matrix;
+- cycles excluded rather than silently repaired;
+- broken parents and pure orphans distinguished;
+- owner-confirmed supersession only;
+- explain ascends exact validated causal edges and reports complete/partial/orphan honestly;
+- deterministic graph/branch ordering and pruning.
 
 ## Carried repair register
 
@@ -48,6 +50,6 @@ Contracts:
 
 1. Read plan.
 2. Read this file.
-3. Read both contract docs.
-4. Continue only with **Slice 2.2 / Task 8 — deterministic graph ordering**.
-5. Persist this file after Task 8 before starting Slice 2.3.
+3. Read envelope + trajectory contracts.
+4. Continue only with **Slice 2.3 / Task 1 — operator default shape**.
+5. Persist this file after Task 1 before Task 2.
