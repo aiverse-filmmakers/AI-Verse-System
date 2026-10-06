@@ -93,6 +93,7 @@ The critical Telos advantage is **explainable lineage of work**: a current task 
 12. **The projection must be disposable.** Deleting any generated/cached Purpose view must not destroy canonical state.
 13. **No mandatory rich corporate schema for small workspaces.** Rich fields are optional and relevance-driven.
 14. **No automatic Core release mutation.** The currently admitted Core remains immutable; this work creates descendant component refs and, after full qualification, a new Core release.
+15. **No feature expansion without demonstrated user value.** After runtime integration, Purpose Context must prove that it improves real strategic work without unacceptable token, latency, noise, or complexity overhead before mutation/UI/rich-workspace expansion continues.
 
 ---
 
@@ -933,9 +934,88 @@ Avoid Purpose loading for irrelevant micro-tasks such as simple file renames or 
 - define unavailable-owner behavior;
 - ensure stale cached UI/output cannot outrank a fresh owner read.
 
+### Acceptance criteria
+
+- a trivial deterministic task produces zero Purpose owner reads;
+- a strategic task loads Purpose only after the relevance gate passes;
+- no unrelated workspace is read as a side effect of Purpose loading;
+- Purpose-unavailable fallback preserves ordinary task execution without silently substituting stale Purpose state;
+- token/size and freshness limits are measurable and testable.
+
 ### NEXT
 
-**Slice 8.1 - Implement controlled mutation proposals.**
+**Slice 7.3 - Prove real user value before feature expansion.**
+
+## Slice 7.3 - Real-world Purpose Context value gate
+
+**Status:** NOT STARTED  
+**Repos:** all repos participating in the Phase 7 composed path  
+**Dependencies:** 7.2
+
+### Purpose
+
+This is a hard product-value gate, not a cosmetic review. Purpose Context must prove that it materially improves real agent behavior before AI-Verse invests in mutation workflows, rich corporate extensions, or Dashboard surfaces.
+
+### Evaluation method
+
+Run representative `operator` and `workspace:<id>` scenarios both:
+
+- **with Purpose Context enabled**; and
+- **with Purpose Context absent/disabled** where a fair comparison is possible.
+
+Use the same underlying canonical owner state and comparable prompts/tasks. Record concrete examples, output differences, context size, owner reads, and observed latency/cost where measurable.
+
+### Required value proofs
+
+Purpose Context should demonstrate meaningful improvement in several of these areas without material regressions elsewhere:
+
+1. **Less repeated explanation** — the user does not need to restate mission, active goals, blockers, or recent strategic changes that canonical owners already know.
+2. **Better next-action decisions** — answers to “what should I work on next?” use current goal/priority/blocker/strategy context instead of nearest-TODO heuristics.
+3. **Better prioritization** — competing projects/options are compared against active purpose, goals, constraints, current state, and material changes.
+4. **Better blocker awareness** — the agent notices when a challenge or material event changes feasibility or invalidates an older strategy.
+5. **Better explainability** — “why are we doing this?” can be answered through owner-backed trajectory relations rather than post-hoc narrative invention.
+6. **Better continuity across sessions** — strategic orientation survives session boundaries through owner-backed context rather than chat-history dependence.
+7. **No regression on irrelevant work** — micro-tasks remain fast, focused, and free of irrelevant Purpose context.
+8. **Acceptable token overhead** — Purpose is bounded and does not consume a disproportionate share of the context window.
+9. **Acceptable latency/cost overhead** — strategic benefit is not purchased with unreasonable extra owner reads or model/runtime delay.
+10. **No noticeable context-noise increase** — Purpose improves decisions instead of distracting the model with broad but irrelevant strategic data.
+
+### Mandatory anti-bloat measurements
+
+At minimum record and compare:
+
+- Purpose owner-read count per scenario;
+- Purpose envelope size/tokens or equivalent serialized size;
+- whether unrelated workspaces were touched;
+- whether a trivial task loaded Purpose at all;
+- whether the agent still completed the task when Purpose was unavailable;
+- latency/cost delta when the runtime can measure it;
+- qualitative decision-quality delta using predefined scenarios rather than cherry-picked examples.
+
+### Gate outcomes
+
+Record exactly one outcome:
+
+- **VALUE PROVEN** — clear strategic benefit with acceptable overhead. Proceed to Phase 8.
+- **PARTIALLY PROVEN** — useful signal exists but overhead, relevance, schema, or retrieval behavior needs simplification. Return to the relevant Phase 4-7 slice, revise, and rerun Slice 7.3 before expansion.
+- **NOT PROVEN** — no sufficient benefit over the existing system. Stop Purpose expansion; do not build Phases 8-10 merely because they are planned. Preserve useful minimal pieces only if independently justified.
+
+### Acceptance criteria
+
+- real operator/workspace scenarios are recorded;
+- with/without-Purpose comparisons exist where technically fair;
+- at least one strategic planning/prioritization scenario shows a clear improvement attributable to Purpose Context;
+- trivial-task behavior shows no unnecessary Purpose loading;
+- token/size overhead is within the Phase 7 budget;
+- no workspace-isolation or authority regression appears;
+- outcome is explicitly recorded as `VALUE PROVEN`, `PARTIALLY PROVEN`, or `NOT PROVEN`;
+- Phase 8 cannot begin unless the outcome is `VALUE PROVEN`.
+
+### NEXT
+
+If `VALUE PROVEN`: **Slice 8.1 - Implement controlled mutation proposals.**  
+If `PARTIALLY PROVEN`: return to the identified Phase 4-7 slice and rerun 7.3.  
+If `NOT PROVEN`: stop expansion and record the bounded retained/deferred scope.
 
 ---
 
@@ -945,7 +1025,7 @@ Avoid Purpose loading for irrelevant micro-tasks such as simple file renames or 
 
 **Status:** NOT STARTED  
 **Repos:** OS + Brain and existing confirmation/runtime owner as required  
-**Dependencies:** Phase 7 complete
+**Dependencies:** Slice 7.3 outcome = `VALUE PROVEN`
 
 ### High-impact changes
 
@@ -1003,7 +1083,7 @@ At minimum:
 
 **Status:** NOT STARTED  
 **Repos:** owner repos discovered in Phase 1; OS projection only  
-**Dependencies:** Phase 8 complete
+**Dependencies:** Phase 8 complete + Slice 7.3 `VALUE PROVEN`
 
 ### Tasks
 
@@ -1038,7 +1118,7 @@ Do not invent canonical owners merely to copy every field from `corporate_telos.
 
 **Status:** NOT STARTED  
 **Repos:** current Dashboard/product-shell owner + OS  
-**Dependencies:** Phase 9 complete
+**Dependencies:** Phase 9 complete + Slice 7.3 `VALUE PROVEN`
 
 ### Target UX
 
@@ -1165,7 +1245,7 @@ The repaired Core release remains unchanged. Purpose Context produces a **new de
 
 **Status:** NOT STARTED  
 **Repos:** Distribution + every changed Core repo  
-**Dependencies:** Phase 11 complete
+**Dependencies:** Phase 11 complete + Slice 7.3 `VALUE PROVEN`
 
 ### Tasks
 
@@ -1246,6 +1326,8 @@ Do not treat separate green runs from different component SHA combinations as re
 - Can high-impact changes bypass confirmation?
 - Can stale KPI/current-state values appear current?
 - Can a trajectory edge be hallucinated or inferred without being marked as such?
+- Did Purpose Context actually improve strategic agent behavior enough to justify its runtime/context cost?
+- Do trivial tasks remain free of unnecessary Purpose reads?
 - Did any Core component regress from the repaired baseline?
 - Are all final refs exact and immutable?
 
@@ -1276,8 +1358,9 @@ Purpose Context is considered **Core-complete** only when:
 2. all protected component lineage checks pass;
 3. Linux/macOS/Windows clean-machine and bootstrap acceptance pass;
 4. Purpose-specific semantic/isolation/rebuild tests pass;
-5. no owner contract is weakened;
-6. the final exact release refs and evidence are recorded in this plan.
+5. the Slice 7.3 value gate is `VALUE PROVEN` with acceptable overhead;
+6. no owner contract is weakened;
+7. the final exact release refs and evidence are recorded in this plan.
 
 ---
 
@@ -1296,6 +1379,7 @@ Purpose Context is considered **Core-complete** only when:
 - document optional rich workspace fields;
 - document explain/trajectory behavior;
 - document mutation confirmation behavior;
+- document the measured user-value/anti-bloat result from Slice 7.3;
 - record final Core release ID and exact refs.
 
 ### NEXT
@@ -1314,6 +1398,7 @@ Purpose Context is considered **Core-complete** only when:
 - all final qualification workflow IDs;
 - final Purpose schema version;
 - supported scope/profile behavior;
+- Slice 7.3 value-gate outcome and measured overhead;
 - known limitations/deferred fields;
 - any post-v1 follow-up work.
 
@@ -1340,11 +1425,16 @@ Purpose Context is not complete until all of the following are true:
 13. the Purpose projection is deletable/rebuildable;
 14. stale projection state cannot overrule current owners;
 15. relevance/budget rules prevent Purpose from loading on every trivial task;
-16. Dashboard remains a view, not an owner;
-17. all changed repos pass their full regression suites;
-18. full Core clean-machine/bootstrap qualification passes Linux/macOS/Windows;
-19. Core Lineage Guard proves all protected component refs are same-or-descendant;
-20. a new exact-ref Core release is admitted rather than modifying the repaired baseline.
+16. trivial deterministic tasks produce zero Purpose owner reads;
+17. Purpose-unavailable fallback preserves ordinary task execution without using stale Purpose state as truth;
+18. real operator/workspace comparisons demonstrate measurable strategic benefit from Purpose Context before feature expansion;
+19. token/size and latency/cost overhead are measured and acceptable for the demonstrated benefit;
+20. Slice 7.3 is explicitly recorded as `VALUE PROVEN` before Phases 8-10 and final release admission proceed;
+21. Dashboard remains a view, not an owner;
+22. all changed repos pass their full regression suites;
+23. full Core clean-machine/bootstrap qualification passes Linux/macOS/Windows;
+24. Core Lineage Guard proves all protected component refs are same-or-descendant;
+25. a new exact-ref Core release is admitted rather than modifying the repaired baseline.
 
 ---
 
@@ -1362,6 +1452,8 @@ Do not:
 - let Dashboard become a strategy database;
 - silently scan unrelated workspaces;
 - infer relationship edges and present them as canonical facts;
+- load Purpose for every task simply because the capability exists;
+- continue building mutation/UI/corporate expansion when the real-world value gate is not proven;
 - rewrite the repaired Core release;
 - skip full Core requalification because focused Purpose tests passed.
 
