@@ -13,7 +13,7 @@ Profiles control which already-valid Purpose sections are requested/emitted for 
 
 The default operator projection profile is conceptually `operator_default`.
 
-It always uses the frozen v1 shell:
+Required shell:
 
 ```yaml
 schema_version: "1.0"
@@ -25,11 +25,34 @@ identity:
 provenance: {...}
 ```
 
-### Default semantic retrieval set
+When relevant owner-backed truth exists, the default operator profile may include `problems`, `purpose`, `goals`, `priorities`, `challenges`, `strategies`, `initiatives`, `constraints`, `current_work`, `trajectory`, and `recent_material_changes`. `narratives`, `kpis`, `risks`, and `current_state` remain supporting/conditional.
 
-When relevant owner-backed truth exists, `operator_default` may include:
+Operator Purpose never implicitly aggregates all workspaces or their Data. A sparse operator projection is valid; no missing strategic section is fabricated merely to make the profile look complete.
 
-- `problems`
+---
+
+## Task 2 — workspace default/basic shape — FROZEN
+
+The default workspace profile is conceptually `workspace_basic` and is the safe starting profile for every `workspace:<id>` unless Task 4 auto-detection explicitly selects a richer read.
+
+Required shell:
+
+```yaml
+schema_version: "1.0"
+scope: workspace:<id>
+scope_kind: workspace
+identity:
+  kind: workspace
+  id: <id>
+  name: <owner-backed when available>
+  type: <owner-backed when available>
+provenance: {...}
+```
+
+### Basic semantic retrieval set
+
+When relevant owner-backed truth exists, `workspace_basic` may include:
+
 - `purpose`
 - `goals`
 - `priorities`
@@ -41,43 +64,42 @@ When relevant owner-backed truth exists, `operator_default` may include:
 - `trajectory`
 - `recent_material_changes`
 
-The following remain supporting/conditional rather than expected operator-default structure:
+`problems` may also appear when the active strategic owner explicitly represents the problem the workspace exists to address.
+
+The following are not part of the expected basic shape and stay conditional:
 
 - `narratives`
 - `kpis`
 - `risks`
-- `current_state`
+- broader structured `current_state`
 
-No optional section is emitted merely because it appears in this profile. Envelope presence rules still apply: absent means not emitted/relevant; present empty means known-empty; attempted unavailable/unknown reads are explicit.
+### Basic-workspace laws
 
-### Operator-specific laws
+- A tiny workspace may legitimately contain only identity plus `current_work`, one initiative, one goal, or no strategic objects yet.
+- Basic profile does not require mission, strategy, KPI, risk register, team structure, customer model, infrastructure model, or budget fields.
+- An orphan initiative/current-work item remains visible under the trajectory orphan rules; Purpose does not invent hierarchy to make the workspace look mature.
+- Workspace Purpose reads only the exact bound workspace plus owner APIs that are already authorized to expose operator historical context; such Memory visibility does not import operator strategic mission/goals into the workspace.
+- `workspace_basic` never scans neighboring workspaces for “related” goals, Data or history.
+- Workspace identity/type is descriptive metadata and does not itself create strategic content.
 
-- `operator` is the person's/global operator strategic scope, not a synthetic workspace.
-- Operator Purpose MUST NOT aggregate every workspace's goals, Data databases, KPIs, initiatives, or current work by default.
-- Workspace-owned strategy appears in operator Purpose only through a later explicitly allowed cross-scope relationship or an owner-backed operator-level object that references it.
-- Native workspace Data is never scanned across all workspaces to manufacture operator KPIs.
-- Memory visible to operator scope may provide historical evidence but never becomes current strategic authority.
-- Operator identity/name/preferences remain OS-owned; mission/goals/strategy follow the active direction owner for `operator`.
-- A valid operator projection can be sparse. It does not require problems, mission, goals, strategy, KPIs, or current work to exist merely to be structurally valid.
+### Product goal
 
-### Default usefulness target
+A new/simple workspace should receive useful trajectory context without feeling like enterprise project-management software. The profile should answer, when evidence exists:
 
-For strategic/planning questions, the default operator shape should make it possible, when owner evidence exists, to answer:
+> What is this workspace trying to achieve, what is happening now, what is blocking it, and how does the current work connect upward?
 
-> What am I trying to achieve globally, what matters now, what is blocking me, what am I doing about it, and why does the current work matter?
-
-without importing unrelated workspace detail or filling empty corporate-style structure.
+without requiring corporate-style fields that the workspace does not naturally own.
 
 ### Budget law
 
-`operator_default` uses the envelope's normal bounded budget contract. Profile selection never authorizes exceeding the caller/runtime budget. Under pressure, deterministic pruning rules apply; the required shell and retained causal truth/provenance remain protected.
+The normal v1 bounded-output contract applies. Basic profile receives no special right to fill unused bytes with irrelevant sections.
 
 ---
 
 ## Slice 2.3 progress
 
 1. [x] operator default shape
-2. [ ] workspace default/basic shape
+2. [x] workspace default/basic shape
 3. [ ] rich workspace optional fields
 4. [ ] auto-detection rules
 5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
