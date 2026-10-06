@@ -221,13 +221,96 @@ If the composer cannot preserve that path, the claim must remain unavailable/non
 
 ---
 
+## Task 5 — freshness format — FROZEN
+
+Every attempted owner read in `provenance.owner_reads` MUST include a freshness object:
+
+```yaml
+freshness:
+  state: current | stale | unknown | unavailable
+  as_of: 2026-10-06T20:00:00.000Z
+  source_updated_at: 2026-10-06T19:58:10.000Z   # optional
+  max_age_seconds: 3600                          # optional
+  reason: owner_version_current                  # optional stable reason code
+```
+
+### Required freshness fields
+
+`state`
+- required;
+- exactly one of `current`, `stale`, `unknown`, `unavailable`.
+
+`as_of`
+- required RFC 3339 / ISO-8601 UTC timestamp;
+- records when the freshness classification was evaluated;
+- does not itself prove freshness.
+
+### Optional freshness evidence
+
+`source_updated_at`
+- canonical owner/source update time when the owner can prove it;
+- MUST refer to underlying source truth, not merely adapter/query execution time.
+
+`max_age_seconds`
+- non-negative integer when a declared freshness policy exists for that read/field;
+- omission means no age threshold was asserted by Purpose.
+
+`reason`
+- optional stable machine-readable reason code explaining the classification;
+- free-form narrative should not be required to interpret correctness.
+
+### State rules
+
+`current`
+- allowed only when the canonical owner explicitly asserts currentness or the source exposes sufficient version/timestamp evidence under a declared freshness policy;
+- MUST NOT be inferred solely because the owner API call just succeeded.
+
+`stale`
+- used when the source is valid/available but known to be older than its declared freshness contract, superseded for current-use purposes, or explicitly marked stale by the owner;
+- stale values may be displayed as historical/contextual evidence but MUST NOT silently act as current truth.
+
+`unknown`
+- used when the owner read succeeded but there is insufficient trustworthy recency evidence to classify the value as current or stale;
+- this is the required state for aggregate/current-value reads when only query execution time is known and underlying source watermarks are unavailable.
+
+`unavailable`
+- used when no freshness judgment can be made because the underlying requested source/value itself is unavailable;
+- this does not authorize fallback to Memory, another workspace, or another owner.
+
+### Field/item freshness
+
+A semantic item MAY carry its own `freshness` object when its recency differs materially from the owner-read summary, especially for current KPI values, current operational state, recent material changes, or mixed-source derived records.
+
+For derived records:
+
+- freshness cannot be stronger than the weakest source freshness relevant to the derived claim;
+- a derived record with mixed source states must not collapse them to `current` merely because one input is current;
+- current owner truth outranks older historical Memory even when the historical record has a newer retrieval time.
+
+### Optional projection summary
+
+`provenance.freshness` MAY summarize the emitted projection using:
+
+```yaml
+state: current | mixed | stale | unknown | unavailable
+as_of: <RFC3339 UTC timestamp>
+```
+
+`mixed` is allowed only for this projection-level summary, never as a leaf/source freshness state. The summary is informational; claim-level/owner-read freshness remains authoritative for interpreting individual values.
+
+### Anti-fabrication law
+
+`generated_at`, `observed_at`, HTTP response time, query execution time, or Dashboard render time are never sufficient on their own to classify source truth as `current`.
+
+---
+
 ## Slice 2.1 freeze progress
 
 1. [x] `schema_version`
 2. [x] supported scope kinds
 3. [x] required vs optional fields
 4. [x] provenance format
-5. [ ] freshness format
+5. [x] freshness format
 6. [ ] canonical ref format
 7. [ ] deterministic ordering rules
 8. [ ] unknown/unavailable field behavior
