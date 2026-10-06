@@ -31,7 +31,7 @@ Allowed relation matrix:
 - `executes`: initiative→strategy; current_work→initiative|strategy.
 - `measures`: kpi→goal|desired_outcome.
 - `affects`: risk→mission|desired_outcome|goal|strategy|initiative|current_work; material_change→problem|mission|desired_outcome|goal|challenge|strategy|initiative|risk|current_work.
-- `supersedes`: same semantic node kind only; further rules in Task 5.
+- `supersedes`: same semantic node kind only.
 
 Invalid kind pairs never enter the authoritative graph and are never coerced.
 
@@ -60,29 +60,55 @@ When a broken parent is encountered, explanation returns the verified path so fa
 
 `supersedes` is historical replacement evidence, not a generic “newer than” relation.
 
-Rules:
+- Source is the newer owner-confirmed replacement; target is the older object.
+- Source/target semantic kinds must match.
+- Owner-native supersession or a frozen deterministic adapter is required; timestamps, version numbers, names, similarity or model judgment are insufficient.
+- Supersession is acyclic; older records remain historical/provenance-addressable.
+- Currentness comes from the active canonical owner, never merely from being the end of a supersession chain.
+- Ambiguous competing replacements remain ambiguous unless the owner resolves currentness.
+- `supersedes` may appear in explanation as replacement/history context but is not a normal causal ascent edge.
 
-- The source node is the newer confirmed owner-backed replacement; the target node is the older object it supersedes.
-- Source and target MUST have the same Purpose semantic node kind.
-- A `supersedes` edge is authoritative only when the canonical owner explicitly exposes supersession/replacement semantics or a frozen deterministic owner adapter maps an owner-native supersession record without guessing.
-- Timestamps, higher revision numbers, matching titles, semantic similarity, model judgment, or “latest-looking” state are insufficient to create a supersession edge.
-- Supersession is acyclic. A cycle invalidates every cycle-involved supersession edge for authoritative use.
-- Superseded objects remain historical/provenance-addressable; replacement never erases the older canonical ref from history.
-- Purpose does not mutate the older object, rewrite owner history, or manufacture a reciprocal `superseded_by` edge unless the owner itself exposes one.
+## Task 6 — orphan initiative/current-work behavior — FROZEN
 
-### Current-object selection
+An **orphan** is a valid current/relevant `initiative` or `current_work` node for which no valid causal parent edge is declared after graph validation. It is not the same as a broken/missing parent ref.
 
-Purpose MUST NOT decide the active/current strategic object merely by walking to the end of a supersession chain. Currentness comes from the active canonical strategic owner and its status/current-selection semantics.
+### Orphans are allowed
 
-A supersession chain may corroborate why an older object is no longer current, but it cannot override owner state.
+- An orphan initiative/current-work node is not invalid merely because it lacks a strategy/goal parent.
+- Purpose MUST preserve a valid orphan when it is relevant to the requested projection rather than hiding it to make the trajectory look complete.
+- Purpose MUST NOT invent `executes`, `advances`, `serves`, or any other edge to repair an orphan.
+- Model inference, text similarity, shared labels/tags, name matching, neighboring work, or workspace type cannot promote a guessed parent into the authoritative graph.
 
-If two candidate replacements supersede the same object and the owner does not identify which is current, Purpose keeps the ambiguity explicit and MUST NOT choose a winner by timestamp, version, ordering, or model inference.
+### State and diagnostics
+
+A retained orphan node receives trajectory linkage state:
+
+```yaml
+linkage_state: orphan
+linkage_reason: no_valid_parent_relation
+```
+
+If a declared parent relation existed but failed target resolution, Task 4 applies instead; that node is not classified as a pure orphan.
+
+An orphan may still have valid non-parent contextual edges such as `addresses`, `blocks`, or `affects`. Those do not make it causally linked to a higher-level goal/mission unless a valid structural/cause path exists.
 
 ### Explain behavior
 
-`supersedes` is not a normal upward “why are we doing this?” parent edge. Explain may surface it as replacement/history context, for example “Strategy S2 replaced S1,” but must continue causal ascent through valid `serves`, `advances`, `executes`, or `addresses` relationships of the current node.
+When `purpose.explain` starts from or reaches an orphan:
 
-If the only available context is an older superseded node, Purpose may show it as historical evidence but MUST NOT silently treat it as current strategy/goal/mission.
+- return the verified node and any already-verified path below it;
+- stop causal ascent at that node;
+- state that no validated higher-level parent relationship is available;
+- mark the branch incomplete with stable reason `trajectory_orphan`;
+- do not claim that the work serves a mission/goal merely because such a relation is plausible.
+
+### Product behavior
+
+Orphans are useful diagnostics. Dashboard/agent surfaces may say that work is currently unlinked and optionally offer a **proposal** to connect it later, but any durable relationship creation belongs to the canonical strategic owner and its normal confirmation/write path. The read-only Purpose projection never fixes the orphan itself.
+
+### Small-workspace law
+
+A small workspace may legitimately contain only current work or one initiative with no richer strategic graph yet. Purpose must remain useful in that state and must not force fake mission/strategy/KPI bureaucracy merely to eliminate orphans.
 
 ---
 
@@ -93,6 +119,6 @@ If the only available context is an older superseded node, Purpose may show it a
 3. [x] cycle behavior
 4. [x] missing-parent behavior
 5. [x] supersession behavior
-6. [ ] orphan initiative/current-work behavior
+6. [x] orphan initiative/current-work behavior
 7. [ ] explain traversal rules
 8. [ ] deterministic graph ordering
