@@ -10,20 +10,13 @@ This contract defines the bounded, explainable relationship graph used by Purpos
 
 ## Task 1 — relation vocabulary — FROZEN
 
-V1 relations are exactly `addresses`, `serves`, `advances`, `blocks`, `executes`, `measures`, `affects`, `supersedes`.
-
-No free-form relation is valid. Edges require canonical evidence; similarity, embeddings, shared tags/names, co-occurrence, or model inference alone cannot create an authoritative edge.
+V1 relations are exactly `addresses`, `serves`, `advances`, `blocks`, `executes`, `measures`, `affects`, `supersedes`. No free-form relation is valid. Edges require canonical evidence; similarity, embeddings, shared tags/names, co-occurrence, or model inference alone cannot create an authoritative edge.
 
 ## Task 2 — allowed source/target kinds — FROZEN
 
 V1 node kinds: `problem`, `mission`, `desired_outcome`, `goal`, `challenge`, `strategy`, `initiative`, `kpi`, `risk`, `current_work`, `material_change`.
 
-`narrative`, `priority`, `constraint`, `current_state` may be evidence/semantic sections but are not first-class graph nodes in v1.
-
-Owner-backed nodes carry deterministic Purpose `node_id`, semantic kind, canonical ref and source refs. Derived nodes carry deterministic node ID, stable derivation rule and ordered source refs. Generated IDs never become canonical owner IDs.
-
 Allowed relation matrix:
-
 - `addresses`: mission→problem; strategy→problem|challenge; initiative→problem|challenge.
 - `serves`: goal→mission|desired_outcome; initiative→goal.
 - `advances`: strategy|initiative|current_work→goal|desired_outcome.
@@ -37,78 +30,95 @@ Invalid kind pairs never enter the authoritative graph and are never coerced.
 
 ## Task 3 — cycle behavior — FROZEN
 
-- Any self-edge is invalid.
-- Structural ancestry relations are `serves`, `advances`, `executes`, `supersedes`; their authoritative subgraph MUST be acyclic.
-- `addresses`, `blocks`, `measures`, `affects` do not define parentage, but traversal always uses visited guards.
-- Cycle detection is graph-based, not “first edge wins”. Structural edges inside a multi-node strongly connected component are all cycle-involved.
-- Cycle-involved structural edges are excluded from authoritative traversal; evidence refs remain in validation diagnostics; the trajectory may be marked `partial` with stable reason `trajectory_cycle_detected`.
-- Purpose never silently reverses/deletes owner state or invents replacement edges.
-- Explanations terminate before rejected cycle edges and disclose incomplete trajectory.
-- Any `supersedes` cycle is invalid; timestamps alone cannot choose a winner.
+Any self-edge is invalid. Structural ancestry relations are `serves`, `advances`, `executes`, `supersedes`; their authoritative subgraph must be acyclic. Structural edges inside a multi-node strongly connected component are excluded from authoritative traversal and reported as partial with stable diagnostics. Purpose never silently reverses/deletes owner state or invents replacement edges.
 
 ## Task 4 — missing-parent behavior — FROZEN
 
-A missing parent is a declared relationship whose target cannot be resolved and validated. It differs from an orphan, which has no parent relation at all.
-
-Target states are exactly `resolved`, `stubbed`, `unavailable`, `missing`, `forbidden`, `invalid`. Only `resolved` and `stubbed` targets participate in authoritative traversal.
-
-If bounded pruning removes target detail for a retained edge, Purpose keeps a minimum identity stub rather than creating a fake missing parent. A broken target never fuzzy-matches by title/name, crosses workspace boundaries, substitutes Memory as current truth, or invokes model inference to repair the path.
-
-When a broken parent is encountered, explanation returns the verified path so far, stops that branch, and marks the branch incomplete with a stable reason. Other independently valid branches may continue.
+Target states are `resolved`, `stubbed`, `unavailable`, `missing`, `forbidden`, `invalid`; only `resolved` and `stubbed` targets participate in authoritative traversal. Bounded pruning retains identity stubs for retained edges. Broken targets never fuzzy-match, cross workspace boundaries, substitute Memory as current truth, or invoke model inference. Explanation stops at the last verified node of a broken branch.
 
 ## Task 5 — supersession behavior — FROZEN
 
-`supersedes` is historical replacement evidence, not a generic “newer than” relation.
-
-- Source is the newer owner-confirmed replacement; target is the older object.
-- Source/target semantic kinds must match.
-- Owner-native supersession or a frozen deterministic adapter is required; timestamps, version numbers, names, similarity or model judgment are insufficient.
-- Supersession is acyclic; older records remain historical/provenance-addressable.
-- Currentness comes from the active canonical owner, never merely from being the end of a supersession chain.
-- Ambiguous competing replacements remain ambiguous unless the owner resolves currentness.
-- `supersedes` may appear in explanation as replacement/history context but is not a normal causal ascent edge.
+`supersedes` is owner-confirmed historical replacement evidence only. Same-kind source/target required; timestamps, version numbers, titles, similarity and model judgment never infer replacement. Currentness remains defined by the active canonical owner, not chain position. Competing unresolved replacements remain ambiguous. Supersession may be explanation context but is not normal causal ascent.
 
 ## Task 6 — orphan initiative/current-work behavior — FROZEN
 
-An **orphan** is a valid current/relevant `initiative` or `current_work` node for which no valid causal parent edge is declared after graph validation. It is not the same as a broken/missing parent ref.
+A valid initiative/current-work node with no valid parent relation is allowed and remains visible when relevant. It is marked `linkage_state: orphan` / `linkage_reason: no_valid_parent_relation`. Purpose never invents a parent. Explain stops causal ascent at the orphan and returns stable reason `trajectory_orphan`. Tiny workspaces may legitimately remain this simple.
 
-### Orphans are allowed
+## Task 7 — explain traversal rules — FROZEN
 
-- An orphan initiative/current-work node is not invalid merely because it lacks a strategy/goal parent.
-- Purpose MUST preserve a valid orphan when it is relevant to the requested projection rather than hiding it to make the trajectory look complete.
-- Purpose MUST NOT invent `executes`, `advances`, `serves`, or any other edge to repair an orphan.
-- Model inference, text similarity, shared labels/tags, name matching, neighboring work, or workspace type cannot promote a guessed parent into the authoritative graph.
+The v1 explain operation answers “why are we doing this?” by traversing only validated owner-backed/derived edges from an exact starting node.
 
-### State and diagnostics
+### Starting node
 
-A retained orphan node receives trajectory linkage state:
+The caller supplies or resolves one exact node identity. Fuzzy title/name lookup may be offered by a higher-level UI only if it resolves to one exact canonical node before traversal begins. Ambiguous starts fail explicitly.
 
-```yaml
-linkage_state: orphan
-linkage_reason: no_valid_parent_relation
+### Causal ascent relations
+
+The normal upward causal relations are:
+
+1. `executes`
+2. `serves`
+3. `advances`
+4. `addresses`
+5. `measures` only when the starting/encountered node is a KPI
+
+`blocks` and `affects` are contextual side relationships, not causal parents. `supersedes` is historical/replacement context, not causal ascent.
+
+The relation priority above orders otherwise equally valid parent branches; it does not allow an invalid edge to outrank a valid one.
+
+### Expected upward paths
+
+Typical verified ascent may look like:
+
+```text
+current_work --executes--> initiative
+initiative --executes--> strategy
+strategy --advances--> goal
+goal --serves--> mission
+mission --addresses--> problem
 ```
 
-If a declared parent relation existed but failed target resolution, Task 4 applies instead; that node is not classified as a pure orphan.
+Shorter valid paths are equally acceptable, for example `current_work --advances--> goal --serves--> mission`. Missing intermediate layers are not fabricated.
 
-An orphan may still have valid non-parent contextual edges such as `addresses`, `blocks`, or `affects`. Those do not make it causally linked to a higher-level goal/mission unless a valid structural/cause path exists.
+### Branching
 
-### Explain behavior
+- Multiple independently valid parents may produce multiple explanation branches.
+- One deterministic branch may be labeled `primary` for concise rendering; other valid branches remain available and are not deleted from the graph.
+- Primary selection follows relation priority, then the deterministic graph ordering frozen in Task 8.
+- A branch terminates when it reaches a legitimate root (`problem`, `mission`, or `desired_outcome` with no valid higher causal edge), an orphan, a broken parent, a cycle-rejected edge, scope/authority boundary, or traversal budget.
 
-When `purpose.explain` starts from or reaches an orphan:
+### Context attachments
 
-- return the verified node and any already-verified path below it;
-- stop causal ascent at that node;
-- state that no validated higher-level parent relationship is available;
-- mark the branch incomplete with stable reason `trajectory_orphan`;
-- do not claim that the work serves a mission/goal merely because such a relation is plausible.
+For every node on the causal path, Purpose may attach validated contextual evidence:
 
-### Product behavior
+- `blocks` from challenge/risk nodes;
+- `affects` from risk/material-change nodes;
+- `supersedes` history for the current node;
+- KPI `measures` links where relevant.
 
-Orphans are useful diagnostics. Dashboard/agent surfaces may say that work is currently unlinked and optionally offer a **proposal** to connect it later, but any durable relationship creation belongs to the canonical strategic owner and its normal confirmation/write path. The read-only Purpose projection never fixes the orphan itself.
+Context attachments never become causal parents unless their relation token separately permits causal ascent.
 
-### Small-workspace law
+### Truth and completeness
 
-A small workspace may legitimately contain only current work or one initiative with no richer strategic graph yet. Purpose must remain useful in that state and must not force fake mission/strategy/KPI bureaucracy merely to eliminate orphans.
+Every returned path contains exact node identities and edge evidence refs. Explain MUST distinguish:
+
+- `complete` — branch reaches a validated legitimate root without unresolved required ancestry;
+- `partial` — verified path ends because of missing/unavailable/forbidden/invalid parent, cycle rejection, or bounded truncation;
+- `orphan` — start/path ends because no valid parent relation exists.
+
+A `complete` label means complete relative to the validated graph currently available, not proof that reality contains no other causes.
+
+### Safety rules
+
+- No model-generated prose may add a relationship absent from the verified path.
+- Human-readable explanation may paraphrase node content but must preserve the edge semantics.
+- Cross-scope traversal occurs only through an explicitly allowed, visible edge; otherwise the branch stops without leaking target content.
+- Historical Memory may explain what happened but never substitutes for a missing current strategic parent.
+- Traversal uses visited guards even for non-structural context attachments.
+
+### Boundedness
+
+Explain obeys the envelope byte budget plus explicit traversal caps in implementation. Budget pressure prunes secondary branches/context before the primary verified chain. If even the minimum truthful primary path cannot fit, the operation fails explicitly rather than silently changing semantics.
 
 ---
 
@@ -120,5 +130,5 @@ A small workspace may legitimately contain only current work or one initiative w
 4. [x] missing-parent behavior
 5. [x] supersession behavior
 6. [x] orphan initiative/current-work behavior
-7. [ ] explain traversal rules
+7. [x] explain traversal rules
 8. [ ] deterministic graph ordering
