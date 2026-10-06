@@ -13,10 +13,10 @@
 
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Slice:** 1.1 — Audit current OS scope, current-context, workspace, and direction-owner contracts
-- **Slice state:** IN PROGRESS
-- **Completed tasks:** 9 / 10
-- **NEXT task:** **Task 10 — audit tests and CI touching direction/current-context/workspaces**
-- **Do not begin Slice 1.2 until Task 10 is completed, persisted here, and Slice 1.1 is closed in the canonical plan.**
+- **Slice state:** COMPLETE
+- **Completed tasks:** 10 / 10
+- **NEXT:** close Slice 1.1 in the canonical implementation plan, then continue with **Slice 1.2 / Task 1 — audit Brain object kinds**.
+- **Do not start Slice 1.2 Task 2 until Task 1 is completed and persisted.**
 - No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit-only.
 
 ## Slice 1.1 checklist
@@ -30,7 +30,7 @@
 7. [x] Brain-owned generated direction views
 8. [x] write assertions and handover/handback behavior
 9. [x] current context-ladder/relevance surfaces if OS owns them
-10. [ ] tests and CI touching direction/current-context/workspaces
+10. [x] tests and CI touching direction/current-context/workspaces
 
 ---
 
@@ -88,78 +88,88 @@
 
 ## Task 8 — write assertions and handover/handback behavior — COMPLETE
 **Files:** `scripts/direction-owner.mjs`, `scripts/test-direction-owner.mjs`, `system/architecture/direction-ownership.md`, `system/architecture/write-command-boundary.md`, `scripts/write-command.mjs`, `system/capabilities/onboard/SKILL.md`, `system/capabilities/workspace/SKILL.md`, `system/capabilities/level-up/SKILL.md`, `.github/workflows/direction-owner.yml`
-- Onboard/workspace/level-up strategic changes all require the direction-owner write assertion.
+- Onboard/workspace/level-up strategic changes require the direction-owner write assertion.
 - Brain ownership blocks OS strategic writes independent of Brain availability.
-- Handover to Brain and handback to OS are explicit, confirmation-bound and interruption-safe around the atomic ownership flip.
-- Generic `write-command` currently routes only unclassified inbox candidates and is not a strategic mutation API.
-- Finding: generic `write-command.mjs` allows a broader workspace scope syntax (`.`/`_`) than strategic direction scope validation; never reuse it as Purpose strategic validation.
-**Decision:** Purpose P1/P2 read-only; later strategic writes route through the canonical owner's explicit mutation/confirmation contract.  
+- Handover/handback are explicit, confirmation-bound and interruption-safe around the atomic owner flip.
+- Generic `write-command` is not a strategic mutation API.
+- Finding: generic write-command scope syntax is broader than strategic direction scope syntax; never reuse it as Purpose strategic validation.
+**Decision:** later Purpose writes route through the canonical owner's explicit mutation/confirmation contract.  
 **Verdict:** PASS with bounded generic-write scope mismatch.
 
 ## Task 9 — current context-ladder/relevance surfaces — COMPLETE
-
 **Files:** `AGENTS.md`, `AI-VERSE.yaml`, `system/architecture/README.md`, `system/architecture/source-of-truth.md`, `scripts/current-context.mjs`
+- Existing route is intent -> scope -> direction owner -> resolved current context -> capability -> minimum required knowledge -> Connections -> execute -> validate -> warranted write-back.
+- Progressive disclosure explicitly loads current context only when relevant, exact workspace context before deeper retrieval, smallest relevant capability, and only required Memory/Knowledge/assets/connected data.
+- There is no Purpose hook yet, as expected.
+**Decision:** Phase 7 adds Purpose as a conditional, scope-bound, budgeted strategic projection inside this existing ladder; never an always-on or parallel context stack.  
+**Verdict:** PASS.
 
-### Existing OS relevance/context ladder
+## Task 10 — tests and CI touching direction/current-context/workspaces — COMPLETE
 
-`AI-VERSE.yaml` already defines the routing order:
+**Files/workflows inspected:**
 
-```text
-identify_intent
--> identify_scope
--> resolve_direction_owner
--> load_resolved_current_context
--> choose_capability
--> retrieve_minimum_required_knowledge
--> resolve_connections
--> execute
--> validate
--> write_back_only_when_warranted
-```
+- `scripts/test-direction-owner.mjs`
+- `scripts/test-current-context.mjs`
+- `scripts/test-workspace-owner.mjs`
+- `scripts/test-progressive-onboarding.mjs`
+- `.github/workflows/direction-owner.yml`
+- `.github/workflows/repo-qc.yml`
+- exact-sha GitHub Actions results for OS ref `e74a4e05b1f891e6f871f34a298bf10363a11d88`
 
-`AGENTS.md` makes this progressive-disclosure behavior explicit:
+### Existing focused coverage
 
-- operator current context is resolved only **when it matters**;
-- when a request belongs to a workspace, read that exact workspace manifest and resolved current context before deeper retrieval;
-- load only task-relevant enabled extension instructions;
-- choose the smallest relevant capability/script;
-- retrieve only the knowledge, memory, assets and connected data needed for the task;
-- do not load the entire OS merely because it exists;
-- current scoped context outranks older memory for current-state questions.
+- `test-direction-owner.mjs` proves default OS ownership, strategic-write allow/block behavior, no ownership fallback when Brain disappears, explicit handback, per-scope ownership and malformed-registry fail-closed behavior.
+- `test-current-context.mjs` proves OS-owned passthrough, Brain-owned stale-strategy filtering, operational allowlisting, missing Brain direction remaining unavailable, workspace filtering, malformed ownership failure, and symlink rejection where supported.
+- `test-workspace-owner.mjs` proves isolated workspace creation/evolution, idempotent replay, duplicate-safe matching for organization, authority/privacy stops, traversal rejection, secret rejection, unrelated-workspace preservation, and conservative manual-workspace evolution.
+- `test-progressive-onboarding.mjs` protects progressive onboarding behavior and verifies the Brain-direction ownership language/authority boundary remains represented in the canonical onboarding capability and generated peers.
 
-The Unified Workspace Architecture separately requires current context to remain smaller/more current than long-term memory and forbids unrelated workspace material from polluting another workspace.
+### CI gates
 
-### Purpose Context integration implication
+- `Direction Ownership` workflow directly runs direction-owner and current-context acceptance tests and checks that onboarding/workspace/level-up capabilities contain strategic-write gating. It also verifies the ownership-aware context contract is wired into runtime/config documentation and generated capability peers.
+- `Repository QC` runs the automatic workspace-owner primitive plus broader architecture/provider/lifecycle checks, so workspace isolation/organization remains part of the normal OS gate.
+- Broader exact-sha workflows such as Five-Component Public Beta, OS Brain Permission Contract and OS Write Command Boundary also ran at the audited baseline and are relevant regression gates when Purpose later crosses those boundaries.
 
-There is **no existing Purpose Context hook at this baseline**, which is expected because the feature is not implemented yet. Phase 7 should extend the existing ladder rather than create a parallel retrieval architecture.
+### Exact baseline evidence
 
-The preferred semantic position is:
+At audited OS SHA `e74a4e05b1f891e6f871f34a298bf10363a11d88`, GitHub Actions reports the relevant baseline push workflows green, including:
 
-```text
-identify intent/scope
--> resolve direction owner
--> load resolved current context
--> if strategic relevance gate passes: load bounded Purpose Context
--> choose capability / retrieve deeper evidence only as needed
-```
+- Direction Ownership run `37234650698` — `success`;
+- Repository QC run `37234650591` — `success`;
+- Five-Component Public Beta run `37234650833` — `success`;
+- OS Brain Permission Contract run `37234650625` — `success`;
+- OS Write Command Boundary run `37234650685` — `success`.
 
-The exact runtime insertion point remains a Phase 7 implementation decision after the P1 composer exists, but the non-negotiable behavior is already clear: Purpose is **conditional**, scope-bound and budgeted, never globally/always loaded.
+### Gap expected before implementation
 
-### Anti-bloat requirements confirmed by existing OS architecture
-
-- trivial/local execution tasks should incur zero Purpose reads;
-- planning, prioritization, trajectory, goal-conflict and “why/what next?” tasks are candidates for Purpose;
-- exact current owner evidence remains available for precision-sensitive claims;
-- deeper Memory/Knowledge/Data retrieval remains demand-driven rather than bundled wholesale into Purpose;
-- workspace Purpose must not widen the selected scope.
+There are no Purpose Context-specific tests yet because Purpose has not been implemented. This is not an audit defect. The implementation phases must add focused Purpose tests without weakening or replacing these existing gates. At final qualification, both the new Purpose-specific suite and the existing Core/regression suites must pass on the exact candidate refs.
 
 ### Purpose Context decision
 
-Integrate Purpose into the existing progressive-disclosure/context ladder as a conditional strategic projection. Do not create a second generic retrieval stack or alter the rule that the smallest relevant context wins.
+- Preserve all existing direction/current-context/workspace tests as regression gates.
+- Add Purpose-specific tests alongside them rather than replacing existing contracts.
+- Any changed OS descendant must rerun the directly affected OS gates; final Core admission still requires the full qualification stack specified in Phase 12.
 
 ### Verdict
 
-**PASS.** The OS already has the right relevance philosophy. Purpose needs a new conditional hook later, not a replacement context architecture.
+**PASS. Slice 1.1 audit is complete.** Existing OS tests/CI give a strong baseline; Purpose-specific coverage must be added during implementation.
+
+---
+
+# Slice 1.1 source-backed OS interface map
+
+| Concern | Purpose-safe interface / rule | Classification |
+|---|---|---|
+| Strategic scope | canonical `operator` / `workspace:<id>` validator semantics | safe contract |
+| Scope isolation | exact physical operator/workspace boundary; no broad workspace scanning | safe contract |
+| Workspace identity/config | `WORKSPACE.yaml`; no mandatory Purpose field required | canonical workspace manifest |
+| Current operational context | `scripts/current-context.mjs read` JSON | safe owner-aware read boundary |
+| Direction owner | `scripts/direction-owner.mjs status` / canonical owner result | safe coordination read |
+| OS-owned strategy | bounded `goals.md` / `Current priorities` / workspace `Objective` adapter only while OS owns direction | canonical source needing normalized adapter |
+| Brain-generated OS view | `.aiverse/direction/views/<scope>.md` | derived display/provenance only |
+| Strategic writes | owner-specific assertion + explicit owner mutation/confirmation path | mutation boundary; not used by read-only P1 |
+| Generic `write-command` | candidate inbox transport only at baseline | not a strategic mutation API |
+| Relevance/context ladder | existing progressive-disclosure routing in `AI-VERSE.yaml` + `AGENTS.md` | integration contract for later conditional Purpose hook |
+| Regression gates | direction-owner/current-context/workspace tests + Direction Ownership/Repository QC workflows | preserved baseline gates |
 
 ---
 
@@ -174,9 +184,10 @@ Integrate Purpose into the existing progressive-disclosure/context ladder as a c
 7. Ownership record is coordination, not strategic content.
 8. OS-owned strategy is Markdown/section based and needs bounded deterministic projection.
 9. Generated Brain direction views are derived/reference only.
-10. Generic `write-command` scope validation is broader than strategic direction scope validation; Purpose strategic mutation must use the canonical strategic scope contract.
+10. Generic `write-command` scope validation is broader than strategic direction scope validation; Purpose strategic mutation must use canonical strategic scope.
 11. Current generic OS write-command handler does not perform strategic mutation; future Purpose writes must be owner-routed and confirmation-bound.
-12. Purpose has no current baseline runtime hook; Phase 7 must add a **conditional** strategic-context hook inside the existing progressive-disclosure ladder, not a parallel or always-on context system.
+12. Purpose has no current baseline runtime hook; Phase 7 must add a conditional hook inside existing progressive disclosure.
+13. Purpose-specific tests do not exist yet; implementation must add them while retaining all current regression gates.
 
 ---
 
@@ -184,6 +195,7 @@ Integrate Purpose into the existing progressive-disclosure/context ladder as a c
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` first.
 2. Read this file second.
-3. Continue only with **Phase 1 / Slice 1.1 / Task 10 — tests and CI touching direction/current-context/workspaces**.
-4. Do not redo Tasks 1–9 unless the audited OS ref changes before implementation.
-5. Persist Task 10 here, then close Slice 1.1 in the canonical implementation plan before starting Slice 1.2.
+3. Confirm the canonical plan records **Slice 1.1 COMPLETE**. If not, perform that documentation-only slice closure before any new audit task.
+4. Then continue with **Phase 1 / Slice 1.2 / Task 1 — audit Brain object kinds**.
+5. Do not redo Slice 1.1 unless the audited OS ref changes or a later finding explicitly invalidates an interface decision.
+6. Persist every future individual task here before proceeding.
