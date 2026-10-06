@@ -15,9 +15,9 @@
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1
 - **Audited Brain ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`
-- **Completed in Slice 1.2:** Tasks 1-7
-- **NEXT task:** **Slice 1.2 / Task 8 — audit query/list/read surfaces**
-- **Do not start Task 9 until Task 8 is complete and recorded here.**
+- **Completed in Slice 1.2:** Tasks 1-8
+- **NEXT task:** **Slice 1.2 / Task 9 — audit current strategy rollback behavior**
+- **Do not start Task 10 until Task 9 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 is audit-only.
 
 ### Important continuation note
@@ -68,7 +68,7 @@ Audit Brain in this exact order:
 5. [x] direction ownership integration
 6. [x] source/evidence refs
 7. [x] supersession/versioning
-8. [ ] query/list/read surfaces
+8. [x] query/list/read surfaces
 9. [ ] current strategy rollback behavior
 10. [ ] tests/CI
 
@@ -76,21 +76,20 @@ Audit Brain in this exact order:
 
 **Status:** COMPLETE
 
-- Canonical kinds: `intent`, `practice`, `gap`, `opportunity`, `initiative`, `objective`, `goal`, `model_belief`, `evaluation`, `learning`, `learning_candidate`, `strategy_rule`, `policy`.
-- Generic object envelope carries scope, status, revision, timestamps, source/evidence refs and supersession fields.
+- Brain has 13 canonical kinds; Purpose-relevant strategic/execution kinds already exist, but no dedicated `mission`, `problem`, `narrative`, or `challenge` kind exists at this baseline.
 
 ## Slice 1.2 / Task 2 — strategic object semantics
 
 **Status:** COMPLETE
 
-- Strategic intent, execution Goal, Action objective, gap, opportunity, initiative and learned `strategy_rule` have distinct semantics.
+- Strategic intent, execution Goal, Action objective, gap, opportunity, initiative and learned `strategy_rule` have deliberately different semantics.
 - Telos `Strategy` must not be mapped directly to Brain `strategy_rule`.
 
 ## Slice 1.2 / Task 3 — Goal API
 
 **Status:** COMPLETE
 
-- Goal API provides stable read/mutation/continuation behavior with idempotency, versioning, budgets and evidence-gated completion.
+- Stable Goal read/mutation/continuation service exists with idempotency, optimistic versioning, bounded continuation and evidence-gated completion.
 
 ## Slice 1.2 / Task 4 — DirectionService
 
@@ -102,42 +101,55 @@ Audit Brain in this exact order:
 
 **Status:** COMPLETE
 
-- One durable owner per native scope; explicit provenance-bearing handover/handback; no availability-based fallback.
+- One durable owner per native scope; explicit provenance-bearing handover/handback; no availability-based authority fallback.
 
 ## Slice 1.2 / Task 6 — source/evidence refs
 
 **Status:** COMPLETE
 
-- `source_refs` are plain lineage/provenance pointers; `evidence_refs` are structured evidence records with class/freshness/provenance semantics.
-- Raw refs are not automatically referentially or cross-scope validated, so Purpose must resolve/validate sensitive trajectory relations.
+- `source_refs` are provenance pointers; `evidence_refs` carry structured evidence class/freshness/provenance semantics.
+- Raw refs are not automatically referentially or cross-scope validated, so Purpose must resolve/validate sensitive graph relations.
 
 ## Slice 1.2 / Task 7 — supersession/versioning
+
+**Status:** COMPLETE
+
+- Generic object revision is an optimistic concurrency/current-version counter, not a retained historical revision log.
+- Generic supersession fields are not automatically maintained as a fully enforced bidirectional chain.
+- Strategy revisions have a stronger dedicated known-good previous-revision/rollback model.
+- Purpose must distinguish object revision, lifecycle supersession and strategy revision lineage.
+
+## Slice 1.2 / Task 8 — query/list/read surfaces
 
 **Status:** COMPLETE  
 **Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
 
 Durable findings:
 
-- Generic Brain object persistence uses optimistic revision control. New objects are saved at revision `1`; every successful update requires the caller's expected revision and increments the revision atomically. Scope and kind are immutable for an existing object.
-- Generic revision numbers are **concurrency/current-version counters**, not a retained historical revision log. Normal saves overwrite the same canonical JSON object; older payload revisions are not generically preserved as separate snapshots.
-- `BrainObject` exposes `supersedes` and `superseded_by`, and several lifecycle machines support `SUPERSEDED`, but the generic controller/store does not automatically resolve, validate, or write reciprocal supersession links. A populated generic supersession field therefore cannot be assumed to represent a fully enforced bidirectional chain unless the owning service proves it.
-- `controller.create(... supersedes=...)` can set the new object's `supersedes` field, but no generic logic updates the referenced object's `superseded_by` field or transitions it. Purpose must not infer “current winner” solely from a raw `supersedes` pointer.
-- Goal's public `version` is the underlying object revision. Goal additionally has `activation_epoch`, which increments on material edits/resume/criteria changes and represents execution activation semantics, not historical object identity.
-- `strategy_rule` has a stronger, dedicated revision model separate from generic object revision: `previous_revision_ref` links a candidate to the known-good prior strategy, and `previous_revision_snapshot` captures the exact prior ID/revision/payload at link time.
-- Strategy promotion is lock-backed and transitions the candidate ACTIVE while retiring the previous ACTIVE strategy; failure to retire the previous causes recovery that retires the newly activated candidate rather than leaving both silently active.
-- Strategy rollback is explicitly user-authorized, transaction-recorded and restores only the exact known-good previous RETIRED strategy before marking the current one `ROLLED_BACK`; interrupted cleanup is represented as a recoverable transaction state rather than silently guessed.
-- Purpose v1 must distinguish **object revision**, **lifecycle supersession**, and **strategy revision lineage**. They are not one universal version graph.
-- When selecting current strategic state, Purpose should use owner-specific active/current-status rules and dedicated owner APIs. It must not select “highest revision number” across different objects or assume a generic `supersedes` chain is authoritative without service validation.
-- Historical trajectory should remain Memory/provenance-owned where appropriate; Purpose should not attempt to reconstruct a complete history from overwritten generic object revisions.
+- `ObjectStore.load()` / `ObjectStore.list()` provide exact scoped canonical reads for Brain internals, with path/scope containment through `StorageLayout`, but `ObjectStore` is a private storage-level interface and is not exported as the intended cross-component public contract. Purpose in OS must not couple directly to Brain's on-disk kind directories or storage implementation.
+- `GoalService.get()` and `GoalService.list()` are the strongest existing stable strategic/execution read surface for canonical Goal objects; the CLI exposes these via `goal show/status`.
+- `DirectionOwnershipService.owner()/status()/plan()` and the exported `direction_owner_for()`/registry reader expose the owner coordination state, not the normalized strategic content itself.
+- `OnboardingService.plan()` reads Brain-owned strategic `intent` and practices to decide what direction information is missing, but it is onboarding-specific and is not an appropriate Purpose read API.
+- `BrainController.orientation(scope)` provides a bounded orientation view of confirmed/active strategic intent (only when Brain owns direction), active practices, active initiatives, current objectives and policies. It deliberately returns no Brain intent goals when OS owns direction. However, it omits gaps/opportunities, does not normalize the full Telos trajectory, and is not a provenance/relationship-resolution contract.
+- `ContextAssembler` already performs bounded purpose-sensitive internal reads using per-cognition-kind live status filters and combines canonical Brain state with host current context/history/capabilities/connections. This proves the architecture already favors relevance-bounded context rather than dumping all Brain state.
+- `ContextAssembler` still reads Brain objects through `controller.store.list()` and emits raw canonical object dictionaries into ephemeral cognition context. It is an internal reasoning context builder, not a cross-owner strategic snapshot API, and it does not resolve `serves`/gap/source refs into a typed verified trajectory graph.
+- The retrieval subsystem builds bounded semantic queries for history/capabilities from the actual cognition task and current canonical signals; it is retrieval-query construction, not strategic object querying. It should not be repurposed as the Purpose owner API.
+- Brain's package exports `GoalService`, `DirectionOwnershipService`, `BrainController`, `ContextAssembler`, etc., but there is currently **no dedicated exported `purpose-snapshot` / `direction-snapshot` read service** that returns mission/goals/gaps/initiatives/relations with validated refs and provenance.
+- CLI likewise has public Goal reads and direction-owner inspection, but no generic strategic snapshot/list command covering `intent + gap + opportunity + initiative + execution Goal + relations`.
+- Therefore Phase 3 remains justified: add one stable read-only Brain strategic snapshot contract. It should compose existing canonical services internally, enforce exact scope/active-state/ownership semantics, validate relationship refs, preserve provenance/evidence, and prevent OS from depending on Brain private storage.
+- The snapshot should reuse existing bounded/relevance principles rather than becoming an unbounded “dump all Brain state” endpoint.
 
 Primary evidence inspected:
 
-- `engine/aiverse_brain/models.py`
 - `engine/aiverse_brain/storage.py`
-- `engine/aiverse_brain/controller.py`
 - `engine/aiverse_brain/goal.py`
-- `engine/aiverse_brain/state_machine.py`
-- `engine/aiverse_brain/strategy_revision.py`
+- `engine/aiverse_brain/direction_ownership.py`
+- `engine/aiverse_brain/controller.py`
+- `engine/aiverse_brain/onboarding.py`
+- `engine/aiverse_brain/reasoner.py`
+- `engine/aiverse_brain/retrieval.py`
+- `engine/aiverse_brain/__init__.py`
+- `engine/aiverse_brain/cli.py`
 
 ### Slice 1.2 required output
 
@@ -168,7 +180,7 @@ Do not force fake one-to-one Telos mappings.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for live progress.
-3. Continue **only** with **Phase 1 / Slice 1.2 / Task 8 — audit query/list/read surfaces**.
+3. Continue **only** with **Phase 1 / Slice 1.2 / Task 9 — audit current strategy rollback behavior**.
 4. Continue against exact Brain ref `7c77b053df627e61b3d7f11d029500ab61095c9c` unless a deliberate re-audit is started on a newer descendant.
-5. After Task 8, update this file before Task 9.
+5. After Task 9, update this file before Task 10.
 6. At Slice 1.2 completion, create/record a Brain audit closure and advance to Slice 1.3.
