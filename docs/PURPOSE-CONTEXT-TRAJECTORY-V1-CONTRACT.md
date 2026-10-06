@@ -1,6 +1,6 @@
 # AI-Verse Purpose Context Trajectory v1 Contract
 
-**Status:** IN PROGRESS — Slice 2.2  
+**Status:** COMPLETE — Slice 2.2 contract frozen  
 **Parent contract:** `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`  
 **Canonical owner:** `AI-Verse-System`
 
@@ -46,83 +46,96 @@ A valid initiative/current-work node with no valid parent relation is allowed an
 
 ## Task 7 — explain traversal rules — FROZEN
 
-The v1 explain operation answers “why are we doing this?” by traversing only validated owner-backed/derived edges from an exact starting node.
+Explain starts from one exact node and ascends only validated causal edges. Normal parent-relation priority is `executes`, then `serves`, then `advances`, then `addresses`; `measures` participates only for KPI starts/branches. `blocks`, `affects`, and `supersedes` are contextual attachments, not normal causal parents.
 
-### Starting node
+Multiple valid parents create multiple branches. One deterministic branch may be labeled primary, but no valid branch is deleted merely for convenience. Branches terminate at legitimate roots, orphans, broken parents, cycle rejection, authority/scope boundary, or traversal budget. Returned branches distinguish `complete`, `partial`, and `orphan`. No prose or model inference may add a relationship absent from the verified graph.
 
-The caller supplies or resolves one exact node identity. Fuzzy title/name lookup may be offered by a higher-level UI only if it resolves to one exact canonical node before traversal begins. Ambiguous starts fail explicitly.
+## Task 8 — deterministic graph ordering — FROZEN
 
-### Causal ascent relations
+Graph materialization, pruning, diffing, explain output, and tests MUST use deterministic order independent of storage/API arrival order.
 
-The normal upward causal relations are:
+### Node kind order
 
-1. `executes`
-2. `serves`
-3. `advances`
-4. `addresses`
-5. `measures` only when the starting/encountered node is a KPI
-
-`blocks` and `affects` are contextual side relationships, not causal parents. `supersedes` is historical/replacement context, not causal ascent.
-
-The relation priority above orders otherwise equally valid parent branches; it does not allow an invalid edge to outrank a valid one.
-
-### Expected upward paths
-
-Typical verified ascent may look like:
+Top-level graph node order is:
 
 ```text
-current_work --executes--> initiative
-initiative --executes--> strategy
-strategy --advances--> goal
-goal --serves--> mission
-mission --addresses--> problem
+problem
+mission
+desired_outcome
+goal
+challenge
+strategy
+initiative
+kpi
+risk
+current_work
+material_change
 ```
 
-Shorter valid paths are equally acceptable, for example `current_work --advances--> goal --serves--> mission`. Missing intermediate layers are not fabricated.
+Within a kind:
 
-### Branching
+1. canonical owner-declared priority/rank/order, when the owner explicitly exposes one for those objects;
+2. canonical ref identity tuple `(owner, scope, kind, id)` ascending;
+3. ref `version` ascending only as a final deterministic tie-breaker for duplicate observed revisions;
+4. derived nodes: stable derivation-rule ID, then ordered source-ref identities, then deterministic `node_id`.
 
-- Multiple independently valid parents may produce multiple explanation branches.
-- One deterministic branch may be labeled `primary` for concise rendering; other valid branches remain available and are not deleted from the graph.
-- Primary selection follows relation priority, then the deterministic graph ordering frozen in Task 8.
-- A branch terminates when it reaches a legitimate root (`problem`, `mission`, or `desired_outcome` with no valid higher causal edge), an orphan, a broken parent, a cycle-rejected edge, scope/authority boundary, or traversal budget.
+Owner/API arrival order, filesystem order, database row order, model generation order, and map/object iteration order are never semantic ordering.
 
-### Context attachments
+### Edge relation order
 
-For every node on the causal path, Purpose may attach validated contextual evidence:
+Canonical graph edge order is:
 
-- `blocks` from challenge/risk nodes;
-- `affects` from risk/material-change nodes;
-- `supersedes` history for the current node;
-- KPI `measures` links where relevant.
+```text
+addresses
+serves
+advances
+blocks
+executes
+measures
+affects
+supersedes
+```
 
-Context attachments never become causal parents unless their relation token separately permits causal ascent.
+Within the same relation:
 
-### Truth and completeness
+1. source node deterministic order;
+2. target node deterministic order;
+3. ordered canonical evidence refs;
+4. deterministic derivation-rule ID when applicable.
 
-Every returned path contains exact node identities and edge evidence refs. Explain MUST distinguish:
+This serialization order does not redefine explain primary-parent priority from Task 7.
 
-- `complete` — branch reaches a validated legitimate root without unresolved required ancestry;
-- `partial` — verified path ends because of missing/unavailable/forbidden/invalid parent, cycle rejection, or bounded truncation;
-- `orphan` — start/path ends because no valid parent relation exists.
+### Explain branch order
 
-A `complete` label means complete relative to the validated graph currently available, not proof that reality contains no other causes.
+For causal ascent, parent branches sort by:
 
-### Safety rules
+1. Task 7 parent-relation priority: `executes`, `serves`, `advances`, `addresses`, then KPI `measures`;
+2. owner-declared strategic rank/priority when applicable;
+3. target node deterministic order;
+4. edge evidence-ref order.
 
-- No model-generated prose may add a relationship absent from the verified path.
-- Human-readable explanation may paraphrase node content but must preserve the edge semantics.
-- Cross-scope traversal occurs only through an explicitly allowed, visible edge; otherwise the branch stops without leaking target content.
-- Historical Memory may explain what happened but never substitutes for a missing current strategic parent.
-- Traversal uses visited guards even for non-structural context attachments.
+The first branch after that ordering may be labeled `primary`. The label is a deterministic rendering choice, not stronger strategic authority.
 
-### Boundedness
+### Context attachment order
 
-Explain obeys the envelope byte budget plus explicit traversal caps in implementation. Budget pressure prunes secondary branches/context before the primary verified chain. If even the minimum truthful primary path cannot fit, the operation fails explicitly rather than silently changing semantics.
+Contextual attachments sort by relation order, then source node order. `material_change` attachments may use canonical owner event/effective time descending only when that timestamp is owner-backed; ties fall back to canonical ref ordering.
+
+### Deterministic pruning
+
+When budget requires graph pruning:
+
+- use the frozen envelope pruning policy;
+- prune secondary/context branches in deterministic reverse-priority order;
+- retained edges keep minimum target identity stubs where required;
+- identical owner inputs + scope + profile + budget produce the same retained graph and same omission decisions, excluding volatile observation timestamps.
+
+### Equality/deduplication
+
+Two owner-backed nodes are the same logical node only when their canonical identity tuple matches. Two edges are duplicates only when source identity, relation, target identity, and authoritative evidence/derivation identity are equivalent. Display text equality alone never deduplicates graph objects.
 
 ---
 
-## Slice 2.2 progress
+## Slice 2.2 final status
 
 1. [x] relation vocabulary
 2. [x] allowed source/target kinds
@@ -131,4 +144,15 @@ Explain obeys the envelope byte budget plus explicit traversal caps in implement
 5. [x] supersession behavior
 6. [x] orphan initiative/current-work behavior
 7. [x] explain traversal rules
-8. [ ] deterministic graph ordering
+8. [x] deterministic graph ordering
+
+**Slice 2.2: COMPLETE / CONTRACT FROZEN.**
+
+Acceptance verdict:
+- graph can trace verified current work upward without inventing missing relationships: PASS;
+- relation kinds and source/target semantics bounded: PASS;
+- broken/orphan/cycle paths fail visibly rather than being repaired by inference: PASS;
+- explain traversal deterministic and bounded: PASS;
+- graph remains derived and owner-backed: PASS.
+
+**NEXT:** Slice 2.3 / Task 1 — freeze operator default shape.
