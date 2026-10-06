@@ -13,86 +13,72 @@ Profiles control which already-valid Purpose sections are requested/emitted for 
 
 The default operator projection profile is conceptually `operator_default`.
 
-Required shell:
+When relevant owner-backed truth exists, it may include `problems`, `purpose`, `goals`, `priorities`, `challenges`, `strategies`, `initiatives`, `constraints`, `current_work`, `trajectory`, and `recent_material_changes`; `narratives`, `kpis`, `risks`, and `current_state` remain supporting/conditional.
 
-```yaml
-schema_version: "1.0"
-scope: operator
-scope_kind: operator
-identity:
-  kind: operator
-  id: operator
-provenance: {...}
-```
-
-When relevant owner-backed truth exists, the default operator profile may include `problems`, `purpose`, `goals`, `priorities`, `challenges`, `strategies`, `initiatives`, `constraints`, `current_work`, `trajectory`, and `recent_material_changes`. `narratives`, `kpis`, `risks`, and `current_state` remain supporting/conditional.
-
-Operator Purpose never implicitly aggregates all workspaces or their Data. A sparse operator projection is valid; no missing strategic section is fabricated merely to make the profile look complete.
-
----
+Operator Purpose never implicitly aggregates all workspaces or their Data. A sparse operator projection is valid.
 
 ## Task 2 — workspace default/basic shape — FROZEN
 
-The default workspace profile is conceptually `workspace_basic` and is the safe starting profile for every `workspace:<id>` unless Task 4 auto-detection explicitly selects a richer read.
+The default workspace profile is conceptually `workspace_basic`.
 
-Required shell:
+When relevant owner-backed truth exists, it may include `purpose`, `goals`, `priorities`, `challenges`, `strategies`, `initiatives`, `constraints`, `current_work`, `trajectory`, `recent_material_changes`, plus `problems` when explicitly represented by the active strategic owner.
 
-```yaml
-schema_version: "1.0"
-scope: workspace:<id>
-scope_kind: workspace
-identity:
-  kind: workspace
-  id: <id>
-  name: <owner-backed when available>
-  type: <owner-backed when available>
-provenance: {...}
-```
+`narratives`, `kpis`, `risks`, and broader `current_state` remain conditional. Tiny workspaces do not require mission, strategy, KPIs, risk register, team structure, customer model, infrastructure model, or budget structure. Orphan work remains visible rather than being assigned invented hierarchy.
 
-### Basic semantic retrieval set
+## Task 3 — rich workspace optional fields — FROZEN
 
-When relevant owner-backed truth exists, `workspace_basic` may include:
+The richer workspace profile is conceptually `workspace_rich`. It is an additive **read profile over the same v1 envelope**, not a different schema and not a “corporate mode” subsystem.
 
-- `purpose`
-- `goals`
-- `priorities`
-- `challenges`
-- `strategies`
-- `initiatives`
-- `constraints`
-- `current_work`
-- `trajectory`
-- `recent_material_changes`
+### Rich profile may activate
 
-`problems` may also appear when the active strategic owner explicitly represents the problem the workspace exists to address.
-
-The following are not part of the expected basic shape and stay conditional:
+In addition to the `workspace_basic` sections, `workspace_rich` may request/employ these already-frozen optional sections when canonical owner evidence exists:
 
 - `narratives`
 - `kpis`
 - `risks`
-- broader structured `current_state`
+- richer `constraints`
+- richer `current_state`
+- `recent_material_changes` with operational/strategic effects
 
-### Basic-workspace laws
+It may also retain more secondary trajectory branches/context attachments within the same byte budget where relevance and ranking justify them.
 
-- A tiny workspace may legitimately contain only identity plus `current_work`, one initiative, one goal, or no strategic objects yet.
-- Basic profile does not require mission, strategy, KPI, risk register, team structure, customer model, infrastructure model, or budget fields.
-- An orphan initiative/current-work item remains visible under the trajectory orphan rules; Purpose does not invent hierarchy to make the workspace look mature.
-- Workspace Purpose reads only the exact bound workspace plus owner APIs that are already authorized to expose operator historical context; such Memory visibility does not import operator strategic mission/goals into the workspace.
-- `workspace_basic` never scans neighboring workspaces for “related” goals, Data or history.
-- Workspace identity/type is descriptive metadata and does not itself create strategic content.
+### KPI rule
 
-### Product goal
+A rich workspace does not gain KPIs merely because it is “business-like.” A KPI appears only when:
 
-A new/simple workspace should receive useful trajectory context without feeling like enterprise project-management software. The profile should answer, when evidence exists:
+1. the strategic definition/target is owner-backed; and
+2. any `current_value` has an explicit current-truth binding to Data or another declared current-truth owner.
 
-> What is this workspace trying to achieve, what is happening now, what is blocking it, and how does the current work connect upward?
+No field scanning, guessed metric matching, or query-time freshness inference is allowed.
 
-without requiring corporate-style fields that the workspace does not naturally own.
+### Risk rule
 
-### Budget law
+Risks appear only when owner-backed risk records or a frozen deterministic derivation with evidence exists. Purpose does not generate a speculative risk register to make a workspace look complete.
 
-The normal v1 bounded-output contract applies. Basic profile receives no special right to fill unused bytes with irrelevant sections.
+### Team/resources/customers/infrastructure/budget
+
+These are useful Telos/corporate concepts but are **not first-class top-level sections in the frozen v1 envelope**.
+
+Therefore v1 MUST NOT silently add new top-level `team`, `resources`, `customers`, `infrastructure`, or `budget` fields merely because `workspace_rich` is selected.
+
+They may be surfaced only when one of these is true:
+
+- an existing frozen v1 section legitimately represents that owner-backed fact without semantic distortion (for example a bounded `current_state` item); or
+- a later backward-compatible contract revision explicitly adds a typed optional field/section.
+
+If neither is true, the information stays outside Purpose v1 rather than being squeezed into the wrong semantic field.
+
+### Richness is optional, not a maturity score
+
+- `workspace_rich` does not mean the workspace is more important, mature, or “better.”
+- A product/company/client/team workspace may still correctly remain `workspace_basic`.
+- A small workspace may expose a KPI or risk without becoming a giant corporate projection.
+- Rich profile never creates empty sections to satisfy a template.
+- The same isolation, owner authority, provenance, freshness, graph and budget laws apply unchanged.
+
+### Anti-bloat rule
+
+Selecting `workspace_rich` only broadens the **eligible read set**. It does not require all eligible sections to be emitted. Relevance, canonical availability and byte budget still decide what appears.
 
 ---
 
@@ -100,7 +86,7 @@ The normal v1 bounded-output contract applies. Basic profile receives no special
 
 1. [x] operator default shape
 2. [x] workspace default/basic shape
-3. [ ] rich workspace optional fields
+3. [x] rich workspace optional fields
 4. [ ] auto-detection rules
 5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
 6. [ ] disabled/irrelevant behavior
