@@ -15,9 +15,9 @@
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Slice:** 1.1 — Audit current OS scope, current-context, workspace, and direction-owner contracts
 - **Slice state:** IN PROGRESS
-- **Completed tasks:** 4 / 10
-- **NEXT task:** **Task 5 — audit strategic direction ownership marker**
-- **Do not start Task 6 until Task 5 is completed and recorded here.**
+- **Completed tasks:** 5 / 10
+- **NEXT task:** **Task 6 — audit OS-owned strategic files/sections**
+- **Do not start Task 7 until Task 6 is completed and recorded here.**
 
 No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit-only.
 
@@ -29,7 +29,7 @@ No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit
 2. [x] workspace isolation contract
 3. [x] `WORKSPACE.yaml` schema/extension rules
 4. [x] current-context resolver
-5. [ ] strategic direction ownership marker
+5. [x] strategic direction ownership marker
 6. [ ] OS-owned strategic files/sections
 7. [ ] Brain-owned generated direction views
 8. [ ] write assertions and handover/handback behavior
@@ -60,7 +60,7 @@ No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit
 - `workspace-owner.mjs` independently applies the same 128-character workspace-ID rule.
 - `current-context.mjs` validates the scope before resolving the physical operator/workspace path.
 - Existing direction-owner tests explicitly prove invalid workspace IDs such as underscore/dot forms fail closed.
-- **Bounded consistency finding:** `system/schemas/workspace.schema.yaml` has the compatible character pattern but does not currently declare `maxLength: 128`. A manually authored manifest can therefore be schema-valid while its ID is rejected by runtime scope validation. Do not fix this during Phase 1 audit; carry it forward for the appropriate implementation/contract slice.
+- **Bounded consistency finding:** `system/schemas/workspace.schema.yaml` has the compatible character pattern but does not currently declare `maxLength: 128`.
 
 ### Purpose Context decision
 
@@ -85,40 +85,20 @@ Reuse the existing canonical scope validator/semantics. Do **not** invent a Purp
 
 ### Findings
 
-The OS has strong physical workspace-boundary enforcement that Purpose Context should reuse:
-
-- `current-context.mjs` resolves `workspace:<id>` only to the exact physical slot `workspaces/<id>`.
-- Workspace roots must be real directories at their expected path; symlink workspace roots are rejected.
-- Optional current-context files must be real files inside the selected workspace boundary; symlink/escape attempts fail closed.
-- `workspace-owner.mjs` requires the top-level `workspaces/` directory to be the expected physical directory.
-- During inventory, symlink workspace entries are rejected and resolved workspace roots must remain inside `workspaces/`.
-- Workspace manifests/current-context/provenance files are checked against the owning workspace boundary before read/write.
-- New workspace creation verifies the target remains inside `workspaces/`.
-- `context/` must be a real directory inside the owning workspace.
-- Automatic organization does not grant permissions, Connections, credentials, automations, or permanent bots.
-- Privacy ambiguity and authority expansion are explicit stop/confirmation conditions.
-- Existing tests prove creating/evolving `client-a` leaves an unrelated `other` workspace manifest unchanged.
-- Existing tests prove path traversal workspace IDs are rejected and no escaped directory is created.
-- Existing tests prove manually created workspace fields are preserved during bounded additive evolution.
-
-### Important boundary for Purpose Context
-
-`workspace-owner.mjs` inventories workspace **identity metadata** and can select an existing workspace by directory/id/normalized name in order to avoid duplicate workspace creation. That heuristic is appropriate for the workspace-organization command, but it must **not** become the Purpose Context read-selection mechanism.
-
-Purpose Context reads should use the already-validated exact `workspace:<id>` scope and the same physical-boundary checks used by `current-context.mjs`. It must not name-match across other workspaces or scan another workspace's strategic/current content to resolve a Purpose request.
-
-`canonical_sources` are stored as references. Purpose Context must not automatically dereference a source outside the active scope unless an existing owner API and explicit cross-scope/connection rule permits it.
+- Exact workspace physical slots are enforced and symlink/path escapes fail closed.
+- Workspace manifest/current-context/provenance reads/writes stay inside the owning workspace boundary.
+- Automatic workspace organization cannot grant permissions, Connections, credentials, automations, or permanent bots.
+- Privacy ambiguity and authority expansion are stop/confirmation conditions.
+- Tests prove creating/evolving one workspace leaves unrelated workspaces unchanged and path traversal is rejected.
+- Workspace-owner's name/id matching is only for duplicate-safe organization and must not become a Purpose Context read resolver.
 
 ### Purpose Context decision
 
-- Keep default workspace isolation strict.
-- Resolve Purpose Context for `workspace:X` from **workspace X only**, plus declared owner APIs already scoped to X.
-- Cross-workspace relationships, if added later, must be explicit, provenance-bearing, and authorized; never inferred by broad scanning.
-- Reuse existing physical path/symlink containment rules rather than introducing a parallel boundary implementation.
+Resolve Purpose for `workspace:X` from exact validated scope X only, plus declared owner APIs scoped to X. Cross-workspace relationships must be explicit and authorized.
 
 ### Verdict
 
-**PASS.** No isolation defect requiring a behavior change was found in this task.
+**PASS.**
 
 ---
 
@@ -137,27 +117,20 @@ Purpose Context reads should use the already-validated exact `workspace:<id>` sc
 
 ### Findings
 
-- `WORKSPACE.yaml` is the required workspace manifest.
-- The workspace schema is intentionally extensible: top-level `additionalProperties: true`; `privacy`, `capabilities`, and `metadata` also allow additional properties.
-- Required core fields are `schema_version`, `id`, `name`, `type`, `status`, and `purpose`.
-- `type` is deliberately free-form; the core does not enforce an industry taxonomy.
-- Existing optional core fields already cover `domains`, `owners`, `success_criteria`, `current_context`, `canonical_sources`, `connections`, `privacy`, `approval`, `capabilities`, `automations`, and `metadata`.
-- The template is intentionally broad but the workspace README explicitly says active workspaces should keep only the parts they use rather than materializing every optional folder/structure.
-- `workspace-owner.mjs` creates a conservative standard manifest for auto-organized workspaces and only evolves known list fields (`domains`, `canonical_sources`) on existing manifests.
-- Unknown/manual fields are preserved; the test suite explicitly proves a custom field survives bounded evolution.
+- `WORKSPACE.yaml` is required and intentionally extensible (`additionalProperties: true`).
+- Core required fields are `schema_version`, `id`, `name`, `type`, `status`, `purpose`; `type` is free-form.
+- Optional identity/operational fields already cover domains, owners, success criteria, current context, canonical sources, connections, privacy, approvals, capabilities, automations, metadata.
+- Workspace structure is intentionally sparse: optional folders/fields should not be created merely for completeness.
+- Workspace-owner evolves known lists conservatively and preserves unknown/manual fields.
 - Unsupported YAML shapes are left unchanged rather than rewritten.
-- The schema/runtime ID-length mismatch from Task 1 remains.
 
 ### Purpose Context decision
 
-- **Do not require a new `purpose_context` field in `WORKSPACE.yaml` for v1.** Auto-discovery from exact scope + canonical owner APIs is sufficient and avoids configuration bloat.
-- Existing extensibility permits a future optional Purpose hint/profile if the value gate proves it useful.
-- Any future Purpose configuration must remain optional and non-authoritative; it must never duplicate mission/goals/KPIs.
-- Consume the manifest for identity/scope metadata only, then resolve strategic/current truth through declared owner APIs.
+Do **not** require a `purpose_context` manifest field in v1. Auto-discovery from exact scope + canonical owners is sufficient. Future Purpose hints may be optional/non-authoritative only.
 
 ### Verdict
 
-**PASS.** Existing extension rules are sufficient for Purpose Context v1.
+**PASS.** Existing extension rules are sufficient for v1.
 
 ---
 
@@ -170,89 +143,110 @@ Purpose Context reads should use the already-validated exact `workspace:<id>` sc
 
 - `scripts/current-context.mjs`
 - `scripts/test-current-context.mjs`
-- `scripts/direction-owner-core.mjs` (dependency already inspected)
+- `scripts/direction-owner-core.mjs`
 
 ### Resolver contract
 
-The supported read command is:
+`node scripts/current-context.mjs read --root <os-root> --scope <operator|workspace:id>` emits ownership-aware JSON schema version 1.
 
-```text
-node scripts/current-context.mjs read --root <os-root> --scope <operator|workspace:id>
-```
+### Findings
 
-It emits JSON schema version 1 and is ownership-aware.
-
-Common output includes:
-
-- `schema_version`
-- `direction_schema_version`
-- `scope`
-- `direction_owner`
-- `strategy_status`
-- `current_context`
-- `source`
-- `direction_view`
-- `direction_view_status`
-- `direction_refs`
-- `omitted_sections`
-- diagnostics in Brain-owned mode when applicable.
-
-### OS-owned behavior
-
-When `direction_owner == os`:
-
-- the scoped `CURRENT.md` is returned as the active `current_context` without strategic filtering;
-- `strategy_status` is `os-canonical`;
-- there is no direction view and no Brain refs;
-- a missing optional `CURRENT.md` becomes an empty context rather than fabricated content.
-
-### Brain-owned behavior
-
-When `direction_owner == brain`:
-
-- raw OS strategic sections are **not** treated as active direction;
-- only a bounded allowlist of operational H2 sections is retained from OS `CURRENT.md`;
-- unknown/non-allowlisted headings and arbitrary preamble are omitted;
-- canonical Brain intent refs are validated against the `brain:intent:<id>` form and deduplicated;
-- the resolver reports the generated direction-view path/status but does not blindly inline it;
-- if neither Brain refs nor an available view exists, strategic status becomes `unavailable` rather than falling back to stale OS strategy.
-
-### Safety/isolation behavior
-
-- Scope is validated first.
-- Operator/workspace roots must be exact physical directories, not symlinks.
-- `CURRENT.md` must remain within the selected scope boundary.
-- Generated direction views are constrained to `.aiverse/direction/views/` and symlink/path escapes are rejected or marked invalid.
-- Malformed direction ownership state causes the read to fail closed.
-- Tests prove stale OS strategy/objectives are removed after Brain ownership, while operational facts/actions remain.
+- In OS-owned mode, scoped `CURRENT.md` is returned unchanged and marked `os-canonical`.
+- In Brain-owned mode, stale OS strategic sections and arbitrary preamble are removed; only bounded operational headings survive.
+- Validated Brain intent refs and generated direction-view status/path are returned without silently promoting a missing view.
+- If Brain owns direction but no valid refs/view exist, strategic status is `unavailable`, never a fallback to stale OS strategy.
+- Scope/path/symlink boundaries fail closed and malformed direction ownership state fails the read.
+- Tests prove stale operator priorities and workspace Objective content disappear after Brain ownership while operational facts/actions remain.
 
 ### Purpose Context decision
 
-- Treat the **ownership-aware current-context CLI JSON** as an existing stable OS read boundary suitable for Purpose composition; do not read raw `CURRENT.md` directly as the primary Purpose path.
-- Purpose Context must respect `direction_owner` and `strategy_status`. It must never re-promote an omitted OS strategic section when Brain owns direction.
-- `source` and omission/view status are useful provenance/diagnostic inputs.
-- Brain-owned `direction_view` is a pointer/status, not authority by itself; authoritative strategic content should come through the Brain read contract audited/implemented later.
-- Do not create an independent Purpose fallback that silently converts `strategy_status: unavailable` into OS-canonical strategy.
+Use the ownership-aware current-context CLI JSON as the OS current-context read boundary. Do not read/reinterpret raw `CURRENT.md` as the primary Purpose path and never revive omitted OS strategy under Brain ownership.
 
 ### Interface classification
 
-**Safe owner read boundary:** CLI JSON contract exposed by `scripts/current-context.mjs`.  
-**Internal implementation details:** heading parser/allowlists/path helpers should not be duplicated by Purpose Context; reuse the command/contract instead.
+**Safe owner read boundary:** `scripts/current-context.mjs` CLI JSON.  
+**Internal details:** heading parser/allowlists/path helpers; do not duplicate them in Purpose.
 
 ### Verdict
 
-**PASS.** The resolver is a strong foundation for Purpose Context and already solves the most dangerous stale-strategy handover case.
+**PASS.**
+
+---
+
+## Task 5 — strategic direction ownership marker
+
+**Status:** COMPLETE  
+**Repo/ref:** `aiverse-filmmakers/AI-Verse-OS@e74a4e05b1f891e6f871f34a298bf10363a11d88`
+
+### Files inspected
+
+- `scripts/direction-owner-core.mjs`
+- `scripts/direction-owner.mjs`
+- `system/architecture/direction-ownership.md`
+- `scripts/test-direction-owner.mjs`
+- `scripts/current-context.mjs` (consumer already audited)
+
+### Marker contract
+
+Canonical durable local coordination record:
+
+```text
+.aiverse/direction/ownership.json
+```
+
+Schema version is `1`. State is keyed by exact strategic scope (`operator` or `workspace:<id>`). Each scope resolves to exactly one active strategic owner: `os` or `brain`.
+
+### Findings
+
+- Ownership is per scope, not global. One workspace can remain OS-owned while another/operator scope is Brain-owned.
+- Absence of the registry/scope record defaults to OS ownership for the fresh/compatible pre-handover case.
+- The registry directory/file cannot be symlinks; malformed JSON, wrong schema shape/version, invalid scope, or invalid owner fails closed.
+- `direction-owner.mjs status` exposes `{schema_version, scope, owner, record}` as JSON.
+- `assert-strategic-write` permits OS strategic writes only when owner is exactly `os`; when Brain owns direction it fails with a distinct blocked status even if Brain is unavailable.
+- The architecture contract explicitly forbids ownership transfer merely because Brain is installed, available, newer, or selected as reasoner.
+- Handover is explicit and atomic at the ownership flip: before the marker flips OS remains owner; after it flips Brain remains owner and interruption must be resumable.
+- A Brain outage never transfers ownership back to OS.
+- Handback is explicit export-and-transfer; Brain objects remain provenance/history after ownership returns to OS.
+- Existing tests prove Brain unavailability does not restore OS write authority, handback restores OS authority, ownership is scope-specific, and malformed owner state fails closed.
+
+### Important bounded integrity observation
+
+The architecture text qualifies missing ownership state as OS ownership only for a compatible OS that has never been handed over, but the low-level resolver can only observe that the marker/scope record is absent; it cannot independently prove historical non-handover. If the local ownership marker were manually deleted/lost after a prior Brain handover, the resolver would see an absent record and return the default OS owner.
+
+This is **not a new Purpose defect and is not changed during this audit**, but Purpose Context must not add another fallback or attempt to reconstruct ownership heuristically. The existing ownership marker remains the canonical coordination authority. Marker durability/migration preservation should be included in later hardening/requalification evidence if not already proven elsewhere.
+
+### Record-field trust boundary
+
+`direction-owner-core.mjs` validates the registry schema/scope and `owner`, while consumers such as current-context separately validate the specific fields they use (for example Brain refs). Purpose Context should follow the same pattern: trust the ownership decision from this contract, but validate/obtain strategic content through the canonical Brain/OS owner read APIs rather than treating arbitrary ownership-record metadata as strategic truth.
+
+### Purpose Context decision
+
+- Use this marker/CLI contract as the **sole strategic-owner selector** for Purpose Context.
+- Never infer owner from component availability, presence of files, generated views, or model judgment.
+- Never write/change ownership from the read-only Purpose projection.
+- When owner is Brain, strategic content must come from Brain owner surfaces; when owner is OS, strategic content may come from the audited OS-owned strategic sources/current-context contract.
+
+### Interface classification
+
+**Safe owner read boundary:** `direction-owner.mjs status` JSON / the canonical owner result consumed by current-context.  
+**Internal/local coordination storage:** `.aiverse/direction/ownership.json`; Purpose should not mutate or independently reinterpret it.
+
+### Verdict
+
+**PASS with one bounded marker-durability observation carried forward.**
 
 ---
 
 # Open findings carried forward
 
-1. **Workspace schema/runtime ID length mismatch** — manifest schema lacks the runtime `maxLength: 128` constraint.
-2. **Purpose read resolution law** — exact validated scope ID only; do not use normalized-name matching across workspaces.
+1. **Workspace schema/runtime ID length mismatch** — manifest schema lacks runtime `maxLength: 128`.
+2. **Purpose read resolution law** — exact validated scope ID only; no normalized-name cross-workspace matching.
 3. **External/canonical source dereference law** — references do not grant cross-scope or external read authority.
-4. **No mandatory Purpose workspace config in v1** — use auto-discovery; any future manifest hint must stay optional and non-authoritative.
-5. **No raw CURRENT bypass** — Purpose Context should consume the ownership-aware current-context read contract, not reinterpret raw OS current files independently.
-6. **No stale fallback under Brain ownership** — `strategy_status: unavailable` must stay unavailable until the canonical strategic owner supplies evidence.
+4. **No mandatory Purpose workspace config in v1** — use auto-discovery; future hints stay optional/non-authoritative.
+5. **No raw CURRENT bypass** — consume ownership-aware current-context, not raw current files independently.
+6. **No stale fallback under Brain ownership** — unavailable strategic owner evidence stays unavailable.
+7. **Ownership marker durability observation** — missing marker is indistinguishable at the low-level resolver from fresh/pre-handover absence; do not add Purpose heuristics, and ensure marker persistence/migration is covered by later hardening/requalification evidence.
+8. **Ownership record is coordination, not strategic content** — Purpose must read actual strategic content from the canonical owner API.
 
 These findings are not blockers for continuing the audit.
 
@@ -262,7 +256,7 @@ These findings are not blockers for continuing the audit.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` first.
 2. Read this file second for the exact task-level checkpoint.
-3. Continue **only** with **Phase 1 / Slice 1.1 / Task 5 — strategic direction ownership marker**.
-4. Do not redo Tasks 1–4 unless later evidence shows the audited OS ref changed before implementation begins.
+3. Continue **only** with **Phase 1 / Slice 1.1 / Task 6 — OS-owned strategic files/sections**.
+4. Do not redo Tasks 1–5 unless later evidence shows the audited OS ref changed before implementation begins.
 5. After each task, update this file and advance the pointer by exactly one task.
 6. At Slice 1.1 completion, update the canonical implementation plan with source-backed interface map, findings, exact evidence, status `COMPLETE`, and NEXT pointer to Slice 1.2.
