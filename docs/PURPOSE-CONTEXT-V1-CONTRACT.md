@@ -1,13 +1,11 @@
 # AI-Verse Purpose Context v1 Contract
 
-**Status:** IN PROGRESS — Slice 2.1 contract freeze  
+**Status:** COMPLETE — Slice 2.1 contract frozen  
 **Parent plan:** `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
 **Canonical owner:** `AI-Verse-System`  
-**Implementation owner:** `AI-Verse-OS` after contract freeze
+**Implementation owner:** `AI-Verse-OS`
 
 Purpose Context is a derived, read-only, disposable projection over canonical owner state. It never becomes a second strategic, Data, Memory, runtime, or Dashboard authority.
-
-> Editorial note: frozen semantics are kept compact here for maintainability; compaction does not weaken earlier task contracts.
 
 ---
 
@@ -15,13 +13,9 @@ Purpose Context is a derived, read-only, disposable projection over canonical ow
 
 Every envelope emits `schema_version: "1.0"`. Unsupported major versions fail closed; minor v1 changes may add backward-compatible optional material only; breaking semantics require a new major version.
 
----
-
 ## Task 2 — supported scope kinds — FROZEN
 
-Supported scopes are exactly `operator` and `workspace:<id>` with matching `scope_kind: operator|workspace`. Workspace IDs use `^[a-z0-9][a-z0-9-]{0,127}$`. No implicit all-workspace/global/system scope, no cross-workspace fallback, and Dashboard `systemId` is never a Purpose scope.
-
----
+Supported scopes are exactly `operator` and `workspace:<id>` with matching `scope_kind: operator|workspace`. Workspace IDs use `^[a-z0-9][a-z0-9-]{0,127}$`. No implicit global/all-workspace/system scope, no cross-workspace fallback, and Dashboard `systemId` is never a Purpose scope.
 
 ## Task 3 — required vs optional fields — FROZEN
 
@@ -41,134 +35,113 @@ Optional semantic sections: `problems`, `purpose`, `narratives`, `goals`, `prior
 
 Absent optional section means not relevant/applicable/requested. Present empty means owner-backed known empty. Attempted unknown/unavailable reads use explicit state metadata. No placeholders and no projected field is independently editable.
 
----
-
 ## Task 4 — provenance format — FROZEN
 
-Every projection records `projection_owner: ai-verse-os`, `generated_at`, and all attempted `owner_reads` with owner, operation, exact scope, status, observed time, freshness, and canonical refs. Every authoritative claim has source refs; derived claims also have stable derivation-rule identity. Generation/read time never proves freshness. Claims must remain verifiable back to canonical owner record/version.
-
----
+Every projection records `projection_owner: ai-verse-os`, `generated_at`, and all attempted `owner_reads` with owner, operation, exact scope, status, observed time, freshness, and canonical refs. Every authoritative claim has source refs; derived claims also have stable derivation-rule identity. Generation/read time never proves freshness. Claims remain verifiable to canonical owner record/version.
 
 ## Task 5 — freshness format — FROZEN
 
 Leaf states are `current | stale | unknown | unavailable`, each with `as_of`; optional source update time, age policy, and reason code may be carried. `current` requires owner/source evidence. Aggregate query time alone never proves currentness. Derived freshness cannot be stronger than relevant source freshness. Projection summary may additionally use `mixed`.
 
----
-
 ## Task 6 — canonical ref format — FROZEN
 
-Canonical ref identity is `(owner, scope, kind, id)` with an exact string `version` for mutable authoritative claims when the owner exposes meaningful revision identity. Registered v1 owners: OS, Brain, Data, Memory, Gateway. Refs grant no authority, never expose private paths/secrets/SQL/systemId, come only from owner APIs, and never fuzzy-rebind when stale/deleted.
-
----
+Canonical ref identity is `(owner, scope, kind, id)` with exact string `version` for mutable authoritative claims when the owner exposes meaningful revision identity. Registered v1 owners: OS, Brain, Data, Memory, Gateway. Refs grant no authority, never expose private paths/secrets/SQL/systemId, come only from owner APIs, and never fuzzy-rebind.
 
 ## Task 7 — deterministic ordering rules — FROZEN
 
-- Owner-backed semantic priority/rank/order wins when present.
-- Otherwise collections sort by canonical ref `(owner, scope, kind, id)`, then version, then deterministic generated ID.
-- Recent material changes sort by owner-backed event/effective time descending then canonical ref.
-- Trajectory sorts by source ref, relation, target ref, evidence refs.
-- Owner reads sort by owner, operation, scope, then observed time.
-- Arrival/storage iteration order is never semantic unless owner-declared.
-- Rebuild and budget pruning use deterministic order.
-
----
+Owner-backed semantic priority/rank/order wins when present; otherwise collections sort by canonical ref identity, then version, then deterministic generated ID. Recent material changes use owner event/effective time descending; trajectory uses source/ref relation/target/evidence order. Rebuild and pruning use deterministic order; storage/API arrival order is never semantic unless owner-declared.
 
 ## Task 8 — unknown/unavailable field behavior — FROZEN
 
-Purpose distinguishes: not emitted, known empty, unknown, unavailable, plus explicit error/partial states.
-
-Exceptional section state uses:
-
-```yaml
-section_states:
-  kpis:
-    state: partial | unknown | unavailable | error
-    reason: <stable code>
-    owner: ai-verse-data
-    operation: purpose_kpi_values
-```
-
-Exceptional individual field state uses:
-
-```yaml
-field_states:
-  current_value:
-    state: unknown | unavailable | stale
-    reason: <stable code>
-```
-
-No silent fallback to Memory-as-current, stale OS strategy under Brain ownership, another workspace/database, similarly named records, or model inference. `false`, `0`, empty string/list and `null` are not automatic unknown markers.
-
----
+Purpose distinguishes not-emitted, known-empty, unknown, unavailable, partial, error, and stale. Exceptional section state uses `section_states`; exceptional individual field state uses `field_states`. No silent fallback to Memory-as-current, stale OS strategy under Brain ownership, another workspace/database, similarly named records, or model inference.
 
 ## Task 9 — bounded size/budget rules — FROZEN
 
-Purpose Context v1 is always budgeted. A projection request MAY supply an explicit `max_bytes`; otherwise the OS Purpose composer uses the v1 default.
-
-### Byte budget
-
-- default `max_bytes`: **16384** serialized UTF-8 bytes;
-- supported caller range: **4096–65536** bytes;
-- values outside the supported range fail validation rather than being silently clamped;
-- the budget applies to the complete serialized envelope, including provenance/state metadata;
-- runtime/Gateway may impose a smaller downstream context budget; a larger Purpose read budget never forces the runtime to inject all returned content.
-
-This budget is a safety/anti-bloat ceiling, not a target size. Producers SHOULD return materially less when the useful projection is smaller.
-
-### Deterministic pruning order
-
-When the full eligible projection exceeds `max_bytes`, pruning MUST be deterministic and preserve the core trajectory before optional richness.
-
-Prune in this order, stopping as soon as the envelope fits:
-
-1. optional rich workspace extensions not required for the current question/profile (`customers`, `infrastructure`, `team/resources`, budget/cost-style extensions when later enabled);
-2. low-relevance `risks`, `narratives`, `recent_material_changes`, and non-current-state supporting detail beyond configured per-section caps;
-3. lower-ranked items within retained optional sections using Task 7 ordering/rank semantics;
-4. non-essential descriptive text/excerpts while retaining IDs, relation/evidence refs, state, and required provenance needed to interpret retained claims;
-5. lower-relevance secondary trajectory branches, while preserving the best verified path(s) needed for the requested/current-work explanation.
-
-The producer MUST NOT prune by nondeterministic arrival order.
-
-### Never-prune-without-failure core
-
-A successful envelope must always retain:
-
-- required shell: version/scope/scope_kind/identity/provenance;
-- state metadata needed to distinguish unknown/unavailable/error for retained sections;
-- source refs and freshness needed to interpret every retained authoritative claim;
-- the canonical identity of every retained graph node/edge;
-- enough trajectory context to avoid turning a retained child claim into an invented/ambiguous explanation.
-
-If even the required shell plus minimum truthful metadata cannot fit the requested budget, the read MUST fail explicitly with a budget-too-small condition. It must not emit an invalid/truth-weakened envelope.
-
-### Budget diagnostics
-
-`provenance.budget` MAY be emitted and, when pruning occurred, MUST be emitted:
-
-```yaml
-budget:
-  max_bytes: 16384
-  serialized_bytes: 12140
-  truncated: true
-  omitted_sections: [narratives, risks]
-  omitted_item_counts:
-    recent_material_changes: 12
-```
-
-Rules:
-
-- diagnostics reveal projection-shaping facts only, not hidden reasoning/chain-of-thought;
-- `serialized_bytes` measures the final UTF-8 envelope;
-- omission counts are deterministic and section-scoped;
-- budget pressure never widens scope, weakens owner authority, fabricates summaries, or upgrades stale/unknown data to current.
-
-### Per-section hard bounds
-
-Implementation MUST define deterministic finite caps for every unbounded list before runtime release. The exact numeric caps may be tuned during implementation/value-gate testing without changing v1 semantics provided they stay within `max_bytes`, preserve Task 7 ordering, and are observable in diagnostics. No v1 section may return an unbounded list.
+- default projection ceiling: **16384 serialized UTF-8 bytes**;
+- caller-supported range: **4096–65536 bytes**; outside values fail validation;
+- runtime may impose a smaller injection budget;
+- all lists are finite and implementation defines deterministic per-section caps;
+- deterministic pruning removes optional richness/lower-ranked branches before core trajectory truth;
+- required shell, truth-state metadata, refs/freshness for retained claims, and canonical graph identity cannot be silently pruned;
+- if the truthful minimum cannot fit, fail explicitly;
+- when pruning occurs, `provenance.budget` records maximum bytes, final bytes, truncation and deterministic omission diagnostics.
 
 ---
 
-## Slice 2.1 freeze progress
+## Task 10 — rebuildability contract — FROZEN
+
+Purpose Context v1 has **no canonical Purpose state**. Canonical truth remains entirely in the existing owners.
+
+### Rebuild law
+
+Given the same:
+
+- Purpose contract major/minor version;
+- exact scope;
+- projection profile/relevance request;
+- byte budget;
+- owner responses and their canonical refs/versions/freshness metadata;
+- deterministic derivation rules;
+
+the composer MUST produce semantically equivalent Purpose content and deterministic ordering.
+
+The following volatile observation metadata is excluded from semantic-equivalence comparison when the underlying inputs are unchanged:
+
+- `provenance.generated_at`;
+- owner-read `observed_at`;
+- freshness `as_of` evaluation time;
+- runtime timing/latency diagnostics.
+
+Volatile timestamps may differ across rebuilds; owner-backed claims, refs, versions, relation identities, ordering, omission decisions under the same budget, and truth-state classifications MUST NOT drift nondeterministically.
+
+### Disposable projection law
+
+- Deleting any generated Purpose output/cache/index MUST destroy no canonical user state.
+- A clean restart with unchanged owner state MUST require no migration/recovery of Purpose canonical data because none exists.
+- Re-reading after cache deletion MUST rebuild from owner APIs/contracts.
+- No Purpose read may mutate canonical owner state merely to make the projection complete.
+- No generated ID may become the only durable identifier for an owner-backed object.
+
+### Cache law
+
+A cache is not required for v1. If a later implementation introduces one for performance:
+
+- it is explicitly derived/disposable;
+- cache keys include at least scope, contract version, projection profile and budget class;
+- cached owner-backed claims retain source refs/versions;
+- cached content cannot be served as current authoritative truth after its owner versions/freshness can no longer be revalidated;
+- owner drift invalidates or downgrades the cached projection rather than being hidden;
+- cache loss is always recoverable by re-reading owners.
+
+### Input drift / concurrent owner change
+
+Purpose is not a new cross-owner transaction manager. If canonical owners change during composition:
+
+- each retained claim keeps the exact observed owner ref/version;
+- the composer MUST NOT merge two revisions into one claim without explicit derivation provenance;
+- if a critical owner changes between initial read and required verification, the composer retries/rebuilds or returns explicit stale/partial/unavailable state rather than pretending one coherent current snapshot existed;
+- an older cached projection never overrules a newer owner read.
+
+### Rebuild verification
+
+Implementation tests MUST prove at minimum:
+
+1. delete/rebuild preserves semantic content from unchanged owner inputs;
+2. repeated reads do not create duplicate Purpose state;
+3. owner mutation changes the rebuilt projection and/or freshness/version evidence deterministically;
+4. stale cache cannot override current owner state;
+5. workspace A rebuild never consumes workspace B owner state;
+6. Brain-owned direction rebuild never resurrects stale OS strategy;
+7. budget pruning is deterministic across rebuilds;
+8. no Purpose artifact is required to restore canonical owner truth after clean-machine restart.
+
+### Authority law
+
+A generated Purpose projection may be useful, cached, displayed, injected, or explained, but it is never an authority source for reconstructing Brain, OS, Data, or Memory canonical state.
+
+---
+
+## Slice 2.1 final status
 
 1. [x] `schema_version`
 2. [x] supported scope kinds
@@ -179,4 +152,16 @@ Implementation MUST define deterministic finite caps for every unbounded list be
 7. [x] deterministic ordering rules
 8. [x] unknown/unavailable field behavior
 9. [x] bounded size/budget rules
-10. [ ] rebuildability contract
+10. [x] rebuildability contract
+
+**Slice 2.1: COMPLETE / CONTRACT FROZEN.**
+
+Acceptance verdict:
+
+- versioned schema contract exists: PASS;
+- absent optional fields distinct from unknown/unavailable: PASS;
+- stale owner reads represented explicitly: PASS;
+- no generated field independently editable: PASS;
+- projection bounded and rebuildable/disposable: PASS.
+
+**NEXT:** Slice 2.2 / Task 1 — freeze trajectory relation vocabulary.
