@@ -1,24 +1,43 @@
 # Purpose Context — Task-Level Execution State
 
 **Purpose:** durable continuation checkpoint for `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
-**Execution law:** read the implementation plan, then this file, then the active contract/closure docs. Execute in exact task order. When the user requests a bounded batch, complete and persist each task before starting the next.  
+**Execution law:** read the implementation plan, then this file, then active contract/closure docs. Execute in exact task order. For a bounded user-requested batch, persist each task before beginning the next.  
 **Current admitted Core baseline:** `core-repaired-public-beta-2026-10-06`  
 **Last updated:** 2026-10-07
 
 ## Current execution pointer
 
 - **Phase:** 2 — Freeze the Purpose Context v1 contract
-- **Current slice:** **2.1 — Versioned envelope schema**
-- **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3
-- **Completed Slice 2.1 tasks:** 1–9 of 10
-- **NEXT:** **Slice 2.1 / Task 10 — freeze rebuildability contract**
-- Do not begin Slice 2.2 until Task 10 is complete, Slice 2.1 is closed, and the pointer is persisted.
-- No Purpose runtime/owner implementation code exists yet; Phase 2 is contract-only.
+- **Current slice:** **2.2 — Trajectory graph contract**
+- **Slice state:** NOT STARTED
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, **2.1**
+- **NEXT:** **Slice 2.2 / Task 1 — freeze relation vocabulary**
+- Do not start Task 2 until Task 1 is complete and recorded here.
+- No Purpose runtime/owner implementation code exists yet; Phase 2 remains contract-only.
 
-Active contract: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
+Frozen envelope contract: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
 
-## Completed slice closures / audited refs
+## Slice 2.1 closure
+
+**Status:** COMPLETE / CONTRACT FROZEN  
+**Final contract commit:** `c784436ecaafc2f19da58782f8802247a235c1db`
+
+Frozen results:
+
+1. `schema_version = "1.0"` with unsupported-major fail-closed behavior.
+2. exact scopes `operator` / `workspace:<id>` only.
+3. required shell + relevance-driven optional semantic sections.
+4. owner-read/claim provenance with exact canonical refs.
+5. explicit freshness: current/stale/unknown/unavailable.
+6. canonical ref identity `(owner, scope, kind, id)` + version where meaningful.
+7. deterministic ordering independent of storage/API arrival order.
+8. explicit absent/known-empty/partial/unknown/unavailable/error field/section behavior with no silent fallback.
+9. bounded projection: default 16384 UTF-8 bytes, supported request range 4096–65536, deterministic pruning, no unbounded lists.
+10. projection is disposable/rebuildable, has no canonical Purpose state, and stale cache can never override owner truth.
+
+Slice 2.1 acceptance: PASS on versioning, absent-vs-unknown semantics, stale-state representation, read-only ownership, boundedness and rebuildability.
+
+## Completed earlier audits / exact refs
 
 - 0.1 plan: PR #189, merge `b0b4a356ee33d86161e4ec9b3a6f9ed95b958c8e`.
 - 1.1 OS audit: `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md`; OS `e74a4e05b1f891e6f871f34a298bf10363a11d88`.
@@ -34,23 +53,21 @@ Active contract: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
 5. Data aggregate freshness must never be inferred from query execution time.
 6. Final qualification must pin exact component refs.
 
-## Phase 2 / Slice 2.1 checklist
+## Slice 2.2 task order
 
-1. [x] `schema_version` — `"1.0"`; unsupported major fails closed. `3cf8c48fde4950ac69ff30e11e22d308210fab43`
-2. [x] scope kinds — `operator` / `workspace:<id>` only. `95ba626b02de0c7d62a16060d1c228eeaa1548ed`
-3. [x] required vs optional fields — bounded required shell + relevance-driven semantic sections. `2a17d8fbfefc8699685af831150f40a453a0d2ce`
-4. [x] provenance — owner reads + exact source refs + deterministic derivation provenance. `3eaae415ac02714a1c2960c1f193af44828de7ca`
-5. [x] freshness — explicit current/stale/unknown/unavailable; read time is not source freshness. `84b6fd49c7f400724ac1f55b47acbe5a4de72be6`
-6. [x] canonical refs — owner/scope/kind/id + mutable version where meaningful. `bbfe9bb9daaddeadd10eb15177aae21193855cd6`
-7. [x] deterministic ordering — owner semantic order first, otherwise canonical-ref order. `f478e5bfba82ba6feac88098a6e65f542cd0109e`
-8. [x] unknown/unavailable behavior — absent vs known-empty vs unknown vs unavailable are distinct; no silent fallback. `45c650f45a38f4e5828470bbc382843de7771f9b`
-9. [x] size/budget — default 16384 UTF-8 bytes, supported 4096–65536, deterministic pruning, no unbounded lists, required truth/provenance never silently pruned. `f5100ab2153dddf8b565b3a8ae2e7c3a4db0171f`
-10. [ ] rebuildability contract
+1. [ ] relation vocabulary
+2. [ ] allowed source/target kinds
+3. [ ] cycle behavior
+4. [ ] missing-parent behavior
+5. [ ] supersession behavior
+6. [ ] orphan initiative/current-work behavior
+7. [ ] explain traversal rules
+8. [ ] deterministic graph ordering
 
 ## Resume instructions
 
 1. Read plan.
 2. Read this file.
-3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
-4. Continue only with **Slice 2.1 / Task 10 — rebuildability contract**.
-5. After Task 10, close Slice 2.1 and persist the next pointer before starting Slice 2.2.
+3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md` for Slice 2.1.
+4. Continue only with **Slice 2.2 / Task 1 — relation vocabulary**.
+5. Persist this file after Task 1 before Task 2.
