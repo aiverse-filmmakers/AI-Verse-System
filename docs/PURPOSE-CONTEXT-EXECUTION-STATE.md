@@ -15,9 +15,9 @@
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Slice:** 1.1 — Audit current OS scope, current-context, workspace, and direction-owner contracts
 - **Slice state:** IN PROGRESS
-- **Completed tasks:** 2 / 10
-- **NEXT task:** **Task 3 — audit `WORKSPACE.yaml` schema/extension rules**
-- **Do not start Task 4 until Task 3 is completed, recorded here, and reported to the user.**
+- **Completed tasks:** 3 / 10
+- **NEXT task:** **Task 4 — audit current-context resolver**
+- **Do not start Task 5 until Task 4 is completed and recorded here.**
 
 No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit-only.
 
@@ -27,7 +27,7 @@ No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit
 
 1. [x] `operator` and `workspace:<id>` scope validation
 2. [x] workspace isolation contract
-3. [ ] `WORKSPACE.yaml` schema/extension rules
+3. [x] `WORKSPACE.yaml` schema/extension rules
 4. [ ] current-context resolver
 5. [ ] strategic direction ownership marker
 6. [ ] OS-owned strategic files/sections
@@ -55,9 +55,7 @@ No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit
 
 ### Findings
 
-- Canonical strategic scopes are exactly:
-  - `operator`
-  - `workspace:<id>`
+- Canonical strategic scopes are exactly `operator` and `workspace:<id>`.
 - `validateDirectionScope()` accepts `operator` or workspace IDs matching lowercase alphanumeric/hyphen form with a maximum of 128 characters.
 - `workspace-owner.mjs` independently applies the same 128-character workspace-ID rule.
 - `current-context.mjs` validates the scope before resolving the physical operator/workspace path.
@@ -124,11 +122,51 @@ Purpose Context reads should use the already-validated exact `workspace:<id>` sc
 
 ---
 
+## Task 3 — `WORKSPACE.yaml` schema/extension rules
+
+**Status:** COMPLETE  
+**Repo/ref:** `aiverse-filmmakers/AI-Verse-OS@e74a4e05b1f891e6f871f34a298bf10363a11d88`
+
+### Files inspected
+
+- `system/schemas/workspace.schema.yaml`
+- `workspaces/_template/WORKSPACE.yaml`
+- `workspaces/README.md`
+- `scripts/workspace-owner.mjs`
+- `scripts/test-workspace-owner.mjs`
+
+### Findings
+
+- `WORKSPACE.yaml` is the required workspace manifest.
+- The workspace schema is intentionally extensible: top-level `additionalProperties: true`; `privacy`, `capabilities`, and `metadata` also allow additional properties.
+- Required core fields are `schema_version`, `id`, `name`, `type`, `status`, and `purpose`.
+- `type` is deliberately free-form; the core does not enforce an industry taxonomy.
+- Existing optional core fields already cover `domains`, `owners`, `success_criteria`, `current_context`, `canonical_sources`, `connections`, `privacy`, `approval`, `capabilities`, `automations`, and `metadata`.
+- The template is intentionally broad but the workspace README explicitly says active workspaces should keep only the parts they use rather than materializing every optional folder/structure.
+- `workspace-owner.mjs` creates a conservative standard manifest for auto-organized workspaces and only evolves known list fields (`domains`, `canonical_sources`) on existing manifests.
+- Unknown/manual fields are preserved; the test suite explicitly proves `custom_field: "preserve-me"` survives bounded evolution.
+- Unsupported YAML shapes are left unchanged rather than rewritten, which is an appropriate fail-safe extension behavior.
+- The schema/runtime ID-length mismatch from Task 1 remains: schema pattern has no `maxLength: 128` while runtime does.
+
+### Purpose Context decision
+
+- **Do not require a new `purpose_context` field in `WORKSPACE.yaml` for v1.** Auto-discovery from exact scope + canonical owner APIs is sufficient and avoids configuration bloat.
+- The existing extensibility means a future optional `purpose_context` hint/profile can be added without redesigning the manifest if a later value gate proves it useful.
+- If future configuration is required, it should be optional, non-authoritative metadata/config only; it must never store duplicate mission/goals/KPIs or become a Purpose source of truth.
+- Purpose Context should consume the manifest for identity/scope metadata only, then resolve strategic/current truth through declared owner APIs.
+
+### Verdict
+
+**PASS.** Existing extension rules are sufficient for Purpose Context v1; no mandatory workspace-manifest extension is justified at this point.
+
+---
+
 # Open findings carried forward
 
 1. **Workspace schema/runtime ID length mismatch** — manifest schema lacks the runtime `maxLength: 128` constraint.
 2. **Purpose read resolution law** — exact validated scope ID only; do not use normalized-name matching across workspaces.
 3. **External/canonical source dereference law** — references do not grant cross-scope or external read authority.
+4. **No mandatory Purpose workspace config in v1** — use auto-discovery; any future manifest hint must stay optional and non-authoritative.
 
 These findings are not blockers for continuing the audit.
 
@@ -138,7 +176,7 @@ These findings are not blockers for continuing the audit.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` first for the full architecture, phases, acceptance laws, and immutable Core baseline.
 2. Read this file second for the exact task-level checkpoint and findings already established.
-3. Continue **only** with **Phase 1 / Slice 1.1 / Task 3 — `WORKSPACE.yaml` schema/extension rules**.
-4. Do not redo Tasks 1–2 unless later evidence shows the audited OS ref changed before implementation begins.
-5. After Task 3, update this file with exact files/ref/findings/verdict and advance the pointer to Task 4. Stop and report before doing Task 4.
+3. Continue **only** with **Phase 1 / Slice 1.1 / Task 4 — current-context resolver**.
+4. Do not redo Tasks 1–3 unless later evidence shows the audited OS ref changed before implementation begins.
+5. After each task, update this file with exact files/ref/findings/verdict and advance the pointer by exactly one task.
 6. At Slice 1.1 completion, update the canonical implementation plan with the slice's source-backed interface map, findings, exact evidence, status `COMPLETE`, and NEXT pointer to Slice 1.2.
