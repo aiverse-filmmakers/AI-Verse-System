@@ -27,58 +27,86 @@ When relevant owner-backed truth exists, it may include `purpose`, `goals`, `pri
 
 ## Task 3 — rich workspace optional fields — FROZEN
 
-The richer workspace profile is conceptually `workspace_rich`. It is an additive **read profile over the same v1 envelope**, not a different schema and not a “corporate mode” subsystem.
+The richer workspace profile is conceptually `workspace_rich`. It is an additive read profile over the same v1 envelope, not a different schema or corporate subsystem.
 
-### Rich profile may activate
+It may activate `narratives`, `kpis`, `risks`, richer `constraints`, richer `current_state`, richer `recent_material_changes`, and more secondary trajectory context when canonical owner evidence exists and budget permits.
 
-In addition to the `workspace_basic` sections, `workspace_rich` may request/employ these already-frozen optional sections when canonical owner evidence exists:
+KPI values require explicit Data/current-truth bindings. Risks require owner-backed records or frozen deterministic derivation. V1 does not silently add first-class top-level `team`, `resources`, `customers`, `infrastructure`, or `budget` fields; those require a legitimate existing v1 representation or later contract extension.
 
-- `narratives`
-- `kpis`
-- `risks`
-- richer `constraints`
-- richer `current_state`
-- `recent_material_changes` with operational/strategic effects
+Selecting rich only broadens the eligible read set. It never requires every eligible section to appear.
 
-It may also retain more secondary trajectory branches/context attachments within the same byte budget where relevance and ranking justify them.
+## Task 4 — auto-detection rules — FROZEN
 
-### KPI rule
+The normal caller profile request is conceptually one of:
 
-A rich workspace does not gain KPIs merely because it is “business-like.” A KPI appears only when:
+```text
+auto | basic | rich
+```
 
-1. the strategic definition/target is owner-backed; and
-2. any `current_value` has an explicit current-truth binding to Data or another declared current-truth owner.
+Operator scope resolves to `operator_default`; `basic`/`rich` workspace labels do not apply to `operator`.
 
-No field scanning, guessed metric matching, or query-time freshness inference is allowed.
+### Workspace `auto` algorithm
 
-### Risk rule
+For `workspace:<id>`, auto-detection is deterministic and conservative:
 
-Risks appear only when owner-backed risk records or a frozen deterministic derivation with evidence exists. Purpose does not generate a speculative risk register to make a workspace look complete.
+1. begin with `workspace_basic`;
+2. inspect only already-authorized owner metadata/read capabilities for the exact workspace;
+3. consider the current request/relevance need;
+4. resolve to `workspace_rich` only when at least one rich-only information domain is both **owner-backed and relevant/requested**, such as:
+   - an explicit strategic KPI definition with a valid current-truth binding;
+   - owner-backed risks;
+   - owner-backed narrative/context needed for the decision;
+   - structured current-state evidence beyond the basic trajectory;
+   - material-change evidence whose richer context is needed for the task;
+5. otherwise remain `workspace_basic`.
 
-### Team/resources/customers/infrastructure/budget
+### Insufficient signals
 
-These are useful Telos/corporate concepts but are **not first-class top-level sections in the frozen v1 envelope**.
+None of these is sufficient by itself to choose `workspace_rich`:
 
-Therefore v1 MUST NOT silently add new top-level `team`, `resources`, `customers`, `infrastructure`, or `budget` fields merely because `workspace_rich` is selected.
+- workspace type being `product`, `business`, `client`, `team`, or similar;
+- workspace name/title;
+- free-text `purpose` description alone;
+- number of files/messages;
+- age of the workspace;
+- perceived importance;
+- model judgment that the workspace “looks corporate”;
+- unused token budget.
 
-They may be surfaced only when one of these is true:
+Workspace type may help determine relevance after an owner-backed rich domain is present, but never creates that domain.
 
-- an existing frozen v1 section legitimately represents that owner-backed fact without semantic distortion (for example a bounded `current_state` item); or
-- a later backward-compatible contract revision explicitly adds a typed optional field/section.
+### Explicit caller profile
 
-If neither is true, the information stays outside Purpose v1 rather than being squeezed into the wrong semantic field.
+- `basic` forces the eligible read set to `workspace_basic`, while still preserving required truth-state/provenance diagnostics.
+- `rich` permits the `workspace_rich` eligible read set, but still cannot fabricate unavailable fields or bypass owner scope/authority.
+- `auto` uses the deterministic algorithm above.
+- An unsupported profile token fails validation; it does not silently map to `auto`.
 
-### Richness is optional, not a maturity score
+### Availability and failure behavior
 
-- `workspace_rich` does not mean the workspace is more important, mature, or “better.”
-- A product/company/client/team workspace may still correctly remain `workspace_basic`.
-- A small workspace may expose a KPI or risk without becoming a giant corporate projection.
-- Rich profile never creates empty sections to satisfy a template.
-- The same isolation, owner authority, provenance, freshness, graph and budget laws apply unchanged.
+- If rich evidence is not available, `auto` stays basic rather than probing unrelated/private storage.
+- If the user's request specifically requires a rich domain (for example “how are our KPIs doing?”) and its declared owner read is unavailable, the projection reports that domain as unavailable/unknown under the envelope truth-state rules rather than downgrading the question into a misleading basic answer.
+- Auto-detection never crosses into another workspace to find richer evidence.
 
-### Anti-bloat rule
+### Determinism and provenance
 
-Selecting `workspace_rich` only broadens the **eligible read set**. It does not require all eligible sections to be emitted. Relevance, canonical availability and byte budget still decide what appears.
+The projection SHOULD expose non-authoritative profile diagnostics in provenance, equivalent to:
+
+```yaml
+profile:
+  requested: auto
+  resolved: workspace_basic | workspace_rich
+  reasons:
+    - <stable reason code>
+```
+
+Stable example reason codes include `operator_scope`, `workspace_default_basic`, `relevant_kpi_binding_present`, `relevant_risk_domain_present`, `relevant_rich_current_state_present`, and `explicit_profile_request`.
+
+Given the same scope, caller profile request, relevance request, owner capability/results and contract version, profile resolution MUST be deterministic. Budget pruning may reduce emitted richness after selection, but it does not retroactively change the resolved profile.
+
+### No persisted profile assumption yet
+
+Task 4 does not assume a `WORKSPACE.yaml` profile setting exists. Task 5 separately decides whether such metadata is justified. Auto-detection must work without it.
 
 ---
 
@@ -87,7 +115,7 @@ Selecting `workspace_rich` only broadens the **eligible read set**. It does not 
 1. [x] operator default shape
 2. [x] workspace default/basic shape
 3. [x] rich workspace optional fields
-4. [ ] auto-detection rules
+4. [x] auto-detection rules
 5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
 6. [ ] disabled/irrelevant behavior
 7. [ ] explicit cross-scope relationship rules
