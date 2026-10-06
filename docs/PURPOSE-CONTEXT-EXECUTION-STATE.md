@@ -15,9 +15,9 @@
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1
 - **Audited Brain ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`
-- **Completed in Slice 1.2:** Tasks 1-4
-- **NEXT task:** **Slice 1.2 / Task 5 — audit direction ownership integration**
-- **Do not start Task 6 until Task 5 is complete and recorded here.**
+- **Completed in Slice 1.2:** Tasks 1-5
+- **NEXT task:** **Slice 1.2 / Task 6 — audit source/evidence refs**
+- **Do not start Task 7 until Task 6 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 is audit-only.
 
 ### Important continuation note
@@ -65,7 +65,7 @@ Audit Brain in this exact order:
 2. [x] intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics
 3. [x] goal API
 4. [x] direction service
-5. [ ] direction ownership integration
+5. [x] direction ownership integration
 6. [ ] source/evidence refs
 7. [ ] supersession/versioning
 8. [ ] query/list/read surfaces
@@ -85,8 +85,7 @@ Audit Brain in this exact order:
 
 ## Slice 1.2 / Task 2 — strategic object semantics
 
-**Status:** COMPLETE  
-**Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
+**Status:** COMPLETE
 
 - `intent` is owner-backed strategic direction when Brain owns direction; subtypes are `desired_state`, `goal`, `boundary`, `constraint`, `success_definition`.
 - Brain onboarding creates strategic intents only from explicit user answers and only while Brain owns direction.
@@ -96,48 +95,52 @@ Audit Brain in this exact order:
 - `opportunity` is a hypothesis for reducing active gaps with confidence, ranking, dedupe and cooldown.
 - `initiative` is a proposal/portfolio object traceable to a qualified opportunity and active gaps and remains separate from acceptance.
 - `strategy_rule` is a learned operating rule in Brain self-improvement, not a general business/project strategy object. Telos `Strategy` must not be mapped directly to `strategy_rule`.
-- Current strategic semantics are split between durable direction intent and Direction/Action execution; Purpose must preserve those distinctions.
 
 ## Slice 1.2 / Task 3 — Goal API
 
-**Status:** COMPLETE  
-**Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
+**Status:** COMPLETE
 
-- Brain exposes `GoalService` plus `ai-verse-brain goal` actions: `create`, `status`, `show`, `edit`, `pause`, `resume`, `block`, `complete`, `clear`, `criteria-add`, `criteria-remove`, `criteria-clear`, `evaluate`, `progress`, `continuation`.
-- Stable Goal reads are `get()` and `list()`; public output includes ID/scope/objective/status/completion contract/criteria/budget/progress/version/activation epoch/timestamps/provenance/evidence/notes/source refs.
-- Mutations are operation-ID idempotent and optimistic-version-bound where applicable; create uses deterministic scope+operation ID identity.
+- Brain exposes `GoalService` plus the public CLI actions `create`, `status`, `show`, `edit`, `pause`, `resume`, `block`, `complete`, `clear`, `criteria-add`, `criteria-remove`, `criteria-clear`, `evaluate`, `progress`, `continuation`.
+- Stable Goal reads are `get()` and `list()`.
+- Mutations are operation-ID idempotent and optimistic-version-bound where applicable.
 - Completion is deterministic and evidence-gated; model inference alone cannot pass a criterion.
 - Budget/no-progress limits block or limit continuation rather than self-declare completion.
-- `continuation_contract()` is bounded and explicitly grants no tools, scheduling, connections or permission expansion.
-- Goal API does not consult the OS/Brain direction-owner marker; Goal presence must not be used to infer strategic-direction ownership.
-- Goal has no canonical Telos-style parent/`serves` relation, so it cannot reconstruct the Purpose trajectory graph alone.
+- Goal API does not by itself establish the strategic direction owner and has no canonical Telos-style parent/`serves` relation.
 
 ## Slice 1.2 / Task 4 — DirectionService
+
+**Status:** COMPLETE
+
+- `DirectionService` implements `gap -> opportunity -> initiative` qualification/promotion and is an internal deterministic layer, not a normalized public strategic read API.
+- Active gaps are checked before opportunity qualification/promotion; duplicate/cooldown protection is deterministic and lock-backed.
+- Initiative promotion is distinct from acceptance.
+- `initiative.serves` and gap desired/current refs are persisted but not fully referentially/semantically validated as a typed graph.
+- Purpose therefore needs a stable Brain read contract that resolves/validates relationship targets rather than treating stored refs as trusted graph edges.
+
+## Slice 1.2 / Task 5 — direction ownership integration
 
 **Status:** COMPLETE  
 **Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
 
 Durable findings:
 
-- `DirectionService` is an internal deterministic persistence/qualification layer for the Direction Loop, not a general public strategic read API.
-- Its implemented path is: `create_gap()` -> `propose_opportunity()` -> `qualify_opportunity()` -> `propose_initiative()`.
-- `create_gap()` stores an `ACTIVE` gap from desired-state refs + current-state refs + interpretation under temporary-hypothesis authority. It records those refs as sources by default, but it does not itself resolve/validate the referenced desired/current objects before creation.
-- `propose_opportunity()` requires same-scope active gap objects, computes a stable fingerprint, applies eligibility/ranking, and enforces duplicate/cooldown protection under a runtime key lock. The opportunity is persisted as `DETECTED`; ineligible proposals cannot later be qualified.
-- `qualify_opportunity()` only accepts `DETECTED`/`WATCHING` opportunities whose referenced gaps remain active and whose persisted ranking is eligible.
-- `propose_initiative()` requires a `QUALIFIED` source opportunity, requires proposed gaps to be a subset of the opportunity gaps, rechecks active gaps, requires exact score-component continuity, and uses the source fingerprint/lock to prevent duplicate concurrent promotion.
-- Initiative promotion is deliberately not acceptance: the service creates `DISCOVERED`, transitions it to `PROPOSED`, and consumes the source opportunity as `PROPOSED_INITIATIVE`. User/policy acceptance remains a separate lifecycle transition.
-- Initiative `serves` refs are persisted but **not referentially validated by DirectionService**. The schema requires non-empty strings, but the service does not prove target kind, existence, status, or scope for each `serves` ref. Purpose v1 must therefore resolve and validate trajectory targets before presenting those refs as trustworthy graph edges.
-- Gap desired/current refs similarly remain source references rather than a fully enforced typed graph. Purpose cannot equate “stored ref” with “validated semantic relation” without a resolver contract.
-- Gap/opportunity/initiative lifecycle transitions outside the four DirectionService methods are handled by the generic controller/state machine; initiative capacity and completion evidence gates are enforced there.
-- There is no dedicated `DirectionService` snapshot/list/read method and no CLI for reading a normalized strategic direction chain. Existing code reads the object store internally. This strongly supports the implementation plan's Phase 3 requirement for a new stable Brain strategic snapshot/read contract instead of OS parsing Brain private storage.
-- DirectionService gives Purpose useful canonical pieces (`gap`, qualified opportunity provenance, `initiative.serves`, source refs), but it does not yet provide the typed, validated, read-only trajectory projection Purpose needs.
+- Brain and OS share one explicit durable owner marker at `.aiverse/direction/ownership.json`; in native mode absence of a scope record means OS owns direction, while standalone Brain owns direction by definition.
+- `DirectionOwnershipService` is the canonical Brain-side integration boundary for owner status, OS→Brain handover, Brain→OS handback, recovery and generated reference views.
+- OS→Brain handover is explicit (`--apply --confirm-import`), imports bounded OS strategic candidates with exact source path + SHA-256 provenance, creates Brain intents as `PROPOSED`, writes owner=`brain` with state=`activating`, then confirms those intents and finalizes state=`active`.
+- The activating state is deliberately recoverable/idempotent: rerunning the handover resumes only that scope while registry-wide locking protects concurrent scope updates.
+- Brain unavailability never silently returns ownership to OS. Once the marker says Brain owns direction, OS strategic sources are frozen provenance and cannot become fallback authority.
+- Brain→OS handback is separately explicit (`--apply --confirm-export`), exports confirmed/active Brain intent first, stages only the OS strategic section, then flips owner to OS. If interrupted after export but before the flip, Brain remains owner, preventing split-brain authority.
+- Canonical Brain objects are preserved as provenance after handback; generated `.aiverse/direction/views/<scope>.md` files and handback exports are reference artifacts, not strategic owners.
+- Scope validation is enforced before ownership operations. Workspace handback additionally requires a real non-symlink workspace boundary and atomic writes stay inside the selected scope/root.
+- Purpose must query this same ownership contract before selecting strategic sources. It must never infer ownership from Brain object presence, generated files, Brain availability, Goal presence, or model judgment.
+- Purpose under Brain ownership should consume canonical Brain read APIs only; under OS ownership it should consume the ownership-aware OS current-context/strategic adapter. The projection itself never becomes an owner.
 
 Primary evidence inspected:
 
-- `engine/aiverse_brain/direction.py`
-- `engine/aiverse_brain/state_machine.py`
-- `protocol/DIRECTION-ATTENTION.md`
-- `tests/test_slice2.py`
+- `engine/aiverse_brain/direction_ownership.py`
+- `engine/aiverse_brain/controller.py`
+- `engine/aiverse_brain/onboarding.py`
+- existing OS Slice 1.1 ownership findings
 
 ### Slice 1.2 required output
 
@@ -168,7 +171,7 @@ Do not force fake one-to-one Telos mappings.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for live progress.
-3. Continue **only** with **Phase 1 / Slice 1.2 / Task 5 — audit direction ownership integration**.
+3. Continue **only** with **Phase 1 / Slice 1.2 / Task 6 — audit source/evidence refs**.
 4. Continue against exact Brain ref `7c77b053df627e61b3d7f11d029500ab61095c9c` unless a deliberate re-audit is started on a newer descendant.
-5. After Task 5, update this file before Task 6.
+5. After Task 6, update this file before Task 7.
 6. At Slice 1.2 completion, create/record a Brain audit closure and advance to Slice 1.3.
