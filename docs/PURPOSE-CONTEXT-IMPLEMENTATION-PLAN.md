@@ -347,7 +347,7 @@ Do not jump directly to Dashboard/UI or a giant end-to-end implementation. Build
 
 ## Slice 0.1 - Create canonical implementation plan
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** repaired Core baseline admitted
 
@@ -373,7 +373,9 @@ Do not jump directly to Dashboard/UI or a giant end-to-end implementation. Build
 
 ### Evidence
 
-- initial plan commit: `<record after creation>`
+- initial plan commit: `63ae95ab101ab693ed368ba474fec7915a831a81`
+- merged planning PR: `#189`
+- merge commit: `b0b4a356ee33d86161e4ec9b3a6f9ed95b958c8e`
 - canonical path: `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`
 
 ### NEXT
@@ -1367,5 +1369,5 @@ Do not:
 
 # Current execution pointer
 
-**CURRENT:** Slice 0.1 - Create canonical implementation plan.  
-**NEXT AFTER PLAN IS ACCEPTED:** Slice 1.1 - Fresh audit of current OS scope/current-context/workspace/direction-owner contracts.
+**CURRENT:** Slice 1.1 - Fresh audit of current OS scope/current-context/workspace/direction-owner contracts.  
+**NEXT:** Slice 1.2 - Audit Brain strategic model and read surfaces.
