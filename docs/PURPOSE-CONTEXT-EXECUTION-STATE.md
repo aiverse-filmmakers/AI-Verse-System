@@ -11,9 +11,9 @@
 - **Current slice:** **2.3 — Operator and workspace profile rules**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2
-- **Completed Slice 2.3 tasks:** 1–2 of 7
-- **NEXT:** **Slice 2.3 / Task 3 — freeze rich workspace optional fields**
-- Do not start Task 4 until Task 3 is complete and recorded here.
+- **Completed Slice 2.3 tasks:** 1–3 of 7
+- **NEXT:** **Slice 2.3 / Task 4 — freeze auto-detection rules**
+- Do not start Task 5 until Task 4 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -29,8 +29,8 @@ Contracts:
 ## Slice 2.3 progress
 
 1. [x] operator default shape — sparse global/operator projection; no implicit all-workspace aggregation. `29f23e7173f0fdcafee8bb33f2829ffb37d0a988`
-2. [x] workspace basic shape — exact workspace shell plus purpose/goals/priorities/challenges/strategies/initiatives/current work/trajectory when evidence exists; no forced corporate bureaucracy; tiny/orphan workspaces remain valid. `9a2d9e776fe1f1c680af266dcba35c5502b9702e`
-3. [ ] rich workspace optional fields
+2. [x] workspace basic shape — exact workspace shell + bounded basic strategic/current-work trajectory; no forced corporate bureaucracy. `9a2d9e776fe1f1c680af266dcba35c5502b9702e`
+3. [x] rich workspace fields — additive read profile over same v1 schema; may activate narratives/KPIs/risks/richer constraints/current-state/material changes when owner-backed; no invented top-level team/resources/customers/infrastructure/budget fields in v1. `c25e0bf8e6a209491aeba34be258acbd810cf034`
 4. [ ] auto-detection rules
 5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
 6. [ ] disabled/irrelevant behavior
@@ -47,4 +47,4 @@ Contracts:
 
 ## Resume instructions
 
-Continue only with **Slice 2.3 / Task 3 — rich workspace optional fields**, then persist this file before Task 4.
+Continue only with **Slice 2.3 / Task 4 — auto-detection rules**, then persist this file before Task 5.
