@@ -14,8 +14,8 @@
 - **Current slice:** **2.1 — Versioned envelope schema**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3
-- **NEXT task:** **Slice 2.1 / Task 3 — freeze required vs optional fields**
-- **Do not start Task 4 until Task 3 is complete and recorded here.**
+- **NEXT task:** **Slice 2.1 / Task 4 — freeze provenance format**
+- **Do not start Task 5 until Task 4 is complete and recorded here.**
 - Phase 1 owner/interface audit is complete.
 - No Purpose Context behavior/code has been implemented yet.
 - Slice 2.1 contract path: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
@@ -131,7 +131,7 @@ Freeze in this exact order:
 
 1. [x] `schema_version` — frozen as required string `"1.0"`; unsupported major versions fail closed; breaking semantics require a major bump. Contract commit: `3cf8c48fde4950ac69ff30e11e22d308210fab43`.
 2. [x] supported scope kinds — exactly `operator` and `workspace`; workspace scope is `workspace:<id>` using canonical lowercase alnum/hyphen IDs up to 128 chars; no implicit all-workspace/global scope. Contract commit: `95ba626b02de0c7d62a16060d1c228eeaa1548ed`.
-3. [ ] required vs optional fields
+3. [x] required vs optional fields — required envelope fields are `schema_version`, `scope`, `scope_kind`, `identity`, `provenance`; semantic sections are relevance-driven optional projections; absence is not equivalent to unknown/unavailable/empty. Contract commit: `2a17d8fbfefc8699685af831150f40a453a0d2ce`.
 4. [ ] provenance format
 5. [ ] freshness format
 6. [ ] canonical ref format
@@ -155,6 +155,6 @@ Slice 2.1 acceptance requirements:
 2. Read this file for the authoritative live pointer.
 3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md` for the currently frozen Slice 2.1 contract.
 4. Read Slice 1.1/1.2/1.3 audit documents only when detailed owner evidence is needed.
-5. Continue **only** with **Phase 2 / Slice 2.1 / Task 3 — freeze required vs optional fields**.
+5. Continue **only** with **Phase 2 / Slice 2.1 / Task 4 — freeze provenance format**.
 6. Phase 2 is a contract-freeze phase: update System contract/docs first; do not begin owner implementation code before the relevant contract tasks are complete.
-7. Persist the execution-state document after Task 3 before Task 4.
+7. Persist the execution-state document after Task 4 before Task 5.
