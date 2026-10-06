@@ -12,10 +12,12 @@
 
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Current slice:** **1.3 — Audit Data, Memory, runtime, and Dashboard integration surfaces**
-- **Slice state:** NOT STARTED
+- **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2
-- **NEXT task:** **Slice 1.3 / Task 1 — audit Data current KPI values and operational truth read interfaces**
-- **Do not start Task 2 until Task 1 is complete and recorded here.**
+- **Audited Data ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`
+- **Completed in Slice 1.3:** Task 1
+- **NEXT task:** **Slice 1.3 / Task 2 — audit Data freshness/provenance metadata**
+- **Do not start Task 3 until Task 2 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 remains audit-only.
 
 ---
@@ -91,12 +93,38 @@ Carried Brain repair requirement:
 
 Audit in this exact order:
 
-1. [ ] Data current KPI values and operational truth
+1. [x] Data current KPI values and operational truth
 2. [ ] Data freshness/provenance metadata
 3. [ ] Memory recent changes/history/provenance queries
 4. [ ] runtime/context-ladder injection points
 5. [ ] Dashboard read/write boundaries
 6. [ ] exact workspace scoping behavior in each component
+
+## Slice 1.3 / Task 1 — Data current KPI values and operational truth
+
+**Status:** COMPLETE  
+**Audited ref:** `aiverse-filmmakers/AI-Verse-Data@6e8781ff1dcd96a35dfb27868bd60605361483d0`  
+**Data `main` at audit:** same exact repaired Core ref.
+
+Durable findings:
+
+- Data already exposes stable public package surfaces including `@ai-verse/data/client`, `@ai-verse/data/query`, `@ai-verse/data/provenance`, and the deliberately read-only `@ai-verse/data/brain` adapter.
+- `createBrainDataAdapter(client)` is explicitly designed to answer bounded structured-data questions without copying Data into Brain state. It exposes record get/list, bounded query, aggregates, space/schema reads, provenance events/receipts and health reads, with no mutation surface.
+- Data records are canonical current structured truth with `spaceId`, `entity`, `recordId`, `schemaVersion`, optimistic `version`, typed `data`, `createdAt`, `updatedAt`, actor fields and soft-delete metadata.
+- KPI/current metric values do **not** need a dedicated Data KPI subsystem. Existing records plus bounded `query.ask()` / aggregate `query.summarize()` can provide current values when an application schema actually stores the metric or the metric is deterministically aggregatable.
+- Data must not guess KPI meaning by scanning arbitrary entities/fields. Purpose needs an owner-backed binding from a strategic KPI definition to a declared Data source/query (for example space/entity/field/filter/aggregate); without that binding, the current value is unavailable rather than inferred.
+- Strategic KPI definitions/targets remain Brain/active-direction-owner truth. Data supplies only the current operational value/evidence for explicitly mapped metrics.
+- Purpose should consume a public Data client/read adapter and never inspect SQLite tables or Data private storage directly.
+- The existing Brain adapter is a strong precedent and may be reusable directly by the Purpose composition path if the host can construct an appropriately authorized Data client; Phase 2/5 should decide whether a very small Purpose-specific wrapper is needed for typed KPI bindings, not invent a second query engine.
+- Brain adapter authorization is host-issued: the OS/host must authorize the complete read scope before constructing the client. Purpose must not treat capability refs as a second policy engine.
+
+Primary evidence inspected:
+
+- `package.json`
+- `src/brain/adapter.ts`
+- `docs/BRAIN-DATA-ADAPTER-V0.1.md`
+- `src/protocol/types.ts`
+- `src/records/types.ts`
 
 ### Slice 1.3 acceptance criteria
 
@@ -110,7 +138,7 @@ Audit in this exact order:
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for the live pointer.
-3. Read `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md` and `docs/PURPOSE-CONTEXT-SLICE-1.2-AUDIT.md` only when their detailed evidence/decisions are needed.
-4. Continue **only** with **Phase 1 / Slice 1.3 / Task 1 — audit Data current KPI values and operational truth read interfaces**.
-5. Start from the repaired Data baseline `6e8781ff1dcd96a35dfb27868bd60605361483d0` unless fresh inspection proves current `main` is a deliberate descendant; record the exact ref actually audited.
-6. After Task 1, update this file before Task 2.
+3. Read completed slice audit files only when their detailed evidence/decisions are needed.
+4. Continue **only** with **Phase 1 / Slice 1.3 / Task 2 — audit Data freshness/provenance metadata**.
+5. Continue against exact Data ref `6e8781ff1dcd96a35dfb27868bd60605361483d0` unless a deliberate re-audit is started on a newer descendant.
+6. After Task 2, update this file before Task 3.
