@@ -14,9 +14,9 @@
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Slice:** 1.1 — Audit current OS scope, current-context, workspace, and direction-owner contracts
 - **Slice state:** IN PROGRESS
-- **Completed tasks:** 8 / 10
-- **NEXT task:** **Task 9 — audit current context-ladder/relevance surfaces if OS owns them**
-- **Do not start Task 10 until Task 9 is completed and persisted here.**
+- **Completed tasks:** 9 / 10
+- **NEXT task:** **Task 10 — audit tests and CI touching direction/current-context/workspaces**
+- **Do not begin Slice 1.2 until Task 10 is completed, persisted here, and Slice 1.1 is closed in the canonical plan.**
 - No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit-only.
 
 ## Slice 1.1 checklist
@@ -29,7 +29,7 @@
 6. [x] OS-owned strategic files/sections
 7. [x] Brain-owned generated direction views
 8. [x] write assertions and handover/handback behavior
-9. [ ] current context-ladder/relevance surfaces if OS owns them
+9. [x] current context-ladder/relevance surfaces if OS owns them
 10. [ ] tests and CI touching direction/current-context/workspaces
 
 ---
@@ -37,121 +37,129 @@
 # Completed task evidence
 
 ## Task 1 — scope validation — COMPLETE
-
-**Repo/ref:** `aiverse-filmmakers/AI-Verse-OS@e74a4e05b1f891e6f871f34a298bf10363a11d88`  
 **Files:** `scripts/direction-owner-core.mjs`, `scripts/current-context.mjs`, `scripts/workspace-owner.mjs`, `scripts/test-direction-owner.mjs`, `system/schemas/workspace.schema.yaml`
-
-- Canonical strategic scopes are exactly `operator` and `workspace:<id>`.
-- Runtime strategic workspace IDs use lowercase alphanumeric/hyphen form, max 128 chars.
-- Current-context validates scope before physical resolution.
-- Existing tests reject underscore/dot strategic workspace forms.
-- Finding: workspace manifest schema has compatible character pattern but lacks runtime `maxLength: 128`.
-
-**Decision:** reuse the existing strategic scope contract; no Purpose-specific scope language.  
+- Scopes: `operator` or `workspace:<id>`; strategic workspace IDs are lowercase alphanumeric/hyphen, max 128 chars.
+- Finding: workspace schema lacks runtime `maxLength: 128`.
+**Decision:** reuse canonical strategic scope contract.  
 **Verdict:** PASS with bounded schema-consistency finding.
 
 ## Task 2 — workspace isolation — COMPLETE
-
 **Files:** `scripts/current-context.mjs`, `scripts/workspace-owner.mjs`, `scripts/test-workspace-owner.mjs`
-
-- Exact physical workspace slots are enforced; symlink/path escapes fail closed.
-- Manifest/current-context/provenance reads/writes stay inside the owning workspace.
-- Automatic organization cannot grant permissions, Connections, credentials, Automations, or permanent Bots.
-- Tests prove one workspace's creation/evolution leaves unrelated workspace state unchanged.
-
-**Decision:** Purpose for `workspace:X` reads exact validated scope X only, plus declared owner APIs already scoped to X. Never use workspace-owner name matching as a Purpose read resolver.  
+- Exact physical slots, containment and symlink protections fail closed.
+- Tests prove unrelated workspace state remains untouched.
+**Decision:** Purpose reads exact validated workspace scope only; no name-matching read resolver.  
 **Verdict:** PASS.
 
 ## Task 3 — `WORKSPACE.yaml` schema/extension rules — COMPLETE
-
 **Files:** `system/schemas/workspace.schema.yaml`, `workspaces/_template/WORKSPACE.yaml`, `workspaces/README.md`, `scripts/workspace-owner.mjs`, `scripts/test-workspace-owner.mjs`
-
-- Manifest is required and intentionally extensible (`additionalProperties: true`).
-- Required core fields: schema version, id, name, type, status, purpose; type is free-form.
-- Existing optional fields already cover identity/routing/approval/capability metadata.
-- Sparse workspace structure is intentional; unknown/manual fields are preserved.
-
-**Decision:** no mandatory `purpose_context` manifest field in v1. Use exact scope + owner auto-discovery.  
+- Manifest is required and intentionally extensible; workspace structure is sparse by design.
+**Decision:** no mandatory `purpose_context` field in v1; exact scope + owner auto-discovery.  
 **Verdict:** PASS.
 
 ## Task 4 — current-context resolver — COMPLETE
-
 **Files:** `scripts/current-context.mjs`, `scripts/test-current-context.mjs`, `scripts/direction-owner-core.mjs`
-
-- Safe read: `node scripts/current-context.mjs read --root <root> --scope <operator|workspace:id>`.
-- OS-owned mode returns scoped current context as OS-canonical.
-- Brain-owned mode strips stale OS strategy/arbitrary preamble and retains bounded operational sections.
-- Missing Brain evidence is `unavailable`; never fallback to stale OS strategy.
-- Scope/path/symlink boundaries and malformed owner state fail closed.
-
-**Decision:** Purpose consumes this owner-aware boundary; no raw `CURRENT.md` bypass for active current-state resolution.  
+- Safe read: `node scripts/current-context.mjs read --root <root> --scope <scope>`.
+- OS-owned returns OS-canonical context; Brain-owned removes stale OS strategy and keeps bounded operational state.
+- Missing Brain evidence stays unavailable; no stale fallback.
+**Decision:** Purpose uses this boundary, never raw current context as a bypass.  
 **Verdict:** PASS.
 
 ## Task 5 — strategic direction ownership marker — COMPLETE
-
 **Files:** `scripts/direction-owner-core.mjs`, `scripts/direction-owner.mjs`, `system/architecture/direction-ownership.md`, `scripts/test-direction-owner.mjs`
-
-- Canonical coordination state: `.aiverse/direction/ownership.json`, schema v1, per exact scope, owner `os|brain`.
-- `direction-owner.mjs status` is the owner read boundary; `assert-strategic-write` blocks OS strategy writes when Brain owns the scope, even if Brain is offline.
-- Handover/handback must be explicit; malformed state fails closed.
-- Finding: low-level absence of a marker cannot independently prove there was never a historical handover; Purpose must not invent heuristic ownership recovery.
-
-**Decision:** owner marker/CLI is Purpose's sole strategic-owner selector; ownership metadata is coordination, not strategic content.  
-**Verdict:** PASS with marker-durability observation.
+- Canonical coordination state is `.aiverse/direction/ownership.json`, per exact scope, owner `os|brain`.
+- Strategic OS writes are blocked under Brain ownership even when Brain is offline.
+- Finding: missing marker cannot itself prove no historical handover; Purpose must not invent heuristic recovery.
+**Decision:** marker/CLI is sole strategic-owner selector; record metadata is coordination, not strategic truth.  
+**Verdict:** PASS with durability observation.
 
 ## Task 6 — OS-owned strategic files/sections — COMPLETE
-
 **Files:** `operator/profile/README.md`, `operator/profile/goals.example.md`, `operator/context/CURRENT.example.md`, `workspaces/_template/context/CURRENT.md`, `system/architecture/direction-ownership.md`, `system/architecture/source-of-truth.md`, `scripts/current-context.mjs`, `scripts/operator-profile-owner.mjs`
-
-- OS-owned operator cross-workspace medium-term goals conceptually live in `operator/profile/goals.md`.
-- Operator current strategic emphasis is `## Current priorities` in operator current context.
-- Workspace strategic direction is `## Objective` in workspace current context.
-- `operator-profile-owner.mjs` manages identity/preferences, not strategic goals.
-- OS strategy is currently document/section based rather than normalized objects.
-
-**Decision:** Purpose may consume only bounded OS strategic sources while OS owns direction; Phase 2/4 must define a deterministic OS strategic projection/parser rather than arbitrary Markdown scraping.  
+- Operator cross-workspace goals conceptually live in `operator/profile/goals.md`; operator current emphasis is `## Current priorities`; workspace direction is `## Objective`.
+- OS strategy is Markdown/section based, not normalized objects.
+**Decision:** define bounded deterministic OS strategic adapter/projection in Phase 2/4; no arbitrary Markdown scraping.  
 **Verdict:** PASS with implementation requirement.
 
 ## Task 7 — Brain-owned generated direction views — COMPLETE
-
 **Files:** `scripts/current-context.mjs`, `scripts/test-current-context.mjs`, `system/architecture/direction-ownership.md`, `system/architecture/source-of-truth.md`, `.gitignore`
-
-- Generated reference view lives under `.aiverse/direction/views/<scope>.md` and is gitignored local state.
-- It is a derived display/reference projection; Brain intent remains canonical.
-- Current-context validates non-symlink/containment and exposes view path/status, not canonicalized view-body facts.
-- Missing/invalid views never revive OS strategy.
-
-**Decision:** Purpose must prefer Brain canonical read APIs (to be audited in Slice 1.2); view path/status and Brain refs may be provenance/display metadata only.  
+- `.aiverse/direction/views/<scope>.md` is a derived reference/display artifact, not canonical Brain truth.
+- Missing/invalid view never revives OS strategy.
+**Decision:** Purpose prefers Brain canonical read APIs; view path/status + Brain refs are provenance/display metadata only.  
 **Verdict:** PASS.
 
 ## Task 8 — write assertions and handover/handback behavior — COMPLETE
-
 **Files:** `scripts/direction-owner.mjs`, `scripts/test-direction-owner.mjs`, `system/architecture/direction-ownership.md`, `system/architecture/write-command-boundary.md`, `scripts/write-command.mjs`, `system/capabilities/onboard/SKILL.md`, `system/capabilities/workspace/SKILL.md`, `system/capabilities/level-up/SKILL.md`, `.github/workflows/direction-owner.yml`
+- Onboard/workspace/level-up strategic changes all require the direction-owner write assertion.
+- Brain ownership blocks OS strategic writes independent of Brain availability.
+- Handover to Brain and handback to OS are explicit, confirmation-bound and interruption-safe around the atomic ownership flip.
+- Generic `write-command` currently routes only unclassified inbox candidates and is not a strategic mutation API.
+- Finding: generic `write-command.mjs` allows a broader workspace scope syntax (`.`/`_`) than strategic direction scope validation; never reuse it as Purpose strategic validation.
+**Decision:** Purpose P1/P2 read-only; later strategic writes route through the canonical owner's explicit mutation/confirmation contract.  
+**Verdict:** PASS with bounded generic-write scope mismatch.
 
-### Findings
+## Task 9 — current context-ladder/relevance surfaces — COMPLETE
 
-- Strategic OS writes are guarded by `direction-owner.mjs assert-strategic-write --scope ...`; Brain ownership blocks them even if Brain runtime/process is unavailable.
-- Onboarding gates operator goal/priority/success-definition writes and only permits `operator/profile/goals.md` when the strategic assertion succeeds.
-- Workspace capability gates objective/current-outcome/success-definition changes and forbids parallel editable OS objectives under Brain ownership.
-- Level-up gates any goal/priority/objective/success-definition or equivalent strategic change and explicitly permits operational-method improvement without silently editing Brain-owned direction.
-- Handover to Brain is explicit: dry-run first; apply requires explicit import confirmation. OS strategic source paths/hashes are preserved, Brain intent is staged, ownership flips atomically, imported intents are confirmed, and a generated view is emitted.
-- Before the ownership flip OS remains owner; after it Brain remains owner and interruption is resumable. There is no automatic return to OS.
-- Handback to OS is explicit export-and-transfer. Brain direction is exported with provenance, only the standard OS strategic section is staged, ownership is rechecked, and the marker flips atomically to OS. The OS strategic section is written before the flip, so an interrupted handback remains Brain-owned and the current-context resolver continues filtering staged OS strategy.
-- `scripts/test-direction-owner.mjs` proves OS-owned writes pass, Brain-owned writes fail, Brain disappearance does not restore OS write authority, explicit handback restores authority, ownership is per-scope, and malformed owner state fails closed.
-- Generic `write-command` is **not** a strategic mutation API. The public-beta canonical handler only routes candidates into OS inbox state and explicitly does not promote into current context or Brain goals/strategy. Purpose mutation work in Phase 8 must route to the actual strategic owner, not through a generic file/write primitive.
-- **Bounded consistency finding:** generic `write-command.mjs` accepts a broader workspace scope regex allowing `.` and `_`, while the strategic direction scope contract allows only the hyphen form. This is harmless for the current inbox transport but must not be reused as the strategic-scope validator for Purpose mutation.
+**Files:** `AGENTS.md`, `AI-VERSE.yaml`, `system/architecture/README.md`, `system/architecture/source-of-truth.md`, `scripts/current-context.mjs`
+
+### Existing OS relevance/context ladder
+
+`AI-VERSE.yaml` already defines the routing order:
+
+```text
+identify_intent
+-> identify_scope
+-> resolve_direction_owner
+-> load_resolved_current_context
+-> choose_capability
+-> retrieve_minimum_required_knowledge
+-> resolve_connections
+-> execute
+-> validate
+-> write_back_only_when_warranted
+```
+
+`AGENTS.md` makes this progressive-disclosure behavior explicit:
+
+- operator current context is resolved only **when it matters**;
+- when a request belongs to a workspace, read that exact workspace manifest and resolved current context before deeper retrieval;
+- load only task-relevant enabled extension instructions;
+- choose the smallest relevant capability/script;
+- retrieve only the knowledge, memory, assets and connected data needed for the task;
+- do not load the entire OS merely because it exists;
+- current scoped context outranks older memory for current-state questions.
+
+The Unified Workspace Architecture separately requires current context to remain smaller/more current than long-term memory and forbids unrelated workspace material from polluting another workspace.
+
+### Purpose Context integration implication
+
+There is **no existing Purpose Context hook at this baseline**, which is expected because the feature is not implemented yet. Phase 7 should extend the existing ladder rather than create a parallel retrieval architecture.
+
+The preferred semantic position is:
+
+```text
+identify intent/scope
+-> resolve direction owner
+-> load resolved current context
+-> if strategic relevance gate passes: load bounded Purpose Context
+-> choose capability / retrieve deeper evidence only as needed
+```
+
+The exact runtime insertion point remains a Phase 7 implementation decision after the P1 composer exists, but the non-negotiable behavior is already clear: Purpose is **conditional**, scope-bound and budgeted, never globally/always loaded.
+
+### Anti-bloat requirements confirmed by existing OS architecture
+
+- trivial/local execution tasks should incur zero Purpose reads;
+- planning, prioritization, trajectory, goal-conflict and “why/what next?” tasks are candidates for Purpose;
+- exact current owner evidence remains available for precision-sensitive claims;
+- deeper Memory/Knowledge/Data retrieval remains demand-driven rather than bundled wholesale into Purpose;
+- workspace Purpose must not widen the selected scope.
 
 ### Purpose Context decision
 
-- P1/P2 Purpose remains read-only.
-- Later strategic mutation proposals must resolve the strategic owner first and call that owner's explicit mutation/confirmation contract.
-- No Purpose code may edit OS strategic files directly or use generated views as writable state.
-- Generic OS write-command transport may only be used if a future owner-specific registered handler deliberately supports the operation with the same strategic ownership gate; current public-beta `candidate.route` does not.
-- Preserve interruption safety: a partially staged handover/handback must never create two active strategic owners.
+Integrate Purpose into the existing progressive-disclosure/context ladder as a conditional strategic projection. Do not create a second generic retrieval stack or alter the rule that the smallest relevant context wins.
 
 ### Verdict
 
-**PASS with one bounded generic-write scope mismatch carried forward.** Existing strategic ownership/write behavior is suitable for Purpose so long as Purpose does not bypass the owner-specific gate.
+**PASS.** The OS already has the right relevance philosophy. Purpose needs a new conditional hook later, not a replacement context architecture.
 
 ---
 
@@ -168,6 +176,7 @@
 9. Generated Brain direction views are derived/reference only.
 10. Generic `write-command` scope validation is broader than strategic direction scope validation; Purpose strategic mutation must use the canonical strategic scope contract.
 11. Current generic OS write-command handler does not perform strategic mutation; future Purpose writes must be owner-routed and confirmation-bound.
+12. Purpose has no current baseline runtime hook; Phase 7 must add a **conditional** strategic-context hook inside the existing progressive-disclosure ladder, not a parallel or always-on context system.
 
 ---
 
@@ -175,7 +184,6 @@
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` first.
 2. Read this file second.
-3. Continue only with **Phase 1 / Slice 1.1 / Task 9 — current context-ladder/relevance surfaces if OS owns them**.
-4. Do not redo Tasks 1–8 unless the audited OS ref changes before implementation.
-5. Persist Task 9 here before starting Task 10.
-6. At Slice 1.1 completion, update the canonical implementation plan with the full source-backed OS interface map, findings, exact evidence, status `COMPLETE`, and NEXT pointer to Slice 1.2.
+3. Continue only with **Phase 1 / Slice 1.1 / Task 10 — tests and CI touching direction/current-context/workspaces**.
+4. Do not redo Tasks 1–9 unless the audited OS ref changes before implementation.
+5. Persist Task 10 here, then close Slice 1.1 in the canonical implementation plan before starting Slice 1.2.
