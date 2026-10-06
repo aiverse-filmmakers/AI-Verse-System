@@ -133,12 +133,100 @@ No top-level or nested Purpose field is independently editable merely because it
 
 ---
 
+## Task 4 — provenance format — FROZEN
+
+Every Purpose Context v1 envelope MUST carry one top-level provenance object with this shape:
+
+```yaml
+provenance:
+  projection_owner: ai-verse-os
+  generated_at: 2026-10-06T20:00:00.000Z
+  owner_reads:
+    - owner: ai-verse-brain
+      operation: strategic_snapshot
+      scope: workspace:example
+      status: ok
+      observed_at: 2026-10-06T19:59:59.900Z
+      freshness: {...}
+      refs: [...]
+```
+
+### Required provenance fields
+
+`provenance.projection_owner`
+- required;
+- v1 value is exactly `ai-verse-os`;
+- identifies the component that assembled the derived projection, not the owner of the underlying truths.
+
+`provenance.generated_at`
+- required RFC 3339 / ISO-8601 UTC timestamp;
+- records when this projection instance was assembled;
+- MUST NOT be treated as evidence that any source value is fresh.
+
+`provenance.owner_reads`
+- required array;
+- contains one entry for every owner read attempted while assembling the emitted projection, including reads that were partial/unavailable/error;
+- each entry records the owner, owner operation/API, exact Purpose scope requested, read status, read observation time, freshness object, and zero or more canonical refs.
+
+### Owner-read record
+
+```yaml
+owner: ai-verse-os | ai-verse-brain | ai-verse-data | ai-verse-memory | ai-verse-gateway
+operation: <stable owner API/operation id>
+scope: operator | workspace:<id>
+status: ok | partial | unavailable | error
+observed_at: <RFC3339 UTC timestamp>
+freshness: {...}
+refs:
+  - {...canonical ref...}
+```
+
+Rules:
+
+- `status` describes whether the owner read succeeded; source age/currentness is represented separately by `freshness`.
+- `partial` means the owner intentionally returned a bounded/incomplete answer under its API contract, not that the composer guessed missing content.
+- `unavailable` means the owner/API could not provide the requested truth without implying a component fault.
+- `error` means the owner read failed unexpectedly or violated its contract; the projection may continue only when the missing material is optional and explicit unavailable/error state is retained.
+- `observed_at` is read time only, never a substitute for source freshness.
+- `refs` contains only canonical refs frozen by Task 6. Private storage paths, DB paths, credentials, raw SQL, or hidden runtime internals are forbidden provenance.
+
+### Item/claim provenance
+
+Every emitted owner-backed semantic record that makes a factual/strategic claim MUST carry non-empty `source_refs` pointing to the canonical owner records that support that claim.
+
+A generated/derived record MUST additionally carry:
+
+```yaml
+derivation:
+  rule: <stable derivation-rule id>
+  source_refs:
+    - {...canonical ref...}
+```
+
+Rules:
+
+- `derivation.rule` identifies deterministic composer logic; it is not an authority source.
+- A derived claim may summarize/combine owner truths but cannot outrank, rewrite, or create authority beyond those refs.
+- If a derived claim has no valid owner-backed inputs, it MUST NOT be emitted as authoritative Purpose content.
+- Trajectory edges and material-change effects must retain their own supporting refs; top-level provenance alone is not sufficient to make an edge authoritative.
+
+### Provenance completeness law
+
+For any emitted claim, a consumer must be able to answer both:
+
+1. which canonical owner(s) supplied the underlying truth; and
+2. which exact owner-backed record/version can be re-read to verify it.
+
+If the composer cannot preserve that path, the claim must remain unavailable/non-authoritative rather than being emitted as owner truth.
+
+---
+
 ## Slice 2.1 freeze progress
 
 1. [x] `schema_version`
 2. [x] supported scope kinds
 3. [x] required vs optional fields
-4. [ ] provenance format
+4. [x] provenance format
 5. [ ] freshness format
 6. [ ] canonical ref format
 7. [ ] deterministic ordering rules
