@@ -12,10 +12,11 @@
 
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Current slice:** **1.2 — Audit Brain strategic model and direction objects**
-- **Slice state:** NOT STARTED
+- **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1
-- **NEXT task:** **Slice 1.2 / Task 1 — audit Brain object kinds**
-- **Do not start Task 2 until Task 1 is complete and recorded here.**
+- **Audited Brain ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`
+- **NEXT task:** **Slice 1.2 / Task 2 — audit intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics**
+- **Do not start Task 3 until Task 2 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 is audit-only.
 
 ### Important continuation note
@@ -103,7 +104,7 @@ At OS SHA `e74a4e05b1f891e6f871f34a298bf10363a11d88`:
 
 Audit Brain in this exact order:
 
-1. [ ] Brain object kinds
+1. [x] Brain object kinds
 2. [ ] intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics
 3. [ ] goal API
 4. [ ] direction service
@@ -113,6 +114,27 @@ Audit Brain in this exact order:
 8. [ ] query/list/read surfaces
 9. [ ] current strategy rollback behavior
 10. [ ] tests/CI
+
+## Slice 1.2 / Task 1 — Brain object kinds
+
+**Status:** COMPLETE  
+**Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
+
+Durable findings:
+
+- `BrainObject` admits exactly 13 canonical kinds at this ref: `intent`, `practice`, `gap`, `opportunity`, `initiative`, `objective`, `goal`, `model_belief`, `evaluation`, `learning`, `learning_candidate`, `strategy_rule`, and `policy`.
+- The generic object envelope already carries exact scope, status, revision, timestamps, source refs, structured evidence refs, and `supersedes` / `superseded_by` links.
+- Strategic/Purpose-relevant kinds already present are `intent`, `gap`, `opportunity`, `initiative`, `objective`, `goal`, and `strategy_rule`; the remaining kinds provide practice/policy, evidence/evaluation, model and learning support rather than a separate Purpose store.
+- `goal` and `objective` are separate canonical kinds with separate schemas/status machines; Purpose must not collapse them by assumption.
+- There are no canonical Brain object kinds named `mission`, `problem`, `narrative`, or `challenge` at this baseline. That absence does **not** yet justify adding new kinds; Task 2 must first test whether those Telos concepts are correctly representable by existing semantics or derivation.
+- Brain scope validation matches the Core strategic scope shape: `operator` or exact `workspace:<id>` with the workspace identifier bounded to 128 characters.
+
+Primary evidence inspected:
+
+- `engine/aiverse_brain/models.py`
+- `engine/aiverse_brain/validation.py`
+- strategic payload schemas under `schemas/`
+- repository tree at exact Brain ref
 
 ### Slice 1.2 required output
 
@@ -144,7 +166,7 @@ Do not force fake one-to-one Telos mappings.
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for live progress.
 3. Read `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md` only if OS audit evidence/details are needed.
-4. Continue **only** with **Phase 1 / Slice 1.2 / Task 1 — audit Brain object kinds**.
-5. Use the current Brain baseline/ref from the implementation plan (`7c77b053df627e61b3d7f11d029500ab61095c9c`) unless fresh repo inspection proves main has advanced; record the exact ref actually audited.
-6. After Task 1, update this file before Task 2.
+4. Continue **only** with **Phase 1 / Slice 1.2 / Task 2 — audit intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics**.
+5. Continue against exact Brain ref `7c77b053df627e61b3d7f11d029500ab61095c9c` unless a deliberate re-audit is started on a newer descendant.
+6. After Task 2, update this file before Task 3.
 7. At Slice 1.2 completion, create/record a Brain audit closure and advance to Slice 1.3.
