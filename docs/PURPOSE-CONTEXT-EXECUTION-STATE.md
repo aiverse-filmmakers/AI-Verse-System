@@ -11,9 +11,9 @@
 - **Current slice:** **2.2 — Trajectory graph contract**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1
-- **Completed Slice 2.2 tasks:** 1 of 8
-- **NEXT:** **Slice 2.2 / Task 2 — freeze allowed source/target kinds**
-- Do not start Task 3 until Task 2 is complete and recorded here.
+- **Completed Slice 2.2 tasks:** 1–2 of 8
+- **NEXT:** **Slice 2.2 / Task 3 — freeze cycle behavior**
+- Do not start Task 4 until Task 3 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -24,12 +24,10 @@ Contracts:
 
 **COMPLETE / CONTRACT FROZEN** at `c784436ecaafc2f19da58782f8802247a235c1db`.
 
-Frozen envelope: schema v1.0; operator/workspace scopes; bounded required shell; provenance; freshness; canonical refs; deterministic ordering; explicit unknown/unavailable semantics; 16KB default / 4–64KB supported budgets; no unbounded lists; disposable/rebuildable projection with no canonical Purpose state.
-
 ## Slice 2.2 progress
 
-1. [x] relation vocabulary — exactly `addresses`, `serves`, `advances`, `blocks`, `executes`, `measures`, `affects`, `supersedes`; authoritative edges require canonical from/to/evidence refs; no similarity/model-inferred edges. Commit `b871db6a4849c5d76cee0181d4c890895d6fde6a`.
-2. [ ] allowed source/target kinds
+1. [x] relation vocabulary — `addresses|serves|advances|blocks|executes|measures|affects|supersedes`; evidence-backed only. `b871db6a4849c5d76cee0181d4c890895d6fde6a`
+2. [x] source/target kinds — graph kinds frozen to problem, mission, desired_outcome, goal, challenge, strategy, initiative, kpi, risk, current_work, material_change; exact allowed relation matrix frozen; deterministic owner-backed/derived node identity required. `164d57b00eaa5a5e6d942a824d68eba57fcdea18`
 3. [ ] cycle behavior
 4. [ ] missing-parent behavior
 5. [ ] supersession behavior
@@ -50,6 +48,6 @@ Frozen envelope: schema v1.0; operator/workspace scopes; bounded required shell;
 
 1. Read plan.
 2. Read this file.
-3. Read both frozen/active contract docs above.
-4. Continue only with **Slice 2.2 / Task 2 — allowed source/target kinds**.
-5. Persist this file after Task 2 before Task 3.
+3. Read both contract docs.
+4. Continue only with **Slice 2.2 / Task 3 — cycle behavior**.
+5. Persist this file after Task 3 before Task 4.
