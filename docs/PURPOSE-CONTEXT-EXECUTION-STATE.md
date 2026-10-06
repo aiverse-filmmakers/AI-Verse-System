@@ -11,9 +11,9 @@
 - **Current slice:** **2.2 — Trajectory graph contract**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1
-- **Completed Slice 2.2 tasks:** 1–2 of 8
-- **NEXT:** **Slice 2.2 / Task 3 — freeze cycle behavior**
-- Do not start Task 4 until Task 3 is complete and recorded here.
+- **Completed Slice 2.2 tasks:** 1–3 of 8
+- **NEXT:** **Slice 2.2 / Task 4 — freeze missing-parent behavior**
+- Do not start Task 5 until Task 4 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -26,9 +26,9 @@ Contracts:
 
 ## Slice 2.2 progress
 
-1. [x] relation vocabulary — `addresses|serves|advances|blocks|executes|measures|affects|supersedes`; evidence-backed only. `b871db6a4849c5d76cee0181d4c890895d6fde6a`
-2. [x] source/target kinds — graph kinds frozen to problem, mission, desired_outcome, goal, challenge, strategy, initiative, kpi, risk, current_work, material_change; exact allowed relation matrix frozen; deterministic owner-backed/derived node identity required. `164d57b00eaa5a5e6d942a824d68eba57fcdea18`
-3. [ ] cycle behavior
+1. [x] relation vocabulary — bounded eight-token vocabulary; evidence-backed only. `b871db6a4849c5d76cee0181d4c890895d6fde6a`
+2. [x] source/target kinds — bounded graph kinds + exact relation matrix + deterministic owner-backed/derived node identity. `164d57b00eaa5a5e6d942a824d68eba57fcdea18`
+3. [x] cycle behavior — self-edges invalid; structural `serves|advances|executes|supersedes` subgraph must be acyclic; cycle SCC edges excluded from authoritative traversal, evidence retained, no silent repair. `1d9b7de2631d3328bfa7771584d2b095a4bcc90e`
 4. [ ] missing-parent behavior
 5. [ ] supersession behavior
 6. [ ] orphan initiative/current-work behavior
@@ -49,5 +49,5 @@ Contracts:
 1. Read plan.
 2. Read this file.
 3. Read both contract docs.
-4. Continue only with **Slice 2.2 / Task 3 — cycle behavior**.
-5. Persist this file after Task 3 before Task 4.
+4. Continue only with **Slice 2.2 / Task 4 — missing-parent behavior**.
+5. Persist this file after Task 4 before Task 5.
