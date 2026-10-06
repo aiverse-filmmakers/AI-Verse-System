@@ -35,10 +35,45 @@ A consumer may accept a Purpose Context envelope only when it understands the de
 
 ---
 
+## Task 2 — supported scope kinds — FROZEN
+
+Purpose Context v1 supports exactly two strategic scope kinds:
+
+```yaml
+scope_kind: operator
+scope: operator
+```
+
+or:
+
+```yaml
+scope_kind: workspace
+scope: workspace:<workspace-id>
+```
+
+Contract rules:
+
+- `scope_kind` is required and MUST be exactly `operator` or `workspace`.
+- `scope` is required and MUST be exactly `operator` for operator scope or `workspace:<id>` for workspace scope.
+- `scope_kind` is a deterministic projection of `scope`; the two fields MUST agree. A mismatch is an invalid envelope and must fail closed.
+- Canonical workspace IDs use the existing OS/Data/Gateway contract: lowercase ASCII alphanumeric plus hyphen, beginning with an alphanumeric character, maximum 128 characters total. The v1 workspace-id pattern is `^[a-z0-9][a-z0-9-]{0,127}$`.
+- `operator` is a strategic/global operator scope sentinel, not a workspace ID and not a hidden aggregate over all workspaces.
+- `workspace:<id>` reads are bound to that exact workspace. They MUST NOT silently import strategic state from another workspace.
+- Workspace type (`project`, `product`, `client`, `team`, `business`, `case`, etc.) belongs in identity metadata; it does not create a new Purpose scope kind.
+- v1 does not support `system`, `global`, `all-workspaces`, `organization`, `team`, `client`, `project`, or arbitrary custom values as `scope_kind`.
+- Cross-scope relationships, when later allowed by the trajectory contract, must be explicit, provenance-bearing and authorized. They never widen the projection's bound scope by implication.
+- The Dashboard-local `systemId` is transport/connection identity only and MUST NOT appear as a Purpose strategic scope.
+
+### Scope authority law
+
+The Purpose composer receives an already-resolved canonical scope. It may validate that scope, but it may not invent, broaden, substitute, or auto-fallback to a different strategic scope when an owner read is unavailable.
+
+---
+
 ## Slice 2.1 freeze progress
 
 1. [x] `schema_version`
-2. [ ] supported scope kinds
+2. [x] supported scope kinds
 3. [ ] required vs optional fields
 4. [ ] provenance format
 5. [ ] freshness format
