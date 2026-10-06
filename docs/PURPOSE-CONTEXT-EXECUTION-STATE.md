@@ -1,10 +1,9 @@
 # Purpose Context — Task-Level Execution State
 
 **Purpose:** durable continuation checkpoint for `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
-**Rule:** read the implementation plan first, then this file, then completed slice audits linked here. Update this file after every individual task.  
-**Execution discipline:** execute exactly one task at a time and in plan order unless the user explicitly requests a bounded number of consecutive tasks; even then, complete and persist each task before beginning the next.  
+**Execution law:** read the implementation plan, then this file, then the active contract/closure docs. Execute in exact task order. When the user requests a bounded batch, complete and persist each task before starting the next.  
 **Current admitted Core baseline:** `core-repaired-public-beta-2026-10-06`  
-**Last updated:** 2026-10-06
+**Last updated:** 2026-10-07
 
 ---
 
@@ -14,147 +13,76 @@
 - **Current slice:** **2.1 — Versioned envelope schema**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3
-- **NEXT task:** **Slice 2.1 / Task 7 — freeze deterministic ordering rules**
-- **Do not start Task 8 until Task 7 is complete and recorded here.**
-- Phase 1 owner/interface audit is complete.
-- No Purpose Context behavior/code has been implemented yet.
-- Slice 2.1 contract path: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
+- **Completed Slice 2.1 tasks:** 1–7 of 10
+- **NEXT:** **Slice 2.1 / Task 8 — freeze unknown/unavailable field behavior**
+- Do not start Task 9 until Task 8 is complete and recorded here.
+- No Purpose Context runtime/owner implementation code has been written yet; Phase 2 remains contract-only.
+
+Active contract: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
 
 ---
 
-## Completed slice closures
+## Completed slice closures / audited refs
 
-### Slice 0.1 — canonical implementation plan
+- **0.1:** canonical implementation plan, PR #189, merge `b0b4a356ee33d86161e4ec9b3a6f9ed95b958c8e`.
+- **1.1 OS audit:** `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md`; OS `e74a4e05b1f891e6f871f34a298bf10363a11d88`.
+- **1.2 Brain audit:** `docs/PURPOSE-CONTEXT-SLICE-1.2-AUDIT.md`; Brain `7c77b053df627e61b3d7f11d029500ab61095c9c`.
+- **1.3 Data/Memory/Gateway/Dashboard audit:** `docs/PURPOSE-CONTEXT-SLICE-1.3-AUDIT.md`; Data `6e8781ff1dcd96a35dfb27868bd60605361483d0`, Memory `b0cae8cd8da38aa657fbc736c575177aa75e5ec7`, Gateway `089aaa6440bbbbb9f41195eafe123ad2e06d5625`, Dashboard `2c1d1a57f7cb27eec166d4fea10dbb335250c518`.
 
-**Status:** COMPLETE  
-**Plan:** `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
-**Merged planning PR:** `#189`  
-**Merge:** `b0b4a356ee33d86161e4ec9b3a6f9ed95b958c8e`
+Retained owner/API direction:
 
-### Slice 1.1 — OS scope/current-context/workspace/direction-owner audit
-
-**Status:** COMPLETE / ACCEPTED FOR CONTINUATION  
-**Audited ref:** `aiverse-filmmakers/AI-Verse-OS@e74a4e05b1f891e6f871f34a298bf10363a11d88`  
-**Detailed closure:** `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md`
-
-Retained decisions:
-
-- exact strategic scopes only: `operator` / `workspace:<id>`;
-- use OS current-context and direction-owner boundaries;
-- no stale OS strategy fallback under Brain ownership;
-- OS strategy needs a bounded adapter, not arbitrary Markdown scraping;
-- Purpose later joins the existing context ladder conditionally;
-- carried OS schema repair: workspace manifest max length should align with runtime max 128.
-
-### Slice 1.2 — Brain strategic model/direction audit
-
-**Status:** COMPLETE / ACCEPTED FOR CONTINUATION WITH CARRIED FINDINGS  
-**Audited ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`  
-**Detailed closure:** `docs/PURPOSE-CONTEXT-SLICE-1.2-AUDIT.md`
+- OS: scope/current-context/direction-owner + Purpose composer/read/explain.
+- Brain: strategic snapshot + only genuinely missing strategic semantics frozen by Phase 2.
+- Data: existing bounded query/provenance surfaces; optional thin KPI binding wrapper only if required.
+- Memory: existing recall/orientation/progressive recall; optional thin material-change evidence adapter only if required.
+- Gateway: relevance-gated Purpose owner read/injection + diagnostics; trivial tasks = zero Purpose reads.
+- Dashboard: read-only Purpose projection first; owner-routed commands only after Phase 8.
+- Distribution: final exact-ref Core descendant qualification/admission.
 
 Frozen audit-level Telos mapping:
 
-| Telos concept | Decision |
-|---|---|
-| Problem | minimal new strategic semantic; prefer `intent:problem` |
-| Mission | minimal new strategic semantic; prefer `intent:mission` |
-| Narrative | derive in v1 |
-| Goal | existing strategic `intent:goal`; execution Goal remains separate |
-| Challenge | derive in v1 |
-| Strategy | minimal new strategic semantic; prefer `intent:strategy`; not `strategy_rule` |
-| Initiative | existing canonical `initiative` |
-
-Retained requirements:
-
-- add one bounded Brain strategic snapshot API;
-- validate trajectory refs before exposing graph edges;
-- preserve one strategic owner per scope;
-- repair the pre-existing Brain release-descriptor red gate before Purpose Brain acceptance/Core vNext.
-
-### Slice 1.3 — Data, Memory, Gateway/runtime and Dashboard integration audit
-
-**Status:** COMPLETE / ACCEPTED FOR CONTINUATION WITH CARRIED REPAIRS  
-**Detailed closure:** `docs/PURPOSE-CONTEXT-SLICE-1.3-AUDIT.md`  
-**Closure creation commit:** `68dc986ec13637d019f8a25c845fdaecb8a47320`
-
-Audited exact refs:
-
-- Data `6e8781ff1dcd96a35dfb27868bd60605361483d0`
-- Memory `b0cae8cd8da38aa657fbc736c575177aa75e5ec7`
-- Gateway `089aaa6440bbbbb9f41195eafe123ad2e06d5625`
-- Dashboard `2c1d1a57f7cb27eec166d4fea10dbb335250c518`
-
-Retained decisions:
-
-- Data current values require explicit KPI/source bindings; no arbitrary field inference.
-- Data source freshness comes from record/event provenance, not adapter read time; aggregate freshness requires companion evidence or stays unknown.
-- Memory supplies bounded historical/material-change evidence candidates and never outranks current owner truth.
-- Gateway is runtime/context-assembly owner: OS composes Purpose, Gateway relevance-gates/injects it and accounts for its token/latency cost. Trivial tasks must create zero Purpose reads.
-- Do not create a second persistent cross-owner orientation graph.
-- Dashboard owns zero domain truth; Purpose reads are projections and future edits must route through OS/active owner confirmation boundaries.
-- Operator Purpose requires a deliberate operator/system-scoped Dashboard read; do not fake it as a workspace.
-- Native Data is workspace-bound; operator Purpose must never aggregate all workspace databases implicitly.
-- Memory workspace visibility may include operator historical context, but this does not import operator strategic Purpose into a workspace.
-- Dashboard workspace-ID protocol currently diverges from canonical OS/Data/Gateway IDs (Dashboard permits uppercase/underscore and caps at 64; canonical is lowercase alnum/hyphen up to 128). Repair before Purpose Dashboard qualification.
-
-Confirmed owner/API direction after Phase 1:
-
-| Owner | Reuse | Bounded addition currently justified |
-|---|---|---|
-| OS | current-context, scope, direction-owner | Purpose composer/read/explain |
-| Brain | Goal/direction/object reads | strategic snapshot + Phase-2-frozen missing strategic semantics |
-| Data | client/query/provenance/read adapters | optional thin typed KPI binding wrapper |
-| Memory | recall/orientation/progressive recall/digests | thin material-change evidence query if required |
-| Gateway | progressive context + context governor | Purpose relevance gate + owner read/injection diagnostics |
-| Dashboard | registry/query/disposable projections | Purpose read queries; owner-routed commands only after Phase 8 |
-
-Confirmed repositories required by current P1-P5 program:
-
-`AI-Verse-System`, `AI-Verse-OS`, `AI-Verse-Brain`, `AI-Verse-Data`, `AI-Verse-Memory`, `AI-Verse-Gateway`, `AI-Verse-Dashboard`, and final `ai-verse-distribution` qualification. Skills/Automations/Multiple Bots/Connections remain optional unless later bounded evidence proves they are needed.
+- Problem → minimal new strategic semantic, prefer `intent:problem`.
+- Mission → minimal new strategic semantic, prefer `intent:mission`.
+- Narrative → derived in v1.
+- Goal → strategic `intent:goal`; execution Goal remains separate.
+- Challenge → derived in v1.
+- Strategy → minimal new strategic semantic, prefer `intent:strategy`; never `strategy_rule`.
+- Initiative → existing canonical `initiative`.
 
 ---
 
 ## Carried repair register
 
-1. **Brain release descriptor:** pre-existing invalid/unreachable declared revision; must be green before Purpose Brain acceptance/Core vNext.
-2. **Dashboard workspace-ID contract:** align with canonical OS/Data/Gateway IDs before Purpose Dashboard qualification.
-3. **OS workspace manifest schema:** align maximum ID length with runtime max 128.
-4. **Brain trajectory refs:** validate typed target existence/kind/scope/status before Purpose presents authoritative edges.
-5. **Data aggregate freshness:** never infer source freshness from query execution time.
-6. **Final qualification:** use pinned exact component refs; moving-main workflows are insufficient as final release evidence.
+1. Brain release descriptor has a pre-existing invalid/unreachable declared revision; repair before Purpose Brain acceptance/Core vNext.
+2. Dashboard workspace-ID contract must align with canonical lowercase alnum/hyphen IDs up to 128 before Purpose Dashboard qualification.
+3. OS workspace manifest schema max length should align with runtime max 128.
+4. Brain trajectory refs must validate target existence/kind/scope/status before becoming authoritative Purpose edges.
+5. Data aggregate freshness must never be inferred from query execution time.
+6. Final qualification must pin exact component refs; moving-main workflows are insufficient release evidence.
 
 ---
 
-# Phase 2 / Slice 2.1 task checklist
+## Phase 2 / Slice 2.1 checklist
 
-Freeze in this exact order:
-
-1. [x] `schema_version` — frozen as required string `"1.0"`; unsupported major versions fail closed; breaking semantics require a major bump. Contract commit: `3cf8c48fde4950ac69ff30e11e22d308210fab43`.
-2. [x] supported scope kinds — exactly `operator` and `workspace`; workspace scope is `workspace:<id>` using canonical lowercase alnum/hyphen IDs up to 128 chars; no implicit all-workspace/global scope. Contract commit: `95ba626b02de0c7d62a16060d1c228eeaa1548ed`.
-3. [x] required vs optional fields — required envelope fields are `schema_version`, `scope`, `scope_kind`, `identity`, `provenance`; semantic sections are relevance-driven optional projections; absence is not equivalent to unknown/unavailable/empty. Contract commit: `2a17d8fbfefc8699685af831150f40a453a0d2ce`.
-4. [x] provenance format — OS is projection owner; every attempted owner read is recorded; owner-backed claims require exact source refs; derived claims require deterministic derivation rule + refs; projection generation time is not freshness. Contract commit: `3eaae415ac02714a1c2960c1f193af44828de7ca`.
-5. [x] freshness format — leaf state is `current|stale|unknown|unavailable`; read/generation time alone never proves currentness; aggregate freshness without source watermark is `unknown`; stale owner reads stay explicit. Contract commit: `84b6fd49c7f400724ac1f55b47acbe5a4de72be6`.
-6. [x] canonical ref format — structured refs use `owner + scope + kind + id` identity with an exact `version` for mutable authoritative claims when available/required; refs grant no authority and never contain raw paths/secrets/systemId. Contract commit: `bbfe9bb9daaddeadd10eb15177aae21193855cd6`.
-7. [ ] deterministic ordering rules
+1. [x] `schema_version` — `"1.0"`; unsupported major fails closed. Commit `3cf8c48fde4950ac69ff30e11e22d308210fab43`.
+2. [x] scope kinds — exactly `operator` / `workspace:<id>`; canonical workspace IDs max 128. Commit `95ba626b02de0c7d62a16060d1c228eeaa1548ed`.
+3. [x] required vs optional fields — required shell: version/scope/scope_kind/identity/provenance; semantic sections relevance-driven. Commit `2a17d8fbfefc8699685af831150f40a453a0d2ce`.
+4. [x] provenance — every attempted owner read recorded; every authoritative claim traces to exact owner refs. Commit `3eaae415ac02714a1c2960c1f193af44828de7ca`.
+5. [x] freshness — `current|stale|unknown|unavailable`; read time never proves freshness. Commit `84b6fd49c7f400724ac1f55b47acbe5a4de72be6`.
+6. [x] canonical refs — `(owner, scope, kind, id)` plus exact mutable version where supported/required. Commit `bbfe9bb9daaddeadd10eb15177aae21193855cd6`.
+7. [x] deterministic ordering — owner semantic rank first; otherwise canonical-ref order; recent changes use owner event time desc; serialization and pruning deterministic. Commit `f478e5bfba82ba6feac88098a6e65f542cd0109e`.
 8. [ ] unknown/unavailable field behavior
 9. [ ] bounded size/budget rules
 10. [ ] rebuildability contract
 
-Slice 2.1 acceptance requirements:
-
-- a versioned schema exists;
-- absent optional fields are distinguishable from unknown/unavailable owner reads;
-- stale owner reads are represented, not silently treated as current;
-- no generated field can become independently editable.
+Slice 2.1 acceptance still requires: versioned schema; absence distinct from unknown/unavailable; stale reads explicit; no projected field independently editable.
 
 ---
 
-# Resume instructions for another agent/chat
+## Resume instructions
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
-2. Read this file for the authoritative live pointer.
-3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md` for the currently frozen Slice 2.1 contract.
-4. Read Slice 1.1/1.2/1.3 audit documents only when detailed owner evidence is needed.
-5. Continue **only** with **Phase 2 / Slice 2.1 / Task 7 — freeze deterministic ordering rules**.
-6. Phase 2 is a contract-freeze phase: update System contract/docs first; do not begin owner implementation code before the relevant contract tasks are complete.
-7. Persist the execution-state document after Task 7 before Task 8.
+2. Read this file for the authoritative pointer.
+3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md` for frozen v1 semantics.
+4. Continue only with **Slice 2.1 / Task 8 — unknown/unavailable field behavior**.
+5. Persist this file after Task 8 before Task 9.
