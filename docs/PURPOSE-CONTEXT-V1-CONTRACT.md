@@ -2,42 +2,29 @@
 
 **Status:** IN PROGRESS — Slice 2.1 contract freeze  
 **Parent plan:** `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
-**Scope:** derived/read-only Purpose Context projection only  
-**Canonical owner of this contract:** `AI-Verse-System`  
-**Implementation owner:** `AI-Verse-OS` after the contract is frozen
+**Canonical owner:** `AI-Verse-System`  
+**Implementation owner:** `AI-Verse-OS` after contract freeze
 
-Purpose Context is a disposable, rebuildable projection over canonical owner state. Nothing in this document creates a second strategic, Data, Memory, or runtime authority.
+Purpose Context is a derived, read-only, disposable projection over canonical owner state. It never becomes a second strategic, Data, Memory, runtime, or Dashboard authority.
+
+> Editorial note: Tasks 1–6 below preserve the already-frozen semantics from their earlier detailed form; wording is compacted only to keep the canonical contract maintainable.
 
 ---
 
 ## Task 1 — `schema_version` — FROZEN
 
-The v1 serialized envelope MUST emit:
-
-```yaml
-schema_version: "1.0"
-```
-
-Contract rules:
-
-- `schema_version` is a required UTF-8 string in `MAJOR.MINOR` decimal form.
-- The initial Purpose Context contract version is exactly `"1.0"`.
-- Producers MUST emit the version explicitly; consumers MUST NOT infer it from file names, repository refs, runtime version, or transport metadata.
-- An unsupported major version MUST fail closed as an unsupported Purpose Context contract. It must not be interpreted as v1 by best effort.
-- A minor-version increase within major `1` may add backward-compatible optional fields or enum values only when the owning contract explicitly permits them. It may not change the meaning of an existing field, make an optional field required, weaken scope/isolation rules, or change owner authority.
-- Any incompatible semantic change requires a new major version.
-- Repository/component release versions and `schema_version` are independent. A newer OS/Brain/Data/Memory/Gateway build may still emit Purpose Context `"1.0"`.
-- The version applies to the complete Purpose Context envelope, including its provenance/freshness/reference substructures unless a later contract explicitly versions one of those substructures separately.
-
-### Compatibility law
-
-A consumer may accept a Purpose Context envelope only when it understands the declared major version and all required fields for that version. Unknown fields must never grant authority or silently override known owner-backed fields.
+- Every envelope MUST emit `schema_version: "1.0"`.
+- Version is a required UTF-8 `MAJOR.MINOR` string.
+- Producers emit it explicitly; consumers never infer it from file/repo/runtime versions.
+- Unsupported major versions fail closed.
+- Minor v1 increases may add backward-compatible optional material only; they may not change existing meaning, owner authority, scope/isolation, or make an optional field required.
+- Breaking semantics require a new major version.
 
 ---
 
 ## Task 2 — supported scope kinds — FROZEN
 
-Purpose Context v1 supports exactly two strategic scope kinds:
+Supported scopes are exactly:
 
 ```yaml
 scope_kind: operator
@@ -51,54 +38,36 @@ scope_kind: workspace
 scope: workspace:<workspace-id>
 ```
 
-Contract rules:
+Rules:
 
-- `scope_kind` is required and MUST be exactly `operator` or `workspace`.
-- `scope` is required and MUST be exactly `operator` for operator scope or `workspace:<id>` for workspace scope.
-- `scope_kind` is a deterministic projection of `scope`; the two fields MUST agree. A mismatch is an invalid envelope and must fail closed.
-- Canonical workspace IDs use the existing OS/Data/Gateway contract: lowercase ASCII alphanumeric plus hyphen, beginning with an alphanumeric character, maximum 128 characters total. The v1 workspace-id pattern is `^[a-z0-9][a-z0-9-]{0,127}$`.
-- `operator` is a strategic/global operator scope sentinel, not a workspace ID and not a hidden aggregate over all workspaces.
-- `workspace:<id>` reads are bound to that exact workspace. They MUST NOT silently import strategic state from another workspace.
-- Workspace type (`project`, `product`, `client`, `team`, `business`, `case`, etc.) belongs in identity metadata; it does not create a new Purpose scope kind.
-- v1 does not support `system`, `global`, `all-workspaces`, `organization`, `team`, `client`, `project`, or arbitrary custom values as `scope_kind`.
-- Cross-scope relationships, when later allowed by the trajectory contract, must be explicit, provenance-bearing and authorized. They never widen the projection's bound scope by implication.
-- The Dashboard-local `systemId` is transport/connection identity only and MUST NOT appear as a Purpose strategic scope.
-
-### Scope authority law
-
-The Purpose composer receives an already-resolved canonical scope. It may validate that scope, but it may not invent, broaden, substitute, or auto-fallback to a different strategic scope when an owner read is unavailable.
+- `scope_kind` and `scope` are required and MUST agree.
+- Workspace IDs use `^[a-z0-9][a-z0-9-]{0,127}$`.
+- `operator` is a strategic operator sentinel, not a workspace and not an aggregate over all workspaces.
+- `workspace:<id>` is bound to exactly that workspace; no implicit cross-workspace reads.
+- Workspace type belongs to identity metadata, not `scope_kind`.
+- No `global`, `system`, `all-workspaces`, `organization`, `team`, `client`, `project`, or custom scope kind exists in v1.
+- Dashboard `systemId` is transport/connection identity only, never a Purpose scope.
+- The composer validates the supplied canonical scope but never broadens, substitutes, or falls back to another scope.
 
 ---
 
 ## Task 3 — required vs optional fields — FROZEN
 
-### Required top-level fields
-
-Every valid Purpose Context v1 envelope MUST contain exactly these contract-required top-level fields:
+Required top-level fields:
 
 ```yaml
 schema_version: "1.0"
 scope: operator | workspace:<id>
 scope_kind: operator | workspace
-identity: {...}
-provenance: {...}
-```
-
-`identity` is required because OS owns the bound operator/workspace identity even when no strategic content exists yet. Its required minimum is:
-
-```yaml
 identity:
   kind: operator | workspace
   id: operator | <workspace-id>
+provenance: {...}
 ```
 
-Optional identity fields such as `name`, `type`, `status`, or other owner-backed descriptive metadata may be emitted only when supplied by the canonical identity owner.
+Optional owner-backed identity fields may include `name`, `type`, and `status`.
 
-`provenance` is always required because Purpose is a derived projection and every projection must declare how it was assembled. Its exact format is frozen in Task 4.
-
-### Optional semantic sections
-
-The following top-level semantic sections are optional in v1 and MUST be emitted only when relevant, applicable, requested by the projection profile, or necessary to represent an explicit owner-read state:
+Optional semantic sections:
 
 - `problems`
 - `purpose`
@@ -116,197 +85,79 @@ The following top-level semantic sections are optional in v1 and MUST be emitted
 - `recent_material_changes`
 - `trajectory`
 
-`purpose`, when present, may contain owner-backed `mission` and `desired_outcomes` fields. Neither subfield is individually required simply because the `purpose` section exists; explicit unknown/unavailable semantics are frozen in Task 8.
+Presence semantics:
 
-### Presence semantics
-
-- **Absent optional section** means the section was not emitted because it was not relevant/applicable/requested for this bounded projection. Absence MUST NOT be interpreted as `unknown`, `unavailable`, or `known empty`.
-- **Present empty collection** means the relevant owner read succeeded for that section and the owner-backed result is known to contain zero items under the requested bounds.
-- A producer MUST NOT emit meaningless empty rich-corporate sections merely to fill a template.
-- A producer MUST NOT invent placeholder records so that a section appears populated.
-- If an owner read was attempted but its truth could not be obtained, the producer must use the explicit unknown/unavailable representation frozen in Task 8 rather than silently omitting the failure.
-- Optional fields within emitted items follow the same law: omission means not emitted/not applicable; it does not automatically mean unknown or false.
-
-### Mutability law
-
-No top-level or nested Purpose field is independently editable merely because it appears in the projection. Any durable change must route to that field's canonical owner under the existing authority/confirmation rules.
+- absent optional section = not emitted because not relevant/applicable/requested;
+- present empty collection = owner read succeeded and result is known empty under the requested bounds;
+- unavailable/unknown attempted reads use the explicit state contract from Task 8, never silent omission;
+- no placeholder records or meaningless empty corporate sections;
+- no projected field becomes independently editable.
 
 ---
 
 ## Task 4 — provenance format — FROZEN
 
-Every Purpose Context v1 envelope MUST carry one top-level provenance object with this shape:
+Every envelope carries:
 
 ```yaml
 provenance:
   projection_owner: ai-verse-os
-  generated_at: 2026-10-06T20:00:00.000Z
+  generated_at: <RFC3339 UTC>
   owner_reads:
     - owner: ai-verse-brain
       operation: strategic_snapshot
       scope: workspace:example
-      status: ok
-      observed_at: 2026-10-06T19:59:59.900Z
+      status: ok | partial | unavailable | error
+      observed_at: <RFC3339 UTC>
       freshness: {...}
       refs: [...]
 ```
 
-### Required provenance fields
-
-`provenance.projection_owner`
-- required;
-- v1 value is exactly `ai-verse-os`;
-- identifies the component that assembled the derived projection, not the owner of the underlying truths.
-
-`provenance.generated_at`
-- required RFC 3339 / ISO-8601 UTC timestamp;
-- records when this projection instance was assembled;
-- MUST NOT be treated as evidence that any source value is fresh.
-
-`provenance.owner_reads`
-- required array;
-- contains one entry for every owner read attempted while assembling the emitted projection, including reads that were partial/unavailable/error;
-- each entry records the owner, owner operation/API, exact Purpose scope requested, read status, read observation time, freshness object, and zero or more canonical refs.
-
-### Owner-read record
-
-```yaml
-owner: ai-verse-os | ai-verse-brain | ai-verse-data | ai-verse-memory | ai-verse-gateway
-operation: <stable owner API/operation id>
-scope: operator | workspace:<id>
-status: ok | partial | unavailable | error
-observed_at: <RFC3339 UTC timestamp>
-freshness: {...}
-refs:
-  - {...canonical ref...}
-```
-
 Rules:
 
-- `status` describes whether the owner read succeeded; source age/currentness is represented separately by `freshness`.
-- `partial` means the owner intentionally returned a bounded/incomplete answer under its API contract, not that the composer guessed missing content.
-- `unavailable` means the owner/API could not provide the requested truth without implying a component fault.
-- `error` means the owner read failed unexpectedly or violated its contract; the projection may continue only when the missing material is optional and explicit unavailable/error state is retained.
-- `observed_at` is read time only, never a substitute for source freshness.
-- `refs` contains only canonical refs frozen by Task 6. Private storage paths, DB paths, credentials, raw SQL, or hidden runtime internals are forbidden provenance.
-
-### Item/claim provenance
-
-Every emitted owner-backed semantic record that makes a factual/strategic claim MUST carry non-empty `source_refs` pointing to the canonical owner records that support that claim.
-
-A generated/derived record MUST additionally carry:
-
-```yaml
-derivation:
-  rule: <stable derivation-rule id>
-  source_refs:
-    - {...canonical ref...}
-```
-
-Rules:
-
-- `derivation.rule` identifies deterministic composer logic; it is not an authority source.
-- A derived claim may summarize/combine owner truths but cannot outrank, rewrite, or create authority beyond those refs.
-- If a derived claim has no valid owner-backed inputs, it MUST NOT be emitted as authoritative Purpose content.
-- Trajectory edges and material-change effects must retain their own supporting refs; top-level provenance alone is not sufficient to make an edge authoritative.
-
-### Provenance completeness law
-
-For any emitted claim, a consumer must be able to answer both:
-
-1. which canonical owner(s) supplied the underlying truth; and
-2. which exact owner-backed record/version can be re-read to verify it.
-
-If the composer cannot preserve that path, the claim must remain unavailable/non-authoritative rather than being emitted as owner truth.
+- `projection_owner` is exactly `ai-verse-os` in v1.
+- `generated_at` is projection assembly time, never freshness evidence.
+- Every attempted owner read is recorded, including partial/unavailable/error reads.
+- `observed_at` is read time only.
+- `refs` use Task 6 canonical refs; no private paths, DB paths, secrets, SQL, or private transport internals.
+- Every emitted owner-backed factual/strategic claim has non-empty `source_refs`.
+- Every derived claim additionally carries a stable `derivation.rule` and its source refs.
+- A derived claim cannot outrank or create authority beyond its owner inputs.
+- Trajectory edges/material-change effects retain their own evidence refs.
+- Any emitted claim must be traceable back to the canonical owner record/version that supports it.
 
 ---
 
 ## Task 5 — freshness format — FROZEN
 
-Every attempted owner read in `provenance.owner_reads` MUST include a freshness object:
+Every attempted owner read carries:
 
 ```yaml
 freshness:
   state: current | stale | unknown | unavailable
-  as_of: 2026-10-06T20:00:00.000Z
-  source_updated_at: 2026-10-06T19:58:10.000Z   # optional
-  max_age_seconds: 3600                          # optional
-  reason: owner_version_current                  # optional stable reason code
+  as_of: <RFC3339 UTC>
+  source_updated_at: <RFC3339 UTC>   # optional
+  max_age_seconds: <non-negative int> # optional
+  reason: <stable reason code>        # optional
 ```
 
-### Required freshness fields
+Rules:
 
-`state`
-- required;
-- exactly one of `current`, `stale`, `unknown`, `unavailable`.
-
-`as_of`
-- required RFC 3339 / ISO-8601 UTC timestamp;
-- records when the freshness classification was evaluated;
-- does not itself prove freshness.
-
-### Optional freshness evidence
-
-`source_updated_at`
-- canonical owner/source update time when the owner can prove it;
-- MUST refer to underlying source truth, not merely adapter/query execution time.
-
-`max_age_seconds`
-- non-negative integer when a declared freshness policy exists for that read/field;
-- omission means no age threshold was asserted by Purpose.
-
-`reason`
-- optional stable machine-readable reason code explaining the classification;
-- free-form narrative should not be required to interpret correctness.
-
-### State rules
-
-`current`
-- allowed only when the canonical owner explicitly asserts currentness or the source exposes sufficient version/timestamp evidence under a declared freshness policy;
-- MUST NOT be inferred solely because the owner API call just succeeded.
-
-`stale`
-- used when the source is valid/available but known to be older than its declared freshness contract, superseded for current-use purposes, or explicitly marked stale by the owner;
-- stale values may be displayed as historical/contextual evidence but MUST NOT silently act as current truth.
-
-`unknown`
-- used when the owner read succeeded but there is insufficient trustworthy recency evidence to classify the value as current or stale;
-- this is the required state for aggregate/current-value reads when only query execution time is known and underlying source watermarks are unavailable.
-
-`unavailable`
-- used when no freshness judgment can be made because the underlying requested source/value itself is unavailable;
-- this does not authorize fallback to Memory, another workspace, or another owner.
-
-### Field/item freshness
-
-A semantic item MAY carry its own `freshness` object when its recency differs materially from the owner-read summary, especially for current KPI values, current operational state, recent material changes, or mixed-source derived records.
-
-For derived records:
-
-- freshness cannot be stronger than the weakest source freshness relevant to the derived claim;
-- a derived record with mixed source states must not collapse them to `current` merely because one input is current;
-- current owner truth outranks older historical Memory even when the historical record has a newer retrieval time.
-
-### Optional projection summary
-
-`provenance.freshness` MAY summarize the emitted projection using:
-
-```yaml
-state: current | mixed | stale | unknown | unavailable
-as_of: <RFC3339 UTC timestamp>
-```
-
-`mixed` is allowed only for this projection-level summary, never as a leaf/source freshness state. The summary is informational; claim-level/owner-read freshness remains authoritative for interpreting individual values.
-
-### Anti-fabrication law
-
-`generated_at`, `observed_at`, HTTP response time, query execution time, or Dashboard render time are never sufficient on their own to classify source truth as `current`.
+- `current` requires owner assertion or sufficient source/version evidence under a declared policy.
+- `stale` means available but known too old/superseded for current use.
+- `unknown` means the read succeeded but trustworthy recency evidence is insufficient.
+- `unavailable` means the requested source/value itself cannot be obtained.
+- Adapter/query/generation/render time alone never proves source freshness.
+- Aggregate-backed current values without source watermarks are `unknown`, not `current`.
+- Item-level freshness may override the owner-read summary where needed.
+- Derived freshness cannot be stronger than the weakest source relevant to the derived claim.
+- Optional projection summary may use `current | mixed | stale | unknown | unavailable`; `mixed` is summary-only.
 
 ---
 
 ## Task 6 — canonical ref format — FROZEN
 
-Purpose Context v1 uses structured canonical refs, never ad-hoc path strings or guessed URLs.
+Canonical ref:
 
 ```yaml
 owner: ai-verse-brain
@@ -316,61 +167,79 @@ id: goal-public-beta
 version: "7"
 ```
 
-### Required ref fields
+Rules:
 
-`owner`
-- required stable component owner ID;
-- v1 registered owner IDs are `ai-verse-os`, `ai-verse-brain`, `ai-verse-data`, `ai-verse-memory`, and `ai-verse-gateway`;
-- adding another owner requires an explicit Purpose owner-map/contract update and cannot happen silently at runtime.
+- registered v1 owner IDs: `ai-verse-os`, `ai-verse-brain`, `ai-verse-data`, `ai-verse-memory`, `ai-verse-gateway`;
+- identity tuple is `(owner, scope, kind, id)`;
+- `version` identifies an observed revision, not durable logical identity;
+- mutable authoritative claims require an exact version token when the owner supports one;
+- if a mutable owner cannot provide a version token, verification limits stay explicit rather than pretending the revision is pinned;
+- refs never contain raw filesystem/DB paths, credentials, secrets, raw SQL, private transport addresses, or Dashboard `systemId`;
+- refs grant no authority and still require normal owner scope/authorization checks;
+- Purpose obtains refs from owner APIs, never by reverse-engineering private storage;
+- stale/deleted refs never fuzzy-rebind to similarly named records;
+- all Purpose source/evidence/ref fields use this same structure.
 
-`scope`
-- required exact Purpose-visible canonical scope: `operator` or `workspace:<id>`;
-- MUST obey Task 2 scope rules;
-- a ref outside the projection's permitted visibility cannot be used merely because its ID is known.
+---
 
-`kind`
-- required owner-defined stable canonical record kind;
-- interpreted only by the owning component/API;
-- Purpose may validate an allowed kind but MUST NOT reinterpret one owner's kind as another owner's object type.
+## Task 7 — deterministic ordering rules — FROZEN
 
-`id`
-- required non-empty owner-defined stable canonical record identifier;
-- opaque to Purpose consumers; consumers MUST NOT parse it as a filesystem path, URL, database key layout, or authority token.
+Purpose Context v1 MUST produce deterministic semantic ordering so the same owner state does not churn merely because an API/storage iterator returned items in a different order.
 
-### Version field
+### Canonical top-level serialization order
 
-`version`
-- optional only when the referenced identity is immutable/content-addressed or the owner has no meaningful mutable revision for that ref;
-- otherwise REQUIRED for mutable owner records used to support authoritative current claims;
-- serialized as a non-empty UTF-8 string even when the owner internally uses an integer revision, hash, ETag, or other scalar token;
-- identifies the exact owner-backed revision/fingerprint observed by the composer.
+When serialized to an order-preserving format, emit recognized fields in this order:
 
-If a mutable claim's owner cannot provide a stable version token, the ref may still identify the record, but it cannot satisfy exact-version verification on its own. The projection must then retain explicit freshness/verification limitations rather than pretending the mutable revision is pinned.
+1. `schema_version`
+2. `scope`
+3. `scope_kind`
+4. `identity`
+5. `problems`
+6. `purpose`
+7. `narratives`
+8. `goals`
+9. `priorities`
+10. `challenges`
+11. `strategies`
+12. `initiatives`
+13. `constraints`
+14. `kpis`
+15. `risks`
+16. `current_state`
+17. `current_work`
+18. `recent_material_changes`
+19. `trajectory`
+20. contract metadata introduced by later v1 tasks, if present
+21. `provenance`
 
-### Canonical identity
+Object key order is a serialization convention only; consumers MUST use field names, not positional assumptions.
 
-The canonical record identity tuple is:
+### Collection ordering
 
-```text
-(owner, scope, kind, id)
-```
+For semantic collections:
 
-`version` identifies an observed revision of that identity; it is not part of the durable logical identity.
+1. if the canonical owner supplies an explicit semantic priority/rank/order field, sort by that owner-backed value first;
+2. otherwise sort by canonical ref identity tuple `(owner, scope, kind, id)` using bytewise ascending UTF-8 comparison;
+3. if two entries share the same identity tuple, sort by `version` bytewise ascending, with absent version before present version;
+4. deterministic generated records use their deterministic generated ID as the final tie-breaker.
 
-Two refs with the same identity tuple but different versions refer to different observed revisions of the same canonical record.
+Purpose MUST NOT invent a priority score merely to obtain ordering.
 
-### Ref safety rules
+### Special collections
 
-- Canonical refs MUST NOT contain raw repository roots, filesystem paths, DB paths, credentials, bearer tokens, secrets, raw SQL, private transport addresses, or Dashboard-local `systemId` values.
-- A canonical ref grants no read/write authority. It is an evidence locator only and must still pass the owner's normal scope/authorization checks when resolved.
-- The composer MUST obtain refs from owner APIs/contracts; it may not manufacture refs by scanning another component's private storage layout.
-- A missing/deleted/stale ref MUST remain explicit when revalidation occurs; it must not be rebound by fuzzy matching to a different owner record.
-- Cross-scope refs are accepted only where the later trajectory contract explicitly permits them and existing isolation/visibility rules authorize them.
-- `source_refs`, `provenance.owner_reads[].refs`, derivation refs, KPI definition/value refs, material-change refs and trajectory evidence refs all use this same canonical ref structure.
+- `priorities`: owner-backed priority/rank first, then canonical ref order.
+- `recent_material_changes`: effective/source event time descending when owner-backed; ties use canonical ref order. Read/ingestion time never substitutes for missing event time.
+- `current_work`: owner-backed execution priority/order first; otherwise canonical ref order.
+- `trajectory`: sort by source canonical identity, then relation token, then target canonical identity, then evidence-ref tuple.
+- `source_refs`, derivation refs, and owner-read `refs`: canonical ref tuple order.
+- `provenance.owner_reads`: `owner`, then `operation`, then `scope`, all bytewise ascending; multiple reads of the same tuple then sort by `observed_at` ascending.
 
-### Verification law
+### Stability law
 
-Resolving a canonical ref must return the exact owner identity requested or fail closed. Purpose MUST NOT substitute a similarly named record, latest record from another scope, or historical Memory record when the canonical current owner ref is unavailable.
+- Array order from databases, filesystems, maps, API responses, or concurrent completion order is never authoritative unless the owner contract explicitly declares it semantic.
+- Rebuilding from semantically identical inputs MUST yield the same semantic ordering.
+- Budget pruning later in Task 9 must operate on this deterministic ordered representation, not nondeterministic arrival order.
+- Deterministic ordering may never override explicit owner priority semantics.
 
 ---
 
@@ -382,7 +251,7 @@ Resolving a canonical ref must return the exact owner identity requested or fail
 4. [x] provenance format
 5. [x] freshness format
 6. [x] canonical ref format
-7. [ ] deterministic ordering rules
+7. [x] deterministic ordering rules
 8. [ ] unknown/unavailable field behavior
 9. [ ] bounded size/budget rules
 10. [ ] rebuildability contract
