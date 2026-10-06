@@ -11,9 +11,9 @@
 - **Current slice:** **2.3 — Operator and workspace profile rules**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2
-- **Completed Slice 2.3 tasks:** 1 of 7
-- **NEXT:** **Slice 2.3 / Task 2 — freeze workspace default/basic shape**
-- Do not start Task 3 until Task 2 is complete and recorded here.
+- **Completed Slice 2.3 tasks:** 1–2 of 7
+- **NEXT:** **Slice 2.3 / Task 3 — freeze rich workspace optional fields**
+- Do not start Task 4 until Task 3 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -28,8 +28,8 @@ Contracts:
 
 ## Slice 2.3 progress
 
-1. [x] operator default shape — sparse owner-backed global/operator projection; no implicit all-workspace aggregation; default strategic set can include purpose/goals/priorities/challenges/strategies/initiatives/current work/trajectory/material changes when evidence exists. `29f23e7173f0fdcafee8bb33f2829ffb37d0a988`
-2. [ ] workspace default/basic shape
+1. [x] operator default shape — sparse global/operator projection; no implicit all-workspace aggregation. `29f23e7173f0fdcafee8bb33f2829ffb37d0a988`
+2. [x] workspace basic shape — exact workspace shell plus purpose/goals/priorities/challenges/strategies/initiatives/current work/trajectory when evidence exists; no forced corporate bureaucracy; tiny/orphan workspaces remain valid. `9a2d9e776fe1f1c680af266dcba35c5502b9702e`
 3. [ ] rich workspace optional fields
 4. [ ] auto-detection rules
 5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
@@ -47,4 +47,4 @@ Contracts:
 
 ## Resume instructions
 
-Continue only with **Slice 2.3 / Task 2 — workspace default/basic shape**, then persist this file before Task 3.
+Continue only with **Slice 2.3 / Task 3 — rich workspace optional fields**, then persist this file before Task 4.
