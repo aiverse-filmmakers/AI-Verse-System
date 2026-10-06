@@ -11,9 +11,9 @@
 - **Current slice:** **2.1 — Versioned envelope schema**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3
-- **Completed Slice 2.1 tasks:** 1–8 of 10
-- **NEXT:** **Slice 2.1 / Task 9 — freeze bounded size/budget rules**
-- Do not start Task 10 until Task 9 is complete and recorded here.
+- **Completed Slice 2.1 tasks:** 1–9 of 10
+- **NEXT:** **Slice 2.1 / Task 10 — freeze rebuildability contract**
+- Do not begin Slice 2.2 until Task 10 is complete, Slice 2.1 is closed, and the pointer is persisted.
 - No Purpose runtime/owner implementation code exists yet; Phase 2 is contract-only.
 
 Active contract: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
@@ -40,11 +40,11 @@ Active contract: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
 2. [x] scope kinds — `operator` / `workspace:<id>` only. `95ba626b02de0c7d62a16060d1c228eeaa1548ed`
 3. [x] required vs optional fields — bounded required shell + relevance-driven semantic sections. `2a17d8fbfefc8699685af831150f40a453a0d2ce`
 4. [x] provenance — owner reads + exact source refs + deterministic derivation provenance. `3eaae415ac02714a1c2960c1f193af44828de7ca`
-5. [x] freshness — explicit `current|stale|unknown|unavailable`; read time is not source freshness. `84b6fd49c7f400724ac1f55b47acbe5a4de72be6`
-6. [x] canonical refs — `(owner, scope, kind, id)` + mutable version when meaningful. `bbfe9bb9daaddeadd10eb15177aae21193855cd6`
-7. [x] deterministic ordering — owner semantic order first, otherwise canonical-ref order; stable recent-change/trajectory/ref ordering. `f478e5bfba82ba6feac88098a6e65f542cd0109e`
-8. [x] unknown/unavailable behavior — absent vs known-empty vs unknown vs unavailable are distinct; `section_states`/`field_states`; no silent owner/workspace/Memory fallback. `45c650f45a38f4e5828470bbc382843de7771f9b`
-9. [ ] bounded size/budget rules
+5. [x] freshness — explicit current/stale/unknown/unavailable; read time is not source freshness. `84b6fd49c7f400724ac1f55b47acbe5a4de72be6`
+6. [x] canonical refs — owner/scope/kind/id + mutable version where meaningful. `bbfe9bb9daaddeadd10eb15177aae21193855cd6`
+7. [x] deterministic ordering — owner semantic order first, otherwise canonical-ref order. `f478e5bfba82ba6feac88098a6e65f542cd0109e`
+8. [x] unknown/unavailable behavior — absent vs known-empty vs unknown vs unavailable are distinct; no silent fallback. `45c650f45a38f4e5828470bbc382843de7771f9b`
+9. [x] size/budget — default 16384 UTF-8 bytes, supported 4096–65536, deterministic pruning, no unbounded lists, required truth/provenance never silently pruned. `f5100ab2153dddf8b565b3a8ae2e7c3a4db0171f`
 10. [ ] rebuildability contract
 
 ## Resume instructions
@@ -52,5 +52,5 @@ Active contract: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
 1. Read plan.
 2. Read this file.
 3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
-4. Continue only with **Slice 2.1 / Task 9 — bounded size/budget rules**.
-5. Persist this file after Task 9 before Task 10.
+4. Continue only with **Slice 2.1 / Task 10 — rebuildability contract**.
+5. After Task 10, close Slice 2.1 and persist the next pointer before starting Slice 2.2.
