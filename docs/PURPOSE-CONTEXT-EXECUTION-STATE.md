@@ -15,9 +15,9 @@
 - **Phase:** 1 — Fresh owner/interface audit before implementation
 - **Slice:** 1.1 — Audit current OS scope, current-context, workspace, and direction-owner contracts
 - **Slice state:** IN PROGRESS
-- **Completed tasks:** 5 / 10
-- **NEXT task:** **Task 6 — audit OS-owned strategic files/sections**
-- **Do not start Task 7 until Task 6 is completed and recorded here.**
+- **Completed tasks:** 6 / 10
+- **NEXT task:** **Task 7 — audit Brain-owned generated direction views**
+- **Do not start Task 8 until Task 7 is completed and recorded here.**
 
 No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit-only.
 
@@ -30,7 +30,7 @@ No Purpose Context behavior/code has been implemented yet. Phase 1 remains audit
 3. [x] `WORKSPACE.yaml` schema/extension rules
 4. [x] current-context resolver
 5. [x] strategic direction ownership marker
-6. [ ] OS-owned strategic files/sections
+6. [x] OS-owned strategic files/sections
 7. [ ] Brain-owned generated direction views
 8. [ ] write assertions and handover/handback behavior
 9. [ ] current context-ladder/relevance surfaces if OS owns them
@@ -237,6 +237,53 @@ This is **not a new Purpose defect and is not changed during this audit**, but P
 
 ---
 
+## Task 6 — OS-owned strategic files/sections
+
+**Status:** COMPLETE  
+**Repo/ref:** `aiverse-filmmakers/AI-Verse-OS@e74a4e05b1f891e6f871f34a298bf10363a11d88`
+
+### Files inspected
+
+- `operator/profile/README.md`
+- `operator/profile/goals.example.md`
+- `operator/context/CURRENT.example.md`
+- `workspaces/_template/context/CURRENT.md`
+- `system/architecture/direction-ownership.md`
+- `system/architecture/source-of-truth.md`
+- `scripts/current-context.mjs`
+- `scripts/operator-profile-owner.mjs`
+
+### Findings
+
+- In OS-owned operator scope, durable cross-workspace goals live conceptually in `operator/profile/goals.md`; the profile contract describes them as current medium-term outcomes spanning workspaces.
+- Operator current strategic emphasis is represented in the `## Current priorities` section of `operator/context/CURRENT.md`.
+- Workspace strategic direction is represented by the `## Objective` section of `workspaces/<id>/context/CURRENT.md`.
+- Workspace-specific outcomes belong in the workspace rather than the operator cross-workspace goals file.
+- `source-of-truth.md` says active current state must be resolved through `scripts/current-context.mjs`; raw files are not a universal bypass.
+- When OS owns direction, the scoped raw current-context is canonical. When Brain owns direction, OS strategic sections become frozen provenance and lose active authority.
+- `operator-profile-owner.mjs` only manages identity/preferences auto-blocks; it does not own or mutate `goals.md`. Purpose must therefore not mistake the profile auto-owner as a goals API.
+- Existing OS strategy is document/section based rather than a normalized strategic-object API. That is acceptable for the audit, but it means Purpose v1 should consume OS-owned strategy through a bounded parser/adapter contract rather than treating arbitrary Markdown as structured truth.
+
+### Purpose Context decision
+
+- OS-owned operator strategy source set for v1: resolved current context plus `operator/profile/goals.md` when present and within scope.
+- OS-owned workspace strategy source set for v1: resolved current context, specifically the canonical Objective/current strategic section for that workspace.
+- Do not scrape other arbitrary operator/workspace Markdown for strategy.
+- Do not treat `operator-profile-owner.mjs` as a strategic owner API.
+- Phase 2/4 must define a bounded, deterministic OS strategic projection if Purpose requires structured mission/goals/priorities while OS is owner.
+
+### Interface classification
+
+**Canonical/source documents while OS owns direction:** `operator/profile/goals.md`, operator `CURRENT.md` strategic section, workspace `CURRENT.md` Objective section.  
+**Safe current-state read boundary:** `scripts/current-context.mjs`.  
+**Not a strategy API:** `scripts/operator-profile-owner.mjs`.
+
+### Verdict
+
+**PASS with one implementation requirement:** OS-owned strategic Markdown needs a bounded projection/parser contract before Purpose can expose normalized strategic fields.
+
+---
+
 # Open findings carried forward
 
 1. **Workspace schema/runtime ID length mismatch** — manifest schema lacks runtime `maxLength: 128`.
@@ -247,6 +294,7 @@ This is **not a new Purpose defect and is not changed during this audit**, but P
 6. **No stale fallback under Brain ownership** — unavailable strategic owner evidence stays unavailable.
 7. **Ownership marker durability observation** — missing marker is indistinguishable at the low-level resolver from fresh/pre-handover absence; do not add Purpose heuristics, and ensure marker persistence/migration is covered by later hardening/requalification evidence.
 8. **Ownership record is coordination, not strategic content** — Purpose must read actual strategic content from the canonical owner API.
+9. **OS-owned strategy is currently Markdown/section based** — Purpose needs a bounded deterministic adapter/projection; no arbitrary Markdown scraping.
 
 These findings are not blockers for continuing the audit.
 
@@ -256,7 +304,7 @@ These findings are not blockers for continuing the audit.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` first.
 2. Read this file second for the exact task-level checkpoint.
-3. Continue **only** with **Phase 1 / Slice 1.1 / Task 6 — OS-owned strategic files/sections**.
-4. Do not redo Tasks 1–5 unless later evidence shows the audited OS ref changed before implementation begins.
+3. Continue **only** with **Phase 1 / Slice 1.1 / Task 7 — Brain-owned generated direction views**.
+4. Do not redo Tasks 1–6 unless later evidence shows the audited OS ref changed before implementation begins.
 5. After each task, update this file and advance the pointer by exactly one task.
 6. At Slice 1.1 completion, update the canonical implementation plan with source-backed interface map, findings, exact evidence, status `COMPLETE`, and NEXT pointer to Slice 1.2.
