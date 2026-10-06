@@ -9,33 +9,32 @@
 
 - **Phase:** 2 — Freeze the Purpose Context v1 contract
 - **Current slice:** **2.3 — Operator and workspace profile rules**
-- **Slice state:** NOT STARTED
+- **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2
-- **NEXT:** **Slice 2.3 / Task 1 — freeze operator default shape**
-- Do not start Task 2 until Task 1 is complete and recorded here.
+- **Completed Slice 2.3 tasks:** 1 of 7
+- **NEXT:** **Slice 2.3 / Task 2 — freeze workspace default/basic shape**
+- Do not start Task 3 until Task 2 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
 - envelope: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`
 - trajectory: `docs/PURPOSE-CONTEXT-TRAJECTORY-V1-CONTRACT.md`
-- profile contract: to be created in Slice 2.3 Task 1
+- profiles: `docs/PURPOSE-CONTEXT-PROFILES-V1-CONTRACT.md`
 
-## Slice 2.1 closure
+## Slice closures
 
-**COMPLETE / CONTRACT FROZEN** at `c784436ecaafc2f19da58782f8802247a235c1db`.
+- Slice 2.1 COMPLETE / CONTRACT FROZEN at `c784436ecaafc2f19da58782f8802247a235c1db`.
+- Slice 2.2 COMPLETE / CONTRACT FROZEN at `7e2193451894b7e5b6f8b3d1def9c04afd2a2f31`.
 
-## Slice 2.2 closure
+## Slice 2.3 progress
 
-**COMPLETE / CONTRACT FROZEN** at `7e2193451894b7e5b6f8b3d1def9c04afd2a2f31`.
-
-Frozen trajectory laws:
-- exactly eight relation types;
-- bounded node-kind/relation matrix;
-- cycles excluded rather than silently repaired;
-- broken parents and pure orphans distinguished;
-- owner-confirmed supersession only;
-- explain ascends exact validated causal edges and reports complete/partial/orphan honestly;
-- deterministic graph/branch ordering and pruning.
+1. [x] operator default shape — sparse owner-backed global/operator projection; no implicit all-workspace aggregation; default strategic set can include purpose/goals/priorities/challenges/strategies/initiatives/current work/trajectory/material changes when evidence exists. `29f23e7173f0fdcafee8bb33f2829ffb37d0a988`
+2. [ ] workspace default/basic shape
+3. [ ] rich workspace optional fields
+4. [ ] auto-detection rules
+5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
+6. [ ] disabled/irrelevant behavior
+7. [ ] explicit cross-scope relationship rules
 
 ## Carried repair register
 
@@ -48,8 +47,4 @@ Frozen trajectory laws:
 
 ## Resume instructions
 
-1. Read plan.
-2. Read this file.
-3. Read envelope + trajectory contracts.
-4. Continue only with **Slice 2.3 / Task 1 — operator default shape**.
-5. Persist this file after Task 1 before Task 2.
+Continue only with **Slice 2.3 / Task 2 — workspace default/basic shape**, then persist this file before Task 3.
