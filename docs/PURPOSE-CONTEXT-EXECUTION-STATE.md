@@ -11,9 +11,9 @@
 - **Current slice:** **2.2 — Trajectory graph contract**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1
-- **Completed Slice 2.2 tasks:** 1–4 of 8
-- **NEXT:** **Slice 2.2 / Task 5 — freeze supersession behavior**
-- Do not start Task 6 until Task 5 is complete and recorded here.
+- **Completed Slice 2.2 tasks:** 1–5 of 8
+- **NEXT:** **Slice 2.2 / Task 6 — freeze orphan initiative/current-work behavior**
+- Do not start Task 7 until Task 6 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -30,9 +30,9 @@ Frozen envelope: schema v1.0; exact operator/workspace scopes; bounded required 
 
 1. [x] relation vocabulary — exactly eight evidence-backed relation tokens. `b871db6a4849c5d76cee0181d4c890895d6fde6a`
 2. [x] source/target kinds — bounded semantic node kinds + exact relation matrix + deterministic owner-backed/derived node identity. `164d57b00eaa5a5e6d942a824d68eba57fcdea18`
-3. [x] cycle behavior — self-edges invalid; structural `serves|advances|executes|supersedes` graph acyclic; cycle SCC edges excluded from authoritative traversal, no silent repair. `1d9b7de2631d3328bfa7771584d2b095a4bcc90e`
-4. [x] missing-parent behavior — explicit resolved/stubbed/unavailable/missing/forbidden/invalid target states; retained edges keep identity stubs under pruning; broken refs never fuzzy-fallback; explanations stop at verified boundary. `271891898cf94fefb11388e46a7cee4fc0877d1c`
-5. [ ] supersession behavior
+3. [x] cycle behavior — self-edges invalid; structural graph acyclic; cycle SCC edges excluded from authoritative traversal. `1d9b7de2631d3328bfa7771584d2b095a4bcc90e`
+4. [x] missing-parent behavior — explicit resolution states, identity stubs under pruning, no fuzzy fallback. `271891898cf94fefb11388e46a7cee4fc0877d1c`
+5. [x] supersession behavior — owner-confirmed same-kind replacement only; timestamps/revisions/similarity never infer supersession; owner currentness outranks chain position; ambiguous replacements stay ambiguous. `6e4032c8f525c840fe5b9ed942f5623d7d1e2773`
 6. [ ] orphan initiative/current-work behavior
 7. [ ] explain traversal rules
 8. [ ] deterministic graph ordering
@@ -51,5 +51,5 @@ Frozen envelope: schema v1.0; exact operator/workspace scopes; bounded required 
 1. Read plan.
 2. Read this file.
 3. Read both contract docs.
-4. Continue only with **Slice 2.2 / Task 5 — supersession behavior**.
-5. Persist this file after Task 5 before Task 6.
+4. Continue only with **Slice 2.2 / Task 6 — orphan initiative/current-work behavior**.
+5. Persist this file after Task 6 before Task 7.
