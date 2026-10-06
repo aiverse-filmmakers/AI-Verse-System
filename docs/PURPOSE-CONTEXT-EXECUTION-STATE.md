@@ -11,9 +11,9 @@
 - **Current slice:** **2.2 — Trajectory graph contract**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1
-- **Completed Slice 2.2 tasks:** 1–3 of 8
-- **NEXT:** **Slice 2.2 / Task 4 — freeze missing-parent behavior**
-- Do not start Task 5 until Task 4 is complete and recorded here.
+- **Completed Slice 2.2 tasks:** 1–4 of 8
+- **NEXT:** **Slice 2.2 / Task 5 — freeze supersession behavior**
+- Do not start Task 6 until Task 5 is complete and recorded here.
 - No Purpose runtime/owner implementation code exists yet.
 
 Contracts:
@@ -24,12 +24,14 @@ Contracts:
 
 **COMPLETE / CONTRACT FROZEN** at `c784436ecaafc2f19da58782f8802247a235c1db`.
 
+Frozen envelope: schema v1.0; exact operator/workspace scopes; bounded required shell; provenance; freshness; canonical refs; deterministic ordering; explicit unknown/unavailable semantics; 16KB default / 4–64KB supported budgets; no unbounded lists; disposable/rebuildable projection with no canonical Purpose state.
+
 ## Slice 2.2 progress
 
-1. [x] relation vocabulary — bounded eight-token vocabulary; evidence-backed only. `b871db6a4849c5d76cee0181d4c890895d6fde6a`
-2. [x] source/target kinds — bounded graph kinds + exact relation matrix + deterministic owner-backed/derived node identity. `164d57b00eaa5a5e6d942a824d68eba57fcdea18`
-3. [x] cycle behavior — self-edges invalid; structural `serves|advances|executes|supersedes` subgraph must be acyclic; cycle SCC edges excluded from authoritative traversal, evidence retained, no silent repair. `1d9b7de2631d3328bfa7771584d2b095a4bcc90e`
-4. [ ] missing-parent behavior
+1. [x] relation vocabulary — exactly eight evidence-backed relation tokens. `b871db6a4849c5d76cee0181d4c890895d6fde6a`
+2. [x] source/target kinds — bounded semantic node kinds + exact relation matrix + deterministic owner-backed/derived node identity. `164d57b00eaa5a5e6d942a824d68eba57fcdea18`
+3. [x] cycle behavior — self-edges invalid; structural `serves|advances|executes|supersedes` graph acyclic; cycle SCC edges excluded from authoritative traversal, no silent repair. `1d9b7de2631d3328bfa7771584d2b095a4bcc90e`
+4. [x] missing-parent behavior — explicit resolved/stubbed/unavailable/missing/forbidden/invalid target states; retained edges keep identity stubs under pruning; broken refs never fuzzy-fallback; explanations stop at verified boundary. `271891898cf94fefb11388e46a7cee4fc0877d1c`
 5. [ ] supersession behavior
 6. [ ] orphan initiative/current-work behavior
 7. [ ] explain traversal rules
@@ -49,5 +51,5 @@ Contracts:
 1. Read plan.
 2. Read this file.
 3. Read both contract docs.
-4. Continue only with **Slice 2.2 / Task 4 — missing-parent behavior**.
-5. Persist this file after Task 4 before Task 5.
+4. Continue only with **Slice 2.2 / Task 5 — supersession behavior**.
+5. Persist this file after Task 5 before Task 6.
