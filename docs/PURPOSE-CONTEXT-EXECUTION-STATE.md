@@ -14,8 +14,8 @@
 - **Current slice:** **2.1 — Versioned envelope schema**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3
-- **NEXT task:** **Slice 2.1 / Task 5 — freeze freshness format**
-- **Do not start Task 6 until Task 5 is complete and recorded here.**
+- **NEXT task:** **Slice 2.1 / Task 6 — freeze canonical ref format**
+- **Do not start Task 7 until Task 6 is complete and recorded here.**
 - Phase 1 owner/interface audit is complete.
 - No Purpose Context behavior/code has been implemented yet.
 - Slice 2.1 contract path: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
@@ -133,7 +133,7 @@ Freeze in this exact order:
 2. [x] supported scope kinds — exactly `operator` and `workspace`; workspace scope is `workspace:<id>` using canonical lowercase alnum/hyphen IDs up to 128 chars; no implicit all-workspace/global scope. Contract commit: `95ba626b02de0c7d62a16060d1c228eeaa1548ed`.
 3. [x] required vs optional fields — required envelope fields are `schema_version`, `scope`, `scope_kind`, `identity`, `provenance`; semantic sections are relevance-driven optional projections; absence is not equivalent to unknown/unavailable/empty. Contract commit: `2a17d8fbfefc8699685af831150f40a453a0d2ce`.
 4. [x] provenance format — OS is projection owner; every attempted owner read is recorded; owner-backed claims require exact source refs; derived claims require deterministic derivation rule + refs; projection generation time is not freshness. Contract commit: `3eaae415ac02714a1c2960c1f193af44828de7ca`.
-5. [ ] freshness format
+5. [x] freshness format — leaf state is `current|stale|unknown|unavailable`; read/generation time alone never proves currentness; aggregate freshness without source watermark is `unknown`; stale owner reads stay explicit. Contract commit: `84b6fd49c7f400724ac1f55b47acbe5a4de72be6`.
 6. [ ] canonical ref format
 7. [ ] deterministic ordering rules
 8. [ ] unknown/unavailable field behavior
@@ -155,6 +155,6 @@ Slice 2.1 acceptance requirements:
 2. Read this file for the authoritative live pointer.
 3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md` for the currently frozen Slice 2.1 contract.
 4. Read Slice 1.1/1.2/1.3 audit documents only when detailed owner evidence is needed.
-5. Continue **only** with **Phase 2 / Slice 2.1 / Task 5 — freeze freshness format**.
+5. Continue **only** with **Phase 2 / Slice 2.1 / Task 6 — freeze canonical ref format**.
 6. Phase 2 is a contract-freeze phase: update System contract/docs first; do not begin owner implementation code before the relevant contract tasks are complete.
-7. Persist the execution-state document after Task 5 before Task 6.
+7. Persist the execution-state document after Task 6 before Task 7.
