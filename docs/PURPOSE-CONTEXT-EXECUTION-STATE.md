@@ -15,9 +15,9 @@
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1
 - **Audited Brain ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`
-- **Completed in Slice 1.2:** Tasks 1-6
-- **NEXT task:** **Slice 1.2 / Task 7 — audit supersession/versioning**
-- **Do not start Task 8 until Task 7 is complete and recorded here.**
+- **Completed in Slice 1.2:** Tasks 1-7
+- **NEXT task:** **Slice 1.2 / Task 8 — audit query/list/read surfaces**
+- **Do not start Task 9 until Task 8 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 is audit-only.
 
 ### Important continuation note
@@ -67,7 +67,7 @@ Audit Brain in this exact order:
 4. [x] direction service
 5. [x] direction ownership integration
 6. [x] source/evidence refs
-7. [ ] supersession/versioning
+7. [x] supersession/versioning
 8. [ ] query/list/read surfaces
 9. [ ] current strategy rollback behavior
 10. [ ] tests/CI
@@ -77,73 +77,67 @@ Audit Brain in this exact order:
 **Status:** COMPLETE
 
 - Canonical kinds: `intent`, `practice`, `gap`, `opportunity`, `initiative`, `objective`, `goal`, `model_belief`, `evaluation`, `learning`, `learning_candidate`, `strategy_rule`, `policy`.
-- Generic `BrainObject` carries scope, status, revision, timestamps, source refs, structured evidence refs and supersession links.
-- `goal` and `objective` are distinct canonical kinds.
-- No canonical kinds named `mission`, `problem`, `narrative`, or `challenge` exist at this baseline.
+- Generic object envelope carries scope, status, revision, timestamps, source/evidence refs and supersession fields.
 
 ## Slice 1.2 / Task 2 — strategic object semantics
 
 **Status:** COMPLETE
 
-- `intent` is owner-backed strategic direction when Brain owns direction; subtypes are `desired_state`, `goal`, `boundary`, `constraint`, `success_definition`.
-- `goal` is an execution-grade durable Goal service object; `objective` is a bounded Action Loop work unit.
-- `gap` is a Brain-owned interpretation between desired-state refs and canonical current-state refs.
-- `opportunity` is a hypothesis for reducing active gaps; `initiative` is a proposal/portfolio object traceable to a qualified opportunity and gaps.
-- `strategy_rule` is a learned self-improvement operating rule, not a general business/project strategy object.
+- Strategic intent, execution Goal, Action objective, gap, opportunity, initiative and learned `strategy_rule` have distinct semantics.
+- Telos `Strategy` must not be mapped directly to Brain `strategy_rule`.
 
 ## Slice 1.2 / Task 3 — Goal API
 
 **Status:** COMPLETE
 
-- Stable Goal reads are `get()` and `list()`; mutations are operation-ID idempotent and version-bound.
-- Completion is deterministic/evidence-gated, and no-progress/budget limits cannot self-declare success.
-- Goal presence does not establish strategic ownership and Goal has no canonical Telos-style parent relation.
+- Goal API provides stable read/mutation/continuation behavior with idempotency, versioning, budgets and evidence-gated completion.
 
 ## Slice 1.2 / Task 4 — DirectionService
 
 **Status:** COMPLETE
 
-- Implements bounded `gap -> opportunity -> initiative` qualification/promotion.
-- Initiative `serves` and gap desired/current refs are not fully referentially validated as typed graph edges.
-- Purpose needs a stable Brain read contract that resolves/validates relationship targets rather than reading private store files or trusting raw refs.
+- DirectionService provides bounded `gap -> opportunity -> initiative` qualification but not a typed normalized public trajectory read API.
 
 ## Slice 1.2 / Task 5 — direction ownership integration
 
 **Status:** COMPLETE
 
-- `.aiverse/direction/ownership.json` is the shared durable one-owner-per-scope coordination marker in native mode.
-- OS→Brain and Brain→OS transfers are explicit, provenance-bearing, lock-backed and recoverable.
-- Brain unavailability never returns strategic authority to OS; interrupted handback leaves Brain owner until the ownership flip succeeds.
-- Generated direction views/exports are reference artifacts only.
-- Purpose must select strategic sources through this same ownership contract and never infer ownership heuristically.
+- One durable owner per native scope; explicit provenance-bearing handover/handback; no availability-based fallback.
 
 ## Slice 1.2 / Task 6 — source/evidence refs
+
+**Status:** COMPLETE
+
+- `source_refs` are plain lineage/provenance pointers; `evidence_refs` are structured evidence records with class/freshness/provenance semantics.
+- Raw refs are not automatically referentially or cross-scope validated, so Purpose must resolve/validate sensitive trajectory relations.
+
+## Slice 1.2 / Task 7 — supersession/versioning
 
 **Status:** COMPLETE  
 **Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
 
 Durable findings:
 
-- Every `BrainObject` has two distinct provenance channels: `source_refs` (plain string references to upstream/source objects or external owner refs) and `evidence_refs` (structured `EvidenceRef` records). Purpose must preserve this distinction instead of flattening both into one generic citation list.
-- `EvidenceRef` validates a non-empty ref plus one of the declared evidence classes: `USER_CONFIRMATION`, `CANONICAL_STATE`, `DIRECT_MEASUREMENT`, `AUTHORITATIVE_EXTERNAL`, `INDEPENDENT_EVALUATION`, `CORROBORATED_HISTORY`, `SINGLE_OBSERVATION`, or `MODEL_INFERENCE`.
-- Evidence may carry claim, observation/expiry timestamps, optional scope, integrity and structured provenance. If any of `source_kind`, `source_ref`, or `independence` is supplied, all three are required; independence is bounded to `same_context`, `fresh_context`, `independent_model`, or `external_authoritative`.
-- Evidence timestamps are validated and expiry cannot precede observation. An explicitly supplied evidence scope must itself be a valid strategic scope.
-- Generic Brain object creation does **not** require every `source_ref` to resolve, does not type `source_refs`, and does not require every evidence item's optional scope to equal the containing object's scope. Therefore raw refs are provenance pointers, not automatically verified cross-object/cross-scope graph authority.
-- DirectionService defaults gap sources to current+desired refs, opportunity sources to gap refs, and initiative sources to source opportunity + gaps. These are useful lineage hints but must still be resolved/validated by the future Purpose snapshot contract before becoming trajectory edges.
-- OS→Brain direction handover provides unusually strong source provenance: imported intent carries exact OS source path + SHA-256 in both payload provenance and `source_refs`.
-- `EvaluationService` demonstrates the stronger evidence path: passed criteria require evidence, V1+ rejects model-inference-only success, V2/V3 require strong evidence classes and increasing evaluator independence; recorded evaluations retain target source ref plus deduplicated evidence refs.
-- Goal completion similarly binds criterion results to known `EvidenceRef` records and rejects model-inference-only success.
-- Purpose v1 should expose both provenance and evidence strength, but it must not imply that a mere `source_ref` has the authority of verified evidence. Sensitive claims should descend to exact owner/evidence records when needed.
-- Purpose relationship validation must enforce same-scope/allowed-cross-scope rules explicitly; the current generic Brain envelope alone is not sufficient to prove relationship scope safety.
+- Generic Brain object persistence uses optimistic revision control. New objects are saved at revision `1`; every successful update requires the caller's expected revision and increments the revision atomically. Scope and kind are immutable for an existing object.
+- Generic revision numbers are **concurrency/current-version counters**, not a retained historical revision log. Normal saves overwrite the same canonical JSON object; older payload revisions are not generically preserved as separate snapshots.
+- `BrainObject` exposes `supersedes` and `superseded_by`, and several lifecycle machines support `SUPERSEDED`, but the generic controller/store does not automatically resolve, validate, or write reciprocal supersession links. A populated generic supersession field therefore cannot be assumed to represent a fully enforced bidirectional chain unless the owning service proves it.
+- `controller.create(... supersedes=...)` can set the new object's `supersedes` field, but no generic logic updates the referenced object's `superseded_by` field or transitions it. Purpose must not infer “current winner” solely from a raw `supersedes` pointer.
+- Goal's public `version` is the underlying object revision. Goal additionally has `activation_epoch`, which increments on material edits/resume/criteria changes and represents execution activation semantics, not historical object identity.
+- `strategy_rule` has a stronger, dedicated revision model separate from generic object revision: `previous_revision_ref` links a candidate to the known-good prior strategy, and `previous_revision_snapshot` captures the exact prior ID/revision/payload at link time.
+- Strategy promotion is lock-backed and transitions the candidate ACTIVE while retiring the previous ACTIVE strategy; failure to retire the previous causes recovery that retires the newly activated candidate rather than leaving both silently active.
+- Strategy rollback is explicitly user-authorized, transaction-recorded and restores only the exact known-good previous RETIRED strategy before marking the current one `ROLLED_BACK`; interrupted cleanup is represented as a recoverable transaction state rather than silently guessed.
+- Purpose v1 must distinguish **object revision**, **lifecycle supersession**, and **strategy revision lineage**. They are not one universal version graph.
+- When selecting current strategic state, Purpose should use owner-specific active/current-status rules and dedicated owner APIs. It must not select “highest revision number” across different objects or assume a generic `supersedes` chain is authoritative without service validation.
+- Historical trajectory should remain Memory/provenance-owned where appropriate; Purpose should not attempt to reconstruct a complete history from overwritten generic object revisions.
 
 Primary evidence inspected:
 
 - `engine/aiverse_brain/models.py`
+- `engine/aiverse_brain/storage.py`
 - `engine/aiverse_brain/controller.py`
-- `engine/aiverse_brain/direction.py`
-- `engine/aiverse_brain/direction_ownership.py`
-- `engine/aiverse_brain/evaluator.py`
 - `engine/aiverse_brain/goal.py`
+- `engine/aiverse_brain/state_machine.py`
+- `engine/aiverse_brain/strategy_revision.py`
 
 ### Slice 1.2 required output
 
@@ -174,7 +168,7 @@ Do not force fake one-to-one Telos mappings.
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for live progress.
-3. Continue **only** with **Phase 1 / Slice 1.2 / Task 7 — audit supersession/versioning**.
+3. Continue **only** with **Phase 1 / Slice 1.2 / Task 8 — audit query/list/read surfaces**.
 4. Continue against exact Brain ref `7c77b053df627e61b3d7f11d029500ab61095c9c` unless a deliberate re-audit is started on a newer descendant.
-5. After Task 7, update this file before Task 8.
+5. After Task 8, update this file before Task 9.
 6. At Slice 1.2 completion, create/record a Brain audit closure and advance to Slice 1.3.
