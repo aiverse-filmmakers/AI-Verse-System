@@ -12,12 +12,13 @@
 
 - **Phase:** 2 — Freeze the Purpose Context v1 contract
 - **Current slice:** **2.1 — Versioned envelope schema**
-- **Slice state:** NOT STARTED
+- **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3
-- **NEXT task:** **Slice 2.1 / Task 1 — freeze `schema_version`**
-- **Do not start Task 2 until Task 1 is complete and recorded here.**
+- **NEXT task:** **Slice 2.1 / Task 2 — freeze supported scope kinds**
+- **Do not start Task 3 until Task 2 is complete and recorded here.**
 - Phase 1 owner/interface audit is complete.
 - No Purpose Context behavior/code has been implemented yet.
+- Slice 2.1 contract path: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`.
 
 ---
 
@@ -128,7 +129,7 @@ Confirmed repositories required by current P1-P5 program:
 
 Freeze in this exact order:
 
-1. [ ] `schema_version`
+1. [x] `schema_version` — frozen as required string `"1.0"`; unsupported major versions fail closed; breaking semantics require a major bump. Contract commit: `3cf8c48fde4950ac69ff30e11e22d308210fab43`.
 2. [ ] supported scope kinds
 3. [ ] required vs optional fields
 4. [ ] provenance format
@@ -152,7 +153,8 @@ Slice 2.1 acceptance requirements:
 
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for the authoritative live pointer.
-3. Read Slice 1.1/1.2/1.3 audit documents only when detailed owner evidence is needed.
-4. Continue **only** with **Phase 2 / Slice 2.1 / Task 1 — freeze `schema_version`**.
-5. Phase 2 is a contract-freeze phase: update System contract/docs first; do not begin owner implementation code before the relevant contract tasks are complete.
-6. Persist the execution-state document after Task 1 before Task 2.
+3. Read `docs/PURPOSE-CONTEXT-V1-CONTRACT.md` for the currently frozen Slice 2.1 contract.
+4. Read Slice 1.1/1.2/1.3 audit documents only when detailed owner evidence is needed.
+5. Continue **only** with **Phase 2 / Slice 2.1 / Task 2 — freeze supported scope kinds**.
+6. Phase 2 is a contract-freeze phase: update System contract/docs first; do not begin owner implementation code before the relevant contract tasks are complete.
+7. Persist the execution-state document after Task 2 before Task 3.
