@@ -15,8 +15,8 @@
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1
 - **Audited Brain ref:** `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`
-- **NEXT task:** **Slice 1.2 / Task 2 — audit intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics**
-- **Do not start Task 3 until Task 2 is complete and recorded here.**
+- **NEXT task:** **Slice 1.2 / Task 3 — audit Goal API**
+- **Do not start Task 4 until Task 3 is complete and recorded here.**
 - No Purpose Context behavior/code has been implemented yet; Phase 1 is audit-only.
 
 ### Important continuation note
@@ -105,7 +105,7 @@ At OS SHA `e74a4e05b1f891e6f871f34a298bf10363a11d88`:
 Audit Brain in this exact order:
 
 1. [x] Brain object kinds
-2. [ ] intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics
+2. [x] intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics
 3. [ ] goal API
 4. [ ] direction service
 5. [ ] direction ownership integration
@@ -135,6 +135,36 @@ Primary evidence inspected:
 - `engine/aiverse_brain/validation.py`
 - strategic payload schemas under `schemas/`
 - repository tree at exact Brain ref
+
+## Slice 1.2 / Task 2 — strategic object semantics
+
+**Status:** COMPLETE  
+**Audited ref:** `7c77b053df627e61b3d7f11d029500ab61095c9c`
+
+Durable findings:
+
+- `intent` is Brain's owner-backed strategic-direction statement type when Brain owns direction. Its explicit subtypes are `desired_state`, `goal`, `boundary`, `constraint`, and `success_definition`. Confirmed/active desired-state and goal intents are what the controller currently uses for strategic orientation.
+- Brain onboarding may create strategic intents only from explicit user answers and only while Brain is the current direction owner. Under OS ownership it refuses to create a parallel strategic store.
+- `goal` is a separate, execution-grade durable Goal service object. It carries an objective string, completion contract, criteria, budget policy, progress ledger, activation epoch, provenance/evidence, optimistic versioning, and idempotent mutation receipts. It must not be treated as synonymous with `intent:goal`.
+- `objective` is the bounded Action Loop work unit. It represents an outcome with explicit criteria, progress interpretation, constraints/boundaries/risks/dependencies/stop conditions, budget, and verification level. It is operationally below long-horizon direction and is not a mission/desired-state substitute.
+- `gap` is a Brain-owned interpretation between desired-state refs and canonical current-state refs. It is deliberately not current-state truth and is created under temporary-hypothesis authority.
+- `opportunity` is a hypothesis for reducing one or more active gaps. It carries confidence, optional mechanism/expiry, dedupe/cooldown identity, eligibility/ranking and notification metadata. It is not accepted work by itself.
+- `initiative` is the Direction Loop portfolio/proposal object. It must trace to a QUALIFIED opportunity and active gaps, carries `serves` refs, outcome/hypothesis and score components, and remains a proposal until separately accepted. Promotion preserves the source opportunity's ranking components rather than allowing silent priority inflation.
+- `strategy_rule` is **not** a general business/project strategy object. It is a learned operating rule in Brain's self-improvement/evolution system (`E0`-`E4`) with evaluation, regression and rollback semantics. Therefore mapping Telos `Strategy` directly to `strategy_rule` would be semantically wrong.
+- The current strategic chain is therefore split across two distinct layers: durable direction intent (`intent`) and Direction/Action execution (`gap -> opportunity -> initiative`, then bounded `objective` / durable Goal execution). Purpose Context must preserve those distinctions instead of flattening every item into a Telos-named object.
+- No dedicated canonical `mission`, `problem`, `narrative`, `challenge`, or general `strategy` kind exists. Final Telos mapping remains deferred until Tasks 3-10 prove which concepts can safely be projected/derived and which genuinely need new semantics.
+
+Primary evidence inspected:
+
+- `schemas/intent.schema.json`, `goal.schema.json`, `objective.schema.json`, `gap.schema.json`, `opportunity.schema.json`, `initiative.schema.json`, `strategy-rule.schema.json`
+- `engine/aiverse_brain/onboarding.py`
+- `engine/aiverse_brain/controller.py`
+- `engine/aiverse_brain/direction.py`
+- `engine/aiverse_brain/goal.py`
+- `protocol/BRAIN-PROTOCOL.md`
+- `protocol/DIRECTION-ATTENTION.md`
+- `protocol/ACTION-VERIFICATION.md`
+- `protocol/LEARNING-EVOLUTION.md`
 
 ### Slice 1.2 required output
 
@@ -166,7 +196,7 @@ Do not force fake one-to-one Telos mappings.
 1. Read `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`.
 2. Read this file for live progress.
 3. Read `docs/PURPOSE-CONTEXT-SLICE-1.1-AUDIT.md` only if OS audit evidence/details are needed.
-4. Continue **only** with **Phase 1 / Slice 1.2 / Task 2 — audit intent / goal / objective / gap / opportunity / initiative / strategy_rule semantics**.
+4. Continue **only** with **Phase 1 / Slice 1.2 / Task 3 — audit Goal API**.
 5. Continue against exact Brain ref `7c77b053df627e61b3d7f11d029500ab61095c9c` unless a deliberate re-audit is started on a newer descendant.
-6. After Task 2, update this file before Task 3.
+6. After Task 3, update this file before Task 4.
 7. At Slice 1.2 completion, create/record a Brain audit closure and advance to Slice 1.3.
