@@ -11,9 +11,9 @@
 - **Current slice:** **3.2 — Missing strategic semantics**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1
-- **Completed Slice 3.2 tasks:** 1–3 of 6
-- **NEXT:** **Slice 3.2 / Task 4 — define supersession/versioning**
-- Do not start Task 5 until Task 4 is complete and recorded here.
+- **Completed Slice 3.2 tasks:** 1–4 of 6
+- **NEXT:** **Slice 3.2 / Task 5 — migrate nothing silently**
+- Do not start Task 6 until Task 5 is complete and recorded here.
 
 ## Slice 3.1 closure
 
@@ -33,7 +33,7 @@ Phase 1 proved `problem`, `mission`, and strategic `strategy` are required v1 se
 1. [x] minimal canonical semantics — added `intent:problem`, `intent:mission`, `intent:strategy` to runtime validation and JSON schema. Brain commits `391213ca308901804b9c781d2bbcceaafc11ac95`, `b428487ff56823437c1c5c18c807d6f6bc3b4646`.
 2. [x] lifecycle/status rules — reuse existing Intent state machine unchanged: DRAFT/PROPOSED candidate states; CONFIRMED/ACTIVE/PAUSED current eligible states; ACHIEVED/ABANDONED/SUPERSEDED terminal/history. Contract commit `1ca4debd9e7f404c0df15f53410892ae9d0194d9`.
 3. [x] confirmation authority — `problem`, `mission`, and `strategy` are privileged strategic intents; existing Intent confirmation gate applies, Brain must own exact scope before confirming/writing in native mode, and model/evidence/external data cannot self-confirm them. Privileged registry commit `4b04f9086b8d733f55a8612aa6e6953a45bc6a48`; contract update `35c30fc129767689544ba275f87620a3ad73eeda`.
-4. [ ] define supersession/versioning
+4. [x] supersession/versioning — reuse stable Brain object identity + `revision`; replacement is explicit canonical supersession, never timestamp/latest-wins inference; same exact scope/subtype only; no singleton assumption; candidate `supersedes` does not itself retire prior current truth. Contract commit `d21fda0fef7f4e0e50fea9104881c9d82fc42598`.
 5. [ ] migrate nothing silently
 6. [ ] exhaustive unit tests
 
@@ -43,7 +43,7 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Carried repair register
 
-1. Brain release descriptor invalid/unreachable revision; repair before Purpose Brain acceptance/Core vNext.
+1. Brain release descriptor invalid/unreachable revision; repair/verify before Purpose Brain acceptance/Core vNext.
 2. Dashboard workspace-ID contract must align with canonical lowercase alnum/hyphen max 128 before Purpose Dashboard qualification.
 3. OS workspace manifest schema max length should align with runtime max 128.
 4. Data aggregate freshness must never be inferred from query execution time.
@@ -51,4 +51,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Resume instructions
 
-Continue only with **Slice 3.2 / Task 4 — define supersession/versioning**, then persist this file before Task 5.
+Continue only with **Slice 3.2 / Task 5 — migrate nothing silently**, then persist this file before Task 6.
