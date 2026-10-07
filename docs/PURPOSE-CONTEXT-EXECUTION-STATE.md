@@ -7,14 +7,14 @@
 
 ## Current execution pointer
 
-- **Phase:** 2 — Freeze the Purpose Context v1 contract
-- **Current slice:** **2.3 — Operator and workspace profile rules**
-- **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2
-- **Completed Slice 2.3 tasks:** 1–6 of 7
-- **NEXT:** **Slice 2.3 / Task 7 — freeze explicit cross-scope relationship rules**
-- Do not start Phase 3 until Task 7 is complete and recorded here.
-- No Purpose runtime/owner implementation code exists yet.
+- **Phase:** 3 — Brain canonical strategic read surface
+- **Current slice:** **3.1 — Purpose/strategy snapshot API**
+- **Slice state:** NOT STARTED
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3
+- **NEXT:** **Slice 3.1 / Task 1 — expose confirmed/current strategic objects only**
+- Do not start Task 2 until Task 1 is complete and recorded here.
+- Phase 2 v1 contract is frozen.
+- No Purpose runtime injection or OS composer exists yet.
 
 Contracts:
 - envelope: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`
@@ -25,16 +25,21 @@ Contracts:
 
 - Slice 2.1 COMPLETE / CONTRACT FROZEN at `c784436ecaafc2f19da58782f8802247a235c1db`.
 - Slice 2.2 COMPLETE / CONTRACT FROZEN at `7e2193451894b7e5b6f8b3d1def9c04afd2a2f31`.
+- Slice 2.3 COMPLETE / CONTRACT FROZEN at `46bf0f4d50895b678873715fd8bb91d07619a7de`.
+- **Phase 2 COMPLETE / V1 CONTRACT FROZEN.**
 
-## Slice 2.3 progress
+## Phase 3 / Slice 3.1 task checklist
 
-1. [x] operator default shape — sparse global/operator projection; no implicit all-workspace aggregation. `29f23e7173f0fdcafee8bb33f2829ffb37d0a988`
-2. [x] workspace basic shape — exact workspace shell + bounded basic strategic/current-work trajectory; no forced corporate bureaucracy. `9a2d9e776fe1f1c680af266dcba35c5502b9702e`
-3. [x] rich workspace fields — additive read profile over same v1 schema; richer domains only when owner-backed/relevant; no invented corporate top-level fields. `c25e0bf8e6a209491aeba34be258acbd810cf034`
-4. [x] auto-detection — workspace auto starts basic and resolves rich only when a rich domain is both owner-backed and relevant/requested; workspace type/name/model judgment/unused budget alone are insufficient; explicit basic/rich requests never bypass truth/authority. `37e6c629e92febcf4cc2bd52a0a5b0bf84f84360`
-5. [x] `WORKSPACE.yaml` decision — v1 adds no `purpose_context` block; profile is request-time/deterministic and requires no workspace migration. `087cc144e069aec6b1371878c31440ef865ee161`
-6. [x] disabled/irrelevant behavior — irrelevant tasks cause zero Purpose reads; explicit Purpose requests force an exact-scope attempt; unavailable capability never fabricates or falls back across owners/scopes. `fca58bc50ff0d8db064a621fdfe0ac2e68a1e0ae`
-7. [ ] explicit cross-scope relationship rules
+Starting Brain ref audited for implementation: `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`.
+
+1. [ ] expose confirmed/current strategic objects only
+2. [ ] expose source/evidence refs
+3. [ ] expose relationships needed by trajectory graph
+4. [ ] preserve direction-owner authority
+5. [ ] expose unavailable/partial state explicitly
+6. [ ] avoid leaking internal storage layout into OS
+
+Acceptance: read-only stable JSON, scope-safe, no write side effects, no duplicate Purpose store, existing Brain direction/goal tests remain green.
 
 ## Carried repair register
 
@@ -47,4 +52,4 @@ Contracts:
 
 ## Resume instructions
 
-Continue only with **Slice 2.3 / Task 7 — explicit cross-scope relationship rules**, then persist this file before Phase 3.
+Continue only with **Slice 3.1 / Task 1 — expose confirmed/current strategic objects only**, then persist this file before Task 2.
