@@ -8,20 +8,43 @@
 ## Current execution pointer
 
 - **Phase:** 5 - Data current-state integration
-- **Current slice:** **5.1 - KPI/current-state Data reads**
+- **Current slice:** **5.2 - Current operational truth projection**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3
-- **Completed Slice 5.1 tasks:** 4 of 5
-- **NEXT:** **Slice 5.1 / Task 5 - do not copy Data rows into Brain or OS as canonical state**
-- Execute Slice 5.1 in exact task order and persist this file after every task.
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1
+- **Completed Slice 5.2 tasks:** 0 of 4
+- **NEXT:** **Slice 5.2 / Task 1 - project only Purpose-relevant current state**
+- Execute Slice 5.2 in exact task order and persist this file after every task.
 
-## Slice 5.1 task checklist
+## Slice 5.2 task checklist
 
-1. [x] expose a bounded Data read surface for Purpose-referenced current values - added a Purpose-specific Data-owned field reader in `AI-Verse-Data` rather than exposing raw record lists, query, or aggregate surfaces. Callers must supply exact `owner: ai-verse-data` refs containing `spaceId`, `entity`, `recordId`, and `field`. Reads are limited to 32 unique refs, JSON primitive current values, and a 16 KiB response ceiling. Missing records/fields fail closed, non-primitive fields are rejected, and no query-time timestamp is presented as freshness. Implementation `9ec6dc83d261d8d14b37c90cf6824086d2787f0f`; module export `5a362c43112f2e52fad1a1682754e5ac018fbd50`; package-root export `798845135dd209bcf5bd830ec4fb4fd8a9d29c72`; focused test/exact Data head `9a1cb1721fc4917dd7807fbf77282a5b31859f92`; CI `37633277840` PASS across Node 22/24 on Ubuntu, macOS, and Windows, including build/test, package, CLI, and install smoke.
-2. [x] preserve scope and provenance - added an additive `readWithProvenance` path that preserves the exact Data success-envelope workspace scope, actor, authorization/capability refs, schema version, record version, and canonical Data field ref while keeping the original scalar-only `read` response unchanged. No freshness semantics were added in this task. Implementation `bf593047222762bed57be3314813e76413173ca9`; exact Data head `b5929f3a6aefda0f20d62fb595c517d5ca890185`; CI `37642975869` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
-3. [x] include freshness/timestamp - provenance-bearing current-value reads now expose `freshness.sourceUpdatedAt` directly from the canonical Data record `updatedAt`. Repeated reads preserve the same owner timestamp, and the adapter never invents `readAt` or `queriedAt`, so query execution time cannot masquerade as freshness. Implementation `5698c22fdab4373576dbd29c3a19e5bd7a327439`; focused test/exact Data head `5b085cadad5ffebce272b090b88395944e4a9d14`; CI `37643681845` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
-4. [x] distinguish missing value, stale value, and zero/false values - added a separate bounded status reader rather than weakening strict reads. It returns explicit `value`, `stale`, or `missing` states; `0`, `false`, and `null` remain present values; absent record/field are distinct missing states; stale classification compares canonical `sourceUpdatedAt` against an explicit caller freshness policy; non-record failures still fail closed. Implementation `cb4a1a53b5f8b0dfb63f357e2c4160f769e10b58`; export `41da7c02221e7c5c4b5bce83b979c643c7162f4b`; focused tests finalized at exact Data head `5eff082872a1144c32dba072e7593b5552247645`; CI `37644581021` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
-5. [ ] do not copy Data rows into Brain or OS as canonical state
+1. [ ] project only Purpose-relevant current state
+2. [ ] add stale/unavailable diagnostics
+3. [ ] ensure Data outage does not cause fallback to stale generated Purpose values
+4. [ ] add exact-source descent tests
+
+## Slice 5.1 closure
+
+**COMPLETE / ACCEPTED FOR CONTINUATION** at Data head `f8978f8f7a1bc94edecddc2662112233289159a3` and OS head `cbc357d7fd509b911138d82ebf558565e1995b7c`.
+
+Acceptance summary:
+
+- Purpose-referenced current values use a bounded exact-ref Data read surface rather than raw list/query/aggregate access;
+- exact workspace scope, actor, authorization, schema version, record version, and canonical Data field refs are preserved;
+- freshness evidence is the canonical Data record `updatedAt`, never query execution time;
+- `value`, `stale`, and `missing` are explicit states, while `0`, `false`, and `null` remain legitimate present values;
+- raw Data rows and canonical row metadata do not cross the Purpose Data surface;
+- OS accepts only bounded transient scalar/status projections that preserve `ai-verse-data` ownership and exact source refs;
+- OS rejects raw `data`/`record`/row-shaped inputs and ownership relabeling to OS;
+- neither OS nor Brain receives or persists copied Data rows as canonical Purpose/current-state truth;
+- full current-state composition and Data outage behavior remain Slice 5.2 work.
+
+Slice 5.1 task evidence:
+
+1. bounded current-value reads: implementation `9ec6dc83d261d8d14b37c90cf6824086d2787f0f`; module export `5a362c43112f2e52fad1a1682754e5ac018fbd50`; package-root export `798845135dd209bcf5bd830ec4fb4fd8a9d29c72`; focused test/exact Data head `9a1cb1721fc4917dd7807fbf77282a5b31859f92`; CI `37633277840` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
+2. scope and provenance: implementation `bf593047222762bed57be3314813e76413173ca9`; exact Data head `b5929f3a6aefda0f20d62fb595c517d5ca890185`; CI `37642975869` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
+3. freshness/timestamp: implementation `5698c22fdab4373576dbd29c3a19e5bd7a327439`; focused test/exact Data head `5b085cadad5ffebce272b090b88395944e4a9d14`; CI `37643681845` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
+4. missing/stale/falsy distinction: implementation `cb4a1a53b5f8b0dfb63f357e2c4160f769e10b58`; export `41da7c02221e7c5c4b5bce83b979c643c7162f4b`; focused tests finalized at exact Data head `5eff082872a1144c32dba072e7593b5552247645`; CI `37644581021` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
+5. no canonical row copy: Data no-row-copy regression exact head `f8978f8f7a1bc94edecddc2662112233289159a3`, CI `37645269881` PASS across Node 22/24 on Ubuntu, macOS, and Windows. OS transient source-owner boundary implementation `7bd2838c8c0a183ba1cd9b40e8182c2d6baf125a`, focused regression `04194e3863f605661830443cb6da23ea7c0a5dc1`, Direction Ownership CI wiring `602a0ba8e4f200bc3b7c6feb37fb5c77586ef4ac`, ownership contract/final exact OS head `cbc357d7fd509b911138d82ebf558565e1995b7c`. Exact-head OS workflows all PASS: OS Write Command Boundary `37645507286`, Direction Ownership `37645507290`, Repository QC `37645507283`, OS Brain Permission Contract `37645507313`, Migration Source Concurrency `37645507268`, Four Repo Acceptance `37645507267`, Five-Component Public Beta `37645507310`.
 
 ## Slice 4.3 closure
 
@@ -90,9 +113,9 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 1. Dashboard workspace-ID contract must align with canonical lowercase alnum/hyphen max 128 before Purpose Dashboard qualification.
 2. OS workspace manifest schema max length should align with runtime max 128.
-3. Data aggregate freshness must never be inferred from query execution time.
+3. Data aggregate freshness must never be inferred from query execution time. **RESOLVED for the Purpose current-value path in Slice 5.1:** freshness is sourced from canonical Data record `updatedAt`; aggregate/query execution time is not used as freshness evidence.
 4. Final qualification must pin exact component refs.
 
 ## Resume instructions
 
-Continue only with **Slice 5.1 / Task 5 - do not copy Data rows into Brain or OS as canonical state**. Do not begin Slice 5.2 until Task 5 is complete, tested, Slice 5.1 acceptance is recorded, and this file is persisted.
+Continue only with **Slice 5.2 / Task 1 - project only Purpose-relevant current state**. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
