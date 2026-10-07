@@ -37,76 +37,29 @@ Selecting rich only broadens the eligible read set. It never requires every elig
 
 ## Task 4 — auto-detection rules — FROZEN
 
-The normal caller profile request is conceptually one of:
+The normal caller profile request is `auto | basic | rich`. Operator resolves to `operator_default`. Workspace `auto` starts at `workspace_basic` and resolves rich only when at least one rich-only information domain is both owner-backed and relevant/requested. Workspace type/name/model judgment/unused budget alone are insufficient. Explicit basic/rich requests never bypass truth, scope, authority, or budget rules.
 
-```text
-auto | basic | rich
-```
+---
 
-Operator scope resolves to `operator_default`; `basic`/`rich` workspace labels do not apply to `operator`.
+## Task 5 — `WORKSPACE.yaml` optional `purpose_context` decision — FROZEN
 
-### Workspace `auto` algorithm
+**Decision: Purpose Context v1 does not add a `purpose_context` block to `WORKSPACE.yaml`.**
 
-For `workspace:<id>`, auto-detection is deterministic and conservative:
+Rationale:
 
-1. begin with `workspace_basic`;
-2. inspect only already-authorized owner metadata/read capabilities for the exact workspace;
-3. consider the current request/relevance need;
-4. resolve to `workspace_rich` only when at least one rich-only information domain is both **owner-backed and relevant/requested**, such as:
-   - an explicit strategic KPI definition with a valid current-truth binding;
-   - owner-backed risks;
-   - owner-backed narrative/context needed for the decision;
-   - structured current-state evidence beyond the basic trajectory;
-   - material-change evidence whose richer context is needed for the task;
-5. otherwise remain `workspace_basic`.
+- exact workspace scope plus existing owner APIs already provide sufficient discovery;
+- `auto|basic|rich` is a request-time projection choice, not durable workspace truth;
+- persisting a profile flag would create configuration users would have to maintain even though the projection can decide deterministically from current owner state and relevance;
+- a durable `enabled` flag would risk making Purpose availability depend on stale workspace metadata rather than current runtime relevance;
+- the Phase 1 audit found no owner field that must live in the manifest for v1.
 
-### Insufficient signals
+Rules:
 
-None of these is sufficient by itself to choose `workspace_rich`:
-
-- workspace type being `product`, `business`, `client`, `team`, or similar;
-- workspace name/title;
-- free-text `purpose` description alone;
-- number of files/messages;
-- age of the workspace;
-- perceived importance;
-- model judgment that the workspace “looks corporate”;
-- unused token budget.
-
-Workspace type may help determine relevance after an owner-backed rich domain is present, but never creates that domain.
-
-### Explicit caller profile
-
-- `basic` forces the eligible read set to `workspace_basic`, while still preserving required truth-state/provenance diagnostics.
-- `rich` permits the `workspace_rich` eligible read set, but still cannot fabricate unavailable fields or bypass owner scope/authority.
-- `auto` uses the deterministic algorithm above.
-- An unsupported profile token fails validation; it does not silently map to `auto`.
-
-### Availability and failure behavior
-
-- If rich evidence is not available, `auto` stays basic rather than probing unrelated/private storage.
-- If the user's request specifically requires a rich domain (for example “how are our KPIs doing?”) and its declared owner read is unavailable, the projection reports that domain as unavailable/unknown under the envelope truth-state rules rather than downgrading the question into a misleading basic answer.
-- Auto-detection never crosses into another workspace to find richer evidence.
-
-### Determinism and provenance
-
-The projection SHOULD expose non-authoritative profile diagnostics in provenance, equivalent to:
-
-```yaml
-profile:
-  requested: auto
-  resolved: workspace_basic | workspace_rich
-  reasons:
-    - <stable reason code>
-```
-
-Stable example reason codes include `operator_scope`, `workspace_default_basic`, `relevant_kpi_binding_present`, `relevant_risk_domain_present`, `relevant_rich_current_state_present`, and `explicit_profile_request`.
-
-Given the same scope, caller profile request, relevance request, owner capability/results and contract version, profile resolution MUST be deterministic. Budget pruning may reduce emitted richness after selection, but it does not retroactively change the resolved profile.
-
-### No persisted profile assumption yet
-
-Task 4 does not assume a `WORKSPACE.yaml` profile setting exists. Task 5 separately decides whether such metadata is justified. Auto-detection must work without it.
+- existing `WORKSPACE.yaml` remains unchanged for Purpose v1;
+- callers may request `auto|basic|rich` at read time;
+- future manifest metadata requires a separately justified contract change and must remain configuration only, never strategic truth;
+- implementations MUST NOT create hidden/default `purpose_context` metadata during workspace creation;
+- no migration of existing workspaces is required for Purpose v1.
 
 ---
 
@@ -116,6 +69,6 @@ Task 4 does not assume a `WORKSPACE.yaml` profile setting exists. Task 5 separat
 2. [x] workspace default/basic shape
 3. [x] rich workspace optional fields
 4. [x] auto-detection rules
-5. [ ] `WORKSPACE.yaml` optional `purpose_context` decision
+5. [x] `WORKSPACE.yaml` optional `purpose_context` decision
 6. [ ] disabled/irrelevant behavior
 7. [ ] explicit cross-scope relationship rules
