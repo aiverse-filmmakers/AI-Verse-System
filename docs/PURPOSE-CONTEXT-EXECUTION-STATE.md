@@ -11,21 +11,15 @@
 - **Current slice:** **4.1 — Operator + workspace read-only composition**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2
-- **Completed Slice 4.1 tasks:** 2 of 10
-- **NEXT:** **Slice 4.1 / Task 3 — read strategic direction only through declared owner path**
+- **Completed Slice 4.1 tasks:** 3 of 10
+- **NEXT:** **Slice 4.1 / Task 4 — compose envelope**
 - Execute Slice 4.1 in exact task order and persist this file after every task.
-
-## Slice 3.2 closure
-
-**COMPLETE / CONTRACT FROZEN / ACCEPTED FOR CONTINUATION** at Brain head `69f7912eeb35f0178f6952ff0554aec8d7f2c496`.
-
-Exact-head Brain workflow evidence: CI run `37584271057` SUCCESS; Skills Receipt Contract run `37584271047` SUCCESS. The release descriptor was repaired on reachable tested lineage before closure.
 
 ## Slice 4.1 task checklist
 
-1. [x] resolve scope — `scripts/purpose-context-core.mjs` uses canonical direction-scope validation and exact physical operator/workspace isolation; fuzzy IDs, traversal and symlink aliases fail closed. OS implementation head after focused tests: `2f955899eb4e193b61b07f8ea8b587b296c40168`.
-2. [x] use ownership-aware `current-context` reads — exported the existing `readCurrentContext` implementation without changing CLI behavior, made Purpose consume that public ownership-aware boundary instead of `CURRENT.md` directly, proved OS-owned strategy remains visible while Brain-owned stale OS strategic sections are filtered, and wired the Purpose test into Direction Ownership CI. OS head `ff5fbc6b75341226d4bcc1bd91630f15874b56b8`.
-3. [ ] read strategic direction only through declared owner path
+1. [x] resolve scope — canonical scope validation plus exact physical operator/workspace isolation; implementation established by OS head `2f955899eb4e193b61b07f8ea8b587b296c40168`.
+2. [x] use ownership-aware `current-context` reads — Purpose imports the existing `readCurrentContext` public boundary; CLI semantics preserved; Purpose test wired into Direction Ownership CI. OS head `ff5fbc6b75341226d4bcc1bd91630f15874b56b8`.
+3. [x] read strategic direction only through declared owner path — OS owner reads use the ownership-aware OS current-context path and never call Brain; Brain owner requires an injected public Brain Purpose snapshot for the exact scope, never generated direction views or stale OS strategic text, and unavailable Brain public reader produces explicit unavailable state instead of fallback. OS implementation/test head `05ec10ed3b0e9ea061f0e7aa4dc7c57f137cef3e`.
 4. [ ] compose envelope
 5. [ ] preserve canonical refs
 6. [ ] deterministic ordering
@@ -34,20 +28,13 @@ Exact-head Brain workflow evidence: CI run `37584271057` SUCCESS; Skills Receipt
 9. [ ] fail closed when owner is unavailable
 10. [ ] rebuild/delete/restart tests
 
+## Slice 3.2 closure
+
+**COMPLETE / CONTRACT FROZEN / ACCEPTED FOR CONTINUATION** at Brain head `69f7912eeb35f0178f6952ff0554aec8d7f2c496`. Exact-head CI `37584271057` and Skills Receipt Contract `37584271047` succeeded.
+
 ## Slice 3.1 closure
 
 **COMPLETE / ACCEPTED FOR CONTINUATION** at Brain head `684acbf03ad44a6526a8b95cd9e136dd5cbc0f19`.
-
-The public `build_purpose_snapshot` package surface is read-only, scope/direction-owner aware, exposes exact refs and validated relationship/rejection state, sanitizes partial/unavailable reads, and focused tests prove internal storage/repository paths are not exposed.
-
-## Phase 3 / Slice 3.2 task checklist
-
-1. [x] minimal canonical semantics
-2. [x] lifecycle/status rules
-3. [x] confirmation authority
-4. [x] supersession/versioning
-5. [x] migrate nothing silently
-6. [x] exhaustive unit tests
 
 ## Phase 2 closure
 
@@ -62,4 +49,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Resume instructions
 
-Continue only with **Slice 4.1 / Task 3 — read strategic direction only through declared owner path**, persist this file, then Task 4.
+Continue only with **Slice 4.1 / Task 4 — compose envelope**, persist this file, then Task 5.
