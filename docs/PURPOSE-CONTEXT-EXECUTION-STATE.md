@@ -11,13 +11,13 @@
 - **Current slice:** **5.1 - KPI/current-state Data reads**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3
-- **Completed Slice 5.1 tasks:** 0 of 5
-- **NEXT:** **Slice 5.1 / Task 1 - expose a bounded Data read surface for Purpose-referenced current values**
+- **Completed Slice 5.1 tasks:** 1 of 5
+- **NEXT:** **Slice 5.1 / Task 2 - preserve scope and provenance**
 - Execute Slice 5.1 in exact task order and persist this file after every task.
 
 ## Slice 5.1 task checklist
 
-1. [ ] expose a bounded Data read surface for Purpose-referenced current values
+1. [x] expose a bounded Data read surface for Purpose-referenced current values - added a Purpose-specific Data-owned field reader in `AI-Verse-Data` rather than exposing raw record lists, query, or aggregate surfaces. Callers must supply exact `owner: ai-verse-data` refs containing `spaceId`, `entity`, `recordId`, and `field`. Reads are limited to 32 unique refs, JSON primitive current values, and a 16 KiB response ceiling. Missing records/fields fail closed, non-primitive fields are rejected, and no query-time timestamp is presented as freshness. Implementation `9ec6dc83d261d8d14b37c90cf6824086d2787f0f`; module export `5a362c43112f2e52fad1a1682754e5ac018fbd50`; package-root export `798845135dd209bcf5bd830ec4fb4fd8a9d29c72`; focused test/exact Data head `9a1cb1721fc4917dd7807fbf77282a5b31859f92`; CI `37633277840` PASS across Node 22/24 on Ubuntu, macOS, and Windows, including build/test, package, CLI, and install smoke.
 2. [ ] preserve scope and provenance
 3. [ ] include freshness/timestamp
 4. [ ] distinguish missing value, stale value, and zero/false values
@@ -95,4 +95,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 5.1 / Task 1 - expose a bounded Data read surface for Purpose-referenced current values**. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
+Continue only with **Slice 5.1 / Task 2 - preserve scope and provenance**. Do not begin Task 3 until Task 2 is complete, tested, and persisted.
