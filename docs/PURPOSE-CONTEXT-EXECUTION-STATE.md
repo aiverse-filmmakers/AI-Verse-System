@@ -11,14 +11,14 @@
 - **Current slice:** **5.2 - Current operational truth projection**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1
-- **Completed Slice 5.2 tasks:** 1 of 4
-- **NEXT:** **Slice 5.2 / Task 2 - add stale/unavailable diagnostics**
+- **Completed Slice 5.2 tasks:** 2 of 4
+- **NEXT:** **Slice 5.2 / Task 3 - ensure Data outage does not cause fallback to stale generated Purpose values**
 - Execute Slice 5.2 in exact task order and persist this file after every task.
 
 ## Slice 5.2 task checklist
 
 1. [x] project only Purpose-relevant current state - integrated the frozen transient Data current-value boundary into the public profiled Purpose read path. Data values must be bound to an exact canonical Purpose ref already retained in the active envelope; unrelated bindings are excluded. Workspace Data provenance must match the active workspace, operator Data bindings fail closed until an operator Data-scope contract exists, and `0`, `false`, and `null` remain legitimate values. Each retained Data current-state item keeps its exact `ai-verse-data` field ref, owner timestamp, and bounded source provenance. Implementation/test/workflow exact OS head `f853044e2b40479a55c2ce197f0b847cf63b63cf`; focused Direction Ownership `37665122571` PASS.
-2. [ ] add stale/unavailable diagnostics
+2. [x] add stale/unavailable diagnostics - the Data projection path now exposes explicit current-state health without promoting stale evidence into trusted truth. Fresh `value` items remain in `current_state`; `stale` and `missing` bindings are excluded from trusted current values and surfaced under `section_states.data_current_state` with exact Purpose/Data refs, missing kind where applicable, and canonical owner `source_updated_at` for stale evidence. Mixed results mark the Data owner read `partial` with freshness `mixed`; explicit owner outage or an unavailable workspace Data reader marks the section and owner read `unavailable` without inventing a freshness timestamp or value. Operator scope remains unchanged until an operator Data-scope contract exists. Exact OS head `e5a0201b379ea3660ba5a95610d9b1278742fdee`; focused Direction Ownership `37665571952` PASS; exact-head check suite reported 18 completed checks with no queued, in-progress, or failure conclusions.
 3. [ ] ensure Data outage does not cause fallback to stale generated Purpose values
 4. [ ] add exact-source descent tests
 
@@ -118,4 +118,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 5.2 / Task 2 - add stale/unavailable diagnostics**. Do not begin Task 3 until Task 2 is complete, tested, and persisted.
+Continue only with **Slice 5.2 / Task 3 - ensure Data outage does not cause fallback to stale generated Purpose values**. Do not begin Task 4 until Task 3 is complete, tested, and persisted.
