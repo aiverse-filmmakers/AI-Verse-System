@@ -9,12 +9,11 @@
 
 - **Phase:** 3 — Brain canonical strategic read surface
 - **Current slice:** **3.1 — Purpose/strategy snapshot API**
-- **Slice state:** NOT STARTED
+- **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3
-- **NEXT:** **Slice 3.1 / Task 1 — expose confirmed/current strategic objects only**
-- Do not start Task 2 until Task 1 is complete and recorded here.
-- Phase 2 v1 contract is frozen.
-- No Purpose runtime injection or OS composer exists yet.
+- **Completed Slice 3.1 tasks:** 1 of 6
+- **NEXT:** **Slice 3.1 / Task 2 — expose source/evidence refs**
+- Do not start Task 3 until Task 2 is complete and recorded here.
 
 Contracts:
 - envelope: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`
@@ -30,9 +29,9 @@ Contracts:
 
 ## Phase 3 / Slice 3.1 task checklist
 
-Starting Brain ref audited for implementation: `aiverse-filmmakers/AI-Verse-Brain@7c77b053df627e61b3d7f11d029500ab61095c9c`.
+Starting Brain ref: `7c77b053df627e61b3d7f11d029500ab61095c9c`.
 
-1. [ ] expose confirmed/current strategic objects only
+1. [x] expose confirmed/current strategic objects only — added read-only `purpose_snapshot.py`; current intents/gaps/initiatives only; draft/proposed/terminal state excluded. Brain commit `159fe862e3728e36a48de32ac4e88fc0d3b90964`.
 2. [ ] expose source/evidence refs
 3. [ ] expose relationships needed by trajectory graph
 4. [ ] preserve direction-owner authority
@@ -52,4 +51,4 @@ Acceptance: read-only stable JSON, scope-safe, no write side effects, no duplica
 
 ## Resume instructions
 
-Continue only with **Slice 3.1 / Task 1 — expose confirmed/current strategic objects only**, then persist this file before Task 2.
+Continue only with **Slice 3.1 / Task 2 — expose source/evidence refs**, then persist this file before Task 3.
