@@ -11,13 +11,13 @@
 - **Current slice:** **6.1 - Bounded history/provenance read**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2
-- **Completed Slice 6.1 tasks:** 0 of 4
-- **NEXT:** **Slice 6.1 / Task 1 - expose bounded recent history relevant to Purpose**
+- **Completed Slice 6.1 tasks:** 1 of 4
+- **NEXT:** **Slice 6.1 / Task 2 - preserve Memory provenance**
 - Execute Slice 6.1 in exact task order and persist this file after every task.
 
 ## Slice 6.1 task checklist
 
-1. [ ] expose bounded recent history relevant to Purpose
+1. [x] expose bounded recent history relevant to Purpose - added `memory.purpose-history.v1` on the normal Memory owner surface, backed by the existing scoped `recall` path rather than a new history store. Requests require active-scope canonical Purpose refs plus a bounded Purpose-derived query. The reader caps Purpose refs, query size, result count, age window, candidate recall, excerpt size, and serialized bytes; admits only `kind=memory` historical rows from the exact requested scope; rejects cross-scope refs; excludes current-source records; and orders results deterministically by owner timestamp then ID. The adapter is shipped by the modern installer and exported through `scripts/memory.py`. Implementation `0e8363779b00f8e15658a8588201ab3fced157b0`; installer `c7ab25996b7210475e057d2bfbc35c0d79ac85c6`; public owner exposure `15c7ff463656d4f90a333fce5b9dde8a29074759`; focused/public regression exact Memory head `9c00460c252e3ef126cc771ea1fec1b3a7f409a8`; Test workflow `37672604116` PASS across the full matrix; Migration Handoff Atomicity `37672603859` PASS.
 2. [ ] preserve Memory provenance
 3. [ ] separate historical evidence from current authority
 4. [ ] avoid dumping raw memory into every Purpose read
@@ -117,4 +117,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 6.1 / Task 1 - expose bounded recent history relevant to Purpose**. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
+Continue only with **Slice 6.1 / Task 2 - preserve Memory provenance**. Do not begin Task 3 until Task 2 is complete, tested, and persisted.
