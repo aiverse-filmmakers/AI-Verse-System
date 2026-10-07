@@ -11,8 +11,8 @@
 - **Current slice:** **4.3 - Explainable trajectory graph**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2
-- **Completed Slice 4.3 tasks:** 3 of 5
-- **NEXT:** **Slice 4.3 / Task 4 - include owner/source refs for each hop**
+- **Completed Slice 4.3 tasks:** 4 of 5
+- **NEXT:** **Slice 4.3 / Task 5 - prevent graph cycles from causing unbounded traversal**
 - Execute Slice 4.3 in exact task order and persist this file after every task.
 
 ## Slice 4.3 task checklist
@@ -20,7 +20,7 @@
 1. [x] traverse only explicit/canonical relationships - added `scripts/purpose-context-explain.mjs` plus the `purpose-context.mjs explain --ref <semantic-kind:id>` CLI surface. Exact semantic selectors resolve to the full canonical owner/scope/kind/id/version ref, then traversal walks only trajectory edges that survive the accepted explicit relationship filter. Same-scope targets are traversed only when an exact semantic node exists; explicit external-scope refs are returned as terminal refs and never scanned/resolved. Fuzzy/partial selectors, unsupported relation edges, and incoming sibling-source edges cannot enter traversal. A finite safety bound prevents accidental unbounded execution without yet claiming Slice 4.3 cycle semantics complete. Implementation commits `a531a56dff353801cf8c282b16a2c725e293666c` and `a5375d1aff1cc9164e712c175e47025adb7ef174`; focused test `824e6d61f777f01aa044980d69c26bd8dc1e580f`; exact CI head `33fd9253bfab44163c903cab70c549495ed16da9`; Direction Ownership CI `37598469727` PASS.
 2. [x] show path from current work/initiative toward goal/mission/problem where available - explain now emits deterministic causal `paths` in the frozen parent-relation priority and can start from either an exact `initiative:<id>` or `current_work:<id>` node when owner-backed nodes/edges exist. A full tested lineage is `current_work -> executes initiative -> executes strategy -> advances goal -> serves mission -> addresses problem`; explicit external-scope refs remain terminal and do not contaminate same-scope lineage paths. Implementation `5ab91e5bf708c033f969cac520c6e9e71b5cd0c7`; focused regression `eeabc6c523a135713b64bb3dcd7189ffa8ec21d0`; Direction Ownership CI `37630898630` PASS.
 3. [x] expose missing links rather than hallucinating them - explain branches now terminate explicitly as `complete`, `partial`, or `orphan`. Missing same-scope parent nodes yield `termination_reason: missing_parent` plus the exact unresolved `terminal_ref` and a stable `missing_links` diagnostic; cross-scope refs terminate at `scope_boundary`; unlinked initiatives/current work return `trajectory_orphan` with frozen linkage diagnostics. No missing selector is invented and no fuzzy repair occurs. Implementation `93ef9e26b20f6cb76b4dca27b53995b19499dd74`; focused regression/exact task head `854dd642c3dda318546c4eae91d50916607b4748`; Direction Ownership CI `37631216976` PASS.
-4. [ ] include owner/source refs for each hop
+4. [x] include owner/source refs for each hop - every explain branch now carries `hops` with exact canonical `from_ref`, `to_ref`, deterministic authoritative `source_refs`, plus resolved semantic selectors only when the corresponding node exists in the active envelope. Missing-parent and scope-boundary terminal hops preserve evidence without fabricating a target selector. Missing-link diagnostics now also preserve `source_refs`. Implementation `9c1bb03560283f57c35cf70b27b792e135107373`; focused regression/exact task head `73b8d441311b6668f9e1e3f939456867e45f39b0`; Direction Ownership CI `37631718278` PASS.
 5. [ ] prevent graph cycles from causing unbounded traversal
 
 ## Slice 4.2 closure
@@ -73,4 +73,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 4.3 / Task 4 - include owner/source refs for each hop**. Do not begin Task 5 until Task 4 is complete, tested, and persisted.
+Continue only with **Slice 4.3 / Task 5 - prevent graph cycles from causing unbounded traversal**. Do not begin Slice 5.1 until Task 5 and the full Slice 4.3 acceptance gate are complete and persisted.
