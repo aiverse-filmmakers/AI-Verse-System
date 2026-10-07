@@ -11,14 +11,14 @@
 - **Current slice:** **5.1 - KPI/current-state Data reads**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3
-- **Completed Slice 5.1 tasks:** 1 of 5
-- **NEXT:** **Slice 5.1 / Task 2 - preserve scope and provenance**
+- **Completed Slice 5.1 tasks:** 2 of 5
+- **NEXT:** **Slice 5.1 / Task 3 - include freshness/timestamp**
 - Execute Slice 5.1 in exact task order and persist this file after every task.
 
 ## Slice 5.1 task checklist
 
 1. [x] expose a bounded Data read surface for Purpose-referenced current values - added a Purpose-specific Data-owned field reader in `AI-Verse-Data` rather than exposing raw record lists, query, or aggregate surfaces. Callers must supply exact `owner: ai-verse-data` refs containing `spaceId`, `entity`, `recordId`, and `field`. Reads are limited to 32 unique refs, JSON primitive current values, and a 16 KiB response ceiling. Missing records/fields fail closed, non-primitive fields are rejected, and no query-time timestamp is presented as freshness. Implementation `9ec6dc83d261d8d14b37c90cf6824086d2787f0f`; module export `5a362c43112f2e52fad1a1682754e5ac018fbd50`; package-root export `798845135dd209bcf5bd830ec4fb4fd8a9d29c72`; focused test/exact Data head `9a1cb1721fc4917dd7807fbf77282a5b31859f92`; CI `37633277840` PASS across Node 22/24 on Ubuntu, macOS, and Windows, including build/test, package, CLI, and install smoke.
-2. [ ] preserve scope and provenance
+2. [x] preserve scope and provenance - added an additive `readWithProvenance` path that preserves the exact Data success-envelope workspace scope, actor, authorization/capability refs, schema version, record version, and canonical Data field ref while keeping the original scalar-only `read` response unchanged. No freshness semantics were added in this task. Implementation `bf593047222762bed57be3314813e76413173ca9`; exact Data head `b5929f3a6aefda0f20d62fb595c517d5ca890185`; CI `37642975869` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
 3. [ ] include freshness/timestamp
 4. [ ] distinguish missing value, stale value, and zero/false values
 5. [ ] do not copy Data rows into Brain or OS as canonical state
@@ -95,4 +95,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 5.1 / Task 2 - preserve scope and provenance**. Do not begin Task 3 until Task 2 is complete, tested, and persisted.
+Continue only with **Slice 5.1 / Task 3 - include freshness/timestamp**. Do not begin Task 4 until Task 3 is complete, tested, and persisted.
