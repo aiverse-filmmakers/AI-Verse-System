@@ -11,13 +11,13 @@
 - **Current slice:** **5.2 - Current operational truth projection**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1
-- **Completed Slice 5.2 tasks:** 0 of 4
-- **NEXT:** **Slice 5.2 / Task 1 - project only Purpose-relevant current state**
+- **Completed Slice 5.2 tasks:** 1 of 4
+- **NEXT:** **Slice 5.2 / Task 2 - add stale/unavailable diagnostics**
 - Execute Slice 5.2 in exact task order and persist this file after every task.
 
 ## Slice 5.2 task checklist
 
-1. [ ] project only Purpose-relevant current state
+1. [x] project only Purpose-relevant current state - integrated the frozen transient Data current-value boundary into the public profiled Purpose read path. Data values must be bound to an exact canonical Purpose ref already retained in the active envelope; unrelated bindings are excluded. Workspace Data provenance must match the active workspace, operator Data bindings fail closed until an operator Data-scope contract exists, and `0`, `false`, and `null` remain legitimate values. Each retained Data current-state item keeps its exact `ai-verse-data` field ref, owner timestamp, and bounded source provenance. Implementation/test/workflow exact OS head `f853044e2b40479a55c2ce197f0b847cf63b63cf`; focused Direction Ownership `37665122571` PASS.
 2. [ ] add stale/unavailable diagnostics
 3. [ ] ensure Data outage does not cause fallback to stale generated Purpose values
 4. [ ] add exact-source descent tests
@@ -118,4 +118,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 5.2 / Task 1 - project only Purpose-relevant current state**. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
+Continue only with **Slice 5.2 / Task 2 - add stale/unavailable diagnostics**. Do not begin Task 3 until Task 2 is complete, tested, and persisted.
