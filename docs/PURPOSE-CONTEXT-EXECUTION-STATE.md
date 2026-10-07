@@ -11,8 +11,8 @@
 - **Current slice:** **4.1 — Operator + workspace read-only composition**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2
-- **Completed Slice 4.1 tasks:** 7 of 10
-- **NEXT:** **Slice 4.1 / Task 8 — no cache**
+- **Completed Slice 4.1 tasks:** 8 of 10
+- **NEXT:** **Slice 4.1 / Task 9 — fail closed when owner is unavailable**
 - Execute Slice 4.1 in exact task order and persist this file after every task.
 
 ## Slice 4.1 task checklist
@@ -24,7 +24,7 @@
 5. [x] preserve canonical refs — OS `current-context` now exposes a safe owner API canonical ref without private path/version invention; OS-derived claims carry that ref; Brain object/trajectory refs and exact versions are preserved unchanged and deduplicated into owner-read provenance. Tests prove private `CURRENT.md`/workspace paths are not emitted as canonical refs. OS implementation/test head `274575e7e4867f714ced988327c56943f5de497d`.
 6. [x] deterministic ordering — Brain semantic objects honor explicit owner order/rank/priority first, then canonical ref identity/version and stable ID; trajectory sorts by source/ref, relation, target and evidence; provenance refs are deduplicated and canonical-order sorted. Reversed owner/API arrival order produces the same projection ordering. OS implementation `d919beb67676c8cece8c88cafa3358e7eb97145c`, test head `6810c5e8975e98638b638ad6c9f07429300334a9`, Direction Ownership CI `37590474585` PASS.
 7. [x] bounded output — default budget is 16384 serialized UTF-8 bytes; caller budgets are validated to 4096–65536; finite deterministic section caps and deterministic pruning enforce the ceiling; retained Brain provenance refs are synchronized to retained claims; truncation emits `provenance.budget` with max/final bytes and omission diagnostics; truthful minimum overflow fails explicitly. OS implementation `2c25bc39bb325de71ada9e29cb7c564027484568`, test head `55efeb3b366f1f75bf5af25cd05f2a908f5d2665`, Direction Ownership CI `37590746656` PASS.
-8. [ ] no cache
+8. [x] no cache — v1 creates no Purpose cache/artifact during repeated reads; identical owner state produces identical projection at fixed observation time; direct owner mutation is observed immediately on the next read and stale prior output is not reused. Focused test `4962f96a645678ba1d064f18ba9ac032d19374cf`, CI integration head `0adff95925fce9e531aa39c3bf898c11ae6a8b56`, Direction Ownership CI `37591053142` PASS.
 9. [ ] fail closed when owner is unavailable
 10. [ ] rebuild/delete/restart tests
 
@@ -49,4 +49,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Resume instructions
 
-Continue only with **Slice 4.1 / Task 8 — no cache**, persist this file, then Task 9.
+Continue only with **Slice 4.1 / Task 9 — fail closed when owner is unavailable**, persist this file, then Task 10.
