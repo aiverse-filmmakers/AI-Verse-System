@@ -1,4 +1,4 @@
-# Purpose Context — Task-Level Execution State
+# Purpose Context - Task-Level Execution State
 
 **Purpose:** durable continuation checkpoint for `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
 **Execution law:** read the implementation plan, then this file, then active contract/closure docs. Execute in exact task order. For a bounded user-requested batch, persist each task before beginning the next.  
@@ -7,26 +7,41 @@
 
 ## Current execution pointer
 
-- **Phase:** 4 — OS Purpose projection
-- **Current slice:** **4.1 — Operator + workspace read-only composition**
-- **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2
-- **Completed Slice 4.1 tasks:** 9 of 10
-- **NEXT:** **Slice 4.1 / Task 10 — rebuild/delete/restart tests**
-- Execute Slice 4.1 in exact task order and persist this file after every task.
+- **Phase:** 4 - OS Purpose projection
+- **Current slice:** **4.2 - Workspace Purpose integration**
+- **Slice state:** NOT STARTED
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1
+- **Completed Slice 4.1 tasks:** 10 of 10
+- **NEXT:** **Slice 4.2 / Task 1 - implement basic/auto/rich profile behavior as frozen in Slice 2.3**
+- Execute Slice 4.2 in exact task order and persist this file after every task.
 
 ## Slice 4.1 task checklist
 
-1. [x] resolve scope — canonical scope validation plus exact physical operator/workspace isolation; established by OS head `2f955899eb4e193b61b07f8ea8b587b296c40168`.
-2. [x] use ownership-aware `current-context` reads — Purpose imports the existing public owner-aware resolver, and Purpose CI exercises it. OS head `ff5fbc6b75341226d4bcc1bd91630f15874b56b8`.
-3. [x] read strategic direction only through declared owner path — OS owner uses OS owner read; Brain owner requires exact-scope Brain public Purpose snapshot and never generated views/stale OS strategy. OS test head `05ec10ed3b0e9ea061f0e7aa4dc7c57f137cef3e`.
-4. [x] compose envelope — frozen v1 shell plus exact-owner semantic composition, OS exact-heading adapter, Brain strategic objects/trajectory, owner-read provenance and explicit exceptional section state. OS head `da4c3f22b1fcdd5859d39b6a2f4ab342b2749df1`.
-5. [x] preserve canonical refs — OS `current-context` now exposes a safe owner API canonical ref without private path/version invention; OS-derived claims carry that ref; Brain object/trajectory refs and exact versions are preserved unchanged and deduplicated into owner-read provenance. Tests prove private `CURRENT.md`/workspace paths are not emitted as canonical refs. OS implementation/test head `274575e7e4867f714ced988327c56943f5de497d`.
-6. [x] deterministic ordering — Brain semantic objects honor explicit owner order/rank/priority first, then canonical ref identity/version and stable ID; trajectory sorts by source/ref, relation, target and evidence; provenance refs are deduplicated and canonical-order sorted. Reversed owner/API arrival order produces the same projection ordering. OS implementation `d919beb67676c8cece8c88cafa3358e7eb97145c`, test head `6810c5e8975e98638b638ad6c9f07429300334a9`, Direction Ownership CI `37590474585` PASS.
-7. [x] bounded output — default budget is 16384 serialized UTF-8 bytes; caller budgets are validated to 4096–65536; finite deterministic section caps and deterministic pruning enforce the ceiling; retained Brain provenance refs are synchronized to retained claims; truncation emits `provenance.budget` with max/final bytes and omission diagnostics; truthful minimum overflow fails explicitly. OS implementation `2c25bc39bb325de71ada9e29cb7c564027484568`, test head `55efeb3b366f1f75bf5af25cd05f2a908f5d2665`, Direction Ownership CI `37590746656` PASS.
-8. [x] no cache — v1 creates no Purpose cache/artifact during repeated reads; identical owner state produces identical projection at fixed observation time; direct owner mutation is observed immediately on the next read and stale prior output is not reused. Focused test `4962f96a645678ba1d064f18ba9ac032d19374cf`, CI integration head `0adff95925fce9e531aa39c3bf898c11ae6a8b56`, Direction Ownership CI `37591053142` PASS.
-9. [x] fail closed when owner is unavailable — fixed a Brain-owner semantic fallback that could otherwise reproject stale OS strategy when the Brain public reader was unavailable. Brain-owner unavailable now emits no OS strategic semantics, records explicit unavailable state/provenance, malformed Brain scope/owner snapshots throw, and partial Brain snapshots may expose only the available Brain-backed semantics while remaining explicitly partial. OS fix `5d647973cb05d6901966b027520871e642db5dbe`, focused test `95ad2326baa0dee3c866946189aea45d9fa41365`, CI integration head `3ea43ee9892abe183b198d1ed9301283ba08c395`, Direction Ownership CI `37591359385` PASS.
-10. [ ] rebuild/delete/restart tests
+1. [x] resolve scope - canonical scope validation plus exact physical operator/workspace isolation; established by OS head `2f955899eb4e193b61b07f8ea8b587b296c40168`.
+2. [x] use ownership-aware `current-context` reads - Purpose imports the existing public owner-aware resolver, and Purpose CI exercises it. OS head `ff5fbc6b75341226d4bcc1bd91630f15874b56b8`.
+3. [x] read strategic direction only through declared owner path - OS owner uses OS owner read; Brain owner requires exact-scope Brain public Purpose snapshot and never generated views/stale OS strategy. OS test head `05ec10ed3b0e9ea061f0e7aa4dc7c57f137cef3e`.
+4. [x] compose envelope - frozen v1 shell plus exact-owner semantic composition, OS exact-heading adapter, Brain strategic objects/trajectory, owner-read provenance and explicit exceptional section state. OS head `da4c3f22b1fcdd5859d39b6a2f4ab342b2749df1`.
+5. [x] preserve canonical refs - OS `current-context` now exposes a safe owner API canonical ref without private path/version invention; OS-derived claims carry that ref; Brain object/trajectory refs and exact versions are preserved unchanged and deduplicated into owner-read provenance. Tests prove private `CURRENT.md`/workspace paths are not emitted as canonical refs. OS implementation/test head `274575e7e4867f714ced988327c56943f5de497d`.
+6. [x] deterministic ordering - Brain semantic objects honor explicit owner order/rank/priority first, then canonical ref identity/version and stable ID; trajectory sorts by source/ref, relation, target and evidence; provenance refs are deduplicated and canonical-order sorted. Reversed owner/API arrival order produces the same projection ordering. OS implementation `d919beb67676c8cece8c88cafa3358e7eb97145c`, test head `6810c5e8975e98638b638ad6c9f07429300334a9`, Direction Ownership CI `37590474585` PASS.
+7. [x] bounded output - default budget is 16384 serialized UTF-8 bytes; caller budgets are validated to 4096-65536; finite deterministic section caps and deterministic pruning enforce the ceiling; retained Brain provenance refs are synchronized to retained claims; truncation emits `provenance.budget` with max/final bytes and omission diagnostics; truthful minimum overflow fails explicitly. OS implementation `2c25bc39bb325de71ada9e29cb7c564027484568`, test head `55efeb3b366f1f75bf5af25cd05f2a908f5d2665`, Direction Ownership CI `37590746656` PASS.
+8. [x] no cache - v1 creates no Purpose cache/artifact during repeated reads; identical owner state produces identical projection at fixed observation time; direct owner mutation is observed immediately on the next read and stale prior output is not reused. Focused test `4962f96a645678ba1d064f18ba9ac032d19374cf`, CI integration head `0adff95925fce9e531aa39c3bf898c11ae6a8b56`, Direction Ownership CI `37591053142` PASS.
+9. [x] fail closed when owner is unavailable - fixed a Brain-owner semantic fallback that could otherwise reproject stale OS strategy when the Brain public reader was unavailable. Brain-owner unavailable now emits no OS strategic semantics, records explicit unavailable state/provenance, malformed Brain scope/owner snapshots throw, and partial Brain snapshots may expose only the available Brain-backed semantics while remaining explicitly partial. OS fix `5d647973cb05d6901966b027520871e642db5dbe`, focused test `95ad2326baa0dee3c866946189aea45d9fa41365`, CI integration head `3ea43ee9892abe183b198d1ed9301283ba08c395`, Direction Ownership CI `37591359385` PASS.
+10. [x] rebuild/delete/restart tests - added the planned read-only CLI `scripts/purpose-context.mjs`, architecture contract `system/architecture/purpose-context.md`, v1 schema `system/schemas/purpose-context.schema.json`, and fresh-process rebuild acceptance. Tests prove generated output may be deleted without canonical-state loss, repeated fresh-process rebuilds are semantically stable, direct owner mutations appear after restart, bounded rebuilds remain deterministic, workspace alpha/beta remain isolated, and Brain-owner unavailability never resurrects stale OS strategy. CLI commit `7bd31b490eb1258a7d6c37f9c515ab7f3e1f6c73`; architecture commit `5cc07cae0f01b85ca0ec5086dab962516ca62dfa`; schema commit `1808846c63d02e04ba5cb196b21a2a3600fa5237`; rebuild test `cd5b1dabe72b36c047fe015d3129d82499812858`; exact accepted OS head `8619104eac5632188d64279e34c5b5a8978b635d`. Direction Ownership CI `37591893094`, OS Brain Permission Contract `37591892976`, Four Repo Acceptance `37591893000`, Repository QC `37591893123`, Five-Component Public Beta `37591893108`, Migration Source Concurrency `37591892984`, and OS Write Command Boundary `37591893149` all PASS on that exact head.
+
+## Slice 4.1 closure
+
+**COMPLETE / ACCEPTED FOR CONTINUATION** at OS head `8619104eac5632188d64279e34c5b5a8978b635d`.
+
+Acceptance summary:
+
+- operator and workspace read-only Purpose projection work through canonical OS scope/current-context boundaries;
+- strategic semantics come only from the declared strategic owner;
+- exact canonical refs/provenance are preserved;
+- ordering and bounded pruning are deterministic;
+- v1 has no Purpose cache or editable Purpose store;
+- malformed/unavailable ownership paths fail closed;
+- delete/rebuild/restart behavior is stable;
+- all exact-head OS workflows passed before closure.
 
 ## Slice 3.2 closure
 
@@ -49,4 +64,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Resume instructions
 
-Continue only with **Slice 4.1 / Task 10 — rebuild/delete/restart tests**. Close Slice 4.1 only if the focused rebuild/restart acceptance and exact-head CI pass.
+Continue only with **Slice 4.2 / Task 1 - implement basic/auto/rich profile behavior as frozen in Slice 2.3**. Do not begin Slice 4.3 until every Slice 4.2 task and acceptance criterion is complete and persisted.
