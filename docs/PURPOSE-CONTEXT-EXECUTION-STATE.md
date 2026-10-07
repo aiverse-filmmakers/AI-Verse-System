@@ -8,19 +8,35 @@
 ## Current execution pointer
 
 - **Phase:** 6 - Memory-backed history and material changes
-- **Current slice:** **6.1 - Bounded history/provenance read**
-- **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2
-- **Completed Slice 6.1 tasks:** 3 of 4
-- **NEXT:** **Slice 6.1 / Task 4 - avoid dumping raw memory into every Purpose read**
-- Execute Slice 6.1 in exact task order and persist this file after every task.
+- **Current slice:** **6.2 - Material changes**
+- **Slice state:** NOT STARTED
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1
+- **Completed Slice 6.1 tasks:** 4 of 4
+- **NEXT:** **Slice 6.2 - Material changes**
+- Do not begin Slice 7.1 until Slice 6.2 is complete, tested, persisted, and Phase 6 is closed.
 
 ## Slice 6.1 task checklist
 
 1. [x] expose bounded recent history relevant to Purpose - added `memory.purpose-history.v1` on the normal Memory owner surface, backed by the existing scoped `recall` path rather than a new history store. Requests require active-scope canonical Purpose refs plus a bounded Purpose-derived query. The reader caps Purpose refs, query size, result count, age window, candidate recall, excerpt size, and serialized bytes; admits only `kind=memory` historical rows from the exact requested scope; rejects cross-scope refs; excludes current-source records; and orders results deterministically by owner timestamp then ID. The adapter is shipped by the modern installer and exported through `scripts/memory.py`. Implementation `0e8363779b00f8e15658a8588201ab3fced157b0`; installer `c7ab25996b7210475e057d2bfbc35c0d79ac85c6`; public owner exposure `15c7ff463656d4f90a333fce5b9dde8a29074759`; focused/public regression exact Memory head `9c00460c252e3ef126cc771ea1fec1b3a7f409a8`; Test workflow `37672604116` PASS across the full matrix; Migration Handoff Atomicity `37672603859` PASS.
 2. [x] preserve Memory provenance - bounded history now fails closed on missing Memory source-state provenance. Every admitted item carries an exact `ai-verse-memory` canonical source ref with scope, memory ID, and owner source version plus explicit Memory `source_identity`, `source_version`, and freshness metadata. Internal storage paths are not exposed. PR #34 exact head `f4906bfe4860772fe5989269f1a83eddf2973db5` merged to Memory main as `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`; Test workflow `37686373044` PASS across the complete matrix; Migration Handoff Atomicity `37686373051` PASS on Ubuntu, macOS, and Windows.
 3. [x] separate historical evidence from current authority - added an OS trust boundary for `memory.purpose-history.v1` that requires exact scope, exact `ai-verse-memory` refs, source-version continuity, and `freshness=historical`. It projects only bounded `historical_evidence` records marked `authoritative_for_current_state=false`; attempted Memory-supplied mission, goal, strategy, current-state, current-value, provenance internals, and other authority-shaped fields are stripped rather than admitted. Cross-scope, wrong-owner, non-historical, version-mismatched, and over-cap inputs fail closed. PR #48 exact head `f01e363c50c8b0848dd808fc965669cffe7bb525` merged to OS main as `98b969e78fc090f934a29596a6d420c566217177`; focused Direction Ownership workflow `37687320762` PASS.
-4. [ ] avoid dumping raw memory into every Purpose read
+4. [x] avoid dumping raw memory into every Purpose read - ordinary `composePurposeContext()` performs zero Memory history reads, even when a Memory reader is supplied in options. Historical Memory is available only through the separate explicit `readPurposeHistoricalEvidence()` gate, which requires exact scope, 1-32 canonical Purpose refs, a non-empty Purpose-derived query capped at 4096 characters, an explicit Memory owner reader, at most 8 history items, at most 8192 requested bytes, and at most 365 days of history. Memory output immediately crosses the historical-only trust boundary; raw Memory records, provenance internals, and authority-shaped fields do not enter the Purpose projection, and owner responses exceeding the explicitly requested item limit fail closed. PR #49 exact head `60df2c813281aa42d5cf28d4da38d147397e20dd` merged to OS main as `3077e393f688399a2336c60bf6d1115d301ff2bb`; focused Direction Ownership workflow `37687905948` PASS. Exact-head OS workflows all PASS: OS Brain Permission Contract `37687979002`, Migration Source Concurrency `37687979006`, Four Repo Acceptance `37687979062`, Five-Component Public Beta `37687978993`, Direction Ownership `37687978834`, Repository QC `37687979109`, OS Write Command Boundary `37687978998`.
+
+## Slice 6.1 closure
+
+**COMPLETE / ACCEPTED FOR CONTINUATION** at Memory head `f1327be48ba2ee0043959021365e6dbb9dcb1d3a` and OS head `3077e393f688399a2336c60bf6d1115d301ff2bb`.
+
+Acceptance summary:
+
+- Memory exposes bounded, Purpose-relevant historical evidence through its normal owner surface rather than a new history store;
+- canonical Memory ownership, source identity/version, freshness, scope, and exact source refs survive the read path;
+- Memory evidence is explicitly historical and non-authoritative for current Brain/Data/OS state;
+- ordinary Purpose reads do not load Memory history at all;
+- the explicit history path is scope-bound, query-bound, ref-bound, item/byte/age-bounded, and fails closed on malformed or over-limit owner output;
+- workspace isolation is preserved and raw Memory records do not cross into Purpose Context;
+- all seven exact-head OS workflows passed before closure.
+
+Durable closure record: `docs/PURPOSE-CONTEXT-SLICE-6.1-CLOSURE.md`, created at System commit `aefc5a83c09955c484f1ddac956338c4d700792e`.
 
 ## Slice 5.2 closure
 
@@ -117,4 +133,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 6.1 / Task 4 - avoid dumping raw memory into every Purpose read**. Do not begin Slice 6.2 until Task 4 is complete, tested, persisted, and Slice 6.1 is closed.
+Continue only with **Slice 6.2 - Material changes**. Do not begin Slice 7.1 until Slice 6.2 is complete, tested, persisted, and Phase 6 is closed.
