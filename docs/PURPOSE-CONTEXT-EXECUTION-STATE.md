@@ -11,22 +11,35 @@
 - **Current slice:** **3.2 — Missing strategic semantics**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1
-- **Completed Slice 3.2 tasks:** 1–2 of 6
-- **NEXT:** **Slice 3.2 / Task 3 — define confirmation authority**
-- Do not start Task 4 until Task 3 is complete and recorded here.
+- **Completed Slice 3.2 tasks:** 1–3 of 6
+- **NEXT:** **Slice 3.2 / Task 4 — define supersession/versioning**
+- Do not start Task 5 until Task 4 is complete and recorded here.
 
 ## Slice 3.1 closure
 
-**COMPLETE / ACCEPTED FOR CONTINUATION** at Brain head `684acbf03ad44a6526a8b95cd9e136dd5cbc0f19`; same-head CI, OS Direction Ownership Contract, and Skills Receipt Contract succeeded.
+**COMPLETE / ACCEPTED FOR CONTINUATION** at Brain head `684acbf03ad44a6526a8b95cd9e136dd5cbc0f19`.
+
+Same-head workflow evidence:
+- CI `37574980561`: SUCCESS.
+- OS Direction Ownership Contract `37574980495`: SUCCESS.
+- Skills Receipt Contract `37574980586`: SUCCESS.
+
+The public `build_purpose_snapshot` package surface is read-only, scope/direction-owner aware, exposes exact refs and validated relationship/rejection state, sanitizes partial/unavailable reads, and focused tests prove internal storage/repository paths are not exposed.
 
 ## Phase 3 / Slice 3.2 task checklist
 
-1. [x] minimal canonical semantics — `intent:problem`, `intent:mission`, `intent:strategy` admitted in runtime validation and JSON schema; no new object kinds. `391213ca308901804b9c781d2bbcceaafc11ac95`, `b428487ff56823437c1c5c18c807d6f6bc3b4646`.
-2. [x] lifecycle/status rules — reuse the existing Intent lifecycle unchanged; DRAFT/PROPOSED are not current Purpose truth, CONFIRMED/ACTIVE/PAUSED are current eligible states, ACHIEVED/ABANDONED/SUPERSEDED are terminal/historical. Contract: `protocol/PURPOSE-STRATEGIC-INTENTS.md`; Brain commit `1ca4debd9e7f404c0df15f53410892ae9d0194d9`.
-3. [ ] define confirmation authority
+Phase 1 proved `problem`, `mission`, and strategic `strategy` are required v1 semantics that did not fit the previous intent subtype enum. They use the existing canonical `intent` object; no new object kinds and no misuse of `strategy_rule`.
+
+1. [x] minimal canonical semantics — added `intent:problem`, `intent:mission`, `intent:strategy` to runtime validation and JSON schema. Brain commits `391213ca308901804b9c781d2bbcceaafc11ac95`, `b428487ff56823437c1c5c18c807d6f6bc3b4646`.
+2. [x] lifecycle/status rules — reuse existing Intent state machine unchanged: DRAFT/PROPOSED candidate states; CONFIRMED/ACTIVE/PAUSED current eligible states; ACHIEVED/ABANDONED/SUPERSEDED terminal/history. Contract commit `1ca4debd9e7f404c0df15f53410892ae9d0194d9`.
+3. [x] confirmation authority — `problem`, `mission`, and `strategy` are privileged strategic intents; existing Intent confirmation gate applies, Brain must own exact scope before confirming/writing in native mode, and model/evidence/external data cannot self-confirm them. Privileged registry commit `4b04f9086b8d733f55a8612aa6e6953a45bc6a48`; contract update `35c30fc129767689544ba275f87620a3ad73eeda`.
 4. [ ] define supersession/versioning
 5. [ ] migrate nothing silently
 6. [ ] exhaustive unit tests
+
+## Phase 2 closure
+
+Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Carried repair register
 
@@ -38,4 +51,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 3.2 / Task 3 — define confirmation authority**, then persist this file before Task 4.
+Continue only with **Slice 3.2 / Task 4 — define supersession/versioning**, then persist this file before Task 5.
