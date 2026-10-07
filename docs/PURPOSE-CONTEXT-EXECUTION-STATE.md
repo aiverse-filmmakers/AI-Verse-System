@@ -11,34 +11,24 @@
 - **Current slice:** **3.1 — Purpose/strategy snapshot API**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3
-- **Completed Slice 3.1 tasks:** 1 of 6
-- **NEXT:** **Slice 3.1 / Task 2 — expose source/evidence refs**
-- Do not start Task 3 until Task 2 is complete and recorded here.
-
-Contracts:
-- envelope: `docs/PURPOSE-CONTEXT-V1-CONTRACT.md`
-- trajectory: `docs/PURPOSE-CONTEXT-TRAJECTORY-V1-CONTRACT.md`
-- profiles: `docs/PURPOSE-CONTEXT-PROFILES-V1-CONTRACT.md`
-
-## Slice closures
-
-- Slice 2.1 COMPLETE / CONTRACT FROZEN at `c784436ecaafc2f19da58782f8802247a235c1db`.
-- Slice 2.2 COMPLETE / CONTRACT FROZEN at `7e2193451894b7e5b6f8b3d1def9c04afd2a2f31`.
-- Slice 2.3 COMPLETE / CONTRACT FROZEN at `46bf0f4d50895b678873715fd8bb91d07619a7de`.
-- **Phase 2 COMPLETE / V1 CONTRACT FROZEN.**
+- **Completed Slice 3.1 tasks:** 1–2 of 6
+- **NEXT:** **Slice 3.1 / Task 3 — expose relationships needed by trajectory graph**
+- Do not start Task 4 until Task 3 is complete and recorded here.
 
 ## Phase 3 / Slice 3.1 task checklist
 
 Starting Brain ref: `7c77b053df627e61b3d7f11d029500ab61095c9c`.
 
-1. [x] expose confirmed/current strategic objects only — added read-only `purpose_snapshot.py`; current intents/gaps/initiatives only; draft/proposed/terminal state excluded. Brain commit `159fe862e3728e36a48de32ac4e88fc0d3b90964`.
-2. [ ] expose source/evidence refs
-3. [ ] expose relationships needed by trajectory graph
+1. [x] confirmed/current objects — `159fe862e3728e36a48de32ac4e88fc0d3b90964`
+2. [x] source/evidence refs — object views now expose exact Brain canonical refs with revisions plus preserved source/evidence refs. `b7f94e4a969a5c3103588ee52ec743435370e0e1`
+3. [ ] relationships needed by trajectory graph
 4. [ ] preserve direction-owner authority
-5. [ ] expose unavailable/partial state explicitly
+5. [ ] unavailable/partial state explicitly
 6. [ ] avoid leaking internal storage layout into OS
 
-Acceptance: read-only stable JSON, scope-safe, no write side effects, no duplicate Purpose store, existing Brain direction/goal tests remain green.
+## Phase 2 closure
+
+Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Carried repair register
 
@@ -51,4 +41,4 @@ Acceptance: read-only stable JSON, scope-safe, no write side effects, no duplica
 
 ## Resume instructions
 
-Continue only with **Slice 3.1 / Task 2 — expose source/evidence refs**, then persist this file before Task 3.
+Continue only with **Slice 3.1 / Task 3 — expose relationships needed by trajectory graph**, then persist this file before Task 4.
