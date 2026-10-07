@@ -11,8 +11,8 @@
 - **Current slice:** **4.1 — Operator + workspace read-only composition**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2
-- **Completed Slice 4.1 tasks:** 0 of 10
-- **NEXT:** **Slice 4.1 / Task 1 — resolve scope**
+- **Completed Slice 4.1 tasks:** 1 of 10
+- **NEXT:** **Slice 4.1 / Task 2 — use ownership-aware `current-context` reads**
 - Execute Slice 4.1 in exact task order and persist this file after every task.
 
 ## Slice 3.2 closure
@@ -37,6 +37,19 @@ Exact-head Brain workflow evidence:
 
 The previously carried Brain release-descriptor repair is resolved: `release/component-release.json` now points to reachable tested ancestor `75e1d713a422eec4caea89bdab5053cae23218c6`; no divergent/unreachable release revision remains on main.
 
+## Slice 4.1 task checklist
+
+1. [x] resolve scope — added `scripts/purpose-context-core.mjs` with canonical direction-scope validation and exact physical operator/workspace isolation. Workspace reads require exact `workspaces/<id>` plus canonical `WORKSPACE.yaml`; fuzzy IDs, traversal and symlink aliases fail closed. OS implementation head after focused tests: `2f955899eb4e193b61b07f8ea8b587b296c40168`.
+2. [ ] use ownership-aware `current-context` reads
+3. [ ] read strategic direction only through declared owner path
+4. [ ] compose envelope
+5. [ ] preserve canonical refs
+6. [ ] deterministic ordering
+7. [ ] bounded output
+8. [ ] no cache
+9. [ ] fail closed when owner is unavailable
+10. [ ] rebuild/delete/restart tests
+
 ## Slice 3.1 closure
 
 **COMPLETE / ACCEPTED FOR CONTINUATION** at Brain head `684acbf03ad44a6526a8b95cd9e136dd5cbc0f19`.
@@ -57,19 +70,6 @@ The public `build_purpose_snapshot` package surface is read-only, scope/directio
 5. [x] migrate nothing silently — exact-subtype classification only; no implicit import/reinterpretation.
 6. [x] exhaustive unit tests — Brain strategic intent test coverage plus exact-head CI green. Test implementation finalized at `75e1d713a422eec4caea89bdab5053cae23218c6`; contract frozen at `69f7912eeb35f0178f6952ff0554aec8d7f2c496`.
 
-## Phase 4 / Slice 4.1 task checklist
-
-1. [ ] resolve scope
-2. [ ] use ownership-aware `current-context` reads
-3. [ ] read strategic direction only through declared owner path
-4. [ ] compose envelope
-5. [ ] preserve canonical refs
-6. [ ] deterministic ordering
-7. [ ] bounded output
-8. [ ] no cache
-9. [ ] fail closed when owner is unavailable
-10. [ ] rebuild/delete/restart tests
-
 ## Phase 2 closure
 
 Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
@@ -83,4 +83,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Resume instructions
 
-Continue only with **Slice 4.1 / Task 1 — resolve scope**, persist this file, then Task 2.
+Continue only with **Slice 4.1 / Task 2 — use ownership-aware `current-context` reads**, persist this file, then Task 3.
