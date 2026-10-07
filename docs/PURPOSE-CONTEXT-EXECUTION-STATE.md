@@ -7,20 +7,41 @@
 
 ## Current execution pointer
 
-- **Phase:** 5 - Data current-state integration
-- **Current slice:** **5.2 - Current operational truth projection**
+- **Phase:** 6 - Memory-backed history and material changes
+- **Current slice:** **6.1 - Bounded history/provenance read**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1
-- **Completed Slice 5.2 tasks:** 3 of 4
-- **NEXT:** **Slice 5.2 / Task 4 - add exact-source descent tests**
-- Execute Slice 5.2 in exact task order and persist this file after every task.
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2
+- **Completed Slice 6.1 tasks:** 0 of 4
+- **NEXT:** **Slice 6.1 / Task 1 - expose bounded recent history relevant to Purpose**
+- Execute Slice 6.1 in exact task order and persist this file after every task.
 
-## Slice 5.2 task checklist
+## Slice 6.1 task checklist
 
-1. [x] project only Purpose-relevant current state - integrated the frozen transient Data current-value boundary into the public profiled Purpose read path. Data values must be bound to an exact canonical Purpose ref already retained in the active envelope; unrelated bindings are excluded. Workspace Data provenance must match the active workspace, operator Data bindings fail closed until an operator Data-scope contract exists, and `0`, `false`, and `null` remain legitimate values. Each retained Data current-state item keeps its exact `ai-verse-data` field ref, owner timestamp, and bounded source provenance. Implementation/test/workflow exact OS head `f853044e2b40479a55c2ce197f0b847cf63b63cf`; focused Direction Ownership `37665122571` PASS.
-2. [x] add stale/unavailable diagnostics - the Data projection path now exposes explicit current-state health without promoting stale evidence into trusted truth. Fresh `value` items remain in `current_state`; `stale` and `missing` bindings are excluded from trusted current values and surfaced under `section_states.data_current_state` with exact Purpose/Data refs, missing kind where applicable, and canonical owner `source_updated_at` for stale evidence. Mixed results mark the Data owner read `partial` with freshness `mixed`; explicit owner outage or an unavailable workspace Data reader marks the section and owner read `unavailable` without inventing a freshness timestamp or value. Operator scope remains unchanged until an operator Data-scope contract exists. Exact OS head `e5a0201b379ea3660ba5a95610d9b1278742fdee`; focused Direction Ownership `37665571952` PASS; exact-head check suite reported 18 completed checks with no queued, in-progress, or failure conclusions.
-3. [x] ensure Data outage does not cause fallback to stale generated Purpose values - the Data applicator now deletes any prior generated `data_current_state`, prior Data-current-state section diagnostics, and prior `purpose-current-state.read` provenance before consulting the current Data owner. An explicit outage or missing reader therefore cannot resurrect values from an older generated Purpose envelope, while non-Data owner state remains intact. Implementation `e7ab72694aca211f8f1483b20c3d5a0c9e929d92`; focused regression/exact OS head `0b74cd66c393dcec9d3218bb04b885bedb97639d`; Direction Ownership `37670375719` PASS.
-4. [ ] add exact-source descent tests
+1. [ ] expose bounded recent history relevant to Purpose
+2. [ ] preserve Memory provenance
+3. [ ] separate historical evidence from current authority
+4. [ ] avoid dumping raw memory into every Purpose read
+
+## Slice 5.2 closure
+
+**COMPLETE / ACCEPTED FOR CONTINUATION** at OS head `c8d871e306fa896a7390e493c25c88a772db4e28` with Data canonical Purpose owner remaining at `f8978f8f7a1bc94edecddc2662112233289159a3`.
+
+Acceptance summary:
+
+- only Purpose-relevant, exact-ref Data current state is admitted;
+- stale and missing values remain diagnostics rather than trusted current truth;
+- explicit Data outage or missing reader is visible and cannot reuse a previously generated Data projection;
+- exact Data field refs plus workspace provenance support precise source descent; fuzzy field/record variants do not resolve;
+- falsy values remain legitimate current values;
+- no Data row copy or second canonical store was introduced;
+- all seven exact-head OS workflows passed before closure: OS Brain Permission Contract `37670850113`, Migration Source Concurrency `37670850220`, Four Repo Acceptance `37670850224`, Five-Component Public Beta `37670850380`, Direction Ownership `37670850421`, Repository QC `37670849948`, OS Write Command Boundary `37670850335`.
+
+Slice 5.2 task evidence:
+
+1. relevant current-state projection: exact OS head `f853044e2b40479a55c2ce197f0b847cf63b63cf`; Direction Ownership `37665122571` PASS.
+2. stale/unavailable diagnostics: exact OS head `e5a0201b379ea3660ba5a95610d9b1278742fdee`; Direction Ownership `37665571952` PASS.
+3. no stale generated fallback on outage: implementation `e7ab72694aca211f8f1483b20c3d5a0c9e929d92`; focused regression/exact OS head `0b74cd66c393dcec9d3218bb04b885bedb97639d`; Direction Ownership `37670375719` PASS.
+4. exact-source descent: focused test `da179e1bb953273ee1f90a96d1d6ea00aa7de76d`; CI wiring/exact closure head `c8d871e306fa896a7390e493c25c88a772db4e28`; Direction Ownership `37670850421` PASS and all seven exact-head workflows PASS.
 
 ## Slice 5.1 closure
 
@@ -35,8 +56,7 @@ Acceptance summary:
 - raw Data rows and canonical row metadata do not cross the Purpose Data surface;
 - OS accepts only bounded transient scalar/status projections that preserve `ai-verse-data` ownership and exact source refs;
 - OS rejects raw `data`/`record`/row-shaped inputs and ownership relabeling to OS;
-- neither OS nor Brain receives or persists copied Data rows as canonical Purpose/current-state truth;
-- full current-state composition and Data outage behavior remain Slice 5.2 work.
+- neither OS nor Brain receives or persists copied Data rows as canonical Purpose/current-state truth.
 
 Slice 5.1 task evidence:
 
@@ -72,30 +92,9 @@ Slice 4.3 task evidence:
 
 **COMPLETE / ACCEPTED FOR CONTINUATION** at OS head `e42261e5d8cfd9d9d7dec1b58199bb8356ca6b2a`.
 
-Acceptance summary:
-
-- workspace A cannot leak workspace B data;
-- simple workspaces remain on the basic profile unless a caller explicitly requests rich or an owner-backed rich domain is relevant;
-- rich mode only broadens eligible owner reads and cannot invent unavailable semantics;
-- v1 persists no Purpose profile/config authority in `WORKSPACE.yaml`;
-- cross-scope relationships remain exact canonical refs only and do not trigger inheritance or scope scans;
-- missing/deleted workspaces and symlink/path boundary attacks fail closed;
-- Direction Ownership `37597881427`, OS Brain Permission Contract `37597881491`, OS Write Command Boundary `37597881513`, Migration Source Concurrency `37597881417`, Five-Component Public Beta `37597881374`, Four Repo Acceptance `37597881330`, and Repository QC `37597881328` all passed on the exact closure head.
-
 ## Slice 4.1 closure
 
 **COMPLETE / ACCEPTED FOR CONTINUATION** at OS head `8619104eac5632188d64279e34c5b5a8978b635d`.
-
-Acceptance summary:
-
-- operator and workspace read-only Purpose projection work through canonical OS scope/current-context boundaries;
-- strategic semantics come only from the declared strategic owner;
-- exact canonical refs/provenance are preserved;
-- ordering and bounded pruning are deterministic;
-- v1 has no Purpose cache or editable Purpose store;
-- malformed/unavailable ownership paths fail closed;
-- delete/rebuild/restart behavior is stable;
-- all exact-head OS workflows passed before closure.
 
 ## Slice 3.2 closure
 
@@ -118,4 +117,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 5.2 / Task 4 - add exact-source descent tests**. Do not begin Slice 6.1 until Task 4 is complete, tested, Slice 5.2 is closed, and this checkpoint is persisted.
+Continue only with **Slice 6.1 / Task 1 - expose bounded recent history relevant to Purpose**. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
