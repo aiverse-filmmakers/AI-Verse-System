@@ -11,8 +11,8 @@
 - **Current slice:** **5.1 - KPI/current-state Data reads**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3
-- **Completed Slice 5.1 tasks:** 3 of 5
-- **NEXT:** **Slice 5.1 / Task 4 - distinguish missing value, stale value, and zero/false values**
+- **Completed Slice 5.1 tasks:** 4 of 5
+- **NEXT:** **Slice 5.1 / Task 5 - do not copy Data rows into Brain or OS as canonical state**
 - Execute Slice 5.1 in exact task order and persist this file after every task.
 
 ## Slice 5.1 task checklist
@@ -20,7 +20,7 @@
 1. [x] expose a bounded Data read surface for Purpose-referenced current values - added a Purpose-specific Data-owned field reader in `AI-Verse-Data` rather than exposing raw record lists, query, or aggregate surfaces. Callers must supply exact `owner: ai-verse-data` refs containing `spaceId`, `entity`, `recordId`, and `field`. Reads are limited to 32 unique refs, JSON primitive current values, and a 16 KiB response ceiling. Missing records/fields fail closed, non-primitive fields are rejected, and no query-time timestamp is presented as freshness. Implementation `9ec6dc83d261d8d14b37c90cf6824086d2787f0f`; module export `5a362c43112f2e52fad1a1682754e5ac018fbd50`; package-root export `798845135dd209bcf5bd830ec4fb4fd8a9d29c72`; focused test/exact Data head `9a1cb1721fc4917dd7807fbf77282a5b31859f92`; CI `37633277840` PASS across Node 22/24 on Ubuntu, macOS, and Windows, including build/test, package, CLI, and install smoke.
 2. [x] preserve scope and provenance - added an additive `readWithProvenance` path that preserves the exact Data success-envelope workspace scope, actor, authorization/capability refs, schema version, record version, and canonical Data field ref while keeping the original scalar-only `read` response unchanged. No freshness semantics were added in this task. Implementation `bf593047222762bed57be3314813e76413173ca9`; exact Data head `b5929f3a6aefda0f20d62fb595c517d5ca890185`; CI `37642975869` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
 3. [x] include freshness/timestamp - provenance-bearing current-value reads now expose `freshness.sourceUpdatedAt` directly from the canonical Data record `updatedAt`. Repeated reads preserve the same owner timestamp, and the adapter never invents `readAt` or `queriedAt`, so query execution time cannot masquerade as freshness. Implementation `5698c22fdab4373576dbd29c3a19e5bd7a327439`; focused test/exact Data head `5b085cadad5ffebce272b090b88395944e4a9d14`; CI `37643681845` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
-4. [ ] distinguish missing value, stale value, and zero/false values
+4. [x] distinguish missing value, stale value, and zero/false values - added a separate bounded status reader rather than weakening strict reads. It returns explicit `value`, `stale`, or `missing` states; `0`, `false`, and `null` remain present values; absent record/field are distinct missing states; stale classification compares canonical `sourceUpdatedAt` against an explicit caller freshness policy; non-record failures still fail closed. Implementation `cb4a1a53b5f8b0dfb63f357e2c4160f769e10b58`; export `41da7c02221e7c5c4b5bce83b979c643c7162f4b`; focused tests finalized at exact Data head `5eff082872a1144c32dba072e7593b5552247645`; CI `37644581021` PASS across Node 22/24 on Ubuntu, macOS, and Windows.
 5. [ ] do not copy Data rows into Brain or OS as canonical state
 
 ## Slice 4.3 closure
@@ -95,4 +95,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 5.1 / Task 4 - distinguish missing value, stale value, and zero/false values**. Do not begin Task 5 until Task 4 is complete, tested, and persisted.
+Continue only with **Slice 5.1 / Task 5 - do not copy Data rows into Brain or OS as canonical state**. Do not begin Slice 5.2 until Task 5 is complete, tested, Slice 5.1 acceptance is recorded, and this file is persisted.
