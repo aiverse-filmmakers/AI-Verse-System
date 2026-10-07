@@ -11,8 +11,8 @@
 - **Current slice:** **4.1 — Operator + workspace read-only composition**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2
-- **Completed Slice 4.1 tasks:** 5 of 10
-- **NEXT:** **Slice 4.1 / Task 6 — deterministic ordering**
+- **Completed Slice 4.1 tasks:** 6 of 10
+- **NEXT:** **Slice 4.1 / Task 7 — bounded output**
 - Execute Slice 4.1 in exact task order and persist this file after every task.
 
 ## Slice 4.1 task checklist
@@ -22,7 +22,7 @@
 3. [x] read strategic direction only through declared owner path — OS owner uses OS owner read; Brain owner requires exact-scope Brain public Purpose snapshot and never generated views/stale OS strategy. OS test head `05ec10ed3b0e9ea061f0e7aa4dc7c57f137cef3e`.
 4. [x] compose envelope — frozen v1 shell plus exact-owner semantic composition, OS exact-heading adapter, Brain strategic objects/trajectory, owner-read provenance and explicit exceptional section state. OS head `da4c3f22b1fcdd5859d39b6a2f4ab342b2749df1`.
 5. [x] preserve canonical refs — OS `current-context` now exposes a safe owner API canonical ref without private path/version invention; OS-derived claims carry that ref; Brain object/trajectory refs and exact versions are preserved unchanged and deduplicated into owner-read provenance. Tests prove private `CURRENT.md`/workspace paths are not emitted as canonical refs. OS implementation/test head `274575e7e4867f714ced988327c56943f5de497d`.
-6. [ ] deterministic ordering
+6. [x] deterministic ordering — Brain semantic objects honor explicit owner order/rank/priority first, then canonical ref identity/version and stable ID; trajectory sorts by source/ref, relation, target and evidence; provenance refs are deduplicated and canonical-order sorted. Reversed owner/API arrival order produces the same projection ordering. OS implementation `d919beb67676c8cece8c88cafa3358e7eb97145c`, test head `6810c5e8975e98638b638ad6c9f07429300334a9`, Direction Ownership CI `37590474585` PASS.
 7. [ ] bounded output
 8. [ ] no cache
 9. [ ] fail closed when owner is unavailable
@@ -49,4 +49,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Resume instructions
 
-Continue only with **Slice 4.1 / Task 6 — deterministic ordering**, persist this file, then Task 7.
+Continue only with **Slice 4.1 / Task 7 — bounded output**, persist this file, then Task 8.
