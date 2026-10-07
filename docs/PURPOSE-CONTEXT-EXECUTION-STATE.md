@@ -11,8 +11,8 @@
 - **Current slice:** **4.1 — Operator + workspace read-only composition**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2
-- **Completed Slice 4.1 tasks:** 4 of 10
-- **NEXT:** **Slice 4.1 / Task 5 — preserve canonical refs**
+- **Completed Slice 4.1 tasks:** 5 of 10
+- **NEXT:** **Slice 4.1 / Task 6 — deterministic ordering**
 - Execute Slice 4.1 in exact task order and persist this file after every task.
 
 ## Slice 4.1 task checklist
@@ -20,8 +20,8 @@
 1. [x] resolve scope — canonical scope validation plus exact physical operator/workspace isolation; established by OS head `2f955899eb4e193b61b07f8ea8b587b296c40168`.
 2. [x] use ownership-aware `current-context` reads — Purpose imports the existing public owner-aware resolver, and Purpose CI exercises it. OS head `ff5fbc6b75341226d4bcc1bd91630f15874b56b8`.
 3. [x] read strategic direction only through declared owner path — OS owner uses OS owner read; Brain owner requires exact-scope Brain public Purpose snapshot and never generated views/stale OS strategy. OS test head `05ec10ed3b0e9ea061f0e7aa4dc7c57f137cef3e`.
-4. [x] compose envelope — added the frozen v1 required shell (`schema_version`, scope, scope_kind, identity, provenance), exact-owner semantic projection for Brain, bounded exact-heading OS Markdown adaptation for workspace objective/operator priorities plus current state/work/constraints, trajectory projection, owner-read metadata, and explicit section state when strategic owner read is non-ok. Dedicated envelope test wired to Direction Ownership CI. OS head `da4c3f22b1fcdd5859d39b6a2f4ab342b2749df1`.
-5. [ ] preserve canonical refs
+4. [x] compose envelope — frozen v1 shell plus exact-owner semantic composition, OS exact-heading adapter, Brain strategic objects/trajectory, owner-read provenance and explicit exceptional section state. OS head `da4c3f22b1fcdd5859d39b6a2f4ab342b2749df1`.
+5. [x] preserve canonical refs — OS `current-context` now exposes a safe owner API canonical ref without private path/version invention; OS-derived claims carry that ref; Brain object/trajectory refs and exact versions are preserved unchanged and deduplicated into owner-read provenance. Tests prove private `CURRENT.md`/workspace paths are not emitted as canonical refs. OS implementation/test head `274575e7e4867f714ced988327c56943f5de497d`.
 6. [ ] deterministic ordering
 7. [ ] bounded output
 8. [ ] no cache
@@ -49,4 +49,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete.
 
 ## Resume instructions
 
-Continue only with **Slice 4.1 / Task 5 — preserve canonical refs**, persist this file, then Task 6.
+Continue only with **Slice 4.1 / Task 6 — deterministic ordering**, persist this file, then Task 7.
