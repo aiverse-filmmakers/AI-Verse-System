@@ -11,14 +11,14 @@
 - **Current slice:** **4.3 - Explainable trajectory graph**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2
-- **Completed Slice 4.3 tasks:** 1 of 5
-- **NEXT:** **Slice 4.3 / Task 2 - show path from current work/initiative toward goal/mission/problem where available**
+- **Completed Slice 4.3 tasks:** 2 of 5
+- **NEXT:** **Slice 4.3 / Task 3 - expose missing links rather than hallucinating them**
 - Execute Slice 4.3 in exact task order and persist this file after every task.
 
 ## Slice 4.3 task checklist
 
 1. [x] traverse only explicit/canonical relationships - added `scripts/purpose-context-explain.mjs` plus the `purpose-context.mjs explain --ref <semantic-kind:id>` CLI surface. Exact semantic selectors resolve to the full canonical owner/scope/kind/id/version ref, then traversal walks only trajectory edges that survive the accepted explicit relationship filter. Same-scope targets are traversed only when an exact semantic node exists; explicit external-scope refs are returned as terminal refs and never scanned/resolved. Fuzzy/partial selectors, unsupported relation edges, and incoming sibling-source edges cannot enter traversal. A finite safety bound prevents accidental unbounded execution without yet claiming Slice 4.3 cycle semantics complete. Implementation commits `a531a56dff353801cf8c282b16a2c725e293666c` and `a5375d1aff1cc9164e712c175e47025adb7ef174`; focused test `824e6d61f777f01aa044980d69c26bd8dc1e580f`; exact CI head `33fd9253bfab44163c903cab70c549495ed16da9`; Direction Ownership CI `37598469727` PASS.
-2. [ ] show path from current work/initiative toward goal/mission/problem where available
+2. [x] show path from current work/initiative toward goal/mission/problem where available - explain now emits deterministic causal `paths` in the frozen parent-relation priority and can start from either an exact `initiative:<id>` or `current_work:<id>` node when owner-backed nodes/edges exist. A full tested lineage is `current_work -> executes initiative -> executes strategy -> advances goal -> serves mission -> addresses problem`; explicit external-scope refs remain terminal and do not contaminate same-scope lineage paths. Implementation `5ab91e5bf708c033f969cac520c6e9e71b5cd0c7`; focused regression `eeabc6c523a135713b64bb3dcd7189ffa8ec21d0`; Direction Ownership CI `37630898630` PASS.
 3. [ ] expose missing links rather than hallucinating them
 4. [ ] include owner/source refs for each hop
 5. [ ] prevent graph cycles from causing unbounded traversal
@@ -73,4 +73,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 4.3 / Task 2 - show path from current work/initiative toward goal/mission/problem where available**. Do not begin Task 3 until Task 2 is complete, tested, and persisted.
+Continue only with **Slice 4.3 / Task 3 - expose missing links rather than hallucinating them**. Do not begin Task 4 until Task 3 is complete, tested, and persisted.
