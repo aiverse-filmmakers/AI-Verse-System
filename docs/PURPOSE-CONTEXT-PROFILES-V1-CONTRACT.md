@@ -7,59 +7,65 @@
 
 Profiles control which already-valid Purpose sections are requested/emitted for a scope. They do not create new canonical truth, new scope types, or new storage.
 
----
-
 ## Task 1 — operator default shape — FROZEN
 
-The default operator projection profile is conceptually `operator_default`.
-
-When relevant owner-backed truth exists, it may include `problems`, `purpose`, `goals`, `priorities`, `challenges`, `strategies`, `initiatives`, `constraints`, `current_work`, `trajectory`, and `recent_material_changes`; `narratives`, `kpis`, `risks`, and `current_state` remain supporting/conditional.
-
-Operator Purpose never implicitly aggregates all workspaces or their Data. A sparse operator projection is valid.
+`operator_default` is sparse/global and never implicitly aggregates all workspaces or their Data.
 
 ## Task 2 — workspace default/basic shape — FROZEN
 
-The default workspace profile is conceptually `workspace_basic`.
-
-When relevant owner-backed truth exists, it may include `purpose`, `goals`, `priorities`, `challenges`, `strategies`, `initiatives`, `constraints`, `current_work`, `trajectory`, `recent_material_changes`, plus `problems` when explicitly represented by the active strategic owner.
-
-`narratives`, `kpis`, `risks`, and broader `current_state` remain conditional. Tiny workspaces do not require mission, strategy, KPIs, risk register, team structure, customer model, infrastructure model, or budget structure. Orphan work remains visible rather than being assigned invented hierarchy.
+`workspace_basic` exposes only relevant owner-backed strategic/current-work trajectory and never forces corporate bureaucracy.
 
 ## Task 3 — rich workspace optional fields — FROZEN
 
-The richer workspace profile is conceptually `workspace_rich`. It is an additive read profile over the same v1 envelope, not a different schema or corporate subsystem.
-
-It may activate `narratives`, `kpis`, `risks`, richer `constraints`, richer `current_state`, richer `recent_material_changes`, and more secondary trajectory context when canonical owner evidence exists and budget permits.
-
-KPI values require explicit Data/current-truth bindings. Risks require owner-backed records or frozen deterministic derivation. V1 does not silently add first-class top-level `team`, `resources`, `customers`, `infrastructure`, or `budget` fields; those require a legitimate existing v1 representation or later contract extension.
-
-Selecting rich only broadens the eligible read set. It never requires every eligible section to appear.
+`workspace_rich` is an additive read profile over the same v1 envelope. It broadens eligible owner-backed reads but never requires fields to exist or creates new top-level corporate truth.
 
 ## Task 4 — auto-detection rules — FROZEN
 
-The normal caller profile request is `auto | basic | rich`. Operator resolves to `operator_default`. Workspace `auto` starts at `workspace_basic` and resolves rich only when at least one rich-only information domain is both owner-backed and relevant/requested. Workspace type/name/model judgment/unused budget alone are insufficient. Explicit basic/rich requests never bypass truth, scope, authority, or budget rules.
-
----
+The normal caller profile request is `auto | basic | rich`. Workspace `auto` begins basic and becomes rich only when a rich-only domain is both owner-backed and relevant/requested. Type/name/model judgment/unused budget are insufficient.
 
 ## Task 5 — `WORKSPACE.yaml` optional `purpose_context` decision — FROZEN
 
-**Decision: Purpose Context v1 does not add a `purpose_context` block to `WORKSPACE.yaml`.**
+**Decision: Purpose Context v1 does not add a `purpose_context` block to `WORKSPACE.yaml`.** Profile is request-time/deterministic; existing scope and owner APIs are sufficient; no workspace migration is required.
 
-Rationale:
+---
 
-- exact workspace scope plus existing owner APIs already provide sufficient discovery;
-- `auto|basic|rich` is a request-time projection choice, not durable workspace truth;
-- persisting a profile flag would create configuration users would have to maintain even though the projection can decide deterministically from current owner state and relevance;
-- a durable `enabled` flag would risk making Purpose availability depend on stale workspace metadata rather than current runtime relevance;
-- the Phase 1 audit found no owner field that must live in the manifest for v1.
+## Task 6 — disabled / irrelevant behavior — FROZEN
 
-Rules:
+Purpose Context v1 distinguishes **feature unavailable/disabled** from **feature irrelevant to the current task**.
 
-- existing `WORKSPACE.yaml` remains unchanged for Purpose v1;
-- callers may request `auto|basic|rich` at read time;
-- future manifest metadata requires a separately justified contract change and must remain configuration only, never strategic truth;
-- implementations MUST NOT create hidden/default `purpose_context` metadata during workspace creation;
-- no migration of existing workspaces is required for Purpose v1.
+### Irrelevant task
+
+When runtime relevance classification determines that Purpose Context is not needed:
+
+- the runtime MUST perform **zero Purpose owner reads** for that turn/run;
+- no Purpose projection is assembled;
+- no placeholder/empty Purpose object is injected;
+- the agent proceeds with its normal existing context path;
+- diagnostics may record a bounded non-content reason such as `purpose_skipped_irrelevant`;
+- skipping Purpose must not reduce permissions, mutate state, or alter canonical owner truth.
+
+Examples include bounded file renames, simple formatting, or other tasks whose answer does not depend on strategic direction.
+
+### Explicit Purpose request
+
+A direct user request such as “why are we doing this?”, “what should we do next?”, “how does this serve the goal?”, or an explicit Purpose/Dashboard read overrides normal relevance skipping and attempts the exact-scope Purpose read.
+
+### Disabled / unavailable capability
+
+V1 has no per-workspace manifest disable flag. Capability may still be unavailable because the installed OS/runtime version does not provide Purpose, the component is disabled at a higher existing lifecycle boundary, or a required owner/API is unavailable.
+
+In those cases:
+
+- runtime MUST NOT fabricate Purpose content;
+- existing non-Purpose functionality continues where safe;
+- explicit Purpose requests return an explicit unsupported/unavailable result rather than silently pretending Purpose is empty;
+- owner unavailability does not trigger cross-workspace fallback, stale-strategy resurrection, or Memory-as-current fallback;
+- failure to load an optional owner may yield a partial projection only under the envelope truth-state rules;
+- failure of the required scope/identity/active strategic-owner boundary fails the Purpose read closed.
+
+### Anti-bloat law
+
+Purpose relevance is a read gate, not a prompt decoration. Trivial/unrelated tasks must demonstrate zero Purpose reads in Phase 7 acceptance tests. A caller cannot force Purpose to load globally merely by leaving spare context budget.
 
 ---
 
@@ -70,5 +76,5 @@ Rules:
 3. [x] rich workspace optional fields
 4. [x] auto-detection rules
 5. [x] `WORKSPACE.yaml` optional `purpose_context` decision
-6. [ ] disabled/irrelevant behavior
+6. [x] disabled/irrelevant behavior
 7. [ ] explicit cross-scope relationship rules
