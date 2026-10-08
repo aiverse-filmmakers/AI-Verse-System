@@ -17,14 +17,12 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7 = 8 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Slice 8.1:** COMPLETE / ACCEPTED
-- **Completed Slice 8.2 tasks:** 0 of 5
-- **NEXT:** **Slice 8.2 / Task 1 - preserve operation IDs/idempotency**
+- **Completed Slice 8.2 tasks:** 1 of 5
+- **NEXT:** **Slice 8.2 / Task 2 - emit owner-backed receipts**
 
 ## Slice 8.2 execution checklist
 
-The canonical Slice 8.2 bullets are frozen into five bounded tasks in exact order:
-
-1. [ ] preserve operation IDs/idempotency
+1. [x] preserve operation IDs/idempotency - Gateway `gateway.purpose-strategic-owner-operation.v1` derives deterministic `operation_id`/`request_id`, `idempotency_key`, symbolic operation, and exact operation fingerprint only from an explicit-user-confirmed semantic mutation binding. Reconfirming the same semantic mutation preserves IDs; semantic or current-owner changes produce different bindings. No Gateway/Purpose ledger, receipt store, owner call, mutation, or Purpose rebuild is introduced. PR #54 exact head `b769eda7899b9219d3c6f5d004df7e83a50795fb`, merged Gateway `931096441ad9ba49fbe8e4a3fd2234052dfc9442`. Gateway CI `37849017710`, Context Ladder `37849017720`, Permanent Bot `37849017719`, Automation Boundary `37849017716`, Temporary Worker `37849017608` PASS.
 2. [ ] emit owner-backed receipts
 3. [ ] rebuild Purpose after successful mutation
 4. [ ] prove failed/interrupted writes cannot leave Purpose as a second truth store
@@ -37,16 +35,6 @@ Do not close Slice 8.2 until all five tasks are complete and accepted.
 **COMPLETE / ACCEPTED.**  
 Closure record: `docs/PURPOSE-CONTEXT-SLICE-8.1-CLOSURE.md`.  
 Final accepted Gateway head: `2629a691402660aa3998c279267a4cd07810e9f7`.
-
-Accepted Task 5 behavior:
-
-- `gateway.purpose-strategic-confirmation.v1` requires explicit-user authority before a current-owner-routed strategic proposal can enter confirmed state;
-- confirmation is bound to the exact routed proposal by SHA-256 proposal fingerprint, exact scope, exact current owner, granting user, and timestamp;
-- missing, non-user, cross-scope, wrong-owner, stale/changed-proposal, malformed, or extra confirmation data fails closed;
-- confirmation does not create an owner operation and cannot execute a mutation: `owner_operation_built=false`, `apply_allowed=false`, `mutation_executed=false`;
-- Purpose remains non-writable after confirmation.
-
-Task 5 PR #53 exact head `03bc35b1fed106a91fdcf23a101d53686748f151`, merged Gateway `2629a691402660aa3998c279267a4cd07810e9f7`. Gateway CI `37848680633`, Context Ladder `37848680483`, Permanent Bot `37848680612`, Automation Boundary `37848680576`, Temporary Worker `37848680607` PASS.
 
 ## Closed slice records
 
@@ -66,4 +54,4 @@ Task 5 PR #53 exact head `03bc35b1fed106a91fdcf23a101d53686748f151`, merged Gate
 
 ## Resume instructions
 
-Continue only with **Slice 8.2 / Task 1 - preserve operation IDs/idempotency**. Reuse canonical owner idempotency machinery; do not invent a Purpose-owned operation ledger or receipt store.
+Continue only with **Slice 8.2 / Task 2 - emit owner-backed receipts**. Accept only receipts emitted by the canonical owner execution boundary and bound to the exact operation IDs/fingerprint. Do not create a Gateway/Purpose receipt store and do not rebuild Purpose until Task 3.
