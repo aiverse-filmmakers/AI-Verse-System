@@ -17,14 +17,14 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Phase 9:** COMPLETE / ACCEPTED
-- **Completed Slice 10.1 tasks:** 2 of 9
-- **NEXT:** **Slice 10.1 / Task 3 - current strategies**
+- **Completed Slice 10.1 tasks:** 3 of 9
+- **NEXT:** **Slice 10.1 / Task 4 - current initiatives / projects**
 
 ## Slice 10.1 execution checklist
 
 1. [x] mission / purpose - Dashboard exposes workspace-scoped read-only `purpose.get`. Each call re-enters the selected registered OS's canonical `scripts/purpose-context.mjs read` surface with exact workspace scope, `--profile basic`, and the frozen 16 KiB Purpose budget. Dashboard validates projection owner/scope, stores no Purpose result, narrows the response to mission/purpose plus provenance, and registers a presentation-only Purpose panel. The carried Dashboard workspace-ID contract is RESOLVED: lowercase alphanumeric/dash only, no trailing dash, max 128. Dashboard PR #16 exact head `a2ea3bbf96a5751a588c2449799775e3d7126c21`, merged Dashboard `f837540d8ec04aeb214e93a4dd5ec4d504b9fe68`. Dashboard CI `37855987376` PASS on Ubuntu, macOS, and Windows Node 22.
 2. [x] active goals - the same uncached `purpose.get` surface now adds `activeGoals` without adding another query or store. Dashboard preserves the current owner goal objects, statuses, payloads, and canonical refs exactly as supplied by the OS-owned Purpose projection. It does not create a Dashboard active/inactive classifier: Brain's public Purpose snapshot already bounds goal intents to current statuses (`CONFIRMED`, `ACTIVE`, `PAUSED`), while OS-owned workspace objectives are current by definition. Strategies and later Purpose sections remain outside the response boundary. Dashboard PR #17 exact head `79e4e69e9f43e3b3e90c3f308cbeec5cdc0922b7`, merged Dashboard `7deae9096cd702e67d078278839141b6f0ebb6d6`. Dashboard CI `37856240170` PASS on Ubuntu, macOS, and Windows Node 22.
-3. [ ] current strategies
+3. [x] current strategies - the same uncached `purpose.get` surface now adds `currentStrategies`. Dashboard preserves owner strategy objects, statuses, payloads, canonical refs, ordering, and provenance rather than deriving strategy state. Initiatives, challenges, risks, KPIs, current work, and material changes remain outside the response boundary. Dashboard PR #18 exact head `7d350877dce4dc1b53b3fefe0ea42a991cecf8f3`, merged Dashboard `bc78e9ff17631b6c2ebade957fce30cf0f312800`. Dashboard CI `37856799362` PASS on Ubuntu, macOS, and Windows Node 22.
 4. [ ] current initiatives / projects
 5. [ ] key challenges
 6. [ ] key risks
@@ -69,4 +69,4 @@ Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
 
 ## Resume instructions
 
-Continue only with **Slice 10.1 / Task 3 - current strategies**. Extend the existing bounded read-only `purpose.get` surface; preserve owner strategy objects/statuses and keep initiatives/challenges/risks/KPIs/current work/material changes excluded until their exact task. The current five-task batch is complete; do not begin Task 3 until the user requests continuation.
+Continue only with **Slice 10.1 / Task 4 - current initiatives / projects**. Extend the existing bounded read-only `purpose.get` surface with owner-backed initiatives/projects; preserve owner status/payload/refs and keep challenges/risks/KPIs/current work/material changes excluded until their exact task. This five-task batch is in progress; Task 3 is durably complete.
