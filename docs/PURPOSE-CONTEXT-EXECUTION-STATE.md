@@ -17,13 +17,13 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8 = 9 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Phase 8:** COMPLETE / ACCEPTED
-- **Completed Slice 9.1 tasks:** 1 of 6
-- **NEXT:** **Slice 9.1 / Task 2 - team/resources**
+- **Completed Slice 9.1 tasks:** 2 of 6
+- **NEXT:** **Slice 9.1 / Task 3 - customers**
 
 ## Slice 9.1 execution checklist
 
-1. [x] risks - existing Purpose `risks` support is now fail-closed to exact-scope canonical owner evidence. Unbacked, malformed, or cross-scope risk-shaped objects are omitted even in explicit rich mode, and cannot trigger auto-rich profile selection. Normal composition still omits risks because no current canonical owner exposes a safe risk source. No new risk owner/store or schema version was introduced. OS PR #55 exact head `40715e27d4bc6ede01886e9053c860374c0a55a2`, merged OS `688b8846b77cfa1a88f860dc95537750d258e669`. Direction Ownership `37852294175`, OS Brain Permission `37852294317`, Automation Consent `37852294224`, Permanent Bot Consent `37852294457`, Temporary Worker `37852294177`, Migration Source Concurrency `37852294184`, OS Write Boundary `37852294183`, Repository QC `37852294141`, Five-Component Public Beta `37852294300`, Four Repo Acceptance `37852294382` PASS.
-2. [ ] team/resources
+1. [x] risks - existing Purpose `risks` support is now fail-closed to exact-scope canonical owner evidence. Unbacked, malformed, or cross-scope risk-shaped objects are omitted even in explicit rich mode, and cannot trigger auto-rich profile selection. Normal composition still omits risks because no current canonical owner exposes a safe risk source. No new risk owner/store or schema version was introduced. OS PR #55 exact head `40715e27d4bc6ede01886e9053c860374c0a55a2`, merged OS `688b8846b77cfa1a88f860dc95537750d258e669`.
+2. [x] team/resources - optional `team_resources` rich projection support accepts only exact-scope canonical owner-backed entries, caps the domain at 64 items, removes unbacked/malformed/cross-scope data even in rich mode, and includes the optional section in final byte-budget truncation priority. Normal composition omits it because no current canonical owner exposes a safe source; workspace metadata and runtime resource policy are not promoted into strategic truth. No owner/store or schema version was added. OS PR #56 exact final head `5de34eaccbdae5b95eedf6cb8408cac92f4d521f`, merged OS `837edfe1c4c76e3b519144cadeeda32c5430f845`. Direction Ownership `37852752799`, OS Brain Permission `37852752777`, Automation Consent `37852752845`, Permanent Bot Consent `37852752747`, Temporary Worker `37852752856`, Migration Source Concurrency `37852752847`, OS Write Boundary `37852752800`, Repository QC `37852752740`, Five-Component Public Beta `37852752742`, Four Repo Acceptance `37852752848` PASS.
 3. [ ] customers
 4. [ ] infrastructure
 5. [ ] budget/cost
@@ -56,4 +56,4 @@ Final accepted Gateway head: `be65d0eb49eca941733014968b3f50b4d3da0b4f`.
 
 ## Resume instructions
 
-Continue only with **Slice 9.1 / Task 2 - team/resources**. First identify an existing canonical owner/source contract. If no safe owner-backed team/resource source exists, omit the field cleanly rather than creating one. Do not begin customers until team/resources is complete and persisted.
+Continue only with **Slice 9.1 / Task 3 - customers**. First identify an existing canonical owner/source contract. If no safe owner-backed customer source exists, omit the field cleanly rather than creating one. Stop after Task 3 for the current five-task batch.
