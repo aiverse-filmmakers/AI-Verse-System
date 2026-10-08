@@ -17,13 +17,13 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Phase 9:** COMPLETE / ACCEPTED
-- **Completed Slice 10.1 tasks:** 1 of 9
-- **NEXT:** **Slice 10.1 / Task 2 - active goals**
+- **Completed Slice 10.1 tasks:** 2 of 9
+- **NEXT:** **Slice 10.1 / Task 3 - current strategies**
 
 ## Slice 10.1 execution checklist
 
-1. [x] mission / purpose - Dashboard now exposes workspace-scoped read-only `purpose.get`. Each call re-enters the selected registered OS's canonical `scripts/purpose-context.mjs read` surface with the exact `workspace:<id>` scope, `--profile basic`, and the frozen 16 KiB Purpose budget. Dashboard validates projection owner/scope, stores no Purpose result, and narrows the response to mission/purpose plus provenance only. The current shell registers a presentation-only Purpose panel. The carried Dashboard workspace-ID contract is RESOLVED: lowercase alphanumeric/dash only, no trailing dash, max 128, shared by protocol parsing and workspace scope keys. Dashboard PR #16 exact head `a2ea3bbf96a5751a588c2449799775e3d7126c21`, merged Dashboard `f837540d8ec04aeb214e93a4dd5ec4d504b9fe68`. Dashboard CI `37855987376` PASS on Ubuntu, macOS, and Windows Node 22.
-2. [ ] active goals
+1. [x] mission / purpose - Dashboard exposes workspace-scoped read-only `purpose.get`. Each call re-enters the selected registered OS's canonical `scripts/purpose-context.mjs read` surface with exact workspace scope, `--profile basic`, and the frozen 16 KiB Purpose budget. Dashboard validates projection owner/scope, stores no Purpose result, narrows the response to mission/purpose plus provenance, and registers a presentation-only Purpose panel. The carried Dashboard workspace-ID contract is RESOLVED: lowercase alphanumeric/dash only, no trailing dash, max 128. Dashboard PR #16 exact head `a2ea3bbf96a5751a588c2449799775e3d7126c21`, merged Dashboard `f837540d8ec04aeb214e93a4dd5ec4d504b9fe68`. Dashboard CI `37855987376` PASS on Ubuntu, macOS, and Windows Node 22.
+2. [x] active goals - the same uncached `purpose.get` surface now adds `activeGoals` without adding another query or store. Dashboard preserves the current owner goal objects, statuses, payloads, and canonical refs exactly as supplied by the OS-owned Purpose projection. It does not create a Dashboard active/inactive classifier: Brain's public Purpose snapshot already bounds goal intents to current statuses (`CONFIRMED`, `ACTIVE`, `PAUSED`), while OS-owned workspace objectives are current by definition. Strategies and later Purpose sections remain outside the response boundary. Dashboard PR #17 exact head `79e4e69e9f43e3b3e90c3f308cbeec5cdc0922b7`, merged Dashboard `7deae9096cd702e67d078278839141b6f0ebb6d6`. Dashboard CI `37856240170` PASS on Ubuntu, macOS, and Windows Node 22.
 3. [ ] current strategies
 4. [ ] current initiatives / projects
 5. [ ] key challenges
@@ -62,11 +62,11 @@ Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
 
 ## Carried repair register
 
-1. Dashboard workspace-ID contract alignment to canonical lowercase alnum/hyphen max 128. **RESOLVED in Slice 10.1 Task 1:** Dashboard protocol and scope keys now use the canonical contract and reject uppercase, underscore, trailing dash, and overlength IDs.
+1. Dashboard workspace-ID contract alignment to canonical lowercase alnum/hyphen max 128. **RESOLVED in Slice 10.1 Task 1.**
 2. OS workspace manifest schema max length should align runtime max 128.
-3. Data aggregate freshness must never be inferred from query execution time. **RESOLVED for the Purpose current-value path in Slice 5.1:** freshness is sourced from canonical Data record `updatedAt`.
+3. Data aggregate freshness must never be inferred from query execution time. **RESOLVED for the Purpose current-value path in Slice 5.1.**
 4. Final qualification must pin exact component refs.
 
 ## Resume instructions
 
-Continue only with **Slice 10.1 / Task 2 - active goals**. Extend the same fresh read-only Purpose surface without adding another query/store. Preserve owner goal objects and current owner status semantics rather than inventing Dashboard goal state. Stop after Task 2 for the current five-task batch.
+Continue only with **Slice 10.1 / Task 3 - current strategies**. Extend the existing bounded read-only `purpose.get` surface; preserve owner strategy objects/statuses and keep initiatives/challenges/risks/KPIs/current work/material changes excluded until their exact task. The current five-task batch is complete; do not begin Task 3 until the user requests continuation.
