@@ -9,35 +9,50 @@
 
 ## Current execution pointer
 
-- **Phase:** 8 - Owner-routed strategic mutation proposals
-- **Current slice:** **8.2 - Mutation execution safety**
+- **Phase:** 9 - Risks and resource context
+- **Current slice:** **9.1 - Risks and resource context**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1
-- **Closed slices:** 20 of 34
-- **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7 = 8 of 14
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2
+- **Closed slices:** 21 of 34
+- **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8 = 9 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
-- **Slice 8.1:** COMPLETE / ACCEPTED
-- **Completed Slice 8.2 tasks:** 4 of 5
-- **NEXT:** **Slice 8.2 / Task 5 - preserve handover/handback rules**
+- **Phase 8:** COMPLETE / ACCEPTED
+- **Completed Slice 9.1 tasks:** 0 of 6
+- **NEXT:** **Slice 9.1 / Task 1 - risks**
 
-## Slice 8.2 execution checklist
+## Slice 9.1 execution checklist
 
-1. [x] preserve operation IDs/idempotency - Gateway `gateway.purpose-strategic-owner-operation.v1` derives deterministic owner-native operation/request/idempotency bindings only from explicit-user-confirmed semantic mutation intent. PR #54 exact head `b769eda7899b9219d3c6f5d004df7e83a50795fb`, merged Gateway `931096441ad9ba49fbe8e4a3fd2234052dfc9442`; Gateway CI `37849017710`, Context Ladder `37849017720`, Permanent Bot `37849017719`, Automation Boundary `37849017716`, Temporary Worker `37849017608` PASS.
-2. [x] emit owner-backed receipts - Gateway `gateway.purpose-strategic-owner-receipt.v1` invokes the explicit canonical-owner execution boundary and accepts only receipts matching exact owner, scope, operation/request IDs, idempotency key and operation fingerprint. Success requires a non-empty owner receipt ID plus `effect_occurred=true`; failed outcomes must prove `effect_occurred=false`; uncertain outcomes remain non-success. Only proven owner success sets `mutation_executed=true` / `purpose_rebuild_allowed=true`. No Gateway/Purpose receipt store is introduced. PR #55 exact head `56e69367b8e1c0e853bd5bb2add090198a9033b5`, merged Gateway `a599702f8ec196d5d26387fd77fc34467ed1761c`. Gateway CI `37849419002`, Context Ladder `37849419020`, Permanent Bot `37849419029`, Automation Boundary `37849419013`, Temporary Worker `37849419083` PASS.
-3. [x] rebuild Purpose after successful mutation - Gateway `gateway.purpose-strategic-post-write.v1` performs a fresh OS-owned Purpose read only after exact canonical-owner success evidence. Failed/uncertain receipts cause zero Purpose reads. Rebuilt projection must match exact scope, preserve `provenance.projection_owner=ai-verse-os`, expose schema version, remain within the existing 16 KiB runtime envelope, and pass the existing fresh-owner precedence policy with no stale fallback. Canonical owner receipt remains the mutation evidence; Purpose is explicitly non-authoritative for the mutation and is never recomposed/stored by Gateway. PR #56 exact head `fb168614bd31ce1e8d90f4c4e1a8e514dd3794e1`, merged Gateway `a3deb510dcc79e468d07e46fcaa3b89f3abfc6e3`. Gateway CI `37849793351`, Context Ladder `37849793455`, Permanent Bot `37849793374`, Automation Boundary `37849793482`, Temporary Worker `37849793636` PASS.
-4. [x] prove failed/interrupted writes cannot leave Purpose as a second truth store - focused Gateway crash/failure proof verifies owner-dispatch interruption cannot trigger Purpose reads; failed/uncertain outcomes cause zero Purpose rebuild reads; malformed success cannot manufacture canonical success; Purpose rebuild failure after canonical success leaves owner receipt evidence unchanged; successful Purpose remains derived/non-authoritative; and strategic receipt/post-write modules expose no filesystem or Purpose persistence path. PR #57 exact head `bfda2d6475a027b1e4ff2885e42a5e93af45f501`, merged Gateway `1a1e126536fa0ed3137b161ef49d242243e265c7`. Exact-head Gateway CI `37850562172`, Context Ladder `37850562189`, Permanent Bot `37850562171`, Automation Boundary `37850562134`, Temporary Worker `37850562362` PASS. An earlier run hit an unrelated existing macOS async-scrypt timing flake; the exact final head passed the full matrix.
-5. [ ] preserve handover/handback rules
+The canonical Slice 9.1 bullets are frozen into six bounded tasks in exact order:
 
-Do not close Slice 8.2 until all five tasks are complete and accepted.
+1. [ ] risks
+2. [ ] team/resources
+3. [ ] customers
+4. [ ] infrastructure
+5. [ ] budget/cost
+6. [ ] project/initiative operational status
 
-## Slice 8.1 closure
+All six are optional, owner-backed fields only. Do not invent canonical owners merely to copy external `corporate_telos` field names. Small workspaces must remain valid when any or all rich fields are absent.
+
+## Slice 8.2 closure
 
 **COMPLETE / ACCEPTED.**  
-Closure record: `docs/PURPOSE-CONTEXT-SLICE-8.1-CLOSURE.md`.  
-Final accepted Gateway head: `2629a691402660aa3998c279267a4cd07810e9f7`.
+Closure record: `docs/PURPOSE-CONTEXT-SLICE-8.2-CLOSURE.md`.  
+Final accepted Gateway head: `be65d0eb49eca941733014968b3f50b4d3da0b4f`.
+
+Accepted Task 5 behavior:
+
+- `gateway.purpose-strategic-handover.v1` verifies the existing canonical OS/Brain transfer law without creating another ownership mechanism;
+- OS-to-Brain handover executes through current OS ownership; Brain-to-OS handback executes through current Brain ownership;
+- owner receipt success is followed by an exact scoped read of the OS-owned direction registry, which must name the explicitly requested destination owner;
+- Brain unavailability never silently returns strategic authority to OS;
+- Purpose may reflect the new owner only after the canonical owner registry confirms the transfer;
+- verification uses the existing compact owner semantic binding rather than retaining another strategic proposal copy.
+
+Task 5 PR #58 exact final head `deca1beed177b839755ceec3f24accaaa2e86f1a`, merged Gateway `be65d0eb49eca941733014968b3f50b4d3da0b4f`. Gateway CI `37851646354`, Context Ladder `37851646278`, Permanent Bot `37851646399`, Automation Boundary `37851646471`, Temporary Worker `37851646299` PASS.
 
 ## Closed slice records
 
+- Slice 8.2: `docs/PURPOSE-CONTEXT-SLICE-8.2-CLOSURE.md`
 - Slice 8.1: `docs/PURPOSE-CONTEXT-SLICE-8.1-CLOSURE.md`
 - Slice 7.3: `docs/PURPOSE-CONTEXT-SLICE-7.3-CLOSURE.md`
 - Slice 7.2: `docs/PURPOSE-CONTEXT-SLICE-7.2-CLOSURE.md`
@@ -54,4 +69,4 @@ Final accepted Gateway head: `2629a691402660aa3998c279267a4cd07810e9f7`.
 
 ## Resume instructions
 
-Continue only with **Slice 8.2 / Task 5 - preserve handover/handback rules**. Preserve the existing OS/Brain direction-owner contract exactly: no silent return to OS while Brain owns direction, and any handover/handback must be owner-backed before Purpose reflects the new current owner. Do not begin Phase 9 until Task 5 is complete, accepted, and Slice 8.2 is closed.
+Continue only with **Slice 9.1 / Task 1 - risks**. First identify an existing canonical owner/source contract. If no safe owner-backed risk source exists, omit the field cleanly rather than creating one. Do not begin team/resources until risks is complete and persisted.
