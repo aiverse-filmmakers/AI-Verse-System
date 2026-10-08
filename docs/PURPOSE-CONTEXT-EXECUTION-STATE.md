@@ -17,14 +17,12 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Phase 9:** COMPLETE / ACCEPTED
-- **Completed Slice 10.1 tasks:** 0 of 9
-- **NEXT:** **Slice 10.1 / Task 1 - mission / purpose**
+- **Completed Slice 10.1 tasks:** 1 of 9
+- **NEXT:** **Slice 10.1 / Task 2 - active goals**
 
 ## Slice 10.1 execution checklist
 
-The canonical target UX is frozen into nine bounded implementation tasks in exact order for deterministic continuation:
-
-1. [ ] mission / purpose
+1. [x] mission / purpose - Dashboard now exposes workspace-scoped read-only `purpose.get`. Each call re-enters the selected registered OS's canonical `scripts/purpose-context.mjs read` surface with the exact `workspace:<id>` scope, `--profile basic`, and the frozen 16 KiB Purpose budget. Dashboard validates projection owner/scope, stores no Purpose result, and narrows the response to mission/purpose plus provenance only. The current shell registers a presentation-only Purpose panel. The carried Dashboard workspace-ID contract is RESOLVED: lowercase alphanumeric/dash only, no trailing dash, max 128, shared by protocol parsing and workspace scope keys. Dashboard PR #16 exact head `a2ea3bbf96a5751a588c2449799775e3d7126c21`, merged Dashboard `f837540d8ec04aeb214e93a4dd5ec4d504b9fe68`. Dashboard CI `37855987376` PASS on Ubuntu, macOS, and Windows Node 22.
 2. [ ] active goals
 3. [ ] current strategies
 4. [ ] current initiatives / projects
@@ -51,13 +49,6 @@ Dashboard/product-shell laws for every task:
 Closure record: `docs/PURPOSE-CONTEXT-SLICE-9.1-CLOSURE.md`.  
 Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
 
-Accepted Task 6 behavior:
-
-- Brain's existing canonical initiative lifecycle status is the project/initiative operational status while Brain owns strategic direction;
-- Purpose preserves the status on the existing `initiatives` projection with exact Brain canonical refs;
-- no `initiative_operational_status`, `project_operational_status`, duplicate status store, or inferred generic-Data status path is introduced;
-- exact Task 6 head `06f24139abb44c263886380f3aed9aa018170cc0` passed Direction Ownership `37855057108`, OS Brain Permission `37855057166`, Automation Consent `37855057119`, Permanent Bot Consent `37855057128`, Temporary Worker `37855057213`, Migration Source Concurrency `37855057161`, OS Write Boundary `37855057122`, Repository QC `37855057147`, Five-Component Public Beta `37855057136`, and Four Repo Acceptance `37855057129`.
-
 ## Closed slice records
 
 - Slice 9.1: `docs/PURPOSE-CONTEXT-SLICE-9.1-CLOSURE.md`
@@ -71,11 +62,11 @@ Accepted Task 6 behavior:
 
 ## Carried repair register
 
-1. Dashboard workspace-ID contract must align with canonical lowercase alnum/hyphen max 128 before Purpose Dashboard qualification.
+1. Dashboard workspace-ID contract alignment to canonical lowercase alnum/hyphen max 128. **RESOLVED in Slice 10.1 Task 1:** Dashboard protocol and scope keys now use the canonical contract and reject uppercase, underscore, trailing dash, and overlength IDs.
 2. OS workspace manifest schema max length should align runtime max 128.
 3. Data aggregate freshness must never be inferred from query execution time. **RESOLVED for the Purpose current-value path in Slice 5.1:** freshness is sourced from canonical Data record `updatedAt`.
 4. Final qualification must pin exact component refs.
 
 ## Resume instructions
 
-Continue only with **Slice 10.1 / Task 1 - mission / purpose**. First locate the actual Dashboard/product shell and its existing read model. Do not create a parallel Dashboard store. Resolve the carried Dashboard workspace-ID contract before or as part of Dashboard qualification. Do not begin active goals until mission/purpose is complete, tested, and persisted.
+Continue only with **Slice 10.1 / Task 2 - active goals**. Extend the same fresh read-only Purpose surface without adding another query/store. Preserve owner goal objects and current owner status semantics rather than inventing Dashboard goal state. Stop after Task 2 for the current five-task batch.
