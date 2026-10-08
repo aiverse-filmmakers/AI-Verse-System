@@ -17,8 +17,8 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Phase 9:** COMPLETE / ACCEPTED
-- **Completed Slice 10.1 tasks:** 4 of 9
-- **NEXT:** **Slice 10.1 / Task 5 - key challenges**
+- **Completed Slice 10.1 tasks:** 5 of 9
+- **NEXT:** **Slice 10.1 / Task 6 - key risks**
 
 ## Slice 10.1 execution checklist
 
@@ -26,7 +26,7 @@
 2. [x] active goals - the same uncached `purpose.get` surface now adds `activeGoals` without adding another query or store. Dashboard preserves the current owner goal objects, statuses, payloads, and canonical refs exactly as supplied by the OS-owned Purpose projection. It does not create a Dashboard active/inactive classifier: Brain's public Purpose snapshot already bounds goal intents to current statuses (`CONFIRMED`, `ACTIVE`, `PAUSED`), while OS-owned workspace objectives are current by definition. Strategies and later Purpose sections remain outside the response boundary. Dashboard PR #17 exact head `79e4e69e9f43e3b3e90c3f308cbeec5cdc0922b7`, merged Dashboard `7deae9096cd702e67d078278839141b6f0ebb6d6`. Dashboard CI `37856240170` PASS on Ubuntu, macOS, and Windows Node 22.
 3. [x] current strategies - the same uncached `purpose.get` surface adds `currentStrategies`. Dashboard preserves owner strategy objects, statuses, payloads, canonical refs, ordering, and provenance rather than deriving strategy state. Initiatives, challenges, risks, KPIs, current work, and material changes remain outside the response boundary. Dashboard PR #18 exact head `7d350877dce4dc1b53b3fefe0ea42a991cecf8f3`, merged Dashboard `bc78e9ff17631b6c2ebade957fce30cf0f312800`. Dashboard CI `37856799362` PASS on Ubuntu, macOS, and Windows Node 22.
 4. [x] current initiatives / projects - the same bounded read-only `purpose.get` surface adds `currentInitiatives`. Dashboard preserves owner initiative/project objects, statuses, payloads, canonical refs, ordering, and provenance. It does not infer project state or create a parallel project store. Challenges, risks, KPIs, current work, and material changes remain excluded. Dashboard PR #19 exact head `4acddd698557b8ce8e92dec7d8ec4d4b68b2e7c5`, merged Dashboard `bfeeb5c65775a9263478d65e86c8c82a75c19665`. Dashboard CI `37856975774` PASS on Ubuntu, macOS, and Windows Node 22.
-5. [ ] key challenges
+5. [x] key challenges - the same bounded read-only `purpose.get` surface adds `keyChallenges`. Dashboard preserves owner challenge objects, statuses, payloads, canonical refs, ordering, and provenance without creating Dashboard challenge truth. Risks, KPIs, current work, and material changes remain excluded. Dashboard PR #20 exact head `02eb33866768a97e27a5c54d8f75d4b0caa9fb93`, merged Dashboard `afb31518861f39d7d6ab645e5b890098874d15bf`. Dashboard CI `37857160141` PASS on Ubuntu, macOS, and Windows Node 22.
 6. [ ] key risks
 7. [ ] KPIs / metrics
 8. [ ] current work
@@ -69,4 +69,4 @@ Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
 
 ## Resume instructions
 
-Continue only with **Slice 10.1 / Task 5 - key challenges**. Extend the existing bounded read-only `purpose.get` surface with owner-backed challenges; preserve owner payload/refs and keep risks/KPIs/current work/material changes excluded until their exact task. This five-task batch is in progress; Tasks 3 and 4 are durably complete.
+Continue only with **Slice 10.1 / Task 6 - key risks**. Extend the existing bounded read-only `purpose.get` surface with owner-backed risks; preserve owner payload/refs and keep KPIs/current work/material changes excluded until their exact task. This five-task batch is in progress; Tasks 3 through 5 are durably complete.
