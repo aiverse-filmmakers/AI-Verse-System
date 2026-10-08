@@ -5,43 +5,46 @@
 **Current admitted Core baseline:** `core-repaired-public-beta-2026-10-06`  
 **Last updated:** 2026-10-09
 
-> Historical evidence through prior slices remains preserved in checkpoint lineage and per-slice closure records. This file is intentionally compact.
-
 ## Current execution pointer
 
 - **Phase:** 10 - Dashboard / product surface
-- **Current slice:** **10.1 - Read-only Purpose view**
+- **Current slice:** **10.2 - Controlled edits from UI**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1
-- **Closed slices:** 22 of 34
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1
+- **Closed slices:** 23 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
-- **Completed Slice 10.1 tasks:** 8 of 9
-- **NEXT:** **Slice 10.1 / Task 9 - recent material changes / activity**
+- **Slice 10.1:** COMPLETE / ACCEPTED
+- **Completed Slice 10.2 tasks:** 0 of 4
+- **NEXT:** **Slice 10.2 / Task 1 - allow UI to propose owner-routed changes**
 
-## Slice 10.1 execution checklist
+## Slice 10.1 closure
 
-1. [x] mission / purpose - workspace-scoped uncached read-only `purpose.get`, exact OS Purpose reader, frozen 16 KiB budget, Dashboard projection only. Dashboard PR #16 merged `f837540d8ec04aeb214e93a4dd5ec4d504b9fe68`; CI `37855987376` PASS Ubuntu/macOS/Windows Node 22.
-2. [x] active goals - adds `activeGoals` while preserving owner objects/status/refs and no Dashboard classifier/store. Dashboard PR #17 merged `7deae9096cd702e67d078278839141b6f0ebb6d6`; CI `37856240170` PASS.
-3. [x] current strategies - adds `currentStrategies`, preserving owner status/payload/refs/order. Dashboard PR #18 merged `bc78e9ff17631b6c2ebade957fce30cf0f312800`; CI `37856799362` PASS.
-4. [x] current initiatives / projects - adds `currentInitiatives`, no parallel project truth. Dashboard PR #19 merged `bfeeb5c65775a9263478d65e86c8c82a75c19665`; CI `37856975774` PASS.
-5. [x] key challenges - adds `keyChallenges`, preserving owner challenge truth. Dashboard PR #20 merged `afb31518861f39d7d6ab645e5b890098874d15bf`; CI `37857160141` PASS.
-6. [x] key risks - adds `keyRisks`, preserving owner risk truth and public read-model exports. Dashboard PR #21 merged `cb4f1e0d70e0b658e064f060b1168d731b4cc2b5`; CI `37857351947` PASS.
-7. [x] KPIs / metrics - Dashboard declares `kpis` relevance through the OS canonical Purpose reader (`--profile auto --relevant-domain kpis`), preserving Brain KPI definitions, Data-backed values/freshness, and bounded response filtering. Dashboard PR #22 merged `0447ba3bf54750d3bd18efe48ca8f54a4de98291`; CI `37857620417` PASS.
-8. [x] current work - the same bounded uncached `purpose.get` surface now adds `currentWork`. Dashboard preserves OS/current-context work items and exact source refs; it adds no work-state classifier or store. `recent_material_changes` remains outside the response boundary until Task 9. Dashboard PR #23 exact head `7df868d26f809e4eff75f1700219be0d322499f3`, merged Dashboard `a55494ce5a7e688439892ebd54dc325df89c747b`. Dashboard CI `37858278030` PASS on Ubuntu, macOS, and Windows Node 22.
-9. [ ] recent material changes / activity
+**COMPLETE / ACCEPTED.** Closure record: `docs/PURPOSE-CONTEXT-SLICE-10.1-CLOSURE.md`.
 
-Dashboard/product-shell laws for every task:
+Final Dashboard read-only Purpose head: `9cd2fc1da291382ecde9819cb443cd2b0773cf6a`.
 
-- Dashboard never owns canonical Purpose truth.
-- Read-only Purpose refresh comes from owner-backed projection, never a Dashboard strategic store.
-- No hidden broad preload; only approved bounded fields cross the UI response boundary.
-- Optional rich sections may be absent.
-- Freshness/unavailable-owner/provenance semantics must remain visible enough to prevent stale UI from appearing authoritative.
-- Historical Memory evidence must remain semantically separate from current authority.
+Task 9 recent material changes/activity preserves exact owner-backed event/effect/evidence refs and keeps historical Memory evidence semantically separate from current authority. Dashboard PR #24 exact head `e0005db84bb0b6c0fb4b9b496b77ecb006fe2854`, merged Dashboard `9cd2fc1da291382ecde9819cb443cd2b0773cf6a`. Dashboard CI `37858465162` PASS on Ubuntu, macOS, and Windows Node 22.
+
+## Slice 10.2 execution checklist
+
+1. [ ] allow UI to propose owner-routed changes
+2. [ ] show confirmation for high-impact strategic changes
+3. [ ] show canonical owner outcome after application
+4. [ ] never write directly to a Dashboard Purpose model
+
+## Slice 10.2 laws
+
+- UI proposals must route through the accepted Phase 8 strategic-mutation path.
+- Dashboard must not invent a second mutation/confirmation authority.
+- High-impact changes require the existing exact-proposal explicit-user confirmation contract.
+- Canonical owner execution and owner-backed receipts remain the only mutation truth.
+- Post-success Purpose display must come from a fresh OS-owned rebuild.
+- No Dashboard Purpose model/database may be writable.
 
 ## Closed slice records
 
+- Slice 10.1: `docs/PURPOSE-CONTEXT-SLICE-10.1-CLOSURE.md`
 - Slice 9.1: `docs/PURPOSE-CONTEXT-SLICE-9.1-CLOSURE.md`
 - Slice 8.2: `docs/PURPOSE-CONTEXT-SLICE-8.2-CLOSURE.md`
 - Slice 8.1: `docs/PURPOSE-CONTEXT-SLICE-8.1-CLOSURE.md`
@@ -60,4 +63,4 @@ Dashboard/product-shell laws for every task:
 
 ## Resume instructions
 
-Continue only with **Slice 10.1 / Task 9 - recent material changes / activity**. Extend the existing bounded read-only `purpose.get` surface while preserving owner-backed event/evidence refs and keeping Memory historical evidence distinct from current authority. After Task 9, close Slice 10.1 before beginning Slice 10.2. The requested six-task batch is 1 of 6 complete.
+Continue only with **Slice 10.2 / Task 1 - allow UI to propose owner-routed changes**. Reuse the accepted Gateway Phase 8 proposal/routing/confirmation/execution chain rather than creating Dashboard mutation authority. The requested six-task batch is 2 of 6 complete; 4 tasks remain.
