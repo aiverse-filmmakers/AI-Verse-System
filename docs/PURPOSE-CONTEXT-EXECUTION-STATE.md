@@ -9,36 +9,58 @@
 
 ## Current execution pointer
 
-- **Phase:** 9 - Risks and resource context
-- **Current slice:** **9.1 - Risks and resource context**
+- **Phase:** 10 - Dashboard / product surface
+- **Current slice:** **10.1 - Read-only Purpose view**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2
-- **Closed slices:** 21 of 34
-- **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8 = 9 of 14
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1
+- **Closed slices:** 22 of 34
+- **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
-- **Phase 8:** COMPLETE / ACCEPTED
-- **Completed Slice 9.1 tasks:** 5 of 6
-- **NEXT:** **Slice 9.1 / Task 6 - project/initiative operational status**
+- **Phase 9:** COMPLETE / ACCEPTED
+- **Completed Slice 10.1 tasks:** 0 of 9
+- **NEXT:** **Slice 10.1 / Task 1 - mission / purpose**
 
-## Slice 9.1 execution checklist
+## Slice 10.1 execution checklist
 
-1. [x] risks - exact-scope owner-backed optional support; no invented owner/store.
-2. [x] team/resources - optional `team_resources`, exact-scope evidence, 64-item cap, bounded pruning.
-3. [x] customers - optional `customers`, exact-scope evidence, 64-item cap, no inferred CRM/Data truth.
-4. [x] infrastructure - optional `infrastructure` through the shared owner-backed rich-domain registry; no canonical source exists so normal output omits it. OS PR #58 exact head `fcf101d8bc55cf5b27dff34f7469448c1fe1d1bc`, merged OS `73e58b083a2b09247619501b79b1d11f12d8068a`. Direction Ownership `37854208878`, OS Brain Permission `37854208915`, Automation Consent `37854208965`, Permanent Bot Consent `37854208872`, Temporary Worker `37854208875`, Migration Source Concurrency `37854208802`, OS Write Boundary `37854208873`, Repository QC `37854208978`, Five-Component Public Beta `37854208849`, Four Repo Acceptance `37854208884` PASS.
-5. [x] budget/cost - optional `budget_cost` is admitted only through exact-scope canonical owner evidence. Generic financial-looking Data does not establish authority. The common rich-domain tests cover backed/unbacked/malformed/cross-scope/cap behavior automatically; byte-budget policy prunes this optional section before trajectory-critical context. No current canonical OS/Brain/Data budget source exists, so normal output omits it. OS PR #59 exact head `fe0c27cc5611d6eb5fc4e34d362c4db97c2c81bb`, merged OS `e00da4ae8ce0974a5e79aa48b7442c826f5e2653`. Direction Ownership `37854500869`, OS Brain Permission `37854500890`, Automation Consent `37854500857`, Permanent Bot Consent `37854500894`, Temporary Worker `37854501049`, Migration Source Concurrency `37854500865`, OS Write Boundary `37854500887`, Repository QC `37854500903`, Five-Component Public Beta `37854500918`, Four Repo Acceptance `37854500811` PASS.
-6. [ ] project/initiative operational status
+The canonical target UX is frozen into nine bounded implementation tasks in exact order for deterministic continuation:
 
-All six are optional, owner-backed fields only. Do not invent canonical owners merely to copy external `corporate_telos` field names. Small workspaces must remain valid when any or all rich fields are absent.
+1. [ ] mission / purpose
+2. [ ] active goals
+3. [ ] current strategies
+4. [ ] current initiatives / projects
+5. [ ] key challenges
+6. [ ] key risks
+7. [ ] KPIs / metrics
+8. [ ] current work
+9. [ ] recent material changes / activity
 
-## Slice 8.2 closure
+Dashboard/product-shell laws for every task:
+
+- Dashboard never owns canonical Purpose truth.
+- The first surface is read-only projection only.
+- Refresh from owner-backed Purpose projection, never a Dashboard database/store.
+- No direct strategic writes.
+- No hidden broad preload. Only the bounded fields required by the active view may be surfaced.
+- Optional rich sections may be absent without making a workspace invalid.
+- Freshness, unavailable-owner, and provenance semantics from Purpose must remain visible enough to avoid presenting stale UI as fresher owner truth.
+- Historical Memory context must remain visually/semantically separate from current authority.
+
+## Slice 9.1 closure
 
 **COMPLETE / ACCEPTED.**  
-Closure record: `docs/PURPOSE-CONTEXT-SLICE-8.2-CLOSURE.md`.  
-Final accepted Gateway head: `be65d0eb49eca941733014968b3f50b4d3da0b4f`.
+Closure record: `docs/PURPOSE-CONTEXT-SLICE-9.1-CLOSURE.md`.  
+Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
+
+Accepted Task 6 behavior:
+
+- Brain's existing canonical initiative lifecycle status is the project/initiative operational status while Brain owns strategic direction;
+- Purpose preserves the status on the existing `initiatives` projection with exact Brain canonical refs;
+- no `initiative_operational_status`, `project_operational_status`, duplicate status store, or inferred generic-Data status path is introduced;
+- exact Task 6 head `06f24139abb44c263886380f3aed9aa018170cc0` passed Direction Ownership `37855057108`, OS Brain Permission `37855057166`, Automation Consent `37855057119`, Permanent Bot Consent `37855057128`, Temporary Worker `37855057213`, Migration Source Concurrency `37855057161`, OS Write Boundary `37855057122`, Repository QC `37855057147`, Five-Component Public Beta `37855057136`, and Four Repo Acceptance `37855057129`.
 
 ## Closed slice records
 
+- Slice 9.1: `docs/PURPOSE-CONTEXT-SLICE-9.1-CLOSURE.md`
 - Slice 8.2: `docs/PURPOSE-CONTEXT-SLICE-8.2-CLOSURE.md`
 - Slice 8.1: `docs/PURPOSE-CONTEXT-SLICE-8.1-CLOSURE.md`
 - Slice 7.3: `docs/PURPOSE-CONTEXT-SLICE-7.3-CLOSURE.md`
@@ -56,4 +78,4 @@ Final accepted Gateway head: `be65d0eb49eca941733014968b3f50b4d3da0b4f`.
 
 ## Resume instructions
 
-Continue only with **Slice 9.1 / Task 6 - project/initiative operational status**. Determine whether existing Brain strategic initiative status is sufficient or whether a distinct current operational owner surface exists. Do not duplicate strategic status into a new Purpose truth source. Close Slice 9.1 only after Task 6 is accepted and persisted.
+Continue only with **Slice 10.1 / Task 1 - mission / purpose**. First locate the actual Dashboard/product shell and its existing read model. Do not create a parallel Dashboard store. Resolve the carried Dashboard workspace-ID contract before or as part of Dashboard qualification. Do not begin active goals until mission/purpose is complete, tested, and persisted.
