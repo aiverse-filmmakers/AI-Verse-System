@@ -15,14 +15,15 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2
 - **Closed slices:** 16 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6 = 7 of 14
-- **NEXT:** **Slice 7.1 / Task 1 - classify Purpose-relevant strategic tasks deterministically at the Gateway runtime boundary**
-- Execute Slice 7.1 in exact task order. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
+- **Completed Slice 7.1 tasks:** 1 of 4
+- **NEXT:** **Slice 7.1 / Task 2 - suppress Purpose for irrelevant/trivial microtasks and prove zero Purpose owner reads on the skip path**
+- Execute Slice 7.1 in exact task order. Do not begin Task 3 until Task 2 is complete, tested, and persisted.
 
 ## Slice 7.1 task checklist
 
 The canonical Phase 7 relevance gate plus the accepted Slice 1.3 runtime audit are implemented as four bounded tasks rather than treating each example strategic question as a separate task.
 
-1. [ ] classify Purpose-relevant strategic tasks deterministically beside, but separate from, the existing historical-depth classifier
+1. [x] classify Purpose-relevant strategic tasks deterministically beside, but separate from, the existing historical-depth classifier - added `gateway.purpose-relevance.v1` in Gateway without modifying historical-depth semantics or `aiverse_context`. The classifier deterministically recognizes the seven frozen strategic prompt classes and keeps trivial/history-only requests non-Purpose by default. PR #38 exact head `185c5960720df1a5f7ddf76881b41c1a3d9c739b` merged to Gateway main as `45262d1532841bb2f0118c0a83aa3085b5ca9f88`; Gateway CI `37801663497` PASS across Ubuntu, macOS, and Windows on Node 20/22, including the existing Ubuntu Node 22 benchmark.
 2. [ ] suppress Purpose for irrelevant/trivial microtasks and prove zero Purpose owner reads on the skip path
 3. [ ] request Purpose only for the run's already-bound scope and inject the bounded OS-owned projection into the existing owner-context bundle
 4. [ ] record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority
@@ -91,4 +92,4 @@ Reference: `docs/PURPOSE-CONTEXT-SLICE-1.3-AUDIT.md`.
 
 ## Resume instructions
 
-Continue only with **Slice 7.1 / Task 1 - classify Purpose-relevant strategic tasks deterministically at the Gateway runtime boundary**. Do not begin Task 2 until Task 1 is complete, tested, and persisted. Do not begin Slice 7.2 until all Slice 7.1 tasks are complete, tested, and persisted.
+Continue only with **Slice 7.1 / Task 2 - suppress Purpose for irrelevant/trivial microtasks and prove zero Purpose owner reads on the skip path**. Do not begin Task 3 until Task 2 is complete, tested, and persisted. Do not begin Slice 7.2 until all Slice 7.1 tasks are complete, tested, and persisted.
