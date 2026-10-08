@@ -13,8 +13,8 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1
 - **Closed slices:** 25 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
-- **Completed Slice 11.2 tests:** 4 of 8
-- **NEXT:** **Slice 11.2 / Test 5 - Brain-owned direction never falls back to frozen OS strategy**
+- **Completed Slice 11.2 tests:** 5 of 8
+- **NEXT:** **Slice 11.2 / Test 6 - Data/Memory reads remain within allowed scope**
 
 ## Slice 11.1 closure
 
@@ -31,7 +31,9 @@
 4. [x] malformed ownership records fail closed
    - Invalid JSON, unsupported schema, and invalid owner records are rejected before Purpose can default to OS authority.
    - PR #69 task commit `93d2decdf420ef80910accad7154591304e514b4`; hardening CI `37861785503` PASS Ubuntu/macOS/Windows.
-5. [ ] Brain-owned direction never falls back to frozen OS strategy
+5. [x] Brain-owned direction never falls back to frozen OS strategy
+   - Declared Brain authority with unavailable Brain reader keeps strategic direction explicitly unavailable and suppresses frozen OS priorities/goals/strategies.
+   - PR #69 task commit `b5cc0e1377051d57a849f4111f8bba76e4c4c436`; hardening CI `37861877982` PASS Ubuntu/macOS/Windows.
 6. [ ] Data/Memory reads remain within allowed scope
 7. [ ] exact-source descent respects owner permissions
 8. [ ] no Purpose surface grants additional action permissions
@@ -53,4 +55,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.2 / Test 5 - Brain-owned direction never falls back to frozen OS strategy**. Current requested ten-task batch: **1 of 10 finished; 9 remain**.
+Continue only with **Slice 11.2 / Test 6 - Data/Memory reads remain within allowed scope**. Current requested ten-task batch: **2 of 10 finished; 8 remain**.
