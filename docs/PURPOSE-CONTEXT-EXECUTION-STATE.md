@@ -5,83 +5,63 @@
 **Current admitted Core baseline:** `core-repaired-public-beta-2026-10-06`  
 **Last updated:** 2026-10-08
 
-> Historical task-level evidence through Slice 6.2 Task 2 remains preserved in parent checkpoint `0e04c2ef102c1f1c2e93b2938cd84968d4856e2b` and the per-slice closure records. This checkpoint is intentionally compact so future continuation reads stay bounded.
+> Historical task-level evidence through Slice 6.2 remains preserved in prior checkpoints and per-slice closure records. This checkpoint is intentionally compact so future continuation reads stay bounded.
 
 ## Current execution pointer
 
 - **Phase:** 7 - Relevance gates and context-budget roll-in
-- **Current slice:** **7.1 - Relevance gate**
+- **Current slice:** **7.2 - Context budget/freshness policy**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2
-- **Closed slices:** 16 of 34
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1
+- **Closed slices:** 17 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6 = 7 of 14
-- **Completed Slice 7.1 tasks:** 3 of 4
-- **NEXT:** **Slice 7.1 / Task 4 - record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority**
-- Execute Slice 7.1 in exact task order. Do not begin Slice 7.2 until Task 4 is complete, tested, persisted, and Slice 7.1 is closed.
+- **Completed Slice 7.2 tasks:** 0 of 6
+- **NEXT:** **Slice 7.2 / Task 1 - define the maximum Purpose envelope size**
+- Execute Slice 7.2 in exact task order. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
 
-## Slice 7.1 task checklist
+## Slice 7.2 task checklist
 
-The canonical Phase 7 relevance gate plus the accepted Slice 1.3 runtime audit are implemented as four bounded tasks rather than treating each example strategic question as a separate task.
+1. [ ] define maximum envelope size
+2. [ ] define truncation priority
+3. [ ] preserve trajectory-critical fields ahead of optional rich context
+4. [ ] define refresh conditions
+5. [ ] define unavailable-owner behavior
+6. [ ] ensure stale cached UI/output cannot outrank a fresh owner read
 
-1. [x] classify Purpose-relevant strategic tasks deterministically beside, but separate from, the existing historical-depth classifier - added `gateway.purpose-relevance.v1` in Gateway without modifying historical-depth semantics or `aiverse_context`. The classifier deterministically recognizes the seven frozen strategic prompt classes and keeps trivial/history-only requests non-Purpose by default. PR #38 exact head `185c5960720df1a5f7ddf76881b41c1a3d9c739b` merged to Gateway main as `45262d1532841bb2f0118c0a83aa3085b5ca9f88`; Gateway CI `37801663497` PASS across Ubuntu, macOS, and Windows on Node 20/22, including the existing Ubuntu Node 22 benchmark.
-2. [x] suppress Purpose for irrelevant/trivial microtasks and prove zero Purpose owner reads on the skip path - added `gateway.purpose-read-gate.v1` around the relevance classifier. Irrelevant, local-edit, unit-conversion, summarization, local-comparison, and history-only tasks return a deterministic skip result without invoking the supplied Purpose owner-read closure even once. Strategic tasks cross the gate exactly once. The closure remains opaque and zero-argument in this task so runtime scope binding and OS request shape are not accidentally invented before Task 3. PR #39 exact head `deec866c150508d9f27c5c64ddef3b08cca24155` merged to Gateway main as `d4e332214d79f3fe36cfb47735497ef4c9c27d2c`. Context Ladder Integrated Acceptance `37802156671` PASS, Permanent Bot Composition `37802156562` PASS, Automation Recommendation Boundary `37802156454` PASS, Temporary Worker Composition `37802156410` PASS. Gateway CI `37802156434` passed Windows Node 20/22, Ubuntu Node 20/22 including the benchmark, and macOS Node 20 before merge; macOS Node 22 remained queued for runner availability with no reported failure. The same Task 1 baseline had already passed macOS Node 22 in CI `37801663497`.
-3. [x] request Purpose only for the run's already-bound scope and inject the bounded OS-owned projection into the existing owner-context bundle - Gateway now invokes the existing OS `scripts/purpose-context.mjs read` owner surface only after the Task 1/2 relevance gate passes. The exact run scope is passed unchanged, OS `profile=auto` remains the composer policy, returned scope/scope-kind must exactly match the bound run scope, and `provenance.projection_owner` must remain `ai-verse-os`. The validated projection is added to the existing progressive owner-context bundle so the existing Context Governor remains authoritative over final model context. Irrelevant tasks still perform zero Purpose reads and receive no `purpose_context` field. Cross-workspace projections and Gateway ownership relabeling fail closed. PR #40 exact head `47e86d7b515fa37be3e0aaeffc11fbf8f908bba0` merged to Gateway main as `e7cc14531e9edcff382101e594348b6911244cb7`. Gateway CI `37824268092` PASS across Ubuntu, macOS, and Windows on Node 20/22, including the Ubuntu Node 22 benchmark; Permanent Bot Composition `37824268013`, Automation Recommendation Boundary `37824268046`, and Temporary Worker Composition `37824268045` PASS. Context Ladder Integrated Acceptance `37824268043` was still executing when the exact tested head was merged; the focused scoped-Purpose regressions are included in the successful CI matrix.
-4. [ ] record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority
+## Slice 7.1 closure
 
-### Frozen Slice 7.1 examples
+**COMPLETE / ACCEPTED FOR CONTINUATION** at Gateway head `8ec510c381c22bf45056d837a6a387c9aa6c09b2`.
 
-Purpose-relevant examples from the implementation plan:
+1. [x] deterministic Purpose relevance classification, separate from historical-depth semantics - PR #38 head `185c5960720df1a5f7ddf76881b41c1a3d9c739b`, merged `45262d1532841bb2f0118c0a83aa3085b5ca9f88`, CI `37801663497` PASS.
+2. [x] irrelevant/trivial tasks perform zero Purpose reads - PR #39 head `deec866c150508d9f27c5c64ddef3b08cca24155`, merged `d4e332214d79f3fe36cfb47735497ef4c9c27d2c`; Context Ladder `37802156671` PASS plus runtime boundaries PASS.
+3. [x] relevant tasks request Purpose only for the run's already-bound scope and inject the validated OS-owned projection into the existing owner-context bundle - PR #40 head `47e86d7b515fa37be3e0aaeffc11fbf8f908bba0`, merged `e7cc14531e9edcff382101e594348b6911244cb7`; CI `37824268092` PASS across Ubuntu/macOS/Windows Node 20/22 including benchmark; Context Ladder `37824268043` PASS; Permanent Bot `37824268013`, Automation Boundary `37824268046`, Temporary Worker `37824268045` PASS.
+4. [x] record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority - added `gateway.purpose-runtime-diagnostics.v1`. Diagnostics are metadata-only: relevance/read/skip state, exact scope, projection bytes, OS projection owner, Purpose schema/profile version, generation time, owner-read count, and bounded freshness summaries. They copy no goals, canonical refs, or strategic payloads. PR #41 head `ecc5349c48d80e258404a9aaa95f23c500ec8c25`, merged/final Gateway head `8ec510c381c22bf45056d837a6a387c9aa6c09b2`; Context Ladder `37824830402` PASS; Permanent Bot `37824830311`, Automation Boundary `37824830339`, Temporary Worker `37824830313` PASS. CI `37824830376` passed macOS 20/22, Ubuntu 20/22 including benchmark, and Windows 22; Windows 20 remained stalled in GitHub `setup-node` before project code execution with no project failure reported.
 
-- what should I work on next?
-- why are we doing this?
-- which project should take priority?
-- does this still serve our goal?
-- what changed?
-- what is blocking this goal?
-- compare two strategic options
+Acceptance summary:
 
-Irrelevant microtasks must avoid Purpose loading.
+- Purpose loading is deterministic and not always-on;
+- irrelevant tasks retain zero Purpose owner reads;
+- strategic reads are exact-scope and OS-owned;
+- cross-workspace projections and ownership relabeling fail closed;
+- Purpose remains inside the existing owner-context bundle and Context Governor path;
+- diagnostics expose measurable relevance, size, freshness, and version behavior without becoming authority.
 
-## Slice 6.2 closure
+Durable closure record: `docs/PURPOSE-CONTEXT-SLICE-7.1-CLOSURE.md`, created at System commit `4a589ac3f93ef327cff02f4608400159c2a6b471`.
 
-**COMPLETE / ACCEPTED FOR CONTINUATION** at OS head `09956e4bb3d7822da45425409cb8c1e8d92a15fd`.
+## Active runtime contract for Slice 7.2
 
-1. [x] classify bounded material changes and exclude raw event spam - PR #50 head `f2b03e2742dca28778a756f96dcc80fff7f5c1d3`, merged `62642a09d9e48e1b95202a60bb2c06310224477a`, Direction Ownership `37771740798` PASS.
-2. [x] require exact owner-backed source refs for every admitted material change - PR #51 head `eadfdcd0c10ce1ca7779fc1960de70b9767d4969`, merged `f77a572c43a56ab3516268bcbef8e6ff982ea328`, Direction Ownership `37772386576` PASS.
-3. [x] allow newer material facts to alter current relevance without rewriting historical evidence - PR #52 head `093d8a1718015c8310d5fad192b97ff569e7bdda`, merged/final OS head `09956e4bb3d7822da45425409cb8c1e8d92a15fd`, Direction Ownership `37800350011` PASS. Newer exact material facts can overlay derived current relevance for exact OS/Brain strategic refs, while canonical owner status/payload and historical evidence remain unchanged. Older material facts remain visible. Missing targets remain diagnostics rather than inferred links. Exact-main OS Write Command Boundary `37800466468` later completed SUCCESS as well.
-
-Durable closure record: `docs/PURPOSE-CONTEXT-SLICE-6.2-CLOSURE.md`, created at System commit `ecabbbfeba9a89acfbbc6cc54eebe137111cf4b4`.
-
-### Phase 6 closure
-
-**COMPLETE / ACCEPTED FOR CONTINUATION.** Slice 6.1 and Slice 6.2 are both closed. Memory history remains historical/non-authoritative, material changes are bounded and owner-provenanced, and newer facts affect only derived relevance rather than rewriting canonical state or history.
-
-## Active runtime contract for Slice 7.1
-
-The accepted Slice 1.3 runtime audit freezes these boundaries:
-
-1. Gateway owns runtime/context assembly and is the correct integration point for Purpose relevance.
-2. Purpose relevance must remain separate from the existing historical-depth classifier.
-3. Trivial/unrelated tasks perform zero Purpose reads.
-4. Relevant tasks may request Purpose only for the run's already-bound scope.
-5. OS remains the Purpose projection owner; Gateway must not become a second Purpose composer or canonical store.
-6. Purpose projection enters the existing owner-context bundle and remains subject to the existing Context Governor.
-7. `aiverse_context` remains Memory/deep-history escalation and must not be overloaded with strategic Purpose semantics.
-8. Diagnostics must expose relevance/read/skip and later size/freshness/version behavior.
-
-Reference: `docs/PURPOSE-CONTEXT-SLICE-1.3-AUDIT.md`.
+1. Gateway remains runtime/context assembler only; OS remains Purpose projection owner.
+2. The runtime Purpose path must have an explicit hard envelope-size budget.
+3. The owner request and Gateway admission boundary must agree on that budget.
+4. Task 1 defines/enforces the maximum only. It must not preempt Task 2 truncation-priority policy.
+5. Irrelevant tasks continue to perform zero Purpose reads.
+6. Oversized owner output must never silently enter runtime context.
 
 ## Prior accepted closures
 
-- Slice 6.1 closure: `docs/PURPOSE-CONTEXT-SLICE-6.1-CLOSURE.md`
-- Slice 5.2 closure: recorded in historical checkpoint lineage and implementation plan evidence
-- Slice 5.1 closure: recorded in historical checkpoint lineage and implementation plan evidence
-- Slice 4.3 closure: recorded in historical checkpoint lineage and implementation plan evidence
-- Slice 4.2 closure: accepted
-- Slice 4.1 closure: accepted
-- Slice 3.2 closure: Brain `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
-- Slice 3.1 closure: Brain `684acbf03ad44a6526a8b95cd9e136dd5cbc0f19`
-- Phase 2 closure: Slices 2.1, 2.2, 2.3 complete / contract frozen
+- Slice 6.2: `docs/PURPOSE-CONTEXT-SLICE-6.2-CLOSURE.md`
+- Slice 6.1: `docs/PURPOSE-CONTEXT-SLICE-6.1-CLOSURE.md`
+- Earlier closures remain preserved in checkpoint lineage and their closure records.
 
 ## Carried repair register
 
@@ -92,4 +72,4 @@ Reference: `docs/PURPOSE-CONTEXT-SLICE-1.3-AUDIT.md`.
 
 ## Resume instructions
 
-Continue only with **Slice 7.1 / Task 4 - record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority**. Do not begin Slice 7.2 until Task 4 is complete, tested, persisted, and Slice 7.1 is closed.
+Continue only with **Slice 7.2 / Task 1 - define the maximum Purpose envelope size**. Do not begin Task 2 until Task 1 is complete, tested, and persisted.
