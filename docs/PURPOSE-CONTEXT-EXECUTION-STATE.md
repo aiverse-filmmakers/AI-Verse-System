@@ -11,14 +11,14 @@
 - **Current slice:** **6.2 - Material changes**
 - **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1
-- **Completed Slice 6.2 tasks:** 1 of 3
-- **NEXT:** **Slice 6.2 / Task 2 - require exact owner-backed source refs for every admitted material change**
-- Execute Slice 6.2 in exact task order. Do not begin Task 3 until Task 2 is complete, tested, and persisted. Do not begin Slice 7.1 until Slice 6.2 is complete, tested, persisted, and Phase 6 is closed.
+- **Completed Slice 6.2 tasks:** 2 of 3
+- **NEXT:** **Slice 6.2 / Task 3 - allow newer material facts to alter current relevance without rewriting historical evidence**
+- Execute Slice 6.2 in exact task order. Do not begin Slice 7.1 until Task 3 is complete, tested, persisted, Slice 6.2 is closed, and Phase 6 is closed.
 
 ## Slice 6.2 task checklist
 
 1. [x] classify bounded material changes and exclude raw event spam - added a deterministic structured `purpose.material-changes.v1` classifier in OS. It accepts only the frozen materiality dimensions (`goal_status`, `priority`, `feasibility`, `blocker_state`, `strategy_validity`, `risk`, `kpi_trend`, `kpi_threshold`, `initiative_status`, `scope`, `direction_ownership`), drops candidates with no materiality before they become Purpose history, fails closed on unsupported materiality dimensions or cross-scope input, strips raw candidate payloads, caps input at 64 candidates and output at the 20 newest material changes, and orders output deterministically. The classifier is deliberately not wired into normal Purpose composition yet, so Task 1 cannot introduce unprovenanced changes. PR #50 exact head `f2b03e2742dca28778a756f96dcc80fff7f5c1d3` merged to OS main as `62642a09d9e48e1b95202a60bb2c06310224477a`; focused Direction Ownership workflow `37771740798` PASS including `Test Purpose material-change classifier`.
-2. [ ] require exact owner-backed source refs for every admitted material change
+2. [x] require exact owner-backed source refs for every admitted material change - every material item now requires 1-8 exact owner-backed refs before admission. OS, Brain, and Memory refs use the canonical `{owner, scope, kind, id, version?}` contract and remain bound to the exact Purpose scope; Memory additionally requires `kind=memory` and an exact source version. Data uses its existing exact field-ref contract `{owner:'ai-verse-data', spaceId, entity, recordId, field}` and must match the exact workspace scope; operator Data refs fail closed until an operator Data ownership contract exists. Refs are sanitized to canonical fields, deduplicated, deterministically ordered, and extra raw owner payload/provenance internals are stripped. Missing refs, unsupported owners, cross-scope refs, malformed Memory refs, wrong Data workspaces, and over-cap refs fail closed. PR #51 exact head `eadfdcd0c10ce1ca7779fc1960de70b9767d4969` merged to OS main as `f77a572c43a56ab3516268bcbef8e6ff982ea328`; focused Direction Ownership workflow `37772386576` PASS including both `Test Purpose material-change classifier` and `Test Purpose material-change provenance`.
 3. [ ] allow newer material facts to alter current relevance without rewriting historical evidence
 
 ## Slice 6.1 task checklist
@@ -139,4 +139,4 @@ Slices 2.1, 2.2 and 2.3 are COMPLETE / CONTRACT FROZEN. Phase 2 is complete. Sli
 
 ## Resume instructions
 
-Continue only with **Slice 6.2 / Task 2 - require exact owner-backed source refs for every admitted material change**. Do not begin Task 3 until Task 2 is complete, tested, and persisted. Do not begin Slice 7.1 until Slice 6.2 is complete, tested, persisted, and Phase 6 is closed.
+Continue only with **Slice 6.2 / Task 3 - allow newer material facts to alter current relevance without rewriting historical evidence**. Do not begin Slice 7.1 until Task 3 is complete, tested, persisted, Slice 6.2 is closed, and Phase 6 is closed.
