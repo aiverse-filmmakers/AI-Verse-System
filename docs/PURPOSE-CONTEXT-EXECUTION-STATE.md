@@ -13,20 +13,20 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2
 - **Closed slices:** 24 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
-- **Completed Slice 11.1 proofs:** 2 of 5
-- **NEXT:** **Slice 11.1 / Proof 3 - prove repeated setup/restart creates no duplicate Purpose state**
+- **Completed Slice 11.1 proofs:** 3 of 5
+- **NEXT:** **Slice 11.1 / Proof 4 - prove stale projection cannot overrule fresh owner state**
 
 ## Slice 11.1 execution checklist
 
 1. [x] delete all generated Purpose views/caches and prove canonical state remains intact
-   - OS PR #61 exact head `127aa466389172a4aa1dd311be77ae96f67451b1`, merged OS `fb6e1307e17150d8a1dd4b044ff12643b9913e08`.
-   - Purpose Context Hardening CI `37860405080` PASS on Ubuntu, macOS, and Windows Node 22.
+   - OS PR #61 exact head `127aa466389172a4aa1dd311be77ae96f67451b1`, merged OS `fb6e1307e17150d8a1dd4b044ff12643b9913e08`; hardening CI `37860405080` PASS cross-platform.
 2. [x] restart and prove the same owner-backed Purpose projection rebuilds
-   - Three independent CLI processes rebuild the same normalized projection from unchanged owner state.
-   - No restart-local `PURPOSE.md` or `.aiverse/purpose.json` truth is created or required.
-   - OS PR #62 exact head `e8a1c22b6b66c689a5db265c129629f4bfac0a62`, merged OS `1169311d58410e925717a362d331cceed3df6eb8`.
-   - Purpose Context Hardening CI `37860613073` PASS on Ubuntu, macOS, and Windows Node 22.
-3. [ ] prove repeated setup/restart creates no duplicate Purpose state
+   - OS PR #62 exact head `e8a1c22b6b66c689a5db265c129629f4bfac0a62`, merged OS `1169311d58410e925717a362d331cceed3df6eb8`; hardening CI `37860613073` PASS cross-platform.
+3. [x] prove repeated setup/restart creates no duplicate Purpose state
+   - Eight independent rebuilds leave the complete canonical fixture file snapshot byte-identical and produce the same normalized projection.
+   - No `PURPOSE.md`, local `purpose.json`, or duplicate durable state appears.
+   - OS PR #63 exact head `3862711c59ed7cbd4166dfaf399d2d98e5c0f330`, merged OS `e9e50020849f040f95a4a5e174cbd795b43230fd`.
+   - Purpose Context Hardening CI `37860712449` PASS on Ubuntu, macOS, and Windows Node 22.
 4. [ ] prove stale projection cannot overrule fresh owner state
 5. [ ] prove partial owner outage is represented explicitly
 
@@ -66,4 +66,4 @@ Final Dashboard controlled-editing head: `bd26986e202d4b911d0c5f64659db71363bfcc
 
 ## Resume instructions
 
-Continue only with **Slice 11.1 / Proof 3 - prove repeated setup/restart creates no duplicate Purpose state**. The requested eight-task batch is **2 of 8 complete; 6 tasks remain**. Persist each proof before beginning the next.
+Continue only with **Slice 11.1 / Proof 4 - prove stale projection cannot overrule fresh owner state**. The requested eight-task batch is **3 of 8 complete; 5 tasks remain**. Persist each proof before beginning the next.
