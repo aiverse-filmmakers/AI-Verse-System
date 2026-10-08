@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "slice": "7.3",
+  "outcome": "VALUE PROVEN",
+  "phase_8_allowed": true,
+  "recorded_at": "2026-10-09",
+  "evidence": {
+    "gateway_task_1_head": "b7161de73065633f54a9614fedd371ac775eadaf",
+    "gateway_task_2_head": "e15355d9698c3d418e9ba0183dd930e17a09bc80",
+    "gateway_task_3_head": "c941c84ac76a5903d177607046eb5711d925800f",
+    "gateway_accepted_head": "218cddf8c0d4772db7c5575a5481cbbfd8093545",
+    "os_accepted_head": "b2e1b531402bc492e40eafbbcacddb78ec7a46b6",
+    "gateway_ci": "37845396430",
+    "context_ladder": "37845396396",
+    "permanent_bot_boundary": "37845396415",
+    "automation_boundary": "37845396399",
+    "temporary_worker_boundary": "37845396381"
+  },
+  "proofs": {
+    "strategic_decision_basis_positive_all_frozen_scenarios": true,
+    "next_action_improvement": true,
+    "prioritization_improvement": true,
+    "blocker_awareness_improvement": true,
+    "explainability_improvement": true,
+    "cross_session_projection_stability": true,
+    "trivial_task_zero_purpose_reads": true,
+    "purpose_envelope_within_16384_bytes": true,
+    "relevant_owner_reads_bounded_to_one": true,
+    "purpose_unavailable_preserves_ordinary_execution": true,
+    "context_noise_unrelated_scope_refs_zero": true,
+    "workspace_isolation_regression": false,
+    "authority_regression": false,
+    "provider_cost_measured": false,
+    "production_model_output_measured": false
+  },
+  "measurement_caveats": [
+    "Gateway CI measures local context-assembly latency, not production network/provider latency.",
+    "Gateway context assembly exposes no provider billing surface, so provider cost is unmeasured rather than estimated.",
+    "CI has no credentialed production-model evaluator, so model-output quality is not fabricated; predefined owner-backed decision-basis deltas are the accepted quality evidence."
+  ],
+  "decision_basis": "Clear strategic decision-basis improvement is present in every frozen strategic scenario, including next-action and prioritization. Purpose remains relevance-gated, bounded to one owner read and 16384 bytes, scope-clean, OS-owned, cross-session stable, zero-read for trivial work, and safely absent during owner unavailability. No isolation or authority regression is present. The unavailable provider metrics are explicitly unmeasured rather than silently treated as zero. This satisfies the Slice 7.3 acceptance criteria and permits Phase 8."
+}
