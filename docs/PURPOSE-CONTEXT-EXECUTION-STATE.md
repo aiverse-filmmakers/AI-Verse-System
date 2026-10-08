@@ -9,50 +9,53 @@
 
 - **Phase:** 11 - Purpose Context hardening and independent acceptance
 - **Current slice:** **11.1 - Rebuildability and stale-state audit**
-- **Slice state:** NOT STARTED
+- **Slice state:** IN PROGRESS
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2
 - **Closed slices:** 24 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Phase 10:** COMPLETE / ACCEPTED
-- **NEXT:** **Slice 11.1 - Rebuildability and stale-state audit**
+- **Completed Slice 11.1 proofs:** 1 of 5
+- **NEXT:** **Slice 11.1 / Proof 2 - restart and prove the same owner-backed Purpose projection rebuilds**
 
-## Slice 10.2 closure
+## Slice 11.1 execution checklist
 
-**COMPLETE / ACCEPTED.** Closure record: `docs/PURPOSE-CONTEXT-SLICE-10.2-CLOSURE.md`.
+1. [x] delete all generated Purpose views/caches and prove canonical state remains intact
+   - Added independent cross-platform `scripts/test-purpose-context-hardening.mjs` gate.
+   - Records canonical owner-source hashes, creates conflicting disposable Purpose views/caches, deletes them, and proves canonical owner files remain byte-identical.
+   - Fresh read rebuilds the same normalized owner-backed Purpose projection and rejects the stale generated value.
+   - OS PR #61 exact head `127aa466389172a4aa1dd311be77ae96f67451b1`, merged OS `fb6e1307e17150d8a1dd4b044ff12643b9913e08`.
+   - Purpose Context Hardening CI `37860405080` PASS on Ubuntu, macOS, and Windows Node 22.
+2. [ ] restart and prove the same owner-backed Purpose projection rebuilds
+3. [ ] prove repeated setup/restart creates no duplicate Purpose state
+4. [ ] prove stale projection cannot overrule fresh owner state
+5. [ ] prove partial owner outage is represented explicitly
+
+## Slice 11.2 required security tests
+
+1. [ ] operator scope isolation
+2. [ ] workspace A cannot leak workspace B
+3. [ ] symlink/path escape attempts fail closed
+4. [ ] malformed ownership records fail closed
+5. [ ] Brain-owned direction never falls back to frozen OS strategy
+6. [ ] Data/Memory reads remain within allowed scope
+7. [ ] exact-source descent respects owner permissions
+8. [ ] no Purpose surface grants additional action permissions
+
+## Phase 10 closure
+
+**COMPLETE / ACCEPTED.** Closure records:
+- `docs/PURPOSE-CONTEXT-SLICE-10.1-CLOSURE.md`
+- `docs/PURPOSE-CONTEXT-SLICE-10.2-CLOSURE.md`
 
 Final Dashboard controlled-editing head: `bd26986e202d4b911d0c5f64659db71363bfccfa`.
 
-### Accepted task lineage
+## Hardening laws
 
-1. [x] allow UI to propose owner-routed changes - `purpose.change.propose` delegates exact scope and user intent to the accepted Phase 8 mutation bridge. PR #25 exact head `d041062af7941f204e572fe609386109ec9a3478`, merged `559d3416bf7bd73c97fffb56d87b0a94e95f5b14`; CI `37858924736` PASS Ubuntu/macOS/Windows Node 22.
-2. [x] show confirmation for high-impact strategic changes - `purpose.change.confirm` delegates the exact routed proposal plus explicit user act to canonical Gateway confirmation. PR #26 exact head `adc76f940851008b8df4ab5311f665073ffa15db`, merged `02d7596bafabae7b9f8fb708be3b7f977ce89294`; CI `37859210587` PASS Ubuntu/macOS/Windows Node 22.
-3. [x] show canonical owner outcome after application - `purpose.change.apply` delegates the exact confirmed envelope to the canonical owner path, exposes owner-backed mutation evidence, and refreshes display from a fresh OS Purpose read. PR #27 exact head `a543570ed884c933607ab437c749fb4f6ed9d27b`, merged `6495d9f87fc0e3b04a6d928c9adab492ea1b5f44`; CI `37859466092` PASS Ubuntu/macOS/Windows Node 22.
-4. [x] never write directly to a Dashboard Purpose model - regression proofs enforce that Dashboard has no generic Purpose write RPC, no Purpose store/repository/database, no local persistence primitive on the Purpose path, no mutable alias into owner projections, and preserves the distinction between canonical owner mutation evidence and fresh OS-owned display. PR #28 exact head `b9259c10b092b44d133db14c30cea9117900d57f`, merged `bd26986e202d4b911d0c5f64659db71363bfccfa`; CI `37859609448` PASS Ubuntu/macOS/Windows Node 22.
-
-## Phase 10 accepted laws
-
-- Dashboard owns presentation and user interaction only.
-- Canonical Gateway and owner systems own strategic mutation semantics, confirmation, execution, idempotency, and receipts.
-- Owner-backed receipts remain the mutation evidence.
-- Purpose remains a disposable projection, never a writable Dashboard truth store.
-- Post-mutation Dashboard display comes from a fresh OS-owned Purpose read.
-- Missing/unavailable owner truth must not be silently replaced by stale local state.
-
-## Slice 11.1 required proofs
-
-- delete all generated Purpose views/caches and prove canonical state remains intact;
-- restart and prove the same owner-backed Purpose projection rebuilds;
-- prove repeated setup/restart creates no duplicate Purpose state;
-- prove stale projection cannot overrule fresh owner state;
-- prove partial owner outage is represented explicitly.
-
-## Closed slice records
-
-- Slice 10.2: `docs/PURPOSE-CONTEXT-SLICE-10.2-CLOSURE.md`
-- Slice 10.1: `docs/PURPOSE-CONTEXT-SLICE-10.1-CLOSURE.md`
-- Slice 9.1: `docs/PURPOSE-CONTEXT-SLICE-9.1-CLOSURE.md`
-- Slice 8.2: `docs/PURPOSE-CONTEXT-SLICE-8.2-CLOSURE.md`
-- Slice 8.1: `docs/PURPOSE-CONTEXT-SLICE-8.1-CLOSURE.md`
+- Purpose remains a disposable projection. Generated views/caches never become canonical state.
+- Fresh canonical owner reads outrank stale projections or cached copies.
+- Restart/setup must not create duplicate Purpose truth.
+- Owner outages and partial reads must remain explicit rather than being hidden by fallback state.
+- Scope, path, ownership, permission, and action boundaries must fail closed.
 
 ## Carried repair register
 
@@ -63,4 +66,4 @@ Final Dashboard controlled-editing head: `bd26986e202d4b911d0c5f64659db71363bfcc
 
 ## Resume instructions
 
-Continue only with **Slice 11.1 - Rebuildability and stale-state audit**. Execute its required proofs in exact order before moving to Slice 11.2. The requested six-task batch is complete: 6 of 6 tasks finished, 0 remaining.
+Continue only with **Slice 11.1 / Proof 2 - restart and prove the same owner-backed Purpose projection rebuilds**. The requested eight-task batch is **1 of 8 complete; 7 tasks remain**. Persist each proof before beginning the next.
