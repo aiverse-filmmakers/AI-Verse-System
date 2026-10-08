@@ -13,14 +13,13 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1
 - **Closed slices:** 23 of 34
 - **Closed phases:** 0 through 9 = 10 of 14
-- **Slice 10.1:** COMPLETE / ACCEPTED
-- **Completed Slice 10.2 tasks:** 1 of 4
-- **NEXT:** **Slice 10.2 / Task 2 - show confirmation for high-impact strategic changes**
+- **Completed Slice 10.2 tasks:** 2 of 4
+- **NEXT:** **Slice 10.2 / Task 3 - show canonical owner outcome after application**
 
 ## Slice 10.2 execution checklist
 
-1. [x] allow UI to propose owner-routed changes - Dashboard adds `purpose.change.propose` as the only admitted Purpose control method. It passes exact `systemId`, workspace, canonical `workspace:<id>` scope, and user text through an attached `PurposeMutationBridge`. Strategic classification, current direction-owner read, and routing remain behind the accepted Phase 8 canonical Gateway boundary. The Dashboard fails closed if that bridge is absent, and all unrelated commands remain blocked. Dashboard PR #25 exact head `d041062af7941f204e572fe609386109ec9a3478`, merged `559d3416bf7bd73c97fffb56d87b0a94e95f5b14`. Dashboard CI `37858924736` PASS Ubuntu/macOS/Windows Node 22.
-2. [ ] show confirmation for high-impact strategic changes
+1. [x] allow UI to propose owner-routed changes - `purpose.change.propose` delegates exact scope/user intent to the Phase 8 mutation bridge; no Dashboard classification or owner-routing authority. PR #25 merged `559d3416bf7bd73c97fffb56d87b0a94e95f5b14`; CI `37858924736` PASS Ubuntu/macOS/Windows Node 22.
+2. [x] show confirmation for high-impact strategic changes - `purpose.change.confirm` accepts the exact routed envelope for the selected workspace plus explicit granting user and delegates it to the canonical bridge. Dashboard performs only selected-workspace scope binding and input-shape checks; canonical Gateway owns proposal fingerprinting, exact owner matching, and `explicit_user` confirmation validation. PR #26 exact head `adc76f940851008b8df4ab5311f665073ffa15db`, merged `02d7596bafabae7b9f8fb708be3b7f977ce89294`; CI `37859210587` PASS Ubuntu/macOS/Windows Node 22.
 3. [ ] show canonical owner outcome after application
 4. [ ] never write directly to a Dashboard Purpose model
 
@@ -49,4 +48,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 10.2 / Task 2 - show confirmation for high-impact strategic changes**. Delegate confirmation to the accepted Gateway exact-proposal confirmation contract. The requested six-task batch is 3 of 6 complete; 3 tasks remain.
+Continue only with **Slice 10.2 / Task 3 - show canonical owner outcome after application**. Delegate canonical execution to Phase 8, preserve the owner-backed receipt, then refresh Purpose from the OS-owned read surface. The requested six-task batch is 4 of 6 complete; 2 tasks remain.
