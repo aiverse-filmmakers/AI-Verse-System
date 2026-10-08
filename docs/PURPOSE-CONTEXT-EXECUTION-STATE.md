@@ -13,8 +13,8 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1
 - **Closed slices:** 25 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
-- **Completed Slice 11.2 tests:** 3 of 8
-- **NEXT:** **Slice 11.2 / Test 4 - malformed ownership records fail closed**
+- **Completed Slice 11.2 tests:** 4 of 8
+- **NEXT:** **Slice 11.2 / Test 5 - Brain-owned direction never falls back to frozen OS strategy**
 
 ## Slice 11.1 closure
 
@@ -27,11 +27,10 @@
 2. [x] workspace A cannot leak workspace B
    - PR #67 head `0729ea79b5e55a5238fedc3592f6a42a309186fb`, merged `95e80c0dc2f8cf130fd03a61d2913d607f8fb5b8`; hardening CI `37861264307` PASS Ubuntu/macOS/Windows.
 3. [x] symlink/path escape attempts fail closed
-   - Invalid traversal scope is rejected before any workspace read.
-   - A workspace symlink/junction redirecting the canonical workspace slot to an outside directory is rejected before outside data can enter Purpose.
-   - OS PR #68 exact head `45afef833baf16dd8f6bfa6ee3ddce8bf951a34c`, merged OS `40b426439880c213d5c76c2cf0e9685edef2c7d5`.
-   - Purpose Context Hardening CI `37861391331` PASS on Ubuntu, macOS, and Windows Node 22, including rebuildability and security suites.
-4. [ ] malformed ownership records fail closed
+   - PR #68 head `45afef833baf16dd8f6bfa6ee3ddce8bf951a34c`, merged `40b426439880c213d5c76c2cf0e9685edef2c7d5`; hardening CI `37861391331` PASS Ubuntu/macOS/Windows.
+4. [x] malformed ownership records fail closed
+   - Invalid JSON, unsupported schema, and invalid owner records are rejected before Purpose can default to OS authority.
+   - PR #69 task commit `93d2decdf420ef80910accad7154591304e514b4`; hardening CI `37861785503` PASS Ubuntu/macOS/Windows.
 5. [ ] Brain-owned direction never falls back to frozen OS strategy
 6. [ ] Data/Memory reads remain within allowed scope
 7. [ ] exact-source descent respects owner permissions
@@ -54,4 +53,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.2 / Test 4 - malformed ownership records fail closed**. The requested eight-task batch is complete: **8 of 8 finished; 0 remain**. Do not begin Test 4 until the user requests continuation.
+Continue only with **Slice 11.2 / Test 5 - Brain-owned direction never falls back to frozen OS strategy**. Current requested ten-task batch: **1 of 10 finished; 9 remain**.
