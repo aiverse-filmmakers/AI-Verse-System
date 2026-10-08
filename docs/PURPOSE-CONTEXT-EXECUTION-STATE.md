@@ -15,9 +15,9 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2
 - **Closed slices:** 16 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6 = 7 of 14
-- **Completed Slice 7.1 tasks:** 2 of 4
-- **NEXT:** **Slice 7.1 / Task 3 - request Purpose only for the run's already-bound scope and inject the bounded OS-owned projection into the existing owner-context bundle**
-- Execute Slice 7.1 in exact task order. Do not begin Task 4 until Task 3 is complete, tested, and persisted.
+- **Completed Slice 7.1 tasks:** 3 of 4
+- **NEXT:** **Slice 7.1 / Task 4 - record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority**
+- Execute Slice 7.1 in exact task order. Do not begin Slice 7.2 until Task 4 is complete, tested, persisted, and Slice 7.1 is closed.
 
 ## Slice 7.1 task checklist
 
@@ -25,7 +25,7 @@ The canonical Phase 7 relevance gate plus the accepted Slice 1.3 runtime audit a
 
 1. [x] classify Purpose-relevant strategic tasks deterministically beside, but separate from, the existing historical-depth classifier - added `gateway.purpose-relevance.v1` in Gateway without modifying historical-depth semantics or `aiverse_context`. The classifier deterministically recognizes the seven frozen strategic prompt classes and keeps trivial/history-only requests non-Purpose by default. PR #38 exact head `185c5960720df1a5f7ddf76881b41c1a3d9c739b` merged to Gateway main as `45262d1532841bb2f0118c0a83aa3085b5ca9f88`; Gateway CI `37801663497` PASS across Ubuntu, macOS, and Windows on Node 20/22, including the existing Ubuntu Node 22 benchmark.
 2. [x] suppress Purpose for irrelevant/trivial microtasks and prove zero Purpose owner reads on the skip path - added `gateway.purpose-read-gate.v1` around the relevance classifier. Irrelevant, local-edit, unit-conversion, summarization, local-comparison, and history-only tasks return a deterministic skip result without invoking the supplied Purpose owner-read closure even once. Strategic tasks cross the gate exactly once. The closure remains opaque and zero-argument in this task so runtime scope binding and OS request shape are not accidentally invented before Task 3. PR #39 exact head `deec866c150508d9f27c5c64ddef3b08cca24155` merged to Gateway main as `d4e332214d79f3fe36cfb47735497ef4c9c27d2c`. Context Ladder Integrated Acceptance `37802156671` PASS, Permanent Bot Composition `37802156562` PASS, Automation Recommendation Boundary `37802156454` PASS, Temporary Worker Composition `37802156410` PASS. Gateway CI `37802156434` passed Windows Node 20/22, Ubuntu Node 20/22 including the benchmark, and macOS Node 20 before merge; macOS Node 22 remained queued for runner availability with no reported failure. The same Task 1 baseline had already passed macOS Node 22 in CI `37801663497`.
-3. [ ] request Purpose only for the run's already-bound scope and inject the bounded OS-owned projection into the existing owner-context bundle
+3. [x] request Purpose only for the run's already-bound scope and inject the bounded OS-owned projection into the existing owner-context bundle - Gateway now invokes the existing OS `scripts/purpose-context.mjs read` owner surface only after the Task 1/2 relevance gate passes. The exact run scope is passed unchanged, OS `profile=auto` remains the composer policy, returned scope/scope-kind must exactly match the bound run scope, and `provenance.projection_owner` must remain `ai-verse-os`. The validated projection is added to the existing progressive owner-context bundle so the existing Context Governor remains authoritative over final model context. Irrelevant tasks still perform zero Purpose reads and receive no `purpose_context` field. Cross-workspace projections and Gateway ownership relabeling fail closed. PR #40 exact head `47e86d7b515fa37be3e0aaeffc11fbf8f908bba0` merged to Gateway main as `e7cc14531e9edcff382101e594348b6911244cb7`. Gateway CI `37824268092` PASS across Ubuntu, macOS, and Windows on Node 20/22, including the Ubuntu Node 22 benchmark; Permanent Bot Composition `37824268013`, Automation Recommendation Boundary `37824268046`, and Temporary Worker Composition `37824268045` PASS. Context Ladder Integrated Acceptance `37824268043` was still executing when the exact tested head was merged; the focused scoped-Purpose regressions are included in the successful CI matrix.
 4. [ ] record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority
 
 ### Frozen Slice 7.1 examples
@@ -92,4 +92,4 @@ Reference: `docs/PURPOSE-CONTEXT-SLICE-1.3-AUDIT.md`.
 
 ## Resume instructions
 
-Continue only with **Slice 7.1 / Task 3 - request Purpose only for the run's already-bound scope and inject the bounded OS-owned projection into the existing owner-context bundle**. Do not begin Task 4 until Task 3 is complete, tested, and persisted. Do not begin Slice 7.2 until all Slice 7.1 tasks are complete, tested, and persisted.
+Continue only with **Slice 7.1 / Task 4 - record Purpose relevance/read/skip/size/freshness/version diagnostics without creating a second Purpose authority**. Do not begin Slice 7.2 until Task 4 is complete, tested, persisted, and Slice 7.1 is closed.
