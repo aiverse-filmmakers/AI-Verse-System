@@ -16,38 +16,29 @@
 - **Closed slices:** 22 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
-- **Phase 9:** COMPLETE / ACCEPTED
-- **Completed Slice 10.1 tasks:** 7 of 9
-- **NEXT:** **Slice 10.1 / Task 8 - current work**
+- **Completed Slice 10.1 tasks:** 8 of 9
+- **NEXT:** **Slice 10.1 / Task 9 - recent material changes / activity**
 
 ## Slice 10.1 execution checklist
 
-1. [x] mission / purpose - Dashboard exposes workspace-scoped read-only `purpose.get`. Each call re-enters the selected registered OS's canonical `scripts/purpose-context.mjs read` surface with exact workspace scope, initially `--profile basic`, and the frozen 16 KiB Purpose budget. Dashboard validates projection owner/scope, stores no Purpose result, narrows the response to mission/purpose plus provenance, and registers a presentation-only Purpose panel. The carried Dashboard workspace-ID contract is RESOLVED: lowercase alphanumeric/dash only, no trailing dash, max 128. Dashboard PR #16 exact head `a2ea3bbf96a5751a588c2449799775e3d7126c21`, merged Dashboard `f837540d8ec04aeb214e93a4dd5ec4d504b9fe68`. Dashboard CI `37855987376` PASS on Ubuntu, macOS, and Windows Node 22.
-2. [x] active goals - the same uncached `purpose.get` surface now adds `activeGoals` without adding another query or store. Dashboard preserves the current owner goal objects, statuses, payloads, and canonical refs exactly as supplied by the OS-owned Purpose projection. It does not create a Dashboard active/inactive classifier: Brain's public Purpose snapshot already bounds goal intents to current statuses (`CONFIRMED`, `ACTIVE`, `PAUSED`), while OS-owned workspace objectives are current by definition. Strategies and later Purpose sections remain outside the response boundary. Dashboard PR #17 exact head `79e4e69e9f43e3b3e90c3f308cbeec5cdc0922b7`, merged Dashboard `7deae9096cd702e67d078278839141b6f0ebb6d6`. Dashboard CI `37856240170` PASS on Ubuntu, macOS, and Windows Node 22.
-3. [x] current strategies - the same uncached `purpose.get` surface adds `currentStrategies`. Dashboard preserves owner strategy objects, statuses, payloads, canonical refs, ordering, and provenance rather than deriving strategy state. Initiatives, challenges, risks, KPIs, current work, and material changes remain outside the response boundary. Dashboard PR #18 exact head `7d350877dce4dc1b53b3fefe0ea42a991cecf8f3`, merged Dashboard `bc78e9ff17631b6c2ebade957fce30cf0f312800`. Dashboard CI `37856799362` PASS on Ubuntu, macOS, and Windows Node 22.
-4. [x] current initiatives / projects - the same bounded read-only `purpose.get` surface adds `currentInitiatives`. Dashboard preserves owner initiative/project objects, statuses, payloads, canonical refs, ordering, and provenance. It does not infer project state or create a parallel project store. Challenges, risks, KPIs, current work, and material changes remain excluded. Dashboard PR #19 exact head `4acddd698557b8ce8e92dec7d8ec4d4b68b2e7c5`, merged Dashboard `bfeeb5c65775a9263478d65e86c8c82a75c19665`. Dashboard CI `37856975774` PASS on Ubuntu, macOS, and Windows Node 22.
-5. [x] key challenges - the same bounded read-only `purpose.get` surface adds `keyChallenges`. Dashboard preserves owner challenge objects, statuses, payloads, canonical refs, ordering, and provenance without creating Dashboard challenge truth. Risks, KPIs, current work, and material changes remain excluded. Dashboard PR #20 exact head `02eb33866768a97e27a5c54d8f75d4b0caa9fb93`, merged Dashboard `afb31518861f39d7d6ab645e5b890098874d15bf`. Dashboard CI `37857160141` PASS on Ubuntu, macOS, and Windows Node 22.
-6. [x] key risks - the same bounded read-only `purpose.get` surface adds `keyRisks`. Dashboard preserves owner risk objects, statuses, payloads, canonical refs, ordering, and provenance without inventing Dashboard risk state; accumulated Purpose view types are exported from the read-model package index. KPIs, current work, and material changes remain excluded. Dashboard PR #21 exact head `0dcde6f094a5444fcaa580ab1d71af4cf55b575c`, merged Dashboard `cb4f1e0d70e0b658e064f060b1168d731b4cc2b5`. Dashboard CI `37857351947` PASS on Ubuntu, macOS, and Windows Node 22.
-7. [x] KPIs / metrics - Dashboard now declares KPI relevance to the canonical OS Purpose reader with `--profile auto --relevant-domain kpis`, retaining the same uncached exact-scope read and frozen 16 KiB budget. OS remains responsible for resolving basic versus rich projection based on owner-backed KPI presence. Dashboard adds only the bounded `kpis` view and preserves KPI definition refs, Data-backed current-value refs, freshness metadata, and owner-read provenance. Focused tests prove unrelated rich domains (`narratives`, `current_state`) plus not-yet-admitted `current_work` and `recent_material_changes` do not cross the Dashboard response boundary. No Dashboard KPI store, current-value classifier, or duplicate metric truth is introduced. Dashboard PR #22 exact head `2f91a417b74c9a99a6b8fc9899211f1e237409e8`, merged Dashboard `0447ba3bf54750d3bd18efe48ca8f54a4de98291`. Dashboard CI `37857620417` PASS on Ubuntu, macOS, and Windows Node 22.
-8. [ ] current work
+1. [x] mission / purpose - workspace-scoped uncached read-only `purpose.get`, exact OS Purpose reader, frozen 16 KiB budget, Dashboard projection only. Dashboard PR #16 merged `f837540d8ec04aeb214e93a4dd5ec4d504b9fe68`; CI `37855987376` PASS Ubuntu/macOS/Windows Node 22.
+2. [x] active goals - adds `activeGoals` while preserving owner objects/status/refs and no Dashboard classifier/store. Dashboard PR #17 merged `7deae9096cd702e67d078278839141b6f0ebb6d6`; CI `37856240170` PASS.
+3. [x] current strategies - adds `currentStrategies`, preserving owner status/payload/refs/order. Dashboard PR #18 merged `bc78e9ff17631b6c2ebade957fce30cf0f312800`; CI `37856799362` PASS.
+4. [x] current initiatives / projects - adds `currentInitiatives`, no parallel project truth. Dashboard PR #19 merged `bfeeb5c65775a9263478d65e86c8c82a75c19665`; CI `37856975774` PASS.
+5. [x] key challenges - adds `keyChallenges`, preserving owner challenge truth. Dashboard PR #20 merged `afb31518861f39d7d6ab645e5b890098874d15bf`; CI `37857160141` PASS.
+6. [x] key risks - adds `keyRisks`, preserving owner risk truth and public read-model exports. Dashboard PR #21 merged `cb4f1e0d70e0b658e064f060b1168d731b4cc2b5`; CI `37857351947` PASS.
+7. [x] KPIs / metrics - Dashboard declares `kpis` relevance through the OS canonical Purpose reader (`--profile auto --relevant-domain kpis`), preserving Brain KPI definitions, Data-backed values/freshness, and bounded response filtering. Dashboard PR #22 merged `0447ba3bf54750d3bd18efe48ca8f54a4de98291`; CI `37857620417` PASS.
+8. [x] current work - the same bounded uncached `purpose.get` surface now adds `currentWork`. Dashboard preserves OS/current-context work items and exact source refs; it adds no work-state classifier or store. `recent_material_changes` remains outside the response boundary until Task 9. Dashboard PR #23 exact head `7df868d26f809e4eff75f1700219be0d322499f3`, merged Dashboard `a55494ce5a7e688439892ebd54dc325df89c747b`. Dashboard CI `37858278030` PASS on Ubuntu, macOS, and Windows Node 22.
 9. [ ] recent material changes / activity
 
 Dashboard/product-shell laws for every task:
 
 - Dashboard never owns canonical Purpose truth.
-- The first surface is read-only projection only.
-- Refresh from owner-backed Purpose projection, never a Dashboard database/store.
-- No direct strategic writes.
-- No hidden broad preload. Only the bounded fields required by the active view may be surfaced.
-- Optional rich sections may be absent without making a workspace invalid.
-- Freshness, unavailable-owner, and provenance semantics from Purpose must remain visible enough to avoid presenting stale UI as fresher owner truth.
-- Historical Memory context must remain visually/semantically separate from current authority.
-
-## Slice 9.1 closure
-
-**COMPLETE / ACCEPTED.**  
-Closure record: `docs/PURPOSE-CONTEXT-SLICE-9.1-CLOSURE.md`.  
-Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
+- Read-only Purpose refresh comes from owner-backed projection, never a Dashboard strategic store.
+- No hidden broad preload; only approved bounded fields cross the UI response boundary.
+- Optional rich sections may be absent.
+- Freshness/unavailable-owner/provenance semantics must remain visible enough to prevent stale UI from appearing authoritative.
+- Historical Memory evidence must remain semantically separate from current authority.
 
 ## Closed slice records
 
@@ -69,4 +60,4 @@ Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
 
 ## Resume instructions
 
-Continue only with **Slice 10.1 / Task 8 - current work**. Extend the existing bounded read-only `purpose.get` surface with current work while preserving canonical owner refs and keeping recent material changes/activity excluded until Task 9. The requested five-task batch (Tasks 3 through 7) is complete; do not begin Task 8 until the user requests continuation.
+Continue only with **Slice 10.1 / Task 9 - recent material changes / activity**. Extend the existing bounded read-only `purpose.get` surface while preserving owner-backed event/evidence refs and keeping Memory historical evidence distinct from current authority. After Task 9, close Slice 10.1 before beginning Slice 10.2. The requested six-task batch is 1 of 6 complete.
