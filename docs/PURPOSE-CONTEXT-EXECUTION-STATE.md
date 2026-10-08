@@ -15,36 +15,22 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2
 - **Closed slices:** 18 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6 = 7 of 14
-- **Completed Slice 7.3 tasks:** 0 of 4
-- **NEXT:** **Slice 7.3 / Task 1 - freeze the representative scenario matrix and anti-bloat measurement contract**
+- **Completed Slice 7.3 tasks:** 1 of 4
+- **NEXT:** **Slice 7.3 / Task 2 - run and record the initial strategic with/without-Purpose comparisons plus trivial-task and Purpose-unavailable evidence**
 - Phase 8 is blocked until all Slice 7.3 evidence is complete and the recorded outcome is exactly `VALUE PROVEN`.
 
 ## Slice 7.3 execution checklist
 
-The implementation plan defines Slice 7.3 as a product-value gate rather than a feature slice. The following bounded execution tasks preserve its required evaluation method and acceptance criteria without splitting individual scenarios into artificial tasks.
-
-1. [ ] freeze representative `operator` and `workspace:<id>` with/without-Purpose scenarios plus the mandatory anti-bloat measurement contract
+1. [x] freeze representative `operator` and `workspace:<id>` with/without-Purpose scenarios plus the mandatory anti-bloat measurement contract - `gateway.purpose-value-gate.v1` freezes six representative scenarios and twelve required evidence fields, including owner-read count, envelope bytes, touched scopes, trivial-task behavior, unavailable-owner completion, latency/cost fields, decision-quality/output/context-noise deltas, and isolation/authority regressions. PR #46 exact head `b7161de73065633f54a9614fedd371ac775eadaf`, merged Gateway `e8ce82cad4ba7ec28bcfac29dfa2ffa57580dd4e`. Gateway CI `37841283169` PASS across Ubuntu/macOS/Windows Node 20/22 including Ubuntu benchmark; Context Ladder `37841283153`, Permanent Bot `37841283129`, Automation Boundary `37841283145`, Temporary Worker `37841283136` PASS.
 2. [ ] run and record the initial strategic with/without-Purpose comparisons plus trivial-task and Purpose-unavailable evidence using the same canonical owner state where technically fair
 3. [ ] complete the remaining value proofs and overhead/isolation/authority measurements, including latency/cost where measurable and context-noise review
 4. [ ] record exactly one gate outcome: `VALUE PROVEN`, `PARTIALLY PROVEN`, or `NOT PROVEN`; enforce that Phase 8 may begin only for `VALUE PROVEN`
 
 ## Slice 7.2 closure
 
-**COMPLETE / ACCEPTED FOR CONTINUATION**.  
-Closure record: `docs/PURPOSE-CONTEXT-SLICE-7.2-CLOSURE.md`  
-Final Gateway accepted head: `535beb9c9a02f5da7ae7062fc1a34111232beca8`  
-Final OS accepted head: `b2e1b531402bc492e40eafbbcacddb78ec7a46b6`
-
-Accepted laws include:
-
-- hard 16,384-byte runtime Purpose envelope;
-- deterministic OS truncation priority and final post-enrichment budget enforcement;
-- trajectory-critical fields retained ahead of optional rich/material context;
-- fresh owner read required for every relevant runtime assembly;
-- zero Purpose reads for irrelevant tasks;
-- ordinary execution continues with Purpose absent on genuine owner/process unavailability, never with stale fallback;
-- scope/authority/budget violations remain fail-closed;
-- fresh owner Purpose always outranks cached UI/output artifacts.
+**COMPLETE / ACCEPTED FOR CONTINUATION**. Closure record: `docs/PURPOSE-CONTEXT-SLICE-7.2-CLOSURE.md`.  
+Final Gateway accepted head: `535beb9c9a02f5da7ae7062fc1a34111232beca8`.  
+Final OS accepted head: `b2e1b531402bc492e40eafbbcacddb78ec7a46b6`.
 
 ## Closed slice records
 
@@ -62,4 +48,4 @@ Accepted laws include:
 
 ## Resume instructions
 
-Continue only with **Slice 7.3 / Task 1 - freeze the representative scenario matrix and anti-bloat measurement contract**. Do not record a gate outcome until Tasks 1-3 are complete.
+Continue only with **Slice 7.3 / Task 2**. Do not begin Task 3 until Task 2 is complete, tested, merged, and persisted. Do not record a gate outcome until Tasks 1-3 are complete.
