@@ -16,14 +16,14 @@
 - **Closed slices:** 19 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7 = 8 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
-- **Completed Slice 8.1 tasks:** 2 of 5
-- **NEXT:** **Slice 8.1 / Task 3 - prove the Purpose projection itself can never be a mutation target or second writable truth surface**
+- **Completed Slice 8.1 tasks:** 3 of 5
+- **NEXT:** **Slice 8.1 / Task 4 - route the proposal by the current direction owner**
 
 ## Slice 8.1 execution checklist
 
 1. [x] detect when user intent implies a durable strategic change - Gateway `gateway.purpose-strategic-change-intent.v1`; PR #49 final head `1a7861a8db7f387c88599c1b3ce7bc941d3d40b4`, merged Gateway `a4a83601b82d1576c160c141bf980d260b6abf47`; Gateway CI `37846402216`, Context Ladder `37846402233`, Permanent Bot `37846402320`, Automation Boundary `37846402217`, Temporary Worker `37846402313` PASS.
 2. [x] generate a bounded proposed owner mutation from the detected intent without applying it - `gateway.purpose-strategic-change-proposal.v1` preserves exact canonical scope, proposal text is bounded by the classifier limit, target surface remains abstract `canonical_strategic_direction`, `target_owner=null`, routing is explicitly unresolved until a current direction-owner read, confirmation remains required/not-confirmed, and `apply_allowed=false` / `mutation_executed=false`. Read-only/hypothetical/operational cases produce no proposal; malformed workspace scopes fail closed. PR #50 exact head `bb2745a5ffe142005790a011d37aa5316db0b691`, merged Gateway `25d20cab692496e51c100300e75e0589c1851608`. Gateway CI `37846797188` PASS across Ubuntu/macOS/Windows Node 20/22 including Ubuntu benchmark; Context Ladder `37846797275`, Permanent Bot `37846797175`, Automation Boundary `37846797300`, Temporary Worker `37846797171` PASS.
-3. [ ] prove the Purpose projection itself can never be a mutation target or second writable truth surface
+3. [x] prove the Purpose projection itself can never be a mutation target or second writable truth surface - Gateway `gateway.purpose-strategic-mutation-boundary.v1` is executed during proposal creation. Valid proposals must target only abstract `canonical_strategic_direction`; the boundary rejects `purpose_context`, Purpose/projection target surfaces, projection/purpose stores, duplicate stores/canonical copies, and other writable projection fields. Boundary metadata freezes `purpose_projection_mutable=false`, `second_truth_store_allowed=false`, `canonical_owner_required=true`. Task ordering is also fail-closed: target owner must remain null, routing unresolved, confirmation not confirmed, apply disallowed, mutation unexecuted. PR #51 exact head `8650ffcd7e34214d3a40f760b0e96b2fa397ecf2`, merged Gateway `bf83a6ab7a0f2831f7e68bc2aa5bfe5cc243b496`. Gateway CI `37847363248` PASS across Ubuntu/macOS/Windows Node 20/22 including Ubuntu benchmark; Context Ladder `37847363159`, Permanent Bot `37847363175`, Automation Boundary `37847363137`, Temporary Worker `37847363339` PASS.
 4. [ ] route the proposal by the current direction owner
 5. [ ] require explicit confirmation according to existing strategic authority law before any owner mutation is executable
 
@@ -54,4 +54,4 @@ Accepted OS Purpose head: `b2e1b531402bc492e40eafbbcacddb78ec7a46b6`.
 
 ## Resume instructions
 
-Continue only with **Slice 8.1 / Task 3**. Enforce that Purpose/`purpose_context`/projection surfaces are not mutable targets and cannot become a second strategic truth store. Do not begin owner routing (Task 4) or confirmation execution (Task 5).
+Stop here for the current five-task batch. Continue next time only with **Slice 8.1 / Task 4 - route the proposal by the current direction owner**. Do not execute a strategic mutation and do not mark a proposal confirmed until Task 5 is separately implemented and accepted.
