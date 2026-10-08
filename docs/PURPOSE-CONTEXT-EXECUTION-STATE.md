@@ -8,40 +8,35 @@
 ## Current execution pointer
 
 - **Phase:** 11 - Purpose Context hardening and independent acceptance
-- **Current slice:** **11.2 - Scope and security boundaries**
+- **Current slice:** **11.3 - End-to-end semantic acceptance**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1
-- **Closed slices:** 25 of 34
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2
+- **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
-- **Completed Slice 11.2 tests:** 7 of 8
-- **NEXT:** **Slice 11.2 / Test 8 - no Purpose surface grants additional action permissions**
+- **Slice 11.2:** COMPLETE / ACCEPTED
+- **Completed Slice 11.3 scenarios:** 0 of 12
+- **NEXT:** **Slice 11.3 / Scenario 1 - operator with OS-owned strategic direction**
 
-## Slice 11.1 closure
+## Slice 11.2 closure
 
-**COMPLETE / ACCEPTED.** Closure record: `docs/PURPOSE-CONTEXT-SLICE-11.1-CLOSURE.md`. Final closure OS head: `7a0d38d2f865dc7cfaa188bce84a3bf5636f8f32`.
+**COMPLETE / ACCEPTED.** Closure record: `docs/PURPOSE-CONTEXT-SLICE-11.2-CLOSURE.md`. Final accepted OS head: `fb0021c0e07c979a61069ba28877f7685144fb49`.
 
-## Slice 11.2 execution checklist
+All eight required security proofs passed on Ubuntu, macOS, and Windows Node 22. Purpose remains scope-bounded, owner-bounded, fail-closed, read-only, and unable to grant action authority.
 
-1. [x] operator scope isolation
-   - PR #66 head `301b0a49148c120cd946cb8d1f17bb54ca88983b`, merged `70523fff8b3070e5e6a6ce6dc087021048d15e1f`; hardening CI `37861171074` PASS Ubuntu/macOS/Windows.
-2. [x] workspace A cannot leak workspace B
-   - PR #67 head `0729ea79b5e55a5238fedc3592f6a42a309186fb`, merged `95e80c0dc2f8cf130fd03a61d2913d607f8fb5b8`; hardening CI `37861264307` PASS Ubuntu/macOS/Windows.
-3. [x] symlink/path escape attempts fail closed
-   - PR #68 head `45afef833baf16dd8f6bfa6ee3ddce8bf951a34c`, merged `40b426439880c213d5c76c2cf0e9685edef2c7d5`; hardening CI `37861391331` PASS Ubuntu/macOS/Windows.
-4. [x] malformed ownership records fail closed
-   - Invalid JSON, unsupported schema, and invalid owner records are rejected before Purpose can default to OS authority.
-   - PR #69 task commit `93d2decdf420ef80910accad7154591304e514b4`; hardening CI `37861785503` PASS Ubuntu/macOS/Windows.
-5. [x] Brain-owned direction never falls back to frozen OS strategy
-   - Declared Brain authority with unavailable Brain reader keeps strategic direction explicitly unavailable and suppresses frozen OS priorities/goals/strategies.
-   - PR #69 task commit `b5cc0e1377051d57a849f4111f8bba76e4c4c436`; hardening CI `37861877982` PASS Ubuntu/macOS/Windows.
-6. [x] Data/Memory reads remain within allowed scope
-   - Data Purpose current-state rejects mismatched workspace provenance and refuses operator projection without an operator Data scope contract.
-   - Memory historical projection rejects response/source scope violations and cannot promote historical evidence into current Purpose authority.
-   - PR #69 task commit `4dadae84890cbb1d690406383b9b068abe7234d6`; hardening CI `37862033895` PASS Ubuntu/macOS/Windows.
-7. [x] exact-source descent respects owner permissions
-   - Exact Data descent requires the original exact ref plus matching workspace provenance, host-bound authorization mode, and `data:metrics:read` capability; fuzzy/sibling refs, cross-workspace provenance, stripped capabilities, or altered authorization mode fail.
-   - PR #69 implementation commits `129fdac382d4099402293d4dc8d786820e11bffc`, `95d5806920627f908d02e2c51e8b9c098bda3529`; hardening CI `37862158505` PASS Ubuntu/macOS/Windows.
-8. [ ] no Purpose surface grants additional action permissions
+## Slice 11.3 required scenarios
+
+1. [ ] operator with OS-owned strategic direction
+2. [ ] operator with Brain-owned strategic direction
+3. [ ] simple workspace using only basic trajectory fields
+4. [ ] rich product/business workspace with KPI/risk/current-state context
+5. [ ] two isolated workspaces with conflicting goals
+6. [ ] material event closes a blocker
+7. [ ] material event invalidates feasibility of a strategy
+8. [ ] Data value becomes stale/unavailable
+9. [ ] Memory old history conflicts with current Brain/Data truth
+10. [ ] high-impact goal change proposed but not confirmed
+11. [ ] high-impact goal change confirmed and Purpose rebuilt
+12. [ ] explain trajectory has missing relationship and reports gap instead of inventing it
 
 ## Hardening laws
 
@@ -50,6 +45,7 @@
 - Restart/setup creates no duplicate Purpose truth.
 - Owner outages and partial reads remain explicit rather than hidden by fallback state.
 - Operator/workspace scope, path, ownership, permission, and action boundaries fail closed.
+- Purpose adds no action permission or write authority.
 
 ## Carried repair register
 
@@ -60,4 +56,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.2 / Test 8 - no Purpose surface grants additional action permissions**. Current requested ten-task batch: **4 of 10 finished; 6 remain**.
+Continue only with **Slice 11.3 / Scenario 1 - operator with OS-owned strategic direction**. Current requested ten-task batch: **5 of 10 finished; 5 remain**.
