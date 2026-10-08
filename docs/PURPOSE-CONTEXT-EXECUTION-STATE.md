@@ -17,8 +17,8 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 = 10 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Phase 9:** COMPLETE / ACCEPTED
-- **Completed Slice 10.1 tasks:** 5 of 9
-- **NEXT:** **Slice 10.1 / Task 6 - key risks**
+- **Completed Slice 10.1 tasks:** 6 of 9
+- **NEXT:** **Slice 10.1 / Task 7 - KPIs / metrics**
 
 ## Slice 10.1 execution checklist
 
@@ -27,7 +27,7 @@
 3. [x] current strategies - the same uncached `purpose.get` surface adds `currentStrategies`. Dashboard preserves owner strategy objects, statuses, payloads, canonical refs, ordering, and provenance rather than deriving strategy state. Initiatives, challenges, risks, KPIs, current work, and material changes remain outside the response boundary. Dashboard PR #18 exact head `7d350877dce4dc1b53b3fefe0ea42a991cecf8f3`, merged Dashboard `bc78e9ff17631b6c2ebade957fce30cf0f312800`. Dashboard CI `37856799362` PASS on Ubuntu, macOS, and Windows Node 22.
 4. [x] current initiatives / projects - the same bounded read-only `purpose.get` surface adds `currentInitiatives`. Dashboard preserves owner initiative/project objects, statuses, payloads, canonical refs, ordering, and provenance. It does not infer project state or create a parallel project store. Challenges, risks, KPIs, current work, and material changes remain excluded. Dashboard PR #19 exact head `4acddd698557b8ce8e92dec7d8ec4d4b68b2e7c5`, merged Dashboard `bfeeb5c65775a9263478d65e86c8c82a75c19665`. Dashboard CI `37856975774` PASS on Ubuntu, macOS, and Windows Node 22.
 5. [x] key challenges - the same bounded read-only `purpose.get` surface adds `keyChallenges`. Dashboard preserves owner challenge objects, statuses, payloads, canonical refs, ordering, and provenance without creating Dashboard challenge truth. Risks, KPIs, current work, and material changes remain excluded. Dashboard PR #20 exact head `02eb33866768a97e27a5c54d8f75d4b0caa9fb93`, merged Dashboard `afb31518861f39d7d6ab645e5b890098874d15bf`. Dashboard CI `37857160141` PASS on Ubuntu, macOS, and Windows Node 22.
-6. [ ] key risks
+6. [x] key risks - the same bounded read-only `purpose.get` surface adds `keyRisks`. Dashboard preserves owner risk objects, statuses, payloads, canonical refs, ordering, and provenance without inventing Dashboard risk state; accumulated Purpose view types are exported from the read-model package index. KPIs, current work, and material changes remain excluded. Dashboard PR #21 exact head `0dcde6f094a5444fcaa580ab1d71af4cf55b575c`, merged Dashboard `cb4f1e0d70e0b658e064f060b1168d731b4cc2b5`. Dashboard CI `37857351947` PASS on Ubuntu, macOS, and Windows Node 22.
 7. [ ] KPIs / metrics
 8. [ ] current work
 9. [ ] recent material changes / activity
@@ -69,4 +69,4 @@ Final accepted OS head: `35ae0c682285bd96058df653fc6c6ea0f7b1960a`.
 
 ## Resume instructions
 
-Continue only with **Slice 10.1 / Task 6 - key risks**. Extend the existing bounded read-only `purpose.get` surface with owner-backed risks; preserve owner payload/refs and keep KPIs/current work/material changes excluded until their exact task. This five-task batch is in progress; Tasks 3 through 5 are durably complete.
+Continue only with **Slice 10.1 / Task 7 - KPIs / metrics**. The OS basic workspace profile intentionally withholds KPI bindings, so add KPI visibility without creating Dashboard KPI truth or leaking unrelated rich domains into the Dashboard response. Preserve strategic KPI definition refs and current-value owner refs/freshness. Keep current work and material changes excluded until their exact tasks. This five-task batch is in progress; Tasks 3 through 6 are durably complete.
