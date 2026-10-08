@@ -17,14 +17,14 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7 = 8 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Slice 8.1:** COMPLETE / ACCEPTED
-- **Completed Slice 8.2 tasks:** 2 of 5
-- **NEXT:** **Slice 8.2 / Task 3 - rebuild Purpose after successful mutation**
+- **Completed Slice 8.2 tasks:** 3 of 5
+- **NEXT:** **Slice 8.2 / Task 4 - prove failed/interrupted writes cannot leave Purpose as a second truth store**
 
 ## Slice 8.2 execution checklist
 
 1. [x] preserve operation IDs/idempotency - Gateway `gateway.purpose-strategic-owner-operation.v1` derives deterministic owner-native operation/request/idempotency bindings only from explicit-user-confirmed semantic mutation intent. PR #54 exact head `b769eda7899b9219d3c6f5d004df7e83a50795fb`, merged Gateway `931096441ad9ba49fbe8e4a3fd2234052dfc9442`; Gateway CI `37849017710`, Context Ladder `37849017720`, Permanent Bot `37849017719`, Automation Boundary `37849017716`, Temporary Worker `37849017608` PASS.
 2. [x] emit owner-backed receipts - Gateway `gateway.purpose-strategic-owner-receipt.v1` invokes the explicit canonical-owner execution boundary and accepts only receipts matching exact owner, scope, operation/request IDs, idempotency key and operation fingerprint. Success requires a non-empty owner receipt ID plus `effect_occurred=true`; failed outcomes must prove `effect_occurred=false`; uncertain outcomes remain non-success. Only proven owner success sets `mutation_executed=true` / `purpose_rebuild_allowed=true`. No Gateway/Purpose receipt store is introduced. PR #55 exact head `56e69367b8e1c0e853bd5bb2add090198a9033b5`, merged Gateway `a599702f8ec196d5d26387fd77fc34467ed1761c`. Gateway CI `37849419002`, Context Ladder `37849419020`, Permanent Bot `37849419029`, Automation Boundary `37849419013`, Temporary Worker `37849419083` PASS.
-3. [ ] rebuild Purpose after successful mutation
+3. [x] rebuild Purpose after successful mutation - Gateway `gateway.purpose-strategic-post-write.v1` performs a fresh OS-owned Purpose read only after exact canonical-owner success evidence. Failed/uncertain receipts cause zero Purpose reads. Rebuilt projection must match exact scope, preserve `provenance.projection_owner=ai-verse-os`, expose schema version, remain within the existing 16 KiB runtime envelope, and pass the existing fresh-owner precedence policy with no stale fallback. Canonical owner receipt remains the mutation evidence; Purpose is explicitly non-authoritative for the mutation and is never recomposed/stored by Gateway. PR #56 exact head `fb168614bd31ce1e8d90f4c4e1a8e514dd3794e1`, merged Gateway `a3deb510dcc79e468d07e46fcaa3b89f3abfc6e3`. Gateway CI `37849793351`, Context Ladder `37849793455`, Permanent Bot `37849793374`, Automation Boundary `37849793482`, Temporary Worker `37849793636` PASS.
 4. [ ] prove failed/interrupted writes cannot leave Purpose as a second truth store
 5. [ ] preserve handover/handback rules
 
@@ -54,4 +54,4 @@ Final accepted Gateway head: `2629a691402660aa3998c279267a4cd07810e9f7`.
 
 ## Resume instructions
 
-Continue only with **Slice 8.2 / Task 3 - rebuild Purpose after successful mutation**. Rebuild/read the OS-owned Purpose projection only after an exact successful owner-backed receipt. Failed or uncertain receipts must cause zero Purpose rebuild reads. Stop after Task 3 for the current five-task batch.
+Continue only with **Slice 8.2 / Task 4 - prove failed/interrupted writes cannot leave Purpose as a second truth store**. Current accepted flow is confirmed intent -> current-owner route -> explicit-user confirmation -> deterministic owner operation -> owner-backed receipt -> fresh OS Purpose rebuild on proven success only. Do not begin Task 5 until Task 4 is complete and persisted.
