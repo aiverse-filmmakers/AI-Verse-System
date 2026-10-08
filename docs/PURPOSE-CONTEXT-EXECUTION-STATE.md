@@ -16,14 +16,12 @@
 - **Closed slices:** 19 of 34
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7 = 8 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
-- **Completed Slice 8.1 tasks:** 0 of 5
-- **NEXT:** **Slice 8.1 / Task 1 - detect when user intent implies a durable strategic change**
+- **Completed Slice 8.1 tasks:** 1 of 5
+- **NEXT:** **Slice 8.1 / Task 2 - generate a bounded proposed owner mutation from detected strategic intent without applying it**
 
 ## Slice 8.1 execution checklist
 
-The canonical Slice 8.1 task bullets are frozen into five bounded tasks in exact order:
-
-1. [ ] detect when user intent implies a durable strategic change, covering at minimum mission/purpose, top-level goals, priority ordering, values, strategic constraints, durable strategic intent replacement/deletion, and direction-owner transfer
+1. [x] detect when user intent implies a durable strategic change - Gateway `gateway.purpose-strategic-change-intent.v1` detects mission/purpose, top-level goal, priority ordering, values, strategic constraints, durable strategic-intent replacement/deletion, and direction-owner transfer; operation kind is set/update/replace/delete/reorder/transfer; all positives require explicit confirmation. Read-only, hypothetical, ordinary task priority changes, and strategy copy/wording edits are suppressed. PR #49 final exact head `1a7861a8db7f387c88599c1b3ce7bc941d3d40b4`, merged Gateway `a4a83601b82d1576c160c141bf980d260b6abf47`. Gateway CI `37846402216` PASS across Ubuntu/macOS/Windows Node 20/22 including Ubuntu benchmark; Context Ladder `37846402233`, Permanent Bot `37846402320`, Automation Boundary `37846402217`, Temporary Worker `37846402313` PASS.
 2. [ ] generate a bounded proposed owner mutation from the detected intent without applying it
 3. [ ] prove the Purpose projection itself can never be a mutation target or second writable truth surface
 4. [ ] route the proposal by the current direction owner
@@ -36,24 +34,8 @@ Do not begin Slice 8.2 until all five Slice 8.1 tasks are complete and accepted.
 **COMPLETE / `VALUE PROVEN` / ACCEPTED FOR PHASE 8.**  
 Closure record: `docs/PURPOSE-CONTEXT-SLICE-7.3-CLOSURE.md`.  
 Machine-readable gate: `contracts/purpose-context-value-gate.json`.  
-Final accepted Gateway head: `218cddf8c0d4772db7c5575a5481cbbfd8093545`.  
+Final accepted Gateway head entering Phase 8: `218cddf8c0d4772db7c5575a5481cbbfd8093545`.  
 Accepted OS Purpose head: `b2e1b531402bc492e40eafbbcacddb78ec7a46b6`.
-
-Accepted evidence includes:
-
-- positive predefined owner-backed strategic decision-basis deltas in all four frozen strategic scenarios;
-- independent next-action and prioritization improvement;
-- blocker and explainability improvement;
-- cross-session Purpose semantic stability;
-- exactly one Purpose owner read per relevant strategic scenario;
-- <=16,384-byte Purpose envelope;
-- zero Purpose reads/bytes for trivial work;
-- zero unrelated-scope refs/bytes in context-noise review;
-- ordinary execution preserved on Purpose-owner unavailability with no stale substitute;
-- no workspace-isolation regression;
-- no authority regression.
-
-Provider billing and credentialed production-model output remain explicitly unmeasured because the Gateway CI surface does not expose those capabilities. They are not treated as zero.
 
 ## Closed slice records
 
@@ -72,4 +54,4 @@ Provider billing and credentialed production-model output remain explicitly unme
 
 ## Resume instructions
 
-Continue only with **Slice 8.1 / Task 1 - detect when user intent implies a durable strategic change**. Preserve the existing owner/confirmation path. Never write to Purpose projection state.
+Continue only with **Slice 8.1 / Task 2**. Task 2 may create a proposal only. Do not route it to a current direction owner and do not execute any strategic mutation. Never write to Purpose projection state.
