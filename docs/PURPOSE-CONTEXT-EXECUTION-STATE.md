@@ -13,8 +13,8 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1
 - **Closed slices:** 25 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
-- **Completed Slice 11.2 tests:** 6 of 8
-- **NEXT:** **Slice 11.2 / Test 7 - exact-source descent respects owner permissions**
+- **Completed Slice 11.2 tests:** 7 of 8
+- **NEXT:** **Slice 11.2 / Test 8 - no Purpose surface grants additional action permissions**
 
 ## Slice 11.1 closure
 
@@ -38,7 +38,9 @@
    - Data Purpose current-state rejects mismatched workspace provenance and refuses operator projection without an operator Data scope contract.
    - Memory historical projection rejects response/source scope violations and cannot promote historical evidence into current Purpose authority.
    - PR #69 task commit `4dadae84890cbb1d690406383b9b068abe7234d6`; hardening CI `37862033895` PASS Ubuntu/macOS/Windows.
-7. [ ] exact-source descent respects owner permissions
+7. [x] exact-source descent respects owner permissions
+   - Exact Data descent requires the original exact ref plus matching workspace provenance, host-bound authorization mode, and `data:metrics:read` capability; fuzzy/sibling refs, cross-workspace provenance, stripped capabilities, or altered authorization mode fail.
+   - PR #69 implementation commits `129fdac382d4099402293d4dc8d786820e11bffc`, `95d5806920627f908d02e2c51e8b9c098bda3529`; hardening CI `37862158505` PASS Ubuntu/macOS/Windows.
 8. [ ] no Purpose surface grants additional action permissions
 
 ## Hardening laws
@@ -58,4 +60,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.2 / Test 7 - exact-source descent respects owner permissions**. Current requested ten-task batch: **3 of 10 finished; 7 remain**.
+Continue only with **Slice 11.2 / Test 8 - no Purpose surface grants additional action permissions**. Current requested ten-task batch: **4 of 10 finished; 6 remain**.
