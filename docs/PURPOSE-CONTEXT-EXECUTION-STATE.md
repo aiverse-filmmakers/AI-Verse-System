@@ -17,14 +17,12 @@
 - **Closed phases:** 0, 1, 2, 3, 4, 5, 6, 7, 8 = 9 of 14
 - **Slice 7.3 gate outcome:** **`VALUE PROVEN`**
 - **Phase 8:** COMPLETE / ACCEPTED
-- **Completed Slice 9.1 tasks:** 0 of 6
-- **NEXT:** **Slice 9.1 / Task 1 - risks**
+- **Completed Slice 9.1 tasks:** 1 of 6
+- **NEXT:** **Slice 9.1 / Task 2 - team/resources**
 
 ## Slice 9.1 execution checklist
 
-The canonical Slice 9.1 bullets are frozen into six bounded tasks in exact order:
-
-1. [ ] risks
+1. [x] risks - existing Purpose `risks` support is now fail-closed to exact-scope canonical owner evidence. Unbacked, malformed, or cross-scope risk-shaped objects are omitted even in explicit rich mode, and cannot trigger auto-rich profile selection. Normal composition still omits risks because no current canonical owner exposes a safe risk source. No new risk owner/store or schema version was introduced. OS PR #55 exact head `40715e27d4bc6ede01886e9053c860374c0a55a2`, merged OS `688b8846b77cfa1a88f860dc95537750d258e669`. Direction Ownership `37852294175`, OS Brain Permission `37852294317`, Automation Consent `37852294224`, Permanent Bot Consent `37852294457`, Temporary Worker `37852294177`, Migration Source Concurrency `37852294184`, OS Write Boundary `37852294183`, Repository QC `37852294141`, Five-Component Public Beta `37852294300`, Four Repo Acceptance `37852294382` PASS.
 2. [ ] team/resources
 3. [ ] customers
 4. [ ] infrastructure
@@ -38,17 +36,6 @@ All six are optional, owner-backed fields only. Do not invent canonical owners m
 **COMPLETE / ACCEPTED.**  
 Closure record: `docs/PURPOSE-CONTEXT-SLICE-8.2-CLOSURE.md`.  
 Final accepted Gateway head: `be65d0eb49eca941733014968b3f50b4d3da0b4f`.
-
-Accepted Task 5 behavior:
-
-- `gateway.purpose-strategic-handover.v1` verifies the existing canonical OS/Brain transfer law without creating another ownership mechanism;
-- OS-to-Brain handover executes through current OS ownership; Brain-to-OS handback executes through current Brain ownership;
-- owner receipt success is followed by an exact scoped read of the OS-owned direction registry, which must name the explicitly requested destination owner;
-- Brain unavailability never silently returns strategic authority to OS;
-- Purpose may reflect the new owner only after the canonical owner registry confirms the transfer;
-- verification uses the existing compact owner semantic binding rather than retaining another strategic proposal copy.
-
-Task 5 PR #58 exact final head `deca1beed177b839755ceec3f24accaaa2e86f1a`, merged Gateway `be65d0eb49eca941733014968b3f50b4d3da0b4f`. Gateway CI `37851646354`, Context Ladder `37851646278`, Permanent Bot `37851646399`, Automation Boundary `37851646471`, Temporary Worker `37851646299` PASS.
 
 ## Closed slice records
 
@@ -69,4 +56,4 @@ Task 5 PR #58 exact final head `deca1beed177b839755ceec3f24accaaa2e86f1a`, merge
 
 ## Resume instructions
 
-Continue only with **Slice 9.1 / Task 1 - risks**. First identify an existing canonical owner/source contract. If no safe owner-backed risk source exists, omit the field cleanly rather than creating one. Do not begin team/resources until risks is complete and persisted.
+Continue only with **Slice 9.1 / Task 2 - team/resources**. First identify an existing canonical owner/source contract. If no safe owner-backed team/resource source exists, omit the field cleanly rather than creating one. Do not begin customers until team/resources is complete and persisted.
