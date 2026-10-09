@@ -8,11 +8,11 @@
 ## Current execution pointer
 
 - **Phase:** 13 - Documentation and final closure
-- **Current slice:** **13.1 - Architecture/user documentation**
-- **Slice state:** IN PROGRESS
-- **Closed slices:** 32 of 34
+- **Current slice:** **13.2 - Final closure**
+- **Slice state:** NOT STARTED
+- **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 8 - record final Core release ID and exact refs.
+- **NEXT:** Slice 13.2 completion item 1 - record the final Core release ID in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -35,7 +35,7 @@ Qualified Purpose-aware runtime:
 - Slice 12.4: `docs/PURPOSE-CONTEXT-SLICE-12.4-CLOSURE.md`
 - Slice 12.5: `docs/PURPOSE-CONTEXT-SLICE-12.5-CLOSURE.md`
 
-Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only after all final workflows on admission head `468164945e6118f1c9bcd144a6241d740403ab1b` were green. Distribution `main` now admits the Purpose Core as `current_release`; the prior repaired release remains immutable.
+Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only after all final workflows on admission head `468164945e6118f1c9bcd144a6241d740403ab1b` were green. Distribution `main` admits the Purpose Core as a released Core set; the prior repaired release remains immutable.
 
 ## Slice 13.1 documentation progress
 
@@ -43,25 +43,17 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-1.md`.
 
-`PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md` reports `IMPLEMENTED / CORE ADMITTED`, identifies `core-purpose-context-public-beta-2026-10-09` as the admitted release, and records that the Telos-inspired architecture has been implemented without becoming a competing truth store.
-
 ### Task 2 - CLI/API usage
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-2.md`.
-
-`docs/PURPOSE-CONTEXT-USAGE.md` documents the admitted v1 JSON CLI and OS library API, supported inputs and budgets, owner-reader integration, fail-closed unavailable behavior, and the no-store/no-cache ownership boundary.
 
 ### Task 3 - Operator vs workspace behavior
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-3.md`.
 
-The usage guide documents operator/global versus bounded workspace behavior, profile resolution, no v1 workspace Purpose config block, exact-scope evidence, workspace isolation, and fail-closed cross-scope behavior.
-
 ### Task 4 - Optional rich workspace fields
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-4.md`.
-
-The usage guide documents rich-profile contextual sections, the five exact optional owner-backed domains, current-state/material-change relevance, Brain-owned initiative lifecycle status, rich/auto request examples, and the progressive-disclosure rule that keeps simple workspaces simple.
 
 ### Task 5 - Explain/trajectory behavior
 
@@ -81,12 +73,33 @@ The usage guide documents rich-profile contextual sections, the five exact optio
 
 `docs/PURPOSE-CONTEXT-VALUE-GATE.md` records Slice 7.3 as `VALUE PROVEN`, the frozen scenario set, +3/+4/+5/+4 owner-backed decision-basis deltas, one read per relevant strategic scenario, 16,384-byte maximum, zero-read/zero-byte trivial work, zero unrelated-scope refs/bytes, unavailable-owner continuity, preserved OS projection authority, and explicit unmeasured provider cost/model-output surfaces.
 
+### Task 8 - Final Core release ID and exact refs
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-8.md`.
+
+`docs/PURPOSE-CONTEXT-RELEASE.md` records the final released Core ID, exact OS/Brain/Memory/Skills/Data refs, qualified Purpose-aware Gateway ref, Distribution release-set path/blob, admission merge/head, lineage parent/policy, and final qualification workflow IDs carried by the release record.
+
+## Slice 13.1 closure
+
+**COMPLETE / ACCEPTED.** Closure record: `docs/PURPOSE-CONTEXT-SLICE-13.1-CLOSURE.md`.
+
+All eight post-admission architecture/user documentation tasks are persisted. Slice 13.1 is formally closed.
+
 ## Remaining canonical work
 
-9 items remain after this task:
-- Slice 13.1 Task 8 = 1 item;
-- Slice 13.2 final closure = 8 items.
+8 items remain, all in Slice 13.2 final closure:
+
+1. final Core release ID;
+2. exact OS/Brain/Memory/Skills/Data refs;
+3. all final qualification workflow IDs;
+4. final Purpose schema version;
+5. supported scope/profile behavior;
+6. Slice 7.3 value-gate outcome and measured overhead;
+7. known limitations/deferred fields;
+8. any post-v1 follow-up work.
+
+After all eight are recorded, mark the implementation plan `COMPLETE`.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 8: record final Core release ID and exact refs. Persist Task 8 before beginning Slice 13.2.
+Continue only with Slice 13.2 completion item 1: record the final Core release ID in the final completion statement. Persist it before completion item 2.
