@@ -9,10 +9,10 @@
 
 - **Phase:** 13 - Documentation and final closure
 - **Current slice:** **13.2 - Final closure**
-- **Slice state:** IN PROGRESS
+- **Slice state:** CLOSURE PENDING
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 8 - record post-v1 follow-up work in the final completion statement.
+- **NEXT:** mandatory final action after completion item 8 - mark `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` `COMPLETE`, then close Slice 13.2 / Phase 13.
 
 ## Admitted Purpose Core
 
@@ -71,16 +71,20 @@ Tasks 1 through 8 are COMPLETE / ACCEPTED. Closure record: `docs/PURPOSE-CONTEXT
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-7.md`.
 
-The final completion statement records the deliberate v1 boundaries around scope forms, owner-backed rich fields, no Purpose workspace/config store, no Brain-private fallback, no implicit foreign-workspace resolution, measurement limitations, fail-closed cross-release transitions, and Gateway/Core release separation.
+### Completion item 8 - post-v1 follow-up work
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-8.md`.
+
+`docs/PURPOSE-CONTEXT-FINAL-COMPLETION.md` now contains all eight mandatory final completion sections and is marked `COMPLETE / ACCEPTED`.
 
 ## Remaining canonical work
 
-1 item remains in Slice 13.2 final closure:
+All eight Slice 13.2 completion items are complete. One mandatory closure action remains because the canonical plan explicitly requires it after item 8:
 
-8. any post-v1 follow-up work.
-
-After item 8 is recorded, mark the implementation plan `COMPLETE` and close Slice 13.2 / Phase 13.
+- mark `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` `COMPLETE`;
+- create the Slice 13.2 closure record;
+- set execution state to 34/34 slices and 14/14 phases complete.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 8: record post-v1 follow-up work. Persist it, then mark the implementation plan `COMPLETE` as required by the canonical plan.
+Do not begin any new Purpose feature work. Complete only the mandatory plan/phase closure described above.
