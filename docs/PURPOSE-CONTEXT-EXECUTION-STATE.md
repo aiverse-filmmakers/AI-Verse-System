@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 32 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 4 - document optional rich workspace fields.
+- **NEXT:** Slice 13.1 Task 5 - document explain/trajectory behavior.
 
 ## Admitted Purpose Core
 
@@ -43,7 +43,7 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-1.md`.
 
-`PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md` now reports `IMPLEMENTED / CORE ADMITTED`, identifies `core-purpose-context-public-beta-2026-10-09` as the admitted release, and records that the Telos-inspired architecture has been implemented without becoming a competing truth store. Original design language is retained as the architectural record.
+`PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md` reports `IMPLEMENTED / CORE ADMITTED`, identifies `core-purpose-context-public-beta-2026-10-09` as the admitted release, and records that the Telos-inspired architecture has been implemented without becoming a competing truth store.
 
 ### Task 2 - CLI/API usage
 
@@ -55,14 +55,20 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-3.md`.
 
-The usage guide now documents operator/global versus bounded workspace behavior, profile resolution, no v1 workspace Purpose config block, exact-scope evidence, workspace isolation, and fail-closed cross-scope behavior.
+The usage guide documents operator/global versus bounded workspace behavior, profile resolution, no v1 workspace Purpose config block, exact-scope evidence, workspace isolation, and fail-closed cross-scope behavior.
+
+### Task 4 - Optional rich workspace fields
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-4.md`.
+
+The usage guide documents rich-profile contextual sections, the five exact optional owner-backed domains, current-state/material-change relevance, Brain-owned initiative lifecycle status, rich/auto request examples, and the progressive-disclosure rule that keeps simple workspaces simple.
 
 ## Remaining canonical work
 
-13 items remain after this task:
-- Slice 13.1 Tasks 4-8 = 5 items;
+12 items remain after this task:
+- Slice 13.1 Tasks 5-8 = 4 items;
 - Slice 13.2 final closure = 8 items.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 4: document optional rich workspace fields. Persist Task 4 before beginning Task 5.
+Continue only with Slice 13.1 Task 5: document explain/trajectory behavior. Persist Task 5 before beginning Task 6.
