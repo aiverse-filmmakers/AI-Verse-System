@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 4 - record the final Purpose schema version in the final completion statement.
+- **NEXT:** Slice 13.2 completion item 5 - record supported scope/profile behavior in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -39,43 +39,7 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 ## Slice 13.1 documentation progress
 
-### Task 1 - Telos adoption-plan status
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-1.md`.
-
-### Task 2 - CLI/API usage
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-2.md`.
-
-### Task 3 - Operator vs workspace behavior
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-3.md`.
-
-### Task 4 - Optional rich workspace fields
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-4.md`.
-
-### Task 5 - Explain/trajectory behavior
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-5.md`.
-
-### Task 6 - Mutation confirmation behavior
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-6.md`.
-
-### Task 7 - Measured user-value / anti-bloat result
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-7.md`.
-
-### Task 8 - Final Core release ID and exact refs
-
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-8.md`.
-
-## Slice 13.1 closure
-
-**COMPLETE / ACCEPTED.** Closure record: `docs/PURPOSE-CONTEXT-SLICE-13.1-CLOSURE.md`.
-
-All eight post-admission architecture/user documentation tasks are persisted. Slice 13.1 is formally closed.
+Tasks 1 through 8 are COMPLETE / ACCEPTED. Closure record: `docs/PURPOSE-CONTEXT-SLICE-13.1-CLOSURE.md`.
 
 ## Slice 13.2 final closure progress
 
@@ -95,13 +59,18 @@ The final completion statement records the exact admitted OS, Brain, Memory, Ski
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-3.md`.
 
-The final completion statement records the complete 19-run Slice 12.3 qualification set, including principal cross-platform/semantic/composed qualification runs and same-head lineage reruns, plus the final admission head and merge identity.
+The final completion statement records the complete 19-run Slice 12.3 qualification set, including principal qualification runs and same-head lineage reruns, plus the final admission head and merge identity.
+
+### Completion item 4 - final Purpose schema version
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-4.md`.
+
+The final completion statement records Purpose Context schema version `1.0`, matching the admitted OS projection and explain/trajectory contract.
 
 ## Remaining canonical work
 
-5 items remain, all in Slice 13.2 final closure:
+4 items remain, all in Slice 13.2 final closure:
 
-4. final Purpose schema version;
 5. supported scope/profile behavior;
 6. Slice 7.3 value-gate outcome and measured overhead;
 7. known limitations/deferred fields;
@@ -111,4 +80,4 @@ After all eight are recorded, mark the implementation plan `COMPLETE`.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 4: record the final Purpose schema version. Persist it before completion item 5.
+Continue only with Slice 13.2 completion item 5: record supported scope/profile behavior. Persist it before completion item 6.
