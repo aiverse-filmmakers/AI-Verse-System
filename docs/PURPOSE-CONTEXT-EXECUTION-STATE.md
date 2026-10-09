@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.3 Task 9 - OS↔Brain direction/ownership contract tests against the exact frozen Purpose candidate.
+- **NEXT:** Slice 12.3 Task 10 - workspace isolation tests against the exact frozen Purpose candidate.
 
 ## Final frozen candidate refs
 
@@ -46,11 +46,13 @@
 
 **Task 8 - Member/project bootstrap Windows COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, Windows job `113779354900`, step `Prove member/project bootstrap against exact Purpose candidate` completed successfully. The full run concluded `success` across Ubuntu/macOS/Windows against qualification head `c1a0c400c7f5fe9b5808f101c3cb224ba39754f9`.
 
+**Task 9 - OS↔Brain direction/ownership contract COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `ed608dbd402336dff3227014e1f6655fd4224bac`, workflow run `37921740519`, exact-owner-contracts job `113791523292`. The exact pinned OS `4f03849444b1d01ad81317bf0fece082d5a30e79` and Brain `69f7912eeb35f0178f6952ff0554aec8d7f2c496` were cloned by immutable SHA. The qualification proved OS ownership before handover, no silent Brain takeover, explicit confirmed OS→Brain handover with source provenance, OS refusal of strategic writes after Brain ownership, Brain use of the OS current-context resolver without resurrecting frozen OS strategy, preservation of valid operational current state, and fail-closed behavior if Brain state/runtime disappears. Job conclusion: `success`.
+
 Qualification-fixture fixes are CI-bounded: exact frozen descendant owner refs temporarily use existing trusted lifecycle adapters; same-set update stays pinned to the candidate; frozen dependency-lock bytes are mirrored into the historical fixture location; and an already-staged identical candidate ID is reused rather than duplicated. None of these admit the release or trust arbitrary descendants.
 
 PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts from Distribution main and contains only intended qualification-harness changes.
 
-Current clean qualification PR: Distribution #26, head `c1a0c400c7f5fe9b5808f101c3cb224ba39754f9`.
+Current clean qualification PR: Distribution #26, head `ed608dbd402336dff3227014e1f6655fd4224bac`.
 
 ## Carried repair register
 
@@ -74,4 +76,4 @@ Current clean qualification PR: Distribution #26, head `c1a0c400c7f5fe9b5808f101
 
 ## Resume instructions
 
-Continue with Slice 12.3 Task 9 only: OS↔Brain direction/ownership contract tests on the same exact frozen candidate set. Persist Task 9 before beginning Task 10.
+Continue with Slice 12.3 Task 10 only: workspace isolation tests on the same exact frozen candidate set. Persist Task 10 before beginning Task 11.
