@@ -106,3 +106,32 @@ Workspace name/type/age, free-text purpose, file count, perceived importance, un
 Scope isolation remains fail-closed. Reading `workspace:A` does not scan or inherit Purpose state from `workspace:B`. Explicit cross-scope relationship refs may remain provenance-bearing links, but they do not authorize implicit foreign-scope resolution or ingestion.
 
 Across every profile, Purpose remains a read-only disposable projection over canonical owner state rather than a new authority or store.
+
+## 6. Slice 7.3 value-gate outcome and measured overhead
+
+The final product-value gate outcome is exactly:
+
+`VALUE PROVEN`
+
+The frozen same-state comparisons recorded positive owner-backed decision-basis deltas for every strategic scenario:
+
+- operator rationale/explainability: `+3` evidence classes;
+- workspace next action: `+4` evidence classes;
+- workspace prioritization: `+5` evidence classes;
+- workspace blocker/material-change awareness: `+4` evidence classes.
+
+The accepted anti-bloat measurements were:
+
+- exactly one Purpose owner read for every relevant strategic scenario;
+- every admitted Purpose envelope at or below the hard `16,384`-byte Phase 7 runtime ceiling;
+- exactly zero Purpose owner reads for the trivial deterministic formatting scenario;
+- exactly zero Purpose bytes added for that trivial scenario;
+- zero unrelated-scope refs/bytes in admitted projections;
+- ordinary context assembly continued when Purpose was unavailable, with no stale Purpose substitute;
+- projection authority remained `ai-verse-os`.
+
+Local context-assembly latency was measured using warmup plus repeated median fixture runs and judged acceptable for the demonstrated strategic benefit. Those local fixture measurements are not claimed as production provider/network latency.
+
+Gateway exposed no provider billing/cost surface for this path, so provider cost remained `null` / unmeasured rather than estimated. CI likewise had no credentialed production-model evaluator, so model-output quality was not fabricated; the accepted quality evidence is the predefined owner-backed decision-basis delta above.
+
+The admitted v1 therefore satisfies the value-before-expansion law: useful strategic context was demonstrated without always-on loading, cross-workspace noise, stale fallback, or authority regression.
