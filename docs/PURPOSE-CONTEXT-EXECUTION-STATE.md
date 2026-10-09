@@ -9,14 +9,15 @@
 
 - **Phase:** 12 - Full Core requalification and new release admission
 - **Current slice:** **12.1 - Freeze exact candidate refs**
-- **Slice state:** IN PROGRESS
+- **Slice state:** IN PROGRESS pending OS repair/ref refresh
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3
 - **Closed slices:** 27 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
 - **Slice 11.3:** COMPLETE / ACCEPTED
 - **Slice 11.3 closure:** `docs/PURPOSE-CONTEXT-SLICE-11.3-CLOSURE.md`
 - **Distribution candidate-freeze merge:** `55bc206b76ce90c0ce9f1808ab42241762a23c3f`
-- **NEXT:** **Slice 12.1 / Task 4 - do not qualify against moving branch heads**
+- **Exact-SHA qualification guard merge:** `59e58d2c87d6d9c6a112f9e0e80765b37aa780c2`
+- **NEXT:** requested batch Task 2 - resolve OS workspace manifest ID max-length mismatch, then refresh the frozen OS candidate/ref evidence before qualification
 
 ## Slice 12.1 candidate freeze
 
@@ -36,25 +37,11 @@
 - Skills baseline/candidate `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`: **identical**
 - Data baseline `6e8781ff1dcd96a35dfb27868bd60605361483d0` -> candidate `f8978f8f7a1bc94edecddc2662112233289159a3`: **ahead 13, behind 0**
 
-**Task 3 COMPLETE.** Distribution PR #22 task head `47dd3ea706d338163e8a783d42d0c79341c1a643` froze the release-scoped Data companion dependency lock for exact candidate revision `f8978f8f7a1bc94edecddc2662112233289159a3` in both public and packaged lock locations. The candidate now binds:
+**Task 3 COMPLETE.** Distribution PR #22 task head `47dd3ea706d338163e8a783d42d0c79341c1a643` froze the release-scoped Data companion dependency lock for exact candidate revision `f8978f8f7a1bc94edecddc2662112233289159a3` in both public and packaged lock locations.
 
-- scheme: `distribution-companion-npm-lock-v1`
-- manifest: `ai-verse-data/f8978f8f7a1bc94edecddc2662112233289159a3/lock.json`
-- manifest SHA-256: `0af6c9763fa04170b0bc6226764bb1c78db5296b5586a91d9d2851e27da98ea3`
-- source `package.json` SHA-256: `427fcd04fb9290e2df7c24ee19d2bf7abb427d7bec8bd2e857a893f4cc8ade2e`
-- companion `package-lock.json` SHA-256: `fa5c3e0f8df2c98fa48c4f7f163caff31a1ef16dc3e27223c217c38c6ff9ade3`
-- dependency tree SHA-256: `a3ac0422af7c690006e88dcbf917a27fa6101b3497662128774d315463d0b221`
+**Task 4 COMPLETE.** Distribution PR #23 head `1382b0015168bdd05570ac594687704c4babc854` added a machine-enforced exact-ref gate. Qualification now requires `exact-commit-sha-only`, rejects moving branch heads, requires every component revision to be an immutable 40-character SHA, and binds source-freeze heads, lineage candidates, and dependency-lock source revisions to those same exact component SHAs. Distribution CI `37911041350` passed all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs. PR #23 merged at `59e58d2c87d6d9c6a112f9e0e80765b37aa780c2`.
 
-The Data source manifest is unchanged from the repaired parent, so the exact descendant Data SHA is bound to the same pinned dependency graph rather than inventing a new dependency set. Distribution CI `37877042282` passed all six jobs across Ubuntu/macOS/Windows and Python 3.11/3.12, including dependency-lock fail-closed, tamper-rejection, repeatability, and public/package mirror tests. Distribution PR #22 merged at `55bc206b76ce90c0ce9f1808ab42241762a23c3f`.
-
-The dependency-lock blocker is removed. The candidate remains **blocked only on full Core requalification** and has not been admitted or released.
-
-## Slice 12.1 tasks
-
-1. [x] record exact final descendant refs for OS/Brain/Memory/Data and unchanged Skills ref if untouched
-2. [x] verify each changed protected component is same-or-descendant of `core-repaired-public-beta-2026-10-06`
-3. [x] freeze dependency locks required by candidate refs
-4. [ ] do not qualify against moving branch heads
+The canonical four Slice 12.1 tasks are implemented. Slice 12.1 is intentionally not closed yet because the approved next batch includes one carried OS contract repair that changes the OS candidate SHA. The OS repair must be merged and the exact candidate/ref and lineage evidence refreshed before component qualification begins.
 
 ## Qualification laws
 
@@ -67,10 +54,23 @@ The dependency-lock blocker is removed. The candidate remains **blocked only on 
 ## Carried repair register
 
 1. Dashboard workspace-ID contract alignment max 128. **RESOLVED.**
-2. OS workspace manifest schema max length should align runtime max 128.
+2. OS workspace manifest schema max length should align runtime max 128. **NEXT / REQUIRED BEFORE QUALIFICATION.**
 3. Data aggregate freshness path. **RESOLVED for Purpose current values.**
-4. Final qualification must pin exact component refs. **REFS + LINEAGE + DEPENDENCY LOCKS FROZEN.**
+4. Final qualification must pin exact component refs. **RESOLVED and machine-gated.**
+
+## Current requested eight-task batch
+
+1. [x] enforce exact-SHA-only qualification, never moving branch heads
+2. [ ] resolve OS workspace manifest ID max-length mismatch and refresh frozen OS candidate/ref evidence
+3. [ ] full OS regression suite
+4. [ ] full Brain regression suite
+5. [ ] full Memory regression suite
+6. [ ] full Data regression suite
+7. [ ] all Purpose Context tests
+8. [ ] all direction-owner/current-context/workspace-isolation regressions
+
+**Batch progress:** 1 of 8 complete; 7 remain.
 
 ## Resume instructions
 
-Continue only with **Slice 12.1 / Task 4 - do not qualify against moving branch heads**. The requested ten-task batch is complete: **10 of 10 finished; 0 remain**. Do not begin Task 4 until the user requests continuation.
+Continue only with requested batch **Task 2**. Do not begin component qualification until the OS repair has a new exact candidate SHA and the Distribution candidate evidence has been refreshed to that SHA.
