@@ -14,8 +14,8 @@
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Slice 11.2:** COMPLETE / ACCEPTED
-- **Completed Slice 11.3 scenarios:** 3 of 12
-- **NEXT:** **Slice 11.3 / Scenario 4 - rich product/business workspace with KPI/risk/current-state context**
+- **Completed Slice 11.3 scenarios:** 4 of 12
+- **NEXT:** **Slice 11.3 / Scenario 5 - two isolated workspaces with conflicting goals**
 
 ## Slice 11.2 closure
 
@@ -32,7 +32,9 @@
 3. [x] simple workspace using only basic trajectory fields
    - Explicit `workspace_basic` projection surfaces only owner-backed objective, current state, current work, and constraints with exact workspace current-context refs; optional rich domains stay absent.
    - PR #70 task commit `cd9fda712bd63c1750dd9986a70b9d8fee5a306a`; hardening CI `37862789684` PASS Ubuntu/macOS/Windows.
-4. [ ] rich product/business workspace with KPI/risk/current-state context
+4. [x] rich product/business workspace with KPI/risk/current-state context
+   - Rich profile preserves exact-scope owner-backed KPI and risk context alongside workspace goal/current state; a cross-scope risk is filtered rather than surfaced.
+   - PR #70 task commit `2988227a19a6b086f89e3f3af56870186537372c`; hardening CI `37862911296` PASS Ubuntu/macOS/Windows.
 5. [ ] two isolated workspaces with conflicting goals
 6. [ ] material event closes a blocker
 7. [ ] material event invalidates feasibility of a strategy
@@ -60,4 +62,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 4 - rich product/business workspace with KPI/risk/current-state context**. Current requested ten-task batch: **8 of 10 finished; 2 remain**.
+Continue only with **Slice 11.3 / Scenario 5 - two isolated workspaces with conflicting goals**. Current requested ten-task batch: **9 of 10 finished; 1 remains**.
