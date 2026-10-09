@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 5 - record supported scope/profile behavior in the final completion statement.
+- **NEXT:** Slice 13.2 completion item 6 - record Slice 7.3 value-gate outcome and measured overhead in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -47,31 +47,28 @@ Tasks 1 through 8 are COMPLETE / ACCEPTED. Closure record: `docs/PURPOSE-CONTEXT
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-1.md`.
 
-`docs/PURPOSE-CONTEXT-FINAL-COMPLETION.md` records `core-purpose-context-public-beta-2026-10-09` as the final admitted Core release identity.
-
 ### Completion item 2 - exact Core component refs
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-2.md`.
-
-The final completion statement records the exact admitted OS, Brain, Memory, Skills, and Data commit SHAs and separately identifies the qualified Purpose-aware Gateway runtime ref.
 
 ### Completion item 3 - final qualification workflow IDs
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-3.md`.
 
-The final completion statement records the complete 19-run Slice 12.3 qualification set, including principal qualification runs and same-head lineage reruns, plus the final admission head and merge identity.
-
 ### Completion item 4 - final Purpose schema version
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-4.md`.
 
-The final completion statement records Purpose Context schema version `1.0`, matching the admitted OS projection and explain/trajectory contract.
+### Completion item 5 - supported scope/profile behavior
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-5.md`.
+
+The final completion statement records the exact v1 `operator` and `workspace:<id>` scope model, operator/workspace profile behavior, evidence-gated rich promotion, optional rich domains, no Purpose workspace config block, and fail-closed workspace isolation.
 
 ## Remaining canonical work
 
-4 items remain, all in Slice 13.2 final closure:
+3 items remain, all in Slice 13.2 final closure:
 
-5. supported scope/profile behavior;
 6. Slice 7.3 value-gate outcome and measured overhead;
 7. known limitations/deferred fields;
 8. any post-v1 follow-up work.
@@ -80,4 +77,4 @@ After all eight are recorded, mark the implementation plan `COMPLETE`.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 5: record supported scope/profile behavior. Persist it before completion item 6.
+Continue only with Slice 13.2 completion item 6: record the Slice 7.3 value-gate outcome and measured overhead. Persist it before completion item 7.
