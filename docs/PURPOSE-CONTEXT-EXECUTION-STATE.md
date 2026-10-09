@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.3 Task 11 - Data/Memory integration tests used by Purpose Context against the exact frozen candidate.
+- **NEXT:** Slice 12.3 Task 12 - context-ladder/runtime integration tests against the exact frozen Purpose candidate.
 
 ## Final frozen candidate refs
 
@@ -50,11 +50,13 @@
 
 **Task 10 - Workspace isolation COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `e59f2ce339e4b0493184537de864bca1fb2778e7`, workflow run `37922223517`, exact-workspace-isolation job `113793113144`. The job cloned frozen OS `4f03849444b1d01ad81317bf0fece082d5a30e79` by immutable SHA and ran the canonical workspace-owner, Purpose workspace-boundary, security-hardening, and explicit-scope-relationship tests. It proved unrelated workspaces remain unchanged, operator/workspace and workspace A/workspace B data do not leak, traversal and symlink escapes fail closed, deleted workspace data is not retained through a Purpose cache, malformed ownership/path redirects fail closed, authority widening is blocked, and explicit foreign-scope relationships remain refs only without implicit resolve/enumerate/ingest. Job conclusion: `success`. Same-head Core Lineage Guard run `37922223716` also concluded `success`.
 
+**Task 11 - Data/Memory integration COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `18230c4d657c9d4141682aede3e8cfdfc64de038`, workflow run `37928193308`, exact-data-memory-integration job `113812692125`. The qualification cloned exact frozen OS `4f03849444b1d01ad81317bf0fece082d5a30e79`, Data `f8978f8f7a1bc94edecddc2662112233289159a3`, and Memory `f1327be48ba2ee0043959021365e6dbb9dcb1d3a` by immutable SHA. It passed Data's Purpose current-value status, freshness, provenance, exact-value, and no-row-copy owner tests; Memory's dedicated bounded Purpose-history owner tests; and OS consumer-boundary tests for Data current values/source descent and Memory history reads. The result preserves Data as current quantitative authority, Memory as bounded historical evidence rather than current strategic authority, exact scope/provenance handling, false/zero/null values, partial/unavailable states, and fail-closed owner loss. Job conclusion: `success`. Same-head Core Lineage Guard run `37928193187` also concluded `success`.
+
 Qualification-fixture fixes are CI-bounded: exact frozen descendant owner refs temporarily use existing trusted lifecycle adapters; same-set update stays pinned to the candidate; frozen dependency-lock bytes are mirrored into the historical fixture location; and an already-staged identical candidate ID is reused rather than duplicated. None of these admit the release or trust arbitrary descendants.
 
 PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts from Distribution main and contains only intended qualification-harness changes.
 
-Current clean qualification PR: Distribution #26, head `e59f2ce339e4b0493184537de864bca1fb2778e7`.
+Current clean qualification PR: Distribution #26, head `18230c4d657c9d4141682aede3e8cfdfc64de038`.
 
 ## Carried repair register
 
@@ -78,4 +80,4 @@ Current clean qualification PR: Distribution #26, head `e59f2ce339e4b0493184537d
 
 ## Resume instructions
 
-Continue with Slice 12.3 Task 11 only: Data/Memory integration tests used by Purpose Context on the same exact frozen candidate set. Persist Task 11 before beginning Task 12.
+Continue with Slice 12.3 Task 12 only: context-ladder/runtime integration tests on the same exact frozen candidate set. Persist Task 12 before beginning Task 13.
