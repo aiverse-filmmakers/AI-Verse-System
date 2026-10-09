@@ -65,6 +65,46 @@ Canonical ownership remains:
 
 **Review Question 1: COMPLETE / ACCEPTED.**
 
+## Review Question 2
+
+### Can any generated state become stronger than owner state?
+
+**Result: NO / ACCEPTED.**
+
+The exact frozen implementation does not allow generated Purpose state, cached runtime context, UI/output copies, or post-write projections to outrank canonical owner state.
+
+### Fresh owner reads dominate generated projection state
+
+`AI-Verse-OS/scripts/test-purpose-context-no-cache.mjs` proves repeated Purpose reads create no files or cache, and a direct mutation to the canonical owner input is visible immediately on the next Purpose read. The prior generated value disappears from the rebuilt projection rather than surviving as independent state.
+
+`AI-Verse-OS/scripts/purpose-context-core.mjs` rebuilds each envelope from the current direction owner. If Brain owns direction and its public reader is missing or invalid, the strategic section becomes explicitly unavailable rather than reviving OS strategy or another generated copy.
+
+### Runtime copies cannot gain precedence
+
+Gateway `src/purpose-runtime-policy.mjs` selects only a fresh owner projection, marks cached candidates ignored, disables cache reuse, and sets `stale_fallback_allowed: false`.
+
+The exact Gateway regression `test/purpose-precedence.test.mjs` proves three important cases:
+
+1. a fresh OS owner projection always outranks a stale cached UI/output projection;
+2. owner unavailability returns no Purpose projection rather than promoting the cached candidate;
+3. irrelevant tasks ignore cached Purpose and perform zero owner reads.
+
+This prevents generated runtime state from acquiring authority merely because it was previously rendered or persisted as part of a run.
+
+### Strategic writes remain owner-controlled
+
+Gateway strategic routing reads the current direction owner before mutation. A generated owner operation begins with `mutation_executed: false` and `purpose_rebuild_allowed: false`. Purpose is rebuilt only after a canonical-owner success receipt, and the post-write projection explicitly records `purpose_is_authoritative_for_mutation: false` while the owner receipt remains the mutation evidence.
+
+### Brain, Data, and Memory projections preserve owner status
+
+Brain Purpose snapshots are generated from current canonical Brain objects with canonical refs. Data current-value projections resolve exact canonical Data records and preserve their record freshness/provenance. Memory Purpose history remains a bounded read over Memory-owned historical records. None of these surfaces can write back or elevate their generated representation above the underlying owner record.
+
+## Finding
+
+No path was found by which generated Purpose state becomes stronger than canonical owner state. Fresh owner reads always control current truth; generated state is disposable, bounded, provenance-bearing, and non-authoritative.
+
+**Review Question 2: COMPLETE / ACCEPTED.**
+
 ## NEXT
 
-Review Question 2 only: **Can any generated state become stronger than owner state?**
+Review Question 3 only: **Can one workspace leak another workspace's Purpose?**
