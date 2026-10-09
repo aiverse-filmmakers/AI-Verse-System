@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 31 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.5 Task 6 - run final same-head Distribution/Core Lineage validation.
+- **NEXT:** Slice 12.5 Task 7 - merge only after all final same-head checks are green.
 
 ## Frozen Purpose Core candidate
 
@@ -37,11 +37,18 @@ Qualified Purpose-aware runtime: Gateway `1772b75e2add73a524715f746e87b3a6b5561b
 3. Exact candidate refs: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-3.md`.
 4. Final qualification evidence: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-4.md`.
 5. Rollback/update policy: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-5.md`.
+6. Final same-head Distribution/Core Lineage validation: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-6.md`.
 
-Task 5 preserves fail-closed cross-release transitions: the staged Purpose Core is self-only for `update_from` and `rollback_to`, owner state is preserved, and the live `current_release` remains `core-repaired-public-beta-2026-10-06` until final same-head validation and merge.
+Task 6 exact admission head: `468164945e6118f1c9bcd144a6241d740403ab1b`.
 
-Distribution admission branch: `purpose-12-5-admission-final`.
+Same-head accepted gates:
+- Distribution CI run `37950853707`: all six Ubuntu/macOS/Windows Python 3.11/3.12 jobs success;
+- Core Lineage Guard run `37950853625`: success.
+
+Final admission validation also repaired stale release assertions and promoted the exact Purpose OS/Brain/Memory lifecycle bindings already proven during Slice 12.3 qualification. The frozen candidate refs did not change.
+
+Distribution PR #27 remains unmerged until Task 7 verifies every applicable final check on the exact admission head is green.
 
 ## Resume instructions
 
-Continue only with Slice 12.5 Task 6: prepare the final admission head and run final same-head Distribution/Core Lineage validation. Persist Task 6 before beginning Task 7.
+Continue only with Slice 12.5 Task 7: verify all final same-head PR checks on `468164945e6118f1c9bcd144a6241d740403ab1b`; merge PR #27 only if all applicable checks are green. Persist Task 7 before beginning Slice 13.1 Task 1.
