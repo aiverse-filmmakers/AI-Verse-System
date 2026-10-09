@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2, 12.3
 - **Closed slices:** 30 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.4 Review Question 3 - Can one workspace leak another workspace's Purpose?
+- **NEXT:** Slice 12.4 Review Question 4 - Can Memory override current truth?
 
 ## Final frozen Core candidate refs
 
@@ -90,6 +90,18 @@ Result: **NO.** Independent inspection found no authority-escalation path for ge
 - Post-write Purpose is rebuilt from a fresh OS owner read and explicitly remains non-authoritative for mutation.
 - Brain, Data, and Memory projection surfaces retain canonical owner refs/provenance and provide no write-back path that could elevate a projection over its owner.
 
+**Review Question 3 - Can one workspace leak another workspace's Purpose? COMPLETE / ACCEPTED.**
+
+Result: **NO.** Independent source and adversarial-test review found no cross-workspace Purpose leakage path.
+
+- OS Purpose scope resolution is physically bound to the canonical operator or workspace directory and rejects traversal, missing workspaces, workspace symlinks, manifest symlinks, and current-context symlinks.
+- Exact frozen security tests prove operator scope excludes alpha/beta workspace data and workspace alpha/beta exclude each other and operator data, including provenance refs.
+- Brain Purpose lists strategic objects only for the exact requested scope.
+- Data exact-source descent preserves workspace permission scope and rejects a source-provenance workspace mismatch, fuzzy refs, sibling records, missing capability, and unbound authorization.
+- Memory Purpose refs must match the active scope; canonical recall uses `all_workspaces=False`, and the OS history boundary rejects a response from another workspace.
+- Gateway validates that the OS Purpose projection exactly matches the run's bound scope and scope kind before runtime admission.
+- Slice 12.3 exact workspace-isolation run `37922223517`, job `113793113144`, and same-head lineage run `37922223716` are green.
+
 ## Carried repair register
 
 1. Dashboard workspace-ID max 128 alignment. **RESOLVED.**
@@ -103,10 +115,10 @@ Result: **NO.** Independent inspection found no authority-escalation path for ge
 ## Current requested two-step batch
 
 1. [x] Review Question 2: Can any generated state become stronger than owner state?
-2. [ ] Review Question 3: Can one workspace leak another workspace's Purpose?
+2. [x] Review Question 3: Can one workspace leak another workspace's Purpose?
 
-**Batch progress:** 1 of 2 complete.
+**Batch progress:** 2 of 2 complete.
 
 ## Resume instructions
 
-Continue only with Slice 12.4 Review Question 3: can one workspace leak another workspace's Purpose? Persist that independent review result before beginning Review Question 4.
+Continue only with Slice 12.4 Review Question 4: can Memory override current truth? Persist that independent review result before beginning Review Question 5.
