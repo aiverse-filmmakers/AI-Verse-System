@@ -14,10 +14,10 @@
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Slice 11.2:** COMPLETE / ACCEPTED
-- **Completed Slice 11.3 scenarios:** 8 of 12
+- **Completed Slice 11.3 scenarios:** 9 of 12
 - **Current accepted OS head:** `476926333ac4c74cc2abd35e684befec23e37d9c`
-- **Active acceptance PR:** OS PR #71, current accepted task head `5da84336efed635f8e4ad0057d225a046d041d6e`
-- **NEXT:** **Slice 11.3 / Scenario 9 - Memory old history conflicts with current Brain/Data truth**
+- **Active acceptance PR:** OS PR #71, current accepted task head `b7f5eb47eb7c6a3ea2150f9199497b49e0756b7a`
+- **NEXT:** **Slice 11.3 / Scenario 10 - high-impact goal change proposed but not confirmed**
 
 ## Slice 11.2 closure
 
@@ -31,15 +31,14 @@
 4. [x] rich product/business workspace with KPI/risk/current-state context
 5. [x] two isolated workspaces with conflicting goals
 6. [x] material event closes a blocker
-   - Material-change classification and relevance application prove a blocker-clear event can restore Purpose relevance for an exact Brain initiative ref without rewriting the canonical initiative status, payload, or ref.
-   - OS PR #71 task commits `50bc2c63698868ab34c97611f4598dbac81ba368`, `766cc8a9faf3f096ed5c15fcc942768ee0c7576c`; Purpose hardening CI `37875394580` PASS Ubuntu/macOS/Windows Node 22.
+   - OS PR #71 task commits `50bc2c63698868ab34c97611f4598dbac81ba368`, `766cc8a9faf3f096ed5c15fcc942768ee0c7576c`; CI `37875394580` PASS Ubuntu/macOS/Windows Node 22.
 7. [x] material event invalidates feasibility of a strategy
-   - A feasibility/strategy-validity material event marks the exact Brain strategy `invalidated` only through projection relevance. Canonical owner status, payload, and ref remain unchanged.
-   - OS PR #71 task commit `8dad89d9277ac64c5d834be1b7a4f80aa936fa74`; Purpose hardening CI `37875479659` PASS Ubuntu/macOS/Windows Node 22.
+   - OS PR #71 task commit `8dad89d9277ac64c5d834be1b7a4f80aa936fa74`; CI `37875479659` PASS Ubuntu/macOS/Windows Node 22.
 8. [x] Data value becomes stale/unavailable
-   - A stale Data value is retained only as a diagnostic and never enters trusted `current_state`; a subsequent Data outage clears prior transient Data projection state and reports explicit `unavailable` owner freshness with no stale fallback.
-   - OS PR #71 task commit `5da84336efed635f8e4ad0057d225a046d041d6e`; Purpose hardening CI `37875558143` PASS Ubuntu/macOS/Windows Node 22.
-9. [ ] Memory old history conflicts with current Brain/Data truth
+   - OS PR #71 task commit `5da84336efed635f8e4ad0057d225a046d041d6e`; CI `37875558143` PASS Ubuntu/macOS/Windows Node 22.
+9. [x] Memory old history conflicts with current Brain/Data truth
+   - Historical Memory evidence remains explicitly non-authoritative for current state. Forged current goal/state/value fields are stripped while the current Brain goal remains unchanged.
+   - OS PR #71 task commit `b7f5eb47eb7c6a3ea2150f9199497b49e0756b7a`; Purpose hardening CI `37875722214` PASS Ubuntu/macOS/Windows Node 22.
 10. [ ] high-impact goal change proposed but not confirmed
 11. [ ] high-impact goal change confirmed and Purpose rebuilt
 12. [ ] explain trajectory has missing relationship and reports gap instead of inventing it
@@ -62,4 +61,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 9 - Memory old history conflicts with current Brain/Data truth**. Current requested ten-task batch is **3 of 10 complete; 7 remain**. Do not skip task order.
+Continue only with **Slice 11.3 / Scenario 10 - high-impact goal change proposed but not confirmed**. Current requested ten-task batch is **4 of 10 complete; 6 remain**. Do not skip task order.
