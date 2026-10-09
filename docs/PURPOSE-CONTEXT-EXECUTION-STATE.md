@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 31 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.5 Task 5 - preserve rollback/update policy intentionally.
+- **NEXT:** Slice 12.5 Task 6 - run final same-head Distribution/Core Lineage validation.
 
 ## Frozen Purpose Core candidate
 
@@ -25,33 +25,23 @@
 Qualified Purpose-aware runtime: Gateway `1772b75e2add73a524715f746e87b3a6b5561bf6`.
 
 ## Slice 12.3
-
 **COMPLETE / ACCEPTED.** `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`.
 
 ## Slice 12.4
-
 **COMPLETE / ACCEPTED.** `docs/PURPOSE-CONTEXT-SLICE-12.4-CLOSURE.md`.
 
 ## Slice 12.5 admission progress
 
-### Task 1 - new append-only Core release entry
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-1.md`.
+1. New append-only Core release entry: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-1.md`.
+2. Lineage parent: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-2.md`.
+3. Exact candidate refs: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-3.md`.
+4. Final qualification evidence: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-4.md`.
+5. Rollback/update policy: **COMPLETE / ACCEPTED**. `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-5.md`.
 
-### Task 2 - lineage parent
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-2.md`.
+Task 5 preserves fail-closed cross-release transitions: the staged Purpose Core is self-only for `update_from` and `rollback_to`, owner state is preserved, and the live `current_release` remains `core-repaired-public-beta-2026-10-06` until final same-head validation and merge.
 
-### Task 3 - exact candidate refs
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-3.md`.
-
-### Task 4 - final qualification evidence
-**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-4.md`.
-
-The blocked release entry now records the accepted all-platform Core qualification, owner/isolation/Data/Memory/runtime/rebuild/composed evidence, the applicable conditional Agent/composed qualification, the 12/12 independent-review disposition, and Gateway `1772b75e2add73a524715f746e87b3a6b5561bf6`.
-
-Distribution admission branch: `purpose-12-5-admission-final`. Task-4 branch head: `ad7e52fc02d2e7c802ab03fce76c5f5eefea223b`.
-
-The release remains blocked and the live Core remains `core-repaired-public-beta-2026-10-06`.
+Distribution admission branch: `purpose-12-5-admission-final`.
 
 ## Resume instructions
 
-Continue only with Slice 12.5 Task 5: preserve rollback/update policy intentionally. Persist Task 5 before beginning Task 6.
+Continue only with Slice 12.5 Task 6: prepare the final admission head and run final same-head Distribution/Core Lineage validation. Persist Task 6 before beginning Task 7.
