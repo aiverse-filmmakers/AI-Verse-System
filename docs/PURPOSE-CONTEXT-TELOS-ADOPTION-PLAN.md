@@ -1,10 +1,22 @@
 # Purpose Context / Telos-Inspired Adoption Plan
 
-**Status:** ACCEPTED-INTENT / NOT IMPLEMENTED  
-**Priority:** EARLY P1 / first eligible post-repair cross-owner capability  
+**Status:** IMPLEMENTED / CORE ADMITTED  
+**Priority:** COMPLETE / admitted as the current Core cross-owner capability  
 **External inspiration:** https://github.com/danielmiessler/telos  
 **License of inspiration repo:** MIT  
 **AI-Verse rule:** borrow the deep-context idea, not a duplicate canonical store
+
+## Adoption status
+
+The intent described by this plan has been implemented and admitted.
+
+- Current admitted Core release: `core-purpose-context-public-beta-2026-10-09`.
+- Distribution admission merged on 2026-10-09 after exact-ref Core requalification and final independent review.
+- The admitted implementation preserves the design law in this document: Purpose Context is a bounded, derived, rebuildable owner-backed projection rather than a competing canonical store.
+- The implementation includes the read-only projection, Context Ladder integration, controlled strategic mutation/confirmation path, material-change projection and product/Dashboard projection boundaries described by the recommended slices below.
+- Canonical implementation, qualification and admission evidence is tracked by `PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md` and the Slice 12 closure records.
+
+This document remains the Telos-inspired design/adoption record. Later sections retain the original design language to preserve the architectural intent against which the admitted implementation was reviewed.
 
 ## 1. Purpose
 
