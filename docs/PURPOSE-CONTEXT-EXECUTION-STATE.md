@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.3 Task 14 - composed cross-system acceptance affected by the frozen Purpose candidate refs.
+- **NEXT:** Slice 12.3 conditional Agent/composed release qualification, required because Purpose Context implementation touched Gateway/runtime integration. Do not begin Slice 12.4 until this conditional gate is resolved and Slice 12.3 is formally closed.
 
 ## Final frozen candidate refs
 
@@ -56,11 +56,13 @@
 
 **Task 13 - Clean restart/rebuild COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `4d665058ed33ff30a1d0e4250474d5b6a16191fe`, dedicated exact workflow run `37930360090`, exact-clean-restart-rebuild job `113819787629`. The job cloned frozen OS `4f03849444b1d01ad81317bf0fece082d5a30e79` by immutable SHA and passed the canonical Purpose rebuild, no-cache, and current-context suites. It proved fresh-process regeneration, delete-and-rebuild equivalence, absence of persistent Purpose cache authority, fresh owner reads after mutation, workspace isolation after rebuild, bounded deterministic rebuild behavior, and prevention of frozen OS strategic fallback after Brain ownership. Job conclusion: `success`. Same-head Core Lineage Guard run `37930360126` also concluded `success`. Candidate remains blocked/unreleased.
 
+**Task 14 - Composed cross-system Core acceptance COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `d94ea36e517858621725bcbb744b7a1a393cdef6`, dedicated exact workflow run `37931207537`, exact-composed-core-candidate job `113822093102`. The first attempt stopped before composition because a redundant qualification assertion expected the candidate ID under a non-existent `release_set_id` key; the candidate's existing machine-gated schema uses top-level `id` and a component array. The harness-only assertion was corrected without changing product behavior or candidate refs. The successful run first passed the immutable candidate policy checks, verified candidate `id`, blocked status, exact five-component ref map, exact-SHA qualification policy, and no moving branch heads, then staged the blocked candidate through the trusted qualification adapter and ran the canonical composed Core acceptance on one installed candidate system. That acceptance exercised OS, Brain, Memory, Skills, and Data together through setup/onboarding, Brain ownership safety, Core ready/doctor checks, Memory recall, Skills immutable generation pinning, Data create/read, Data and Memory disable/enable preservation, owner-safe uninstall/reinstall of Brain/Memory/Skills/Data, durable state preservation after reinstall, deterministic Data dependency tree/source cleanliness, same-set update no-op, forbidden backward rollback, safe same-set rollback, and open handoff. Job conclusion: `success`. Same-head Core Lineage Guard run `37931207510` also concluded `success`. Candidate remains blocked/unreleased.
+
 Qualification-fixture fixes are CI-bounded: exact frozen descendant owner refs temporarily use existing trusted lifecycle adapters; same-set update stays pinned to the candidate; frozen dependency-lock bytes are mirrored into the historical fixture location; and an already-staged identical candidate ID is reused rather than duplicated. None of these admit the release or trust arbitrary descendants.
 
 PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts from Distribution main and contains only intended qualification-harness changes.
 
-Current clean qualification PR: Distribution #26, head `4d665058ed33ff30a1d0e4250474d5b6a16191fe`.
+Current clean qualification PR: Distribution #26, head `d94ea36e517858621725bcbb744b7a1a393cdef6`.
 
 ## Carried repair register
 
@@ -69,6 +71,7 @@ Current clean qualification PR: Distribution #26, head `4d665058ed33ff30a1d0e425
 3. Data aggregate freshness for Purpose current values. **RESOLVED.**
 4. Exact immutable qualification refs. **RESOLVED / machine-gated.**
 5. Context Ladder fixture lifecycle authority. **RESOLVED / candidate-installed and setup through trusted Distribution lifecycle.**
+6. Composed qualification candidate-schema assertion. **RESOLVED / harness-only correction; immutable candidate policy remained green.**
 
 ## Current requested eight-task batch
 
@@ -83,6 +86,15 @@ Current clean qualification PR: Distribution #26, head `4d665058ed33ff30a1d0e425
 
 **Batch progress:** 8 of 8 complete.
 
+## Current requested four-task batch
+
+11. [x] Data/Memory integration tests used by Purpose Context
+12. [x] Context Ladder/runtime integration tests
+13. [x] Clean restart/rebuild tests
+14. [x] Composed cross-system Core acceptance affected by changed refs
+
+**Batch progress:** 4 of 4 complete.
+
 ## Resume instructions
 
-Continue with Slice 12.3 Task 14 only: composed cross-system acceptance affected by the frozen candidate refs. Persist Task 14 before any conditional Agent/composed release check.
+Resolve the Slice 12.3 conditional Agent/composed release qualification next because Gateway/runtime integration was touched. Persist its result and formally close Slice 12.3 before beginning Slice 12.4 independent final review.
