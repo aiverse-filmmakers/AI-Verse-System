@@ -14,10 +14,10 @@
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Slice 11.2:** COMPLETE / ACCEPTED
-- **Completed Slice 11.3 scenarios:** 6 of 12
+- **Completed Slice 11.3 scenarios:** 7 of 12
 - **Current accepted OS head:** `476926333ac4c74cc2abd35e684befec23e37d9c`
-- **Active acceptance PR:** OS PR #71, current accepted task head `766cc8a9faf3f096ed5c15fcc942768ee0c7576c`
-- **NEXT:** **Slice 11.3 / Scenario 7 - material event invalidates feasibility of a strategy**
+- **Active acceptance PR:** OS PR #71, current accepted task head `8dad89d9277ac64c5d834be1b7a4f80aa936fa74`
+- **NEXT:** **Slice 11.3 / Scenario 8 - Data value becomes stale/unavailable**
 
 ## Slice 11.2 closure
 
@@ -33,7 +33,9 @@
 6. [x] material event closes a blocker
    - Material-change classification and relevance application prove a blocker-clear event can restore Purpose relevance for an exact Brain initiative ref without rewriting the canonical initiative status, payload, or ref.
    - OS PR #71 task commits `50bc2c63698868ab34c97611f4598dbac81ba368`, `766cc8a9faf3f096ed5c15fcc942768ee0c7576c`; Purpose hardening CI `37875394580` PASS Ubuntu/macOS/Windows Node 22.
-7. [ ] material event invalidates feasibility of a strategy
+7. [x] material event invalidates feasibility of a strategy
+   - A feasibility/strategy-validity material event marks the exact Brain strategy `invalidated` only through projection relevance. Canonical owner status, payload, and ref remain unchanged.
+   - OS PR #71 task commit `8dad89d9277ac64c5d834be1b7a4f80aa936fa74`; Purpose hardening CI `37875479659` PASS Ubuntu/macOS/Windows Node 22.
 8. [ ] Data value becomes stale/unavailable
 9. [ ] Memory old history conflicts with current Brain/Data truth
 10. [ ] high-impact goal change proposed but not confirmed
@@ -58,4 +60,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 7 - material event invalidates feasibility of a strategy**. Current requested ten-task batch is **1 of 10 complete; 9 remain**. Do not skip task order.
+Continue only with **Slice 11.3 / Scenario 8 - Data value becomes stale/unavailable**. Current requested ten-task batch is **2 of 10 complete; 8 remain**. Do not skip task order.
