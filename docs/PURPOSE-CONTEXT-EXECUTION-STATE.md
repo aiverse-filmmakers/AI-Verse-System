@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 32 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 5 - document explain/trajectory behavior.
+- **NEXT:** Slice 13.1 Task 6 - document mutation confirmation behavior.
 
 ## Admitted Purpose Core
 
@@ -63,12 +63,18 @@ The usage guide documents operator/global versus bounded workspace behavior, pro
 
 The usage guide documents rich-profile contextual sections, the five exact optional owner-backed domains, current-state/material-change relevance, Brain-owned initiative lifecycle status, rich/auto request examples, and the progressive-disclosure rule that keeps simple workspaces simple.
 
+### Task 5 - Explain/trajectory behavior
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-5.md`.
+
+`docs/PURPOSE-CONTEXT-EXPLAIN.md` documents exact selector semantics, deterministic trajectory traversal, causal relation priority, complete/orphan/partial outcomes, missing-link reporting, scope-boundary behavior, cycle rejection, provenance, and the rule that missing trajectory is never hallucinated.
+
 ## Remaining canonical work
 
-12 items remain after this task:
-- Slice 13.1 Tasks 5-8 = 4 items;
+11 items remain after this task:
+- Slice 13.1 Tasks 6-8 = 3 items;
 - Slice 13.2 final closure = 8 items.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 5: document explain/trajectory behavior. Persist Task 5 before beginning Task 6.
+Continue only with Slice 13.1 Task 6: document mutation confirmation behavior. Persist Task 6 before beginning Task 7.
