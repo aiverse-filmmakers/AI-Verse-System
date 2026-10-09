@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2, 12.3
 - **Closed slices:** 30 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.4 Review Question 1 - Did Purpose Context introduce any second source of truth?
+- **NEXT:** Slice 12.4 Review Question 2 - Can any generated state become stronger than owner state?
 
 ## Final frozen Core candidate refs
 
@@ -61,6 +61,23 @@ Same-head Core Lineage Guard run `37933117450`, job `113828455421`, also passed.
 
 The Source Agent candidate remains blocked/unreleased. No Core or Agent release channel was mutated by qualification.
 
+## Slice 12.4 independent review evidence
+
+Canonical review record: `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW.md`.
+
+**Review Question 1 - Did Purpose Context introduce any second source of truth? COMPLETE / ACCEPTED.**
+
+Result: **NO.** Independent source inspection of the exact frozen OS, Brain, Data, Memory refs and exact qualified Gateway runtime ref found no second canonical Purpose, strategic, KPI/current-value, history, or operational store.
+
+- OS Purpose is a read-only, disposable projection over current owner reads. It has no Purpose cache, no `purpose_context` workspace authority block, and fails closed when the Brain owner reader is unavailable.
+- Brain Purpose is a read-only snapshot of existing canonical Brain objects and relationships.
+- Data Purpose reads exact canonical Data refs and returns bounded primitive values plus provenance/freshness without persisting copies.
+- Memory Purpose history is a bounded read over canonical Memory recall with exact scope/provenance and no current-truth promotion.
+- Gateway treats Purpose as runtime owner context, not canonical truth. Its policy requires fresh owner reads, forbids cache reuse and stale fallback, and its store persists normal run/session/event state rather than a Purpose owner database.
+- Strategic mutation remains routed to the current canonical direction owner. Purpose rebuild is permitted only after canonical-owner success and is rebuilt from a fresh OS owner read; the rebuilt projection is explicitly non-authoritative for mutation.
+
+Gateway run-state persistence of the context snapshot used by a run is classified as existing live/run-state authority, not a second Purpose source of truth. It cannot supersede a fresh owner projection under the runtime precedence contract.
+
 ## Carried repair register
 
 1. Dashboard workspace-ID max 128 alignment. **RESOLVED.**
@@ -74,10 +91,10 @@ The Source Agent candidate remains blocked/unreleased. No Core or Agent release 
 ## Current requested two-step batch
 
 1. [x] Resolve conditional Agent/composed release qualification and formally close Slice 12.3.
-2. [ ] Begin Slice 12.4 with Review Question 1: Did Purpose Context introduce any second source of truth?
+2. [x] Begin Slice 12.4 with Review Question 1: Did Purpose Context introduce any second source of truth?
 
-**Batch progress:** 1 of 2 complete.
+**Batch progress:** 2 of 2 complete.
 
 ## Resume instructions
 
-Execute only Slice 12.4 Review Question 1 next. Review exact frozen implementation and owner contracts for any duplicated canonical strategic, KPI/current-value, history, runtime, or generated Purpose state. Persist the independent review result before beginning Review Question 2.
+Continue only with Slice 12.4 Review Question 2: can any generated state become stronger than owner state? Persist that independent review result before beginning Review Question 3.
