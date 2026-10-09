@@ -15,7 +15,7 @@
 - **Closed phases:** 0 through 11 = 12 of 14
 - **Slice 12.1:** COMPLETE / ACCEPTED
 - **Slice 12.1 closure:** `docs/PURPOSE-CONTEXT-SLICE-12.1-CLOSURE.md`
-- **NEXT:** requested batch Task 6 - full Data regression suite against frozen Data ref `f8978f8f7a1bc94edecddc2662112233289159a3`
+- **NEXT:** requested batch Task 7 - all Purpose Context tests against the frozen candidate refs
 
 ## Final frozen candidate refs
 
@@ -39,7 +39,9 @@
 
 **Brain regression suite COMPLETE / ACCEPTED.** Frozen Brain SHA `69f7912eeb35f0178f6952ff0554aec8d7f2c496` has exactly three push-triggered workflow runs and all three are completed successfully: CI `37584271057`, OS Direction Ownership Contract `37584271029`, and Skills Receipt Contract `37584271047`. The exact-SHA success count is 3, matching the unfiltered exact-SHA run count of 3.
 
-**Memory regression suite COMPLETE / ACCEPTED.** Frozen Memory SHA `f1327be48ba2ee0043959021365e6dbb9dcb1d3a` has exactly two push-triggered workflow runs and both are completed successfully: Test `37686666851` and Migration Handoff Atomicity `37686666811`. The exact-SHA success count is 2, matching the unfiltered exact-SHA run count of 2. No Memory regression failure remains open.
+**Memory regression suite COMPLETE / ACCEPTED.** Frozen Memory SHA `f1327be48ba2ee0043959021365e6dbb9dcb1d3a` has exactly two push-triggered workflow runs and both are completed successfully: Test `37686666851` and Migration Handoff Atomicity `37686666811`. The exact-SHA success count is 2, matching the unfiltered exact-SHA run count of 2.
+
+**Data regression suite COMPLETE / ACCEPTED.** Frozen Data SHA `f8978f8f7a1bc94edecddc2662112233289159a3` has one exact-SHA CI run, `37645269881`, and it completed successfully. Its full matrix is six green jobs: Node 22 and Node 24 across Ubuntu, macOS, and Windows. Every matrix job passed build/test, package smoke, CLI smoke, and install smoke. No Data regression failure remains open.
 
 ## Carried repair register
 
@@ -55,12 +57,12 @@
 3. [x] full OS regression suite
 4. [x] full Brain regression suite
 5. [x] full Memory regression suite
-6. [ ] full Data regression suite
+6. [x] full Data regression suite
 7. [ ] all Purpose Context tests
 8. [ ] all direction-owner/current-context/workspace-isolation regressions
 
-**Batch progress:** 5 of 8 complete; 3 remain.
+**Batch progress:** 6 of 8 complete; 2 remain.
 
 ## Resume instructions
 
-Continue only with requested batch **Task 6**. All qualification evidence must correspond to the exact frozen candidate refs above.
+Continue only with requested batch **Task 7**. All qualification evidence must correspond to the exact frozen candidate refs above.
