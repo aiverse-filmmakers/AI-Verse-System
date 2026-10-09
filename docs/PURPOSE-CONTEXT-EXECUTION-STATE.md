@@ -15,11 +15,11 @@
 - **Closed phases:** 0 through 11 = 12 of 14
 - **Slice 11.3:** COMPLETE / ACCEPTED
 - **Slice 11.3 closure:** `docs/PURPOSE-CONTEXT-SLICE-11.3-CLOSURE.md`
-- **NEXT:** **Slice 12.1 / Task 2 - verify each changed protected component is same-or-descendant of `core-repaired-public-beta-2026-10-06`**
+- **NEXT:** **Slice 12.1 / Task 3 - freeze dependency locks required by the candidate refs**
 
 ## Slice 12.1 candidate freeze
 
-**Task 1 COMPLETE.** Distribution PR #22 commit `df2a00782b00e5135967c57b459b92eafe44868a` created `qualification/purpose-context/candidate.json` with immutable refs:
+**Task 1 COMPLETE.** Distribution PR #22 commit `df2a00782b00e5135967c57b459b92eafe44868a` froze immutable candidate refs:
 
 - OS: `b34bf41cd3cf267970a2462b2f881d963eebd55c`
 - Brain: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
@@ -27,12 +27,20 @@
 - Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8` (**unchanged from parent release**)
 - Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
 
-The candidate records `qualification_uses_moving_branch_heads:false`. Branch heads were sampled only once to freeze immutable SHAs; all subsequent qualification must use the frozen refs.
+**Task 2 COMPLETE.** Distribution PR #22 commit `0d1d09ee606893974891872557bd918b21d11c91` froze same-or-descendant evidence against the canonical repaired release descriptor:
+
+- OS baseline `e74a4e05b1f891e6f871f34a298bf10363a11d88` -> candidate `b34bf41cd3cf267970a2462b2f881d963eebd55c`: **ahead 161, behind 0**
+- Brain baseline `7c77b053df627e61b3d7f11d029500ab61095c9c` -> candidate `69f7912eeb35f0178f6952ff0554aec8d7f2c496`: **ahead 21, behind 0**
+- Memory baseline `b0cae8cd8da38aa657fbc736c575177aa75e5ec7` -> candidate `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`: **ahead 6, behind 0**
+- Skills baseline/candidate `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`: **identical**
+- Data baseline `6e8781ff1dcd96a35dfb27868bd60605361483d0` -> candidate `f8978f8f7a1bc94edecddc2662112233289159a3`: **ahead 13, behind 0**
+
+The lineage blocker is removed. Qualification remains blocked only on dependency-lock freeze and full Core requalification.
 
 ## Slice 12.1 tasks
 
 1. [x] record exact final descendant refs for OS/Brain/Memory/Data and unchanged Skills ref if untouched
-2. [ ] verify each changed protected component is same-or-descendant of `core-repaired-public-beta-2026-10-06`
+2. [x] verify each changed protected component is same-or-descendant of `core-repaired-public-beta-2026-10-06`
 3. [ ] freeze dependency locks required by candidate refs
 4. [ ] do not qualify against moving branch heads
 
@@ -49,8 +57,8 @@ The candidate records `qualification_uses_moving_branch_heads:false`. Branch hea
 1. Dashboard workspace-ID contract alignment max 128. **RESOLVED.**
 2. OS workspace manifest schema max length should align runtime max 128.
 3. Data aggregate freshness path. **RESOLVED for Purpose current values.**
-4. Final qualification must pin exact component refs. **REFS FROZEN; lineage/locks pending.**
+4. Final qualification must pin exact component refs. **REFS + LINEAGE FROZEN; dependency locks pending.**
 
 ## Resume instructions
 
-Continue only with **Slice 12.1 / Task 2 - verify candidate lineage**. Current requested ten-task batch is **8 of 10 complete; 2 remain**. Do not begin Task 4 in this batch.
+Continue only with **Slice 12.1 / Task 3 - freeze dependency locks required by the candidate refs**. Current requested ten-task batch is **9 of 10 complete; 1 remains**. Do not begin Task 4 in this batch.
