@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 32 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 3 - document operator vs workspace behavior.
+- **NEXT:** Slice 13.1 Task 4 - document optional rich workspace fields.
 
 ## Admitted Purpose Core
 
@@ -49,14 +49,20 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-2.md`.
 
-`docs/PURPOSE-CONTEXT-USAGE.md` now documents the admitted v1 JSON CLI and OS library API, supported inputs and budgets, owner-reader integration, fail-closed unavailable behavior, and the no-store/no-cache ownership boundary.
+`docs/PURPOSE-CONTEXT-USAGE.md` documents the admitted v1 JSON CLI and OS library API, supported inputs and budgets, owner-reader integration, fail-closed unavailable behavior, and the no-store/no-cache ownership boundary.
+
+### Task 3 - Operator vs workspace behavior
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-3.md`.
+
+The usage guide now documents operator/global versus bounded workspace behavior, profile resolution, no v1 workspace Purpose config block, exact-scope evidence, workspace isolation, and fail-closed cross-scope behavior.
 
 ## Remaining canonical work
 
-14 items remain after this task:
-- Slice 13.1 Tasks 3-8 = 6 items;
+13 items remain after this task:
+- Slice 13.1 Tasks 4-8 = 5 items;
 - Slice 13.2 final closure = 8 items.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 3: document operator vs workspace behavior. Persist Task 3 before beginning Task 4.
+Continue only with Slice 13.1 Task 4: document optional rich workspace fields. Persist Task 4 before beginning Task 5.
