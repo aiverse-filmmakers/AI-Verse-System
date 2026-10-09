@@ -16,7 +16,7 @@
 - **Slice 12.1:** COMPLETE / ACCEPTED
 - **Slice 12.2:** COMPLETE / ACCEPTED
 - **Slice 12.2 closure:** `docs/PURPOSE-CONTEXT-SLICE-12.2-CLOSURE.md`
-- **NEXT:** requested batch Task 3 - Clean Machine Core Acceptance on Linux against the exact frozen Purpose candidate.
+- **NEXT:** requested batch Task 4 - Clean Machine Core Acceptance on macOS against the exact frozen Purpose candidate.
 
 ## Final frozen candidate refs
 
@@ -29,29 +29,27 @@
 ## Slice 12.1 closure evidence
 
 - Moving-head qualification guard: Distribution PR #23, CI `37911041350` 6/6 green, merge `59e58d2c87d6d9c6a112f9e0e80765b37aa780c2`.
-- OS workspace-ID repair: schema and runtime now both enforce max 128; 128 accepted and 129 rejected. OS PR #72 Repository QC `37911504828` passed all three jobs; merge `4f03849444b1d01ad81317bf0fece082d5a30e79`.
-- Refreshed candidate freeze: Distribution PR #24 CI `37911706836` passed all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs; merge `4d1fb196fe163306aeedb864841a9e77440b133d`.
+- OS workspace-ID repair: schema/runtime max 128 aligned and tested. OS PR #72 merged `4f03849444b1d01ad81317bf0fece082d5a30e79`.
+- Refreshed candidate freeze: Distribution PR #24 CI `37911706836` passed six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs; merge `4d1fb196fe163306aeedb864841a9e77440b133d`.
 - Exact-SHA qualification is machine-enforced. Data dependency lock remains frozen.
 
 ## Slice 12.2 component-test evidence
 
-- **OS COMPLETE / ACCEPTED:** exact frozen OS SHA has seven green push workflows; Direction Ownership `37911609710`, Repository QC `37911609654`.
+- **OS COMPLETE / ACCEPTED:** frozen OS workflows green; Direction Ownership `37911609710`, Repository QC `37911609654`.
 - **Brain COMPLETE / ACCEPTED:** CI `37584271057`, OS Direction Ownership Contract `37584271029`, Skills Receipt Contract `37584271047` green.
-- **Memory COMPLETE / ACCEPTED:** Test `37686666851` and Migration Handoff Atomicity `37686666811` green.
+- **Memory COMPLETE / ACCEPTED:** Test `37686666851`, Migration Handoff Atomicity `37686666811` green.
 - **Data COMPLETE / ACCEPTED:** CI `37645269881`, six Node 22/24 x Ubuntu/macOS/Windows jobs green.
-- **Purpose Context COMPLETE / ACCEPTED:** Direction Ownership `37911609710` broad suite and hardening `37876335706` Ubuntu/macOS/Windows green.
-- **Direction/current-context/isolation COMPLETE / ACCEPTED:** exact frozen owner/isolation gates green.
+- **Purpose / direction / current-context / isolation COMPLETE / ACCEPTED:** exact frozen owner/isolation/Purpose gates green.
 
 ## Slice 12.3 qualification evidence
 
-**Task 1 - Distribution CI COMPLETE / ACCEPTED.** Candidate-refresh Distribution CI `37911706836` passed all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs after the final OS ref was frozen. This is the Distribution gate for the exact candidate set.
+**Task 1 - Distribution CI COMPLETE / ACCEPTED.** Candidate-refresh Distribution CI `37911706836` passed all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs after the final OS ref was frozen.
 
-**Task 2 - Core Lineage Guard COMPLETE / ACCEPTED.** Distribution PR #25 head `f1ec32843b817308318ab683058175768bd2cddd` adds a qualification-only exact-ref lineage proof without admitting the candidate. Core Lineage Guard `37915951234` passed both the existing append-only Core lineage guard and fresh actual Git `merge-base --is-ancestor` checks for every frozen Purpose candidate component. The canonical candidate remains blocked/unreleased.
+**Task 2 - Core Lineage Guard COMPLETE / ACCEPTED.** Core Lineage Guard `37915951234` and refreshed run `37916867505` passed the append-only Core guard plus fresh actual Git ancestry checks for all frozen Purpose component refs. Candidate remains blocked/unreleased.
 
-Qualification-only harness on Distribution PR #25:
-- `scripts/verify-purpose-candidate-lineage.py` checks fresh ancestry from repaired baseline to each frozen component SHA.
-- `scripts/prepare-purpose-candidate-qualification.py` stages the blocked candidate only inside the CI working tree as an explicit-install-only test set; no channel/default/Core-lineage admission is committed.
-- `Purpose Context Core Candidate Qualification` run `37915951425` is the authoritative Linux/macOS/Windows exact-candidate clean-machine + bootstrap matrix for Tasks 3-8.
+**Task 3 - Clean Machine Core Linux COMPLETE / ACCEPTED.** Purpose candidate qualification run `37916866642`, Ubuntu job `113775328529`, passed `Prove exact Purpose Core candidate from a clean machine`. The qualification path surfaced and corrected two pre-admission harness gaps before this success: descendant OS/Brain/Memory refs must be temporarily bound to the existing trusted owner lifecycle adapters during qualification, and the generic same-set update check must explicitly target the blocked candidate instead of the currently admitted Core. Both changes are qualification-only and exact-ref scoped; they do not admit the candidate or trust arbitrary descendants.
+
+Qualification-only Distribution PR #25 current head: `744c2419673b8f44c4f80f6912bdd26eafa21306`.
 
 ## Carried repair register
 
@@ -64,15 +62,15 @@ Qualification-only harness on Distribution PR #25:
 
 1. [x] Distribution CI against final frozen candidate set
 2. [x] Core Lineage Guard + fresh candidate same-or-descendant verification
-3. [ ] Clean Machine Core Acceptance - Linux
+3. [x] Clean Machine Core Acceptance - Linux
 4. [ ] Clean Machine Core Acceptance - macOS
 5. [ ] Clean Machine Core Acceptance - Windows
 6. [ ] member/project bootstrap acceptance - Linux
 7. [ ] member/project bootstrap acceptance - macOS
 8. [ ] member/project bootstrap acceptance - Windows
 
-**Batch progress:** 2 of 8 complete; 6 remain.
+**Batch progress:** 3 of 8 complete; 5 remain.
 
 ## Resume instructions
 
-Continue only with requested batch **Task 3**. Use `Purpose Context Core Candidate Qualification` run `37915951425` as the authoritative Tasks 3-8 evidence because it stages and installs the exact frozen Purpose candidate without admitting it. Stop after Task 8; do not begin the remaining Slice 12.3 checks until the user requests continuation.
+Continue only with requested batch **Task 4**. Use `Purpose Context Core Candidate Qualification` run `37916866642` as the authoritative exact-candidate matrix. Linux bootstrap has a separate failure to address only when Task 6 is reached. Stop after Task 8 and do not begin later Slice 12.3 checks.
