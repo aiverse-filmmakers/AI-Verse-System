@@ -8,14 +8,14 @@
 ## Current execution pointer
 
 - **Phase:** 12 - Full Core requalification and new release admission
-- **Current slice:** **12.3 - Cross-platform Core qualification**
+- **Current slice:** **12.4 - Final independent review**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
-- **Closed slices:** 29 of 34
+- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2, 12.3
+- **Closed slices:** 30 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.3 conditional Agent/composed release qualification, required because Purpose Context implementation touched Gateway/runtime integration. Do not begin Slice 12.4 until this conditional gate is resolved and Slice 12.3 is formally closed.
+- **NEXT:** Slice 12.4 Review Question 1 - Did Purpose Context introduce any second source of truth?
 
-## Final frozen candidate refs
+## Final frozen Core candidate refs
 
 - OS: `4f03849444b1d01ad81317bf0fece082d5a30e79`
 - Brain: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
@@ -23,46 +23,43 @@
 - Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8` (unchanged)
 - Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
 
-## Prior accepted qualification baseline
+## Slice 12.3 closure
 
-- Slice 12.1 exact-ref freeze + machine-gated SHA policy: accepted.
-- Slice 12.2 OS/Brain/Memory/Data/Purpose/direction/current-context/isolation component suites: accepted.
+**Slice 12.3 COMPLETE / ACCEPTED.** Canonical closure record: `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`.
 
-## Slice 12.3 qualification evidence
+Mandatory qualification evidence:
 
-**Task 1 - Distribution CI COMPLETE / ACCEPTED.** Candidate-refresh CI `37911706836` passed all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs.
+1. Distribution CI: run `37911706836`, six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs green.
+2. Core Lineage Guard: runs `37915951234`, `37916867505`, `37918170605` green.
+3. Clean Machine Core Linux: run `37916866642`, job `113775328529`, green.
+4. Clean Machine Core macOS: run `37916866642`, job `113775328339`, green.
+5. Clean Machine Core Windows: run `37916866642`, job `113775328422`, green.
+6. Member/project bootstrap Linux: run `37918170553`, job `113779355161`, green.
+7. Member/project bootstrap macOS: run `37918170553`, job `113779354630`, green.
+8. Member/project bootstrap Windows: run `37918170553`, job `113779354900`, green.
+9. OS↔Brain direction/ownership: run `37921740519`, job `113791523292`, green.
+10. Workspace isolation: run `37922223517`, job `113793113144`, green; same-head lineage `37922223716` green.
+11. Data/Memory integration: run `37928193308`, job `113812692125`, green; same-head lineage `37928193187` green.
+12. Context Ladder/runtime: run `37929899476`, job `113817774292`, green using Gateway `1772b75e2add73a524715f746e87b3a6b5561bf6`; same-head lineage `37929899460` green.
+13. Clean restart/rebuild: run `37930360090`, job `113819787629`, green; same-head lineage `37930360126` green.
+14. Composed Core acceptance: run `37931207537`, job `113822093102`, green; same-head lineage `37931207510` green.
 
-**Task 2 - Core Lineage Guard COMPLETE / ACCEPTED.** Runs `37915951234`, `37916867505`, and clean-harness guard `37918170605` passed append-only Core lineage plus fresh Git ancestry for every frozen candidate ref. Candidate remains blocked/unreleased.
+Conditional Agent/composed qualification was required because Purpose Context touched Gateway/runtime. A blocked qualification-only nine-component Agent candidate was frozen on Distribution PR #26 head `578fc400ade045855bbf9bfcab9e25daf651cd42` with the exact five Core refs above plus:
 
-**Task 3 - Clean Machine Core Linux COMPLETE / ACCEPTED.** Run `37916866642`, Ubuntu job `113775328529`, exact-candidate clean-machine step green.
+- Gateway: `1772b75e2add73a524715f746e87b3a6b5561bf6`
+- Automations: `caaed83b98026dd955640fc015d181529b91a1c6`
+- Multiple Bots: `c600e2bc014351a61e1c0e2673fc63f5d5fa54ec`
+- Token: `23b7b8ecbc9d9ef267f5e10449f785eb11107dd4`
 
-**Task 4 - Clean Machine Core macOS COMPLETE / ACCEPTED.** Run `37916866642`, macOS job `113775328339`, exact-candidate clean-machine step green.
+Dedicated Agent/composed run `37933117320` passed full exact Agent acceptance plus composed Goal/Learning on all supported operating systems:
 
-**Task 5 - Clean Machine Core Windows COMPLETE / ACCEPTED.** Run `37916866642`, Windows job `113775328422`, exact-candidate clean-machine step green.
+- Ubuntu job `113828455519`: success
+- macOS job `113828455941`: success
+- Windows job `113828455859`: success
 
-**Task 6 - Member/project bootstrap Linux COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, Ubuntu job `113779355161`, exact-candidate bootstrap green.
+Same-head Core Lineage Guard run `37933117450`, job `113828455421`, also passed.
 
-**Task 7 - Member/project bootstrap macOS COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, macOS job `113779354630`, exact-candidate bootstrap green.
-
-**Task 8 - Member/project bootstrap Windows COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, Windows job `113779354900`, step `Prove member/project bootstrap against exact Purpose candidate` completed successfully. The full run concluded `success` across Ubuntu/macOS/Windows against qualification head `c1a0c400c7f5fe9b5808f101c3cb224ba39754f9`.
-
-**Task 9 - OS↔Brain direction/ownership contract COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `ed608dbd402336dff3227014e1f6655fd4224bac`, workflow run `37921740519`, exact-owner-contracts job `113791523292`. The exact pinned OS `4f03849444b1d01ad81317bf0fece082d5a30e79` and Brain `69f7912eeb35f0178f6952ff0554aec8d7f2c496` were cloned by immutable SHA. The qualification proved OS ownership before handover, no silent Brain takeover, explicit confirmed OS→Brain handover with source provenance, OS refusal of strategic writes after Brain ownership, Brain use of the OS current-context resolver without resurrecting frozen OS strategy, preservation of valid operational current state, and fail-closed behavior if Brain state/runtime disappears. Job conclusion: `success`.
-
-**Task 10 - Workspace isolation COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `e59f2ce339e4b0493184537de864bca1fb2778e7`, workflow run `37922223517`, exact-workspace-isolation job `113793113144`. The job cloned frozen OS `4f03849444b1d01ad81317bf0fece082d5a30e79` by immutable SHA and ran the canonical workspace-owner, Purpose workspace-boundary, security-hardening, and explicit-scope-relationship tests. It proved unrelated workspaces remain unchanged, operator/workspace and workspace A/workspace B data do not leak, traversal and symlink escapes fail closed, deleted workspace data is not retained through a Purpose cache, malformed ownership/path redirects fail closed, authority widening is blocked, and explicit foreign-scope relationships remain refs only without implicit resolve/enumerate/ingest. Job conclusion: `success`. Same-head Core Lineage Guard run `37922223716` also concluded `success`.
-
-**Task 11 - Data/Memory integration COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `18230c4d657c9d4141682aede3e8cfdfc64de038`, workflow run `37928193308`, exact-data-memory-integration job `113812692125`. The qualification cloned exact frozen OS `4f03849444b1d01ad81317bf0fece082d5a30e79`, Data `f8978f8f7a1bc94edecddc2662112233289159a3`, and Memory `f1327be48ba2ee0043959021365e6dbb9dcb1d3a` by immutable SHA. It passed Data's Purpose current-value status, freshness, provenance, exact-value, and no-row-copy owner tests; Memory's dedicated bounded Purpose-history owner tests; and OS consumer-boundary tests for Data current values/source descent and Memory history reads. The result preserves Data as current quantitative authority, Memory as bounded historical evidence rather than current strategic authority, exact scope/provenance handling, false/zero/null values, partial/unavailable states, and fail-closed owner loss. Job conclusion: `success`. Same-head Core Lineage Guard run `37928193187` also concluded `success`.
-
-**Task 12 - Context Ladder/runtime integration COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `1368e4e9fdfeede53f21e8ffe60bb306d52cd8cf`, dedicated exact workflow run `37929899476`, exact-context-ladder-runtime job `113817774292`. The first exact run correctly exposed that the old Gateway fixture only attached Memory and no longer satisfied frozen OS lifecycle authority. The qualification was repaired to stage the blocked candidate only inside CI through Distribution's existing trusted lifecycle adapters, install/setup the exact candidate set, verify all five installed revisions against the frozen SHAs, and verify Memory owner status as installed, attached, enabled, setup-complete, and ready before Gateway composition. The final job then passed the real Gateway Context Ladder composition plus context-governor, deep-context, progressive-context, Purpose envelope/precedence/refresh/relevance/unavailable, security/recovery, and state-linearizability runtime tests using accepted Gateway `1772b75e2add73a524715f746e87b3a6b5561bf6`. Same-head Core Lineage Guard run `37929899460` concluded `success`. Candidate remains blocked/unreleased.
-
-**Task 13 - Clean restart/rebuild COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `4d665058ed33ff30a1d0e4250474d5b6a16191fe`, dedicated exact workflow run `37930360090`, exact-clean-restart-rebuild job `113819787629`. The job cloned frozen OS `4f03849444b1d01ad81317bf0fece082d5a30e79` by immutable SHA and passed the canonical Purpose rebuild, no-cache, and current-context suites. It proved fresh-process regeneration, delete-and-rebuild equivalence, absence of persistent Purpose cache authority, fresh owner reads after mutation, workspace isolation after rebuild, bounded deterministic rebuild behavior, and prevention of frozen OS strategic fallback after Brain ownership. Job conclusion: `success`. Same-head Core Lineage Guard run `37930360126` also concluded `success`. Candidate remains blocked/unreleased.
-
-**Task 14 - Composed cross-system Core acceptance COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `d94ea36e517858621725bcbb744b7a1a393cdef6`, dedicated exact workflow run `37931207537`, exact-composed-core-candidate job `113822093102`. The first attempt stopped before composition because a redundant qualification assertion expected the candidate ID under a non-existent `release_set_id` key; the candidate's existing machine-gated schema uses top-level `id` and a component array. The harness-only assertion was corrected without changing product behavior or candidate refs. The successful run first passed the immutable candidate policy checks, verified candidate `id`, blocked status, exact five-component ref map, exact-SHA qualification policy, and no moving branch heads, then staged the blocked candidate through the trusted qualification adapter and ran the canonical composed Core acceptance on one installed candidate system. That acceptance exercised OS, Brain, Memory, Skills, and Data together through setup/onboarding, Brain ownership safety, Core ready/doctor checks, Memory recall, Skills immutable generation pinning, Data create/read, Data and Memory disable/enable preservation, owner-safe uninstall/reinstall of Brain/Memory/Skills/Data, durable state preservation after reinstall, deterministic Data dependency tree/source cleanliness, same-set update no-op, forbidden backward rollback, safe same-set rollback, and open handoff. Job conclusion: `success`. Same-head Core Lineage Guard run `37931207510` also concluded `success`. Candidate remains blocked/unreleased.
-
-Qualification-fixture fixes are CI-bounded: exact frozen descendant owner refs temporarily use existing trusted lifecycle adapters; same-set update stays pinned to the candidate; frozen dependency-lock bytes are mirrored into the historical fixture location; and an already-staged identical candidate ID is reused rather than duplicated. None of these admit the release or trust arbitrary descendants.
-
-PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts from Distribution main and contains only intended qualification-harness changes.
-
-Current clean qualification PR: Distribution #26, head `d94ea36e517858621725bcbb744b7a1a393cdef6`.
+The Source Agent candidate remains blocked/unreleased. No Core or Agent release channel was mutated by qualification.
 
 ## Carried repair register
 
@@ -71,30 +68,16 @@ Current clean qualification PR: Distribution #26, head `d94ea36e517858621725bcbb
 3. Data aggregate freshness for Purpose current values. **RESOLVED.**
 4. Exact immutable qualification refs. **RESOLVED / machine-gated.**
 5. Context Ladder fixture lifecycle authority. **RESOLVED / candidate-installed and setup through trusted Distribution lifecycle.**
-6. Composed qualification candidate-schema assertion. **RESOLVED / harness-only correction; immutable candidate policy remained green.**
+6. Composed qualification candidate-schema assertion. **RESOLVED / harness-only correction.**
+7. Exact Purpose-aware Gateway lifecycle staging for conditional Agent qualification. **RESOLVED / qualification-only exact-ref adapter.**
 
-## Current requested eight-task batch
+## Current requested two-step batch
 
-1. [x] Distribution CI
-2. [x] Core Lineage Guard + exact-ref ancestry
-3. [x] Clean Machine Core - Linux
-4. [x] Clean Machine Core - macOS
-5. [x] Clean Machine Core - Windows
-6. [x] member/project bootstrap - Linux
-7. [x] member/project bootstrap - macOS
-8. [x] member/project bootstrap - Windows
+1. [x] Resolve conditional Agent/composed release qualification and formally close Slice 12.3.
+2. [ ] Begin Slice 12.4 with Review Question 1: Did Purpose Context introduce any second source of truth?
 
-**Batch progress:** 8 of 8 complete.
-
-## Current requested four-task batch
-
-11. [x] Data/Memory integration tests used by Purpose Context
-12. [x] Context Ladder/runtime integration tests
-13. [x] Clean restart/rebuild tests
-14. [x] Composed cross-system Core acceptance affected by changed refs
-
-**Batch progress:** 4 of 4 complete.
+**Batch progress:** 1 of 2 complete.
 
 ## Resume instructions
 
-Resolve the Slice 12.3 conditional Agent/composed release qualification next because Gateway/runtime integration was touched. Persist its result and formally close Slice 12.3 before beginning Slice 12.4 independent final review.
+Execute only Slice 12.4 Review Question 1 next. Review exact frozen implementation and owner contracts for any duplicated canonical strategic, KPI/current-value, history, runtime, or generated Purpose state. Persist the independent review result before beginning Review Question 2.
