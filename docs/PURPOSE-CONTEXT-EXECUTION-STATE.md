@@ -14,8 +14,9 @@
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Slice 11.2:** COMPLETE / ACCEPTED
-- **Completed Slice 11.3 scenarios:** 4 of 12
-- **NEXT:** **Slice 11.3 / Scenario 5 - two isolated workspaces with conflicting goals**
+- **Completed Slice 11.3 scenarios:** 5 of 12
+- **Current accepted OS head:** `476926333ac4c74cc2abd35e684befec23e37d9c`
+- **NEXT:** **Slice 11.3 / Scenario 6 - material event closes a blocker**
 
 ## Slice 11.2 closure
 
@@ -35,7 +36,9 @@
 4. [x] rich product/business workspace with KPI/risk/current-state context
    - Rich profile preserves exact-scope owner-backed KPI and risk context alongside workspace goal/current state; a cross-scope risk is filtered rather than surfaced.
    - PR #70 task commit `2988227a19a6b086f89e3f3af56870186537372c`; hardening CI `37862911296` PASS Ubuntu/macOS/Windows.
-5. [ ] two isolated workspaces with conflicting goals
+5. [x] two isolated workspaces with conflicting goals
+   - Two workspace-local, semantically conflicting objectives remain independent. Each projection surfaces only its own goal/current state and exact workspace refs, with no reconciliation or cross-workspace leakage.
+   - PR #70 task commit `925e2a06b1c56cee2155beefaa45893e2216c746`; hardening CI `37863015556` PASS Ubuntu/macOS/Windows; PR #70 merged OS `476926333ac4c74cc2abd35e684befec23e37d9c`.
 6. [ ] material event closes a blocker
 7. [ ] material event invalidates feasibility of a strategy
 8. [ ] Data value becomes stale/unavailable
@@ -62,4 +65,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 5 - two isolated workspaces with conflicting goals**. Current requested ten-task batch: **9 of 10 finished; 1 remains**.
+Continue only with **Slice 11.3 / Scenario 6 - material event closes a blocker**. The requested ten-task batch is complete: **10 of 10 finished; 0 remain**. Do not begin Scenario 6 until the user requests continuation.
