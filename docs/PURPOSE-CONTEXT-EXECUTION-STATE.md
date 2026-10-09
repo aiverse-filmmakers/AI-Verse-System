@@ -13,10 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **Slice 12.1:** COMPLETE / ACCEPTED
-- **Slice 12.2:** COMPLETE / ACCEPTED
-- **Slice 12.2 closure:** `docs/PURPOSE-CONTEXT-SLICE-12.2-CLOSURE.md`
-- **NEXT:** requested batch Task 5 - Clean Machine Core Acceptance on Windows against the exact frozen Purpose candidate.
+- **NEXT:** requested batch Task 6 - member/project bootstrap acceptance on Linux against the exact frozen Purpose candidate.
 
 ## Final frozen candidate refs
 
@@ -26,50 +23,47 @@
 - Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8` (unchanged)
 - Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
 
-## Slice 12.1 closure evidence
+## Prior accepted qualification baseline
 
-- Moving-head guard: Distribution PR #23, CI `37911041350` 6/6 green, merge `59e58d2c87d6d9c6a112f9e0e80765b37aa780c2`.
-- OS workspace-ID schema/runtime max 128 aligned and tested; OS PR #72 merged `4f03849444b1d01ad81317bf0fece082d5a30e79`.
-- Candidate refresh: Distribution PR #24 CI `37911706836` six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs green; merge `4d1fb196fe163306aeedb864841a9e77440b133d`.
-
-## Slice 12.2 component-test evidence
-
-OS, Brain, Memory, Data, Purpose, direction-owner, current-context and workspace-isolation suites are COMPLETE / ACCEPTED against the frozen refs. Key runs: OS `37911609710` / `37911609654`; Brain `37584271057` / `37584271029` / `37584271047`; Memory `37686666851` / `37686666811`; Data `37645269881`; Purpose hardening `37876335706`.
+- Slice 12.1 exact-ref freeze + machine-gated SHA policy: accepted.
+- Slice 12.2 OS/Brain/Memory/Data/Purpose/direction/current-context/isolation component suites: accepted.
 
 ## Slice 12.3 qualification evidence
 
-**Task 1 - Distribution CI COMPLETE / ACCEPTED.** Candidate-refresh CI `37911706836` passed all six jobs after the final candidate freeze.
+**Task 1 - Distribution CI COMPLETE / ACCEPTED.** Candidate-refresh CI `37911706836` passed all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs.
 
-**Task 2 - Core Lineage Guard COMPLETE / ACCEPTED.** Runs `37915951234`, `37916867505` passed append-only Core lineage plus fresh actual Git ancestry for every frozen component ref. Candidate remains blocked/unreleased.
+**Task 2 - Core Lineage Guard COMPLETE / ACCEPTED.** Runs `37915951234`, `37916867505` passed append-only Core lineage plus fresh Git ancestry for every frozen candidate ref. Candidate remains blocked/unreleased.
 
-**Task 3 - Clean Machine Core Linux COMPLETE / ACCEPTED.** Run `37916866642`, Ubuntu job `113775328529`, clean-machine step green.
+**Task 3 - Clean Machine Core Linux COMPLETE / ACCEPTED.** Run `37916866642`, Ubuntu job `113775328529`, exact-candidate clean-machine step green.
 
-**Task 4 - Clean Machine Core macOS COMPLETE / ACCEPTED.** Run `37916866642`, macOS job `113775328339`, clean-machine step green.
+**Task 4 - Clean Machine Core macOS COMPLETE / ACCEPTED.** Run `37916866642`, macOS job `113775328339`, exact-candidate clean-machine step green.
 
-Pre-admission qualification harness fixes made before acceptance: exact frozen descendant OS/Brain/Memory SHAs are temporarily bound to existing trusted owner lifecycle adapters only inside CI, and same-set update is pinned to the blocked candidate. These do not admit the release or trust arbitrary descendants.
+**Task 5 - Clean Machine Core Windows COMPLETE / ACCEPTED.** Run `37916866642`, Windows job `113775328422`, exact-candidate clean-machine step green.
+
+Pre-admission qualification harness fixes required to reach these green results are exact-ref-only and CI-only: frozen descendant OS/Brain/Memory refs temporarily use the already-approved modern owner lifecycle adapters, and same-set update is pinned to the blocked candidate rather than the admitted Core. No arbitrary descendant trust or release admission is introduced.
 
 Qualification-only Distribution PR #25 head: `744c2419673b8f44c4f80f6912bdd26eafa21306`.
 
 ## Carried repair register
 
-1. Dashboard workspace-ID contract alignment max 128. **RESOLVED.**
-2. OS workspace manifest schema max length align runtime max 128. **RESOLVED.**
-3. Data aggregate freshness path. **RESOLVED for Purpose current values.**
-4. Final qualification pin exact component refs. **RESOLVED and machine-gated.**
+1. Dashboard workspace-ID max 128 alignment. **RESOLVED.**
+2. OS workspace manifest max 128 alignment. **RESOLVED.**
+3. Data aggregate freshness for Purpose current values. **RESOLVED.**
+4. Exact immutable qualification refs. **RESOLVED / machine-gated.**
 
 ## Current requested eight-task batch
 
 1. [x] Distribution CI
-2. [x] Core Lineage Guard + fresh exact-ref ancestry
+2. [x] Core Lineage Guard + exact-ref ancestry
 3. [x] Clean Machine Core - Linux
 4. [x] Clean Machine Core - macOS
-5. [ ] Clean Machine Core - Windows
+5. [x] Clean Machine Core - Windows
 6. [ ] member/project bootstrap - Linux
 7. [ ] member/project bootstrap - macOS
 8. [ ] member/project bootstrap - Windows
 
-**Batch progress:** 4 of 8 complete; 4 remain.
+**Batch progress:** 5 of 8 complete; 3 remain.
 
 ## Resume instructions
 
-Continue only with Task 5. Run `37916866642` is authoritative for the exact candidate. Linux/macOS bootstrap failures belong to Tasks 6-7 and must not be counted early. Stop after Task 8.
+Continue only with Task 6. In run `37916866642`, all three clean-machine steps are green and all three later bootstrap steps fail; diagnose/fix from Linux first, then requalify Linux before counting Task 6. Stop after Task 8.
