@@ -99,3 +99,73 @@ Owner integrations may supply the public owner readers required by the active sc
 - Budget pruning is deterministic and reported in provenance.
 
 This document describes the admitted v1 interfaces. It does not create a new API authority or a second Purpose storage surface.
+
+## 2. Operator vs workspace behavior
+
+Purpose Context supports exactly two scope forms in v1:
+
+```text
+operator
+workspace:<id>
+```
+
+Both scopes use the same ownership law: the projection reads current canonical owners and never becomes an independent source of truth.
+
+### Operator scope
+
+`operator` is the person's/global trajectory scope. It is appropriate for questions such as what the operator is trying to achieve overall, which priorities matter now, and how current work connects to broader direction.
+
+Operator behavior:
+
+- the requested profile must be `auto`;
+- the resolved profile is `operator_default`;
+- workspace-only `basic` or `rich` profile requests are rejected rather than silently reinterpreted;
+- owner-backed strategic sections may include mission/purpose, problems, goals, challenges, strategies, initiatives, current state, metrics, and material changes when those sections are available from their declared owners;
+- strategic direction still follows the OS/Brain direction-owner contract;
+- unavailable owner state is represented as unavailable/partial rather than filled from stale projection data.
+
+Example:
+
+```bash
+node scripts/purpose-context.mjs read --scope operator
+```
+
+### Workspace scope
+
+`workspace:<id>` is the trajectory of one specific project, product, client, team, business, or custom workspace.
+
+Workspace behavior:
+
+- accepted caller profiles are `auto`, `basic`, and `rich`;
+- `auto` starts at `workspace_basic`;
+- `auto` promotes to `workspace_rich` only when a rich-only domain is both relevant/requested and actually backed by owner evidence;
+- `basic` keeps the compact workspace trajectory and required truth/provenance diagnostics while suppressing rich-only narratives, KPIs, and optional rich domains;
+- `rich` broadens the eligible read set but does not create fields that have no owner-backed data;
+- workspace name, type, age, free-text purpose, file count, perceived importance, or unused byte budget cannot force rich mode;
+- v1 does not add or read a `purpose_context` configuration block in `WORKSPACE.yaml`.
+
+Typical compact workspace flow:
+
+```text
+Purpose -> Goals -> Challenges -> Strategies -> Initiatives -> Current Work
+```
+
+Example:
+
+```bash
+node scripts/purpose-context.mjs read \
+  --scope workspace:client-campaign \
+  --profile auto
+```
+
+### Isolation and cross-scope behavior
+
+Workspace isolation is fail-closed:
+
+- reading `workspace:A` does not scan or inherit Purpose state from `workspace:B`;
+- optional owner-backed data is retained only when exact source evidence belongs to the requested scope;
+- malformed scope or ownership records fail closed;
+- explicit cross-scope trajectory relationships may remain explicit provenance-bearing refs, but they do not authorize implicit foreign-scope resolution, enumeration, or ingestion;
+- deleting or rebuilding the projection cannot alter any workspace's canonical state.
+
+The practical rule is simple: use `operator` for global personal direction and `workspace:<id>` for one bounded workspace. Purpose Context never blends scopes merely because their content appears related.
