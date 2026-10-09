@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 3 - record all final qualification workflow IDs in the final completion statement.
+- **NEXT:** Slice 13.2 completion item 4 - record the final Purpose schema version in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -91,11 +91,16 @@ All eight post-admission architecture/user documentation tasks are persisted. Sl
 
 The final completion statement records the exact admitted OS, Brain, Memory, Skills, and Data commit SHAs and separately identifies the qualified Purpose-aware Gateway runtime ref.
 
+### Completion item 3 - final qualification workflow IDs
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-3.md`.
+
+The final completion statement records the complete 19-run Slice 12.3 qualification set, including principal cross-platform/semantic/composed qualification runs and same-head lineage reruns, plus the final admission head and merge identity.
+
 ## Remaining canonical work
 
-6 items remain, all in Slice 13.2 final closure:
+5 items remain, all in Slice 13.2 final closure:
 
-3. all final qualification workflow IDs;
 4. final Purpose schema version;
 5. supported scope/profile behavior;
 6. Slice 7.3 value-gate outcome and measured overhead;
@@ -106,4 +111,4 @@ After all eight are recorded, mark the implementation plan `COMPLETE`.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 3: record all final qualification workflow IDs. Persist it before completion item 4.
+Continue only with Slice 13.2 completion item 4: record the final Purpose schema version. Persist it before completion item 5.
