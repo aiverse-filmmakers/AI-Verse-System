@@ -2,7 +2,7 @@
 
 **Purpose:** durable continuation checkpoint for `docs/PURPOSE-CONTEXT-IMPLEMENTATION-PLAN.md`  
 **Execution law:** execute in exact task order and persist each task before beginning the next.  
-**Current admitted Core baseline:** `core-repaired-public-beta-2026-10-06`  
+**Current admitted Core:** `core-repaired-public-beta-2026-10-06`  
 **Last updated:** 2026-10-09
 
 ## Current execution pointer
@@ -10,59 +10,68 @@
 - **Phase:** 12 - Full Core requalification and new release admission
 - **Current slice:** **12.5 - Distribution admission**
 - **Slice state:** IN PROGRESS
-- **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2, 12.3, 12.4
 - **Closed slices:** 31 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.5 Task 1 - create a new append-only Core release entry without modifying `core-repaired-public-beta-2026-10-06`.
+- **NEXT:** Slice 12.5 Task 4 - include final qualification evidence in the new Core release admission record.
 
-## Final frozen Core candidate refs
+## Frozen Purpose Core candidate
 
-- OS: `4f03849444b1d01ad81317bf0fece082d5a30e79`
-- Brain: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
-- Memory: `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
-- Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
-- Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
+- OS `4f03849444b1d01ad81317bf0fece082d5a30e79`
+- Brain `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- Memory `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- Skills `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- Data `f8978f8f7a1bc94edecddc2662112233289159a3`
 
-Qualified Purpose-aware runtime:
-- Gateway: `1772b75e2add73a524715f746e87b3a6b5561bf6`
+Qualified Purpose-aware runtime: Gateway `1772b75e2add73a524715f746e87b3a6b5561bf6`.
 
-Dashboard review ref:
-- Dashboard: `bd26986e202d4b911d0c5f64659db71363bfccfa`
+## Slice 12.3
 
-## Slice 12.3 closure
+**COMPLETE / ACCEPTED.** `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`.
 
-**COMPLETE / ACCEPTED.** Canonical record: `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`.
+The exact frozen candidate passed Distribution CI, lineage, all-platform clean-machine and bootstrap gates, ownership/isolation/Data/Memory/runtime/rebuild/composed Core gates, plus the conditional nine-component Agent/composed qualification on Ubuntu, macOS and Windows.
 
-The exact frozen Core candidate passed Distribution CI, Core lineage, Linux/macOS/Windows clean-machine acceptance, Linux/macOS/Windows member/project bootstrap, OS-Brain ownership, workspace isolation, Data/Memory integration, Context Ladder/runtime, clean restart/rebuild, composed Core acceptance, and the conditional nine-component Agent/composed qualification on all supported operating systems.
+## Slice 12.4
 
-## Slice 12.4 closure
+**COMPLETE / ACCEPTED.** `docs/PURPOSE-CONTEXT-SLICE-12.4-CLOSURE.md`.
 
-**COMPLETE / ACCEPTED.** Canonical record: `docs/PURPOSE-CONTEXT-SLICE-12.4-CLOSURE.md`.
+All twelve independent review questions are accepted. Q8-Q12 records:
+- `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW-Q8.md`
+- `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW-Q9.md`
+- `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW-Q10.md`
+- `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW-Q11.md`
+- `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW-Q12.md`
 
-All twelve independent review questions are accepted:
-1. no second source of truth;
-2. generated state cannot outrank owner state;
-3. no cross-workspace Purpose leakage;
-4. Memory cannot override current truth;
-5. Dashboard cannot mutate strategy without owner routing;
-6. high-impact changes cannot bypass explicit confirmation;
-7. stale KPI/current-state values cannot masquerade as current;
-8. trajectory edges cannot be silently hallucinated or free-form inferred as canonical facts;
-9. strategic value remains `VALUE PROVEN` with bounded measured overhead;
-10. trivial tasks perform no unnecessary Purpose owner reads;
-11. no protected Core regression from the repaired baseline;
-12. final candidate/runtime refs are exact immutable commits.
+## Slice 12.5 admission progress
 
-Question evidence: `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW-Q4.md` through `Q12.md`, plus the base review record `docs/PURPOSE-CONTEXT-SLICE-12.4-REVIEW.md`.
+### Task 1 - new append-only Core release entry
 
-## Release state
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-1.md`.
 
-The Purpose candidate is still **blocked/unreleased**. Slice 12.4 closure authorizes Distribution admission work but does not itself change any live Core release/channel.
+Created `release-sets/core-purpose-context-public-beta-2026-10-09.json` in Distribution as a new `blocked` Core entry. The prior repaired Core release file was not modified and the live lineage pointer was not changed.
 
-## Remaining canonical work before Slice 12.5 begins
+### Task 2 - lineage parent
 
-None. Slice 12.5 Task 1 is next.
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-2.md`.
+
+The new entry declares parent `core-repaired-public-beta-2026-10-06` with policy `same-or-descendant`, matching Distribution's current Core lineage rule. The live `current_release` remains the repaired Core.
+
+### Task 3 - exact candidate refs
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-12.5-TASK-3.md`.
+
+The new blocked entry contains exactly the five frozen Purpose Core refs above. Data is bound to the frozen companion lock for `f8978f8f7a1bc94edecddc2662112233289159a3` with manifest SHA-256 `0af6c9763fa04170b0bc6226764bb1c78db5296b5586a91d9d2851e27da98ea3`.
+
+Current staged Distribution release-entry commit after Task 3: `f37b16f64b88aee8348b8bcbdafaaf0a117bee90`.
+
+The entry remains `blocked`; Tasks 4-6 are explicit blockers. Distribution's live lineage ledger still has `current_release: core-repaired-public-beta-2026-10-06`.
+
+## Remaining canonical plan items
+
+**19 items remain after this batch:**
+- Slice 12.5: Tasks 4-6 = 3 items
+- Slice 13.1 documentation/handoff = 8 items
+- Slice 13.2 final closure = 8 items
 
 ## Resume instructions
 
-Execute Slice 12.5 Task 1 only: create a new append-only Core release entry without modifying the admitted repaired baseline. Persist Task 1 before beginning Task 2.
+Continue only with Slice 12.5 Task 4: include final qualification evidence in the new blocked release entry/admission record. Persist Task 4 before beginning Task 5.
