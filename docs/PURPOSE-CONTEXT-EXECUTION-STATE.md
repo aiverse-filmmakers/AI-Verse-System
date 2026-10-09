@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 2 - record the exact OS/Brain/Memory/Skills/Data refs in the final completion statement.
+- **NEXT:** Slice 13.2 completion item 3 - record all final qualification workflow IDs in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -59,25 +59,17 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-5.md`.
 
-`docs/PURPOSE-CONTEXT-EXPLAIN.md` documents exact selector semantics, deterministic trajectory traversal, causal relation priority, complete/orphan/partial outcomes, missing-link reporting, scope-boundary behavior, cycle rejection, provenance, and the rule that missing trajectory is never hallucinated.
-
 ### Task 6 - Mutation confirmation behavior
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-6.md`.
-
-`docs/PURPOSE-CONTEXT-MUTATION-CONFIRMATION.md` documents current-owner routing, exact explicit-user confirmation binding, canonical owner operation/receipt semantics, failed/uncertain handling, and fresh Purpose rebuild only after proven canonical-owner success.
 
 ### Task 7 - Measured user-value / anti-bloat result
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-7.md`.
 
-`docs/PURPOSE-CONTEXT-VALUE-GATE.md` records Slice 7.3 as `VALUE PROVEN`, the frozen scenario set, +3/+4/+5/+4 owner-backed decision-basis deltas, one read per relevant strategic scenario, 16,384-byte maximum, zero-read/zero-byte trivial work, zero unrelated-scope refs/bytes, unavailable-owner continuity, preserved OS projection authority, and explicit unmeasured provider cost/model-output surfaces.
-
 ### Task 8 - Final Core release ID and exact refs
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-8.md`.
-
-`docs/PURPOSE-CONTEXT-RELEASE.md` records the final released Core ID, exact OS/Brain/Memory/Skills/Data refs, qualified Purpose-aware Gateway ref, Distribution release-set path/blob, admission merge/head, lineage parent/policy, and final qualification workflow IDs carried by the release record.
 
 ## Slice 13.1 closure
 
@@ -93,11 +85,16 @@ All eight post-admission architecture/user documentation tasks are persisted. Sl
 
 `docs/PURPOSE-CONTEXT-FINAL-COMPLETION.md` records `core-purpose-context-public-beta-2026-10-09` as the final admitted Core release identity.
 
+### Completion item 2 - exact Core component refs
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-2.md`.
+
+The final completion statement records the exact admitted OS, Brain, Memory, Skills, and Data commit SHAs and separately identifies the qualified Purpose-aware Gateway runtime ref.
+
 ## Remaining canonical work
 
-7 items remain, all in Slice 13.2 final closure:
+6 items remain, all in Slice 13.2 final closure:
 
-2. exact OS/Brain/Memory/Skills/Data refs;
 3. all final qualification workflow IDs;
 4. final Purpose schema version;
 5. supported scope/profile behavior;
@@ -109,4 +106,4 @@ After all eight are recorded, mark the implementation plan `COMPLETE`.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 2: record the exact OS/Brain/Memory/Skills/Data refs. Persist it before completion item 3.
+Continue only with Slice 13.2 completion item 3: record all final qualification workflow IDs. Persist it before completion item 4.
