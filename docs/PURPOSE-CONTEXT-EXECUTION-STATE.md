@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2, 12.3
 - **Closed slices:** 30 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.4 Review Question 2 - Can any generated state become stronger than owner state?
+- **NEXT:** Slice 12.4 Review Question 3 - Can one workspace leak another workspace's Purpose?
 
 ## Final frozen Core candidate refs
 
@@ -78,6 +78,18 @@ Result: **NO.** Independent source inspection of the exact frozen OS, Brain, Dat
 
 Gateway run-state persistence of the context snapshot used by a run is classified as existing live/run-state authority, not a second Purpose source of truth. It cannot supersede a fresh owner projection under the runtime precedence contract.
 
+**Review Question 2 - Can any generated state become stronger than owner state? COMPLETE / ACCEPTED.**
+
+Result: **NO.** Independent inspection found no authority-escalation path for generated Purpose state.
+
+- OS Purpose creates no cache or files; direct owner mutation is reflected on the next read and the old generated value disappears.
+- If Brain owns strategic direction and its public reader is unavailable, Purpose reports unavailable rather than restoring generated or stale OS strategy.
+- Gateway always selects a fresh owner projection, ignores cached UI/output candidates, forbids cache reuse, and forbids stale fallback.
+- The exact precedence regression proves owner unavailability never promotes cached Purpose into runtime truth.
+- Generated strategic owner operations remain non-executed until the canonical owner acts; Purpose rebuild is blocked until owner success.
+- Post-write Purpose is rebuilt from a fresh OS owner read and explicitly remains non-authoritative for mutation.
+- Brain, Data, and Memory projection surfaces retain canonical owner refs/provenance and provide no write-back path that could elevate a projection over its owner.
+
 ## Carried repair register
 
 1. Dashboard workspace-ID max 128 alignment. **RESOLVED.**
@@ -90,11 +102,11 @@ Gateway run-state persistence of the context snapshot used by a run is classifie
 
 ## Current requested two-step batch
 
-1. [x] Resolve conditional Agent/composed release qualification and formally close Slice 12.3.
-2. [x] Begin Slice 12.4 with Review Question 1: Did Purpose Context introduce any second source of truth?
+1. [x] Review Question 2: Can any generated state become stronger than owner state?
+2. [ ] Review Question 3: Can one workspace leak another workspace's Purpose?
 
-**Batch progress:** 2 of 2 complete.
+**Batch progress:** 1 of 2 complete.
 
 ## Resume instructions
 
-Continue only with Slice 12.4 Review Question 2: can any generated state become stronger than owner state? Persist that independent review result before beginning Review Question 3.
+Continue only with Slice 12.4 Review Question 3: can one workspace leak another workspace's Purpose? Persist that independent review result before beginning Review Question 4.
