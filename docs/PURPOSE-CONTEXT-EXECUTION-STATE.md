@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 32 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 7 - document the measured user-value/anti-bloat result from Slice 7.3.
+- **NEXT:** Slice 13.1 Task 8 - record final Core release ID and exact refs.
 
 ## Admitted Purpose Core
 
@@ -75,12 +75,18 @@ The usage guide documents rich-profile contextual sections, the five exact optio
 
 `docs/PURPOSE-CONTEXT-MUTATION-CONFIRMATION.md` documents current-owner routing, exact explicit-user confirmation binding, canonical owner operation/receipt semantics, failed/uncertain handling, and fresh Purpose rebuild only after proven canonical-owner success.
 
+### Task 7 - Measured user-value / anti-bloat result
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-7.md`.
+
+`docs/PURPOSE-CONTEXT-VALUE-GATE.md` records Slice 7.3 as `VALUE PROVEN`, the frozen scenario set, +3/+4/+5/+4 owner-backed decision-basis deltas, one read per relevant strategic scenario, 16,384-byte maximum, zero-read/zero-byte trivial work, zero unrelated-scope refs/bytes, unavailable-owner continuity, preserved OS projection authority, and explicit unmeasured provider cost/model-output surfaces.
+
 ## Remaining canonical work
 
-10 items remain after this task:
-- Slice 13.1 Tasks 7-8 = 2 items;
+9 items remain after this task:
+- Slice 13.1 Task 8 = 1 item;
 - Slice 13.2 final closure = 8 items.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 7: document the measured user-value/anti-bloat result from Slice 7.3. Persist Task 7 before beginning Task 8.
+Continue only with Slice 13.1 Task 8: record final Core release ID and exact refs. Persist Task 8 before beginning Slice 13.2.
