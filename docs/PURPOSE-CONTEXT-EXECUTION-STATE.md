@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** Slice 12.3 Task 13 - clean restart/rebuild tests against the exact frozen Purpose candidate.
+- **NEXT:** Slice 12.3 Task 14 - composed cross-system acceptance affected by the frozen Purpose candidate refs.
 
 ## Final frozen candidate refs
 
@@ -54,11 +54,13 @@
 
 **Task 12 - Context Ladder/runtime integration COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `1368e4e9fdfeede53f21e8ffe60bb306d52cd8cf`, dedicated exact workflow run `37929899476`, exact-context-ladder-runtime job `113817774292`. The first exact run correctly exposed that the old Gateway fixture only attached Memory and no longer satisfied frozen OS lifecycle authority. The qualification was repaired to stage the blocked candidate only inside CI through Distribution's existing trusted lifecycle adapters, install/setup the exact candidate set, verify all five installed revisions against the frozen SHAs, and verify Memory owner status as installed, attached, enabled, setup-complete, and ready before Gateway composition. The final job then passed the real Gateway Context Ladder composition plus context-governor, deep-context, progressive-context, Purpose envelope/precedence/refresh/relevance/unavailable, security/recovery, and state-linearizability runtime tests using accepted Gateway `1772b75e2add73a524715f746e87b3a6b5561bf6`. Same-head Core Lineage Guard run `37929899460` concluded `success`. Candidate remains blocked/unreleased.
 
+**Task 13 - Clean restart/rebuild COMPLETE / ACCEPTED.** Distribution PR #26 qualification head `4d665058ed33ff30a1d0e4250474d5b6a16191fe`, dedicated exact workflow run `37930360090`, exact-clean-restart-rebuild job `113819787629`. The job cloned frozen OS `4f03849444b1d01ad81317bf0fece082d5a30e79` by immutable SHA and passed the canonical Purpose rebuild, no-cache, and current-context suites. It proved fresh-process regeneration, delete-and-rebuild equivalence, absence of persistent Purpose cache authority, fresh owner reads after mutation, workspace isolation after rebuild, bounded deterministic rebuild behavior, and prevention of frozen OS strategic fallback after Brain ownership. Job conclusion: `success`. Same-head Core Lineage Guard run `37930360126` also concluded `success`. Candidate remains blocked/unreleased.
+
 Qualification-fixture fixes are CI-bounded: exact frozen descendant owner refs temporarily use existing trusted lifecycle adapters; same-set update stays pinned to the candidate; frozen dependency-lock bytes are mirrored into the historical fixture location; and an already-staged identical candidate ID is reused rather than duplicated. None of these admit the release or trust arbitrary descendants.
 
 PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts from Distribution main and contains only intended qualification-harness changes.
 
-Current clean qualification PR: Distribution #26, head `1368e4e9fdfeede53f21e8ffe60bb306d52cd8cf`.
+Current clean qualification PR: Distribution #26, head `4d665058ed33ff30a1d0e4250474d5b6a16191fe`.
 
 ## Carried repair register
 
@@ -83,4 +85,4 @@ Current clean qualification PR: Distribution #26, head `1368e4e9fdfeede53f21e8ff
 
 ## Resume instructions
 
-Continue with Slice 12.3 Task 13 only: clean restart/rebuild tests on the same exact frozen candidate set. Persist Task 13 before beginning Task 14.
+Continue with Slice 12.3 Task 14 only: composed cross-system acceptance affected by the frozen candidate refs. Persist Task 14 before any conditional Agent/composed release check.
