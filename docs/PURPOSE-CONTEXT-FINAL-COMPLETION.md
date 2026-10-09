@@ -40,3 +40,29 @@ These are the exact revisions recorded in the released Distribution set. Skills 
 The qualified Purpose-aware Gateway runtime is recorded separately because Gateway is not a Core component:
 
 - Gateway: `1772b75e2add73a524715f746e87b3a6b5561bf6`
+
+## 3. Final qualification workflow IDs
+
+The complete final Slice 12.3 qualification workflow-run set is:
+
+- Distribution CI: `37911706836`
+- Core Lineage Guard qualification runs: `37915951234`, `37916867505`, `37918170605`
+- Clean Machine Core Linux/macOS/Windows: `37916866642`
+- member/project bootstrap Linux/macOS/Windows: `37918170553`
+- OS/Brain direction/ownership contract: `37921740519`
+- workspace isolation: `37922223517`
+- workspace-isolation same-head lineage: `37922223716`
+- Data/Memory integration: `37928193308`
+- Data/Memory same-head lineage: `37928193187`
+- Context Ladder/runtime integration: `37929899476`
+- Context Ladder same-head lineage: `37929899460`
+- clean restart/rebuild: `37930360090`
+- restart/rebuild same-head lineage: `37930360126`
+- composed Core acceptance: `37931207537`
+- composed-Core same-head lineage: `37931207510`
+- conditional Agent/composed qualification: `37933117320`
+- conditional Agent same-head lineage: `37933117450`
+
+These runs correspond to the frozen exact-ref qualification program recorded in `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`. The released Distribution record carries the principal qualification subset, while this final statement preserves the complete qualification run set including same-head lineage reruns.
+
+Final Distribution admission was performed only after every workflow on admission head `468164945e6118f1c9bcd144a6241d740403ab1b` was green; PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d`.
