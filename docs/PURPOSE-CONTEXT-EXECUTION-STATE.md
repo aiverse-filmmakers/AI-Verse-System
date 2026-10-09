@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** requested batch Task 6 - member/project bootstrap acceptance on Linux against the exact frozen Purpose candidate.
+- **NEXT:** requested batch Task 7 - member/project bootstrap acceptance on macOS against the exact frozen Purpose candidate.
 
 ## Final frozen candidate refs
 
@@ -32,7 +32,7 @@
 
 **Task 1 - Distribution CI COMPLETE / ACCEPTED.** Candidate-refresh CI `37911706836` passed all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs.
 
-**Task 2 - Core Lineage Guard COMPLETE / ACCEPTED.** Runs `37915951234`, `37916867505` passed append-only Core lineage plus fresh Git ancestry for every frozen candidate ref. Candidate remains blocked/unreleased.
+**Task 2 - Core Lineage Guard COMPLETE / ACCEPTED.** Runs `37915951234`, `37916867505`, and clean-harness guard `37918170605` passed append-only Core lineage plus fresh Git ancestry for every frozen candidate ref. Candidate remains blocked/unreleased.
 
 **Task 3 - Clean Machine Core Linux COMPLETE / ACCEPTED.** Run `37916866642`, Ubuntu job `113775328529`, exact-candidate clean-machine step green.
 
@@ -40,9 +40,11 @@
 
 **Task 5 - Clean Machine Core Windows COMPLETE / ACCEPTED.** Run `37916866642`, Windows job `113775328422`, exact-candidate clean-machine step green.
 
-Pre-admission qualification harness fixes required to reach these green results are exact-ref-only and CI-only: frozen descendant OS/Brain/Memory refs temporarily use the already-approved modern owner lifecycle adapters, and same-set update is pinned to the blocked candidate rather than the admitted Core. No arbitrary descendant trust or release admission is introduced.
+**Task 6 - Member/project bootstrap Linux COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, Ubuntu job `113779355161`, passed both exact-candidate clean-machine Core and `Prove member/project bootstrap against exact Purpose candidate`. Qualification-fixture fixes are bounded to CI: frozen dependency-lock bytes are mirrored into the historical fixture location and an already-staged identical candidate ID is reused rather than appended twice.
 
-Qualification-only Distribution PR #25 head: `744c2419673b8f44c4f80f6912bdd26eafa21306`.
+PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts again from Distribution main and applies only qualification harness changes; accepted Tasks 1-5 remain valid because their successful clean-machine evidence predates the discarded edit.
+
+Current clean qualification PR: Distribution #26, head `c1a0c400c7f5fe9b5808f101c3cb224ba39754f9`.
 
 ## Carried repair register
 
@@ -58,12 +60,12 @@ Qualification-only Distribution PR #25 head: `744c2419673b8f44c4f80f6912bdd26eaf
 3. [x] Clean Machine Core - Linux
 4. [x] Clean Machine Core - macOS
 5. [x] Clean Machine Core - Windows
-6. [ ] member/project bootstrap - Linux
+6. [x] member/project bootstrap - Linux
 7. [ ] member/project bootstrap - macOS
 8. [ ] member/project bootstrap - Windows
 
-**Batch progress:** 5 of 8 complete; 3 remain.
+**Batch progress:** 6 of 8 complete; 2 remain.
 
 ## Resume instructions
 
-Continue only with Task 6. In run `37916866642`, all three clean-machine steps are green and all three later bootstrap steps fail; diagnose/fix from Linux first, then requalify Linux before counting Task 6. Stop after Task 8.
+Continue only with Task 7 using clean qualification run `37918170553`. macOS bootstrap step is already green in that run and must now be checkpointed before Task 8. Stop after Task 8; do not begin later Slice 12.3 checks.
