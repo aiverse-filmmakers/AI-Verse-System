@@ -14,8 +14,8 @@
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Slice 11.2:** COMPLETE / ACCEPTED
-- **Completed Slice 11.3 scenarios:** 1 of 12
-- **NEXT:** **Slice 11.3 / Scenario 2 - operator with Brain-owned strategic direction**
+- **Completed Slice 11.3 scenarios:** 2 of 12
+- **NEXT:** **Slice 11.3 / Scenario 3 - simple workspace using only basic trajectory fields**
 
 ## Slice 11.2 closure
 
@@ -26,7 +26,9 @@
 1. [x] operator with OS-owned strategic direction
    - Full profiled operator projection uses OS current-context authority, surfaces owner-backed priority/current state, resolves `operator_default`, and does not call/read Brain when OS owns direction.
    - PR #70 implementation commits `f3584321432324df401e98291de1c24ab7d9ddf8`, `c4af6b57cfbfa279b87adc16947311aeaa5e81f4`; hardening CI `37862455522` PASS Ubuntu/macOS/Windows.
-2. [ ] operator with Brain-owned strategic direction
+2. [x] operator with Brain-owned strategic direction
+   - Brain-owned operator projection surfaces canonical Brain mission/goal/strategy and trajectory, suppresses stale OS strategic priority, preserves owner-read provenance, and keeps the operator profile semantics unchanged.
+   - Initial scenario commit `c9acf43007886d53fa1edae778b827bed6f0594d`; accepted assertion-alignment commit `36761182fb8241c161073a87960d11827d465620`; hardening CI `37862614715` PASS Ubuntu/macOS/Windows.
 3. [ ] simple workspace using only basic trajectory fields
 4. [ ] rich product/business workspace with KPI/risk/current-state context
 5. [ ] two isolated workspaces with conflicting goals
@@ -56,4 +58,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 2 - operator with Brain-owned strategic direction**. Current requested ten-task batch: **6 of 10 finished; 4 remain**.
+Continue only with **Slice 11.3 / Scenario 3 - simple workspace using only basic trajectory fields**. Current requested ten-task batch: **7 of 10 finished; 3 remain**.
