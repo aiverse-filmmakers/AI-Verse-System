@@ -105,6 +105,56 @@ No path was found by which generated Purpose state becomes stronger than canonic
 
 **Review Question 2: COMPLETE / ACCEPTED.**
 
+## Review Question 3
+
+### Can one workspace leak another workspace's Purpose?
+
+**Result: NO / ACCEPTED.**
+
+The exact frozen implementation preserves the workspace boundary across OS projection, owner reads, exact-source descent, Memory history, and Gateway runtime composition.
+
+### OS scope and physical-boundary enforcement
+
+`AI-Verse-OS/scripts/purpose-context-core.mjs` accepts only `operator` or a validated `workspace:<id>` scope, resolves each workspace through its canonical physical directory, rejects symlinked workspace roots and manifests, and reads only that scope's current context.
+
+The exact adversarial regression `scripts/test-purpose-context-security-hardening.mjs` proves:
+
+- operator Purpose contains operator-only state and no `workspace:alpha` or `workspace:beta` data;
+- workspace alpha contains alpha data but not beta or operator data;
+- workspace beta contains beta data but not alpha or operator data;
+- canonical refs in provenance do not expose the other workspace;
+- traversal and workspace symlink redirects fail closed.
+
+`scripts/test-purpose-context-workspace-boundary.mjs` adds missing-workspace, path traversal, deleted-workspace/no-cache, workspace-directory symlink, canonical-manifest symlink, and `CURRENT.md` symlink attacks. All are required to fail before outside data can be projected.
+
+### Brain owner scope
+
+The Brain public Purpose snapshot validates the requested strategic scope and lists canonical Brain objects only for that exact scope. Its output preserves the same scope on every canonical ref and relationship input; unavailable or wrong-owner state does not widen the read.
+
+### Data owner scope and exact-source descent
+
+Purpose Data descent preserves Data owner provenance and the workspace permission scope. `scripts/test-purpose-data-source-descent.mjs` proves a Data source whose provenance is changed from `workspace:film` to another workspace is rejected, as are missing capabilities, unbound authorization, fuzzy field refs, and sibling-record substitutions.
+
+This prevents a Purpose projection from using a valid-looking Data ref to widen into another workspace during evidence descent.
+
+### Memory history scope
+
+Memory's Purpose history API requires every Purpose ref to match the requested scope and calls canonical Memory recall with `all_workspaces=False`. The OS boundary regression `scripts/test-purpose-memory-history-boundary.mjs` independently rejects a Memory history response whose scope differs from the active Purpose scope.
+
+### Gateway runtime scope binding
+
+Gateway receives Purpose only through the OS host for the run's bound scope. `src/progressive-context.mjs` rejects a Purpose projection when `value.scope` differs from the bound runtime scope or its `scope_kind` does not match. Runtime evidence descent also rejects evidence outside the run's allowed scope visibility.
+
+### Qualification evidence
+
+Slice 12.3 Task 10 independently re-ran the frozen OS workspace isolation and security suites at exact SHA `4f03849444b1d01ad81317bf0fece082d5a30e79`. Run `37922223517`, job `113793113144`, completed successfully, and same-head Core Lineage Guard `37922223716` also passed.
+
+## Finding
+
+No cross-workspace Purpose leakage path was found. Scope selection, physical path containment, canonical owner reads, Data evidence descent, Memory history, provenance, and Gateway runtime admission all remain bound to the active scope and fail closed on mismatch or escape attempts.
+
+**Review Question 3: COMPLETE / ACCEPTED.**
+
 ## NEXT
 
-Review Question 3 only: **Can one workspace leak another workspace's Purpose?**
+Review Question 4 only: **Can Memory override current truth?**
