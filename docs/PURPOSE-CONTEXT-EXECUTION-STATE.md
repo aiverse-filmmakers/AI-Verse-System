@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** requested batch Task 8 - member/project bootstrap acceptance on Windows against the exact frozen Purpose candidate.
+- **NEXT:** Slice 12.3 Task 9 - OS↔Brain direction/ownership contract tests against the exact frozen Purpose candidate.
 
 ## Final frozen candidate refs
 
@@ -44,6 +44,8 @@
 
 **Task 7 - Member/project bootstrap macOS COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, macOS job `113779354630`, exact-candidate bootstrap green.
 
+**Task 8 - Member/project bootstrap Windows COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, Windows job `113779354900`, step `Prove member/project bootstrap against exact Purpose candidate` completed successfully. The full run concluded `success` across Ubuntu/macOS/Windows against qualification head `c1a0c400c7f5fe9b5808f101c3cb224ba39754f9`.
+
 Qualification-fixture fixes are CI-bounded: exact frozen descendant owner refs temporarily use existing trusted lifecycle adapters; same-set update stays pinned to the candidate; frozen dependency-lock bytes are mirrored into the historical fixture location; and an already-staged identical candidate ID is reused rather than duplicated. None of these admit the release or trust arbitrary descendants.
 
 PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts from Distribution main and contains only intended qualification-harness changes.
@@ -66,10 +68,10 @@ Current clean qualification PR: Distribution #26, head `c1a0c400c7f5fe9b5808f101
 5. [x] Clean Machine Core - Windows
 6. [x] member/project bootstrap - Linux
 7. [x] member/project bootstrap - macOS
-8. [ ] member/project bootstrap - Windows
+8. [x] member/project bootstrap - Windows
 
-**Batch progress:** 7 of 8 complete; 1 remains.
+**Batch progress:** 8 of 8 complete.
 
 ## Resume instructions
 
-Continue only with Task 8 using clean qualification run `37918170553`. Stop immediately after Task 8 is checkpointed; do not begin any later Slice 12.3 requirement.
+Continue with Slice 12.3 Task 9 only: OS↔Brain direction/ownership contract tests on the same exact frozen candidate set. Persist Task 9 before beginning Task 10.
