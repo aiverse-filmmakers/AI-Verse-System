@@ -66,3 +66,11 @@ The complete final Slice 12.3 qualification workflow-run set is:
 These runs correspond to the frozen exact-ref qualification program recorded in `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`. The released Distribution record carries the principal qualification subset, while this final statement preserves the complete qualification run set including same-head lineage reruns.
 
 Final Distribution admission was performed only after every workflow on admission head `468164945e6118f1c9bcd144a6241d740403ab1b` was green; PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d`.
+
+## 4. Final Purpose schema version
+
+The final admitted Purpose Context schema version is:
+
+`1.0`
+
+This is the schema version emitted by the admitted OS Purpose projection and explain/trajectory surfaces and recorded by the post-admission usage/release documentation. Final closure does not introduce a new schema version or reinterpret the v1 contract.
