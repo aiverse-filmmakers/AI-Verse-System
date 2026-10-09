@@ -9,10 +9,10 @@
 
 - **Phase:** 13 - Documentation and final closure
 - **Current slice:** **13.2 - Final closure**
-- **Slice state:** NOT STARTED
+- **Slice state:** IN PROGRESS
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 1 - record the final Core release ID in the final completion statement.
+- **NEXT:** Slice 13.2 completion item 2 - record the exact OS/Brain/Memory/Skills/Data refs in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -85,11 +85,18 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 All eight post-admission architecture/user documentation tasks are persisted. Slice 13.1 is formally closed.
 
+## Slice 13.2 final closure progress
+
+### Completion item 1 - final Core release ID
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-1.md`.
+
+`docs/PURPOSE-CONTEXT-FINAL-COMPLETION.md` records `core-purpose-context-public-beta-2026-10-09` as the final admitted Core release identity.
+
 ## Remaining canonical work
 
-8 items remain, all in Slice 13.2 final closure:
+7 items remain, all in Slice 13.2 final closure:
 
-1. final Core release ID;
 2. exact OS/Brain/Memory/Skills/Data refs;
 3. all final qualification workflow IDs;
 4. final Purpose schema version;
@@ -102,4 +109,4 @@ After all eight are recorded, mark the implementation plan `COMPLETE`.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 1: record the final Core release ID in the final completion statement. Persist it before completion item 2.
+Continue only with Slice 13.2 completion item 2: record the exact OS/Brain/Memory/Skills/Data refs. Persist it before completion item 3.
