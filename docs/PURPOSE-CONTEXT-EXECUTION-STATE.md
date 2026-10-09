@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 7 - record known limitations/deferred fields in the final completion statement.
+- **NEXT:** Slice 13.2 completion item 8 - record post-v1 follow-up work in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -67,17 +67,20 @@ Tasks 1 through 8 are COMPLETE / ACCEPTED. Closure record: `docs/PURPOSE-CONTEXT
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-6.md`.
 
-The final completion statement records `VALUE PROVEN`, +3/+4/+5/+4 decision-basis deltas, one read per relevant strategic scenario, the 16,384-byte ceiling, zero-read/zero-byte trivial behavior, zero unrelated-scope noise, unavailable-owner continuity, OS projection authority, and explicit measurement caveats for provider cost/latency/model scoring.
+### Completion item 7 - known limitations/deferred fields
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-7.md`.
+
+The final completion statement records the deliberate v1 boundaries around scope forms, owner-backed rich fields, no Purpose workspace/config store, no Brain-private fallback, no implicit foreign-workspace resolution, measurement limitations, fail-closed cross-release transitions, and Gateway/Core release separation.
 
 ## Remaining canonical work
 
-2 items remain, both in Slice 13.2 final closure:
+1 item remains in Slice 13.2 final closure:
 
-7. known limitations/deferred fields;
 8. any post-v1 follow-up work.
 
-After both are recorded, mark the implementation plan `COMPLETE`.
+After item 8 is recorded, mark the implementation plan `COMPLETE` and close Slice 13.2 / Phase 13.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 7: record known limitations/deferred fields. Persist it before completion item 8.
+Continue only with Slice 13.2 completion item 8: record post-v1 follow-up work. Persist it, then mark the implementation plan `COMPLETE` as required by the canonical plan.
