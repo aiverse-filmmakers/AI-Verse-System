@@ -14,18 +14,18 @@
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Slice 11.2:** COMPLETE / ACCEPTED
-- **Completed Slice 11.3 scenarios:** 0 of 12
-- **NEXT:** **Slice 11.3 / Scenario 1 - operator with OS-owned strategic direction**
+- **Completed Slice 11.3 scenarios:** 1 of 12
+- **NEXT:** **Slice 11.3 / Scenario 2 - operator with Brain-owned strategic direction**
 
 ## Slice 11.2 closure
 
 **COMPLETE / ACCEPTED.** Closure record: `docs/PURPOSE-CONTEXT-SLICE-11.2-CLOSURE.md`. Final accepted OS head: `fb0021c0e07c979a61069ba28877f7685144fb49`.
 
-All eight required security proofs passed on Ubuntu, macOS, and Windows Node 22. Purpose remains scope-bounded, owner-bounded, fail-closed, read-only, and unable to grant action authority.
-
 ## Slice 11.3 required scenarios
 
-1. [ ] operator with OS-owned strategic direction
+1. [x] operator with OS-owned strategic direction
+   - Full profiled operator projection uses OS current-context authority, surfaces owner-backed priority/current state, resolves `operator_default`, and does not call/read Brain when OS owns direction.
+   - PR #70 implementation commits `f3584321432324df401e98291de1c24ab7d9ddf8`, `c4af6b57cfbfa279b87adc16947311aeaa5e81f4`; hardening CI `37862455522` PASS Ubuntu/macOS/Windows.
 2. [ ] operator with Brain-owned strategic direction
 3. [ ] simple workspace using only basic trajectory fields
 4. [ ] rich product/business workspace with KPI/risk/current-state context
@@ -56,4 +56,4 @@ All eight required security proofs passed on Ubuntu, macOS, and Windows Node 22.
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 1 - operator with OS-owned strategic direction**. Current requested ten-task batch: **5 of 10 finished; 5 remain**.
+Continue only with **Slice 11.3 / Scenario 2 - operator with Brain-owned strategic direction**. Current requested ten-task batch: **6 of 10 finished; 4 remain**.
