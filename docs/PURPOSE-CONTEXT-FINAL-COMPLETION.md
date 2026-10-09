@@ -135,3 +135,20 @@ Local context-assembly latency was measured using warmup plus repeated median fi
 Gateway exposed no provider billing/cost surface for this path, so provider cost remained `null` / unmeasured rather than estimated. CI likewise had no credentialed production-model evaluator, so model-output quality was not fabricated; the accepted quality evidence is the predefined owner-backed decision-basis delta above.
 
 The admitted v1 therefore satisfies the value-before-expansion law: useful strategic context was demonstrated without always-on loading, cross-workspace noise, stale fallback, or authority regression.
+
+## 7. Known limitations and deferred fields
+
+The following are deliberate v1 boundaries and deferred capabilities, not hidden alternate behavior:
+
+1. **Scope forms are intentionally narrow.** v1 supports only `operator` and exact `workspace:<id>` strategic scopes. It does not silently introduce organization/account/team-wide Purpose scopes.
+2. **Rich fields require real owners.** `risks`, `team_resources`, `customers`, `infrastructure`, `budget_cost`, narratives, KPIs, current state, and material changes appear only when the admitted owner contracts provide relevant evidence. Missing fields are omitted or reported unavailable rather than synthesized to complete a Telos-style template.
+3. **No Purpose workspace config store exists.** v1 does not add a `purpose_context` block to `WORKSPACE.yaml`, a canonical `PURPOSE.md`, a Telos database, or another writable Purpose authority.
+4. **No distinct project/initiative operational-status authority was invented.** When Brain owns strategic direction, its initiative lifecycle status is projected. A future distinct operational-status owner would require a new explicit owner contract before Purpose could surface it as canonical truth.
+5. **Brain-private fallback is forbidden.** If Brain is the declared strategic owner and its public Purpose reader is unavailable, Purpose reports strategic direction unavailable; OS does not inspect Brain private storage or reactivate frozen OS strategy.
+6. **Cross-scope relationships do not authorize foreign reads.** Explicit provenance-bearing cross-scope refs may be displayed, but v1 does not implicitly resolve, enumerate, or ingest another workspace's Purpose state.
+7. **Provider/runtime economics are only partially measurable.** Local fixture assembly latency was measured; production provider/network latency was not. Gateway exposed no provider billing surface, so provider cost is unmeasured rather than estimated.
+8. **Production-model output scoring is deferred.** CI had no credentialed production-model evaluator; v1 therefore proves decision-basis improvement rather than claiming an external model-quality score.
+9. **Cross-release update/rollback transitions remain fail-closed.** The admitted Purpose Core release preserves owner state, but Distribution does not yet admit automatic cross-release update or rollback from/to another Core release without separately qualified transition evidence.
+10. **Purpose-aware Gateway is qualified runtime evidence, not a sixth Core component.** The Core release itself remains the exact five protected Core components; runtime integrations must continue to respect their own release/profile contracts.
+
+These limitations preserve the architecture laws that allowed v1 to ship: no duplicate truth, no fabricated rich schema, no stale fallback, no hidden authority transfer, and no release transition without explicit qualification.
