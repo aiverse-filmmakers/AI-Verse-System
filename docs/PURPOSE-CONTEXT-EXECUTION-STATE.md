@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 32 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 2 - document CLI/API usage.
+- **NEXT:** Slice 13.1 Task 3 - document operator vs workspace behavior.
 
 ## Admitted Purpose Core
 
@@ -45,12 +45,18 @@ Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only af
 
 `PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md` now reports `IMPLEMENTED / CORE ADMITTED`, identifies `core-purpose-context-public-beta-2026-10-09` as the admitted release, and records that the Telos-inspired architecture has been implemented without becoming a competing truth store. Original design language is retained as the architectural record.
 
+### Task 2 - CLI/API usage
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-2.md`.
+
+`docs/PURPOSE-CONTEXT-USAGE.md` now documents the admitted v1 JSON CLI and OS library API, supported inputs and budgets, owner-reader integration, fail-closed unavailable behavior, and the no-store/no-cache ownership boundary.
+
 ## Remaining canonical work
 
-15 items remain after this task:
-- Slice 13.1 Tasks 2-8 = 7 items;
+14 items remain after this task:
+- Slice 13.1 Tasks 3-8 = 6 items;
 - Slice 13.2 final closure = 8 items.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 2: document CLI/API usage. Persist Task 2 before beginning Task 3.
+Continue only with Slice 13.1 Task 3: document operator vs workspace behavior. Persist Task 3 before beginning Task 4.
