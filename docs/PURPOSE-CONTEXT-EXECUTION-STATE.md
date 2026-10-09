@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 33 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.2 completion item 6 - record Slice 7.3 value-gate outcome and measured overhead in the final completion statement.
+- **NEXT:** Slice 13.2 completion item 7 - record known limitations/deferred fields in the final completion statement.
 
 ## Admitted Purpose Core
 
@@ -63,18 +63,21 @@ Tasks 1 through 8 are COMPLETE / ACCEPTED. Closure record: `docs/PURPOSE-CONTEXT
 
 **COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-5.md`.
 
-The final completion statement records the exact v1 `operator` and `workspace:<id>` scope model, operator/workspace profile behavior, evidence-gated rich promotion, optional rich domains, no Purpose workspace config block, and fail-closed workspace isolation.
+### Completion item 6 - Slice 7.3 value-gate outcome and measured overhead
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.2-ITEM-6.md`.
+
+The final completion statement records `VALUE PROVEN`, +3/+4/+5/+4 decision-basis deltas, one read per relevant strategic scenario, the 16,384-byte ceiling, zero-read/zero-byte trivial behavior, zero unrelated-scope noise, unavailable-owner continuity, OS projection authority, and explicit measurement caveats for provider cost/latency/model scoring.
 
 ## Remaining canonical work
 
-3 items remain, all in Slice 13.2 final closure:
+2 items remain, both in Slice 13.2 final closure:
 
-6. Slice 7.3 value-gate outcome and measured overhead;
 7. known limitations/deferred fields;
 8. any post-v1 follow-up work.
 
-After all eight are recorded, mark the implementation plan `COMPLETE`.
+After both are recorded, mark the implementation plan `COMPLETE`.
 
 ## Resume instructions
 
-Continue only with Slice 13.2 completion item 6: record the Slice 7.3 value-gate outcome and measured overhead. Persist it before completion item 7.
+Continue only with Slice 13.2 completion item 7: record known limitations/deferred fields. Persist it before completion item 8.
