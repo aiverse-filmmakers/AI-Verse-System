@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 32 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 6 - document mutation confirmation behavior.
+- **NEXT:** Slice 13.1 Task 7 - document the measured user-value/anti-bloat result from Slice 7.3.
 
 ## Admitted Purpose Core
 
@@ -69,12 +69,18 @@ The usage guide documents rich-profile contextual sections, the five exact optio
 
 `docs/PURPOSE-CONTEXT-EXPLAIN.md` documents exact selector semantics, deterministic trajectory traversal, causal relation priority, complete/orphan/partial outcomes, missing-link reporting, scope-boundary behavior, cycle rejection, provenance, and the rule that missing trajectory is never hallucinated.
 
+### Task 6 - Mutation confirmation behavior
+
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-6.md`.
+
+`docs/PURPOSE-CONTEXT-MUTATION-CONFIRMATION.md` documents current-owner routing, exact explicit-user confirmation binding, canonical owner operation/receipt semantics, failed/uncertain handling, and fresh Purpose rebuild only after proven canonical-owner success.
+
 ## Remaining canonical work
 
-11 items remain after this task:
-- Slice 13.1 Tasks 6-8 = 3 items;
+10 items remain after this task:
+- Slice 13.1 Tasks 7-8 = 2 items;
 - Slice 13.2 final closure = 8 items.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 6: document mutation confirmation behavior. Persist Task 6 before beginning Task 7.
+Continue only with Slice 13.1 Task 7: document the measured user-value/anti-bloat result from Slice 7.3. Persist Task 7 before beginning Task 8.
