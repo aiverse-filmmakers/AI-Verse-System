@@ -12,7 +12,7 @@
 - **Slice state:** IN PROGRESS
 - **Closed slices:** 32 of 34
 - **Closed phases:** 0 through 12 = 13 of 14
-- **NEXT:** Slice 13.1 Task 1 - update `PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md` status from intent to implemented/admitted as appropriate.
+- **NEXT:** Slice 13.1 Task 2 - document CLI/API usage.
 
 ## Admitted Purpose Core
 
@@ -29,27 +29,28 @@ Qualified Purpose-aware runtime:
 
 ## Phase 12 closure
 
-### Slice 12.3
-**COMPLETE / ACCEPTED.** `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`.
+**COMPLETE / ACCEPTED.**
 
-### Slice 12.4
-**COMPLETE / ACCEPTED.** `docs/PURPOSE-CONTEXT-SLICE-12.4-CLOSURE.md`.
+- Slice 12.3: `docs/PURPOSE-CONTEXT-SLICE-12.3-CLOSURE.md`
+- Slice 12.4: `docs/PURPOSE-CONTEXT-SLICE-12.4-CLOSURE.md`
+- Slice 12.5: `docs/PURPOSE-CONTEXT-SLICE-12.5-CLOSURE.md`
 
-### Slice 12.5
-**COMPLETE / ACCEPTED.** `docs/PURPOSE-CONTEXT-SLICE-12.5-CLOSURE.md`.
+Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d` only after all final workflows on admission head `468164945e6118f1c9bcd144a6241d740403ab1b` were green. Distribution `main` now admits the Purpose Core as `current_release`; the prior repaired release remains immutable.
 
-Tasks 1-7 are complete. Final admission head `468164945e6118f1c9bcd144a6241d740403ab1b` passed all same-head PR workflows before merge. Distribution PR #27 merged as `b91fc3768fe8c007fc5f19ca9e9a80e92242450d`.
+## Slice 13.1 documentation progress
 
-Post-merge Distribution verification confirms `current_release: core-purpose-context-public-beta-2026-10-09`, exact frozen component refs, same-or-descendant parentage from the repaired Core, and fail-closed cross-release transitions. The prior repaired release file remains unchanged at blob `d1c22ff31d8b3e105ab85f4221821e6cb307d52f`.
+### Task 1 - Telos adoption-plan status
 
-**Phase 12 - Full Core requalification and new release admission: COMPLETE / ACCEPTED.**
+**COMPLETE / ACCEPTED.** Evidence: `docs/PURPOSE-CONTEXT-SLICE-13.1-TASK-1.md`.
+
+`PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md` now reports `IMPLEMENTED / CORE ADMITTED`, identifies `core-purpose-context-public-beta-2026-10-09` as the admitted release, and records that the Telos-inspired architecture has been implemented without becoming a competing truth store. Original design language is retained as the architectural record.
 
 ## Remaining canonical work
 
-16 items remain at this checkpoint:
-- Slice 13.1 architecture/user documentation: Tasks 1-8 = 8 items;
-- Slice 13.2 final closure: 8 items.
+15 items remain after this task:
+- Slice 13.1 Tasks 2-8 = 7 items;
+- Slice 13.2 final closure = 8 items.
 
 ## Resume instructions
 
-Continue only with Slice 13.1 Task 1: update `PURPOSE-CONTEXT-TELOS-ADOPTION-PLAN.md` status from intent to implemented/admitted as appropriate. Persist Task 1 before beginning Task 2.
+Continue only with Slice 13.1 Task 2: document CLI/API usage. Persist Task 2 before beginning Task 3.
