@@ -13,7 +13,7 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2, 11.3, 12.1, 12.2
 - **Closed slices:** 29 of 34
 - **Closed phases:** 0 through 11 = 12 of 14
-- **NEXT:** requested batch Task 7 - member/project bootstrap acceptance on macOS against the exact frozen Purpose candidate.
+- **NEXT:** requested batch Task 8 - member/project bootstrap acceptance on Windows against the exact frozen Purpose candidate.
 
 ## Final frozen candidate refs
 
@@ -40,9 +40,13 @@
 
 **Task 5 - Clean Machine Core Windows COMPLETE / ACCEPTED.** Run `37916866642`, Windows job `113775328422`, exact-candidate clean-machine step green.
 
-**Task 6 - Member/project bootstrap Linux COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, Ubuntu job `113779355161`, passed both exact-candidate clean-machine Core and `Prove member/project bootstrap against exact Purpose candidate`. Qualification-fixture fixes are bounded to CI: frozen dependency-lock bytes are mirrored into the historical fixture location and an already-staged identical candidate ID is reused rather than appended twice.
+**Task 6 - Member/project bootstrap Linux COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, Ubuntu job `113779355161`, exact-candidate bootstrap green.
 
-PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts again from Distribution main and applies only qualification harness changes; accepted Tasks 1-5 remain valid because their successful clean-machine evidence predates the discarded edit.
+**Task 7 - Member/project bootstrap macOS COMPLETE / ACCEPTED.** Clean replacement Distribution PR #26, run `37918170553`, macOS job `113779354630`, exact-candidate bootstrap green.
+
+Qualification-fixture fixes are CI-bounded: exact frozen descendant owner refs temporarily use existing trusted lifecycle adapters; same-set update stays pinned to the candidate; frozen dependency-lock bytes are mirrored into the historical fixture location; and an already-staged identical candidate ID is reused rather than duplicated. None of these admit the release or trust arbitrary descendants.
+
+PR #25 was closed unmerged after an accidental broad acceptance-test edit was detected. PR #26 starts from Distribution main and contains only intended qualification-harness changes.
 
 Current clean qualification PR: Distribution #26, head `c1a0c400c7f5fe9b5808f101c3cb224ba39754f9`.
 
@@ -61,11 +65,11 @@ Current clean qualification PR: Distribution #26, head `c1a0c400c7f5fe9b5808f101
 4. [x] Clean Machine Core - macOS
 5. [x] Clean Machine Core - Windows
 6. [x] member/project bootstrap - Linux
-7. [ ] member/project bootstrap - macOS
+7. [x] member/project bootstrap - macOS
 8. [ ] member/project bootstrap - Windows
 
-**Batch progress:** 6 of 8 complete; 2 remain.
+**Batch progress:** 7 of 8 complete; 1 remains.
 
 ## Resume instructions
 
-Continue only with Task 7 using clean qualification run `37918170553`. macOS bootstrap step is already green in that run and must now be checkpointed before Task 8. Stop after Task 8; do not begin later Slice 12.3 checks.
+Continue only with Task 8 using clean qualification run `37918170553`. Stop immediately after Task 8 is checkpointed; do not begin any later Slice 12.3 requirement.
