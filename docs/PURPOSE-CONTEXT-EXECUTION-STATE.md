@@ -13,11 +13,11 @@
 - **Completed slices:** 0.1, 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.1, 3.2, 4.1, 4.2, 4.3, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.3, 8.1, 8.2, 9.1, 10.1, 10.2, 11.1, 11.2
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
-- **Completed Slice 11.3 scenarios:** 10 of 12
+- **Completed Slice 11.3 scenarios:** 11 of 12
 - **Current accepted OS head:** `476926333ac4c74cc2abd35e684befec23e37d9c`
+- **Accepted Gateway head:** `1772b75e2add73a524715f746e87b3a6b5561bf6`
 - **Active OS acceptance PR:** #71, current accepted task head `b7f5eb47eb7c6a3ea2150f9199497b49e0756b7a`
-- **Active Gateway acceptance PR:** #59, current accepted task head `ac5bcc8d8988d780c68db7fd88ea4aab41158938`
-- **NEXT:** **Slice 11.3 / Scenario 11 - high-impact goal change confirmed and Purpose rebuilt**
+- **NEXT:** **Slice 11.3 / Scenario 12 - explain trajectory has missing relationship and reports gap instead of inventing it**
 
 ## Slice 11.3 required scenarios
 
@@ -31,9 +31,10 @@
 8. [x] Data value becomes stale/unavailable
 9. [x] Memory old history conflicts with current Brain/Data truth
 10. [x] high-impact goal change proposed but not confirmed
-   - Gateway classifies and routes an exact `top_level_goal` update to the current Brain owner, but without explicit user confirmation the proposal remains `required_not_confirmed`, `apply_allowed:false`, `mutation_executed:false`, and Purpose remains non-writable.
    - Gateway PR #59 task commit `ac5bcc8d8988d780c68db7fd88ea4aab41158938`; CI `37875835557` PASS Ubuntu/macOS/Windows on Node 20 and 22.
-11. [ ] high-impact goal change confirmed and Purpose rebuilt
+11. [x] high-impact goal change confirmed and Purpose rebuilt
+   - The same exact top-level goal proposal is explicitly user-confirmed, converted to the deterministic current-owner operation, executed by Brain with a proven owner receipt, then rebuilt exactly once through a fresh OS-owned Purpose projection. The owner receipt remains mutation evidence; Purpose remains non-authoritative for writes and stale fallback is forbidden.
+   - Gateway PR #59 task commit `8da6eca074e5308f85193c8826914713c48e8516`; CI `37875960873` PASS Ubuntu/macOS/Windows on Node 20 and 22; PR #59 merged Gateway `1772b75e2add73a524715f746e87b3a6b5561bf6`.
 12. [ ] explain trajectory has missing relationship and reports gap instead of inventing it
 
 ## Hardening laws
@@ -54,4 +55,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 11 - high-impact goal change confirmed and Purpose rebuilt**. Current requested ten-task batch is **5 of 10 complete; 5 remain**. Do not skip task order.
+Continue only with **Slice 11.3 / Scenario 12 - explain trajectory has missing relationship and reports gap instead of inventing it**. Current requested ten-task batch is **6 of 10 complete; 4 remain**. Do not skip task order.
