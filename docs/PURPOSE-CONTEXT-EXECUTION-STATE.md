@@ -15,7 +15,7 @@
 - **Closed phases:** 0 through 11 = 12 of 14
 - **Slice 12.1:** COMPLETE / ACCEPTED
 - **Slice 12.1 closure:** `docs/PURPOSE-CONTEXT-SLICE-12.1-CLOSURE.md`
-- **NEXT:** requested batch Task 7 - all Purpose Context tests against the frozen candidate refs
+- **NEXT:** requested batch Task 8 - all direction-owner/current-context/workspace-isolation regressions
 
 ## Final frozen candidate refs
 
@@ -41,7 +41,9 @@
 
 **Memory regression suite COMPLETE / ACCEPTED.** Frozen Memory SHA `f1327be48ba2ee0043959021365e6dbb9dcb1d3a` has exactly two push-triggered workflow runs and both are completed successfully: Test `37686666851` and Migration Handoff Atomicity `37686666811`. The exact-SHA success count is 2, matching the unfiltered exact-SHA run count of 2.
 
-**Data regression suite COMPLETE / ACCEPTED.** Frozen Data SHA `f8978f8f7a1bc94edecddc2662112233289159a3` has one exact-SHA CI run, `37645269881`, and it completed successfully. Its full matrix is six green jobs: Node 22 and Node 24 across Ubuntu, macOS, and Windows. Every matrix job passed build/test, package smoke, CLI smoke, and install smoke. No Data regression failure remains open.
+**Data regression suite COMPLETE / ACCEPTED.** Frozen Data SHA `f8978f8f7a1bc94edecddc2662112233289159a3` has one exact-SHA CI run, `37645269881`, and it completed successfully. Its full matrix is six green jobs: Node 22 and Node 24 across Ubuntu, macOS, and Windows. Every matrix job passed build/test, package smoke, CLI smoke, and install smoke.
+
+**Purpose Context regression suite COMPLETE / ACCEPTED for Slice 12.2.** The exact frozen OS SHA Direction Ownership run `37911609710` passed every Purpose regression carried by that workflow: ownership-aware reads, envelope, budget/truncation, final budget, no-cache, fail-closed owner behavior, delete/rebuild/restart, profiles, rich domains, initiative operational status, explicit relationships, workspace boundary attacks, explain traversal, Data current-value/current-state/source descent, Memory history boundary/bounded read, material-change classifier/provenance/relevance, and canonical strategic writer/reader gates. The final Purpose hardening matrix `37876335706` passed on Ubuntu, macOS, and Windows and covers rebuildability hardening, security hardening, Data/Memory scope boundaries, exact-source permission descent, action permissions, and semantic acceptance Scenarios 1-12. That hardening run is on final Purpose head `e67b321c9d09c320eddc8121f18efa3fbd8ba621`; compare-to-frozen evidence proves the only later OS changes are `system/schemas/workspace.schema.yaml` and `scripts/test-workspace-owner.mjs`, with zero Purpose implementation/test changes. Those two later files are themselves green in exact frozen OS regression evidence. No Purpose regression remains open. Final same-head composed qualification is still required in Slice 12.3 and is not being claimed here.
 
 ## Carried repair register
 
@@ -58,11 +60,11 @@
 4. [x] full Brain regression suite
 5. [x] full Memory regression suite
 6. [x] full Data regression suite
-7. [ ] all Purpose Context tests
+7. [x] all Purpose Context tests
 8. [ ] all direction-owner/current-context/workspace-isolation regressions
 
-**Batch progress:** 6 of 8 complete; 2 remain.
+**Batch progress:** 7 of 8 complete; 1 remains.
 
 ## Resume instructions
 
-Continue only with requested batch **Task 7**. All qualification evidence must correspond to the exact frozen candidate refs above.
+Continue only with requested batch **Task 8**. All qualification evidence must correspond to the exact frozen candidate refs above.
