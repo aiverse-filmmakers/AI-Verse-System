@@ -14,8 +14,8 @@
 - **Closed slices:** 26 of 34
 - **Closed phases:** 0 through 10 = 11 of 14
 - **Slice 11.2:** COMPLETE / ACCEPTED
-- **Completed Slice 11.3 scenarios:** 2 of 12
-- **NEXT:** **Slice 11.3 / Scenario 3 - simple workspace using only basic trajectory fields**
+- **Completed Slice 11.3 scenarios:** 3 of 12
+- **NEXT:** **Slice 11.3 / Scenario 4 - rich product/business workspace with KPI/risk/current-state context**
 
 ## Slice 11.2 closure
 
@@ -29,7 +29,9 @@
 2. [x] operator with Brain-owned strategic direction
    - Brain-owned operator projection surfaces canonical Brain mission/goal/strategy and trajectory, suppresses stale OS strategic priority, preserves owner-read provenance, and keeps the operator profile semantics unchanged.
    - Initial scenario commit `c9acf43007886d53fa1edae778b827bed6f0594d`; accepted assertion-alignment commit `36761182fb8241c161073a87960d11827d465620`; hardening CI `37862614715` PASS Ubuntu/macOS/Windows.
-3. [ ] simple workspace using only basic trajectory fields
+3. [x] simple workspace using only basic trajectory fields
+   - Explicit `workspace_basic` projection surfaces only owner-backed objective, current state, current work, and constraints with exact workspace current-context refs; optional rich domains stay absent.
+   - PR #70 task commit `cd9fda712bd63c1750dd9986a70b9d8fee5a306a`; hardening CI `37862789684` PASS Ubuntu/macOS/Windows.
 4. [ ] rich product/business workspace with KPI/risk/current-state context
 5. [ ] two isolated workspaces with conflicting goals
 6. [ ] material event closes a blocker
@@ -58,4 +60,4 @@
 
 ## Resume instructions
 
-Continue only with **Slice 11.3 / Scenario 3 - simple workspace using only basic trajectory fields**. Current requested ten-task batch: **7 of 10 finished; 3 remain**.
+Continue only with **Slice 11.3 / Scenario 4 - rich product/business workspace with KPI/risk/current-state context**. Current requested ten-task batch: **8 of 10 finished; 2 remain**.
