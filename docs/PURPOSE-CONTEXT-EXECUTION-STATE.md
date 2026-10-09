@@ -15,7 +15,8 @@
 - **Closed phases:** 0 through 11 = 12 of 14
 - **Slice 11.3:** COMPLETE / ACCEPTED
 - **Slice 11.3 closure:** `docs/PURPOSE-CONTEXT-SLICE-11.3-CLOSURE.md`
-- **NEXT:** **Slice 12.1 / Task 3 - freeze dependency locks required by the candidate refs**
+- **Distribution candidate-freeze merge:** `55bc206b76ce90c0ce9f1808ab42241762a23c3f`
+- **NEXT:** **Slice 12.1 / Task 4 - do not qualify against moving branch heads**
 
 ## Slice 12.1 candidate freeze
 
@@ -35,13 +36,24 @@
 - Skills baseline/candidate `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`: **identical**
 - Data baseline `6e8781ff1dcd96a35dfb27868bd60605361483d0` -> candidate `f8978f8f7a1bc94edecddc2662112233289159a3`: **ahead 13, behind 0**
 
-The lineage blocker is removed. Qualification remains blocked only on dependency-lock freeze and full Core requalification.
+**Task 3 COMPLETE.** Distribution PR #22 task head `47dd3ea706d338163e8a783d42d0c79341c1a643` froze the release-scoped Data companion dependency lock for exact candidate revision `f8978f8f7a1bc94edecddc2662112233289159a3` in both public and packaged lock locations. The candidate now binds:
+
+- scheme: `distribution-companion-npm-lock-v1`
+- manifest: `ai-verse-data/f8978f8f7a1bc94edecddc2662112233289159a3/lock.json`
+- manifest SHA-256: `0af6c9763fa04170b0bc6226764bb1c78db5296b5586a91d9d2851e27da98ea3`
+- source `package.json` SHA-256: `427fcd04fb9290e2df7c24ee19d2bf7abb427d7bec8bd2e857a893f4cc8ade2e`
+- companion `package-lock.json` SHA-256: `fa5c3e0f8df2c98fa48c4f7f163caff31a1ef16dc3e27223c217c38c6ff9ade3`
+- dependency tree SHA-256: `a3ac0422af7c690006e88dcbf917a27fa6101b3497662128774d315463d0b221`
+
+The Data source manifest is unchanged from the repaired parent, so the exact descendant Data SHA is bound to the same pinned dependency graph rather than inventing a new dependency set. Distribution CI `37877042282` passed all six jobs across Ubuntu/macOS/Windows and Python 3.11/3.12, including dependency-lock fail-closed, tamper-rejection, repeatability, and public/package mirror tests. Distribution PR #22 merged at `55bc206b76ce90c0ce9f1808ab42241762a23c3f`.
+
+The dependency-lock blocker is removed. The candidate remains **blocked only on full Core requalification** and has not been admitted or released.
 
 ## Slice 12.1 tasks
 
 1. [x] record exact final descendant refs for OS/Brain/Memory/Data and unchanged Skills ref if untouched
 2. [x] verify each changed protected component is same-or-descendant of `core-repaired-public-beta-2026-10-06`
-3. [ ] freeze dependency locks required by candidate refs
+3. [x] freeze dependency locks required by candidate refs
 4. [ ] do not qualify against moving branch heads
 
 ## Qualification laws
@@ -50,15 +62,15 @@ The lineage blocker is removed. Qualification remains blocked only on dependency
 - Purpose Context creates a new descendant Core candidate.
 - Qualification uses exact immutable refs only, never moving branch heads.
 - Every changed protected component must satisfy append-only same-or-descendant lineage from `core-repaired-public-beta-2026-10-06`.
-- Dependency locks used by the candidate must be frozen before changed-repo qualification begins.
+- Dependency locks used by the candidate are frozen before changed-repo qualification begins.
 
 ## Carried repair register
 
 1. Dashboard workspace-ID contract alignment max 128. **RESOLVED.**
 2. OS workspace manifest schema max length should align runtime max 128.
 3. Data aggregate freshness path. **RESOLVED for Purpose current values.**
-4. Final qualification must pin exact component refs. **REFS + LINEAGE FROZEN; dependency locks pending.**
+4. Final qualification must pin exact component refs. **REFS + LINEAGE + DEPENDENCY LOCKS FROZEN.**
 
 ## Resume instructions
 
-Continue only with **Slice 12.1 / Task 3 - freeze dependency locks required by the candidate refs**. Current requested ten-task batch is **9 of 10 complete; 1 remains**. Do not begin Task 4 in this batch.
+Continue only with **Slice 12.1 / Task 4 - do not qualify against moving branch heads**. The requested ten-task batch is complete: **10 of 10 finished; 0 remain**. Do not begin Task 4 until the user requests continuation.
