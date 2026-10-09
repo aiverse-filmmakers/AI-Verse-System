@@ -15,7 +15,7 @@
 - **Closed phases:** 0 through 11 = 12 of 14
 - **Slice 12.1:** COMPLETE / ACCEPTED
 - **Slice 12.1 closure:** `docs/PURPOSE-CONTEXT-SLICE-12.1-CLOSURE.md`
-- **NEXT:** requested batch Task 4 - full Brain regression suite against frozen Brain ref `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- **NEXT:** requested batch Task 5 - full Memory regression suite against frozen Memory ref `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
 
 ## Final frozen candidate refs
 
@@ -35,7 +35,9 @@
 
 ## Slice 12.2 component-test evidence
 
-**OS regression suite COMPLETE / ACCEPTED.** Frozen OS SHA `4f03849444b1d01ad81317bf0fece082d5a30e79` has exactly seven push-triggered workflow runs and all seven are completed successfully. The exact-SHA success query returned `total_count: 7`, matching the unfiltered exact-SHA run count of 7. This includes Direction Ownership run `37911609710`. In addition, the repair PR's broad Repository QC run `37911504828` passed all three jobs (`qc`, `adapter-integration`, `skills-provider-integration`), including lifecycle, workspace owner, adapter, package, and provider integration regressions. No OS regression failure remains open.
+**OS regression suite COMPLETE / ACCEPTED.** Frozen OS SHA `4f03849444b1d01ad81317bf0fece082d5a30e79` has exactly seven push-triggered workflow runs and all seven are completed successfully. The exact-SHA success query returned `total_count: 7`, matching the unfiltered exact-SHA run count of 7. This includes Direction Ownership run `37911609710`. In addition, repair PR Repository QC `37911504828` passed all three jobs (`qc`, `adapter-integration`, `skills-provider-integration`).
+
+**Brain regression suite COMPLETE / ACCEPTED.** Frozen Brain SHA `69f7912eeb35f0178f6952ff0554aec8d7f2c496` has exactly three push-triggered workflow runs and all three are completed successfully: CI `37584271057`, OS Direction Ownership Contract `37584271029`, and Skills Receipt Contract `37584271047`. The exact-SHA success count is 3, matching the unfiltered exact-SHA run count of 3. No Brain regression failure remains open.
 
 ## Carried repair register
 
@@ -49,14 +51,14 @@
 1. [x] enforce exact-SHA-only qualification, never moving branch heads
 2. [x] resolve OS workspace manifest ID max-length mismatch and refresh frozen OS candidate/ref evidence
 3. [x] full OS regression suite
-4. [ ] full Brain regression suite
+4. [x] full Brain regression suite
 5. [ ] full Memory regression suite
 6. [ ] full Data regression suite
 7. [ ] all Purpose Context tests
 8. [ ] all direction-owner/current-context/workspace-isolation regressions
 
-**Batch progress:** 3 of 8 complete; 5 remain.
+**Batch progress:** 4 of 8 complete; 4 remain.
 
 ## Resume instructions
 
-Continue only with requested batch **Task 4**. All qualification evidence must correspond to the exact frozen candidate refs above.
+Continue only with requested batch **Task 5**. All qualification evidence must correspond to the exact frozen candidate refs above.
