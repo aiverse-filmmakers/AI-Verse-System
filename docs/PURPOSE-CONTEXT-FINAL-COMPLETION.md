@@ -74,3 +74,35 @@ The final admitted Purpose Context schema version is:
 `1.0`
 
 This is the schema version emitted by the admitted OS Purpose projection and explain/trajectory surfaces and recorded by the post-admission usage/release documentation. Final closure does not introduce a new schema version or reinterpret the v1 contract.
+
+## 5. Supported scope and profile behavior
+
+Purpose Context v1 supports exactly these strategic scope forms:
+
+- `operator`
+- `workspace:<id>`
+
+### Operator
+
+- caller profile must be `auto`;
+- resolved profile is `operator_default`;
+- workspace-only `basic` or `rich` requests fail closed;
+- current owner-backed strategic context is projected when available;
+- unavailable owner state remains unavailable/partial rather than being replaced by stale Purpose output.
+
+### Workspace
+
+Workspace callers support `auto`, `basic`, and `rich`:
+
+- `auto` begins at `workspace_basic`;
+- `auto` promotes to `workspace_rich` only when a rich-only domain is relevant/requested **and** matching owner-backed evidence exists;
+- `basic` preserves the compact trajectory and required truth/provenance diagnostics while suppressing optional rich narratives/KPIs/domains;
+- `rich` broadens eligible owner-backed context but does not fabricate absent fields.
+
+Optional rich domains in the admitted v1 contract are `risks`, `team_resources`, `customers`, `infrastructure`, and `budget_cost`; narratives and KPIs may also be retained where owner-backed and relevant.
+
+Workspace name/type/age, free-text purpose, file count, perceived importance, unused byte budget, or arbitrary `WORKSPACE.yaml` metadata cannot force rich mode. v1 introduces no `purpose_context` configuration block in `WORKSPACE.yaml`.
+
+Scope isolation remains fail-closed. Reading `workspace:A` does not scan or inherit Purpose state from `workspace:B`. Explicit cross-scope relationship refs may remain provenance-bearing links, but they do not authorize implicit foreign-scope resolution or ingestion.
+
+Across every profile, Purpose remains a read-only disposable projection over canonical owner state rather than a new authority or store.
