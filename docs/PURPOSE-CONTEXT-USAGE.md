@@ -169,3 +169,77 @@ Workspace isolation is fail-closed:
 - deleting or rebuilding the projection cannot alter any workspace's canonical state.
 
 The practical rule is simple: use `operator` for global personal direction and `workspace:<id>` for one bounded workspace. Purpose Context never blends scopes merely because their content appears related.
+
+## 3. Optional rich workspace fields
+
+A rich workspace is still the same Purpose Context schema and ownership model. Rich mode only makes additional owner-backed context eligible for projection when it is useful. It does not require a company-style template and does not populate empty fields for small projects.
+
+### Rich-profile strategic/context sections
+
+Compared with `workspace_basic`, rich projection may retain these existing contextual sections when owner-backed:
+
+- `narratives`;
+- `kpis`.
+
+`workspace_basic` suppresses these sections to keep small workspaces compact.
+
+### Optional owner-backed rich domains
+
+The admitted OS contract defines exactly these optional rich domain names:
+
+- `risks` - relevant risks with exact owner/source evidence;
+- `team_resources` - relevant team or resource context;
+- `customers` - relevant customer context;
+- `infrastructure` - relevant infrastructure context;
+- `budget_cost` - relevant budget or cost context.
+
+Each item must carry exact evidence for the requested scope. If a domain is absent, malformed, foreign-scope, or unsupported by owner evidence, Purpose omits it rather than fabricating an empty or inferred corporate field.
+
+### Current state and material changes
+
+`current_state` and `recent_material_changes` can also be relevance signals for automatic rich resolution when useful owner-backed content exists. They are not a license to invent a separate rich-state database. Current operational truth remains with its declared owner, and recent material changes remain derived from owner-backed evidence.
+
+Unlike `narratives`, `kpis`, and the five optional domains above, basic-profile filtering does not automatically delete valid required current-state/material-change context needed for truth/freshness diagnostics.
+
+### Initiative/project operational status
+
+Purpose v1 does not create a separate `initiative_operational_status` or `project_operational_status` store. When Brain owns strategic direction, the canonical initiative object already owns its lifecycle status. The Brain Purpose snapshot projects that same owner-backed initiative/status object under `initiatives`.
+
+If a distinct project/initiative operational owner is introduced later, it must enter through a new explicit owner contract. Purpose must not infer such status from generic Data rows or free-text workspace metadata.
+
+### Requesting rich context
+
+Explicit rich eligibility:
+
+```bash
+node scripts/purpose-context.mjs read \
+  --scope workspace:ai-verse \
+  --profile rich \
+  --relevant-domain kpis \
+  --relevant-domain risks
+```
+
+Automatic enrichment:
+
+```bash
+node scripts/purpose-context.mjs read \
+  --scope workspace:ai-verse \
+  --profile auto \
+  --relevant-domain risks
+```
+
+With `auto`, a requested/relevant rich domain only promotes the workspace when matching owner-backed content actually exists. Merely naming `risks`, `customers`, or another rich domain does not fabricate content.
+
+### What rich mode does not do
+
+Rich mode does not:
+
+- change the workspace type or manifest;
+- grant new permissions or strategic authority;
+- copy Data rows into a Purpose database;
+- turn Memory history into current truth;
+- infer cross-workspace data;
+- require every workspace to have KPIs, risks, customers, infrastructure, budget, or team structure;
+- allow arbitrary `WORKSPACE.yaml` metadata to force enrichment.
+
+The design goal is progressive disclosure: simple workspaces stay simple, while larger workspaces can expose additional verified context without changing the core engine or owner contracts.
