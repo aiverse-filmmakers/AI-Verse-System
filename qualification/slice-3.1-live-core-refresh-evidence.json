@@ -1,0 +1,27 @@
+{
+  "schema_version": "ai-verse.repository-refresh-evidence/v1",
+  "slice": "3.1",
+  "scope": "Core",
+  "status": "pass",
+  "system_revision": "373db5dc34a8ba0120af08d34a6293e91de3cad1",
+  "workflow_run_id": "38263474900",
+  "python_3_11_job": "114859632084",
+  "python_3_13_job": "114859632321",
+  "live_refresh_job": "114859632084",
+  "live_refresh_result": "REFRESH COMPLETE scope=Core repos=7 evidence=373db5dc34a8ba0120af08d34a6293e91de3cad1",
+  "observed_distribution_revision": "fd11b4a95487638d47ff55472a3703b03892d0e8",
+  "observed_core_revisions": {
+    "ai-verse-os": "64f7325444d18f94c9d4755d32eb89f3468bda6b",
+    "ai-verse-brain": "69f7912eeb35f0178f6952ff0554aec8d7f2c496",
+    "ai-verse-memory": "f1327be48ba2ee0043959021365e6dbb9dcb1d3a",
+    "ai-verse-skills": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
+    "ai-verse-data": "f8978f8f7a1bc94edecddc2662112233289159a3"
+  },
+  "default_released_core_set": "core-first-run-rc1-2026-10-12",
+  "notes": [
+    "The live refresh used read-only GitHub access and verified all seven current Wave 1 repository identities and exact heads.",
+    "The canonical descriptor validator proves the older OS descriptor revision as accepted; Brain, Memory, Skills and Data remain unverified because their current descriptor observations are development-state and do not satisfy the canonical accepted descriptor contract.",
+    "Distribution qualification was not converted into owner acceptance.",
+    "No sibling repository, runtime, release composition or member payload was modified."
+  ]
+}
