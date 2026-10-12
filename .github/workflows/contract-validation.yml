@@ -35,5 +35,11 @@ jobs:
       - name: Validate repository registry
         run: python scripts/validate_repository_registry.py governance/repository-registry.json
 
+      - name: Validate repository state
+        run: python scripts/validate_repository_state.py governance/repository-state.json
+
+      - name: Check generated repository state ledger
+        run: python scripts/refresh_repository_state.py --check-ledger
+
       - name: Run contract tests
         run: python -m unittest discover -s tests -p "test_*.py"
