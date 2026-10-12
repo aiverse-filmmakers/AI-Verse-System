@@ -103,6 +103,7 @@
       "additionalProperties": false,
       "required": [
         "compatibility",
+        "change_classification",
         "from_versions",
         "requires_explicit_migration",
         "owner_controlled",
@@ -110,6 +111,10 @@
       ],
       "properties": {
         "compatibility": { "enum": ["none-required", "compatible", "explicit-migration", "blocked"] },
+        "change_classification": {
+          "enum": ["non-breaking", "breaking"],
+          "description": "Owner classification of whether this candidate introduces a breaking compatibility boundary for declared predecessor transitions."
+        },
         "from_versions": {
           "type": "array",
           "uniqueItems": true,
@@ -121,7 +126,21 @@
           "enum": ["not-required", "owner-evidence-required", "unsupported"]
         },
         "infrastructure": { "$ref": "#/$defs/infrastructure_upgrade" }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "change_classification": { "const": "breaking" } },
+            "required": ["change_classification"]
+          },
+          "then": {
+            "properties": {
+              "compatibility": { "enum": ["explicit-migration", "blocked"] },
+              "from_versions": { "minItems": 1 }
+            }
+          }
+        }
+      ]
     },
     "authority": {
       "type": "object",
