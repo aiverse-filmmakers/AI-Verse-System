@@ -90,7 +90,7 @@ The classifications have deliberately different jobs:
 
 A descriptor that declares a breaking change while claiming `compatible` or `none-required` is invalid. This prevents a known breaking transition from being represented as compatible inside the canonical metadata format.
 
-The owner is responsible for truthfully classifying its own interface/state compatibility. False classification is an owner-contract failure, not something Distribution may repair by guessing sibling semantics. Owner acceptance in the next handoff stage must validate the classification against the component's own tests/contracts.
+The owner is responsible for truthfully classifying its own interface/state compatibility. False classification is an owner-contract failure, not something Distribution may repair by guessing sibling semantics. Owner acceptance must validate the classification against the component's own tests/contracts.
 
 The descriptor does not authorize Distribution to edit owner state.
 
@@ -121,6 +121,24 @@ Both CI and release-acceptance evidence are required.
 Each evidence item is tied to an exact immutable revision. The semantic validator also requires every evidence revision to equal the descriptor revision.
 
 Evidence `status` in a publishable descriptor is `pass`.
+
+## Owner adoption gate
+
+Owner acceptance reuses the component repository's existing native CI and the existing Component Release Descriptor. It must not create a second acceptance database, duplicate the component test harness, or move native validation into System or Distribution.
+
+For a descriptor with `release_status=accepted`, the owner repository must have a source-only release-descriptor gate that proves all of the following before the accepted metadata is merged:
+
+1. the descriptor satisfies this canonical v1 contract, including exact revision binding, evidence binding, preservation, authority-negative facts and compatibility classification;
+2. `descriptor.revision` resolves to an immutable commit in the component repository;
+3. at least one maintainer-designated native owner CI/acceptance workflow has a successful run whose `head_sha` is exactly `descriptor.revision`;
+4. the owner handoff identifies which native workflow is authoritative enough for this check and does not copy its test commands into a second harness;
+5. the gate fails closed when exact native evidence is unavailable, unsuccessful or bound to a different revision.
+
+A successful existing native run on an immutable revision may be reused. A metadata-only descriptor publication does not require rerunning unchanged component source merely to generate a newer timestamp. The exact revision, successful native evidence and owner descriptor gate are the authority, not recency.
+
+The accepted descriptor may contain evidence items whose `run_id` or `url` is omitted when the repository gate independently verifies the exact successful native run. When a stable run identifier is available, including it is preferred because it improves reconstruction.
+
+Owner acceptance is not Distribution admission. A passing component release-descriptor workflow may state only that the component owner accepts the exact descriptor revision under the component's own contract. It must not claim that a whole AI-Verse release is qualified, promoted, safe to install for a member, healthy at runtime, or approved for a channel. Distribution remains responsible for composition, whole-product preservation/compatibility qualification and promotion.
 
 ## Semantic guardrails beyond JSON shape
 
