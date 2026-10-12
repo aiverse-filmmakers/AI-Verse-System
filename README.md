@@ -42,6 +42,16 @@ A future agent should be able to reconstruct the current system intent from this
 
 For product/UX/autonomy decisions, read `docs/OWNER-PRODUCT-INTENT.md` before changing behavior. It records the owner's recurring direction separately from implementation evidence, so a desired behavior is not mistaken for something already shipped.
 
+## Repository-network governance
+
+For meaningful work that crosses repository boundaries, read:
+
+- `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md` for permanent canonical ownership, handoff, validation, non-regression, member-isolation, emergency-release and cross-repository authority rules;
+- `docs/ARCHITECTURE-TOMBSTONES.md` before recreating architecture described by old plans, audits or branches. Tombstoned structures must not be silently resurrected;
+- the specific update/release contract referenced by the governance contract for the behavior being changed.
+
+The repository-network implementation program is execution history and roadmap, not the permanent law surface. Future maintainers and agents should be able to find the governing rules from this README without first reading that program history.
+
 ## Planned component set
 
 The initial system inventory is:
