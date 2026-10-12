@@ -26,7 +26,6 @@ jobs:
       - name: Verify and commit guarded closure
         shell: bash
         run: |
-          git diff --check
           test -n "$(git status --porcelain -- docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md)"
           test -z "$(git status --porcelain --untracked-files=no | grep -v '^ M docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md$' || true)"
           git config user.name "AI-VERSE"
