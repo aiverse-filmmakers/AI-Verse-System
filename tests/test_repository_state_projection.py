@@ -2,6 +2,7 @@ import copy
 import importlib.util
 import json
 import pathlib
+import sys
 import unittest
 
 
@@ -10,6 +11,9 @@ REGISTRY = json.loads((ROOT / "governance" / "repository-registry.json").read_te
 STATE = json.loads((ROOT / "governance" / "repository-state.json").read_text(encoding="utf-8"))
 LEDGER = ROOT / "docs" / "REPOSITORY-STATE-LEDGER.md"
 SCRIPT = ROOT / "scripts" / "refresh_repository_state.py"
+SCRIPTS = str(ROOT / "scripts")
+if SCRIPTS not in sys.path:
+    sys.path.insert(0, SCRIPTS)
 
 spec = importlib.util.spec_from_file_location("state_projection", SCRIPT)
 state_projection = importlib.util.module_from_spec(spec)
