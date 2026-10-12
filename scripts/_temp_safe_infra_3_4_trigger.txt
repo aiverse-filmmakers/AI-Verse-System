@@ -1,1 +1,1 @@
-Trigger guarded Slice 3.4 roadmap closure. Temporary file; remove after closure succeeds. Retry via main push.
+Trigger guarded Slice 3.4 roadmap closure through the PR workflow. Temporary file; second guarded attempt after removing an irrelevant whitespace check.
