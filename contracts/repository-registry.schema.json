@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiverse.local/contracts/repository-registry.schema.json",
+  "title": "AI-Verse Repository Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "admission_policy",
+    "repositories",
+    "semantics"
+  ],
+  "properties": {
+    "schema_version": { "const": "ai-verse.repository-registry/v1" },
+    "registry_id": { "const": "ai-verse.repository-network" },
+    "admission_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity_key",
+        "unregistered_first_class_release",
+        "distribution_registry_authority"
+      ],
+      "properties": {
+        "identity_key": { "const": "repository_id" },
+        "unregistered_first_class_release": { "const": "block" },
+        "distribution_registry_authority": { "const": false }
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/repository_entry" }
+    },
+    "semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "static_registry_only",
+        "current_name_is_routing_metadata",
+        "dynamic_state_authority",
+        "human_ledger_authority"
+      ],
+      "properties": {
+        "static_registry_only": { "const": true },
+        "current_name_is_routing_metadata": { "const": true },
+        "dynamic_state_authority": { "const": "governance/repository-state.json" },
+        "human_ledger_authority": { "const": false }
+      }
+    }
+  },
+  "$defs": {
+    "repository_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "repository_full_name",
+        "component_id",
+        "canonical_responsibility",
+        "lifecycle",
+        "rollout_wave",
+        "release_profiles",
+        "distribution_ships",
+        "component_release_descriptor_path",
+        "owner_acceptance",
+        "system_refs",
+        "surface_classification"
+      ],
+      "properties": {
+        "repository_id": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Stable GitHub repository ID and logical repository identity anchor."
+        },
+        "repository_full_name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
+          "description": "Current owner/name routing metadata. A rename does not create a new logical repository when repository_id is unchanged."
+        },
+        "component_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "canonical_responsibility": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 600
+        },
+        "lifecycle": {
+          "enum": ["active", "experimental", "retired", "external"]
+        },
+        "rollout_wave": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "release_profiles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["Core", "Agent", "Full"] }
+        },
+        "distribution_ships": { "type": "boolean" },
+        "component_release_descriptor_path": {
+          "type": ["string", "null"],
+          "pattern": "^[A-Za-z0-9_./-]+$"
+        },
+        "owner_acceptance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "discovery_paths"],
+          "properties": {
+            "kind": {
+              "enum": ["system-governance", "distribution-native", "component-native"]
+            },
+            "discovery_paths": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+            }
+          }
+        },
+        "system_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+        },
+        "surface_classification": {
+          "enum": ["governance", "release-orchestrator", "runtime-component"]
+        },
+        "direct_compatibility_dependencies": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "minLength": 2,
+            "maxLength": 80
+          }
+        }
+      }
+    }
+  }
+}
