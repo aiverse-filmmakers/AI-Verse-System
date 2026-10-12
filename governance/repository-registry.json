@@ -1,0 +1,186 @@
+{
+  "schema_version": "ai-verse.repository-registry/v1",
+  "registry_id": "ai-verse.repository-network",
+  "admission_policy": {
+    "identity_key": "repository_id",
+    "unregistered_first_class_release": "block",
+    "distribution_registry_authority": false
+  },
+  "repositories": [
+    {
+      "repository_id": 1367664026,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-System",
+      "component_id": "ai-verse-system",
+      "canonical_responsibility": "Canonical system architecture, product intent, cross-repository governance, repository-network invariants, Registry and Repository State semantics, architecture tombstones, and current-versus-intended system truth.",
+      "lifecycle": "active",
+      "rollout_wave": 1,
+      "release_profiles": [],
+      "distribution_ships": false,
+      "component_release_descriptor_path": null,
+      "owner_acceptance": {
+        "kind": "system-governance",
+        "discovery_paths": [
+          ".github/workflows/contract-validation.yml",
+          "docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md"
+        ]
+      },
+      "system_refs": [
+        "README.md",
+        "docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md",
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "governance"
+    },
+    {
+      "repository_id": 1350081263,
+      "repository_full_name": "aiverse-filmmakers/ai-verse-distribution",
+      "component_id": "ai-verse-distribution",
+      "canonical_responsibility": "Canonical release composition and delivery authority for exact release sets, candidate admission, cross-component compatibility, source acquisition, install/update/rollback orchestration, member payload boundaries, whole-product qualification, promotion channels, and durable release reconstruction evidence.",
+      "lifecycle": "active",
+      "rollout_wave": 1,
+      "release_profiles": [],
+      "distribution_ships": false,
+      "component_release_descriptor_path": null,
+      "owner_acceptance": {
+        "kind": "distribution-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release-sets",
+          "qualification"
+        ]
+      },
+      "system_refs": [
+        "docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md",
+        "docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md",
+        "docs/WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT.md"
+      ],
+      "surface_classification": "release-orchestrator"
+    },
+    {
+      "repository_id": 1361862361,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-OS",
+      "component_id": "ai-verse-os",
+      "canonical_responsibility": "Canonical AI-Verse operating-system and host/workspace integration layer, including system runtime coordination, workspace configuration, lifecycle-facing host behavior, and OS-owned durable configuration semantics.",
+      "lifecycle": "active",
+      "rollout_wave": 1,
+      "release_profiles": ["Core"],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "components/ai-verse-os/COMPONENT-SPEC.md",
+        "components/ai-verse-os/QC.md",
+        "components/ai-verse-os/SOURCE-MAP.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1362233598,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Brain",
+      "component_id": "ai-verse-brain",
+      "canonical_responsibility": "Canonical strategic direction and goal-oriented reasoning owner for Brain-owned goals, desired states, practices, beliefs, verification state, direction handover state, and related strategic records.",
+      "lifecycle": "active",
+      "rollout_wave": 1,
+      "release_profiles": ["Core"],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "components/ai-verse-brain/COMPONENT-SPEC.md",
+        "components/ai-verse-brain/QC.md",
+        "components/ai-verse-brain/SOURCE-MAP.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1361910454,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Memory",
+      "component_id": "ai-verse-memory",
+      "canonical_responsibility": "Canonical durable memory owner for historical memory content, memory records, provenance, supersession, recall metadata, migration provenance, and Memory-owned persistence semantics.",
+      "lifecycle": "active",
+      "rollout_wave": 1,
+      "release_profiles": ["Core"],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "components/ai-verse-memory/COMPONENT-SPEC.md",
+        "components/ai-verse-memory/QC.md",
+        "components/ai-verse-memory/SOURCE-MAP.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1362243580,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Skills",
+      "component_id": "ai-verse-skills",
+      "canonical_responsibility": "Canonical reusable Skills owner for immutable skill generations, active-generation selection, recoverable history, learning/proposal state, package provenance, and Skills-owned execution/package semantics.",
+      "lifecycle": "active",
+      "rollout_wave": 1,
+      "release_profiles": ["Core"],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "components/ai-verse-skills/COMPONENT-SPEC.md",
+        "components/ai-verse-skills/QC.md",
+        "components/ai-verse-skills/SOURCE-MAP.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1364457521,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Data",
+      "component_id": "ai-verse-data",
+      "canonical_responsibility": "Canonical structured operational data owner for Data databases, Data Spaces, schemas, records, relations, transactions, structured provenance, idempotency state, and Data-owned migration semantics.",
+      "lifecycle": "active",
+      "rollout_wave": 1,
+      "release_profiles": ["Core"],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "components/ai-verse-data/COMPONENT-SPEC.md",
+        "components/ai-verse-data/QC.md",
+        "components/ai-verse-data/SOURCE-MAP.md"
+      ],
+      "surface_classification": "runtime-component"
+    }
+  ],
+  "semantics": {
+    "static_registry_only": true,
+    "current_name_is_routing_metadata": true,
+    "dynamic_state_authority": "governance/repository-state.json",
+    "human_ledger_authority": false
+  }
+}
