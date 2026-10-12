@@ -13,14 +13,14 @@
 **Current phase progress:** 1/3 slices complete  
 **Slices until next phase:** 2  
 **Current slice:** 4.2 - Wave 1/Core maintainer handoff  
-**Current slice status:** NOT STARTED  
+**Current slice status:** IN PROGRESS  
 **Next slice:** 4.3 - Wave 2/3 handoff governance
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
 ## Tracker history preservation
 
-Phase 0/1 detail is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Slice 2.1 closure is `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 start/closure are `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 start/closure/final State snapshot are `8cb5fbff630f45f730db904771333d73d5616a57`, `fc0d178809867362dc29183411f26b9f65980903` and `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Slice 3.1 start/final State snapshot/final CI are `dbe13e49d84176131e0447785a4748951a17ad8e`, `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2` and run `38279213073`. Slice 3.2 closure bookkeeping/final heartbeat/final CI are `0ace417725831e0ba3843fdc77a27d578b3b3010`, `dc6cfca7498d086583f592a08422c2a088d9545a` and run `38281646978`. Slice 4.1 implementation merge is `bb17104a7c7e0e1ac3e716bee982dbffe3bc9bb3`; its exact post-merge Contract Validation is run `38285847243`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
+Phase 0/1 detail is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Slice 2.1 closure is `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 start/closure are `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 start/closure/final State snapshot are `8cb5fbff630f45f730db904771333d73d5616a57`, `fc0d178809867362dc29183411f26b9f65980903` and `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Slice 3.1 start/final State snapshot/final CI are `dbe13e49d84176131e0447785a4748951a17ad8e`, `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2` and run `38279213073`. Slice 3.2 closure bookkeeping/final heartbeat/final CI are `0ace417725831e0ba3843fdc77a27d578b3b3010`, `dc6cfca7498d086583f592a08422c2a088d9545a` and run `38281646978`. Slice 4.1 implementation merge/closure/final State are `bb17104a7c7e0e1ac3e716bee982dbffe3bc9bb3`, `c4bd8c5fe2c81428d7ea714f3a37be595b26ba75` and `563659432d8609f908b44fae676f10496d47ec96`; final CI is run `38286714138`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
 
 ---
 
@@ -238,7 +238,7 @@ Classification from fresh evidence:
 - [x] **4.1-T2** Defined the minimum compatibility metadata as one required `change_classification` field inside `migration`, without creating a second descriptor or live-health authority.
 - [x] **4.1-T3** Extended the canonical contract/schema/validator/examples/tests with fail-closed breaking-change semantics while preserving the existing infrastructure-upgrade extension.
 - [x] **4.1-T4** Proved the exact implementation on Python 3.11 and 3.13, including positive standard/infrastructure fixtures and destructive-negative breaking-compatibility regressions.
-- [x] **4.1-T5** Prepared closure with the required exact Core refresh evidence; final Repository State/ledger is published as the direct child of this closure bookkeeping commit, and only 4.1 truth is advanced.
+- [x] **4.1-T5** Published the exact closure State/ledger and advanced only truth proven by 4.1.
 
 ### Evidence
 
@@ -251,8 +251,8 @@ Classification from fresh evidence:
 - Contract semantics: `c6bf1a7a275acffe40c4a4889cbcd577dc047201`.
 - Pull request: `#191`; PR Contract Validation run `38285770602` passed on Python 3.11 and 3.13.
 - Implementation merge: `bb17104a7c7e0e1ac3e716bee982dbffe3bc9bb3`.
-- Exact post-merge Contract Validation: run `38285847243` passed on Python 3.11 and 3.13; the Python 3.11 job also completed a live read-only Core refresh with `REFRESH COMPLETE scope=Core repos=7 evidence=bb17104a7c7e0e1ac3e716bee982dbffe3bc9bb3`.
-- Final State/ledger snapshot: direct child of this closure bookkeeping commit, generated from the exact closure head and limited to `governance/repository-state.json` plus `docs/REPOSITORY-STATE-LEDGER.md`.
+- Closure merge: `c4bd8c5fe2c81428d7ea714f3a37be595b26ba75`; exact closure validation run `38286420051` passed and completed a live read-only Core refresh.
+- Final State/ledger: `563659432d8609f908b44fae676f10496d47ec96`; final Contract Validation run `38286714138` passed on Python 3.11 and 3.13, with 141 tests, current ledger projection and exact live Core refresh.
 
 ### Drift disposition
 
@@ -262,10 +262,50 @@ No sibling repository, Distribution release history, member payload, runtime beh
 
 ## Slice 4.2 - Wave 1/Core maintainer handoff
 
-**Status:** NOT STARTED  
-**Dependencies:** 4.1
+**Status:** IN PROGRESS  
+**Dependencies:** 4.1  
+**Adaptive tasks:** 1/5 complete
 
-Add minimal source-only owner handoff semantics in OS, Brain, Memory, Skills and Data. Acceptance: discoverable handoff, exact candidate acceptance where technically possible, no copied global governance docs, local CI cannot claim member release alone.
+Add minimal source-only owner handoff semantics in OS, Brain, Memory, Skills and Data. Acceptance remains unchanged: discoverable handoff, exact candidate acceptance where technically possible, no copied global governance docs, and local CI cannot claim member release alone.
+
+### Starting refs
+
+- `aiverse-filmmakers/AI-Verse-System@ddd51191b54498db45c924762b90074ff7ecc2e2`
+- `aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1`
+- `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- `aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- `aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- `aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3`
+
+The five owner refs still equal the exact currently released Core pins. Successful owner-native checks already exist on every one of those immutable revisions, so Slice 4.2 does not need to invent retrospective testing or duplicate native test commands.
+
+### Live classification
+
+- existing `release/component-release.json` in all five owners: `REUSE/EXTEND`;
+- existing owner-local `Release Descriptor` workflows in all five owners: `REUSE/EXTEND`;
+- existing native owner CI/QC/test/readiness workflows: `REUSE` unchanged as the implementation acceptance machinery;
+- successful native workflow runs already bound to each exact released Core pin: `REUSE` as immutable evidence;
+- canonical System descriptor schema/validator and Repository State owner-acceptance observation: `REUSE` unchanged;
+- Brain `docs/RELEASE.md`: `REUSE/EXTEND`;
+- OS historical release/acceptance documents: `RETAIN`; add only a concise descriptor/maintainer entrypoint if no existing page performs that role;
+- Memory, Skills and Data release handoff entrypoint: `CREATE` minimal owner-specific source-only guidance because no equivalent `docs/RELEASE.md` or descriptor maintainer entrypoint exists;
+- copied System governance, second acceptance database, second compatibility format or copied native test harness: `PROHIBITED`;
+- Distribution admission/promotion changes: `DEFER` to Phase 5.
+
+### Evidence-backed owner pattern
+
+For an `accepted` descriptor, the owner-local `Release Descriptor` gate will validate the current canonical descriptor semantics and verify that the exact immutable `descriptor.revision` has a successful run of that repository's already-existing native owner workflow. The descriptor publication commit may be newer than the target revision because Git commit identity is self-referential; the descriptor target remains the accepted component revision. Passing owner acceptance means only that the component owner accepts that exact revision. It cannot claim Distribution admission, whole-product qualification, promotion, member update safety or live runtime health.
+
+### Derived task list
+
+- [x] **4.2-T1** Refresh exact live owner/System refs; audit all five current descriptors, descriptor workflows, native CI and maintainer docs; prove successful native checks already exist on each exact released Core pin; classify reuse/create/prohibited boundaries.
+- [ ] **4.2-T2** Define and document the one minimal owner-local acceptance/handoff pattern: canonical descriptor + existing descriptor workflow + successful exact-revision native CI binding + explicit non-member-release semantics.
+- [ ] **4.2-T3** Implement the pattern in OS, Brain, Memory, Skills and Data, preserving each repo's native CI and publishing canonical accepted descriptors for the exact current pins only where the evidence gate passes.
+- [ ] **4.2-T4** Prove each owner PR/push gate, exact revision/native-CI binding, canonical breaking-change semantics, handoff discoverability and the invariant that owner CI cannot claim Distribution/member release.
+- [ ] **4.2-T5** Refresh scoped Core Repository State/ledger from the exact resulting owner refs, resolve only owner-acceptance/handoff drift actually proven closed, record exact evidence and close Slice 4.2 before advancing to 4.3.
+
+No protected roadmap element changed. No plan amendment is required.
 
 ## Slice 4.3 - Wave 2/3 handoff governance
 
@@ -339,6 +379,17 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 
 # Program Change Log
 
+## 2026-10-12 - Slice 4.2 started
+
+- Resumed from the first genuinely incomplete slice after proving the full Slice 4.1 closure and final State/CI.
+- Refreshed all five Wave 1 owner heads and confirmed they still equal the exact Core revisions currently pinned by Distribution.
+- Audited the existing owner descriptor workflows and native CI instead of creating a parallel acceptance framework.
+- Confirmed successful native GitHub Actions checks already exist on every exact pinned owner revision: OS, Brain, Memory, Skills and Data.
+- Chose one minimal owner-local pattern: extend the canonical descriptor and existing descriptor workflow to bind accepted metadata to successful native CI on the exact target SHA, while preserving explicit non-member-release semantics.
+- Brain's existing release handoff is reused; other owner docs are created or linked only where no equivalent descriptor maintainer entrypoint exists.
+- System Repository State acceptance semantics remain unchanged and will consume the same canonical descriptor after owner adoption.
+- No protected roadmap change and no plan amendment.
+
 ## 2026-10-12 - Slice 4.1 completed
 
 - Reused and extended the one canonical `ai-verse.component-release/v1` format rather than creating a parallel compatibility record.
@@ -346,9 +397,9 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 - A declared breaking transition now fails validation unless it names predecessor scope and uses `explicit-migration` or `blocked` compatibility.
 - Preserved exact immutable descriptor/evidence binding, negative live-health semantics and the concurrent Safe Infrastructure `migration.infrastructure` extension.
 - Preserved historical component descriptors and Distribution qualification snapshots unchanged.
-- PR `#191` and post-merge run `38285847243` passed; the exact merged head completed a live read-only Core refresh.
+- PR `#191` and final State/ledger validation passed; final State is `563659432d8609f908b44fae676f10496d47ec96`, final CI `38286714138`.
 - No existing Core owner-adoption drift was falsely resolved. Slice 4.2 remains responsible for the five-owner handoff/adoption step.
-- Program progress is now 11/20, 55.0%; Phase 4 is 1/3 complete.
+- Program progress remains 11/20, 55.0%; Phase 4 is 1/3 complete.
 - No protected roadmap change and no plan amendment.
 
 ## 2026-10-12 - Slice 4.1 started
@@ -403,6 +454,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 4 - Integrate canonical component owners  
 **Phase progress:** 1/3  
 **Until Phase 5:** 2 slices  
-**Current slice:** Slice 4.2 - Wave 1/Core maintainer handoff (`NOT STARTED`)  
-**Next:** start Slice 4.2 with fresh exact refs, owner-native CI/descriptor inspection and minimal handoff classification  
-**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING remains open for Slice 4.2 adoption; Core maintainer handoff WARNING; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
+**Current slice:** Slice 4.2 - Wave 1/Core maintainer handoff (`IN PROGRESS`, 1/5 tasks complete)  
+**Next:** 4.2-T2 - define/document the minimal owner-local exact-revision acceptance and handoff pattern  
+**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING remains open until all five owners pass 4.2 adoption; Core maintainer handoff WARNING remains open; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
