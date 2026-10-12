@@ -122,7 +122,7 @@ A persistent adaptive implementation plan exists before any identity implementat
 
 - canonical path: `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md`
 - planning method: `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`
-- initial plan commit: recorded after creation
+- initial plan commit: `9ce5ca1884718a210305de29ce896f873bdd94e9`
 
 ### NEXT
 
