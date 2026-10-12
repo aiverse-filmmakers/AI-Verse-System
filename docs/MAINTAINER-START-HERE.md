@@ -26,6 +26,7 @@ The implementation roadmap `docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-
 | What does the component descriptor currently say? | Owner descriptor observation recorded by Repository State |
 | Is System synchronized with accepted implementation? | Repository State + exact reconciliation evidence |
 | What drift is open and how severe is it? | Repository State |
+| What is the last full watchdog attempt/heartbeat? | Repository State refresh + watchdog records |
 | What does a human read quickly? | Generated Repository State Ledger |
 | What code/state does a component own? | Canonical component repository |
 | What exact release set is admitted/promoted? | ai-verse-distribution |
@@ -34,21 +35,23 @@ Never copy a static Registry field into Repository State as a separately maintai
 
 ## Freshness rules
 
-A date alone never proves freshness. Exact Git identity, evidence refs, scope and ancestry are the governing evidence.
+A date alone never proves repository lineage. Exact Git identity, evidence refs, scope and ancestry are the governing evidence. Time is used only for operational watchdog heartbeat freshness where the architecture explicitly requires daily expected scans.
 
-Repository State is stored inside AI-Verse-System, so its own System `observed_head` has unavoidable self-publication semantics: it records the exact System head observed immediately before the State snapshot is published. The commit that publishes that State/ledger snapshot is therefore expected to be a direct descendant of the recorded System head. Do not treat that one publication step as unexplained drift. Any additional System movement after the snapshot requires a new relevant refresh before freshness can be claimed for a decision that depends on it.
+Repository State is stored inside AI-Verse-System, so its own System `observed_head` has unavoidable self-publication semantics: it records the exact System head observed immediately before the State snapshot is published. The commit that publishes that State/ledger snapshot is therefore expected to be a direct descendant of the recorded System head. Any additional System movement after the snapshot requires a new relevant refresh before freshness can be claimed for a decision that depends on it.
 
 Before a scoped decision, refresh only the Registry-derived scope required by that decision. For Core, that means System, Distribution, OS, Brain, Memory, Skills and Data. Component scope includes System, Distribution, the selected component and its declared direct dependency closure. Agent, Full and global scopes are derived from Registry lifecycle/release participation rather than hard-coded repository names.
 
-`scripts/refresh_repository_state.py` is the single refresh and projection engine. Live refresh is read-only against sibling repositories. It verifies stable GitHub repository IDs, resolves exact default-branch heads, reads component release descriptors at those exact heads, evaluates owner acceptance only through the canonical descriptor validator, and reads Distribution release-set evidence at the exact observed Distribution head.
+`scripts/refresh_repository_state.py` is the single discovery/comparison/projection engine. Live refresh is read-only against sibling repositories. It verifies stable GitHub repository IDs, resolves exact default-branch heads, reads component release descriptors at those exact heads, evaluates owner acceptance only through the canonical descriptor validator, and reads Distribution release-set evidence at the exact observed Distribution head.
+
+`scripts/run_repository_watchdog.py` is watchdog orchestration around that same engine. It performs only a Registry-derived `global` refresh, records heartbeat transitions in the same Repository State, preserves unrelated drift, and never writes sibling repositories or release pins.
 
 A descriptor can validly describe an accepted revision older than the descriptor publication commit. The descriptor's exact `revision` is the owner release target. The commit containing the descriptor is not silently substituted as the accepted release revision.
 
 Distribution qualification never becomes owner acceptance. Multiple or ambiguous current Distribution pins fail closed instead of being resolved by filename or date. Inaccessible evidence is `unavailable`; an executed check that fails is `failed`.
 
-The refresh engine checks that live System HEAD equals the exact local/evidence revision before a refresh can be published. Concurrent System movement fails the refresh instead of silently publishing stale State.
+The refresh engine checks that live System HEAD equals the exact local/evidence revision before a refresh can be published. Concurrent System movement fails the refresh instead of silently publishing stale State. The watchdog workflow also relies on a normal non-force Git push, so movement after refresh fails publication rather than overwriting newer work.
 
-`WATCHDOG-STALE` and `WATCHDOG-FAILED` are never CLEAN. A valid scoped refresh may support a scoped decision while the full watchdog is stale only when the governance contract permits it. Slice 3.2 adds the scheduled/manual full-scan heartbeat using this same refresh engine.
+`WATCHDOG-STALE` and `WATCHDOG-FAILED` are never CLEAN. The daily/manual watchdog uses a successful global refresh to set `WATCHDOG-CURRENT`. The first unsuccessful expected full scan after a current heartbeat becomes `WATCHDOG-FAILED`; a second consecutive unsuccessful expected scan becomes `WATCHDOG-STALE`. A timestamped current heartbeat is also treated as operationally stale when it is at least two expected daily windows old. A valid scoped refresh may still support a scoped decision while global watchdog state is WARNING-stale only when the governance contract permits it.
 
 ## Drift and release blocking
 
@@ -60,7 +63,7 @@ When System documentation conflicts with newer implementation, do not automatica
 
 Ambiguous ownership is `BLOCKED - OWNER UNRESOLVED`.
 
-## Registry and State commands
+## Registry, State and watchdog commands
 
 Validate static Registry truth:
 
@@ -92,13 +95,32 @@ Run a read-only full registered-repository refresh:
 python scripts/refresh_repository_state.py --refresh --scope global
 ```
 
-Publish a refreshed Core State and its generated ledger in a System checkout:
+Publish a refreshed Core State and generated ledger in a System checkout:
 
 ```bash
 python scripts/refresh_repository_state.py --refresh --scope Core --write-state --write-ledger
 ```
 
-`--write-state` and `--write-ledger` only modify the local System checkout. They never write sibling repositories. Publish the resulting State and ledger together so they describe one snapshot.
+Run the full watchdog locally against the exact checked-out System head and write only local State + ledger:
+
+```bash
+python scripts/run_repository_watchdog.py --write
+```
+
+Check whether the persisted heartbeat is current:
+
+```bash
+python scripts/run_repository_watchdog.py --check-current
+```
+
+The canonical automation is `.github/workflows/repository-drift-watchdog.yml`. It runs once daily and supports manual dispatch. Its GitHub token is scoped to the current System repository only. Before publication it rejects any working-tree change outside:
+
+- `governance/repository-state.json`
+- `docs/REPOSITORY-STATE-LEDGER.md`
+
+It never patches component/Distribution repositories, changes release pins or promotes releases. A non-fast-forward push or System-head concurrency causes failure rather than overwrite.
+
+`--write-state`, `--write-ledger` and watchdog `--write` only modify the local System checkout. Publish State and ledger together so they describe one snapshot.
 
 Regenerate the human ledger from already-recorded machine truth:
 
@@ -139,6 +161,6 @@ Member installs receive only admitted runtime/product artifacts plus legitimate 
 
 ## Current state warning
 
-The live refresh engine is operational, but the scheduled/manual Drift Watchdog heartbeat is intentionally not implemented until Slice 3.2. Repository State therefore remains `WATCHDOG-STALE`; a successful scoped refresh does not make the global watchdog CLEAN.
+The watchdog implementation and workflow exist in Slice 3.2, but Repository State must remain `WATCHDOG-STALE` until the first successful full registered-repository heartbeat is actually run and published. Merely adding the workflow is not evidence of a successful heartbeat.
 
 The existing Core release may have successful owner/Distribution test history, but current component descriptors do not yet prove exact owner acceptance for all current shipped refs. Repository State keeps that Core `BLOCKING` governance gap visible for future release admission rather than rewriting history or claiming the shipped refs were untested.
