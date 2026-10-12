@@ -48,7 +48,7 @@ If an existing mechanism satisfies the contract, classify it `REUSE` and leave i
 
 ## 0C. Current reality baseline
 
-The pre-plan audit found the following starting classification. Slice 1.1 must refresh this against current repository heads before implementation begins.
+The pre-plan audit found the following starting classification. Slice 1.1 refreshes this against current repository heads.
 
 | Surface | Starting classification | Reason |
 | --- | --- | --- |
@@ -90,10 +90,11 @@ Low-level tasks are adaptive and are derived only when the slice starts.
 ## 0E. Progress
 
 **Total slices:** 8  
-**Completed slices:** 1  
-**Overall:** 1/8 (12.5%)  
+**Completed slices:** 2  
+**Overall:** 2/8 (25.0%)  
 **Current phase:** Phase 1  
-**Next:** Slice 1.1 - IN PROGRESS
+**Phase progress:** 1/2  
+**Next:** Slice 1.2 - Define the System identity and canonical-reference contract
 
 ---
 
@@ -134,13 +135,14 @@ A persistent adaptive implementation plan exists before any identity implementat
 
 ## Slice 1.1 - Refresh the cross-Core identity map
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System plus identity-relevant Core owner repos  
-**Dependencies:** 0.1
+**Dependencies:** 0.1  
+**Adaptive tasks:** 6/6 COMPLETE
 
 ### Starting refs
 
-Refs refreshed before Identity Slice 1.1 implementation/audit work:
+Refs refreshed before Identity Slice 1.1 audit work:
 
 - `aiverse-filmmakers/AI-Verse-System@423e04917a9f1a9b4f012fa9daf4366fc8135e8c`
 - `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
@@ -157,64 +159,137 @@ Refs refreshed before Identity Slice 1.1 implementation/audit work:
 - `aiverse-filmmakers/ai-verse-token@d36916323abb5f396bd8fd6b7f5c3ef84af519d0`
 - `aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8`
 
-OS, Brain, Memory, Data, Skills and Distribution still match the exact refs used by Safe Infrastructure Phase 1, so its completed identity findings are reused rather than re-audited.
+OS, Brain, Memory, Data, Skills and Distribution still matched the exact refs used by Safe Infrastructure Phase 1. Their completed identity findings were therefore reused rather than re-audited.
 
-### Derived task list
+Slice-start bookkeeping commit:
+
+- `aiverse-filmmakers/AI-Verse-System@4d8b7cf51705bdf8e2c498549a2003e50b6abb50`
+
+### Final derived task list
 
 - [x] **1.1-T1** Refresh all in-scope repository heads and verify which Safe Infrastructure Phase 1 evidence remains exact-current.
-- [ ] **1.1-T2** Reuse Safe Infrastructure Slice 1.2/1.3 evidence to confirm Workspace, Skill/provider and Distribution identity conclusions without duplicating those audits.
-- [ ] **1.1-T3** Inspect only identity-relevant surfaces in Automations, Multiple Bots, Connections, Apps, Gateway, Dashboard and Token that Safe Infrastructure did not cover.
-- [ ] **1.1-T4** Refresh current System identity/spec/reference surfaces and identify any duplicate or competing identity mechanisms.
-- [ ] **1.1-T5** Produce the final cross-Core identity matrix with canonical owner and `REUSE` / `EXTEND` / `CREATE` / `RETIRE` / `BLOCK/UNKNOWN` classification for every relevant durable identity surface.
-- [ ] **1.1-T6** Record exact evidence, acceptance closure, remaining gaps and the minimal handoff to Slice 1.2. No component implementation changes are permitted in this slice.
+- [x] **1.1-T2** Reuse Safe Infrastructure Slice 1.2/1.3 evidence to confirm Workspace, Skill/provider and Distribution identity conclusions without duplicating those audits.
+- [x] **1.1-T3** Inspect only identity-relevant surfaces in Automations, Multiple Bots, Connections, Apps, Gateway, Dashboard and Token that Safe Infrastructure did not cover.
+- [x] **1.1-T4** Refresh current System identity/spec/reference surfaces and identify any duplicate or competing identity mechanisms.
+- [x] **1.1-T5** Produce the final cross-Core identity matrix with canonical owner and `REUSE` / `EXTEND` / `CREATE` / `RETIRE` / `BLOCK/UNKNOWN` classification for every relevant durable identity surface.
+- [x] **1.1-T6** Record exact evidence, acceptance closure, remaining gaps and the minimal handoff to Slice 1.2. No component implementation changes were made.
 
-### Outcome
+### Evidence reuse
 
-A current evidence-backed map identifies every durable first-class entity that participates in long-lived or cross-owner identity and classifies each implementation as `REUSE`, `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN`.
+Authoritative completed Safe Infrastructure inputs reused directly:
 
-### Scope
+- `docs/SAFE-INFRASTRUCTURE-SLICE-1.2-INVENTORY.md`
+- `docs/SAFE-INFRASTRUCTURE-SLICE-1.3-ARCHITECTURE-FREEZE.md`
+- final Phase 1 decisions in `docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md`
 
-Inspect only identity-relevant surfaces in:
+Detailed Identity Slice 1.1 evidence and final matrix:
 
-- AI-Verse-OS;
-- AI-Verse-Brain;
-- AI-Verse-Memory;
-- AI-Verse-Data;
-- AI-Verse-Skills;
-- AI-Verse-Automations;
-- AI-Verse-Multiple-Bots;
-- AI-Verse-Connections;
-- AI-Verse-Apps;
-- AI-Verse-Gateway;
-- AI-Verse-Dashboard;
-- ai-verse-token;
-- ai-verse-distribution;
-- AI-Verse-System contracts/specs.
+- `docs/IDENTITY-HARDENING-SLICE-1.1-CROSS-CORE-IDENTITY-MAP.md`
+- evidence commit: `aiverse-filmmakers/AI-Verse-System@b412a0b668aeaa050e2f92bba20fca0d2985ab17`
 
-Do not perform a general-purpose repo audit outside identity-relevant code, contracts and tests.
+### Final classification summary
+
+#### `REUSE`
+
+- Workspace logical ID `WORKSPACE.yaml:id` and current ID-derived storage contract `workspaces/<id>`;
+- OS provider scope/resolution/ranking;
+- managed Skills package identity/lifecycle and immutable generation model;
+- user-owned personal reusable capability provider;
+- Workspace-owned local capability provider;
+- Brain durable object IDs;
+- Memory record IDs;
+- Data space/entity/record IDs;
+- Automations automation/trigger/run/invocation identities;
+- Multiple Bots typed durable IDs;
+- Connections registry identity;
+- Gateway session/run local identities and external owner bindings;
+- Dashboard `systemId` as Dashboard-local connection identity only;
+- Token runtime/provider/model identity-resolution model;
+- repository-governance repository IDs within repository governance only.
+
+#### `EXTEND`
+
+- existing OS `{owner, scope, kind, id}` canonical-reference precedent into one minimal System-wide cross-owner reference contract in Slice 1.2;
+- Distribution preservation tests later to prove durable IDs/references survive Core update without creating a second updater.
+
+#### `CREATE`
+
+- Apps durable App identity implementation. Apps architecture intends stable identity, but executable registry/manifest/identity lifecycle is still absent.
+
+#### `BLOCK/UNKNOWN`
+
+- arbitrary Workspace relocation / path-independent ID-to-location lookup: unsupported by current owners;
+- identity-preserving cross-provider Skill/capability re-scope: not admitted by current qualified-ID contract.
+
+These are unsupported capabilities, not blockers to Slice 1.2. The shared contract must preserve the fail-closed result rather than inventing semantics.
+
+#### `RETIRE`
+
+- none. No competing global identity service, duplicate runtime identity registry or unsafe owner identity mechanism was found that should be retired.
+
+### Frozen conclusions confirmed
+
+- Workspace logical identity is `WORKSPACE.yaml:id`: **CONFIRMED**;
+- current Workspace storage is `workspaces/<workspace-id>`: **CONFIRMED**;
+- filesystem independence is not universal: **CONFIRMED**;
+- Workspace relocation is unsupported without a future explicit ID-to-location owner contract: **CONFIRMED**;
+- OS owns provider/scope resolution for Skills/capabilities: **CONFIRMED**;
+- Skills owns managed `aiverse-skills` provider lifecycle: **CONFIRMED**;
+- personal reusable Skills/capabilities are user-owned: **CONFIRMED**;
+- Workspace-local Skills/capabilities are Workspace-owned: **CONFIRMED**;
+- provider/scope is part of current qualified Skill identity: **CONFIRMED**;
+- managed Skill package identity is separate from generation/version/digest: **CONFIRMED**;
+- scope transfer does not automatically preserve identity: **CONFIRMED**;
+- Brain, Memory, Data, Automations, Multiple Bots, Connections, Gateway, Dashboard-local and Token identity implementations should be reused: **CONFIRMED**;
+- Apps remains the known incomplete stable-identity area: **CONFIRMED**.
+
+### Duplicate/competing mechanism result
+
+No global runtime identity authority exists today, and none is required by current evidence.
+
+- Dashboard `systemId` remains Dashboard-local and owns zero domain truth.
+- Gateway session/run IDs remain Gateway-local.
+- System repository IDs remain repository-governance identities.
+- Data request/event/transaction/receipt IDs remain separate from Data record identity.
+- Skills generation/version/digest remain separate from package identity.
+- Token model/provider identities remain domain-specific.
+
+A canonical installation-wide AI-Verse instance ID remains out of scope unless later evidence proves a real requirement.
+
+### Concurrent work/drift
+
+System repository-network-governance work advanced concurrently after the Slice 1.1 start record. The Identity plan was refetched before writes; inspected concurrent commits did not alter this Identity plan or the owner identity contracts used for the map. No concurrent plan content was overwritten.
 
 ### Acceptance criteria
 
-- every durable first-class entity requiring stable identity is accounted for;
-- every canonical owner is identified;
-- duplicate or competing identity mechanisms are identified;
-- path/name-based cross-owner references are identified only where they create real identity coupling;
-- no new subsystem is proposed where `REUSE` or `EXTEND` is sufficient;
-- the starting classification in section 0C is either confirmed or corrected with evidence.
+- every durable first-class entity requiring stable identity is accounted for: **PASS**;
+- every canonical owner is identified: **PASS**;
+- duplicate or competing identity mechanisms are identified: **PASS**;
+- path/name-based cross-owner coupling is recorded only where current evidence proves it: **PASS**;
+- no new subsystem is proposed where `REUSE` or `EXTEND` is sufficient: **PASS**;
+- the starting classification is confirmed or corrected with exact evidence: **PASS**;
+- no product/component implementation was changed during Slice 1.1: **PASS**.
 
-### Required evidence
+### Completion report
 
-- exact repository refs inspected;
-- concise identity matrix in this plan or a directly linked System document;
-- exact source/test evidence for every `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN` classification.
-
-### Adaptive task rule
-
-At slice start, derive the smallest task list needed to satisfy this acceptance gate. The first task should refresh current heads and relevant identity surfaces.
+```text
+Completed: Slice 1.1 - Refresh the cross-Core identity map
+Tasks: 6/6
+Overall: 2/8 slices (25.0%)
+Phase: Phase 1 - Freeze the shared identity contract from current reality
+Phase progress: 1/2
+Until next phase: 1 slice
+Next: Slice 1.2 - Define the System identity and canonical-reference contract
+Blockers/drift/amendments: No protected directional change required. Workspace relocation and identity-preserving cross-provider re-scope remain intentionally unsupported/fail-closed. Concurrent System governance work did not overlap Identity surfaces.
+```
 
 ### NEXT
 
-**Slice 1.2 - Define the System identity and canonical-reference contract.**
+**STOP after Slice 1.1 for the current one-at-a-time execution request.**
+
+Next execution unit: **Slice 1.2 - Define the System identity and canonical-reference contract.**
+
+---
 
 ## Slice 1.2 - Define the System identity and canonical-reference contract
 
