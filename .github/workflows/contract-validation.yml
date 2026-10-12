@@ -43,3 +43,9 @@ jobs:
 
       - name: Run contract tests
         run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Live read-only Core repository refresh
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.python-version == '3.11'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/refresh_repository_state.py --refresh --scope Core
