@@ -12,8 +12,11 @@
 **Current execution phase:** Phase 1 - Audit and normalize current reality  
 **Current phase progress:** 0/3 slices complete  
 **Slices until next phase:** 3  
-**Next slice:** 1.1 - Audit the live repository network and existing safety machinery  
-**Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 1.1 starts
+**Current slice:** 1.1 - Audit the live repository network and existing safety machinery  
+**Current slice status:** IN PROGRESS  
+**Current task:** 1.1.2 - Audit Core identities, owner acceptance surfaces, release descriptors and compatibility/versioning  
+**Task progress:** 1/5  
+**Next slice:** 1.2 - Build the reuse, ownership, payload and drift inventory
 
 > This file is the execution tracker. It must update before and after every implementation slice. A slice is not COMPLETE until its implementation, tests, evidence, plan update and progress accounting are all committed.
 
@@ -705,9 +708,59 @@ Do not mark work COMPLETE merely because code exists.
 
 ## Slice 1.1 - Audit the live repository network and existing safety machinery
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 0.1  
-**Adaptive tasks:** NOT YET DERIVED - derive from live state at slice start
+**Task progress:** 1/5  
+**Current task:** 1.1.2 - Audit Core identities, owner acceptance surfaces, release descriptors and compatibility/versioning
+
+### Slice start record
+
+Slice 1.1 began from a scoped live refresh of System, Distribution and the five currently shipped Core owners. No implementation behavior was changed before this audit record was committed.
+
+Starting refs:
+
+- AI-Verse-System `main`: `b9e803a27184c9f148f32157e9025157fd942c9b`
+- ai-verse-distribution `main`: `def78ade8b11d415b8111f6b5f0d267044520769`
+- AI-Verse-OS `main`: `64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- AI-Verse-Brain `main`: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- AI-Verse-Memory `main`: `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- AI-Verse-Skills `main`: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- AI-Verse-Data `main`: `f8978f8f7a1bc94edecddc2662112233289159a3`
+
+Stable GitHub repository IDs observed at slice start:
+
+- AI-Verse-System: `1367664026`
+- ai-verse-distribution: `1350081263`
+- AI-Verse-OS: `1361862361`
+- AI-Verse-Brain: `1362233598`
+- AI-Verse-Memory: `1361910454`
+- AI-Verse-Skills: `1362243580`
+- AI-Verse-Data: `1364457521`
+
+Distribution release evidence observed before deriving the task list:
+
+- `release-sets/core-first-run-rc1-2026-10-12.json` is `released` and pins the same five refs listed above.
+- The release set records `core-stable-2026-10-10` as its parent and carries explicit update/rollback transition policy plus pending U35 qualification evidence.
+- Distribution `main` is newer than the frozen component refs because U35 real-member pilot work is active in Distribution itself; Slice 1.1 treats that as audit evidence and does not infer a component change from it.
+
+Derived adaptive tasks, bounded to the existing Slice 1.1 purpose and acceptance criteria:
+
+1. **1.1.1 - Refresh current state and derive/refine the execution tasks for this slice.** `COMPLETE`
+2. **1.1.2 - Audit Core repository identities, native CI/acceptance surfaces, release descriptors and API/schema compatibility/versioning.** `IN PROGRESS`
+3. **1.1.3 - Audit Distribution release composition, qualification/preservation, install/update/rollback, promotion, member payload boundaries and reproducibility evidence.** `NOT STARTED`
+4. **1.1.4 - Audit System ownership/spec/blueprint truth and compare Purpose Context wording against exact accepted owner and Distribution release evidence.** `NOT STARTED`
+5. **1.1.5 - Record the evidence-backed implementation/release topology, existing protections, source-only versus member-facing boundaries and final drift classification; verify no implementation change preceded the audit.** `NOT STARTED`
+
+Task derivation classification at slice start:
+
+- existing release-set/pin machinery: `REUSE` for audit evidence;
+- stable GitHub repository identity: `REUSE` as observed evidence;
+- existing component release descriptors/CI: `BLOCK/UNKNOWN` until Task 1.1.2 finishes per owner;
+- Distribution preservation/promotion/payload/receipt machinery: `BLOCK/UNKNOWN` until Task 1.1.3 traces it;
+- System Purpose Context synchronization state: `BLOCK/UNKNOWN` until Task 1.1.4 compares exact refs and wording;
+- no `CREATE`, `EXTEND` or `RETIRE` action is authorized in Slice 1.1 because the slice is audit-only.
+
+Protected-boundary check: PASS. The derived tasks do not change product intent, canonical ownership, phase/slice purpose, acceptance criteria, preservation/safety floors, member isolation, major architecture direction, ordering or program denominator.
 
 Audit current source and live repository state.
 
@@ -737,7 +790,7 @@ Trace at minimum:
 
 ### Evidence
 
-To be recorded on completion.
+In progress. Slice-start evidence is recorded above; completion evidence will be added only after Tasks 1.1.2 through 1.1.5 satisfy the acceptance criteria.
 
 ### NEXT
 
@@ -1534,6 +1587,8 @@ None. Program complete.
 **Phase:** Phase 1 - Audit and normalize current reality  
 **Phase progress:** 0/3  
 **Until Phase 2:** 3 slices  
-**Next:** Slice 1.1 - Audit the live repository network and existing safety machinery  
-**Next task:** not yet derived; generate from live Slice 1.1 evidence at slice start  
-**Blockers/drift/amendments:** none recorded by the plan yet; Slice 1.1 must establish the evidence-backed baseline before implementation changes begin.
+**Current slice:** Slice 1.1 - Audit the live repository network and existing safety machinery (`IN PROGRESS`)  
+**Current task:** 1.1.2 - Audit Core identities, owner acceptance surfaces, release descriptors and compatibility/versioning  
+**Task progress:** 1/5  
+**Next slice:** Slice 1.2 - Build the reuse, ownership, payload and drift inventory  
+**Blockers/drift/amendments:** none yet. Slice 1.1 remains audit-only; implementation changes are not authorized until its evidence is recorded and acceptance criteria are satisfied.
