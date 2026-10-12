@@ -22,6 +22,10 @@ Do **not** fully pre-plan every low-level task for a complex program before insp
 
 The plan should be stable at the level of intent and acceptance, adaptive at the level of execution.
 
+The safety boundary is:
+
+> **Discovery may adapt the route. It may not silently change the destination.**
+
 ## 1. Start from reality, not invention
 
 Before designing implementation:
@@ -114,7 +118,69 @@ Avoid speculative tasks whose only justification is that they sound sophisticate
 
 Changing tasks must not silently weaken the slice outcome or acceptance criteria.
 
-## 7. Keep progress honest
+## 7. Change-authority boundary
+
+Adaptive discovery has **bounded authority**.
+
+### May change automatically from evidence
+
+The implementing agent may, without redefining the roadmap:
+
+- add/remove/split/merge/reorder low-level tasks;
+- choose a different implementation technique inside the same slice;
+- replace `CREATE` work with `REUSE` or `EXTEND` when existing machinery proves sufficient;
+- add the smallest task required by a verified blocker/dependency;
+- improve tests/evidence requirements;
+- clarify acceptance wording when the meaning is unchanged or made stricter.
+
+### May not change automatically
+
+Self-discovery must **not** silently:
+
+- change a permanent law/invariant;
+- change product intent or canonical ownership;
+- change a phase purpose;
+- change a slice purpose/outcome;
+- weaken or delete an acceptance criterion;
+- weaken preservation, safety, validation, member-isolation or evidence requirements;
+- remove a slice because it appears inconvenient;
+- change the program denominator, major ordering or architectural direction;
+- promote an experimental finding into canonical architecture merely because it is newer.
+
+These are **plan amendments**, not task adaptation.
+
+### Plan-amendment protocol
+
+If evidence suggests one of those protected changes is genuinely necessary:
+
+1. stop the affected implementation path;
+2. mark the relevant task/slice `BLOCKED - PLAN AMENDMENT REQUIRED`;
+3. record exact evidence;
+4. prepare a concise amendment proposal containing:
+
+```text
+PLAN AMENDMENT PROPOSED
+Finding: <verified evidence>
+Current plan/law: <what currently governs>
+Proposed change: <exact change>
+Why the current route is unsafe/wrong/obsolete: <reason>
+Affected phases/slices/repos/contracts: <scope>
+Safety/compatibility/user-state impact: <impact>
+Alternatives considered: <short list>
+Recommendation: <proposed resolution>
+```
+
+5. do not implement the protected directional change until it is explicitly resolved through the program's governing approval process;
+6. if approved, update the plan/changelog/denominator before resuming;
+7. preserve the old decision/history rather than rewriting it away.
+
+### Non-degradation rule
+
+> **Discovery may reduce unnecessary work. It may never reduce safety, ownership, preservation, validation, member-isolation, or required evidence on its own authority.**
+
+When uncertain whether a discovery is task adaptation or roadmap redirection, choose the safer classification: **block and propose an amendment**.
+
+## 8. Keep progress honest
 
 Use slice completion for overall program percentage:
 
@@ -133,7 +199,9 @@ Overall: 6/20 slices complete (30.0%)
 
 If discovery adds tasks, local task progress may change. Overall program progress does not move backward because the stable unit is the slice.
 
-## 8. Make the plan self-maintaining
+A blocked plan amendment does not count as progress and must not be hidden by changing task counts.
+
+## 9. Make the plan self-maintaining
 
 Before a slice starts, update the plan with:
 
@@ -155,20 +223,22 @@ Before a slice can become `COMPLETE`, update the plan with:
 
 The plan update itself is part of the acceptance gate.
 
-## 9. Protect against plan drift
+## 10. Protect against plan drift
 
-If implementation reveals that the roadmap itself is wrong:
+If implementation reveals that the roadmap itself may be wrong:
 
 - do not force reality into the old roadmap;
+- do not silently rewrite the roadmap either;
 - stop the affected work;
 - record the finding;
-- change the relevant slice/phase/denominator transparently;
+- classify it as a plan amendment;
+- propose the minimum evidence-backed change;
 - preserve completed history;
-- explain why the roadmap changed.
+- resume only after the amendment is explicitly resolved and recorded.
 
-Never manipulate the denominator or task list merely to make progress look better.
+Never manipulate the denominator, slice intent, acceptance criteria or task list merely to make progress look better.
 
-## 10. Completion report
+## 11. Completion report
 
 After every completed slice report:
 
@@ -180,11 +250,17 @@ Phase: <phase number> - <title>
 Phase progress: <completed>/<total>
 Until next phase: <N> slice(s)
 Next: <next slice/task>
-Blockers/drift: <none or concise status>
+Blockers/drift/amendments: <none or concise status>
 ```
+
+If a plan amendment is pending, report it explicitly and do not imply the roadmap change is already accepted.
 
 ## Planning principle
 
 > **Fix the destination. Discover the safest route from current reality.**
 
-The plan should give future agents strong boundaries and measurable outcomes without pretending that unknown implementation details are already known.
+And the safety companion:
+
+> **Adapt execution freely; change direction deliberately.**
+
+The plan should give future agents strong boundaries and measurable outcomes without pretending that unknown implementation details are already known, while preventing adaptive discovery from silently steering the system into a different architecture.
