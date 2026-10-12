@@ -7,14 +7,14 @@
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 5  
-**Remaining:** 13  
-**Overall progress:** 27.8%  
+**Completed:** 6  
+**Remaining:** 12  
+**Overall progress:** 33.3%  
 **Current phase:** Phase 2 - Define canonical convergence, migration and recovery contracts  
-**Current phase progress:** 1/3  
-**Slices until Phase 3:** 2  
-**Next:** Slice 2.2 - Define versioned infrastructure generation and upgrade-recipe contract  
-**Next slice task list:** STOP - derive only when Slice 2.2 starts
+**Current phase progress:** 2/3  
+**Slices until Phase 3:** 1  
+**Next:** Slice 2.3 - Define convergence, restore, doctor and member UX invariants  
+**Next slice task list:** STOP - derive only when Slice 2.3 starts
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Verified shipped source, shipped contracts and tests outrank roadmap assumptions. Discovery may adapt the route; it may not silently change the destination.
 
@@ -963,7 +963,7 @@ Safe Infrastructure Phase 1 completed with these required handoff items:
 
 **Phase size:** 3 slices  
 **Status:** IN PROGRESS  
-**Phase progress:** 1/3  
+**Phase progress:** 2/3  
 **Entry gate:** SATISFIED. Slice 1.3 COMPLETE and Identity Hardening Slice 1.1 + 1.2 COMPLETE with canonical System identity/reference contract `ai-verse.durable-identity-reference/v1`.
 
 ## Slice 2.1 - Amend the Safe Update and State Preservation Contract
@@ -1109,44 +1109,179 @@ Next execution unit: Slice 2.2.
 
 ## Slice 2.2 - Define versioned infrastructure generation and upgrade-recipe contract
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 2.1  
-**Adaptive tasks:** reuse/extend existing component release metadata if evidence proves appropriate
+**Adaptive tasks:** 6/6 COMPLETE
 
-Define the minimum machine-readable semantics required for an owner to publish a structural migration, including as applicable:
+### Starting refs
 
-- migration/recipe ID and version;
+- `aiverse-filmmakers/AI-Verse-System@84320b46a964c22c16f35a68207d9e1a388bee8a`
+- `aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1`
+- `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- slice-start evidence commit: `aiverse-filmmakers/AI-Verse-System@a3555907a6ed149ae39594f465e068a9af34f310`
+
+### Final derived task list
+
+- [x] **2.2-T1** Refetch current roadmap, release descriptor, validator/tests and owner refs; prove whether an existing metadata surface can be extended.
+- [x] **2.2-T2** Define the minimum versioned infrastructure-generation and upgrade-recipe semantics without duplicating release or identity ownership.
+- [x] **2.2-T3** Extend `component-release-descriptor` with an optional owner-published infrastructure block so components without structural migration duties need no ceremonial metadata.
+- [x] **2.2-T4** Encode deterministic source/target generation, disposition, owner lifecycle operations, reference-repair obligations, recovery/idempotency requirements, direct-versus-chain behavior and retirement conditions.
+- [x] **2.2-T5** Extend validator/examples/tests with positive and destructive-negative cases that fail closed on ambiguous or unsafe recipes.
+- [x] **2.2-T6** Run canonical System contract validation at the exact resulting ref and close Slice 2.2 only after every acceptance criterion passes.
+
+### Architecture decision
+
+The existing canonical `contracts/component-release-descriptor.schema.json` already owned component migration metadata. Slice 2.2 therefore **extended that existing descriptor** instead of creating a second migration registry or parallel release metadata system.
+
+Structural upgrade metadata is optional. Components with no real structural migration responsibility publish no `migration.infrastructure` block.
+
+### Canonical contract
+
+- `docs/INFRASTRUCTURE-GENERATION-AND-UPGRADE-RECIPE-CONTRACT.md`
+- contract ID: `ai-verse.infrastructure-upgrade/v1`
+- contract commit: `aiverse-filmmakers/AI-Verse-System@af3d20433a21e765632a3622d52229afdf3c3911`
+
+The contract requires owner-controlled machine-readable recipes and explicitly forbids free-form AI or shell mutation instructions.
+
+### Component release descriptor extension
+
+`migration.infrastructure` now carries:
+
+- exact contract version;
 - canonical owner;
-- source generation/range;
-- target generation;
-- target release binding;
-- applicability/disposition (`OPTIONAL` / `REQUIRED` / blocked when no safe recipe applies);
-- detection/preconditions;
-- migration handler/entrypoint;
-- identity guarantees imported from the canonical Identity Hardening contract;
-- reference-repair obligations;
-- postconditions;
-- risk/recovery requirements;
-- idempotency declaration/proof;
-- skip-version/direct-versus-chain behavior;
-- legacy retirement conditions;
-- concise plain-English member summary text;
-- technical detail/evidence fields kept out of normal member output.
+- owner-defined current infrastructure generation;
+- mandatory no-match result `BLOCKED/REVIEW`;
+- zero or more versioned recipes.
 
-Do not create a parallel release metadata system if the existing component release descriptor can safely own these fields through versioned extension.
+Each recipe carries:
+
+- stable recipe ID/version;
+- explicit finite source generations;
+- exact target generation;
+- exact enclosing component revision binding;
+- executable `OPTIONAL` or `REQUIRED` disposition;
+- owner lifecycle detect/apply/verify operation IDs;
+- machine preconditions/postconditions;
+- imported `ai-verse.durable-identity-reference/v1` identity law plus owner evidence ref;
+- owner-scoped reference repair operations;
+- mandatory whole-install Last-Known-Good protection;
+- owner checkpoint requirement where applicable;
+- mandatory idempotency plus accepted evidence kind;
+- explicit `direct` versus `chain-step` behavior;
+- verified legacy retirement condition;
+- concise plain-English member summary.
+
+Schema extension commit:
+
+- `aiverse-filmmakers/AI-Verse-System@33e5210fec74c8add9f7f7a014c2afa03fdc181f`
+
+### Deterministic fail-closed validation
+
+The descriptor validator now rejects unsafe or ambiguous recipes, including:
+
+- owner mismatch;
+- floating/wrong target revision;
+- shell-like/free-form operations;
+- executable `BLOCKED/REVIEW` entries;
+- non-fail-closed no-match behavior;
+- duplicate source-generation claims;
+- current generation reused as a source;
+- direct paths not reaching current generation;
+- dangling or cyclic chains;
+- unsupported checkpoint policy;
+- owner checkpoint requirements without owner evidence policy;
+- missing whole-install LKG protection;
+- non-idempotent recipes;
+- missing accepted idempotency evidence;
+- replacement identity contracts;
+- required reference repair without owner operation;
+- hidden repair operations when repair is declared unnecessary;
+- unknown mutation fields such as `shell_command`.
+
+Validator commit:
+
+- `aiverse-filmmakers/AI-Verse-System@51e36ca1edf0a765b5cbbc232164a75d0f1614f6`
+
+### Examples and tests
+
+Positive fixture:
+
+- `contracts/examples/component-release-descriptor.valid-infrastructure-upgrade.json`
+- fixture commit: `aiverse-filmmakers/AI-Verse-System@d89089a9e41d4b96df67315f14a2a6edb1938c75`
+
+The fixture proves both direct old-generation -> current-generation migration and deterministic exact chained migration.
+
+Existing descriptors without `migration.infrastructure` remain valid, proving no ceremonial migration metadata is forced onto unrelated components.
+
+Expanded tests:
+
+- `tests/test_component_release_descriptor.py`
+- tested commit: `aiverse-filmmakers/AI-Verse-System@187269760d128867585bebe915d2f2b593f6fb73`
+
+### Exact validation evidence
+
+Detailed evidence:
+
+- `docs/SAFE-INFRASTRUCTURE-SLICE-2.2-UPGRADE-RECIPE-CONTRACT.md`
+- evidence closure commit: `aiverse-filmmakers/AI-Verse-System@1dd9fccf35ecd5a4dfc6f963dea74de2b3c5d3cc`
+
+GitHub Actions:
+
+- workflow: `Contract Validation`;
+- run ID: `38283320350`;
+- exact head SHA: `187269760d128867585bebe915d2f2b593f6fb73`;
+- conclusion: **SUCCESS**;
+- Python 3.11: **SUCCESS**;
+- Python 3.13: **SUCCESS**;
+- contract tests: **SUCCESS** on both versions;
+- schema/example/repository-state validation: **SUCCESS**;
+- live read-only Core repository refresh on Python 3.11: **SUCCESS**.
+
+### Frozen semantics
+
+- no second migration registry exists;
+- infrastructure generations are owner-controlled machine identifiers, not user-facing identity;
+- v1 uses explicit finite source generation sets rather than ambiguous free-form opaque ranges;
+- exact target System release binding is obtained through the admitted release set containing the exact recipe-bound component revision;
+- if no unique direct path or exact chain exists, the result is `BLOCKED/REVIEW`;
+- Distribution may orchestrate owner operations but may not invent domain mutation logic;
+- identity guarantees are imported from the canonical Identity contract rather than redefined;
+- cross-owner reference repair occurs only through named owner operations;
+- structural apply requires the Slice 2.1 whole-install LKG guarantee;
+- recipes cannot be admitted without idempotency evidence;
+- legacy writable infrastructure retires only after required postconditions/reference repair succeed;
+- default member summaries remain plain English while technical recipe details stay machine-readable/on-demand.
 
 ### Acceptance criteria
 
-- `upgrade --apply` never depends on free-form AI inference to know what structural mutation to execute;
-- exact owner and exact migration path are machine-resolvable;
-- OPTIONAL versus REQUIRED behavior is machine-resolvable;
-- unsupported/unknown path fails closed or becomes REVIEW/BLOCKED;
-- recipe internals are not required knowledge for the member;
-- recipes may rely only on identity guarantees explicitly admitted by the canonical identity contract.
+- `upgrade --apply` never depends on free-form AI inference to know what structural mutation to execute: **PASS**;
+- exact owner and exact migration path are machine-resolvable: **PASS**;
+- OPTIONAL versus REQUIRED behavior is machine-resolvable: **PASS**;
+- unsupported/unknown path fails closed or becomes REVIEW/BLOCKED: **PASS**;
+- recipe internals are not required knowledge for the member: **PASS**;
+- recipes rely only on identity guarantees explicitly admitted by the canonical identity contract: **PASS**;
+- existing component release metadata was reused/extended rather than duplicated: **PASS**;
+- direct/chain, idempotency, recovery and destructive-negative semantics have executable contract validation: **PASS**.
+
+### Completion report
+
+```text
+Completed: Slice 2.2 - Define versioned infrastructure generation and upgrade-recipe contract
+Tasks: 6/6
+Overall: 6/18 slices (33.3%)
+Phase: Phase 2 - Define canonical convergence, migration and recovery contracts
+Phase progress: 2/3
+Until next phase: 1 slice
+Next: Slice 2.3 - Define convergence, restore, doctor and member UX invariants
+Blockers/drift/amendments: none. Existing component release metadata was safely extended; no parallel migration registry was created.
+```
 
 ### NEXT
 
-Slice 2.3.
+**STOP after Slice 2.2 for the current one-at-a-time execution request.**
+
+Next execution unit: Slice 2.3.
 
 ---
 
@@ -1629,16 +1764,27 @@ None. Program complete.
 - Qualified exact-ref Distribution CI run `38277737869`: all six macOS/Ubuntu/Windows Python 3.11/3.12 matrix jobs passed.
 - Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-2.1-CONTRACT-RECONCILIATION.md`.
 
+## 2026-10-12 - Slice 2.2 completed
+
+- Reused and extended the existing component release descriptor instead of creating a parallel migration registry.
+- Added canonical contract `ai-verse.infrastructure-upgrade/v1` in `docs/INFRASTRUCTURE-GENERATION-AND-UPGRADE-RECIPE-CONTRACT.md`.
+- Added optional `migration.infrastructure` metadata with explicit generations, exact target revision binding, owner lifecycle operation IDs, OPTIONAL/REQUIRED disposition, identity evidence, reference repair, recovery, idempotency, direct/chain behavior and legacy retirement.
+- Added deterministic validation that rejects ambiguous, cyclic, dangling, non-idempotent, unprotected or free-form mutation recipes.
+- Added a positive direct-and-chained migration fixture while preserving validity of legacy descriptors without infrastructure metadata.
+- Added destructive-negative contract tests at `aiverse-filmmakers/AI-Verse-System@187269760d128867585bebe915d2f2b593f6fb73`.
+- Qualified exact-ref Contract Validation run `38283320350`: Python 3.11 and 3.13 both passed contract tests; the live read-only repository refresh also passed on Python 3.11.
+- Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-2.2-UPGRADE-RECIPE-CONTRACT.md` at `1dd9fccf35ecd5a4dfc6f963dea74de2b3c5d3cc`.
+
 ---
 
 # Current execution pointer
 
-**Completed:** 5/18  
-**Overall:** 27.8%  
+**Completed:** 6/18  
+**Overall:** 33.3%  
 **Phase:** Phase 2 - Define canonical convergence, migration and recovery contracts  
-**Phase progress:** 1/3  
-**Until Phase 3:** 2 slices  
-**Next:** STOP after Slice 2.1 under the one-at-a-time execution rule  
-**Next Safe Infrastructure slice:** Phase 2 / Slice 2.2 - Define versioned infrastructure generation and upgrade-recipe contract  
-**Next task:** none until Slice 2.2 starts and its adaptive task list is derived from fresh refs  
-**Blockers/drift/amendments:** none. Identity Hardening Phase 1 satisfied the entry gate without a protected-law amendment. Slice 2.1 preserved shipped update semantics, owner-native transaction recovery and canonical owner identity law while adding the bounded whole-install LKG/restore contract.
+**Phase progress:** 2/3  
+**Until Phase 3:** 1 slice  
+**Next:** STOP after Slice 2.2 under the one-at-a-time execution rule  
+**Next Safe Infrastructure slice:** Phase 2 / Slice 2.3 - Define convergence, restore, doctor and member UX invariants  
+**Next task:** none until Slice 2.3 starts and its adaptive task list is derived from fresh refs  
+**Blockers/drift/amendments:** none. Slice 2.2 safely extended existing component release metadata, imported canonical identity law, and introduced no parallel migration registry or owner-specific migration implementation.
