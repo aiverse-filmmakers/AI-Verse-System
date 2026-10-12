@@ -12,11 +12,11 @@
 **Current execution phase:** Phase 1 - Audit and normalize current reality  
 **Current phase progress:** 1/3 slices complete  
 **Slices until next phase:** 2  
-**Current slice:** 1.1 - Audit the live repository network and existing safety machinery  
-**Current slice status:** COMPLETE  
-**Task progress:** 5/5  
-**Next slice:** 1.2 - Build the reuse, ownership, payload and drift inventory  
-**Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 1.2 starts
+**Current slice:** 1.2 - Build the reuse, ownership, payload and drift inventory  
+**Current slice status:** IN PROGRESS  
+**Current task:** 1.2.2 - Classify audited mechanisms and target dispositions  
+**Task progress:** 1/5  
+**Next slice:** 1.3 - Freeze the implementation architecture and acceptance matrix
 
 > This file is the execution tracker. It must update before and after every implementation slice. A slice is not COMPLETE until its implementation, tests, evidence, plan update and progress accounting are all committed.
 
@@ -836,9 +836,57 @@ Acceptance disposition: PASS. All five acceptance criteria are satisfied and all
 
 ## Slice 1.2 - Build the reuse, ownership, payload and drift inventory
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 1.1  
-**Adaptive tasks:** derive from Slice 1.1 findings when this slice starts
+**Task progress:** 1/5  
+**Current task:** 1.2.2 - Classify audited mechanisms and target dispositions
+
+### Slice start record
+
+Slice 1.2 began from the completed Slice 1.1 audit plus a scoped live refresh of System, Distribution and the five currently shipped Core owners.
+
+Starting refs:
+
+- AI-Verse-System `main`: `b3fe512ecbe9b356457dd61550ba1c929ed3d262`
+- ai-verse-distribution `main`: `fd11b4a95487638d47ff55472a3703b03892d0e8`
+- AI-Verse-OS `main`: `64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- AI-Verse-Brain `main`: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- AI-Verse-Memory `main`: `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- AI-Verse-Skills `main`: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- AI-Verse-Data `main`: `f8978f8f7a1bc94edecddc2662112233289159a3`
+
+Freshness delta since Slice 1.1 completion:
+
+- the five Core owner HEADs are unchanged;
+- Distribution advanced from `b901f7f98670335add3f9ce25c151836c1b8d3e0` to `fd11b4a95487638d47ff55472a3703b03892d0e8` while completing the separate Core Update Program;
+- `qualification/core-update-program-u35/qualification.json` now records the real-installation pilot as `passed` and `release_gate: passed`;
+- `release-sets/core-first-run-rc1-2026-10-12.json` now records accepted qualification, accepted member bootstrap, default-channel promotion, automatic update and the admitted forward transition from `core-stable-2026-10-10`;
+- `docs/CORE-UPDATE-PROGRAM.md` is now `COMPLETE`, 36/36 tasks, 100.0%.
+
+Derived adaptive tasks, bounded to the existing Slice 1.2 purpose and acceptance criteria:
+
+1. **1.2.1 - Refresh current state and derive/refine the execution tasks for this slice.** `COMPLETE`
+2. **1.2.2 - Classify every audited governance/release/preservation/payload concern as REUSE, EXTEND, CREATE, RETIRE or BLOCK/UNKNOWN and identify its canonical owner.** `IN PROGRESS`
+3. **1.2.3 - Build the Wave 1/Core ownership and state inventory, separating stable Registry truth from dynamic Repository State and recording live HEAD, owner-accepted evidence state, Distribution pin and System synchronization state.** `NOT STARTED`
+4. **1.2.4 - Identify Distribution shadow implementations/workarounds and duplicate/obsolete mechanism risks; record which are legitimate bounded packaging/orchestration versus which must be extended, retired or blocked.** `NOT STARTED`
+5. **1.2.5 - Record the canonical Slice 1.2 inventory, verify member/source boundaries and all acceptance criteria, and preserve the evidence needed for Slice 1.3 architecture freeze.** `NOT STARTED`
+
+Initial evidence-backed disposition before Task 1.2.2:
+
+- component release descriptor format: `EXTEND`; keep `COMPONENT-RELEASE-DESCRIPTOR-CONTRACT` as the one canonical component release/compatibility metadata format rather than creating a second fingerprint format;
+- owner-local CI/contracts/schemas: `REUSE` plus targeted `EXTEND` later where exact revision acceptance/compatibility evidence is missing;
+- Distribution exact release sets, immutable refs, compatibility matrix, candidate snapshots, qualification and lineage evidence: `REUSE`;
+- Core updater, preservation, lifecycle transaction/recovery and fail-closed ownership logic: `REUSE`; the completed 36/36 Core Update Program is current evidence, not a subsystem to replace;
+- Distribution promotion/default-channel/transition machinery: `REUSE` with governance `EXTEND` later for owner-acceptance and repository-drift gates;
+- durable release evidence: `EXTEND`; current durable records are substantial but distributed, so Slice 5.4 should add only the missing compact admitted-release reconstruction binding;
+- member payload boundary: `REUSE` with later deterministic isolation verification/extension, not broad copy/delete redesign;
+- System Repository Registry: `CREATE` in its planned System-owned slice because no canonical global registry exists yet;
+- System Repository State + generated ledger: `CREATE` in its planned System-owned slice because no canonical dynamic repository-state source exists yet;
+- Core maintainer handoff coverage: `EXTEND` later using each owner repo's conventions, not duplicate global governance documents;
+- Purpose Context Blueprint lag: `BLOCK/KNOWN` for automatic synchronization; reconcile evidence-first in Slice 3.3;
+- Distribution shadow/workaround classification: `BLOCK/UNKNOWN` until Task 1.2.4 traces each candidate workaround against owner boundaries.
+
+Protected-boundary check: PASS. The derived task list does not alter product intent, canonical ownership, phase/slice purpose, acceptance criteria, preservation/safety/member-isolation floors, major architecture direction, ordering or program denominator.
 
 Classify every relevant concern as:
 
@@ -871,7 +919,7 @@ Build one inventory covering:
 
 ### Evidence
 
-To be recorded on completion.
+In progress. Slice-start evidence and the current five-task execution list are recorded above. Completion evidence will be added after Tasks 1.2.2 through 1.2.5 satisfy the acceptance criteria.
 
 ### NEXT
 
@@ -1633,8 +1681,8 @@ None. Program complete.
 **Phase:** Phase 1 - Audit and normalize current reality  
 **Phase progress:** 1/3  
 **Until Phase 2:** 2 slices  
-**Current slice:** Slice 1.1 - Audit the live repository network and existing safety machinery (`COMPLETE`)  
-**Tasks:** 5/5  
-**Next:** Slice 1.2 - Build the reuse, ownership, payload and drift inventory  
-**Next task:** not yet derived; generate from fresh Slice 1.2 evidence at slice start  
-**Blockers/drift/amendments:** component release-descriptor contract/evidence split is BLOCKING for the future Core release-governance target; Purpose Context Blueprint lag is WARNING; Core maintainer handoff coverage is WARNING; the independent U35 real-install pilot remains INFO/pending. No plan amendment is required by Slice 1.1.
+**Current slice:** Slice 1.2 - Build the reuse, ownership, payload and drift inventory (`IN PROGRESS`)  
+**Current task:** 1.2.2 - Classify audited mechanisms and target dispositions  
+**Task progress:** 1/5  
+**Next slice:** Slice 1.3 - Freeze the implementation architecture and acceptance matrix  
+**Blockers/drift/amendments:** component release-descriptor contract/evidence split remains BLOCKING for the future Core release-governance target; Purpose Context Blueprint lag remains WARNING; Core maintainer handoff coverage remains WARNING; U35 real-installation pilot and Core update release gate are now PASSED. No plan amendment is currently required.
