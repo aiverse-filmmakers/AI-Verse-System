@@ -121,6 +121,11 @@ class RepositoryStateTests(unittest.TestCase):
 
     def test_complete_core_refresh_must_cover_exact_registered_core_scope(self):
         state = copy.deepcopy(self.state)
+        state["refresh"]["mode"] = "scoped-refresh"
+        state["refresh"]["scope"] = "Core"
+        state["refresh"]["last_scoped_refresh"]["scope"] = "Core"
+        for repo in state["repositories"]:
+            repo["freshness"]["scope"] = "Core"
         state["refresh"]["repository_ids"].pop()
         self.assertInvalid(state, "complete Core refresh must contain exactly")
 
@@ -157,10 +162,13 @@ class RepositoryStateTests(unittest.TestCase):
     def test_watchdog_current_requires_real_heartbeat_and_full_scan(self):
         state = copy.deepcopy(self.state)
         state["watchdog"]["status"] = "WATCHDOG-CURRENT"
+        state["watchdog"]["heartbeat_revision"] = None
         self.assertInvalid(state, "WATCHDOG-CURRENT requires heartbeat")
 
     def test_stale_watchdog_cannot_hide_without_global_warning_or_blocker(self):
         state = copy.deepcopy(self.state)
+        state["watchdog"]["status"] = "WATCHDOG-STALE"
+        state["watchdog"]["reason"] = "Synthetic stale fixture for validator coverage."
         state["drift"] = [item for item in state["drift"] if not item["id"].startswith("repository-watchdog-")]
         self.assertInvalid(state, "stale/failed watchdog requires open global WARNING/BLOCKING drift")
 

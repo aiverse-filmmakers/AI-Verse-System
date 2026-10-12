@@ -47,6 +47,38 @@ def global_refresh(state, revision="b" * 40, status="complete"):
     return value
 
 
+def stale_bootstrap(state):
+    value = copy.deepcopy(state)
+    value["watchdog"] = {
+        "status": "WATCHDOG-STALE",
+        "heartbeat_revision": None,
+        "last_successful_full_scan": None,
+        "reason": "Synthetic bootstrap-stale fixture.",
+    }
+    found = False
+    for item in value["drift"]:
+        if item["id"] == "repository-watchdog-stale":
+            item["status"] = "open"
+            item["severity"] = "WARNING"
+            item["scope"] = "global"
+            found = True
+    if not found:
+        value["drift"].append(
+            {
+                "id": "repository-watchdog-stale",
+                "marker": "CANONICAL-DRIFT-DETECTED",
+                "status": "open",
+                "severity": "WARNING",
+                "scope": "global",
+                "repository_ids": [REGISTRY["repositories"][0]["repository_id"]],
+                "reason": "Synthetic bootstrap-stale fixture.",
+                "evidence_refs": ["synthetic-test-fixture"],
+                "required_action": "Run a successful full watchdog refresh.",
+            }
+        )
+    return value
+
+
 class RepositoryWatchdogTests(unittest.TestCase):
     def setUp(self):
         self.registry = copy.deepcopy(REGISTRY)
@@ -115,13 +147,14 @@ class RepositoryWatchdogTests(unittest.TestCase):
         self.assertEqual(len(open_watchdog), 1)
 
     def test_bootstrap_stale_never_becomes_green_on_failed_attempt(self):
-        refreshed = global_refresh(self.state, status="partial")
+        prior = stale_bootstrap(self.state)
+        refreshed = global_refresh(prior, status="partial")
         refreshed["repositories"][1]["access"] = "unavailable"
         refreshed["repositories"][1]["observed_head"] = None
         refreshed["repositories"][1]["freshness"]["status"] = "unknown"
         result, successful, _ = repository_watchdog.apply_watchdog_transition(
             self.registry,
-            self.state,
+            prior,
             refreshed,
             observed_at="2026-10-12T16:50:00Z",
         )
@@ -217,6 +250,11 @@ class RepositoryWatchdogTests(unittest.TestCase):
 
     def test_non_global_refresh_is_rejected(self):
         refreshed = copy.deepcopy(self.state)
+        refreshed["refresh"]["mode"] = "scoped-refresh"
+        refreshed["refresh"]["scope"] = "Core"
+        refreshed["refresh"]["last_scoped_refresh"]["scope"] = "Core"
+        for repo in refreshed["repositories"]:
+            repo["freshness"]["scope"] = "Core"
         with self.assertRaises(ValueError):
             repository_watchdog.apply_watchdog_transition(
                 self.registry,
