@@ -1,0 +1,40 @@
+name: Temporary Safe Infrastructure 4.1 Closure
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/_temp_safe_infra_4_1_trigger.txt
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  close-slice:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Patch detailed evidence and canonical roadmap
+        run: |
+          python scripts/_temp_safe_infra_4_1_close.py
+          git diff --exit-code --quiet && { echo 'Guarded helper produced no closure change' >&2; exit 1; } || true
+
+      - name: Commit guarded closure to PR branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'AI-VERSE'
+          git config user.email 'hello@bogdanpascal.com'
+          git add docs/SAFE-INFRASTRUCTURE-SLICE-4.1-LKG-RESTORE.md docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md
+          git commit -m 'Complete Safe Infrastructure Slice 4.1 roadmap'
+          git push origin HEAD:${{ github.head_ref }}
