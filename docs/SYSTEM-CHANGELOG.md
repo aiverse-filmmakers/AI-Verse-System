@@ -1,3 +1,20 @@
+## 2026-10-12: Reconciled accepted Purpose Context v1 into the living blueprint
+
+- Reconciled the October 5 living blueprint forward to immutable accepted/admitted Purpose Context v1 evidence instead of regressing accepted implementation to stale prose.
+- Recorded Purpose Context as an owner-backed, read-only, rebuildable strategic projection with `operator` and exact `workspace:<id>` scope, progressive disclosure, trajectory/explain truthfulness and owner-routed high-impact mutation boundaries.
+- Preserved the accepted laws: no stale fallback, no Memory authority promotion, no second Purpose truth store and no release-lineage rewrite.
+- Recorded the evidence boundary that accepted ancestry does not prove exact owner acceptance for every later descendant and that newer branch movement is not acceptance evidence by recency alone.
+- Kept the separate Core exact-owner-acceptance blocker and later-slice drift open.
+
+Canonical detail:
+
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
+- `docs/PURPOSE-CONTEXT-EXECUTION-STATE.md`
+- `docs/PURPOSE-CONTEXT-FINAL-COMPLETION.md`
+- `docs/REPOSITORY-TRUTH-RECONCILIATION-2026-10-12.md`
+
+---
+
 ## 2026-10-05: Synchronized current release truth
 
 - Synchronized current System release truth with the accepted Context Ladder candidate and exact owner revisions.
