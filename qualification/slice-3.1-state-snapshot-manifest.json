@@ -1,8 +1,0 @@
-{
-  "schema_version": "ai-verse.repository-state-publication/v1",
-  "slice": "3.1",
-  "status": "prepared",
-  "source_refresh_revision": "373db5dc34a8ba0120af08d34a6293e91de3cad1",
-  "live_refresh_evidence": "qualification/slice-3.1-live-core-refresh-evidence.json",
-  "publication_rule": "Publish governance/repository-state.json and docs/REPOSITORY-STATE-LEDGER.md together from one exact pre-publication System head."
-}
