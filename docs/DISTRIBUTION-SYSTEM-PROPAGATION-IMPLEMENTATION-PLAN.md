@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 4  
-**Remaining:** 16  
-**Overall progress:** 20.0%  
+**Completed:** 5  
+**Remaining:** 15  
+**Overall progress:** 25.0%  
 **Current execution phase:** Phase 2 - Define the canonical System control plane  
-**Current phase progress:** 0/3 slices complete  
-**Slices until next phase:** 3  
+**Current phase progress:** 1/3 slices complete  
+**Slices until next phase:** 2  
 **Current slice:** 2.1 - Create the repository-network governance, invariant and tombstone contract  
-**Current slice status:** IN PROGRESS  
-**Task progress:** 1/5  
+**Current slice status:** COMPLETE  
+**Task progress:** 5/5  
 **Next slice:** 2.2 - Create the machine-readable Repository Registry  
 **Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 2.2 starts
 
@@ -26,7 +26,7 @@ The detailed Phase 0/1 execution history that previously lived inline in this fi
 
 `acabfba8031421438747fed69bcbc65ba844787e`
 
-That commit is the immutable archive for the verbose Slice 0.1, 1.1, 1.2 and 1.3 start/completion records. Their canonical evidence documents and commit refs remain summarized below. This tracker compaction changes only presentation, not program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence requirements.
+That commit is the immutable archive for the verbose Slice 0.1, 1.1, 1.2 and 1.3 start/completion records. Their canonical evidence documents and commit refs remain summarized below. Tracker compaction changes presentation only, not program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence requirements.
 
 ---
 
@@ -335,17 +335,17 @@ Frozen architecture: System machine control plane under `governance/`; schemas u
 # Phase 2 - Define the canonical System control plane
 
 **Phase size:** 3 slices  
-**Current phase progress:** 0/3
+**Current phase progress:** 1/3
 
 ## Slice 2.1 - Create the repository-network governance, invariant and tombstone contract
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 1.3  
-**Task progress:** 1/5
+**Task progress:** 5/5
 
 ### Slice start record
 
-Slice 2.1 began from the completed Phase 1 architecture freeze, the latest adaptive planning skill and fresh inspection of the existing System safety/release contracts. This slice implements permanent governance and architecture-history surfaces only. It does not implement Registry, Repository State, watchdog tooling, component handoff files, Distribution gates or runtime behavior.
+Slice 2.1 began from the completed Phase 1 architecture freeze, the latest adaptive planning skill and fresh inspection of the existing System safety/release contracts. The slice was limited to permanent governance and architecture-history surfaces. It did not implement Registry, Repository State, watchdog tooling, component handoff files, Distribution gates or runtime behavior.
 
 Starting refs:
 
@@ -359,10 +359,10 @@ Starting refs:
 
 Freshness delta since Slice 1.3 closure:
 
-- Distribution and all five Core owner HEADs are unchanged;
+- Distribution and all five Core owner HEADs were unchanged;
 - System advanced from `acabfba8031421438747fed69bcbc65ba844787e` to direct child `1da8f5f6187fd8c265e10188b0b5c2d486f01df2`;
-- compare evidence proves that child added only `docs/SAFE-INFRASTRUCTURE-SLICE-1.1-AUDIT.md`, so it does not conflict with this program or the architecture freeze;
-- known descriptor, Purpose Context, maintainer-handoff, adapter-knowledge and future-release-receipt findings remain assigned to their later slices.
+- compare evidence proved that child added only `docs/SAFE-INFRASTRUCTURE-SLICE-1.1-AUDIT.md`, so it did not conflict with this program or the architecture freeze;
+- known descriptor, Purpose Context, maintainer-handoff, adapter-knowledge and future-release-receipt findings remained assigned to their later slices.
 
 Existing contracts inspected before task derivation:
 
@@ -372,54 +372,83 @@ Existing contracts inspected before task derivation:
 - `LIVING-SPEC-PROTOCOL` already owns System synchronization/documentation propagation expectations;
 - `OWNER-PRODUCT-INTENT` is product-direction authority but explicitly does not override implementation evidence, ownership, security or migration safety.
 
-Derived adaptive tasks:
+Final derived adaptive tasks:
 
 1. **2.1.1 - Refresh current state, inspect the frozen architecture and existing canonical contracts, and derive/refine the execution tasks for this slice.** `COMPLETE`
-2. **2.1.2 - Create `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md` as the permanent cross-repo governance/invariant contract, referencing existing preservation/release laws rather than copying them.** `IN PROGRESS`
-3. **2.1.3 - Create `docs/ARCHITECTURE-TOMBSTONES.md` using the frozen tombstone format and seed it with Phase 1 rejected duplicate architectures so stale plans/agents cannot resurrect them silently.** `NOT STARTED`
-4. **2.1.4 - Make the permanent rules discoverable without this program history by linking the governance contract and tombstone ledger from `README.md`, then verify no competing ownership or duplicated safety law was introduced.** `NOT STARTED`
-5. **2.1.5 - Validate Slice 2.1 acceptance, refresh final refs, record exact evidence and close without runtime/member-payload or protected-roadmap changes.** `NOT STARTED`
+2. **2.1.2 - Create `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md` as the permanent cross-repo governance/invariant contract, referencing existing preservation/release laws rather than copying them.** `COMPLETE`
+3. **2.1.3 - Create `docs/ARCHITECTURE-TOMBSTONES.md` using the frozen tombstone format and seed it with Phase 1 rejected duplicate architectures so stale plans/agents cannot resurrect them silently.** `COMPLETE`
+4. **2.1.4 - Make the permanent rules discoverable without this program history by linking the governance contract and tombstone ledger from `README.md`, then verify no competing ownership or duplicated safety law was introduced.** `COMPLETE`
+5. **2.1.5 - Validate Slice 2.1 acceptance, refresh final refs, record exact evidence and close without runtime/member-payload or protected-roadmap changes.** `COMPLETE`
 
-Classification:
+Protected-boundary check: PASS. The slice implemented the already-frozen permanent governance surface and architecture history only. It did not change canonical ownership, product intent, preservation/safety floors, rollout order, member isolation, runtime behavior or denominator. No plan amendment was required.
 
-- governance contract: `CREATE` in System at frozen path;
-- architecture tombstone ledger: `CREATE` in System at frozen path;
-- README discoverability: `EXTEND`;
-- safe update/state/authority/rollback/migration law: `REUSE`, not copy;
-- component release metadata semantics: `REUSE`, later extension remains Slice 4.1;
-- whole-release preservation semantics: `REUSE`;
-- System propagation: `REUSE + CLARIFY` against Living Spec without making stale docs authoritative over accepted implementation;
-- Registry/Repository State/watchdog implementation: `NOT NEEDED IN THIS SLICE`;
-- Distribution/component/runtime changes: `NOT NEEDED IN THIS SLICE`.
+### Slice completion record
 
-Protected-boundary check: PASS. The tasks implement the frozen permanent governance surface and architecture history only. They do not change canonical ownership, product intent, preservation/safety floors, acceptance criteria, rollout order, member isolation, runtime behavior or denominator. No plan amendment is required.
+Permanent governance now exists independently of this implementation program at:
 
-Create the permanent System contract defining:
+`docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`
 
-- canonical owner routing;
-- component -> System handoff;
-- component -> Distribution handoff;
-- System propagation;
-- two-layer validation;
-- non-regression/canonical drift;
-- permanent system invariants;
-- breaking-change/no-silent-contract-deletion law;
-- architecture tombstones;
-- decision/recovery provenance;
-- member isolation;
-- emergency safety-release semantics;
-- rule against broad unattended cross-repo writes.
+It defines canonical owner routing, component/System/Distribution handoffs, two-layer validation, exact evidence requirements, canonical drift/non-regression, Registry/State authority, drift scope, no-silent-contract-deletion, member isolation, decision/recovery provenance, architecture tombstones, bounded emergency safety release, least-privilege cross-repo write rules, rollout waves and 20 permanent system invariants.
 
-### Acceptance criteria
+The governance contract explicitly delegates existing domains to their already-canonical contracts instead of reimplementing them. Detailed update/migration/user-state/rollback/authority safety stays in `SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT`; component release metadata stays in `COMPONENT-RELEASE-DESCRIPTOR-CONTRACT`; whole-release preservation result semantics stay in `WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT`.
 
-- permanent law is separate from this implementation plan;
-- existing updater/preservation laws are referenced rather than copied;
-- future agents can find the rules without reading this program history;
-- tombstones prevent superseded architecture from being silently resurrected.
+Architecture history now exists at:
 
-### Evidence
+`docs/ARCHITECTURE-TOMBSTONES.md`
 
-To be recorded on completion.
+The initial ledger contains eight `prohibited-resurrection` entries for:
+
+1. second component compatibility fingerprint format;
+2. second safe-update/state-preservation subsystem;
+3. separate whole-release acceptance database;
+4. hand-maintained canonical Markdown Repository State ledger;
+5. Distribution-owned sibling component acceptance truth;
+6. broad member payload copy followed by governance-file deletion;
+7. watchdog-owned second Repository State database;
+8. parallel promotion/ring database unsupported by Distribution reality.
+
+Each entry uses the frozen tombstone fields and identifies the active replacement architecture plus resurrection condition.
+
+`README.md` now links the permanent governance contract and tombstone ledger under a dedicated repository-network governance section, so future maintainers/agents can find the rules without reading this implementation program.
+
+Validation/evidence:
+
+- Slice start tracker commit: `0da8e768128d905821b8ef9b6c5e0b4d4571f980`.
+- Governance contract commit: `0c9cc5034a1165389410e7524af9a8c3d7586ba0`.
+- Architecture tombstone commit: `acb47e6178cd3c4bce898c422f615525f7e03fac`.
+- README discoverability commit: `5005c3a49802556f72d94f1fd70c274bd795ae20`.
+- Compare from Slice 2.1 start to pre-closure head shows only `README.md`, `docs/ARCHITECTURE-TOMBSTONES.md` and `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md` changed after the start tracker commit.
+- Direct file inspection verified the governance contract references existing canonical safety/release contracts and the tombstone ledger contains the required frozen fields.
+- No commit status or workflow run was attached to `5005c3a49802556f72d94f1fd70c274bd795ae20`; no executable test result is claimed for these documentation-only changes.
+
+Final scoped freshness before closure:
+
+- AI-Verse-System pre-closure head: `5005c3a49802556f72d94f1fd70c274bd795ae20`.
+- ai-verse-distribution remained `fd11b4a95487638d47ff55472a3703b03892d0e8`.
+- AI-Verse-OS remained `64f7325444d18f94c9d4755d32eb89f3468bda6b`.
+- AI-Verse-Brain remained `69f7912eeb35f0178f6952ff0554aec8d7f2c496`.
+- AI-Verse-Memory remained `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`.
+- AI-Verse-Skills remained `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`.
+- AI-Verse-Data remained `f8978f8f7a1bc94edecddc2662112233289159a3`.
+
+Drift carried forward:
+
+- `BLOCKING`, Core release-governance evidence: current owner descriptors still do not certify the exact currently shipped refs and four owners use noncanonical `development`; repair remains assigned to later descriptor/handoff slices.
+- `WARNING`, Core/System: Purpose Context Blueprint lag remains assigned to Slice 3.3.
+- `WARNING`, Core maintainer governance: owner-local handoff remains assigned to Slice 4.2.
+- `WARNING`, Distribution/component handoff: hard-coded adapter revision knowledge must remain routing support rather than acceptance authority.
+- `INFO`, Distribution reproducibility: compact `release-receipt.json` remains Slice 5.4 implementation work.
+- U35/U36 remain `RESOLVED/PASS`.
+
+Owner/component change required: NO.  
+Distribution adoption required: NO.  
+System impact: YES, permanent governance/tombstone/README/tracker surfaces only.  
+Repository-state impact: NO runtime State exists yet; governance semantics only.  
+Member payload impact: NO; source-only docs only.  
+Reproducibility impact: governance law only; receipt implementation remains later.  
+Plan-amendment impact: NO.
+
+Acceptance disposition: PASS. Permanent law is separate from the plan, existing safety/release contracts are referenced rather than replaced, permanent rules are discoverable from README, and tombstones now prevent silent resurrection of the rejected architectures.
 
 ### NEXT
 
@@ -635,11 +664,21 @@ Close only after all 20 slices pass, all required rollout waves are governed, no
 
 # Program Change Log
 
+## 2026-10-12 - Slice 2.1 permanent repository-network governance completed
+
+- Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md` as permanent cross-repo law independent of this implementation plan.
+- Defined canonical owner routing, required handoffs, two-layer validation, exact evidence, non-regression, permanent invariants, breaking-change law, member isolation, decision/recovery provenance, emergency safety release and least-privilege cross-repo write rules.
+- Reused existing safe-update, Component Release Descriptor and Whole-Release Preservation Result contracts rather than duplicating their detailed domains.
+- Created `docs/ARCHITECTURE-TOMBSTONES.md` and seeded eight Phase 1 rejected duplicate architectures as `prohibited-resurrection`.
+- Added README discoverability so future maintainers/agents can find permanent governance without reading program history.
+- No runtime, Distribution composition, component repository or member payload changed.
+- No protected roadmap amendment was required.
+
 ## 2026-10-12 - Tracker compacted at Phase 2 start without changing roadmap semantics
 
 - Full verbose Phase 0/1 tracker history is preserved at commit `acabfba8031421438747fed69bcbc65ba844787e`.
-- Live tracker retains all permanent laws, roles, existing-contract reuse rules, all 20 slice outcomes/acceptance direction, exact completed-slice evidence refs, current counters and current adaptive tasks.
-- Compaction was required to keep the canonical tracker safely writable through the GitHub connector and does not change program direction, denominator or acceptance floors.
+- Live tracker retains permanent laws, roles, existing-contract reuse rules, all 20 slice outcomes/acceptance direction, exact completed-slice evidence refs, current counters and adaptive tasks.
+- Compaction was required to keep the canonical tracker safely writable through the GitHub connector and did not change program direction, denominator or acceptance floors.
 
 ## 2026-10-12 - Slice 1.3 architecture frozen
 
@@ -668,13 +707,13 @@ Close only after all 20 slices pass, all required rollout waves are governed, no
 
 # Current execution pointer
 
-**Completed:** 4/20  
-**Overall:** 20.0%  
+**Completed:** 5/20  
+**Overall:** 25.0%  
 **Phase:** Phase 2 - Define the canonical System control plane  
-**Phase progress:** 0/3  
-**Until Phase 3:** 3 slices  
-**Current slice:** Slice 2.1 - Create the repository-network governance, invariant and tombstone contract (`IN PROGRESS`)  
-**Tasks:** 1/5  
-**Current task:** 2.1.2 - Create `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`  
+**Phase progress:** 1/3  
+**Until Phase 3:** 2 slices  
+**Current slice:** Slice 2.1 - Create the repository-network governance, invariant and tombstone contract (`COMPLETE`)  
+**Tasks:** 5/5  
 **Next:** Slice 2.2 - Create the machine-readable Repository Registry  
+**Next task:** not yet derived; generate from fresh Slice 2.2 evidence at slice start  
 **Blockers/drift/amendments:** descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag is WARNING; Core maintainer handoff coverage is WARNING; Distribution hard-coded adapter compatibility knowledge is a WARNING extension risk; future compact `release-receipt.json` remains INFO/future work; U35/U36 are RESOLVED/PASS. No plan amendment is required.
