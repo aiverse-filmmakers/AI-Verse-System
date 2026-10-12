@@ -6,17 +6,17 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 2  
-**Remaining:** 18  
-**Overall progress:** 10.0%  
+**Completed:** 3  
+**Remaining:** 17  
+**Overall progress:** 15.0%  
 **Current execution phase:** Phase 1 - Audit and normalize current reality  
-**Current phase progress:** 1/3 slices complete  
-**Slices until next phase:** 2  
+**Current phase progress:** 2/3 slices complete  
+**Slices until next phase:** 1  
 **Current slice:** 1.2 - Build the reuse, ownership, payload and drift inventory  
-**Current slice status:** IN PROGRESS  
-**Current task:** 1.2.2 - Classify audited mechanisms and target dispositions  
-**Task progress:** 1/5  
-**Next slice:** 1.3 - Freeze the implementation architecture and acceptance matrix
+**Current slice status:** COMPLETE  
+**Task progress:** 5/5  
+**Next slice:** 1.3 - Freeze the implementation architecture and acceptance matrix  
+**Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 1.3 starts
 
 > This file is the execution tracker. It must update before and after every implementation slice. A slice is not COMPLETE until its implementation, tests, evidence, plan update and progress accounting are all committed.
 
@@ -703,7 +703,7 @@ Do not mark work COMPLETE merely because code exists.
 # Phase 1 - Audit and normalize current reality
 
 **Phase size:** 3 slices  
-**Current phase progress:** 1/3  
+**Current phase progress:** 2/3  
 **Purpose:** prove what already exists before adding anything.
 
 ## Slice 1.1 - Audit the live repository network and existing safety machinery
@@ -836,10 +836,9 @@ Acceptance disposition: PASS. All five acceptance criteria are satisfied and all
 
 ## Slice 1.2 - Build the reuse, ownership, payload and drift inventory
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 1.1  
-**Task progress:** 1/5  
-**Current task:** 1.2.2 - Classify audited mechanisms and target dispositions
+**Task progress:** 5/5
 
 ### Slice start record
 
@@ -863,13 +862,13 @@ Freshness delta since Slice 1.1 completion:
 - `release-sets/core-first-run-rc1-2026-10-12.json` now records accepted qualification, accepted member bootstrap, default-channel promotion, automatic update and the admitted forward transition from `core-stable-2026-10-10`;
 - `docs/CORE-UPDATE-PROGRAM.md` is now `COMPLETE`, 36/36 tasks, 100.0%.
 
-Derived adaptive tasks, bounded to the existing Slice 1.2 purpose and acceptance criteria:
+Final derived adaptive tasks, bounded to the existing Slice 1.2 purpose and acceptance criteria:
 
 1. **1.2.1 - Refresh current state and derive/refine the execution tasks for this slice.** `COMPLETE`
-2. **1.2.2 - Classify every audited governance/release/preservation/payload concern as REUSE, EXTEND, CREATE, RETIRE or BLOCK/UNKNOWN and identify its canonical owner.** `IN PROGRESS`
-3. **1.2.3 - Build the Wave 1/Core ownership and state inventory, separating stable Registry truth from dynamic Repository State and recording live HEAD, owner-accepted evidence state, Distribution pin and System synchronization state.** `NOT STARTED`
-4. **1.2.4 - Identify Distribution shadow implementations/workarounds and duplicate/obsolete mechanism risks; record which are legitimate bounded packaging/orchestration versus which must be extended, retired or blocked.** `NOT STARTED`
-5. **1.2.5 - Record the canonical Slice 1.2 inventory, verify member/source boundaries and all acceptance criteria, and preserve the evidence needed for Slice 1.3 architecture freeze.** `NOT STARTED`
+2. **1.2.2 - Classify every audited governance/release/preservation/payload concern as REUSE, EXTEND, CREATE, RETIRE or BLOCK/UNKNOWN and identify its canonical owner.** `COMPLETE`
+3. **1.2.3 - Build the Wave 1/Core ownership and state inventory, separating stable Registry truth from dynamic Repository State and recording live HEAD, owner-accepted evidence state, Distribution pin and System synchronization state.** `COMPLETE`
+4. **1.2.4 - Identify Distribution shadow implementations/workarounds and duplicate/obsolete mechanism risks; record which are legitimate bounded packaging/orchestration versus which must be extended, retired or blocked.** `COMPLETE`
+5. **1.2.5 - Record the canonical Slice 1.2 inventory, verify member/source boundaries and all acceptance criteria, and preserve the evidence needed for Slice 1.3 architecture freeze.** `COMPLETE`
 
 Initial evidence-backed disposition before Task 1.2.2:
 
@@ -917,9 +916,62 @@ Build one inventory covering:
 - any Distribution shadow implementation/workaround is identified;
 - any duplicated or obsolete planned mechanism is removed from the target design only when doing so does not remove a protected acceptance outcome; otherwise use the plan-amendment path.
 
+### Slice completion record
+
+Canonical inventory: `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md`.
+
+Evidence-backed target decisions:
+
+- `COMPONENT-RELEASE-DESCRIPTOR-CONTRACT` remains the one component release/compatibility metadata home and is `EXTEND`, not replaced by a second compatibility fingerprint format.
+- component owner CI/contracts/schemas remain canonical and are `REUSE + EXTEND`; green current-head CI is not silently promoted into exact owner acceptance when the descriptor does not say so.
+- Distribution release sets, compatibility, candidate snapshots, lineage, qualification, updater, preservation, lifecycle recovery, transition admission and promotion are `REUSE` or `REUSE + EXTEND`, not replacement targets.
+- Repository Registry is future System-owned static truth; Repository State is future System-owned dynamic observation; the Markdown ledger is a generated projection only.
+- no permanent Wave 1 Core domain reimplementation was found in the inspected Distribution update path. Component-specific adapters delegate lifecycle work to owner CLIs. Their hard-coded revision/command compatibility knowledge is an extension risk, not canonical owner truth.
+- the Distribution Goal bridge is a shadow-adjacent Agent-path compatibility bridge and must stay constrained by owner-defined Brain/Gateway protocol semantics in later Wave 2 work.
+- Data companion dependency locks, immutable System contract qualification snapshots and receipt-owned project-bootstrap generated files are legitimate bounded Distribution packaging/evidence/integration responsibilities, not component-state ownership.
+- duplicate target-design ideas marked `RETIRE/NOT NEEDED`: second compatibility fingerprint format, second safe-update subsystem, separate whole-release acceptance database, hand-maintained canonical Markdown state ledger, independent Distribution sibling-component acceptance truth, and broad member payload copy-then-delete cleanup.
+- no protected acceptance outcome was removed. Every retired duplicate idea maps to an existing canonical or already-planned owner/mechanism, so no plan amendment is required.
+
+Final scoped freshness check:
+
+- AI-Verse-System advanced only through Slice 1.2 tracker/evidence commits: start commit `6f539af43230dc2c7d96d43dba2d4984d031632f` and inventory commit `8a45649276023ecc6626e5f8b25a76f0403c2912` before this closure update.
+- ai-verse-distribution remained `fd11b4a95487638d47ff55472a3703b03892d0e8`.
+- AI-Verse-OS remained `64f7325444d18f94c9d4755d32eb89f3468bda6b`.
+- AI-Verse-Brain remained `69f7912eeb35f0178f6952ff0554aec8d7f2c496`.
+- AI-Verse-Memory remained `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`.
+- AI-Verse-Skills remained `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`.
+- AI-Verse-Data remained `f8978f8f7a1bc94edecddc2662112233289159a3`.
+
+Drift carried forward:
+
+- `BLOCKING`, Core release-governance evidence: current component descriptors do not certify the exact refs currently shipped, and four owner descriptor workflows use a non-canonical `development` state. Current exact-head owner CI observations are green, and Distribution whole-product qualification is accepted, but owner acceptance must become explicit under one executable descriptor contract.
+- `WARNING`, Core/System: Purpose Context Blueprint wording remains stale versus accepted/admitted implementation.
+- `WARNING`, Core maintainer governance: owner-local cross-repository handoff coverage remains uneven.
+- `WARNING`, Distribution/component handoff: hard-coded adapter compatibility knowledge must not become a second component acceptance/compatibility truth source.
+- `INFO`, Distribution reproducibility: compact admitted-release reconstruction binding remains future work; existing durable release evidence is substantial and must be reused.
+- previous U35/U36 pending state: `RESOLVED/PASS`; Core Update Program v1 is complete.
+
+No product/runtime implementation was changed by Slice 1.2. System writes were limited to plan bookkeeping and the canonical inventory evidence document.
+
 ### Evidence
 
-In progress. Slice-start evidence and the current five-task execution list are recorded above. Completion evidence will be added after Tasks 1.2.2 through 1.2.5 satisfy the acceptance criteria.
+- canonical inventory: `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md`
+- inventory evidence commit: `8a45649276023ecc6626e5f8b25a76f0403c2912`
+- slice-start bookkeeping commit: `6f539af43230dc2c7d96d43dba2d4984d031632f`
+- component descriptor contract/schema: `docs/COMPONENT-RELEASE-DESCRIPTOR-CONTRACT.md`, `contracts/component-release-descriptor.schema.json`
+- whole-release acceptance contract: `docs/WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT.md`
+- current production Core release: Distribution `release-sets/core-first-run-rc1-2026-10-12.json`
+- completed update-program evidence: Distribution `qualification/core-update-program-u35/qualification.json`, `qualification/core-update-program-u36/release-evidence.json`, `docs/CORE-UPDATE-PROGRAM.md`
+- Distribution orchestration/shadow review: `src/aiverse_distribution/adapters.py`, `src/aiverse_distribution/core_update_lifecycle.py`, `src/aiverse_distribution/goal_bridge.py`, `src/aiverse_distribution/generated_refresh.py`, `src/aiverse_distribution/release_catalog.py`, `compatibility/matrix.json`
+- owner change required: NO, because Slice 1.2 is inventory/design classification only
+- Distribution adoption required: NO, because no component or release composition changed
+- System impact: YES, tracker + inventory evidence only
+- Repository-state impact: design decision only; canonical Repository State does not exist yet
+- Member payload impact: NO; source/member boundaries were classified and preserved
+- Reproducibility impact: target-design decision only; existing records are reused and compact receipt remains Slice 5.4 work
+- Plan-amendment impact: NO
+
+Acceptance disposition: PASS. All five Slice 1.2 acceptance criteria are satisfied and all five derived tasks are complete.
 
 ### NEXT
 
@@ -1597,6 +1649,18 @@ None. Program complete.
 
 # Program Change Log
 
+## 2026-10-12 - Slice 1.2 reuse, ownership, payload and drift inventory completed
+
+- Recorded `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md` as the evidence-backed target inventory for Phase 1.
+- Kept the existing Component Release Descriptor as the single component release/compatibility metadata format and rejected a second compatibility fingerprint format.
+- Mapped existing Distribution update, preservation, lifecycle recovery, candidate, qualification, transition and promotion machinery as `REUSE` or `REUSE + EXTEND` rather than replacement targets.
+- Separated future System-owned static Repository Registry from dynamic Repository State and a generated Markdown ledger.
+- Identified Distribution lifecycle adapters as legitimate orchestration with a hard-coded compatibility-knowledge extension risk; identified the Agent-path Goal bridge as shadow-adjacent semantic compatibility work that must remain owner-contract-bound.
+- Marked duplicate target-design ideas as `RETIRE/NOT NEEDED` only where their acceptance outcome is already owned by an existing or planned canonical mechanism.
+- Recorded U35/U36 as resolved/passed and the Core Update Program as complete at 36/36.
+- Preserved the descriptor exact-owner-acceptance gap as BLOCKING drift, Purpose Context Blueprint lag as WARNING drift, and Core maintainer handoff coverage as WARNING.
+- No product/runtime implementation or protected roadmap amendment was made.
+
 ## 2026-10-12 - Slice 1.1 live repository audit completed
 
 - Recorded the evidence-only live repository audit in `docs/REPOSITORY-NETWORK-AUDIT-2026-10-12.md`.
@@ -1676,13 +1740,13 @@ None. Program complete.
 
 # Current execution pointer
 
-**Completed:** 2/20  
-**Overall:** 10.0%  
+**Completed:** 3/20  
+**Overall:** 15.0%  
 **Phase:** Phase 1 - Audit and normalize current reality  
-**Phase progress:** 1/3  
-**Until Phase 2:** 2 slices  
-**Current slice:** Slice 1.2 - Build the reuse, ownership, payload and drift inventory (`IN PROGRESS`)  
-**Current task:** 1.2.2 - Classify audited mechanisms and target dispositions  
-**Task progress:** 1/5  
-**Next slice:** Slice 1.3 - Freeze the implementation architecture and acceptance matrix  
-**Blockers/drift/amendments:** component release-descriptor contract/evidence split remains BLOCKING for the future Core release-governance target; Purpose Context Blueprint lag remains WARNING; Core maintainer handoff coverage remains WARNING; U35 real-installation pilot and Core update release gate are now PASSED. No plan amendment is currently required.
+**Phase progress:** 2/3  
+**Until Phase 2:** 1 slice  
+**Current slice:** Slice 1.2 - Build the reuse, ownership, payload and drift inventory (`COMPLETE`)  
+**Tasks:** 5/5  
+**Next:** Slice 1.3 - Freeze the implementation architecture and acceptance matrix  
+**Next task:** not yet derived; generate from fresh Slice 1.3 evidence at slice start  
+**Blockers/drift/amendments:** descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag is WARNING; Core maintainer handoff coverage is WARNING; Distribution hard-coded adapter compatibility knowledge is a WARNING extension risk; compact durable release reconstruction receipt remains INFO/future work; U35/U36 are RESOLVED/PASS. No plan amendment is required.
