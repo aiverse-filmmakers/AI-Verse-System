@@ -130,6 +130,7 @@ class RepositoryStateTests(unittest.TestCase):
         self.assertInvalid(state, "complete Core refresh must contain exactly")
 
     def test_complete_agent_full_and_global_scopes_follow_nested_registry_semantics(self):
+        registry_by_id = {item["repository_id"]: item for item in self.registry["repositories"]}
         for scope in ("Agent", "Full", "global"):
             state = copy.deepcopy(self.state)
             state["refresh"]["scope"] = scope
@@ -139,8 +140,19 @@ class RepositoryStateTests(unittest.TestCase):
                 state["refresh"]["last_full_refresh"] = copy.deepcopy(state["refresh"]["last_scoped_refresh"])
             else:
                 state["refresh"]["mode"] = "scoped-refresh"
-            for repo in state["repositories"]:
-                repo["freshness"]["scope"] = scope
+            expected = state_validator._expected_complete_scope_ids(registry_by_id, scope)
+            self.assertIsNotNone(expected)
+            state["refresh"]["repository_ids"] = [
+                item["repository_id"] for item in self.registry["repositories"] if item["repository_id"] in expected
+            ]
+            for index, repo in enumerate(state["repositories"]):
+                if repo["repository_id"] in expected:
+                    if repo["access"] != "verified":
+                        repo["access"] = "verified"
+                        repo["observed_head"] = f"{index + 1:040x}"[-40:]
+                    repo["freshness"]["scope"] = scope
+                    repo["freshness"]["status"] = "fresh"
+                    repo["freshness"]["evidence_revision"] = state["refresh"]["evidence_revision"]
             self.assertEqual(self.validate(state=state), [], scope)
 
     def test_complete_global_refresh_requires_every_registered_repository(self):
