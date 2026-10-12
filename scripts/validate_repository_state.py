@@ -275,7 +275,7 @@ def _expected_complete_scope_ids(registry_by_id: dict[int, dict[str, Any]], scop
     controls = {
         repo_id
         for repo_id, entry in registry_by_id.items()
-        if entry.get("surface_classification") in {"governance", "release-orchestrator"}
+        if entry.get("component_id") in {"ai-verse-system", "ai-verse-distribution"}
     }
     if scope == "Core":
         return controls | {
