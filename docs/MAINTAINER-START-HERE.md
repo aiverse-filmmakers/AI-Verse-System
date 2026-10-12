@@ -36,6 +36,8 @@ Never copy a static Registry field into Repository State as a separately maintai
 
 A date alone never proves freshness. Exact Git identity, evidence refs, scope and ancestry are the governing evidence.
 
+Repository State is stored inside AI-Verse-System, so its own System `observed_head` has unavoidable self-publication semantics: it records the exact System head that was observed immediately before the State snapshot is published. The commit that publishes that State/ledger snapshot is therefore expected to be a direct descendant of the recorded System head. Do not treat that one publication step as unexplained drift. Any additional System movement after the snapshot requires a new relevant refresh before freshness can be claimed for a decision that depends on it.
+
 Before a scoped decision, the relevant Repository State entries must have a valid scoped refresh covering the decision scope. For Core, that means System, Distribution, OS, Brain, Memory, Skills and Data. A changed component also requires its dependency closure where applicable.
 
 Before full-network governance decisions, use a full registered-repository refresh. Slice 3.1 adds live scoped/full refresh behavior to the existing `scripts/refresh_repository_state.py` path.
