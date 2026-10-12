@@ -289,7 +289,7 @@ No sibling repository, Distribution release history, member payload, runtime beh
 
 **Status:** IN PROGRESS  
 **Dependencies:** 4.1  
-**Adaptive tasks:** 2/5 complete
+**Adaptive tasks:** 3/5 complete
 
 Add minimal source-only owner handoff semantics in OS, Brain, Memory, Skills and Data. Acceptance remains unchanged: discoverable handoff, exact candidate acceptance where technically possible, no copied global governance docs, and local CI cannot claim member release alone.
 
@@ -326,7 +326,7 @@ For an `accepted` descriptor, the owner-local `Release Descriptor` gate will val
 
 - [x] **4.2-T1** Refresh exact live owner/System refs; audit all five current descriptors, descriptor workflows, native CI and maintainer docs; prove successful native checks already exist on each exact released Core pin; classify reuse/create/prohibited boundaries.
 - [x] **4.2-T2** Define and document the one minimal owner-local acceptance/handoff pattern: canonical descriptor + existing descriptor workflow + successful exact-revision native CI binding + explicit non-member-release semantics.
-- [ ] **4.2-T3** Implement the pattern in OS, Brain, Memory, Skills and Data, preserving each repo's native CI and publishing canonical accepted descriptors for the exact current pins only where the evidence gate passes.
+- [x] **4.2-T3** Implement the pattern in OS, Brain, Memory, Skills and Data, preserving each repo's native CI and publishing canonical accepted descriptors for the exact current pins only where the evidence gate passes.
 - [ ] **4.2-T4** Prove each owner PR/push gate, exact revision/native-CI binding, canonical breaking-change semantics, handoff discoverability and the invariant that owner CI cannot claim Distribution/member release.
 - [ ] **4.2-T5** Refresh scoped Core Repository State/ledger from the exact resulting owner refs, resolve only owner-acceptance/handoff drift actually proven closed, record exact evidence and close Slice 4.2 before advancing to 4.3.
 
@@ -338,7 +338,20 @@ For an `accepted` descriptor, the owner-local `Release Descriptor` gate will val
 - Canonical contract now requires one owner-local gate using the existing Component Release Descriptor, exact immutable descriptor revision, successful exact-revision native CI, fail-closed evidence handling and explicit non-Distribution/non-member-release semantics.
 - No Core owner repository was modified by T2 and T3 remains the first owner-repository implementation task.
 
-No protected roadmap element changed. No plan amendment is required.
+### T3 evidence
+
+The canonical owner-local pattern is now published in all five Wave 1/Core owners. Each owner keeps its existing native implementation workflow unchanged, publishes an `accepted` canonical descriptor for the exact released pin, and has a source-only maintainer entrypoint explaining exact-revision acceptance and the separation from Distribution/member release authority.
+
+- OS: released descriptor revision `64f7325444d18f94c9d4755d32eb89f3468bda6b`; native `Repository QC` evidence run `38228297973`; final T3 owner head `866359d877bfb3df0d8011d2d651a5ff947e21ca`; Release Descriptor run `38298524145` completed successfully.
+- Brain: released descriptor revision `69f7912eeb35f0178f6952ff0554aec8d7f2c496`; native `CI` evidence run `37584271057`; final T3 owner head `4406d15068284b88e0076b6dfff5aa0b06890a24`; Release Descriptor run `38298533507` completed successfully.
+- Memory: released descriptor revision `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`; native `Test` evidence run `37686666851`; final T3 owner head `09911eae0b4b0cbf7e7e7969230fe5b86647b841`; Release Descriptor run `38298541907` completed successfully.
+- Skills: released descriptor revision `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`; native `Runtime Readiness` evidence run `37183671930`; final T3 owner head `d4a02888ba8d83c4a15ce1b538ffdafaaf83bee1`; Release Descriptor run `38298549229` completed successfully.
+- Data: released descriptor revision `f8978f8f7a1bc94edecddc2662112233289159a3`; native `CI` evidence run `37645269881`; final T3 owner head `7e9fadbd73752b24eb79e270aff6b311ad508109`; Release Descriptor run `38298556678` completed successfully.
+- The owner-local gates validate canonical descriptor structure, preservation/authority invariants and breaking-change classification, require exact immutable descriptor revisions, and query the existing native workflow for successful evidence on that exact SHA. Missing, inaccessible, malformed, mismatched or unsuccessful evidence fails closed. No native test command was copied into the descriptor gate.
+- OS had fresh unrelated movement after the T1 snapshot: `main` advanced to `01571824d18421ea71251556b47c3308bfef4446` (`Document practical capability placement semantics`). T3 was replayed on top of that live head and published at `866359d877bfb3df0d8011d2d651a5ff947e21ca`; no unrelated OS work was overwritten, and the accepted descriptor remains intentionally bound to released pin `64f7325444d18f94c9d4755d32eb89f3468bda6b`.
+- This T3 proof is owner-local adoption publication only. It does not perform the 4.2-T4 PR/push/breaking-semantics/discoverability validation matrix, does not qualify the Distribution current component set, does not create a member feature-release record, and does not refresh canonical Repository State/ledger.
+
+Canonical owner-acceptance/handoff drift is therefore not marked resolved by T3 bookkeeping. T4 must prove the owner validation matrix, and T5 remains responsible for the scoped Core Repository State/ledger refresh and drift disposition. No protected roadmap element changed. No plan amendment is required.
 
 ## Slice 4.3 - Wave 2/3 handoff governance
 
@@ -411,6 +424,17 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-12 - Slice 4.2 T3 owner handoff adopted
+
+- Published the canonical owner-local acceptance/handoff pattern in OS, Brain, Memory, Skills and Data without replacing or duplicating their native implementation workflows.
+- Published accepted descriptors bound to the exact released Core revisions and immutable successful native workflow evidence.
+- Published owner-local Release Descriptor gates and maintainer handoff guidance in all five owners; the exact adoption-head gate runs are OS `38298524145`, Brain `38298533507`, Memory `38298541907`, Skills `38298549229`, Data `38298556678`, all successful.
+- Preserved unrelated OS movement by replaying T3 on top of live OS head `01571824d18421ea71251556b47c3308bfef4446`; final OS T3 head is `866359d877bfb3df0d8011d2d651a5ff947e21ca`, while its accepted descriptor remains bound to released revision `64f7325444d18f94c9d4755d32eb89f3468bda6b`.
+- Final T3 owner heads are Brain `4406d15068284b88e0076b6dfff5aa0b06890a24`, Memory `09911eae0b4b0cbf7e7e7969230fe5b86647b841`, Skills `d4a02888ba8d83c4a15ce1b538ffdafaaf83bee1`, Data `7e9fadbd73752b24eb79e270aff6b311ad508109`.
+- T3 proves owner-local adoption publication only. T4 validation and T5 scoped State/ledger closure were not begun.
+- Slice 4.2 is now 3/5 complete. Overall program progress remains 11/20, 55.0%, because the slice itself is not complete.
+- Canonical owner-acceptance/handoff drift remains open pending T4/T5. No protected roadmap change and no plan amendment.
 
 ## 2026-10-12 - One-task execution law added and Slice 4.2 T2 reconciled
 
@@ -497,6 +521,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 4 - Integrate canonical component owners  
 **Phase progress:** 1/3  
 **Until Phase 5:** 2 slices  
-**Current slice:** Slice 4.2 - Wave 1/Core maintainer handoff (`IN PROGRESS`, 2/5 tasks complete)  
-**Next:** 4.2-T3 - implement the proven owner-local acceptance/handoff pattern in OS, Brain, Memory, Skills and Data, and do not begin T4 in the same run  
-**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING remains open until all five owners pass 4.2 adoption; Core maintainer handoff WARNING remains open; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
+**Current slice:** Slice 4.2 - Wave 1/Core maintainer handoff (`IN PROGRESS`, 3/5 tasks complete)  
+**Next:** 4.2-T4 - prove each owner PR/push gate, exact revision/native-CI binding, canonical breaking-change semantics, handoff discoverability and the invariant that owner CI cannot claim Distribution/member release; do not begin T5 in the same run  
+**Blockers/drift/amendments:** T3 owner-local adoption is published and its exact adoption-head Release Descriptor gates passed in all five Core owners. Canonical Core owner-acceptance/handoff drift remains open pending T4 validation and the T5 scoped State/ledger refresh. Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
