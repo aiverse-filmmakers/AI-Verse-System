@@ -1,721 +1,431 @@
-# Distribution -> System Propagation, Canonical Owner Routing, Component Handoff, Repository State Ledger and Member Isolation Implementation Plan
+# AI-Verse Repository Network Governance, Release Safety and Self-Checking Implementation Plan
 
 **Status:** ACTIVE  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary implementation repo:** `aiverse-filmmakers/ai-verse-distribution`  
-**Affected implementation repos:** AI-Verse component repositories that are shipped by Distribution  
+**Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
-**Program size:** 14 slices  
+**Program size:** 20 slices  
 **Completed:** 1  
-**Remaining:** 13  
-**Progress:** 7.1%  
-**Rule:** Update this file before and after every implementation slice. A slice is COMPLETE only when its acceptance criteria are satisfied and exact implementation/test evidence is recorded here.
+**Remaining:** 19  
+**Overall progress:** 5.0%  
+**Current execution phase:** Phase 1 - Audit and normalize current reality  
+**Current phase progress:** 0/3 slices complete  
+**Slices until next phase:** 3  
+**Next slice:** 1.1 - Audit the live repository network and existing safety machinery
 
-## 0. Mission
+> This file is the execution tracker. It must update before and after every implementation slice. A slice is not COMPLETE until its implementation, tests, evidence, plan update and progress accounting are all committed.
+
+---
+
+# 0. Program mission
 
 Make the AI-Verse repository network behave as one controlled, self-checking product without collapsing the repositories into one codebase.
 
-The finished behavior must achieve five goals at once:
+The finished system must satisfy all of the following at once:
 
-1. **System stays current.** Meaningful product, architecture, lifecycle, readiness, compatibility, release, safety and member-experience changes are reflected appropriately in `aiverse-filmmakers/AI-Verse-System`.
-2. **Canonical component owners stay current.** Skills, Brain, Memory, Data, OS and every other component remain the canonical implementation home for their own behavior. Distribution must not hide or permanently patch sibling-owned defects.
-3. **Distribution ships only accepted component revisions.** A component revision must first satisfy its own owner-repo validation, then Distribution must qualify that exact revision as part of the composed AI-Verse release before it can become an admitted member release.
-4. **Cross-repo drift is visible before it can cause regression.** A canonical repository-state ledger must distinguish live repo HEAD, owner-accepted revision, Distribution-shipped revision and System synchronization state. Stale documentation must never silently drive newer accepted implementation backward.
-5. **Members receive only product-relevant files.** Maintainer governance, cross-repo synchronization rules, internal roadmaps, qualification records and developer-only instructions remain outside the member-facing installation.
+1. **System stays current.** Meaningful product, architecture, lifecycle, ownership, readiness and release truth is reflected appropriately in AI-Verse-System.
+2. **Canonical owners remain canonical.** Skills, Brain, Memory, Data, OS and every other component remain the implementation authority for their own behavior. Distribution must never become a permanent shadow implementation.
+3. **Distribution ships only accepted compositions.** A component revision must pass its owner-repo acceptance first, then the exact composed release must pass Distribution qualification before admission.
+4. **Repository drift is visible.** The system can distinguish live repo HEAD, owner-accepted revision, Distribution-shipped revision and System-synchronized truth.
+5. **Stale documentation cannot regress newer accepted implementation.** Disagreement causes explicit reconciliation, not automatic rollback or automatic doc overwrite.
+6. **Member-owned state remains protected.** Nothing in this program may weaken the existing safe-update/state-preservation floor.
+7. **Maintainer governance remains outside member installs.** Internal repository-network controls must not leak into generated member projects.
+8. **Every admitted release is reconstructable.** Exact software composition and durable release evidence remain recoverable later.
+9. **The repository network can detect its own decay.** Missing repos, stale watchdogs, stale System truth, invalid handoffs and mismatched release refs become visible failures rather than silent drift.
 
-This program does not create blind repository synchronization. It creates explicit ownership, evidence, handoff, freshness and reconciliation rules.
+The central design rule is:
+
+> **Define centrally. Enforce at the canonical owner. Verify again at composition.**
 
 ---
 
-## 0A. Repository roles
+# 1. Canonical roles
 
-### AI-Verse-System
+## AI-Verse-System
 
-Owns the evolving big picture:
+Owns:
 
-- canonical architecture;
-- component responsibilities and ownership;
-- system-wide lifecycle truth;
-- current versus intended behavior;
-- readiness and QC truth;
-- product intent;
-- cross-repo contracts;
-- canonical changelog and historical architectural decisions.
+- architecture and product intent;
+- component responsibility/ownership;
+- system invariants;
+- cross-repo governance contracts;
+- repository registry;
+- repository-state model and human ledger;
+- architecture tombstones/history;
+- shared release/compatibility semantics;
+- current-versus-intended system truth;
+- system changelog and readiness/QC truth.
 
-System is not the runtime implementation of the component repos and is not the member installer.
+System is not a second implementation home and is not the member installer.
 
-### AI-Verse component repositories
+## Component repositories
 
-Examples include:
+Each canonical component repo owns:
 
-- `AI-Verse-OS`
-- `AI-Verse-Brain`
-- `AI-Verse-Memory`
-- `AI-Verse-Skills`
-- `AI-Verse-Data`
-- Gateway
-- Automations
-- Multiple Bots
-- Connections
-- Apps
-- Dashboard
-- Token
-- any future canonical component owner
+- its implementation;
+- component-local tests/CI/acceptance;
+- its interfaces/contracts/schemas;
+- component-local migrations and recovery semantics;
+- component release descriptor/evidence;
+- component-local implementation provenance.
 
-Each component repo owns its real implementation, native tests, component-specific lifecycle behavior and component-local defects/improvements.
+A component repo does not directly decide that a revision ships to members.
 
-### ai-verse-distribution
+## ai-verse-distribution
 
-Owns product composition and delivery:
+Owns:
 
-- release sets;
-- exact immutable component refs;
-- compatibility resolution;
+- exact release sets;
+- immutable component refs;
+- compatibility/composition;
+- candidate admission flow;
 - source acquisition;
-- installation;
-- setup orchestration;
-- update;
-- rollback;
-- Distribution receipts/locks;
-- clean-machine qualification;
-- whole-product acceptance;
-- release admission;
-- member delivery boundaries.
+- install/setup/update/rollback orchestration;
+- member payload boundaries;
+- whole-product qualification;
+- promotion/release channels;
+- release receipts and reconstructability;
+- Distribution-specific recovery/rollback evidence.
 
-Distribution does not become a second copy of the component engines.
+Distribution does not own sibling component domain logic or canonical user state.
 
-### Member installation
+## Member installation
 
-The member receives the admitted product assembled by Distribution from the exact approved component revisions plus legitimate Distribution-owned runtime/generated artifacts.
+Receives only admitted runtime/product artifacts plus legitimate generated member-facing files.
 
-The member does not receive internal maintainer governance merely because that governance exists in source repos.
+It must not receive internal repository-network governance except narrowly required machine-readable runtime compatibility metadata.
 
 ---
 
-## 0B. Canonical System propagation rule
+# 2. Existing contracts to reuse, not duplicate
 
-Any meaningful change in Distribution or a shipped component repo must evaluate whether AI-Verse-System needs to change.
+Before creating new machinery, implementation must reuse and extend existing canonical contracts where they already solve the problem.
 
-Meaningful changes include, where relevant:
+At minimum:
 
-- new capability;
-- meaningful improvement;
-- important defect repair;
-- lifecycle behavior change;
-- install/update/rollback change;
-- compatibility change;
-- preservation or user-state safety change;
-- security/trust change;
-- component ownership change;
-- member-facing behavior change;
-- release/readiness change;
-- architecture or topology change;
-- previously missing capability becoming implemented.
+- `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md`
+- `docs/COMPONENT-RELEASE-DESCRIPTOR-CONTRACT.md`
+- `docs/WHOLE-RELEASE-PRESERVATION-RESULT-CONTRACT.md`
+- `docs/LIVING-SPEC-PROTOCOL.md`
+- `docs/OWNER-PRODUCT-INTENT.md`
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`
 
-If the change affects canonical product truth, update the relevant System records as part of the same body of work.
+Important consequences:
 
-Purely internal changes with no meaningful effect on product truth may be classified `NO SYSTEM IMPACT`, but the reason must be explicit where the governance gate requires it.
-
-Not every change must touch every System file. System must stay accurate, not noisy.
+- do **not** create a second safe-update system;
+- do **not** create a second component release-metadata format if the existing component release descriptor can be versioned/extended;
+- do **not** create a second whole-release acceptance database when the existing release-preservation result and Distribution release records can carry the evidence;
+- do **not** duplicate canonical user-state ownership in Distribution;
+- do **not** maintain the same global repository truth manually in multiple files.
 
 ---
 
-## 0C. Canonical owner routing law
+# 3. Permanent laws for this program
+
+## 3.1 Canonical owner routing
 
 Discovery location does not determine ownership.
 
-If Distribution work discovers a problem, first determine the canonical owner.
+If Distribution discovers a sibling-owned defect/improvement:
+
+```text
+Discover change
+-> determine canonical owner
+-> fix owner repo
+-> owner CI/acceptance passes
+-> record exact immutable owner revision
+-> Distribution adopts exact accepted revision
+-> Distribution qualifies exact composition
+-> System synchronizes meaningful product truth
+-> release may be admitted
+```
+
+If ownership is ambiguous: `BLOCKED - OWNER UNRESOLVED`.
+
+## 3.2 Two validation layers
+
+```text
+Owner validation
+"Does this component revision satisfy its own contract?"
+        ↓
+Distribution qualification
+"Do these exact accepted revisions work together as AI-Verse?"
+```
+
+A SHA merely existing is never release evidence.
+
+## 3.3 Static truth versus dynamic state
+
+Do not make the Repository State Ledger duplicate the Repository Registry.
+
+- **Repository Registry** = what each repo is, its stable identity, ownership and declared role.
+- **Repository State** = where that repo currently stands.
+- **Generated Markdown ledger** = human-readable projection of repository state.
+
+Target shape:
+
+```text
+repository-registry.json
+        ↓
+repository-state.json
+        ↓
+generated docs/REPOSITORY-STATE-LEDGER.md
+```
+
+The Markdown ledger is not the machine source of truth.
+
+## 3.4 Freshness without unnecessary full scans
+
+Use scoped refreshes for scoped decisions.
 
 Examples:
 
-- Skills engine, Skill package, registry/provider, generation, provenance or Skills-specific lifecycle defect -> `AI-Verse-Skills`
-- Brain-specific domain behavior -> `AI-Verse-Brain`
-- Memory-specific domain behavior -> `AI-Verse-Memory`
-- Data-specific domain behavior -> `AI-Verse-Data`
-- OS/host-specific domain behavior -> `AI-Verse-OS`
-- release-set selection, immutable acquisition, packaging, compatibility, install/update/rollback orchestration or Distribution receipt behavior -> `ai-verse-distribution`
+- Skills candidate decision -> refresh Skills + Distribution + relevant System contracts + declared direct dependencies.
+- Core release admission -> refresh all Core repos + System + Distribution.
+- whole-system architecture review/watchdog -> full registered-repo scan.
 
-Required flow for sibling-owned work:
+A full scan before every small change is prohibited unless the contract actually requires it.
 
-```text
-Problem or improvement discovered
-        |
-        v
-Determine canonical owner
-        |
-        v
-Fix in owner repository
-        |
-        v
-Owner-repo tests / CI / acceptance pass
-        |
-        v
-Record exact immutable owner commit/ref
-        |
-        v
-Distribution adopts that exact accepted ref
-        |
-        v
-Distribution qualifies the composed AI-Verse release
-        |
-        v
-System reflects meaningful product truth
-        |
-        v
-Release may be admitted
-```
+## 3.5 Git identity and ancestry over timestamps
 
-Non-negotiable rules:
+Dates are display/context information only.
 
-1. Do not permanently fix a sibling-owned defect only in Distribution.
-2. Do not duplicate sibling domain logic into Distribution merely to make qualification pass.
-3. Do not claim a sibling problem is fixed until the owner repo contains the accepted fix.
-4. Distribution adapters are allowed only for genuine Distribution-owned orchestration/compatibility concerns.
-5. Distribution must ship an immutable owner revision that contains the accepted fix before claiming the product includes it.
-6. If ownership is ambiguous, use `BLOCKED - OWNER UNRESOLVED` until canonical ownership is established.
+Freshness and lineage decisions must use exact immutable refs, repository identity and Git ancestry/compare evidence where applicable. Rebase/cherry-pick timestamps must not be treated as canonical ordering proof.
 
----
+Repository Registry should use stable repository identity where available in addition to `owner/name` so renames do not silently create a new logical component.
 
-## 0D. Component -> System and Component -> Distribution handoff law
+## 3.6 Canonical drift/non-regression
 
-Component repositories must not be passive islands.
+A stale System document cannot automatically revert newer accepted implementation.
 
-A meaningful component change must evaluate two separate handoffs.
+A newer implementation commit cannot automatically rewrite canonical System intent merely because it is newer.
 
-### System handoff
+Use:
 
-If the component change alters meaningful AI-Verse product truth, the relevant System records must be updated.
+`CANONICAL-DRIFT-DETECTED`
 
-### Distribution handoff
-
-If the component change is intended to ship as part of an AI-Verse release:
-
-1. the exact component revision must pass the component repo's own applicable tests/CI/acceptance;
-2. exact evidence for that tested revision must be recorded;
-3. the revision becomes eligible for Distribution adoption;
-4. Distribution must still independently qualify that exact revision as part of the whole composed AI-Verse system;
-5. only the Distribution release/admission process determines whether the new component revision ships to members.
-
-Component repos must not directly mutate Distribution or System main branches automatically. Prefer evidence, handoff records, pull requests or explicit maintainer workflow over broad cross-repo write authority.
-
-This creates two validation layers:
+Then reconcile evidence-first.
 
 ```text
-Component CI
-"Does this component work correctly?"
-        |
-        v
-Distribution qualification
-"Does this exact component revision work correctly inside AI-Verse?"
+Mismatch
+-> freeze automatic correction
+-> compare exact refs, owner acceptance, Distribution release truth, System intent/history and migration impact
+-> determine stale/incorrect side
+-> synchronize System forward OR repair owner implementation
+-> requalify when product composition changed
 ```
 
-A commit merely existing is not sufficient release evidence.
+## 3.7 Drift severity and scope
 
----
+Not every drift condition blocks every release.
 
-## 0E. No blind cross-repo mirroring
-
-Do not create a web where every repository automatically edits every other repository.
-
-Preferred model:
+Every drift result should carry:
 
 ```text
-Component repo
-  -> owns implementation
-  -> validates its own revision
-  -> evaluates System impact
-  -> offers exact tested ref for Distribution adoption
-
-Distribution
-  -> owns composition
-  -> validates exact refs together
-  -> controls release admission
-  -> routes discovered sibling defects back to their owners
-  -> evaluates System impact
-
-System
-  -> owns canonical big-picture truth
-  -> records ownership, architecture, readiness and meaningful evolution
+severity: INFO | WARNING | BLOCKING
+scope: component | Core | Agent | Full | global
+reason
+relevant refs
+required action
 ```
 
-Automation may validate references or create/request pull requests when safely designed. Direct unattended writes to other repositories' default branches are not the default.
+A Dashboard warning must not automatically block an unrelated Core release.
+
+## 3.8 Member isolation
+
+Source maintainer `AGENTS.md`, `CLAUDE.md`, roadmaps, repository registry/state, drift reports, tombstones, internal qualification material and governance must not leak into member installs.
+
+Prefer explicit/deterministic member payload inclusion over broad copy + delete.
+
+Unknown/user files remain protected by the existing preservation contract.
+
+## 3.9 Immutable qualification snapshot
+
+Every composed release qualification must be bound to an immutable evidence snapshot so moving `main` branches cannot change what was tested halfway through.
+
+The candidate snapshot should bind, as applicable:
+
+- exact Distribution candidate revision;
+- exact System governance/contract revision used;
+- exact Repository Registry revision;
+- exact component refs;
+- exact component release descriptors;
+- exact owner acceptance evidence;
+- exact compatibility/migration metadata;
+- exact whole-release preservation evidence;
+- applicable toolchain/runtime/lock information.
+
+If a bound input changes, the candidate must be re-evaluated/requalified rather than silently inheriting the previous result.
+
+## 3.10 Durable release evidence
+
+Important admitted-release evidence must not exist only in expiring GitHub Actions logs/artifacts.
+
+For every admitted release, persist a compact durable release receipt with enough immutable data to reconstruct the shipped software composition later.
+
+## 3.11 Emergency safety release path
+
+Support a tightly bounded break-glass path for urgent security, corruption or user-data-protection fixes.
+
+It must **not** bypass owner validation, exact refs, preservation requirements or Distribution qualification.
+
+It may temporarily allow non-safety documentation synchronization debt only when explicitly recorded as `SYSTEM-SYNC-DEBT`.
+
+A later normal promotion must be blocked until required debt is reconciled.
+
+## 3.12 Architecture tombstones
+
+Retired/replaced architecture must leave durable evidence so stale docs, old audits or future agents cannot resurrect superseded structures accidentally.
+
+Tombstones belong primarily in System; component-local tombstones are used only for local APIs/schemas/migrations when needed.
+
+## 3.13 No silent contract deletion
+
+A component must not silently remove/redefine a depended-on API/schema/interface simply because local tests pass.
+
+Breaking changes require a compatible replacement, versioned coexistence, or an explicit coordinated breaking release/migration with affected owners and Distribution qualification.
+
+## 3.14 Rollout waves
+
+Implement this governance in dependency-safe waves:
+
+- **Wave 1:** System + Distribution + Core (`OS`, `Brain`, `Memory`, `Skills`, `Data`).
+- **Wave 2:** Agent-profile repos (Gateway, Automations, Multiple Bots and other Agent dependencies confirmed by registry).
+- **Wave 3:** Full/future ecosystem (Connections, Apps, Dashboard, Token and future first-class repos).
+
+Prove the pattern on Core before assuming it scales unchanged.
 
 ---
 
-## 0F. Member-isolation law
+# 4. Protection placement map
 
-Maintainer governance must remain separate from the installed member product.
+| Protection | Canonical definition | Local enforcement/publication | Composition verification |
+|---|---|---|---|
+| Repository Registry | System | System | Distribution consumes relevant subset |
+| Repository State + Ledger | System | System refresh tooling | Distribution checks scoped freshness |
+| Drift Watchdog | System | System automation | Distribution consumes relevant blocking drift |
+| Architecture Tombstones | System | component-local only when needed | System/Distribution inspect when relevant |
+| System Invariants | System | canonical owner of each behavior | Distribution verifies cross-component invariants |
+| Compatibility metadata | System contract/schema | component release descriptor | Distribution validates selected exact set |
+| Promotion rings | System policy | Distribution | Distribution |
+| Reproducibility guarantee | System | component immutable refs/metadata | Distribution release receipt |
+| No silent contract deletion | System law | interface-owning component | Distribution composed compatibility |
+| Decision/recovery provenance | System law | System/component/Distribution each own their layer | cross-repo validation |
 
-The implementation must prove that:
-
-- source-repo maintainer `AGENTS.md` or `CLAUDE.md` rules are not blindly reused as member instructions;
-- System propagation rules are absent from generated member instructions;
-- owner-routing, component-handoff and repository-ledger governance are absent from normal member runtime files;
-- internal roadmaps, qualification material and maintainer docs are excluded from member payloads;
-- fresh install, update and rollback all respect the same boundary;
-- future maintainer files are excluded by default where practical;
-- user-owned files are never deleted merely to enforce internal packaging rules.
-
-Prefer explicit member payload allowlists or deterministic generation over broad source-tree copying followed by deletion.
-
----
-
-## 0G. Preservation law
-
-Nothing in this program may weaken zero-loss update behavior.
-
-Preserve member-owned state including, where applicable:
-
-- memories;
-- goals;
-- preferences;
-- profile;
-- Brain direction;
-- workspaces;
-- decisions;
-- Data databases;
-- connections;
-- custom files;
-- user-created Skills;
-- automations;
-- extensions;
-- project history;
-- other user-owned state covered by the current preservation contract.
-
-If packaging, routing, propagation, handoff or drift-reconciliation logic conflicts with user ownership, fail safely.
+Do not copy all of these as full documents into every repository.
 
 ---
 
-## 0H. Required decision/evidence fields
+# 5. Required evidence model
 
-For meaningful work, use the applicable fields:
+Meaningful work must record the applicable fields:
 
 ```text
 Canonical owner: <repo/component>
 Owner change required: YES | NO
 Owner reason: <why>
-Owner implementation evidence: <commit/PR/ref when required>
-Owner CI/acceptance evidence: <workflow/run/check/ref when applicable>
+Owner implementation evidence: <commit/PR/ref>
+Owner CI/acceptance evidence: <run/check/report/ref>
 
 Distribution adoption required: YES | NO
-Distribution adopted revision: <exact immutable component ref when applicable>
+Distribution adopted revision: <exact ref>
 Distribution evidence: <commit/PR/ref>
-Distribution qualification evidence: <workflow/run/report>
+Distribution qualification evidence: <run/report/receipt>
 
 System impact: YES | NO
 System reason: <why>
 System destinations evaluated: <paths/categories>
-System evidence: <commit/PR/ref when YES>
+System evidence: <commit/PR/ref>
 
-Ledger impact: YES | NO
-Ledger evidence: <refresh/update ref when applicable>
-Drift status: <CLEAN or explicit drift state>
+Repository-state impact: YES | NO
+Refresh scope: <component/Core/Agent/Full/global>
+Repository-state evidence: <state/ledger ref>
+Drift severity/scope: <value>
 
 Member payload impact: YES | NO
 Member-isolation check: PASS | NOT APPLICABLE | BLOCKED
+
+Reproducibility impact: YES | NO
+Release receipt evidence: <ref when applicable>
 ```
 
-A missing required evidence field blocks completion. A `NO` decision must have a reason when the gate requires classification.
+A required `NO` decision needs a reason. Missing mandatory evidence blocks completion.
 
 ---
 
-## 0I. Status vocabulary
+# 6. Mandatory progress bookkeeping and user reporting
+
+This program is deliberately self-maintaining through the supported maintainer workflow.
+
+## Before starting every slice
+
+Update this file to:
+
+- mark the slice `IN PROGRESS`;
+- record the exact starting refs in scope;
+- record the current phase and progress counters;
+- preserve the previous evidence/history.
+
+## Before marking a slice COMPLETE
+
+The same body of work must update this file with:
+
+- final status = `COMPLETE`;
+- exact implementation commits/PRs;
+- exact tests/workflows/reports;
+- owner/System/Distribution/ledger/release evidence as applicable;
+- blockers discovered/resolved;
+- current phase progress;
+- overall completed/total;
+- overall percentage;
+- slices until next phase;
+- explicit NEXT slice.
+
+A slice is **not complete** until this plan update is committed successfully.
+
+## Overall percentage rule
+
+Overall progress is slice-based:
+
+`completed slices / total program slices * 100`
+
+Display to one decimal place unless exactly integral.
+
+If the denominator changes, update the Program Change Log and all counters immediately. Never change the denominator silently.
+
+## Mandatory user-facing completion report
+
+At the end of every completed slice, report in this compact format:
+
+```text
+Completed: Slice X.Y - <title>
+Overall: <completed>/<total> slices complete (<percent>%)
+Phase: <phase number> - <phase title>
+Phase progress: <completed in phase>/<total in phase>
+Until next phase: <N> slice(s)
+Next: Slice X.Y - <title>
+Blockers/drift: <none or concise status>
+```
+
+If the slice is blocked, report the same structure with `Blocked:` and do not increment progress.
+
+---
+
+# 7. Status vocabulary
 
 - `NOT STARTED`
 - `IN PROGRESS`
 - `BLOCKED`
 - `COMPLETE`
 
-Every slice records:
-
-- affected repos;
-- exact starting refs inspected;
-- ownership decision;
-- owner CI/acceptance decision where applicable;
-- Distribution adoption/qualification decision;
-- System impact decision;
-- repository-ledger freshness/drift decision where applicable;
-- member-isolation decision;
-- acceptance criteria;
-- tests/validation;
-- exact evidence;
-- explicit NEXT slice.
-
-Code existing is not enough to mark a slice COMPLETE.
+Do not mark work COMPLETE merely because code exists.
 
 ---
 
-## 0J. Repository State Ledger, freshness and non-regression law
+# Phase 0 - Persistent program foundation
 
-Create and maintain the canonical maintainer index:
-
-`docs/REPOSITORY-STATE-LEDGER.md`
-
-The ledger is a **freshness/drift index**, not a replacement source of truth. Live repositories, accepted CI evidence, Distribution release records and canonical System documents remain authoritative for their respective responsibilities.
-
-### Required per-repository state
-
-For every registered AI-Verse repository, the ledger should record at minimum:
-
-```text
-Repository: <owner/name>
-Role / canonical responsibility: <summary>
-Latest observed default-branch HEAD: <sha>
-HEAD date: <timestamp/date>
-Latest meaningful changes since previous checkpoint: <summary + refs>
-Latest owner-tested/accepted revision: <sha/ref or NONE>
-Owner acceptance evidence: <workflow/check/report/ref>
-Distribution-pinned revision: <sha/ref or NOT SHIPPED>
-Distribution release(s): <release id(s) or NONE>
-System synchronized through: <sha/ref or UNKNOWN>
-Last ledger refresh: <timestamp/date + evidence>
-Drift status: <status>
-```
-
-The ledger must distinguish these facts because they are not equivalent:
-
-```text
-latest repository HEAD
-        !=
-latest owner-tested/accepted revision
-        !=
-revision currently shipped by Distribution
-        !=
-revision/product truth already synchronized into System
-```
-
-### Drift vocabulary
-
-Use explicit states such as:
-
-- `CLEAN`
-- `UNREVIEWED-COMMITS`
-- `OWNER-VALIDATION-MISSING`
-- `DISTRIBUTION-BEHIND`
-- `SYSTEM-BEHIND`
-- `RELEASE-MISMATCH`
-- `OWNERSHIP-CONFLICT`
-- `ACCESS-UNVERIFIED`
-- `CANONICAL-DRIFT-DETECTED`
-
-A newer HEAD is not automatically a problem and is not automatically releasable. `DISTRIBUTION-BEHIND` means newer eligible/accepted work exists that has not yet been adopted, not that Distribution must blindly move to HEAD.
-
-### Freshness-before-trust rule
-
-The ledger cannot literally update itself merely because a Markdown viewer opens it. Therefore any maintainer/agent workflow that **uses the ledger for a meaningful cross-repo, architecture, readiness or release decision** must refresh it first.
-
-Required refresh behavior:
-
-1. query the live default-branch HEAD for every registered repository in scope;
-2. compare live refs with the ledger checkpoint;
-3. inspect commits newer than the checkpoint rather than merely recording a new SHA;
-4. determine whether each new commit is meaningful to architecture/product/release truth;
-5. check owner CI/acceptance state where applicable;
-6. compare accepted owner refs with Distribution-pinned refs;
-7. compare meaningful accepted/released changes with System synchronization state;
-8. update the ledger with exact refs, dates, summaries and drift states;
-9. only then use the ledger as a navigation/index surface for the decision.
-
-If live repository state cannot be checked, mark the affected entry `ACCESS-UNVERIFIED`; do not silently treat the recorded ledger state as fresh.
-
-### Non-regression / stale-canonical guard
-
-A stale System document must never automatically drive newer accepted implementation backward.
-
-Likewise, a newer code commit must never automatically overrule canonical System intent merely because it is newer.
-
-When System documentation, component implementation, owner acceptance evidence and Distribution release truth disagree, use:
-
-`CANONICAL-DRIFT-DETECTED`
-
-and block destructive reconciliation until the disagreement is understood.
-
-Required reconciliation sequence:
-
-```text
-Mismatch detected
-        |
-        v
-Freeze automatic "correction" in either direction
-        |
-        v
-Compare dates, commits, owner CI/acceptance, Distribution release evidence,
-System intent/history and migration/compatibility implications
-        |
-        v
-Determine which side is stale or incorrect
-        |
-        +--> accepted implementation/release is newer valid truth
-        |       -> synchronize System forward
-        |
-        +--> implementation violates canonical intent/contract
-                -> repair through canonical owner and requalify
-```
-
-No agent may "restore the blueprint" by reverting newer accepted implementation merely because an older canonical document still describes a previous state.
-
-### Known seed drift to reconcile
-
-Purpose Context is the first concrete regression fixture for this program:
-
-- System adopted Purpose Context intent on 2026-10-02;
-- Distribution later admitted `core-purpose-context-public-beta-2026-10-09`;
-- parts of `docs/FINAL-AI-VERSE-BLUEPRINT.md` still describe Purpose Context as intended/future work.
-
-Phase 1 must verify the exact shipped owner revisions and acceptance evidence, then classify this mismatch and synchronize the stale System truth forward if the October 9 release is confirmed as the accepted product reality. The older blueprint wording must not be used to remove a valid newer implementation.
-
-### Ledger scope growth
-
-New first-class AI-Verse repos must be registered in the ledger as part of introducing them. An implementation repo that participates in product composition must not remain invisible to the cross-repo freshness model.
-
-The ledger and its refresh machinery are maintainer-only and must never be copied into member installations.
-
----
-
-## 0K. Future-proof protection placement model
-
-The following protections are part of this program, but they must **not** be copied wholesale into every repository.
-
-Use the system-wide rule:
-
-> **Define centrally. Enforce at the canonical owner. Verify again at composition.**
-
-This keeps one authoritative definition of each protection while still enforcing it where the relevant implementation actually lives.
-
-### 1. Repository State Ledger
-
-**Canonical home:** AI-Verse-System.  
-**Enforcement/use:** System maintainer workflow and cross-repo decisions. Distribution consumes the relevant state when qualifying releases.  
-**Rule:** one global ledger; do not create competing per-repo ledgers.
-
-### 2. Machine-readable Repository Registry
-
-Create one canonical registry in AI-Verse-System for all official first-class AI-Verse repositories.
-
-It should identify at minimum:
-
-- repository identity;
-- canonical responsibility;
-- lifecycle/status;
-- whether Distribution ships it;
-- expected native CI/acceptance surface;
-- release/descriptor locations where applicable;
-- System component/spec references;
-- whether it is active, experimental, retired or external.
-
-**Canonical home:** AI-Verse-System.  
-**Distribution role:** read/validate the release-relevant subset rather than maintaining a second independent registry.  
-**Component role:** no duplicate global registry; a component may expose its own local identity/descriptor.
-
-A new first-class product repo must be registered before it can silently become part of release composition.
-
-### 3. Automatic Drift Watchdog
-
-Provide maintainer automation that periodically or on relevant repository events compares live repo state against the Repository State Ledger, accepted owner evidence, Distribution pins/releases and System synchronization state.
-
-**Primary home:** System-level maintainer automation.  
-**Distribution role:** consume drift/freshness evidence at release gates and may perform scoped release-time revalidation.  
-**Component role:** provide evidence; do not run competing whole-network watchdogs.
-
-The watchdog must report/raise drift, not silently rewrite repositories or automatically promote commits.
-
-### 4. Architecture Tombstones
-
-Create durable records for architecture, ownership models, interfaces or structures that have been explicitly retired/replaced.
-
-A tombstone should record at minimum:
-
-```text
-Retired design / structure
-Status: RETIRED | REPLACED
-Replacement: <current architecture/contract>
-Effective since: <commit/date/release>
-Reason / migration note: <concise explanation>
-Do-not-restore rule: <when applicable>
-```
-
-**Primary home:** AI-Verse-System because it owns architectural history.  
-**Component-local use:** only when a retired local API/schema/behavior needs a local migration or compatibility marker.  
-**Purpose:** prevent old audits, READMEs, branches or stale prompts from resurrecting superseded architecture.
-
-### 5. Permanent System Invariants
-
-Define a compact canonical set of laws that must remain true regardless of future features or repository growth.
-
-Examples include:
-
-- no silent loss of member-owned state;
-- one canonical owner per responsibility;
-- no arbitrary/unvalidated SHA becoming an admitted release;
-- no permanent sibling shadow implementation in Distribution;
-- no maintainer governance leaking into member installs;
-- no stale-document automatic regression;
-- every shipped first-class repo is registered;
-- admitted release provenance is reconstructable;
-- compatibility/migration failures fail safely rather than inventing success.
-
-**Definition:** System.  
-**Enforcement:** whichever canonical owner controls the affected behavior. Existing updater/preservation protections remain the enforcement for update-specific invariants rather than being duplicated.  
-**Composition verification:** Distribution checks the release-level invariants that can only be proven across components.
-
-This is a constitution over existing protections, not a second updater or duplicate safety engine.
-
-### 6. Compatibility Fingerprints / component compatibility descriptors
-
-Each component should publish a small machine-readable compatibility contract describing only facts that the component canonically owns and Distribution needs for safe composition.
-
-Potential fields include versioned interface/contract generation, state-schema generation, required host/component contract ranges, migration requirements and supported runtime/platform constraints.
-
-**Schema/meaning:** System defines the shared contract.  
-**Publication:** each canonical component repo publishes its own descriptor/fingerprint.  
-**Validation/composition:** Distribution validates fingerprints across the selected exact release set and still runs real qualification; fingerprints do not replace tests.
-
-Do not duplicate component implementation or live health truth in the fingerprint.
-
-### 7. Promotion rings
-
-Formalize release progression so a component or composed release does not jump directly from a new commit to broad member release merely because tests once passed.
-
-Target conceptual stages may include:
-
-```text
-owner accepted revision
-        -> Distribution candidate
-        -> dogfood/canary/limited validation
-        -> stable admitted member release
-```
-
-The exact number/names of rings must follow current Distribution mechanics discovered in Phase 1 rather than creating ceremony for its own sake.
-
-**Primary home/enforcement:** Distribution.  
-**Component role:** provide accepted candidate revisions and owner evidence.  
-**System role:** define the lifecycle/promotion law and current product-level expectations.
-
-### 8. Reproducibility guarantee
-
-Every admitted release must preserve enough immutable evidence to reconstruct exactly what software composition was shipped later.
-
-At minimum, where technically applicable, retain:
-
-- Distribution revision/release identifier;
-- exact component commits/artifacts;
-- compatibility/release-set manifest;
-- relevant dependency lock information;
-- required runtime/toolchain versions;
-- migration/qualification evidence needed to understand the released state.
-
-**Guarantee/architecture:** System defines that admitted releases must be reconstructable.  
-**Primary implementation:** Distribution because it owns the exact composed release.  
-**Component role:** provide immutable refs/artifacts and component-owned release metadata needed for reconstruction.
-
-Reconstructability does not mean rolling user-owned state backward; it means reproducing the shipped software composition and its evidence.
-
-### 9. No silent contract deletion / breaking-change law
-
-A component must not silently remove or redefine an interface/contract that other AI-Verse components or Distribution depend on merely because its own local tests pass.
-
-A breaking contract change requires either:
-
-- a compatible replacement path;
-- versioned coexistence where appropriate; or
-- an explicit coordinated breaking release/migration with affected owners and Distribution qualification.
-
-**Law/schema:** System.  
-**Local enforcement:** the component owning the interface/API/schema.  
-**Cross-component verification:** Distribution validates the composed release and compatibility evidence.
-
-### 10. Decision and recovery provenance
-
-Significant architecture, implementation and release decisions must leave enough evidence to answer later:
-
-```text
-What changed?
-Why did it change?
-Which canonical owner decided/implemented it?
-Which evidence justified it?
-What exact refs were involved?
-What was the previous known-good state?
-How can the decision/release be inspected or safely recovered from?
-```
-
-Do not create one giant duplicate event database merely for governance.
-
-**System:** architecture/product/ownership decisions and tombstones.  
-**Component repos:** implementation and component-local migration/contract evidence.  
-**Distribution:** release composition, qualification, promotion, rollback/recovery and exact shipped refs.
-
-Provenance must be sufficient for recovery from a mistaken maintainer or AI decision without making every repository own every other repository's history.
-
-### Placement summary
-
-```text
-AI-Verse-System
-  defines global laws
-  owns repository registry
-  owns repository-state ledger
-  owns architecture tombstones/history
-  defines invariants and shared compatibility semantics
-  runs/owns whole-network drift monitoring
-
-Component repositories
-  own implementation
-  publish component-local compatibility evidence
-  enforce their own API/schema/contract compatibility
-  run native tests/CI
-  preserve implementation/migration provenance
-
-ai-verse-distribution
-  reads canonical registry/release-relevant System contracts
-  validates exact component refs/fingerprints together
-  owns release candidates and promotion rings
-  owns whole-product qualification
-  owns reconstructable release composition
-  owns release/rollback/recovery provenance
-
-Member installation
-  receives only product/runtime artifacts required by the admitted release
-  does not receive this maintainer governance except for narrowly required runtime compatibility metadata
-```
-
-### Non-duplication rule
-
-Do not solve these protections by copying ten governance documents into every repository.
-
-A repository may contain a short maintainer instruction pointing to the canonical System law plus the local enforcement it owns. The detailed global rule remains in System.
-
-If a machine-readable compatibility artifact must ship because runtime/product behavior genuinely requires it, that artifact is product metadata, not permission to ship the surrounding maintainer governance.
-
-### Integration into the existing 14 slices
-
-These protections do not add ten new slices by default.
-
-They are cross-cutting requirements of the existing program:
-
-- **Phase 1:** audit which protections already exist, which are partially implemented, and where their current canonical evidence lives. Reuse existing updater/release protections rather than duplicating them.
-- **Phase 2:** canonicalize the global laws, registry/ledger/tombstone/invariant definitions and shared compatibility/reproducibility contracts in System.
-- **Phase 3:** implement/enforce only at the canonical owners: component-local fingerprints/contract checks, Distribution promotion/reproducibility/release gates, System drift monitoring and maintainer entrypoint rules.
-- **Phase 4:** prove end-to-end that the protections agree, do not conflict with one another, preserve member state, remain reconstructable and do not leak maintainer governance into member installs.
-
-If the audit proves one of these protections requires a genuinely separate implementation slice, change the denominator transparently under the Program accounting rule rather than silently squeezing unrelated work into a slice.
-
----
-
-## 0L. Program accounting
-
-This plan remains 14 slices unless implementation genuinely requires a denominator change.
-
-If slices are added, split, merged or removed:
-
-1. update Program size, Completed, Remaining and Progress;
-2. explain the change in the Program Change Log;
-3. preserve completed history;
-4. do not manipulate the denominator to inflate progress.
-
----
-
-# Phase 0 - Persistent canonical program
-
-## Slice 0.1 - Create persistent implementation plan
+## Slice 0.1 - Create and normalize the canonical implementation program
 
 **Status:** COMPLETE  
 **Repos:** AI-Verse-System  
@@ -723,69 +433,63 @@ If slices are added, split, merged or removed:
 
 ### Acceptance criteria
 
-- persistent plan exists in System;
-- Distribution -> System propagation is represented;
-- Distribution -> canonical owner routing is represented;
-- component -> System and component -> Distribution handoff is represented;
-- owner-native validation and whole-product Distribution qualification are distinguished;
-- repository-state freshness and non-regression protection are represented;
-- member-isolation requirement is represented;
-- blind repo mirroring is rejected;
-- program is resumable without the original conversation.
+- canonical resumable plan exists;
+- System/Distribution/component/member roles are explicit;
+- owner routing, two-layer validation, System propagation and member isolation are represented;
+- Repository Registry/State/Ledger, drift protection, reproducibility and non-regression are represented;
+- existing safe-update/release contracts are explicitly reused rather than duplicated;
+- implementation order is dependency-safe;
+- mandatory plan bookkeeping and user progress reporting are defined;
+- future agents can resume without this conversation.
 
 ### Evidence
 
 - canonical path: `docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md`
-- created: 2026-10-12
-- expanded on 2026-10-12 as additional repository relationships and drift protections were clarified
+- original program created 2026-10-12
+- normalized into this 20-slice dependency-safe program on 2026-10-12
 
 ### NEXT
 
-**Slice 1.1 - Audit current source, ownership, validation, handoff and repository-drift boundaries.**
+**Slice 1.1 - Audit the live repository network and existing safety machinery.**
 
 ---
 
-# Phase 1 - Audit reality before changing it
+# Phase 1 - Audit and normalize current reality
 
-## Slice 1.1 - Audit Distribution, component, System, ledger and member boundaries
+**Phase size:** 3 slices  
+**Current phase progress:** 0/3  
+**Purpose:** prove what already exists before adding anything.
+
+## Slice 1.1 - Audit the live repository network and existing safety machinery
 
 **Status:** NOT STARTED  
-**Repos:** AI-Verse-System, ai-verse-distribution, all currently shipped Core component repos, other release-relevant component repos as needed  
 **Dependencies:** 0.1
 
-Audit current source rather than relying on assumptions.
+Audit current source and live repository state.
 
-Trace:
+Trace at minimum:
 
-- Distribution install/bootstrap/update/rollback paths;
-- generated member `AGENTS.md`, `CLAUDE.md`, `AI-VERSE.yaml`;
-- release-set materialization and exact component refs;
-- Distribution component adapters;
-- any local vendoring, patching or shadow implementations;
-- member file tree and private source/cache locations;
-- each shipped component repo's maintainer instructions;
-- each shipped component repo's CI/tests/acceptance surfaces;
-- whether component repos currently reference System or Distribution;
-- how an accepted component commit currently becomes a Distribution release candidate;
-- current default-branch HEAD and recent meaningful commits for every repo in scope;
-- latest owner-tested/accepted refs where they exist;
-- Distribution-pinned refs and admitted release refs;
-- System ownership records, blueprint state and living-spec rules;
-- known cases where current System wording is older than accepted Distribution/component reality, including Purpose Context.
+- every currently shipped Core repo and Distribution exact refs;
+- current default-branch HEADs and stable repository identities;
+- component native CI/acceptance surfaces;
+- component release descriptors and their current fields;
+- Distribution candidate/release/preservation evidence flows;
+- install/update/rollback/member payload generation;
+- existing promotion/candidate/released mechanics;
+- existing reproducibility/receipt evidence;
+- existing maintainer instructions;
+- current System component ownership/spec/blueprint truth;
+- current Purpose Context implementation/release truth versus System wording;
+- existing API/schema compatibility/versioning mechanisms;
+- current source-only versus member-facing file boundaries.
 
 ### Acceptance criteria
 
-- member payload boundary is proven;
-- canonical owner of every component-specific behavior inspected is identified;
-- current Distribution-to-owner relationship is documented;
-- current owner-to-Distribution handoff is documented;
-- current owner-to-System handoff is documented;
-- native CI/acceptance capability of each shipped component is documented;
-- live repo HEAD, owner-accepted ref, Distribution-pinned ref and System-sync state are separately established for every repo in scope;
-- Purpose Context's October 9 released state versus older blueprint wording is explicitly resolved or classified as active drift;
-- any missing maintainer handoff rule is identified;
-- any Distribution shadow-fix risk is identified;
-- no implementation change is made before the current boundaries and drift state are understood.
+- exact current implementation and release topology is evidenced;
+- existing protections are identified before replacements are proposed;
+- Purpose Context drift is classified from exact evidence;
+- current Core repo list and identities are known;
+- no implementation change is made before the audit is recorded.
 
 ### Evidence
 
@@ -793,54 +497,43 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 1.2 - Build canonical surface, ownership, handoff and repository-state inventory.**
+**Slice 1.2 - Build the reuse, ownership, payload and drift inventory.**
 
 ---
 
-## Slice 1.2 - Classify surfaces, ownership, handoff and drift state
+## Slice 1.2 - Build the reuse, ownership, payload and drift inventory
 
 **Status:** NOT STARTED  
-**Repos:** AI-Verse-System, ai-verse-distribution, shipped component repos  
 **Dependencies:** 1.1
 
-Classify Distribution/member surfaces:
+Classify every relevant concern as:
 
-- `MAINTAINER-SOURCE-ONLY`
-- `BUILD/QUALIFICATION-ONLY`
-- `PACKAGING-INTERNAL`
-- `MEMBER-RUNTIME`
-- `MEMBER-GENERATED-INSTRUCTION`
-- `USER-OWNED/PRESERVED`
-- `AMBIGUOUS - BLOCK`
+- existing and sufficient;
+- existing but extend;
+- missing and must implement;
+- obsolete/retire;
+- ambiguous/block.
 
-Classify implementation ownership:
+Build one inventory covering:
 
-- `DISTRIBUTION-OWNED`
-- `COMPONENT-OWNED`
-- `DISTRIBUTION-ADAPTER-TO-OWNER`
-- `AMBIGUOUS-OWNER - BLOCK`
-
-Classify component handoff readiness:
-
-- `OWNER-CI-PRESENT`
-- `OWNER-CI-MISSING/INSUFFICIENT`
-- `SYSTEM-HANDOFF-PRESENT`
-- `SYSTEM-HANDOFF-MISSING`
-- `DISTRIBUTION-HANDOFF-PRESENT`
-- `DISTRIBUTION-HANDOFF-MISSING`
-
-Build the initial repository-state inventory needed for `docs/REPOSITORY-STATE-LEDGER.md`, including live HEAD, accepted owner ref, Distribution ref, System sync checkpoint and drift classification.
+- canonical owner;
+- maintainer/member surface;
+- existing contract/tooling to reuse;
+- owner CI status;
+- live HEAD;
+- owner-accepted revision;
+- Distribution-pinned revision;
+- System synchronization state;
+- drift severity/scope;
+- duplicate-mechanism risks.
 
 ### Acceptance criteria
 
-- every relevant install route has a surface class;
-- every component concern has an owner class;
-- every shipped component has a validation/handoff class;
-- every repo in scope has distinct live/accepted/shipped/System-sync state;
-- unknown maintainer files default to exclusion from member payload;
-- ambiguous ownership blocks rather than defaults to Distribution;
-- a component revision cannot be considered release-ready solely because a SHA exists;
-- disagreement between System and accepted implementation is represented as drift rather than automatically resolved in either direction.
+- `COMPONENT-RELEASE-DESCRIPTOR-CONTRACT` is explicitly evaluated as the home for compatibility fingerprints rather than creating another format;
+- existing update/preservation/promotion machinery is mapped;
+- Registry static fields and Repository State dynamic fields are separated;
+- any Distribution shadow implementation/workaround is identified;
+- any duplicated or obsolete planned mechanism is removed from the target design.
 
 ### Evidence
 
@@ -848,56 +541,39 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 1.3 - Define enforceable contracts.**
+**Slice 1.3 - Freeze the implementation architecture and acceptance matrix.**
 
 ---
 
-## Slice 1.3 - Define member payload, owner routing, component handoff, release evidence, ledger freshness and non-regression contracts
+## Slice 1.3 - Freeze the implementation architecture and acceptance matrix
 
 **Status:** NOT STARTED  
-**Repos:** AI-Verse-System, ai-verse-distribution  
 **Dependencies:** 1.2
 
-Define canonical contracts for:
+Before coding, freeze the implementation decisions for:
 
-1. member payload isolation;
-2. canonical owner routing;
-3. component -> System handoff;
-4. component -> Distribution release handoff;
-5. owner-native acceptance evidence;
-6. Distribution whole-product qualification;
-7. immutable release ref adoption;
-8. repository-state ledger structure and refresh semantics;
-9. stale-canonical/non-regression reconciliation;
-10. safe cross-repo evidence without broad write authority.
-
-Threats to cover:
-
-- Distribution hiding a broken owner repo;
-- Distribution shipping an arbitrary unvalidated component SHA;
-- component repo claiming "ready" without native CI evidence where applicable;
-- Distribution claiming inclusion while pinning an older revision;
-- component change shipping without whole-product qualification;
-- System becoming stale;
-- stale System text causing a future agent to revert newer accepted implementation;
-- newer unvalidated code being treated as truth merely because it is newer;
-- ledger being trusted without live refresh;
-- new first-class repositories remaining unregistered/invisible;
-- broad source copy leaking maintainer docs to members;
-- automated repos silently editing each other's main branches.
+- registry schema/location;
+- repository-state schema/location;
+- generated Markdown ledger;
+- scoped/full refresh rules;
+- drift severity/scope rules;
+- watchdog trigger/heartbeat rules;
+- immutable candidate evidence snapshot;
+- reuse/extension of component release descriptor;
+- promotion rings based on existing Distribution mechanics;
+- durable release receipt/reproducibility;
+- emergency safety-release path;
+- architecture tombstone format;
+- rollout waves;
+- member payload boundary.
 
 ### Acceptance criteria
 
-- contracts distinguish owner tests from Distribution integration tests;
-- owner validation is necessary but not sufficient for release;
-- Distribution qualification is required for composed-product release;
-- exact immutable refs are mandatory;
-- missing required owner evidence blocks adoption;
-- missing required System evidence blocks documentation completeness;
-- stale ledger state cannot silently authorize a release/architecture decision;
-- canonical drift blocks destructive reconciliation until evidence determines the stale side;
-- member isolation remains explicit;
-- no duplicate release database is introduced unnecessarily.
+- no unresolved duplicate source of truth remains in the target design;
+- every planned new file/tool has one canonical owner;
+- release-blocking versus informational drift is explicit;
+- Core Wave 1 acceptance matrix is defined;
+- Phase 2 can proceed without architectural guessing.
 
 ### Evidence
 
@@ -905,45 +581,41 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 2.1 - Create canonical System governance contract.**
+**Phase 2 / Slice 2.1 - Create the canonical repository-network governance and invariant contract.**
 
 ---
 
-# Phase 2 - Make the rules canonical in System
+# Phase 2 - Define the canonical System control plane
 
-## Slice 2.1 - Create canonical repository-network governance contract
+**Phase size:** 3 slices
+
+## Slice 2.1 - Create the repository-network governance, invariant and tombstone contract
 
 **Status:** NOT STARTED  
-**Repos:** AI-Verse-System  
 **Dependencies:** 1.3
 
-Create the canonical System-side contract covering:
+Create the permanent System contract that defines:
 
-- System propagation;
 - canonical owner routing;
 - component -> System handoff;
 - component -> Distribution handoff;
-- owner CI/acceptance evidence;
-- immutable component refs;
-- Distribution whole-product qualification;
-- release admission;
-- repository-state ledger and refresh-before-trust semantics;
-- canonical-drift/non-regression behavior;
+- System propagation;
+- two-layer validation;
+- non-regression/canonical drift;
+- permanent system invariants;
+- breaking-change/no-silent-contract-deletion law;
+- architecture tombstones;
+- decision/recovery provenance;
 - member isolation;
-- no blind mirroring;
-- no broad cross-repo auto-write authority.
+- emergency safety-release semantics;
+- rule against broad unattended cross-repo writes.
 
 ### Acceptance criteria
 
-- contract is self-contained;
-- future agents can understand all repository directions without this conversation;
-- discovery location is clearly separated from ownership;
-- owner validation and Distribution qualification are clearly different gates;
-- component repos are not treated as passive implementation islands;
-- Distribution remains the release/composition authority;
-- System remains the canonical big-picture authority;
-- System explicitly forbids stale canonical docs from automatically reverting newer accepted implementation;
-- newer HEAD alone is explicitly insufficient to override System or Distribution release truth.
+- permanent law is separate from this implementation plan;
+- existing updater/preservation laws are referenced rather than copied;
+- future agents can find the rules without reading this program history;
+- tombstones prevent superseded architecture from being silently resurrected.
 
 ### Evidence
 
@@ -951,41 +623,43 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 2.2 - Integrate governance into living System truth.**
+**Slice 2.2 - Create the machine-readable Repository Registry and initial Wave 1 registry.**
 
 ---
 
-## Slice 2.2 - Integrate rules into living System governance
+## Slice 2.2 - Create the machine-readable Repository Registry
 
 **Status:** NOT STARTED  
-**Repos:** AI-Verse-System  
 **Dependencies:** 2.1
 
-Evaluate and update where appropriate:
+Create a versioned machine-readable Registry, for example:
 
-- `docs/LIVING-SPEC-PROTOCOL.md`;
-- `docs/OWNER-PRODUCT-INTENT.md`;
-- `docs/FINAL-AI-VERSE-BLUEPRINT.md`;
-- new `docs/REPOSITORY-STATE-LEDGER.md`;
-- component specs/source maps/QC where ownership needs clarification;
-- Distribution-related System records;
-- `docs/SYSTEM-CHANGELOG.md`.
+`ai-verse.repository-registry/v1`
 
-Reconcile known stale canonical truth, including Purpose Context, from exact accepted implementation/release evidence rather than assumption.
+It must separate stable registry truth from dynamic state.
+
+Minimum fields should include, where available:
+
+- stable repository ID;
+- current `owner/name`;
+- canonical component ID;
+- canonical responsibility;
+- lifecycle: active/experimental/retired/external;
+- release profile participation;
+- whether Distribution ships it;
+- expected component release descriptor path;
+- expected owner CI/acceptance surface;
+- System spec/ownership references;
+- direct compatibility dependency declarations only where canonically known.
+
+Register Wave 1/Core first.
 
 ### Acceptance criteria
 
-- System agents discover all four relationships naturally:
-  - Distribution -> System
-  - Distribution -> component owners
-  - component repos -> System
-  - component repos -> Distribution
-- the repository-state ledger exists with its first evidence-backed checkpoint;
-- the ledger declares itself non-authoritative until refreshed against live repositories;
-- Purpose Context current-vs-intended wording is synchronized to confirmed accepted reality;
-- no false claim that other implementation already exists before Phase 3;
-- changelog records the governance and reconciliation decisions;
-- canonical files are updated only where they actually own the truth.
+- one canonical global registry exists;
+- renames do not silently create a new logical component when stable identity is available;
+- Distribution does not maintain a competing independent registry;
+- unknown first-class repos cannot silently enter release composition.
 
 ### Evidence
 
@@ -993,43 +667,37 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 2.3 - Finalize evidence schema, ledger refresh semantics and release handoff.**
+**Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint.**
 
 ---
 
-## Slice 2.3 - Define evidence schema, ledger refresh and release handoff semantics
+## Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint
 
 **Status:** NOT STARTED  
-**Repos:** AI-Verse-System, ai-verse-distribution  
 **Dependencies:** 2.2
 
-Finalize the lightweight evidence format from section 0H.
+Create versioned dynamic repository-state semantics, for example:
 
-Define specifically:
+`ai-verse.repository-state/v1`
 
-- what counts as accepted owner CI/acceptance evidence;
-- what happens when a component repo has no suitable native CI;
-- exact immutable revision requirements;
-- lineage/descendant rules if explicitly allowed;
-- how Distribution records adoption;
-- how System impact is recorded;
-- how live repo checkpoints are refreshed into the ledger;
-- how commits since the previous ledger checkpoint are summarized/classified;
-- what decisions require a fresh ledger versus a limited scoped refresh;
-- how inaccessible repos are represented without pretending freshness;
-- how `CANONICAL-DRIFT-DETECTED` is resolved and evidenced;
-- where these maintainer records live;
-- how release admission fails when required evidence is absent.
+Define:
+
+- live observed HEAD/ref;
+- owner-accepted revision and evidence;
+- Distribution-shipped revision/release;
+- System synchronization checkpoint;
+- last scoped/full refresh;
+- drift severity/scope/status;
+- access-unverified/watchdog-stale states;
+- generation of `docs/REPOSITORY-STATE-LEDGER.md` from machine state;
+- `MAINTAINER-START-HERE` read order and freshness requirement.
 
 ### Acceptance criteria
 
-- arbitrary SHA adoption cannot silently become a released Core;
-- owner CI evidence is tied to the exact candidate revision where technically possible;
-- missing native CI is visible and must be resolved or explicitly qualified before release;
-- Distribution qualification remains independent;
-- ledger refresh is evidence-based rather than timestamp-only;
-- read/use of the ledger for meaningful decisions cannot silently proceed from known stale state;
-- records stay outside member runtime files.
+- Markdown ledger is generated/projected rather than hand-maintained as canonical state;
+- Registry fields are not redundantly copied as independent truth;
+- scoped refresh requirements are explicit;
+- `WATCHDOG-STALE`/equivalent exists so silence cannot masquerade as CLEAN.
 
 ### Evidence
 
@@ -1037,37 +705,39 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 3.1 - Add Distribution maintainer instructions.**
+**Phase 3 / Slice 3.1 - Implement repository refresh tooling and generated ledger.**
 
 ---
 
-# Phase 3 - Enforce the repository network
+# Phase 3 - Build System self-checking machinery and synchronize current truth
 
-## Slice 3.1 - Add source-only Distribution maintainer instructions
+**Phase size:** 3 slices
+
+## Slice 3.1 - Implement scoped/full repository refresh and generated ledger
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution  
 **Dependencies:** 2.3
 
-Update source-only Distribution instructions so maintainers/agents must:
+Implement System maintainer tooling that:
 
-- determine canonical owner;
-- route sibling-owned changes to the owner repo;
-- require accepted owner evidence;
-- require exact immutable revision adoption;
-- evaluate System impact;
-- refresh/reconcile relevant repository-ledger state before meaningful cross-repo/release decisions;
-- stop on canonical drift rather than automatically rewriting either side;
-- keep governance out of member instructions;
-- never treat a random component SHA as automatically releasable.
+- reads Registry;
+- resolves live repositories;
+- compares exact refs/ancestry;
+- inspects commits since previous checkpoint;
+- reads owner acceptance evidence where available;
+- reads Distribution pins/releases;
+- records System synchronization state;
+- emits versioned repository-state data;
+- generates the Markdown ledger;
+- supports scoped and full refresh.
 
 ### Acceptance criteria
 
-- rules are discoverable from Distribution development context;
-- member-generated instructions remain clean;
-- Distribution-only work remains possible when Distribution truly owns the concern;
-- sibling-owned work cannot be declared complete with only a Distribution commit;
-- stale ledger/System state cannot silently justify changing accepted component behavior backward.
+- refresh is deterministic/evidence-backed;
+- inaccessible repos become explicit `ACCESS-UNVERIFIED` rather than CLEAN;
+- dates are informational, not lineage authority;
+- generated ledger accurately reflects machine state;
+- no member-facing files are affected.
 
 ### Evidence
 
@@ -1075,37 +745,137 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 3.2 - Add component-repo maintainer handoff instructions.**
+**Slice 3.2 - Implement Drift Watchdog, severity/scope and heartbeat.**
 
 ---
 
-## Slice 3.2 - Add source-only component -> System / Distribution handoff instructions
+## Slice 3.2 - Implement Drift Watchdog and heartbeat
 
 **Status:** NOT STARTED  
-**Repos:** currently shipped Core component repos first, then other release-relevant component repos according to System ownership  
 **Dependencies:** 3.1
 
-Add a minimal maintainer rule to each relevant canonical component repo, using the repo's existing instruction surface where possible instead of forcing identical file layouts.
+Implement whole-network maintainer automation that:
+
+- performs scheduled full scans and/or safe event-triggered scans;
+- records last successful full scan, watchdog version, scanned repos and failures;
+- classifies INFO/WARNING/BLOCKING drift with scope;
+- detects unregistered release-relevant repos;
+- detects System-behind, Distribution-behind, release mismatch, owner-validation missing and stale watchdog state;
+- reports drift without silently rewriting other repos or promoting commits.
+
+### Acceptance criteria
+
+- stale watchdog cannot present as green/clean;
+- unrelated warnings do not block unrelated release scopes;
+- watchdog has least-privilege read/validation behavior by default;
+- no broad cross-repo write token is required.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Slice 3.3 - Reconcile current System truth, including Purpose Context.**
+
+---
+
+## Slice 3.3 - Reconcile current System truth and known drift
+
+**Status:** NOT STARTED  
+**Dependencies:** 3.2
+
+Use exact accepted owner/Distribution evidence to reconcile System forward where System is stale.
+
+Purpose Context is the first mandatory regression fixture:
+
+- System adopted Purpose Context intent on 2026-10-02;
+- Distribution admitted `core-purpose-context-public-beta-2026-10-09`;
+- older blueprint wording still describes parts as intended/future.
+
+Update only the canonical System records that actually own the truth.
+
+### Acceptance criteria
+
+- accepted newer implementation is not reverted merely because old docs lag;
+- newer unvalidated code is not promoted to canonical truth merely because it is newer;
+- Blueprint architecture stays architecture-focused rather than duplicating volatile exact release facts unnecessarily;
+- changelog/tombstones record meaningful reconciliation;
+- repository state returns to truthful status for the reconciled scope.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Phase 4 / Slice 4.1 - Extend the existing component release descriptor for shared compatibility semantics.**
+
+---
+
+# Phase 4 - Integrate canonical component owners
+
+**Phase size:** 3 slices
+
+## Slice 4.1 - Extend/reuse the existing component release descriptor
+
+**Status:** NOT STARTED  
+**Dependencies:** 3.3
+
+Do not create a separate compatibility fingerprint format.
+
+Version/extend `COMPONENT-RELEASE-DESCRIPTOR-CONTRACT` only where the Phase 1 audit proved missing fields are necessary.
+
+Potential additions may include:
+
+- interface/contract generation;
+- state-schema generation;
+- explicit required contract ranges;
+- breaking-change classification;
+- migration requirements;
+- compatibility dependency declarations that the component canonically owns.
+
+### Acceptance criteria
+
+- one component release metadata format remains canonical;
+- descriptor still does not become live health/readiness/authority truth;
+- compatibility metadata is tied to exact immutable component revision;
+- breaking contract change cannot silently present as ordinary compatible update.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Slice 4.2 - Add Wave 1/Core maintainer handoff and owner-acceptance rules.**
+
+---
+
+## Slice 4.2 - Add Wave 1/Core component maintainer handoff rules
+
+**Status:** NOT STARTED  
+**Dependencies:** 4.1
+
+For OS, Brain, Memory, Skills and Data, add minimal source-only maintainer guidance using existing repo conventions where possible.
 
 Required semantics:
 
-1. the component repo remains canonical for its own implementation;
-2. meaningful component changes evaluate System impact;
-3. if intended to ship, the exact revision must pass the repo's applicable native tests/CI/acceptance;
-4. exact accepted revision/evidence is handed to Distribution for adoption;
-5. meaningful accepted changes update the repository-state ledger checkpoint through the supported maintainer workflow;
-6. Distribution, not the component repo, performs final whole-product qualification/release admission;
-7. component repos do not directly auto-write Distribution or System main by default;
-8. these are source-maintainer rules, not member runtime instructions.
+- read the canonical System maintainer entrypoint before meaningful cross-system work;
+- component remains canonical implementation owner;
+- meaningful changes evaluate System impact;
+- release-intended revision must pass owner-native acceptance;
+- exact accepted revision/evidence is handed to Distribution;
+- breaking contract changes follow the coordinated contract law;
+- component does not auto-write System/Distribution main by default;
+- member/runtime files do not inherit these maintainer instructions.
 
 ### Acceptance criteria
 
-- each shipped Core owner has an explicit handoff rule;
-- existing repo conventions are respected;
-- no unnecessary runtime/member files are changed;
-- no repo receives broad credentials to mutate other repos;
-- future maintainers can discover how a component change becomes part of AI-Verse;
-- a new accepted component change cannot remain invisible to the freshness/drift model indefinitely under the supported workflow.
+- all Core owners have discoverable handoff rules;
+- owner CI evidence is tied to exact candidate revision where technically possible;
+- no duplicate global governance documents are copied into component repos;
+- no component can claim member release solely from local CI.
 
 ### Evidence
 
@@ -1113,235 +883,308 @@ To be recorded per repo.
 
 ### NEXT
 
-**Slice 3.3 - Enforce adoption, qualification, ledger and member-isolation gates.**
+**Slice 4.3 - Apply the proven handoff pattern to Wave 2/3 release-relevant repos.**
 
 ---
 
-## Slice 3.3 - Enforce owner evidence, Distribution adoption, release qualification, ledger freshness and member isolation
+## Slice 4.3 - Extend handoff governance to Wave 2 and Wave 3 repos
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution  
-**Dependencies:** 3.2
-
-Integrate the contracts into the most authoritative existing Distribution release/qualification flow.
-
-Required behavior:
-
-- component change intended for release requires exact owner ref;
-- applicable owner CI/acceptance must be passing or explicitly resolved;
-- Distribution release candidate must point to the accepted ref;
-- Distribution performs clean-machine/composed-product qualification;
-- failed whole-product qualification blocks admission;
-- System evidence is required when System impact is `YES`;
-- relevant ledger state must be refreshed before release admission and must reflect the candidate/shipped refs accurately;
-- unresolved `CANONICAL-DRIFT-DETECTED`, `RELEASE-MISMATCH` or required `SYSTEM-BEHIND` state blocks admission when the contract says product truth would otherwise be inconsistent;
-- member payload isolation applies to fresh install, update and rollback;
-- Distribution does not vendor a shadow copy of sibling implementation as a shortcut.
-
-### Acceptance criteria
-
-- arbitrary new component commit is not automatically accepted;
-- owner tests and Distribution tests are both represented as separate gates;
-- release cannot claim a sibling fix while pinning an older ref;
-- release cannot ship when required owner evidence is missing;
-- release cannot ship when whole-product qualification fails;
-- release cannot silently proceed from a stale or contradictory repository-state checkpoint;
-- maintainer files remain outside member payload;
-- zero-loss preservation remains intact.
-
-### Evidence
-
-To be recorded on completion.
-
-### NEXT
-
-**Slice 3.4 - Add regression coverage.**
-
----
-
-## Slice 3.4 - Add automated regression coverage
-
-**Status:** NOT STARTED  
-**Repos:** ai-verse-distribution, representative component repos where needed  
-**Dependencies:** 3.3
-
-Required scenarios:
-
-- Distribution-owned change with no sibling commit required;
-- sibling-owned Skills-like defect cannot close with only Distribution evidence;
-- owner commit exists but owner CI fails -> Distribution adoption/release blocked;
-- owner commit passes owner CI but Distribution whole-Core qualification fails -> release blocked;
-- owner commit passes both layers -> candidate may proceed;
-- Distribution pins wrong/older owner ref -> blocked;
-- required System evidence missing -> documentation/release gate blocked according to contract;
-- legitimate `NO SYSTEM IMPACT` requires rationale;
-- live repo HEAD advances beyond ledger -> `UNREVIEWED-COMMITS`, not automatic adoption;
-- accepted owner ref advances beyond Distribution -> `DISTRIBUTION-BEHIND`, not automatic release;
-- Distribution ships newer accepted behavior while System remains old -> `SYSTEM-BEHIND`/`CANONICAL-DRIFT-DETECTED`, never automatic code rollback;
-- newer unvalidated code conflicts with System -> no automatic System rewrite;
-- inaccessible live repo -> `ACCESS-UNVERIFIED`, not false freshness;
-- new registered first-class repo missing from ledger -> governance failure;
-- fresh install excludes maintainer governance;
-- update excludes maintainer governance;
-- rollback excludes maintainer governance;
-- user-owned state survives;
-- fake future maintainer file remains excluded.
-
-### Acceptance criteria
-
-- tests prove both validation layers;
-- tests prove canonical owner routing;
-- tests prove System propagation gate;
-- tests prove ledger freshness and non-regression behavior;
-- tests prove member isolation;
-- tests do not weaken existing qualification/preservation coverage.
-
-### Evidence
-
-To be recorded on completion.
-
-### NEXT
-
-**Slice 4.1 - Add cross-repo evidence and freshness validation.**
-
----
-
-# Phase 4 - Qualify and close the loop
-
-## Slice 4.1 - Add cross-repo evidence and freshness validation
-
-**Status:** NOT STARTED  
-**Repos:** ai-verse-distribution, AI-Verse-System, relevant component repos  
-**Dependencies:** 3.4
-
-Implement the strongest safe verification available.
-
-Preferred validation:
-
-- owner commit/ref exists;
-- owner acceptance evidence corresponds to the intended revision where possible;
-- Distribution release candidate actually adopts that revision;
-- System evidence exists when required;
-- ledger checkpoint corresponds to live repository state at the required scope;
-- commits newer than the previous checkpoint are inspected/classified;
-- Distribution-pinned and System-synchronized refs match the facts recorded in the ledger;
-- evidence failures are distinct from permission/access failures;
-- no broad cross-repo write credential is introduced merely for convenience.
-
-### Acceptance criteria
-
-- stale/missing owner evidence is detectable;
-- stale/missing System evidence is detectable;
-- wrong pinned component ref is detectable;
-- stale/unverified ledger state is detectable;
-- canonical drift is surfaced without automatic regression;
-- validation fails closed where the contract requires it;
-- evidence validation does not leak secrets or maintainer metadata into member installs.
-
-### Evidence
-
-To be recorded on completion.
-
-### NEXT
-
-**Slice 4.2 - Run end-to-end repository-network qualification.**
-
----
-
-## Slice 4.2 - End-to-end qualification
-
-**Status:** NOT STARTED  
-**Repos:** AI-Verse-System, ai-verse-distribution, at least one representative component owner, plus current Core as needed  
-**Dependencies:** 4.1
-
-Run four representative paths.
-
-### Scenario A - Distribution-owned improvement
-
-Distribution change -> Distribution tests -> System impact decision -> ledger refresh -> whole-product qualification -> member install.
-
-### Scenario B - component-owned change initiated in the component repo
-
-Component improvement -> owner CI pass -> System impact update -> ledger refresh -> exact ref handed to Distribution -> Distribution adopts ref -> whole-product qualification -> member install/update.
-
-### Scenario C - sibling-owned problem discovered by Distribution
-
-Distribution discovers problem -> routes to owner -> owner fixes and passes CI -> ledger refresh -> Distribution adopts exact ref -> Distribution qualification -> System truth synchronized -> member install/update.
-
-### Scenario D - stale canonical documentation versus newer accepted/released reality
-
-Use Purpose Context or an equivalent fixture: confirm accepted owner/release evidence -> detect stale System wording -> mark drift -> reconcile System forward without reverting valid implementation -> refresh ledger -> re-run relevant qualification/readiness checks.
-
-For all scenarios verify:
-
-- correct ownership;
-- exact refs;
-- owner evidence;
-- Distribution evidence;
-- System evidence;
-- fresh ledger state;
-- no maintainer governance leakage;
-- protected member state survives;
-- rollback behavior remains safe where supported.
-
-### Acceptance criteria
-
-- all four paths work;
-- component repos, Distribution, System and repository ledger agree on the shipped truth;
-- owner CI alone cannot ship a release;
-- Distribution qualification cannot substitute for repairing a broken owner repo;
-- stale System text cannot automatically regress accepted implementation;
-- newer unvalidated code cannot automatically rewrite canonical System truth;
-- member experience remains one cohesive AI-Verse product.
-
-### Evidence
-
-To be recorded on completion.
-
-### NEXT
-
-**Slice 4.3 - Canonical closeout.**
-
----
-
-## Slice 4.3 - Canonical closeout
-
-**Status:** NOT STARTED  
-**Repos:** AI-Verse-System, ai-verse-distribution, affected component repos  
 **Dependencies:** 4.2
 
-Close only after the repository network is proven.
+Use the Core-proven pattern for Agent/Full/future release-relevant repos registered by System.
+
+Do not force identical file layouts; enforce identical semantics.
+
+### Acceptance criteria
+
+- every active first-class release-relevant repo is registered and has a valid handoff path;
+- retired/experimental/external repos are explicitly classified rather than accidentally treated as shippable;
+- repo-specific CI gaps are visible, not papered over;
+- no broad cross-repo write authority is introduced.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Phase 5 / Slice 5.1 - Add immutable candidate evidence snapshots and adoption gates to Distribution.**
+
+---
+
+# Phase 5 - Enforce safe composition and delivery in Distribution
+
+**Phase size:** 4 slices
+
+## Slice 5.1 - Add immutable candidate evidence snapshot and owner-adoption gates
+
+**Status:** NOT STARTED  
+**Dependencies:** 4.3
+
+Integrate into existing Distribution candidate/release machinery rather than creating a parallel release database.
+
+A candidate must bind the exact refs/evidence described in section 3.9.
+
+### Acceptance criteria
+
+- arbitrary component SHA cannot silently enter an admitted release;
+- owner acceptance evidence is required where contract says so;
+- candidate points to exact accepted component revisions;
+- relevant Registry/State/System contract refs are frozen for qualification;
+- bound input change forces re-evaluation/requalification.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Slice 5.2 - Enforce member payload isolation across install/update/rollback.**
+
+---
+
+## Slice 5.2 - Enforce member payload isolation
+
+**Status:** NOT STARTED  
+**Dependencies:** 5.1
+
+Enforce deterministic member-facing payload boundaries for:
+
+- fresh install;
+- setup/reconcile;
+- update;
+- rollback;
+- generated `AGENTS.md`/`CLAUDE.md`/`AI-VERSE.yaml` and adapters.
+
+### Acceptance criteria
+
+- maintainer governance, Registry/State/Ledger, tombstones, plans and qualification docs remain outside member install;
+- future maintainer files do not enter member payload by default;
+- user-owned files are not removed because of internal filename conventions;
+- existing zero-loss preservation tests continue to pass.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Slice 5.3 - Formalize promotion rings, whole-product qualification and emergency safety release.**
+
+---
+
+## Slice 5.3 - Formalize promotion and qualification
+
+**Status:** NOT STARTED  
+**Dependencies:** 5.2
+
+Build on existing candidate/released/preservation mechanics.
+
+Target conceptual progression:
+
+```text
+owner accepted
+-> Distribution candidate
+-> dogfood/canary/limited validation where supported
+-> stable admitted release
+```
+
+Exact names/rings must follow audited Distribution mechanics rather than ceremony.
+
+Integrate:
+
+- component release descriptors;
+- candidate evidence snapshot;
+- whole-release preservation result;
+- drift severity/scope;
+- scoped repository freshness;
+- compatibility/migration rules;
+- clean-machine/composed qualification;
+- emergency safety-release path.
+
+### Acceptance criteria
+
+- failed owner acceptance blocks candidate adoption;
+- failed whole-product qualification blocks promotion;
+- unrelated INFO/WARNING drift does not falsely block unrelated scope;
+- blocking release-scope drift does block;
+- break-glass never bypasses state safety, owner validation or whole-product qualification;
+- `SYSTEM-SYNC-DEBT` from emergency use blocks later normal promotion until reconciled.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Slice 5.4 - Implement durable reproducibility/release receipts.**
+
+---
+
+## Slice 5.4 - Implement reproducibility and durable release receipts
+
+**Status:** NOT STARTED  
+**Dependencies:** 5.3
+
+For every admitted release persist a compact durable receipt containing enough immutable evidence to reconstruct the shipped software composition later.
+
+At minimum where applicable:
+
+- release ID;
+- exact Distribution revision;
+- exact component revisions/artifacts;
+- component descriptor revisions;
+- Registry/System contract refs used;
+- relevant dependency locks/toolchain/runtime versions;
+- migration/compatibility classification;
+- qualification/preservation result refs;
+- promotion channel/ring;
+- previous known-good release reference;
+- emergency/debt state if applicable.
+
+### Acceptance criteria
+
+- reconstructability does not depend solely on expiring CI artifacts;
+- release receipt does not contain user-owned state/secrets;
+- software reconstruction is explicitly separate from user-state rollback;
+- old admitted release composition can be explained from durable evidence alone.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Phase 6 / Slice 6.1 - Add cross-repo regression and evidence validation.**
+
+---
+
+# Phase 6 - Prove the whole repository network and close the program
+
+**Phase size:** 3 slices
+
+## Slice 6.1 - Add cross-repo regression and evidence validation
+
+**Status:** NOT STARTED  
+**Dependencies:** 5.4
+
+Automate regression scenarios including:
+
+- sibling-owned defect cannot close with only Distribution evidence;
+- owner CI failure blocks adoption;
+- owner pass + Distribution qualification failure blocks promotion;
+- wrong/older pinned owner ref blocks claimed inclusion;
+- stale System versus newer accepted release becomes drift, not code rollback;
+- newer unvalidated code does not rewrite System automatically;
+- unregistered first-class repo is detected;
+- stale watchdog is detected;
+- breaking contract deletion is detected;
+- candidate evidence snapshot drift forces requalification;
+- member governance leakage fails;
+- user-owned state survives update/rollback;
+- durable release receipt validates against admitted composition.
+
+### Acceptance criteria
+
+- every permanent System invariant has an enforcement/evidence owner;
+- cross-repo validation distinguishes unavailable evidence from failed evidence;
+- validation fails closed where required;
+- no secret/broad credential is introduced unnecessarily.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Slice 6.2 - Run end-to-end qualification across all repository directions.**
+
+---
+
+## Slice 6.2 - Run end-to-end qualification
+
+**Status:** NOT STARTED  
+**Dependencies:** 6.1
+
+Run representative scenarios:
+
+### A. Distribution-owned improvement
+
+Distribution change -> Distribution tests -> System impact decision -> scoped refresh -> qualification -> release receipt -> clean member install.
+
+### B. Component-originated improvement
+
+Owner change -> owner acceptance -> System impact -> repository state -> Distribution adoption -> immutable candidate snapshot -> whole-product qualification -> promotion -> member install/update -> release receipt.
+
+### C. Sibling defect discovered by Distribution
+
+Distribution discovers -> routes owner -> owner fix/acceptance -> System sync -> Distribution adopts -> qualifies -> promotes -> member install/update.
+
+### D. Stale canonical documentation
+
+Use Purpose Context or equivalent: detect stale System wording -> verify accepted release reality -> synchronize System forward -> no regression of valid implementation.
+
+### E. Breaking contract change
+
+Owner introduces breaking interface/schema change -> local metadata/validation detects -> coordinated migration/version path required -> Distribution composes only accepted compatible set.
+
+### F. Emergency safety release
+
+Urgent safety fix -> owner validation + Distribution qualification remain mandatory -> bounded System sync debt recorded -> later normal promotion blocked until debt cleared.
+
+For all scenarios verify preservation, member isolation, exact refs, drift handling, provenance and reconstructability.
+
+### Acceptance criteria
+
+- System, component repos, Distribution, Repository State and admitted release receipts agree on shipped truth;
+- all directions work without duplicate ownership;
+- member state survives;
+- member-facing product remains clean;
+- evidence is sufficient to diagnose/recover from a mistaken maintainer or AI decision.
+
+### Evidence
+
+To be recorded on completion.
+
+### NEXT
+
+**Slice 6.3 - Canonical closeout and program handoff.**
+
+---
+
+## Slice 6.3 - Canonical closeout and program handoff
+
+**Status:** NOT STARTED  
+**Dependencies:** 6.2
+
+Close only after all previous acceptance criteria pass.
 
 Update as applicable:
 
 - this plan;
-- `docs/REPOSITORY-STATE-LEDGER.md`;
-- System living-spec/product-intent/blueprint;
-- component ownership/spec/QC/source maps;
-- System changelog;
-- Distribution maintainer docs;
-- component maintainer handoff docs;
-- release/qualification evidence.
+- repository-network governance contract;
+- System invariants;
+- Repository Registry;
+- Repository State schema/current state;
+- generated Repository State Ledger;
+- maintainer start-here;
+- Blueprint/Living Spec/Product Intent/Changelog;
+- architecture tombstones;
+- component handoff docs;
+- Distribution release/qualification docs;
+- durable release receipts.
 
 ### Acceptance criteria
 
-- all 14 slices are COMPLETE with exact evidence;
-- Distribution -> System propagation works;
-- Distribution -> component owner routing works;
-- component -> System handoff works;
-- component -> Distribution handoff works;
-- owner-native validation and Distribution whole-product qualification are both enforced;
-- arbitrary component SHAs cannot silently become admitted releases;
-- repository ledger distinguishes latest, accepted, shipped and System-synchronized state;
-- ledger freshness is verified before supported meaningful cross-repo/release decisions;
-- canonical drift is detected and reconciled without automatic regression;
-- newly introduced first-class product repos cannot remain invisible to the ledger under the supported workflow;
-- released component behavior traces to accepted canonical owner revisions;
-- Distribution cannot hide sibling defects with permanent local patches;
-- System accurately reflects meaningful product truth;
-- member installation contains no internal governance leakage;
-- zero-loss preservation remains satisfied;
-- program status changes to COMPLETE only after all gates pass.
+- all 20 slices COMPLETE with exact evidence;
+- all rollout waves covered as required by Registry status;
+- no duplicate source of truth introduced;
+- no stale canonical regression path remains under the supported workflow;
+- all admitted releases use accepted owner refs and whole-product qualification;
+- member-isolation and zero-loss preservation remain satisfied;
+- watchdog/registry/state/release evidence are operational and self-checking;
+- program status becomes COMPLETE only now.
 
 ### Evidence
 
@@ -1349,75 +1192,62 @@ To be recorded on completion.
 
 ### NEXT
 
-None. Program v1 complete.
+None. Program complete.
 
 ---
 
 # Program Change Log
 
+## 2026-10-12 - Program normalized into dependency-safe 20-slice execution sequence
+
+- Increased denominator from 14 to 20 because the original slices had become overloaded after adding Registry, Repository State/Ledger, Watchdog, invariants, tombstones, compatibility governance, promotion, reproducibility and provenance.
+- Preserved Slice 0.1 as the only completed slice. New progress is 1/20 = 5.0%.
+- Reordered work into six execution phases: audit/normalize -> canonical System control plane -> System self-checking machinery -> component-owner integration -> Distribution enforcement -> end-to-end proof/closeout.
+- Added mandatory before/after plan updates for every slice.
+- Added mandatory user-facing progress reports with completed/total, current phase, phase progress, steps until next phase, percentage and next slice.
+- Split static Registry truth from dynamic Repository State and generated Markdown ledger.
+- Required machine-readable versioned governance formats.
+- Replaced blanket full refreshes with scoped refreshes plus scheduled full watchdog scans.
+- Added Git ancestry/exact-ref rules so dates are not mistaken for lineage authority.
+- Added drift severity/scope so unrelated drift does not block unrelated releases.
+- Added immutable candidate evidence snapshots to prevent moving branches from changing what was qualified.
+- Explicitly reused/extensible existing Component Release Descriptor instead of inventing a second compatibility fingerprint format.
+- Added durable release receipts so reproducibility does not depend on expiring CI logs/artifacts.
+- Added bounded emergency safety-release semantics without bypassing owner validation, preservation or whole-product qualification.
+- Added rollout waves so Core proves the pattern before Agent/Full ecosystem expansion.
+- Separated permanent governance from this execution plan so Phase 2 creates the durable contracts and the plan remains an execution tracker.
+
 ## 2026-10-12 - Future-proof protection placement model added
 
-- Added the cross-cutting rule: **Define centrally. Enforce at the canonical owner. Verify again at composition.**
-- Added canonical placement for ten protections without duplicating all ten into every repository.
-- Added one System-level machine-readable Repository Registry requirement.
-- Added a System-level Drift Watchdog that reports drift without silently rewriting repositories.
-- Added architecture tombstones to prevent retired structures from being resurrected by stale docs, audits or agents.
-- Added permanent System invariants as a constitution over existing protections, explicitly reusing updater/preservation enforcement instead of duplicating it.
-- Added shared compatibility fingerprint semantics: System defines the schema, component owners publish their own compatibility evidence, Distribution validates composed compatibility.
-- Added Distribution-owned promotion rings/candidate progression, subject to audit of the existing release machinery.
-- Added an explicit reproducibility guarantee for admitted releases, implemented primarily by Distribution using immutable component refs and release evidence.
-- Added the no-silent-contract-deletion law, enforced locally by interface owners and cross-checked by Distribution.
-- Added decision/recovery provenance at the appropriate System, component and Distribution levels rather than creating one duplicate global event database.
-- Added the member-isolation rule for these protections: maintainer governance remains source-only; only narrowly required runtime compatibility metadata may ship.
-- Kept all protections inside the existing 14-slice program as cross-cutting requirements unless Phase 1 proves a real denominator change is necessary.
+- Added the rule: Define centrally. Enforce at the canonical owner. Verify again at composition.
+- Added Repository Registry, Drift Watchdog, architecture tombstones, System invariants, compatibility metadata, promotion, reproducibility, no-silent-contract-deletion and decision/recovery provenance.
 
-## 2026-10-12 - Repository State Ledger, freshness and non-regression guard added
+## 2026-10-12 - Repository State Ledger and non-regression guard added
 
-- Added planned canonical maintainer index `docs/REPOSITORY-STATE-LEDGER.md`.
-- Required separate tracking of live repo HEAD, latest owner-tested/accepted revision, Distribution-pinned revision and System synchronization checkpoint.
-- Added explicit drift states including `UNREVIEWED-COMMITS`, `DISTRIBUTION-BEHIND`, `SYSTEM-BEHIND`, `RELEASE-MISMATCH`, `ACCESS-UNVERIFIED` and `CANONICAL-DRIFT-DETECTED`.
-- Added refresh-before-trust semantics: meaningful cross-repo, architecture, readiness and release decisions must compare the ledger with live repository state first.
-- Added the rule that latest HEAD is not automatically accepted or releasable.
-- Added the non-regression guard: stale System documentation cannot automatically revert newer accepted implementation, and newer code cannot automatically override System merely because it is newer.
-- Added evidence-led reconciliation rather than automatic correction in either direction.
-- Added automatic registration requirement for future first-class AI-Verse repos entering product composition.
-- Added Purpose Context as the first concrete stale-canonical regression fixture because Distribution admitted `core-purpose-context-public-beta-2026-10-09` while older blueprint wording still describes Purpose Context as intended/future work.
-- Integrated ledger/drift requirements into all existing audit, governance, enforcement, regression, qualification and closeout slices.
-- Kept the program at 14 slices and Slice 0.1 as the only completed slice; this change strengthens the plan without falsely claiming implementation is already complete.
+- Added live/accepted/shipped/System-synchronized state distinction.
+- Added freshness-before-trust and Purpose Context as the first stale-canonical regression fixture.
 
 ## 2026-10-12 - Component handoff and two-layer validation added
 
-- Added explicit component -> System handoff for meaningful component changes.
-- Added explicit component -> Distribution release handoff for component revisions intended to ship.
-- Added the rule that a component SHA is not releasable merely because it exists.
-- Added owner-native CI/test/acceptance evidence as the first validation layer.
-- Preserved Distribution whole-product qualification as the second, independent validation layer.
-- Added the requirement that shipped Core component repos receive lightweight maintainer handoff instructions.
-- Explicitly rejected making component repos directly auto-edit Distribution or System main by default.
-- Extended end-to-end qualification to cover Distribution-owned, component-originated and Distribution-discovered sibling changes.
-- Kept the program at 14 slices by using Slice 3.2 for component maintainer handoff and consolidating release gates into Slice 3.3.
-- Kept Slice 0.1 as the only completed slice. This update strengthens the plan and does not claim implementation is already complete.
+- Added component -> System and component -> Distribution handoffs.
+- Added owner-native acceptance plus Distribution whole-product qualification.
 
 ## 2026-10-12 - Canonical owner routing added
 
-- Added the rule that Distribution must not become a substitute implementation repo for sibling components.
-- Added owner routing, immutable owner refs and composed release qualification.
-- Added owner evidence fields and regression requirements.
-- Kept the program at 14 slices.
+- Added the rule that Distribution must not permanently substitute for sibling implementation owners.
 
 ## 2026-10-12 - Program created
 
-- Created the persistent implementation program.
-- Required meaningful Distribution evolution to propagate into System.
-- Required maintainer governance to stay outside member installations.
-- Chose semantic propagation instead of blind commit mirroring.
-- Marked only Slice 0.1 complete.
+- Created the canonical program and member-isolation direction.
 
 ---
 
 # Current execution pointer
 
-**Completed:** Slice 0.1  
-**Next:** Slice 1.1 - Audit current source, ownership, validation, handoff and repository-drift boundaries  
-
-Do not skip directly to maintainer-rule edits. Slice 1.1 must first prove the current member boundary, component ownership, component CI/acceptance surfaces, current Distribution adoption path, existing cross-repo handoff behavior and the live-vs-accepted-vs-shipped-vs-System-synchronized state of the repository network.
+**Completed:** 1/20  
+**Overall:** 5.0%  
+**Phase:** Phase 1 - Audit and normalize current reality  
+**Phase progress:** 0/3  
+**Until Phase 2:** 3 slices  
+**Next:** Slice 1.1 - Audit the live repository network and existing safety machinery  
+**Blockers/drift:** none recorded by the plan yet; Slice 1.1 must establish the evidence-backed baseline before implementation changes begin.
