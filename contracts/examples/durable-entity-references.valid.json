@@ -1,0 +1,44 @@
+{
+  "workspace": {
+    "owner": "ai-verse-os",
+    "kind": "workspace",
+    "id": "film"
+  },
+  "skill_capability": {
+    "owner": "ai-verse-os",
+    "kind": "capability",
+    "id": "aiverse-skills:cinematic-video"
+  },
+  "brain_object": {
+    "owner": "ai-verse-brain",
+    "kind": "brain-object",
+    "id": "5b3bb42e-b423-4f68-8349-d8db64800f55"
+  },
+  "automation": {
+    "owner": "ai-verse-automations",
+    "kind": "automation",
+    "id": "automation-example-001"
+  },
+  "bot": {
+    "owner": "ai-verse-multiple-bots",
+    "kind": "bot",
+    "id": "4e6cb5e5-2ab5-4ecd-bd9d-8d44e0ca18ec"
+  },
+  "connection": {
+    "owner": "ai-verse-connections",
+    "kind": "connection",
+    "id": "youtube-main"
+  },
+  "data_record": {
+    "owner": "ai-verse-data",
+    "kind": "record",
+    "id": "rec_4e6cb5e52ab54ecdbd9d8d44e0ca18ec",
+    "scope": "workspace:film"
+  },
+  "memory_record": {
+    "owner": "ai-verse-memory",
+    "kind": "memory-record",
+    "id": "mem-20261012-120000-000000-a1b2c3d4",
+    "scope": "workspace:film"
+  }
+}
