@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiverse.system/contracts/durable-entity-reference-v1.schema.json",
+  "title": "AI-Verse Durable Entity Reference v1",
+  "description": "Minimal cross-owner durable-reference envelope. Owner-specific id and scope semantics remain authoritative in the canonical owner.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["owner", "kind", "id"],
+  "properties": {
+    "owner": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    }
+  }
+}
