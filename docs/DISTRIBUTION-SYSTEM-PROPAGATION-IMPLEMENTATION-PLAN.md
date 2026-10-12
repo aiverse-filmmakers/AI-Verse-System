@@ -472,7 +472,235 @@ The ledger and its refresh machinery are maintainer-only and must never be copie
 
 ---
 
-## 0K. Program accounting
+## 0K. Future-proof protection placement model
+
+The following protections are part of this program, but they must **not** be copied wholesale into every repository.
+
+Use the system-wide rule:
+
+> **Define centrally. Enforce at the canonical owner. Verify again at composition.**
+
+This keeps one authoritative definition of each protection while still enforcing it where the relevant implementation actually lives.
+
+### 1. Repository State Ledger
+
+**Canonical home:** AI-Verse-System.  
+**Enforcement/use:** System maintainer workflow and cross-repo decisions. Distribution consumes the relevant state when qualifying releases.  
+**Rule:** one global ledger; do not create competing per-repo ledgers.
+
+### 2. Machine-readable Repository Registry
+
+Create one canonical registry in AI-Verse-System for all official first-class AI-Verse repositories.
+
+It should identify at minimum:
+
+- repository identity;
+- canonical responsibility;
+- lifecycle/status;
+- whether Distribution ships it;
+- expected native CI/acceptance surface;
+- release/descriptor locations where applicable;
+- System component/spec references;
+- whether it is active, experimental, retired or external.
+
+**Canonical home:** AI-Verse-System.  
+**Distribution role:** read/validate the release-relevant subset rather than maintaining a second independent registry.  
+**Component role:** no duplicate global registry; a component may expose its own local identity/descriptor.
+
+A new first-class product repo must be registered before it can silently become part of release composition.
+
+### 3. Automatic Drift Watchdog
+
+Provide maintainer automation that periodically or on relevant repository events compares live repo state against the Repository State Ledger, accepted owner evidence, Distribution pins/releases and System synchronization state.
+
+**Primary home:** System-level maintainer automation.  
+**Distribution role:** consume drift/freshness evidence at release gates and may perform scoped release-time revalidation.  
+**Component role:** provide evidence; do not run competing whole-network watchdogs.
+
+The watchdog must report/raise drift, not silently rewrite repositories or automatically promote commits.
+
+### 4. Architecture Tombstones
+
+Create durable records for architecture, ownership models, interfaces or structures that have been explicitly retired/replaced.
+
+A tombstone should record at minimum:
+
+```text
+Retired design / structure
+Status: RETIRED | REPLACED
+Replacement: <current architecture/contract>
+Effective since: <commit/date/release>
+Reason / migration note: <concise explanation>
+Do-not-restore rule: <when applicable>
+```
+
+**Primary home:** AI-Verse-System because it owns architectural history.  
+**Component-local use:** only when a retired local API/schema/behavior needs a local migration or compatibility marker.  
+**Purpose:** prevent old audits, READMEs, branches or stale prompts from resurrecting superseded architecture.
+
+### 5. Permanent System Invariants
+
+Define a compact canonical set of laws that must remain true regardless of future features or repository growth.
+
+Examples include:
+
+- no silent loss of member-owned state;
+- one canonical owner per responsibility;
+- no arbitrary/unvalidated SHA becoming an admitted release;
+- no permanent sibling shadow implementation in Distribution;
+- no maintainer governance leaking into member installs;
+- no stale-document automatic regression;
+- every shipped first-class repo is registered;
+- admitted release provenance is reconstructable;
+- compatibility/migration failures fail safely rather than inventing success.
+
+**Definition:** System.  
+**Enforcement:** whichever canonical owner controls the affected behavior. Existing updater/preservation protections remain the enforcement for update-specific invariants rather than being duplicated.  
+**Composition verification:** Distribution checks the release-level invariants that can only be proven across components.
+
+This is a constitution over existing protections, not a second updater or duplicate safety engine.
+
+### 6. Compatibility Fingerprints / component compatibility descriptors
+
+Each component should publish a small machine-readable compatibility contract describing only facts that the component canonically owns and Distribution needs for safe composition.
+
+Potential fields include versioned interface/contract generation, state-schema generation, required host/component contract ranges, migration requirements and supported runtime/platform constraints.
+
+**Schema/meaning:** System defines the shared contract.  
+**Publication:** each canonical component repo publishes its own descriptor/fingerprint.  
+**Validation/composition:** Distribution validates fingerprints across the selected exact release set and still runs real qualification; fingerprints do not replace tests.
+
+Do not duplicate component implementation or live health truth in the fingerprint.
+
+### 7. Promotion rings
+
+Formalize release progression so a component or composed release does not jump directly from a new commit to broad member release merely because tests once passed.
+
+Target conceptual stages may include:
+
+```text
+owner accepted revision
+        -> Distribution candidate
+        -> dogfood/canary/limited validation
+        -> stable admitted member release
+```
+
+The exact number/names of rings must follow current Distribution mechanics discovered in Phase 1 rather than creating ceremony for its own sake.
+
+**Primary home/enforcement:** Distribution.  
+**Component role:** provide accepted candidate revisions and owner evidence.  
+**System role:** define the lifecycle/promotion law and current product-level expectations.
+
+### 8. Reproducibility guarantee
+
+Every admitted release must preserve enough immutable evidence to reconstruct exactly what software composition was shipped later.
+
+At minimum, where technically applicable, retain:
+
+- Distribution revision/release identifier;
+- exact component commits/artifacts;
+- compatibility/release-set manifest;
+- relevant dependency lock information;
+- required runtime/toolchain versions;
+- migration/qualification evidence needed to understand the released state.
+
+**Guarantee/architecture:** System defines that admitted releases must be reconstructable.  
+**Primary implementation:** Distribution because it owns the exact composed release.  
+**Component role:** provide immutable refs/artifacts and component-owned release metadata needed for reconstruction.
+
+Reconstructability does not mean rolling user-owned state backward; it means reproducing the shipped software composition and its evidence.
+
+### 9. No silent contract deletion / breaking-change law
+
+A component must not silently remove or redefine an interface/contract that other AI-Verse components or Distribution depend on merely because its own local tests pass.
+
+A breaking contract change requires either:
+
+- a compatible replacement path;
+- versioned coexistence where appropriate; or
+- an explicit coordinated breaking release/migration with affected owners and Distribution qualification.
+
+**Law/schema:** System.  
+**Local enforcement:** the component owning the interface/API/schema.  
+**Cross-component verification:** Distribution validates the composed release and compatibility evidence.
+
+### 10. Decision and recovery provenance
+
+Significant architecture, implementation and release decisions must leave enough evidence to answer later:
+
+```text
+What changed?
+Why did it change?
+Which canonical owner decided/implemented it?
+Which evidence justified it?
+What exact refs were involved?
+What was the previous known-good state?
+How can the decision/release be inspected or safely recovered from?
+```
+
+Do not create one giant duplicate event database merely for governance.
+
+**System:** architecture/product/ownership decisions and tombstones.  
+**Component repos:** implementation and component-local migration/contract evidence.  
+**Distribution:** release composition, qualification, promotion, rollback/recovery and exact shipped refs.
+
+Provenance must be sufficient for recovery from a mistaken maintainer or AI decision without making every repository own every other repository's history.
+
+### Placement summary
+
+```text
+AI-Verse-System
+  defines global laws
+  owns repository registry
+  owns repository-state ledger
+  owns architecture tombstones/history
+  defines invariants and shared compatibility semantics
+  runs/owns whole-network drift monitoring
+
+Component repositories
+  own implementation
+  publish component-local compatibility evidence
+  enforce their own API/schema/contract compatibility
+  run native tests/CI
+  preserve implementation/migration provenance
+
+ai-verse-distribution
+  reads canonical registry/release-relevant System contracts
+  validates exact component refs/fingerprints together
+  owns release candidates and promotion rings
+  owns whole-product qualification
+  owns reconstructable release composition
+  owns release/rollback/recovery provenance
+
+Member installation
+  receives only product/runtime artifacts required by the admitted release
+  does not receive this maintainer governance except for narrowly required runtime compatibility metadata
+```
+
+### Non-duplication rule
+
+Do not solve these protections by copying ten governance documents into every repository.
+
+A repository may contain a short maintainer instruction pointing to the canonical System law plus the local enforcement it owns. The detailed global rule remains in System.
+
+If a machine-readable compatibility artifact must ship because runtime/product behavior genuinely requires it, that artifact is product metadata, not permission to ship the surrounding maintainer governance.
+
+### Integration into the existing 14 slices
+
+These protections do not add ten new slices by default.
+
+They are cross-cutting requirements of the existing program:
+
+- **Phase 1:** audit which protections already exist, which are partially implemented, and where their current canonical evidence lives. Reuse existing updater/release protections rather than duplicating them.
+- **Phase 2:** canonicalize the global laws, registry/ledger/tombstone/invariant definitions and shared compatibility/reproducibility contracts in System.
+- **Phase 3:** implement/enforce only at the canonical owners: component-local fingerprints/contract checks, Distribution promotion/reproducibility/release gates, System drift monitoring and maintainer entrypoint rules.
+- **Phase 4:** prove end-to-end that the protections agree, do not conflict with one another, preserve member state, remain reconstructable and do not leak maintainer governance into member installs.
+
+If the audit proves one of these protections requires a genuinely separate implementation slice, change the denominator transparently under the Program accounting rule rather than silently squeezing unrelated work into a slice.
+
+---
+
+## 0L. Program accounting
 
 This plan remains 14 slices unless implementation genuinely requires a denominator change.
 
@@ -1126,6 +1354,22 @@ None. Program v1 complete.
 ---
 
 # Program Change Log
+
+## 2026-10-12 - Future-proof protection placement model added
+
+- Added the cross-cutting rule: **Define centrally. Enforce at the canonical owner. Verify again at composition.**
+- Added canonical placement for ten protections without duplicating all ten into every repository.
+- Added one System-level machine-readable Repository Registry requirement.
+- Added a System-level Drift Watchdog that reports drift without silently rewriting repositories.
+- Added architecture tombstones to prevent retired structures from being resurrected by stale docs, audits or agents.
+- Added permanent System invariants as a constitution over existing protections, explicitly reusing updater/preservation enforcement instead of duplicating it.
+- Added shared compatibility fingerprint semantics: System defines the schema, component owners publish their own compatibility evidence, Distribution validates composed compatibility.
+- Added Distribution-owned promotion rings/candidate progression, subject to audit of the existing release machinery.
+- Added an explicit reproducibility guarantee for admitted releases, implemented primarily by Distribution using immutable component refs and release evidence.
+- Added the no-silent-contract-deletion law, enforced locally by interface owners and cross-checked by Distribution.
+- Added decision/recovery provenance at the appropriate System, component and Distribution levels rather than creating one duplicate global event database.
+- Added the member-isolation rule for these protections: maintainer governance remains source-only; only narrowly required runtime compatibility metadata may ship.
+- Kept all protections inside the existing 14-slice program as cross-cutting requirements unless Phase 1 proves a real denominator change is necessary.
 
 ## 2026-10-12 - Repository State Ledger, freshness and non-regression guard added
 
