@@ -35,13 +35,35 @@ class RepositoryRegistryTests(unittest.TestCase):
         )
         self.assertFalse(schema["additionalProperties"])
 
-    def test_initial_wave1_registry_passes(self):
+    def test_registered_wave1_to_wave3_registry_passes(self):
         self.assertEqual(registry_validator.validate_registry(self.registry), [])
-        self.assertEqual(len(self.registry["repositories"]), 7)
+        self.assertEqual(len(self.registry["repositories"]), 14)
         self.assertEqual(
             {entry["repository_id"] for entry in self.registry["repositories"]},
-            {1367664026, 1350081263, 1361862361, 1362233598, 1361910454, 1362243580, 1364457521},
+            {
+                1367664026,
+                1350081263,
+                1361862361,
+                1362233598,
+                1361910454,
+                1362243580,
+                1364457521,
+                1368762130,
+                1368762786,
+                1362278774,
+                1368748835,
+                1364458279,
+                1362252045,
+                1364456634,
+            },
         )
+        apps = next(entry for entry in self.registry["repositories"] if entry["component_id"] == "ai-verse-apps")
+        self.assertEqual(apps["lifecycle"], "experimental")
+        self.assertEqual(apps["rollout_wave"], 3)
+        self.assertEqual(apps["release_profiles"], [])
+        self.assertFalse(apps["distribution_ships"])
+        self.assertIsNone(apps["component_release_descriptor_path"])
+        self.assertEqual(apps["surface_classification"], "governance")
 
     def test_repository_name_can_change_without_changing_identity(self):
         registry = copy.deepcopy(self.registry)
