@@ -33,6 +33,11 @@ class ComponentReleaseDescriptorTests(unittest.TestCase):
         self.assertEqual(schema["properties"]["schema_version"]["const"], "ai-verse.component-release/v1")
         self.assertEqual(schema["properties"]["revision"]["pattern"], "^[0-9a-f]{40}$")
         self.assertFalse(schema["additionalProperties"])
+        self.assertIn("change_classification", schema["properties"]["migration"]["required"])
+        self.assertEqual(
+            schema["properties"]["migration"]["properties"]["change_classification"]["enum"],
+            ["non-breaking", "breaking"],
+        )
         self.assertEqual(
             schema["properties"]["migration"]["properties"]["infrastructure"]["$ref"],
             "#/$defs/infrastructure_upgrade",
@@ -42,7 +47,7 @@ class ComponentReleaseDescriptorTests(unittest.TestCase):
             "ai-verse.infrastructure-upgrade/v1",
         )
 
-    def test_legacy_valid_fixture_still_passes_without_infrastructure_block(self):
+    def test_valid_fixture_passes_with_non_breaking_classification(self):
         self.assertEqual(release_validator.validate_descriptor(self.valid), [])
 
     def test_valid_infrastructure_upgrade_fixture_passes(self):
@@ -82,6 +87,31 @@ class ComponentReleaseDescriptorTests(unittest.TestCase):
         descriptor["migration"]["compatibility"] = "explicit-migration"
         descriptor["migration"]["requires_explicit_migration"] = False
         self.assertInvalid(descriptor, "explicit-migration requires")
+
+    def test_change_classification_is_required(self):
+        descriptor = copy.deepcopy(self.valid)
+        del descriptor["migration"]["change_classification"]
+        self.assertInvalid(descriptor, "change_classification")
+
+    def test_breaking_change_cannot_masquerade_as_compatible(self):
+        descriptor = copy.deepcopy(self.valid)
+        descriptor["migration"]["change_classification"] = "breaking"
+        self.assertInvalid(descriptor, "breaking change must use explicit-migration or blocked compatibility")
+
+    def test_breaking_change_requires_predecessor_scope(self):
+        descriptor = copy.deepcopy(self.valid)
+        descriptor["migration"]["change_classification"] = "breaking"
+        descriptor["migration"]["compatibility"] = "explicit-migration"
+        descriptor["migration"]["requires_explicit_migration"] = True
+        descriptor["migration"]["from_versions"] = []
+        self.assertInvalid(descriptor, "breaking change must declare at least one from_version")
+
+    def test_breaking_change_with_explicit_migration_is_valid(self):
+        descriptor = copy.deepcopy(self.valid)
+        descriptor["migration"]["change_classification"] = "breaking"
+        descriptor["migration"]["compatibility"] = "explicit-migration"
+        descriptor["migration"]["requires_explicit_migration"] = True
+        self.assertEqual(release_validator.validate_descriptor(descriptor), [])
 
     def test_blocked_release_cannot_be_accepted(self):
         descriptor = copy.deepcopy(self.valid)
