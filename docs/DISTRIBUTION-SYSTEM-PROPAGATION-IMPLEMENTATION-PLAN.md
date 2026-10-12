@@ -35,6 +35,7 @@ The finished system must satisfy all of the following at once:
 8. **Every admitted release is reconstructable.** Exact software composition and durable release evidence remain recoverable later.
 9. **The repository network can detect its own decay.** Missing repos, stale watchdogs, stale System truth, invalid handoffs and mismatched release refs become visible failures rather than silent drift.
 10. **Execution adapts to evidence.** Slice outcomes stay stable, but low-level tasks are discovered/refined from current reality rather than fully guessed at program creation time.
+11. **Adaptive discovery cannot silently redirect the program.** Discovery may optimize tasks and implementation tactics, but protected roadmap intent, laws, ownership, safety floors and acceptance outcomes require an explicit plan-amendment decision.
 
 The central design rule is:
 
@@ -43,6 +44,10 @@ The central design rule is:
 The execution-planning rule is:
 
 > **Fix the destination. Discover the safest route from current reality.**
+
+The adaptive-authority rule is:
+
+> **Discovery may adapt the route. It may not silently change the destination.**
 
 Reusable planning method: `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`.
 
@@ -304,6 +309,45 @@ Implement this governance in dependency-safe waves:
 
 Prove the pattern on Core before assuming it scales unchanged.
 
+## 3.15 Adaptive execution authority boundary
+
+Self-discovery is powerful only inside a bounded execution authority.
+
+It may automatically adapt:
+
+- low-level tasks;
+- implementation techniques within the current slice;
+- `CREATE` into `REUSE`/`EXTEND` when evidence proves existing machinery is sufficient;
+- tests/evidence that strengthen the acceptance proof;
+- the smallest dependency/blocker tasks needed to finish the existing slice safely.
+
+It may **not** automatically change:
+
+- permanent laws or invariants;
+- product intent;
+- canonical ownership;
+- phase purpose;
+- slice purpose/outcome;
+- acceptance criteria in a weaker direction;
+- preservation, safety, validation, member-isolation or evidence floors;
+- major architecture direction;
+- slice removal/major reordering;
+- program denominator.
+
+Those are plan amendments, not task adaptation.
+
+When evidence suggests a protected change is required, the affected work must stop as:
+
+`BLOCKED - PLAN AMENDMENT REQUIRED`
+
+The implementation agent must propose the amendment with exact evidence and impact instead of self-approving it.
+
+Non-degradation law:
+
+> **Discovery may reduce unnecessary work. It may never reduce safety, ownership, preservation, validation, member-isolation, or required evidence on its own authority.**
+
+When uncertain whether a proposed change is task adaptation or roadmap redirection, fail safely into the amendment path.
+
 ---
 
 # 4. Protection placement map
@@ -356,6 +400,10 @@ Member-isolation check: PASS | NOT APPLICABLE | BLOCKED
 
 Reproducibility impact: YES | NO
 Release receipt evidence: <ref when applicable>
+
+Plan-amendment impact: YES | NO
+Protected roadmap element affected: <law/phase/slice/acceptance/ownership/denominator/etc.>
+Amendment status/evidence: <none | BLOCKED - PLAN AMENDMENT REQUIRED | approved ref>
 ```
 
 A required `NO` decision needs a reason. Missing mandatory evidence blocks completion.
@@ -375,6 +423,7 @@ Update this file to:
 - refresh only the current state needed to plan the slice safely;
 - derive and record the current adaptive task list for that slice;
 - record task count and task status;
+- verify that derived tasks stay inside the slice's protected purpose/acceptance boundary;
 - record the current phase and progress counters;
 - preserve the previous evidence/history.
 
@@ -391,6 +440,8 @@ The same body of work must update this file with:
 - owner/System/Distribution/ledger/release evidence as applicable;
 - blockers discovered/resolved;
 - changed assumptions or task-list changes and their evidence;
+- confirmation that no protected roadmap element was silently changed;
+- plan-amendment evidence if any amendment was required and approved;
 - current phase progress;
 - overall completed/total;
 - overall percentage;
@@ -409,7 +460,9 @@ Display to one decimal place unless exactly integral.
 
 Task count is local execution detail only. If discovery adds or removes legitimate tasks, overall program percentage does not move backward because slices are the stable acceptance unit.
 
-If the slice/program denominator changes, update the Program Change Log and all counters immediately. Never change the denominator silently.
+A pending plan amendment does not count as progress and must not be hidden by manipulating task counts.
+
+If the slice/program denominator changes through an approved amendment, update the Program Change Log and all counters immediately. Never change the denominator silently.
 
 ## Mandatory user-facing completion report
 
@@ -423,7 +476,7 @@ Phase: <phase number> - <phase title>
 Phase progress: <completed in phase>/<total in phase>
 Until next phase: <N> slice(s)
 Next: <next slice; first task remains adaptive until derived>
-Blockers/drift: <none or concise status>
+Blockers/drift/amendments: <none or concise status>
 ```
 
 While a slice is in progress, progress updates may also report:
@@ -447,13 +500,14 @@ Low-level tasks are **adaptive execution units** and must not all be frozen at p
 
 ## Rigidity hierarchy
 
-Use three levels of rigidity:
+Use four levels of rigidity:
 
-1. **Permanent laws / invariants** - hardest to change; change only with explicit architectural evidence.
-2. **Phases and slices** - stable roadmap/outcomes; may change when verified findings prove the roadmap itself is wrong or incomplete.
-3. **Tasks** - deliberately adaptive; derive/refine from current evidence while implementing the slice.
+1. **Permanent laws / product intent / canonical ownership** - LOCKED for self-discovery. Changes require explicit plan amendment and architectural evidence.
+2. **Phase and slice purpose/outcome + acceptance floor** - LOCKED for self-discovery. May only be changed through explicit amendment; acceptance may be strengthened automatically but never weakened.
+3. **Slice implementation method** - ADAPTIVE inside the protected slice outcome.
+4. **Tasks** - ADAPTIVE; derive/refine from current evidence while implementing the slice.
 
-Do not confuse task flexibility with acceptance flexibility. Tasks may change; the slice must still satisfy its acceptance criteria unless the roadmap is explicitly amended with evidence.
+Do not confuse task flexibility with roadmap authority.
 
 ## Task derivation at slice start
 
@@ -464,13 +518,14 @@ For every substantial slice, derive tasks only after:
 3. refreshing the live repositories/state relevant to the slice;
 4. inspecting existing implementation before proposing new implementation;
 5. classifying relevant needs as `REUSE`, `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN`;
-6. identifying the smallest task set necessary to satisfy the fixed slice acceptance criteria.
+6. identifying the smallest task set necessary to satisfy the fixed slice acceptance criteria;
+7. checking that none of those tasks silently changes a protected law, owner, phase/slice purpose or acceptance floor.
 
 A recommended first task for substantial slices is:
 
 `X.Y.1 - Refresh current state and derive/refine the execution tasks for this slice.`
 
-That discovery task is not permission for endless planning. It should produce a bounded current task list and move directly into execution.
+That discovery task is not permission for endless planning or architectural redirection. It should produce a bounded current task list and move directly into execution.
 
 ## Task eligibility rule
 
@@ -487,9 +542,18 @@ A task is justified only when at least one is true:
 
 `It sounds sophisticated` is not valid justification.
 
-## Task evolution during a slice
+## Allowed adaptive changes
 
 Tasks may be added, removed, split, merged or reordered when new evidence justifies the change.
+
+Implementation technique may also change when the slice outcome remains unchanged.
+
+Examples:
+
+- if an audited mechanism already solves the need, remove a duplicate CREATE task and replace it with REUSE/EXTEND validation;
+- if a hidden dependency appears, add the smallest task needed to understand/fix it;
+- if ownership routing within a task was based on a mistaken discovery location, route implementation to the already-canonical owner rather than duplicate the behavior elsewhere;
+- if stronger validation is needed, add it without weakening existing acceptance.
 
 When the task list changes:
 
@@ -500,11 +564,52 @@ When the task list changes:
 - do not weaken acceptance criteria merely to close the slice;
 - do not inflate or manipulate task counts to improve apparent progress.
 
-Examples:
+## Protected changes: plan amendment required
 
-- if an audited mechanism already solves the need, remove the duplicate CREATE task and replace it with REUSE/EXTEND validation;
-- if a hidden dependency appears, add the smallest task needed to understand/fix it;
-- if ownership proves different from assumption, reroute work to the canonical owner rather than force the original task into the wrong repo.
+Self-discovery must not silently:
+
+- change product intent;
+- change permanent laws/invariants;
+- transfer canonical ownership;
+- redefine a phase's purpose;
+- redefine a slice's purpose/outcome;
+- weaken/delete acceptance criteria;
+- lower preservation, safety, validation, member-isolation or evidence requirements;
+- remove a slice merely because implementation is inconvenient;
+- perform major phase/slice reordering;
+- change the program denominator;
+- turn an experimental/newer implementation into canonical architecture only because it is newer.
+
+If evidence indicates one of these is genuinely necessary:
+
+1. stop the affected task/path;
+2. mark it `BLOCKED - PLAN AMENDMENT REQUIRED`;
+3. record exact evidence;
+4. prepare:
+
+```text
+PLAN AMENDMENT PROPOSED
+Finding: <verified evidence>
+Current plan/law: <current governing rule>
+Proposed change: <exact protected change>
+Why the current route is unsafe/wrong/obsolete: <reason>
+Affected phases/slices/repos/contracts: <scope>
+Safety/compatibility/user-state impact: <impact>
+Alternatives considered: <short list>
+Recommendation: <resolution>
+```
+
+5. do not execute the protected directional change until explicitly resolved;
+6. if approved, update the plan/changelog/counters before resuming;
+7. preserve previous plan history and rationale.
+
+When uncertain whether a change is ordinary task adaptation or roadmap redirection, choose the amendment path.
+
+## Non-degradation rule
+
+> **Discovery may reduce unnecessary work. It may never reduce safety, ownership, preservation, validation, member-isolation, or required evidence on its own authority.**
+
+This applies even when reducing those requirements would make implementation easier or faster.
 
 ## Task progress accounting
 
@@ -524,19 +629,11 @@ Slice 2.1 tasks: 4/9 complete
 
 This does not reduce overall program progress. Overall percentage remains slice-based.
 
-## Roadmap self-correction
+## Roadmap amendment, not automatic self-correction
 
-If implementation proves a slice/phase itself is wrongly scoped, ordered or unnecessary:
+If implementation proves a protected slice/phase/law/ownership decision may be wrongly scoped, ordered or unnecessary, the agent must **propose** rather than silently apply the roadmap change.
 
-1. stop the affected work before forcing reality into the old roadmap;
-2. record the exact finding/evidence;
-3. revise/split/merge/reorder the affected slice or phase transparently;
-4. update denominator/counters if necessary;
-5. preserve completed history;
-6. explain the change in the Program Change Log;
-7. resume only from the corrected roadmap.
-
-The roadmap exists to control reality safely, not to overrule verified reality.
+The roadmap may evolve, but directional changes require an explicit amendment record and resolution. Adaptive execution itself has no authority to approve them.
 
 ---
 
@@ -547,6 +644,7 @@ Slice status:
 - `NOT STARTED`
 - `IN PROGRESS`
 - `BLOCKED`
+- `BLOCKED - PLAN AMENDMENT REQUIRED`
 - `COMPLETE`
 
 Task status:
@@ -554,9 +652,10 @@ Task status:
 - `NOT STARTED`
 - `IN PROGRESS`
 - `BLOCKED`
+- `BLOCKED - PLAN AMENDMENT REQUIRED`
 - `COMPLETE`
 - `SUPERSEDED` with reason/evidence
-- `NOT NEEDED` only when evidence proves it unnecessary
+- `NOT NEEDED` only when evidence proves it unnecessary and no protected acceptance outcome is removed
 
 Do not mark work COMPLETE merely because code exists.
 
@@ -579,7 +678,7 @@ Do not mark work COMPLETE merely because code exists.
 - existing safe-update/release contracts are explicitly reused rather than duplicated;
 - implementation order is dependency-safe;
 - mandatory plan bookkeeping and user progress reporting are defined;
-- adaptive task discovery/self-correction is defined without pre-guessing all future tasks;
+- adaptive task discovery is bounded to execution and cannot silently redirect protected roadmap intent;
 - reusable future planning skill exists;
 - future agents can resume without this conversation.
 
@@ -590,6 +689,7 @@ Do not mark work COMPLETE merely because code exists.
 - original program created 2026-10-12
 - normalized into this 20-slice dependency-safe program on 2026-10-12
 - adaptive task-discovery model added on 2026-10-12
+- adaptive change-authority boundary tightened on 2026-10-12
 
 ### NEXT
 
@@ -678,7 +778,7 @@ Build one inventory covering:
 - existing update/preservation/promotion machinery is mapped;
 - Registry static fields and Repository State dynamic fields are separated;
 - any Distribution shadow implementation/workaround is identified;
-- any duplicated or obsolete planned mechanism is removed from the target design.
+- any duplicated or obsolete planned mechanism is removed from the target design only when doing so does not remove a protected acceptance outcome; otherwise use the plan-amendment path.
 
 ### Evidence
 
@@ -1360,6 +1460,17 @@ None. Program complete.
 
 # Program Change Log
 
+## 2026-10-12 - Adaptive discovery authority tightened
+
+- Added an explicit boundary between adaptive execution and protected roadmap direction.
+- Tasks and implementation techniques may adapt from evidence, but permanent laws, product intent, canonical ownership, phase/slice purpose, acceptance floors, safety requirements, major ordering and program denominator cannot be silently changed by self-discovery.
+- Added `BLOCKED - PLAN AMENDMENT REQUIRED` for findings that would redirect protected program intent.
+- Added a required evidence-backed `PLAN AMENDMENT PROPOSED` format.
+- Added the non-degradation law: discovery may reduce unnecessary work but cannot reduce safety, ownership, preservation, validation, member-isolation or required evidence on its own authority.
+- Changed roadmap self-correction into roadmap amendment: adaptive execution may propose directional changes but cannot approve them itself.
+- Added plan-amendment fields to the evidence model and progress reporting.
+- Tightened `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md` with the same authority boundary.
+
 ## 2026-10-12 - Adaptive task discovery and reusable planning skill added
 
 - Added `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md` as the reusable method for future complex implementation plans.
@@ -1369,7 +1480,7 @@ None. Program complete.
 - Allowed evidence-backed task add/remove/split/merge/reorder with preserved history and explicit reasons.
 - Kept overall percentage slice-based so task discovery cannot make program progress artificially move backward.
 - Added task-level progress reporting for the current slice.
-- Added roadmap self-correction when verified evidence proves a slice/phase itself is wrongly scoped or ordered.
+- Added roadmap self-correction when verified evidence proves a slice/phase itself is wrongly scoped or ordered; this is now constrained by the later amendment-authority rule above.
 - Marked future slice task lists as adaptive rather than falsely complete today.
 
 ## 2026-10-12 - Program normalized into dependency-safe 20-slice execution sequence
@@ -1425,4 +1536,4 @@ None. Program complete.
 **Until Phase 2:** 3 slices  
 **Next:** Slice 1.1 - Audit the live repository network and existing safety machinery  
 **Next task:** not yet derived; generate from live Slice 1.1 evidence at slice start  
-**Blockers/drift:** none recorded by the plan yet; Slice 1.1 must establish the evidence-backed baseline before implementation changes begin.
+**Blockers/drift/amendments:** none recorded by the plan yet; Slice 1.1 must establish the evidence-backed baseline before implementation changes begin.
