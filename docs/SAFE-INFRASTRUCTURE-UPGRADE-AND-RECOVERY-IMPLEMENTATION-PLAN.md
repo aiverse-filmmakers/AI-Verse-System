@@ -1,20 +1,20 @@
 # AI-Verse Safe Infrastructure Upgrade, Convergence and Recovery Implementation Plan
 
-**Status:** PAUSED - PHASE 3 IN PROGRESS; SLICE 3.2 COMPLETE  
+**Status:** PAUSED - PHASE 3 IN PROGRESS; SLICE 3.3 COMPLETE  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary orchestration repo:** `aiverse-filmmakers/ai-verse-distribution`  
 **Initial owner repos:** `aiverse-filmmakers/AI-Verse-OS`, `aiverse-filmmakers/AI-Verse-Skills`  
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 9  
-**Remaining:** 9  
-**Overall progress:** 50.0%  
+**Completed:** 10  
+**Remaining:** 8  
+**Overall progress:** 55.6%  
 **Current phase:** Phase 3 - Implement canonical owner migrations for proven motivating problems  
-**Current phase progress:** 2/4  
-**Slices until Phase 4:** 2  
-**Next:** Slice 3.3 - Implement cross-provider capability scope semantics and managed Skills generation alignment  
-**Next slice task list:** STOP - derive only when Slice 3.3 starts
+**Current phase progress:** 3/4  
+**Slices until Phase 4:** 1  
+**Next:** Slice 3.4 - Implement admitted capability promotion/re-scoping and reference repair  
+**Next slice task list:** STOP - derive only when Slice 3.4 starts
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Verified shipped source, shipped contracts and tests outrank roadmap assumptions. Discovery may adapt the route; it may not silently change the destination.
 
@@ -1490,7 +1490,7 @@ Next execution unit: Phase 3 / Slice 3.1. Derive its adaptive task list only aft
 
 **Phase size:** 4 slices  
 **Status:** IN PROGRESS  
-**Phase progress:** 2/4
+**Phase progress:** 3/4
 
 ## Slice 3.1 - Implement OS Workspace generation and evidence-backed structural semantics
 
@@ -1724,41 +1724,109 @@ Next execution unit: Slice 3.3. Derive its adaptive task list only after fresh O
 
 ## Slice 3.3 - Implement cross-provider capability scope semantics and managed Skills generation alignment
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 2.3 plus canonical Identity Hardening scope-transfer contract  
-**Adaptive tasks:** 2/6 COMPLETE
+**Adaptive tasks:** 6/6 COMPLETE
 
 ### Refreshed refs
 
-- `aiverse-filmmakers/AI-Verse-System@e6c20a1cd7c60d17095f4f24bd3745848667e924`
-- `aiverse-filmmakers/AI-Verse-OS@88ce41a95554e1323ba34aa71b536b9e98475808`
-- `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- `aiverse-filmmakers/AI-Verse-System@e6c20a1cd7c60d17095f4f24bd3745848667e924` at audit refresh;
+- task-list commit: `aiverse-filmmakers/AI-Verse-System@6a3cc21215b66fbafae72121efaabb0c57983279`;
+- starting OS ref: `aiverse-filmmakers/AI-Verse-OS@88ce41a95554e1323ba34aa71b536b9e98475808`;
+- final OS implementation ref: `aiverse-filmmakers/AI-Verse-OS@01571824d18421ea71251556b47c3308bfef4446`;
+- Skills ref: `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`;
+- detailed evidence: `docs/SAFE-INFRASTRUCTURE-SLICE-3.3-CAPABILITY-SCOPE-AND-SKILLS-ALIGNMENT.md` at `aiverse-filmmakers/AI-Verse-System@8e2f3f8d9317c62d808dd429330a6d9b803ba199`.
 
-### Derived task list
+### Final derived task list
 
 - [x] **3.3-T1** Refresh System, OS and Skills refs and re-read the canonical identity/provider law, current OS resolver/provider contract and current Skills immutable-generation integration.
 - [x] **3.3-T2** Freeze evidence-backed placement semantics: project-only user capabilities target the trusted active Workspace; reusable capabilities intended across projects or a practical domain target the user-owned local provider; OS built-ins and managed `aiverse-skills` are never writable user-authoring targets.
-- [ ] **3.3-T3** Implement an OS-owned practical placement planner that accepts member-level reuse intent without asking for provider IDs or storage paths, preserves current qualified identity forms, and refuses project-only placement when no trusted active Workspace exists.
-- [ ] **3.3-T4** Add focused acceptance tests and architecture documentation proving wider reusable intent is not forced into Workspace-private storage, managed Skills generation ownership is unchanged, and any cross-provider promotion remains a separately admitted migration with provenance/reference-repair requirements rather than silent identity continuity.
-- [ ] **3.3-T5** Run exact-ref OS validation and reverify Skills generation/lifecycle alignment without modifying Skills unless current evidence exposes a real owner gap.
-- [ ] **3.3-T6** Record exact implementation/evidence refs, close every Slice 3.3 acceptance criterion, update the canonical roadmap, and stop before Slice 3.4.
+- [x] **3.3-T3** Implement an OS-owned practical placement planner that accepts member-level reuse intent without asking for provider IDs or storage paths, preserves current qualified identity forms, and refuses project-only placement when no trusted active Workspace exists.
+- [x] **3.3-T4** Add focused acceptance tests and architecture documentation proving wider reusable intent is not forced into Workspace-private storage, managed Skills generation ownership is unchanged, and any cross-provider promotion remains a separately admitted migration with provenance/reference-repair requirements rather than silent identity continuity.
+- [x] **3.3-T5** Run exact-ref OS validation and reverify Skills generation/lifecycle alignment without modifying Skills unless current evidence exposes a real owner gap.
+- [x] **3.3-T6** Record exact implementation/evidence refs, close every Slice 3.3 acceptance criterion, update the canonical roadmap, and stop before Slice 3.4.
 
-OS owns cross-provider scope/placement semantics. Skills owns the managed distributed provider lifecycle.
+### Implemented placement semantics
 
-The member should deal in practical meaning such as "use this everywhere," "use this for all YouTube work," or "only use this in this project." OS maps that meaning to an authorized provider/scope according to canonical owner rules.
+OS now maps practical member intent to the authorized user-owned provider without asking the member to choose folders, provider IDs or internal scope IDs:
+
+- "only use this in this project" -> trusted active Workspace provider;
+- "use this for all YouTube work" or equivalent related-work intent -> private reusable `local` provider;
+- "use this everywhere" -> private reusable `local` provider.
+
+OS built-ins and the managed `aiverse-skills` distribution are never user-authoring targets. Publishing into the managed distribution remains a separate reviewed Skills-owned action.
+
+The placement planner is classification/planning only. It does not move an existing package. When a user-owned capability would cross providers, the result explicitly says that a separate migration is required, qualified identity is not assumed to survive, provenance/history must be preserved, and durable references require admitted repair. Actual promotion/re-scoping remains Slice 3.4.
+
+### OS implementation
+
+Final exact OS ref: `01571824d18421ea71251556b47c3308bfef4446`.
+
+Added/updated:
+
+- `scripts/capability-placement.mjs`;
+- `scripts/capability-resolver.mjs`;
+- `scripts/capability-resolver-cli.mjs`;
+- `scripts/test-capability-placement.mjs`;
+- `.github/workflows/capability-placement.yml`;
+- `system/architecture/capability-resolution.md`.
+
+Current qualified identities remain unchanged:
+
+```text
+os:<name>
+aiverse-skills:<name>
+local:<name>
+workspace:<workspace-id>:<name>
+```
+
+### Skills alignment
+
+No AI-Verse-Skills source change was required. Skills already owns immutable generations, the atomic active pointer, exact generation pinning, immutable update, pointer-only rollback, uninstall retention and recovery. User-owned local/Workspace capabilities remain outside managed distribution ownership.
+
+OS consumes that provider contract but does not duplicate Skills lifecycle or write/publish into the distribution.
+
+### Exact validation
+
+OS `Capability Placement Contract` run `38291968753` at exact SHA `01571824d18421ea71251556b47c3308bfef4446`: **SUCCESS**.
+
+Passed:
+
+- placement/resolver/CLI syntax;
+- practical placement acceptance;
+- existing scoped discovery and managed-generation resolver regression.
+
+OS `Repository QC` run `38291968646` at the same exact SHA: **SUCCESS** across `qc`, `adapter-integration` and `skills-provider-integration`. The provider integration installed a real immutable Provider-v1 Skills generation outside OS and successfully discovered/selected it through the OS resolver.
+
+Skills `Full E2E Install` run `38246389751` at exact SHA `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`: **SUCCESS**, including generation lifecycle validation, immutable update, pointer-only rollback, uninstall retention and recovery.
 
 ### Acceptance criteria
 
-- OS owns provider scope/placement semantics;
-- Skills continues owning managed provider package identity/lifecycle;
-- current provider-qualified identity forms remain compatible unless explicitly versioned/amended;
-- new reusable capabilities are not forced into a Workspace-private provider when wider user-owned reuse is clearly intended;
-- provenance/history survives promotion according to the canonical identity contract;
-- member never chooses storage folders or internal scope IDs.
+- OS owns provider scope/placement semantics: **PASS**;
+- Skills continues owning managed provider package identity/lifecycle: **PASS**;
+- current provider-qualified identity forms remain compatible unless explicitly versioned/amended: **PASS**;
+- new reusable capabilities are not forced into a Workspace-private provider when wider user-owned reuse is clearly intended: **PASS**;
+- provenance/history survives promotion according to the canonical identity contract: **PASS AT THE SLICE 3.3 BOUNDARY** because cross-provider change is explicitly classified as a separate unapplied migration requiring provenance/history preservation and reference repair; actual migration remains Slice 3.4;
+- member never chooses storage folders or internal scope IDs: **PASS**.
+
+### Completion report
+
+```text
+Completed: Slice 3.3 - Implement cross-provider capability scope semantics and managed Skills generation alignment
+Tasks: 6/6
+Overall: 10/18 slices (55.6%)
+Phase: Phase 3 - Implement canonical owner migrations for proven motivating problems
+Phase progress: 3/4
+Until next phase: 1 slice
+Next: Slice 3.4 - Implement admitted capability promotion/re-scoping and reference repair
+Blockers/drift/amendments: none. Skills lifecycle ownership remains unchanged; actual cross-provider migration remains deliberately unimplemented until Slice 3.4.
+```
 
 ### NEXT
 
-Slice 3.4.
+**STOP after Slice 3.3 for the current one-at-a-time execution request.**
+
+Next execution unit: Slice 3.4. Derive its adaptive task list only after fresh System/OS/provider-consumer refs are fetched. No Slice 3.4 promotion, copying or reference-repair mutation was started here.
 
 ---
 
@@ -2170,16 +2238,27 @@ None. Program complete.
 - Made no OS/Data/Brain/Memory source changes and created no compatibility route for an invented location model.
 - Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-3.2-WORKSPACE-MIGRATION-DECISION.md` at `7274500ca9c4d94d46513b9d0a9c3a1ac5de1c18`.
 
+## 2026-10-12 - Slice 3.3 completed; practical capability placement aligned with managed Skills generations
+
+- Added OS-owned practical placement planning for project-only, related-work and all-work reuse intent.
+- Routed wider personal reuse to the user-owned local provider rather than trapping it in Workspace-private storage or writing into managed Skills.
+- Preserved all existing provider-qualified identity forms.
+- Classified any cross-provider promotion as a separate unapplied migration requiring provenance/history preservation and reference repair.
+- Kept AI-Verse-Skills authoritative for immutable generations, active-pointer lifecycle, rollback, uninstall retention and recovery; no Skills code change was required.
+- Qualified OS `Capability Placement Contract` run `38291968753` and `Repository QC` run `38291968646` at exact OS ref `01571824d18421ea71251556b47c3308bfef4446` as successful.
+- Reverified Skills `Full E2E Install` run `38246389751` at exact Skills ref `afde5c06307fba7d074de2929c2eb6c3dc6bdab8` as successful.
+- Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-3.3-CAPABILITY-SCOPE-AND-SKILLS-ALIGNMENT.md` at `8e2f3f8d9317c62d808dd429330a6d9b803ba199`.
+
 ---
 
 # Current execution pointer
 
-**Completed:** 9/18  
-**Overall:** 50.0%  
+**Completed:** 10/18  
+**Overall:** 55.6%  
 **Phase:** Phase 3 - Implement canonical owner migrations for proven motivating problems  
-**Phase progress:** 2/4  
-**Until Phase 4:** 2 slices  
-**Next:** STOP after Slice 3.2 under the one-at-a-time execution rule  
-**Next Safe Infrastructure slice:** Phase 3 / Slice 3.3 - Implement cross-provider capability scope semantics and managed Skills generation alignment  
-**Next task:** none until Slice 3.3 starts and its adaptive task list is derived from fresh OS/Skills/System refs  
-**Blockers/drift/amendments:** none. Slice 3.2 proved no Workspace relocation migration is currently admitted or required; current owner path consumers remain aligned and no writable route was retired.
+**Phase progress:** 3/4  
+**Until Phase 4:** 1 slice  
+**Next:** STOP after Slice 3.3 under the one-at-a-time execution rule  
+**Next Safe Infrastructure slice:** Phase 3 / Slice 3.4 - Implement admitted capability promotion/re-scoping and reference repair  
+**Next task:** none until Slice 3.4 starts and its adaptive task list is derived from fresh System/OS/provider-consumer refs  
+**Blockers/drift/amendments:** none. Slice 3.3 added practical OS placement semantics without changing managed Skills ownership or silently applying cross-provider migration.
