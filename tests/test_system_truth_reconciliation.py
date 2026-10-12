@@ -59,15 +59,21 @@ class SystemTruthReconciliationTests(unittest.TestCase):
         for phrase in required:
             self.assertIn(phrase, self.reconciliation, phrase)
 
-    def test_current_owner_acceptance_gap_remains_open_until_phase4(self):
+    def test_current_owner_acceptance_gap_is_resolved_by_phase4_handoff(self):
         matches = [
             item for item in self.state["drift"]
             if item["id"] == "core-owner-acceptance-exact-ref-gap"
         ]
         self.assertEqual(len(matches), 1)
-        self.assertEqual(matches[0]["status"], "open")
+        self.assertEqual(matches[0]["status"], "resolved")
         self.assertEqual(matches[0]["severity"], "BLOCKING")
         self.assertEqual(matches[0]["scope"], "Core")
+        self.assertIn("Resolved in Slice 4.2", matches[0]["reason"])
+
+    def test_later_slice_drift_remains_open_after_core_owner_handoff(self):
+        by_id = {item["id"]: item for item in self.state["drift"]}
+        self.assertEqual(by_id["distribution-adapter-compatibility-shadow-risk"]["status"], "open")
+        self.assertEqual(by_id["compact-release-receipt-not-yet-implemented"]["status"], "open")
 
 
 if __name__ == "__main__":
