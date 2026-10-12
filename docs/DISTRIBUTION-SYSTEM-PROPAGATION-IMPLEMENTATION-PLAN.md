@@ -14,14 +14,14 @@
 **Slices until next phase:** 3  
 **Current slice:** 3.1 - Scoped/full repository refresh and generated ledger  
 **Current slice status:** IN PROGRESS  
-**Task progress:** 1/5  
+**Task progress:** 4/5  
 **Next slice:** 3.2 - Drift Watchdog and heartbeat
 
-> This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update and progress accounting are committed.
+> This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, final State/ledger publication and progress accounting are committed.
 
 ## Tracker history preservation
 
-Verbose Phase 0/1 history is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Verbose Slice 2.1 history is preserved at closure `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 detailed start state is preserved at `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and closure at `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 detailed start state is preserved at `8cb5fbff630f45f730db904771333d73d5616a57`, closure bookkeeping at `fc0d178809867362dc29183411f26b9f65980903`, and final atomic State/ledger snapshot at `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
+Phase 0/1 detail is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Slice 2.1 detail is preserved at `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 start/closure are `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 start, closure bookkeeping and final State/ledger snapshot are `8cb5fbff630f45f730db904771333d73d5616a57`, `fc0d178809867362dc29183411f26b9f65980903` and `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Slice 3.1 start is `dbe13e49d84176131e0447785a4748951a17ad8e`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
 
 ---
 
@@ -92,8 +92,7 @@ Overall progress = completed slices / 20. Task count is local only.
 
 ## Slice 0.1 - Canonical implementation program
 
-**Status:** COMPLETE  
-**Evidence:** this plan + `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`.
+**Status:** COMPLETE
 
 ---
 
@@ -127,22 +126,17 @@ Overall progress = completed slices / 20. Task count is local only.
 **Status:** COMPLETE  
 **Closure:** `11940b87838afa0f46570ecdd8f8e00f74b7de5a`.
 
-Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`, `docs/ARCHITECTURE-TOMBSTONES.md` and README discoverability.
-
 ## Slice 2.2 - Create the machine-readable Repository Registry
 
 **Status:** COMPLETE  
 **Closure:** `98773f6db85ac727a32ed798cf5113fe839e24a1`.
 
-Created versioned `ai-verse.repository-registry/v1`, canonical seven-entry Wave 1 Registry, validation/tests and existing Contract Validation workflow coverage. Stable GitHub repository ID is logical identity; dynamic state is excluded; unregistered first-class release participation is fail-closed.
-
 ## Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint
 
 **Status:** COMPLETE  
 **Closure bookkeeping:** `fc0d178809867362dc29183411f26b9f65980903`  
-**Final atomic State/ledger snapshot:** `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`
-
-Created `ai-verse.repository-state/v1`, canonical `governance/repository-state.json`, validator/tests, deterministic generated ledger, maintainer entrypoint and the single frozen `scripts/refresh_repository_state.py` path. Watchdog intentionally starts `WATCHDOG-STALE`. Final Contract Validation run `38260626280` passed Python 3.11 and 3.13.
+**Final State/ledger snapshot:** `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`  
+**Final CI:** run `38260626280`, Python 3.11 and 3.13 passed.
 
 ---
 
@@ -155,11 +149,9 @@ Created `ai-verse.repository-state/v1`, canonical `governance/repository-state.j
 
 **Status:** IN PROGRESS  
 **Dependencies:** 2.3  
-**Task progress:** 1/5
+**Task progress:** 4/5
 
-### Starting evidence and refs
-
-Fresh pre-implementation inspection on 2026-10-12 confirmed the Slice 2.3 final snapshot remains current and all six non-System Wave 1 repositories are unchanged:
+### Starting refs
 
 - AI-Verse-System: `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`
 - ai-verse-distribution: `fd11b4a95487638d47ff55472a3703b03892d0e8`
@@ -169,40 +161,72 @@ Fresh pre-implementation inspection on 2026-10-12 confirmed the Slice 2.3 final 
 - AI-Verse-Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
 - AI-Verse-Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
 
-Existing surfaces inspected and classified:
+The final pre-publication freshness pass confirmed Distribution and all five Core owner refs remain unchanged. System implementation head immediately before this tracker update was `d6e82d6f1da84e4f77f314fe74d82e1dc9230d9d`.
 
-- `scripts/refresh_repository_state.py`: **EXTEND** as the one refresh/projection engine. No second refresh tool.
-- `governance/repository-registry.json`: **REUSE** as static identity/scope/routing input.
-- `contracts/repository-state.schema.json` + `scripts/validate_repository_state.py`: **REUSE**, extend only if implementation proves a missing state fact.
-- `docs/REPOSITORY-STATE-LEDGER.md`: **REUSE** as generated projection only.
-- Component `release/component-release.json` + canonical descriptor validator: **REUSE** for descriptor/owner-acceptance observation. Do not create another acceptance format.
-- Distribution `release-sets/`: **REUSE** for exact shipped pins/current default released composition. No second promotion or pin database.
-- Existing Contract Validation workflow: **EXTEND** for refresh tests/live dry-run if reliable; do not create watchdog scheduling before Slice 3.2.
+### Final task record so far
 
-The current default released Core set remains `release-sets/core-first-run-rc1-2026-10-12.json`, with exact pins matching all five current Core heads. Current descriptor drift remains unchanged: OS describes older accepted revision `9600929b946746c25c64e48471fcc83031fddda9`; Brain/Memory/Skills/Data describe older `development` revisions.
+1. **3.1.1 - Refresh live Wave 1 refs, reread plan/skill/architecture, inspect current refresh/State/Registry/descriptor/Distribution surfaces and derive tasks.** `COMPLETE`
+2. **3.1.2 - Extend the single refresh engine with Registry-derived component/Core/Agent/Full/global scope resolution and exact live GitHub evidence collection.** `COMPLETE`
+3. **3.1.3 - Prove scope selection, exact-at-ref descriptors, accepted-vs-unverified owner evidence, Distribution pins, unavailable-vs-failed handling, ambiguity fail-closed, deterministic output and System concurrency with tests.** `COMPLETE`
+4. **3.1.4 - Extend maintainer/CI usage so existing Contract Validation performs a real read-only Core live refresh on main without sibling writes.** `COMPLETE`
+5. **3.1.5 - Publish refreshed machine State and generated ledger together from the exact pre-publication System head, run final exact-head CI, then close Slice 3.1.** `IN PROGRESS`
 
-### Derived task list
+### Implementation evidence
 
-1. **3.1.1 - Refresh live Wave 1 refs, reread plan/skill/architecture, inspect current refresh/State/Registry/descriptor/Distribution surfaces and derive the execution tasks.** `COMPLETE`
-2. **3.1.2 - Extend the single `scripts/refresh_repository_state.py` engine with deterministic Registry-derived scope resolution and live GitHub evidence collection for stable repository identity, exact default-branch HEAD, exact descriptor-at-HEAD observation, canonical descriptor owner-acceptance evaluation and exact Distribution default released pins. Fail closed on ambiguity, access loss, fetch failure or System publication concurrency.** `IN PROGRESS`
-3. **3.1.3 - Extend refresh tests with injected/fake evidence to prove component/Core/Agent/Full/global scope selection, exact-ref behavior, accepted-vs-unverified owner evidence, exact Distribution pin selection, unavailable-vs-failed handling, deterministic output and no timestamp lineage authority.** `PENDING`
-4. **3.1.4 - Extend maintainer/CI usage so the existing validation path exercises a real read-only Core refresh dry-run without writing sibling repositories, while State/ledger write mode remains explicit and source-only.** `PENDING`
-5. **3.1.5 - Perform a real Core refresh, publish the refreshed State plus generated ledger atomically from an exact pre-publication System head, run final validation/CI, refresh concurrency/refs and close Slice 3.1 without watchdog scheduling, drift auto-reconciliation, runtime/member-payload or protected-roadmap changes.** `PENDING`
+- Slice start/tracker: `dbe13e49d84176131e0447785a4748951a17ad8e`
+- Live refresh engine: `39d390de01cbb921ccc9c88503811aa7a4851760`
+- Refresh test suite: `8c3820ab6ae1cf17812366de3781dec9aa1fd224`
+- Existing Contract Validation workflow live-read extension: `0dc8ce131960cff7b78d33b6ab3e4bc3f3a02017`
+- Maintainer live-refresh documentation: `f840e56c9f575731e2d1dd2887d09450e14003d7`
+- State validator nested-scope correction: `6f29c0730733ec3b20fbe2e71b87557915262061`
+- Agent/Full/global validator tests: `373db5dc34a8ba0120af08d34a6293e91de3cad1`
+- Durable live Core refresh evidence: `qualification/slice-3.1-live-core-refresh-evidence.json`, introduced at `d592bcb3342073172b1d29dd1885182c260be2d9`
+- A redundant publication-manifest experiment was immediately retired and leaves no final file; removal commit `d6e82d6f1da84e4f77f314fe74d82e1dc9230d9d`.
 
-### Acceptance floor
+### Live validation evidence
 
-- scoped decisions refresh only their required Registry-derived scope;
-- full/global refresh can cover all registered repositories without a second engine;
-- repository identity is verified against stable GitHub repository ID, not inferred from path/name;
-- exact immutable refs and exact-at-ref descriptor/release evidence are used;
-- canonical descriptor validation may prove an accepted descriptor revision, but Distribution qualification is never converted into owner acceptance;
-- inaccessible evidence is explicit and distinct from executed checks that fail;
-- ambiguous/multiple current Distribution pins fail closed rather than selecting by date or filename;
-- dates remain informational only and cannot establish freshness/lineage;
-- State publication detects System-head concurrency rather than silently overwriting fresher work;
-- generated ledger remains projection only;
-- no sibling repository writes, runtime behavior, release composition or member payload changes occur;
-- no plan amendment is currently required.
+Contract Validation run `38263474900` on `373db5dc34a8ba0120af08d34a6293e91de3cad1` passed both matrix jobs:
+
+- Python 3.11 job `114859632084`: success, including the real read-only Core refresh.
+- Python 3.13 job `114859632321`: success; the live network refresh step was intentionally skipped to avoid duplicate API work.
+- Live step result: `REFRESH COMPLETE scope=Core repos=7 evidence=373db5dc34a8ba0120af08d34a6293e91de3cad1`.
+- Shared suite at that point ran 74 tests and passed.
+
+The live check proved stable GitHub repository IDs, exact default-branch heads, exact-at-head descriptor reads and an unambiguous Distribution default released Core set. It did not write any sibling repository.
+
+### Accepted refresh semantics
+
+- `scripts/refresh_repository_state.py` remains the one refresh/projection engine.
+- Component scope = System + Distribution + target + declared direct dependency closure.
+- Core scope = System + Distribution + active Core participants.
+- Agent scope = System + Distribution + active Core and Agent participants.
+- Full scope = System + Distribution + every active Distribution-shipped repository.
+- Global scope = every registered repository.
+- Stable GitHub `repository_id` is checked before an observation can be trusted.
+- Default branch HEAD is recorded as an exact 40-character SHA.
+- Owner descriptors are fetched at the exact observed owner HEAD.
+- Canonical descriptor validation may prove the descriptor's exact accepted `revision`; descriptor publication HEAD is not silently substituted as the accepted release revision.
+- Distribution qualification never substitutes for owner acceptance.
+- Distribution pins come from exact released default-channel release-set evidence at the exact Distribution HEAD.
+- Multiple apparent current pins fail closed. Dates and filenames do not resolve ambiguity.
+- Access loss is `unavailable`; a check that executes and fails is `failed`.
+- Refresh lineage is deterministic and exact-ref based; `observed_at` remains informational/null rather than an authority signal.
+- System live HEAD must equal the evidence revision before publication. Concurrent movement fails the refresh.
+- The generated Markdown ledger remains projection only.
+- Live CI uses read-only GitHub permissions. Scheduled watchdog behavior remains Slice 3.2.
+
+### Drift disposition
+
+No drift is auto-reconciled in Slice 3.1. Carried findings remain open:
+
+- exact owner-acceptance/evidence gap: `BLOCKING`, Core;
+- Purpose Context Blueprint lag: `WARNING`, Core;
+- Core maintainer handoff: `WARNING`, Core;
+- Distribution adapter compatibility shadow risk: `WARNING`, Core;
+- compact release receipt: `INFO`, Core;
+- watchdog stale: `WARNING`, global until Slice 3.2.
+
+No protected roadmap element changed and no plan amendment is required.
 
 ## Slice 3.2 - Drift Watchdog and heartbeat
 
@@ -310,36 +334,31 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 
 # Program Change Log
 
-## 2026-10-12 - Slice 3.1 started
+## 2026-10-12 - Slice 3.1 implementation ready for State publication
 
-- Refreshed System, Distribution and all five Core heads before implementation; no Wave 1 ref moved since the Slice 2.3 final snapshot.
-- Re-read the adaptive planning method, architecture freeze, State/Registry control plane, descriptor contract and current Distribution default Core release set.
-- Classified the existing refresh script as EXTEND and all Registry/State/descriptor/Distribution authority surfaces as REUSE-first.
-- Derived five evidence-backed tasks with no plan amendment and no new competing source of truth.
+- Extended the one existing refresh/projection path with read-only exact GitHub evidence collection and Registry-derived scope selection.
+- Added injected evidence tests and corrected validator scope semantics so Agent and Full are nested over Core as frozen by architecture.
+- Extended existing Contract Validation, not a parallel workflow, with one live Core read-only refresh on main.
+- Real live refresh passed with exact seven-repository Core evidence and no sibling writes.
+- Maintainer entrypoint now documents scoped/global dry-runs and explicit local-only State/ledger writes.
+- Final Distribution/Core ref refresh found no movement.
+- Remaining task is atomic State + generated ledger publication and final exact-head CI.
 
 ## 2026-10-12 - Slice 2.3 Repository State control plane completed
 
-- Created versioned `ai-verse.repository-state/v1`, canonical `governance/repository-state.json`, fail-closed validator/tests, deterministic generated ledger, maintainer entrypoint and single frozen refresh/projection path.
-- Final atomic State/ledger snapshot: `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`.
-- Final GitHub Actions run `38260626280` passed Python 3.11 and 3.13.
-- No runtime, component, Distribution composition or member payload changed.
+Final State/ledger snapshot `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`; final CI run `38260626280` passed Python 3.11 and 3.13.
 
-## 2026-10-12 - Slice 2.2 machine-readable Repository Registry completed
+## 2026-10-12 - Slice 2.2 Repository Registry completed
 
-- Created versioned Registry and canonical seven-entry Wave 1 Registry with validation/tests and existing CI coverage.
-- Closure: `98773f6db85ac727a32ed798cf5113fe839e24a1`.
+Closure `98773f6db85ac727a32ed798cf5113fe839e24a1`.
 
 ## 2026-10-12 - Slice 2.1 permanent governance completed
 
-- Created repository-network governance contract and architecture tombstone ledger and linked them from README.
-- Closure: `11940b87838afa0f46570ecdd8f8e00f74b7de5a`.
+Closure `11940b87838afa0f46570ecdd8f8e00f74b7de5a`.
 
 ## 2026-10-12 - Phase 1 completed and architecture frozen
 
-- Audit: `docs/REPOSITORY-NETWORK-AUDIT-2026-10-12.md`.
-- Inventory: `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md`.
-- Architecture: `docs/REPOSITORY-NETWORK-IMPLEMENTATION-ARCHITECTURE-2026-10-12.md`.
-- Closure: `acabfba8031421438747fed69bcbc65ba844787e`.
+Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 ---
 
@@ -351,7 +370,7 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 **Phase progress:** 0/3  
 **Until Phase 4:** 3 slices  
 **Current slice:** Slice 3.1 - Scoped/full repository refresh and generated ledger (`IN PROGRESS`)  
-**Tasks:** 1/5  
-**Current task:** 3.1.2 - Extend the single refresh engine with live scoped/full exact-evidence collection  
+**Tasks:** 4/5  
+**Current task:** 3.1.5 - atomically publish refreshed State + generated ledger and run final exact-head CI  
 **Next:** complete 3.1 before starting 3.2  
-**Blockers/drift/amendments:** descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag WARNING; Core maintainer handoff WARNING; Distribution hard-coded adapter compatibility knowledge WARNING; compact release receipt INFO/future work; watchdog WARNING/STALE until Slice 3.2; U35/U36 RESOLVED/PASS. No plan amendment required.
+**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING; Purpose Context lag WARNING; Core maintainer handoff WARNING; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog WARNING/STALE until Slice 3.2; U35/U36 RESOLVED/PASS. No plan amendment required.
