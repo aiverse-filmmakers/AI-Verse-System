@@ -94,7 +94,7 @@ Low-level tasks are adaptive and are derived only when the slice starts.
 **Overall:** 2/8 (25.0%)  
 **Current phase:** Phase 1  
 **Phase progress:** 1/2  
-**Next:** Slice 1.2 - Define the System identity and canonical-reference contract
+**Next:** Slice 1.2 - IN PROGRESS
 
 ---
 
@@ -293,9 +293,18 @@ Next execution unit: **Slice 1.2 - Define the System identity and canonical-refe
 
 ## Slice 1.2 - Define the System identity and canonical-reference contract
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-System  
-**Dependencies:** 1.1
+**Dependencies:** 1.1  
+**Starting ref:** `aiverse-filmmakers/AI-Verse-System@a04c58f1e41f0097dccf24353d675af993a06df4`
+
+### Derived task list
+
+- [x] **1.2-T1** Refresh the current System head and verify Slice 1.1 conclusions and the Identity plan remain authoritative despite concurrent System governance work.
+- [ ] **1.2-T2** Define one concise normative System identity contract preserving owner authority, owner-specific ID formats, current Workspace storage semantics and current qualified Skill/provider semantics.
+- [ ] **1.2-T3** Add the minimal versioned JSON Schema for the common durable-reference envelope: required `owner`, `kind`, `id`; optional `scope`; no owner-state registry or lookup database.
+- [ ] **1.2-T4** Add contract examples and focused validation tests covering Workspace, Skill/capability, Brain object, Automation, Bot, Connection, Data record and Memory record references, including invalid ambiguity/extra-shape cases.
+- [ ] **1.2-T5** Record exact implementation/test evidence, close acceptance criteria and stop before Slice 2.1.
 
 ### Outcome
 
