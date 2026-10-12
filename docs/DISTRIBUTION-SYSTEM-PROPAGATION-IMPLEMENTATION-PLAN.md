@@ -20,7 +20,7 @@
 
 ## Tracker history preservation
 
-Phase 0/1 detail is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Slice 2.1 closure is `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 start/closure are `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 start/closure/final State snapshot are `8cb5fbff630f45f730db904771333d73d5616a57`, `fc0d178809867362dc29183411f26b9f65980903` and `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Slice 3.1 start/final State snapshot/final CI are `dbe13e49d84176131e0447785a4748951a17ad8e`, `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2` and run `38279213073`. Slice 3.2 closure bookkeeping/final heartbeat/final CI are `0ace417725831e0ba3843fdc77a27d578b3b3010`, `dc6cfca7498d086583f592a08422c2a088d9545a` and run `38281646978`. Slice 4.1 implementation merge/closure/final State are `bb17104a7c7e0e1ac3e716bee982dbffe3bc9bb3`, `c4bd8c5fe2c81428d7ea714f3a37be595b26ba75` and `563659432d8609f908b44fae676f10496d47ec96`; final CI is run `38286714138`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
+Phase 0/1 detail is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Slice 2.1 closure is `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 start/closure are `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 start/closure/final State snapshot are `8cb5fbff630f45f730db904771333d73d5616a57`, `fc0d178809867362dc29183411f26b9f65980903` and `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Slice 3.1 start/final State snapshot/final CI are `dbe13e49d84176131e0447785a4748951a17ad8e`, `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2` and run `38279213073`. Slice 3.2 closure bookkeeping/final heartbeat/final CI are `0ace417725831e0ba3843fdc77a27d578b3b3010`, `dc6cfca7498d086583f592a08422c2a088d9545a` and run `38281646978`. Slice 4.1 implementation merge/closure/final State are `bb17104a7c7e0e1ac3e716bee982dbffe3bc9bb3`, `c4bd8c5fe2c81428d7ea714f3a37be595b26ba75` and `563659432d8609f908b44fae676f10496d47ec96`; final CI is run `38286714138`. Slice 4.2 T2 owner-adoption contract merge is `7bf5e77988a866ec3c8d900c18a5bf101756a578`; exact Contract Validation run `38288410208` passed. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
 
 ---
 
@@ -77,11 +77,36 @@ No second updater, compatibility fingerprint, whole-release acceptance database,
 
 ---
 
-# 1. Required execution bookkeeping
+# 1. Required execution bookkeeping and one-task run loop
 
-Before every substantial slice: read latest plan/skill, refresh relevant live state, inspect existing implementation/contracts, classify `REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN`, derive the smallest evidence-backed tasks, update this tracker to `IN PROGRESS` before implementation, and verify no protected roadmap element changed.
+The roadmap may plan an entire slice, but normal execution is intentionally limited to one task per run.
 
-Before `COMPLETE`: close or supersede every task with evidence, record exact commits/tests/reports/final refs/drift/amendments, update counters and commit this tracker.
+## Slice-start planning
+
+When a new slice begins, perform only the bounded discovery needed to establish the live boundary, classify `REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN`, and derive or confirm the smallest evidence-backed task list for that slice. This planning may identify later tasks, dependencies and acceptance criteria so the route is coherent, but it must not execute, pre-validate, modify repositories for, or mark complete any later task.
+
+Once the slice task list is recorded, execution always resumes from the first unchecked task named by the **Current execution pointer**.
+
+## One-task execution law
+
+For every normal execution run:
+
+1. Start from the **Current execution pointer** and execute exactly the one task named there.
+2. Read only the permanent laws, current slice/task, and files/repos/evidence required to satisfy that task. Do not reread or re-audit the whole roadmap/network unless the active task explicitly requires it.
+3. Thinking ahead is allowed only to understand dependencies and to identify what the next task will be. Do not implement, test, refresh, or otherwise pre-work the next task.
+4. Do not perform a full-network refresh, final State/ledger publication, later acceptance gate, or later-slice work early unless the active task's own acceptance criteria explicitly require it.
+5. Previously completed tasks and slices are accepted evidence. Do not revalidate them unless fresh evidence directly contradicts their accepted result. Unrelated movement on `AI-Verse-System/main` or another repository does not by itself invalidate completed propagation work.
+6. A task is complete only when that task's own acceptance criteria and required evidence pass. Immediately in the same run, update this roadmap to:
+   - mark that task complete;
+   - update the slice-local task count;
+   - record the exact commits, tests, runs, refs or reports that prove it;
+   - record any material drift/blocker disposition;
+   - set the **Current execution pointer** to exactly one next task.
+7. Commit the implementation/evidence and roadmap bookkeeping needed for the completed task, then **STOP**. Do not begin the next task in the same run, even if it looks small or closely related.
+8. If the task is blocked, record the blocker, evidence gathered, and exact resume point in this roadmap, keep the same task as the pointer, and **STOP**. Do not guess forward.
+9. The tracker must never intentionally lag landed implementation. If a later run discovers that implementation for the current task already landed and is proven by exact evidence, the run must reconcile only that task's bookkeeping, advance the pointer once, and **STOP**.
+
+For the final task of a slice, that task may perform the slice's required closure State/ledger/counter work when its acceptance criteria require it. After proving closure, mark the slice complete, point to the first task of the next slice, and **STOP**.
 
 Overall progress = completed slices / 20. Task count is local only.
 
@@ -264,7 +289,7 @@ No sibling repository, Distribution release history, member payload, runtime beh
 
 **Status:** IN PROGRESS  
 **Dependencies:** 4.1  
-**Adaptive tasks:** 1/5 complete
+**Adaptive tasks:** 2/5 complete
 
 Add minimal source-only owner handoff semantics in OS, Brain, Memory, Skills and Data. Acceptance remains unchanged: discoverable handoff, exact candidate acceptance where technically possible, no copied global governance docs, and local CI cannot claim member release alone.
 
@@ -300,10 +325,18 @@ For an `accepted` descriptor, the owner-local `Release Descriptor` gate will val
 ### Derived task list
 
 - [x] **4.2-T1** Refresh exact live owner/System refs; audit all five current descriptors, descriptor workflows, native CI and maintainer docs; prove successful native checks already exist on each exact released Core pin; classify reuse/create/prohibited boundaries.
-- [ ] **4.2-T2** Define and document the one minimal owner-local acceptance/handoff pattern: canonical descriptor + existing descriptor workflow + successful exact-revision native CI binding + explicit non-member-release semantics.
+- [x] **4.2-T2** Define and document the one minimal owner-local acceptance/handoff pattern: canonical descriptor + existing descriptor workflow + successful exact-revision native CI binding + explicit non-member-release semantics.
 - [ ] **4.2-T3** Implement the pattern in OS, Brain, Memory, Skills and Data, preserving each repo's native CI and publishing canonical accepted descriptors for the exact current pins only where the evidence gate passes.
 - [ ] **4.2-T4** Prove each owner PR/push gate, exact revision/native-CI binding, canonical breaking-change semantics, handoff discoverability and the invariant that owner CI cannot claim Distribution/member release.
 - [ ] **4.2-T5** Refresh scoped Core Repository State/ledger from the exact resulting owner refs, resolve only owner-acceptance/handoff drift actually proven closed, record exact evidence and close Slice 4.2 before advancing to 4.3.
+
+### T2 evidence
+
+- Contract implementation commit: `6ded59b7f5ed8f908e53f00969d84c230c72f3ad`.
+- Merge on System lineage: `7bf5e77988a866ec3c8d900c18a5bf101756a578` (`Merge Slice 4.2 exact owner adoption contract`).
+- Exact Contract Validation run: `38288410208`, `head_sha=7bf5e77988a866ec3c8d900c18a5bf101756a578`, completed successfully.
+- Canonical contract now requires one owner-local gate using the existing Component Release Descriptor, exact immutable descriptor revision, successful exact-revision native CI, fail-closed evidence handling and explicit non-Distribution/non-member-release semantics.
+- No Core owner repository was modified by T2 and T3 remains the first owner-repository implementation task.
 
 No protected roadmap element changed. No plan amendment is required.
 
@@ -378,6 +411,16 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-12 - One-task execution law added and Slice 4.2 T2 reconciled
+
+- Made this canonical roadmap itself the sole execution authority for normal propagation runs.
+- Slice-start adaptive planning may derive the task sequence and understand what comes next, but it may not execute or pre-validate later tasks.
+- Every normal run now executes exactly the task named by the Current execution pointer, immediately records what passed and its exact evidence, updates the pointer to one next task, commits bookkeeping, and stops.
+- Full-network refreshes, later-task acceptance work and re-audits of completed work are prohibited unless the active task explicitly requires them or fresh evidence directly contradicts an accepted result.
+- Reconciled already-landed 4.2-T2 evidence: merge `7bf5e77988a866ec3c8d900c18a5bf101756a578`, Contract Validation run `38288410208` successful on that exact head.
+- Slice 4.2 is therefore 2/5 complete. The next and only execution task is 4.2-T3.
+- Overall program progress remains 11/20, 55.0%, because Slice 4.2 itself is not complete.
 
 ## 2026-10-12 - Slice 4.2 started
 
@@ -454,6 +497,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 4 - Integrate canonical component owners  
 **Phase progress:** 1/3  
 **Until Phase 5:** 2 slices  
-**Current slice:** Slice 4.2 - Wave 1/Core maintainer handoff (`IN PROGRESS`, 1/5 tasks complete)  
-**Next:** 4.2-T2 - define/document the minimal owner-local exact-revision acceptance and handoff pattern  
+**Current slice:** Slice 4.2 - Wave 1/Core maintainer handoff (`IN PROGRESS`, 2/5 tasks complete)  
+**Next:** 4.2-T3 - implement the proven owner-local acceptance/handoff pattern in OS, Brain, Memory, Skills and Data, and do not begin T4 in the same run  
 **Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING remains open until all five owners pass 4.2 adoption; Core maintainer handoff WARNING remains open; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
