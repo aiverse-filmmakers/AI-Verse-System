@@ -1,0 +1,189 @@
+{
+  "schema_version": "ai-verse.component-release/v1",
+  "component_id": "ai-verse-example",
+  "version": "0.2.0-beta.1",
+  "revision": "0123456789abcdef0123456789abcdef01234567",
+  "release_status": "candidate",
+  "package": {
+    "repository": "aiverse-filmmakers/AI-Verse-Example",
+    "source_type": "git",
+    "package_name": null,
+    "integrity": null
+  },
+  "supported_platforms": ["linux", "macos", "windows"],
+  "runtime_requirements": {
+    "python": ">=3.11",
+    "node": null,
+    "other": []
+  },
+  "lifecycle": {
+    "install": true,
+    "setup": true,
+    "status": true,
+    "doctor": true,
+    "enable": true,
+    "disable": true,
+    "update": true,
+    "uninstall": true
+  },
+  "state": {
+    "canonical_state_owned": true,
+    "preserve_on_update": true,
+    "preserve_on_uninstall": true,
+    "preserve_unknown_user_files": true,
+    "state_format": "example-v2"
+  },
+  "migration": {
+    "compatibility": "compatible",
+    "from_versions": ["0.1.0-beta.0", "0.1.0-beta.1"],
+    "requires_explicit_migration": false,
+    "owner_controlled": true,
+    "checkpoint_policy": "owner-evidence-required",
+    "infrastructure": {
+      "contract_version": "ai-verse.infrastructure-upgrade/v1",
+      "owner": "ai-verse-example",
+      "current_generation": "example-layout/v3",
+      "no_match_disposition": "BLOCKED/REVIEW",
+      "recipes": [
+        {
+          "recipe_id": "example-layout-v0-to-v3",
+          "recipe_version": "1",
+          "from_generations": ["example-layout/v0"],
+          "to_generation": "example-layout/v3",
+          "target_binding": {
+            "component_revision": "0123456789abcdef0123456789abcdef01234567"
+          },
+          "disposition": "OPTIONAL",
+          "detect_operation": "infrastructure.detect.example-layout",
+          "preconditions": ["example-layout/source-supported"],
+          "apply_operation": "infrastructure.apply.example-layout-v3",
+          "verify_operation": "infrastructure.verify.example-layout-v3",
+          "identity_contract": "ai-verse.durable-identity-reference/v1",
+          "identity_evidence_ref": "example.identity.layout-preservation/v1",
+          "reference_repair": {
+            "required": false,
+            "operations": []
+          },
+          "postconditions": ["example-layout/target-valid"],
+          "recovery": {
+            "whole_install_lkg_required": true,
+            "owner_checkpoint_required": false
+          },
+          "idempotent": true,
+          "idempotency_evidence_kind": "infrastructure-upgrade-idempotency",
+          "path_mode": "direct",
+          "legacy_retirement": "not-applicable",
+          "member_summary": "Improve this setup to the current project structure."
+        },
+        {
+          "recipe_id": "example-layout-v1-to-v2",
+          "recipe_version": "1",
+          "from_generations": ["example-layout/v1"],
+          "to_generation": "example-layout/v2",
+          "target_binding": {
+            "component_revision": "0123456789abcdef0123456789abcdef01234567"
+          },
+          "disposition": "REQUIRED",
+          "detect_operation": "infrastructure.detect.example-layout",
+          "preconditions": ["example-layout/source-supported"],
+          "apply_operation": "infrastructure.apply.example-layout-v2",
+          "verify_operation": "infrastructure.verify.example-layout-v2",
+          "identity_contract": "ai-verse.durable-identity-reference/v1",
+          "identity_evidence_ref": "example.identity.layout-preservation/v1",
+          "reference_repair": {
+            "required": true,
+            "operations": [
+              {
+                "owner": "ai-verse-example",
+                "operation": "references.repair.example-layout-v2"
+              }
+            ]
+          },
+          "postconditions": ["example-layout/v2-valid", "example-layout/references-valid"],
+          "recovery": {
+            "whole_install_lkg_required": true,
+            "owner_checkpoint_required": true
+          },
+          "idempotent": true,
+          "idempotency_evidence_kind": "infrastructure-upgrade-idempotency",
+          "path_mode": "chain-step",
+          "legacy_retirement": "after-postconditions",
+          "member_summary": "Prepare this setup for the current project structure."
+        },
+        {
+          "recipe_id": "example-layout-v2-to-v3",
+          "recipe_version": "1",
+          "from_generations": ["example-layout/v2"],
+          "to_generation": "example-layout/v3",
+          "target_binding": {
+            "component_revision": "0123456789abcdef0123456789abcdef01234567"
+          },
+          "disposition": "REQUIRED",
+          "detect_operation": "infrastructure.detect.example-layout",
+          "preconditions": ["example-layout/v2-valid"],
+          "apply_operation": "infrastructure.apply.example-layout-v3",
+          "verify_operation": "infrastructure.verify.example-layout-v3",
+          "identity_contract": "ai-verse.durable-identity-reference/v1",
+          "identity_evidence_ref": "example.identity.layout-preservation/v1",
+          "reference_repair": {
+            "required": true,
+            "operations": [
+              {
+                "owner": "ai-verse-example",
+                "operation": "references.repair.example-layout-v3"
+              }
+            ]
+          },
+          "postconditions": ["example-layout/target-valid", "example-layout/references-valid"],
+          "recovery": {
+            "whole_install_lkg_required": true,
+            "owner_checkpoint_required": true
+          },
+          "idempotent": true,
+          "idempotency_evidence_kind": "infrastructure-upgrade-idempotency",
+          "path_mode": "chain-step",
+          "legacy_retirement": "after-postconditions",
+          "member_summary": "Finish upgrading this setup to the current project structure."
+        }
+      ]
+    }
+  },
+  "authority": {
+    "grants_permissions": false,
+    "changes_direction_owner": false,
+    "changes_scope": false,
+    "enables_disabled_component": false,
+    "exposes_remote_listener": false
+  },
+  "evidence": {
+    "ci": [
+      {
+        "kind": "component-ci",
+        "status": "pass",
+        "revision": "0123456789abcdef0123456789abcdef01234567",
+        "run_id": "2234",
+        "url": "https://example.invalid/ci/2234"
+      }
+    ],
+    "acceptance": [
+      {
+        "kind": "component-release-acceptance",
+        "status": "pass",
+        "revision": "0123456789abcdef0123456789abcdef01234567",
+        "run_id": "2235",
+        "url": "https://example.invalid/acceptance/2235"
+      },
+      {
+        "kind": "infrastructure-upgrade-idempotency",
+        "status": "pass",
+        "revision": "0123456789abcdef0123456789abcdef01234567",
+        "run_id": "2236",
+        "url": "https://example.invalid/acceptance/2236"
+      }
+    ]
+  },
+  "semantics": {
+    "release_metadata_only": true,
+    "live_health_truth": false
+  }
+}
