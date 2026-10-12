@@ -32,5 +32,8 @@ jobs:
       - name: Validate whole-release preservation example
         run: python scripts/validate_release_preservation_result.py contracts/examples/release-preservation-result.valid.json
 
+      - name: Validate repository registry
+        run: python scripts/validate_repository_registry.py governance/repository-registry.json
+
       - name: Run contract tests
         run: python -m unittest discover -s tests -p "test_*.py"
