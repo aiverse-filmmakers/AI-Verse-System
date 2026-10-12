@@ -63,7 +63,9 @@
       "canonical_responsibility": "Canonical AI-Verse operating-system and host/workspace integration layer, including system runtime coordination, workspace configuration, lifecycle-facing host behavior, and OS-owned durable configuration semantics.",
       "lifecycle": "active",
       "rollout_wave": 1,
-      "release_profiles": ["Core"],
+      "release_profiles": [
+        "Core"
+      ],
       "distribution_ships": true,
       "component_release_descriptor_path": "release/component-release.json",
       "owner_acceptance": {
@@ -87,7 +89,9 @@
       "canonical_responsibility": "Canonical strategic direction and goal-oriented reasoning owner for Brain-owned goals, desired states, practices, beliefs, verification state, direction handover state, and related strategic records.",
       "lifecycle": "active",
       "rollout_wave": 1,
-      "release_profiles": ["Core"],
+      "release_profiles": [
+        "Core"
+      ],
       "distribution_ships": true,
       "component_release_descriptor_path": "release/component-release.json",
       "owner_acceptance": {
@@ -111,7 +115,9 @@
       "canonical_responsibility": "Canonical durable memory owner for historical memory content, memory records, provenance, supersession, recall metadata, migration provenance, and Memory-owned persistence semantics.",
       "lifecycle": "active",
       "rollout_wave": 1,
-      "release_profiles": ["Core"],
+      "release_profiles": [
+        "Core"
+      ],
       "distribution_ships": true,
       "component_release_descriptor_path": "release/component-release.json",
       "owner_acceptance": {
@@ -135,7 +141,9 @@
       "canonical_responsibility": "Canonical reusable Skills owner for immutable skill generations, active-generation selection, recoverable history, learning/proposal state, package provenance, and Skills-owned execution/package semantics.",
       "lifecycle": "active",
       "rollout_wave": 1,
-      "release_profiles": ["Core"],
+      "release_profiles": [
+        "Core"
+      ],
       "distribution_ships": true,
       "component_release_descriptor_path": "release/component-release.json",
       "owner_acceptance": {
@@ -159,7 +167,9 @@
       "canonical_responsibility": "Canonical structured operational data owner for Data databases, Data Spaces, schemas, records, relations, transactions, structured provenance, idempotency state, and Data-owned migration semantics.",
       "lifecycle": "active",
       "rollout_wave": 1,
-      "release_profiles": ["Core"],
+      "release_profiles": [
+        "Core"
+      ],
       "distribution_ships": true,
       "component_release_descriptor_path": "release/component-release.json",
       "owner_acceptance": {
@@ -175,6 +185,171 @@
         "components/ai-verse-data/SOURCE-MAP.md"
       ],
       "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1368762130,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Gateway",
+      "component_id": "ai-verse-gateway",
+      "canonical_responsibility": "Canonical bounded agent/runtime gateway for session execution, transport, continuation, request routing, orchestration-facing runtime bridges, and permission-respecting execution coordination without owning sibling domain truth.",
+      "lifecycle": "active",
+      "rollout_wave": 2,
+      "release_profiles": [
+        "Agent"
+      ],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1368762786,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Automations",
+      "component_id": "ai-verse-automations",
+      "canonical_responsibility": "Canonical cadence runtime for schedules, triggers, occurrence identity, retry and recovery, bounded wake delivery, and Automations-owned durable scheduling state without absorbing target-owner authority.",
+      "lifecycle": "active",
+      "rollout_wave": 2,
+      "release_profiles": [
+        "Agent"
+      ],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1362278774,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Multiple-Bots",
+      "component_id": "ai-verse-multiple-bots",
+      "canonical_responsibility": "Canonical multi-agent coordination owner for durable Bots, temporary Workers, Tasks, Rooms, Threads, Team Runs, handoffs, leases, coordination events, approvals, budgets, cancellation, and recovery state.",
+      "lifecycle": "active",
+      "rollout_wave": 2,
+      "release_profiles": [
+        "Agent"
+      ],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1368748835,
+      "repository_full_name": "aiverse-filmmakers/ai-verse-token",
+      "component_id": "ai-verse-token",
+      "canonical_responsibility": "Canonical usage and cost evidence owner for normalized telemetry observations, immutable usage ledger evidence, pricing evidence, deduplication identity, cost classification, and Token-specific efficiency and budget analysis.",
+      "lifecycle": "active",
+      "rollout_wave": 2,
+      "release_profiles": [
+        "Agent"
+      ],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1364458279,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Connections",
+      "component_id": "ai-verse-connections",
+      "canonical_responsibility": "Canonical external capability boundary for connection identity and registration, bounded connection capabilities, provider adapter contracts, lifecycle and verification state, trusted provider execution, and connection receipts.",
+      "lifecycle": "active",
+      "rollout_wave": 3,
+      "release_profiles": [
+        "Full"
+      ],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1362252045,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Dashboard",
+      "component_id": "ai-verse-dashboard",
+      "canonical_responsibility": "Canonical visual control-room client for projections, operator interaction, presentation preferences, ephemeral UI/session state, and commands routed to canonical owners without becoming a hidden domain database.",
+      "lifecycle": "active",
+      "rollout_wave": 3,
+      "release_profiles": [
+        "Full"
+      ],
+      "distribution_ships": true,
+      "component_release_descriptor_path": "release/component-release.json",
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          ".github/workflows",
+          "release/component-release.json"
+        ]
+      },
+      "system_refs": [
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "runtime-component"
+    },
+    {
+      "repository_id": 1364456634,
+      "repository_full_name": "aiverse-filmmakers/AI-Verse-Apps",
+      "component_id": "ai-verse-apps",
+      "canonical_responsibility": "Intended governed application extension layer for app packages, app manifests, versioned app contracts, app-local lifecycle metadata, and app runtime or sandbox state without owning sibling business truth.",
+      "lifecycle": "experimental",
+      "rollout_wave": 3,
+      "release_profiles": [],
+      "distribution_ships": false,
+      "component_release_descriptor_path": null,
+      "owner_acceptance": {
+        "kind": "component-native",
+        "discovery_paths": [
+          "README.md"
+        ]
+      },
+      "system_refs": [
+        "docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "surface_classification": "governance"
     }
   ],
   "semantics": {
