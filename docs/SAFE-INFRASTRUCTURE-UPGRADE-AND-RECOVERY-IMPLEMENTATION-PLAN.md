@@ -14,7 +14,7 @@
 **Current phase progress:** 0/3  
 **Slices until Phase 2:** 3  
 **Next:** Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms  
-**Next slice task list:** NOT YET DERIVED - derive from live evidence at slice start
+**Next slice task list:** RECORDED - 0/7 complete; execute the evidence-backed Slice 1.1 audit only
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Discovery may adapt the route; it may not silently change the destination.
 
@@ -580,9 +580,30 @@ Slice 1.1.
 
 ## Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Dependencies:** 0.1  
-**Adaptive tasks:** derive from live evidence at slice start
+**Adaptive tasks:** RECORDED from live evidence before implementation
+
+### Starting refs
+
+Captured at Slice 1.1 audit start on 2026-10-12:
+
+- `aiverse-filmmakers/AI-Verse-System@27e6baa27843933a475315831cab156e4c5b5e63`
+- `aiverse-filmmakers/ai-verse-distribution@e086453c1a56aa2f235dd569c18482b10ac42cc9`
+- `aiverse-filmmakers/AI-Verse-OS@2fc63d8da8ceeaa980d140c024bbde66e8bb2a0f`
+- `aiverse-filmmakers/AI-Verse-Skills@1cb812b156ac38feacb8dcbea1b2cee2257b8e19`
+
+### Derived task list
+
+Recorded before any Slice 1.1 implementation change. This slice is audit-only.
+
+- [ ] **1.1-T1** Freeze starting refs and identify active overlapping plans/PRs/commits that could affect audited or governance surfaces.
+- [ ] **1.1-T2** Audit Distribution updater/CLI lifecycle, release-set staging/activation, package/owned-path metadata, status/doctor, journal/checkpoint/rollback/recovery behavior, and its existing tests.
+- [ ] **1.1-T3** Audit natural-language/runtime routing into the canonical Distribution lifecycle across supported adapter surfaces and tests.
+- [ ] **1.1-T4** Audit OS workspace identity/layout/creation, migration handlers, generated/member-facing projections, health/check surfaces, preservation boundaries, and existing tests.
+- [ ] **1.1-T5** Audit Skills storage/identity/provenance/scope, migration machinery, health/check surfaces, preservation boundaries, and existing tests.
+- [ ] **1.1-T6** Reproduce or evidence-classify the motivating workspace/Skill failure patterns, current restore/doctor gaps and preservation-critical user data surfaces, then run the targeted existing tests/read-only probes needed to prove current behavior.
+- [ ] **1.1-T7** Record the final evidence matrix, REUSE/EXTEND/CREATE/RETIRE/BLOCK classifications, exact refs/tests, impacts and Slice 1.1 acceptance closure in this canonical plan.
 
 Audit at minimum:
 
@@ -1223,6 +1244,12 @@ None. Program complete.
 - Added cross-runtime lifecycle convergence requirements so Claude Code, Codex-compatible, Gateway-hosted and other supported runtimes route the same natural-language lifecycle intent to the same canonical commands.
 - Strengthened Phase 5 with user-flow, doctor aggregation, restore preview/apply, runtime convergence and non-technical UX acceptance.
 
+## 2026-10-12 - Slice 1.1 task list recorded before implementation
+
+- Captured starting refs for System, Distribution, OS and Skills.
+- Recorded the seven evidence-backed audit tasks required by Slice 1.1 acceptance criteria.
+- Kept Slice 1.1 audit-only. No product/runtime implementation change was made before this record.
+
 ---
 
 # Current execution pointer
@@ -1233,5 +1260,5 @@ None. Program complete.
 **Phase progress:** 0/3  
 **Until Phase 2:** 3 slices  
 **Next:** Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms  
-**Next task:** not yet derived; generate from live Slice 1.1 evidence at slice start  
+**Next task:** 1.1-T1 - freeze starting refs and overlapping work, then continue the recorded audit  
 **Blockers/drift/amendments:** canonical Safe Update backup law requires explicit amendment in Phase 2; shipped Core Update v1 command semantics are now explicitly preserved by this plan.
