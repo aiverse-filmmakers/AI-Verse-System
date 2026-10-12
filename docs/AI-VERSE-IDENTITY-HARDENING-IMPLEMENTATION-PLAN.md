@@ -93,7 +93,7 @@ Low-level tasks are adaptive and are derived only when the slice starts.
 **Completed slices:** 1  
 **Overall:** 1/8 (12.5%)  
 **Current phase:** Phase 1  
-**Next:** Slice 1.1 - Refresh the cross-Core identity map
+**Next:** Slice 1.1 - IN PROGRESS
 
 ---
 
@@ -134,9 +134,39 @@ A persistent adaptive implementation plan exists before any identity implementat
 
 ## Slice 1.1 - Refresh the cross-Core identity map
 
-**Status:** NOT STARTED  
+**Status:** IN PROGRESS  
 **Repos:** AI-Verse-System plus identity-relevant Core owner repos  
 **Dependencies:** 0.1
+
+### Starting refs
+
+Refs refreshed before Identity Slice 1.1 implementation/audit work:
+
+- `aiverse-filmmakers/AI-Verse-System@423e04917a9f1a9b4f012fa9daf4366fc8135e8c`
+- `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- `aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- `aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- `aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3`
+- `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- `aiverse-filmmakers/AI-Verse-Automations@287ce9d6718ef06e4589a2a3e767c6a9ba376755`
+- `aiverse-filmmakers/AI-Verse-Multiple-Bots@ddf70ac19736f6ca7f8d604901c20af9e46614fe`
+- `aiverse-filmmakers/AI-Verse-Connections@602a1c52ab782cc9a8b7a4caa60ccb29efe403d1`
+- `aiverse-filmmakers/AI-Verse-Apps@db5b0115bf59d6eae9149137a40e891968f3a637`
+- `aiverse-filmmakers/AI-Verse-Gateway@1772b75e2add73a524715f746e87b3a6b5561bf6`
+- `aiverse-filmmakers/AI-Verse-Dashboard@bd26986e202d4b911d0c5f64659db71363bfccfa`
+- `aiverse-filmmakers/ai-verse-token@d36916323abb5f396bd8fd6b7f5c3ef84af519d0`
+- `aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8`
+
+OS, Brain, Memory, Data, Skills and Distribution still match the exact refs used by Safe Infrastructure Phase 1, so its completed identity findings are reused rather than re-audited.
+
+### Derived task list
+
+- [x] **1.1-T1** Refresh all in-scope repository heads and verify which Safe Infrastructure Phase 1 evidence remains exact-current.
+- [ ] **1.1-T2** Reuse Safe Infrastructure Slice 1.2/1.3 evidence to confirm Workspace, Skill/provider and Distribution identity conclusions without duplicating those audits.
+- [ ] **1.1-T3** Inspect only identity-relevant surfaces in Automations, Multiple Bots, Connections, Apps, Gateway, Dashboard and Token that Safe Infrastructure did not cover.
+- [ ] **1.1-T4** Refresh current System identity/spec/reference surfaces and identify any duplicate or competing identity mechanisms.
+- [ ] **1.1-T5** Produce the final cross-Core identity matrix with canonical owner and `REUSE` / `EXTEND` / `CREATE` / `RETIRE` / `BLOCK/UNKNOWN` classification for every relevant durable identity surface.
+- [ ] **1.1-T6** Record exact evidence, acceptance closure, remaining gaps and the minimal handoff to Slice 1.2. No component implementation changes are permitted in this slice.
 
 ### Outcome
 
