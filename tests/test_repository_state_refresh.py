@@ -149,8 +149,13 @@ class RepositoryStateRefreshTests(unittest.TestCase):
             registry_blob_sha=self.state["registry_binding"]["blob_sha"],
         )
 
-    def test_current_core_scope_is_exact_wave_one_control_plane_plus_core(self):
-        expected = [item["repository_id"] for item in self.registry["repositories"]]
+    def test_current_core_scope_is_exact_control_plane_plus_core(self):
+        expected = [
+            item["repository_id"]
+            for item in self.registry["repositories"]
+            if item["component_id"] in {"ai-verse-system", "ai-verse-distribution"}
+            or (item["lifecycle"] == "active" and "Core" in item["release_profiles"])
+        ]
         self.assertEqual(state_refresh.resolve_scope(self.registry, "Core"), expected)
 
     def test_component_scope_adds_controls_and_declared_dependency_closure(self):
@@ -170,52 +175,41 @@ class RepositoryStateRefreshTests(unittest.TestCase):
         )
 
     def test_agent_full_and_global_scopes_are_registry_derived(self):
-        registry = copy.deepcopy(self.registry)
-        registry["repositories"].append(
-            {
-                "repository_id": 9000000001,
-                "repository_full_name": "aiverse-filmmakers/AI-Verse-Agent-Test",
-                "component_id": "ai-verse-agent-test",
-                "canonical_responsibility": "test",
-                "lifecycle": "active",
-                "rollout_wave": 2,
-                "release_profiles": ["Agent"],
-                "distribution_ships": True,
-                "component_release_descriptor_path": "release/component-release.json",
-                "owner_acceptance": {"kind": "component-native", "discovery_paths": ["release/component-release.json"]},
-                "system_refs": ["components/test/COMPONENT-SPEC.md"],
-                "surface_classification": "runtime-component",
-            }
+        by_component = {item["component_id"]: item["repository_id"] for item in self.registry["repositories"]}
+        core_components = [
+            "ai-verse-system",
+            "ai-verse-distribution",
+            "ai-verse-os",
+            "ai-verse-brain",
+            "ai-verse-memory",
+            "ai-verse-skills",
+            "ai-verse-data",
+        ]
+        agent_components = core_components + [
+            "ai-verse-gateway",
+            "ai-verse-automations",
+            "ai-verse-multiple-bots",
+            "ai-verse-token",
+        ]
+        full_components = agent_components + [
+            "ai-verse-connections",
+            "ai-verse-dashboard",
+        ]
+        global_components = full_components + ["ai-verse-apps"]
+
+        self.assertEqual(
+            state_refresh.resolve_scope(self.registry, "Agent"),
+            [by_component[component] for component in agent_components],
         )
-        registry["repositories"].append(
-            {
-                "repository_id": 9000000002,
-                "repository_full_name": "aiverse-filmmakers/AI-Verse-External-Test",
-                "component_id": "ai-verse-external-test",
-                "canonical_responsibility": "test",
-                "lifecycle": "experimental",
-                "rollout_wave": 3,
-                "release_profiles": [],
-                "distribution_ships": False,
-                "component_release_descriptor_path": None,
-                "owner_acceptance": {"kind": "system-governance", "discovery_paths": ["README.md"]},
-                "system_refs": ["README.md"],
-                "surface_classification": "governance",
-            }
+        self.assertEqual(
+            state_refresh.resolve_scope(self.registry, "Full"),
+            [by_component[component] for component in full_components],
         )
-        agent_ids = state_refresh.resolve_scope(registry, "Agent")
-        full_ids = state_refresh.resolve_scope(registry, "Full")
-        global_ids = state_refresh.resolve_scope(registry, "global")
-        agent_id = 9000000001
-        external_id = 9000000002
-        core_ids = set(state_refresh.resolve_scope(self.registry, "Core"))
-        self.assertTrue(core_ids.issubset(set(agent_ids)))
-        self.assertIn(agent_id, agent_ids)
-        self.assertNotIn(external_id, agent_ids)
-        self.assertIn(agent_id, full_ids)
-        self.assertNotIn(external_id, full_ids)
-        self.assertIn(agent_id, global_ids)
-        self.assertIn(external_id, global_ids)
+        self.assertEqual(
+            state_refresh.resolve_scope(self.registry, "global"),
+            [by_component[component] for component in global_components],
+        )
+        self.assertNotIn(by_component["ai-verse-apps"], state_refresh.resolve_scope(self.registry, "Full"))
 
     def test_live_core_refresh_uses_exact_heads_descriptors_and_default_release_pins(self):
         client = FakeClient(self.registry, evidence_revision=self.evidence_revision)
