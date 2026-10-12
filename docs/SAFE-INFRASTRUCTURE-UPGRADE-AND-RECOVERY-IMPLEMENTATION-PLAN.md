@@ -1,20 +1,20 @@
 # AI-Verse Safe Infrastructure Upgrade, Convergence and Recovery Implementation Plan
 
-**Status:** PAUSED - PHASE 1 COMPLETE; IDENTITY HARDENING REQUIRED BEFORE PHASE 2  
+**Status:** IN PROGRESS - PHASE 2  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary orchestration repo:** `aiverse-filmmakers/ai-verse-distribution`  
 **Initial owner repos:** `aiverse-filmmakers/AI-Verse-OS`, `aiverse-filmmakers/AI-Verse-Skills`  
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 4  
-**Remaining:** 14  
-**Overall progress:** 22.2%  
-**Current phase:** Phase 1 - COMPLETE  
-**Current phase progress:** 3/3  
-**Slices until Phase 2:** 0, but Phase 2 is gated by Identity Hardening Phase 1  
-**Next:** Run `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` Slice 1.1 and Slice 1.2, then return to Safe Infrastructure Phase 2  
-**Next slice task list:** STOP - do not derive Safe Infrastructure Phase 2 tasks until the Identity Hardening shared identity contract is complete
+**Completed:** 5  
+**Remaining:** 13  
+**Overall progress:** 27.8%  
+**Current phase:** Phase 2 - Define canonical convergence, migration and recovery contracts  
+**Current phase progress:** 1/3  
+**Slices until Phase 3:** 2  
+**Next:** Slice 2.2 - Define versioned infrastructure generation and upgrade-recipe contract  
+**Next slice task list:** STOP - derive only when Slice 2.2 starts
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Verified shipped source, shipped contracts and tests outrank roadmap assumptions. Discovery may adapt the route; it may not silently change the destination.
 
@@ -478,7 +478,7 @@ Phase 1 freezes the intended reconciliation:
 - rotation cannot destroy the sole valid point before a verified successor exists;
 - restore cannot destroy its target before successful verification.
 
-Phase 2 must make this reconciliation canonical in the Safe Update contract.
+Slice 2.1 made this reconciliation canonical by extending Distribution's shipped `docs/CORE-UPDATE-TRANSITION-CONTRACT.md` without replacing the existing updater or owner-native transaction recovery.
 
 ## 3.2 Completed Core Update Program v1 behavior
 
@@ -506,14 +506,13 @@ This program must EXTEND that lifecycle, not regress it. In particular:
 
 `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` remains a separate program.
 
-Safe Infrastructure Phase 1 has now frozen evidence that Identity Hardening must turn into the canonical shared identity/reference contract before Safe Infrastructure Phase 2 begins.
+The required Identity Hardening gate is now **SATISFIED**. Identity Hardening Slice 1.1 and Slice 1.2 are complete, and the canonical shared contract is:
 
-Do not merge the plans. Do not implement Identity Hardening from this roadmap. The required order is:
+- `docs/DURABLE-IDENTITY-AND-CANONICAL-REFERENCE-CONTRACT.md`;
+- contract ID `ai-verse.durable-identity-reference/v1`;
+- Identity Phase 1 closure `aiverse-filmmakers/AI-Verse-System@7587e9e13a6d712b8a8e50f18aca64d349859ff1`.
 
-1. Safe Infrastructure Phase 1 COMPLETE;
-2. Identity Hardening Slice 1.1;
-3. Identity Hardening Slice 1.2;
-4. return to Safe Infrastructure Phase 2 / Slice 2.1.
+Safe Infrastructure consumes that contract without merging the roadmaps or duplicating owner identity semantics.
 
 ---
 
@@ -903,7 +902,7 @@ All supported runtimes converge on the same lifecycle meanings. Default member o
 
 ### Phase 2/3 gates
 
-The following work is explicitly blocked at this Phase 1 pause point:
+The following work was explicitly blocked at the Phase 1 pause point:
 
 - Workspace filesystem relocation implementation;
 - Workspace relocation reference-repair implementation;
@@ -911,7 +910,7 @@ The following work is explicitly blocked at this Phase 1 pause point:
 - any generic identity migration engine;
 - Safe Infrastructure Phase 2 contract implementation.
 
-Before those paths continue, the separate Identity Hardening Phase 1 must refresh current identity reality and define the System-wide identity/reference contract.
+The separate Identity Hardening Phase 1 has now completed and supplied the canonical shared identity/reference contract required to enter Safe Infrastructure Phase 2. The other unsupported capability paths remain blocked unless a later explicit owner/System contract admits them.
 
 ### Acceptance criteria
 
@@ -938,19 +937,13 @@ Blockers/drift/amendments: Two evidence-backed amendments resolved: Skill provid
 
 ### NEXT
 
-**STOP.** Do not begin Safe Infrastructure Phase 2 yet.
-
-Run the separate Identity Hardening roadmap:
-
-1. `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` Slice 1.1;
-2. Identity Hardening Slice 1.2;
-3. then return to Safe Infrastructure Phase 2 / Slice 2.1.
+Phase 1 historical stop completed. Identity Hardening Slice 1.1 and 1.2 subsequently completed, satisfying the gate for Phase 2.
 
 ---
 
 # Phase 1 pause gate: Identity Hardening handoff
 
-Safe Infrastructure Phase 1 is complete. These findings must be reconciled by the separate Identity Hardening Phase 1 before this roadmap continues:
+Safe Infrastructure Phase 1 completed with these required handoff items:
 
 1. canonically define Workspace stable ID versus the current ID-derived storage slot;
 2. define the minimum cross-owner durable-reference envelope without creating a global registry;
@@ -962,48 +955,155 @@ Safe Infrastructure Phase 1 is complete. These findings must be reconciled by th
 8. define fail-closed behavior for duplicate/conflicting identity evidence;
 9. define the identity preservation evidence that update/upgrade/restore qualification may rely on.
 
-Safe Infrastructure must consume the resulting canonical identity contract. It must not pre-empt or duplicate it.
+**Gate result:** SATISFIED by Identity Hardening Slice 1.1 and 1.2. Safe Infrastructure consumes `ai-verse.durable-identity-reference/v1` and does not duplicate it.
 
 ---
 
 # Phase 2 - Define canonical convergence, migration and recovery contracts
 
 **Phase size:** 3 slices  
-**Status:** NOT STARTED  
-**Entry gate:** Slice 1.3 COMPLETE **and** Identity Hardening Slice 1.1 + 1.2 COMPLETE with a canonical System identity/reference contract.
+**Status:** IN PROGRESS  
+**Phase progress:** 1/3  
+**Entry gate:** SATISFIED. Slice 1.3 COMPLETE and Identity Hardening Slice 1.1 + 1.2 COMPLETE with canonical System identity/reference contract `ai-verse.durable-identity-reference/v1`.
 
 ## Slice 2.1 - Amend the Safe Update and State Preservation Contract
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 1.3 plus completed Identity Hardening Phase 1 shared identity contract  
-**Adaptive tasks:** derive only after the entry gate is satisfied
+**Adaptive tasks:** 6/6 COMPLETE
 
-Explicitly reconcile the current owner-backed backup law with the approved one-rotating-Last-Known-Good product guarantee.
+### Starting refs
 
-Also define the separation between:
+- `aiverse-filmmakers/AI-Verse-System@7587e9e13a6d712b8a8e50f18aca64d349859ff1`
+- `aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8`
+- slice-start evidence commit: `aiverse-filmmakers/AI-Verse-System@377c9d18ae9b7da7527e9842b8a877b3a439c723`
 
-- normal one-action software update;
+### Final derived task list
+
+- [x] **2.1-T1** Reconcile completed Identity Phase 1 against Safe Infrastructure Phase 1 and prove the Phase 2 gate is satisfied.
+- [x] **2.1-T2** Extend the existing Distribution Core Update Transition Contract to distinguish software update, update preview, owner-native transaction recovery, software rollback, structural upgrade and whole-install restore without changing shipped update semantics.
+- [x] **2.1-T3** Define the one rotating whole-install Last-Known-Good contract: candidate staging, verification, atomic promotion, bounded retention and failure behavior.
+- [x] **2.1-T4** Define restore preview/apply semantics and explicit exclusions, including external systems and security-sensitive state, while importing identity/reference guarantees from the canonical System Identity contract.
+- [x] **2.1-T5** Add focused contract validation/tests proving the separation and preservation laws without implementing restore yet.
+- [x] **2.1-T6** Run exact-ref Distribution validation, record evidence, update this canonical roadmap and close Slice 2.1 only after every acceptance criterion passes.
+
+### Reconciliation result
+
+Identity Hardening Phase 1 reconciled cleanly with the Safe Infrastructure Phase 1 freeze. No protected-law amendment was required.
+
+Safe Infrastructure now imports:
+
+- `docs/DURABLE-IDENTITY-AND-CANONICAL-REFERENCE-CONTRACT.md`;
+- contract ID `ai-verse.durable-identity-reference/v1`.
+
+It does not create a second identity registry, Workspace relocation resolver or generic re-scope engine.
+
+### Canonical contract extension
+
+Distribution's existing `docs/CORE-UPDATE-TRANSITION-CONTRACT.md` was extended rather than replaced:
+
+- contract implementation commit: `aiverse-filmmakers/ai-verse-distribution@4cfb2a378f2ce6dfee9a419e446d7e0837f335fc`.
+
+The extended contract now explicitly separates:
+
+- one-action software update;
 - software update preview;
-- structural/infrastructure upgrade preview/apply;
-- software rollback/recovery internal to failed transactions;
-- whole-local-install restore preview/apply.
+- structural upgrade preview/apply;
+- admitted software rollback;
+- owner-native transaction recovery;
+- whole-install restore preview/apply.
+
+Owner-native checkpoints remain authoritative for component/update transaction safety. The whole-install LKG is a separate product recovery layer that composes with those mechanisms rather than replacing them.
+
+### Last-Known-Good rotation law
+
+Before a mutating update or structural upgrade, the recovery layer must:
+
+1. assess whether current state can qualify as a trustworthy recovery point;
+2. stage a candidate without replacing the currently valid LKG;
+3. verify candidate integrity, coverage/exclusions, exact reconstruction inputs and required identity/reference evidence;
+4. atomically promote only the verified candidate;
+5. retire prior recovery material only after promotion;
+6. retain exactly one usable LKG after successful rotation, excluding temporary transaction material.
+
+Failed candidate qualification preserves the existing valid LKG and blocks mutation before it begins. The sole valid retained recovery point cannot be destroyed before a verified successor exists.
+
+### Recovery representation
+
+The canonical four classes remain:
+
+- `CAPTURE`;
+- `RECONSTRUCT`;
+- `REBUILD`;
+- `EXTERNAL/EXCLUDED`.
+
+Large size does not alter ownership. Workspace `assets/` and `outputs/` remain user-owned and cannot be silently discarded merely because they are large.
+
+Secrets/credentials are not blindly copied into recovery material without an explicitly approved secure recovery mechanism.
+
+### Restore contract
+
+`aiverse restore` remains read-only preview. `aiverse restore --apply` is explicit transactional mutation.
+
+Restore must validate the retained target, preserve it through partial-failure protection, restore captured material through ownership-safe mechanisms, reconstruct exact admitted software only from verified immutable evidence, rebuild only owner-declared derived state, use owner handlers for owner-controlled state, verify health plus identity/reference continuity, and report external exclusions truthfully.
+
+A failed restore cannot destroy the retained recovery target.
+
+### Exact evidence
+
+Detailed System evidence:
+
+- `docs/SAFE-INFRASTRUCTURE-SLICE-2.1-CONTRACT-RECONCILIATION.md`;
+- evidence closure commit: `aiverse-filmmakers/AI-Verse-System@008411064717685a98c12fd59da187196d8e8df6`.
+
+Focused Distribution tests:
+
+- `tests/test_safe_infrastructure_transition_contract.py`;
+- tested commit: `aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1`.
+
+GitHub Actions exact-ref validation:
+
+- workflow: `Distribution CI`;
+- run ID: `38277737869`;
+- exact head SHA: `90f175418f8d13faeece8bcb1ad0796d2adecfb1`;
+- conclusion: **SUCCESS**;
+- macOS Python 3.11/3.12: **SUCCESS**;
+- Ubuntu Python 3.11/3.12: **SUCCESS**;
+- Windows Python 3.11/3.12: **SUCCESS**;
+- every matrix job passed unit tests and CLI catalog smoke.
 
 ### Acceptance criteria
 
-- no contradiction remains between canonical law and intended implementation;
-- `aiverse update` remains the shipped one-action safe updater and `--plan` remains its preview;
-- owner-native checkpoints remain authoritative for component transaction safety;
-- one rotating whole-install recovery point is canonical and bounded;
-- recoverability may use exact reconstruction for proven reconstructible state;
-- restore is preview-first and explicit before mutation;
-- restore does not falsely claim reversal of external systems;
-- restore transaction failure cannot destroy the retained recovery target;
-- sole valid recovery point cannot be destroyed before a verified successor exists;
-- identity/reference requirements are imported from, not duplicated against, the completed Identity Hardening contract.
+- no contradiction remains between canonical law and intended implementation: **PASS**;
+- `aiverse update` remains the shipped one-action safe updater and `--plan` remains its preview: **PASS**;
+- owner-native checkpoints remain authoritative for component transaction safety: **PASS**;
+- one rotating whole-install recovery point is canonical and bounded: **PASS**;
+- recoverability may use exact reconstruction for proven reconstructible state: **PASS**;
+- restore is preview-first and explicit before mutation: **PASS**;
+- restore does not falsely claim reversal of external systems: **PASS**;
+- restore transaction failure cannot destroy the retained recovery target: **PASS**;
+- sole valid recovery point cannot be destroyed before a verified successor exists: **PASS**;
+- identity/reference requirements are imported from, not duplicated against, the completed Identity Hardening contract: **PASS**;
+- exact-ref Distribution CI passes all six supported matrix jobs: **PASS**.
+
+### Completion report
+
+```text
+Completed: Slice 2.1 - Amend the Safe Update and State Preservation Contract
+Tasks: 6/6
+Overall: 5/18 slices (27.8%)
+Phase: Phase 2 - Define canonical convergence, migration and recovery contracts
+Phase progress: 1/3
+Until next phase: 2 slices
+Next: Slice 2.2 - Define versioned infrastructure generation and upgrade-recipe contract
+Blockers/drift/amendments: none. Identity Phase 1 reconciled cleanly; no protected-law amendment required.
+```
 
 ### NEXT
 
-Slice 2.2.
+**STOP after Slice 2.1 for the current one-at-a-time execution request.**
+
+Next execution unit: Slice 2.2.
 
 ---
 
@@ -1517,16 +1617,28 @@ None. Program complete.
 - Completed Phase 1 at 3/3 slices.
 - Inserted the required pause before Safe Infrastructure Phase 2 so Identity Hardening Slice 1.1 and 1.2 can define the canonical System-wide identity/reference contract first.
 
+## 2026-10-12 - Identity gate satisfied and Slice 2.1 completed
+
+- Reconciled completed Identity Hardening Phase 1 with Safe Infrastructure Phase 1; no protected-law amendment was required.
+- Imported `ai-verse.durable-identity-reference/v1` rather than duplicating identity/reference semantics.
+- Extended Distribution's shipped Core Update Transition Contract with explicit lifecycle separation and one rotating whole-install Last-Known-Good/restore semantics.
+- Preserved owner-native transaction checkpoints as authoritative for component/update transaction recovery.
+- Froze verification-first LKG rotation so the prior valid point survives until a successor is verified and atomically promoted.
+- Froze CAPTURE / RECONSTRUCT / REBUILD / EXTERNAL-EXCLUDED recovery classes and truthful secret/external-system exclusions.
+- Added focused contract tests at Distribution commit `90f175418f8d13faeece8bcb1ad0796d2adecfb1`.
+- Qualified exact-ref Distribution CI run `38277737869`: all six macOS/Ubuntu/Windows Python 3.11/3.12 matrix jobs passed.
+- Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-2.1-CONTRACT-RECONCILIATION.md`.
+
 ---
 
 # Current execution pointer
 
-**Completed:** 4/18  
-**Overall:** 22.2%  
-**Phase:** Phase 1 - COMPLETE  
-**Phase progress:** 3/3  
-**Until Phase 2:** 0 Safe Infrastructure slices, but the Identity Hardening Phase 1 gate is mandatory  
-**Next:** STOP. Run `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` Slice 1.1 and Slice 1.2  
-**Next Safe Infrastructure slice after that gate:** Phase 2 / Slice 2.1  
-**Next task:** none in Safe Infrastructure until Identity Hardening Phase 1 completes  
-**Blockers/drift/amendments:** resolved two evidence-backed roadmap amendments: (1) OS owns cross-provider Skill/capability scope resolution while Skills owns managed provider package lifecycle; (2) current Workspace storage is ID-derived `workspaces/<id>` and arbitrary physical relocation is not admitted. Phase 2 is intentionally paused pending the separate canonical identity contract.
+**Completed:** 5/18  
+**Overall:** 27.8%  
+**Phase:** Phase 2 - Define canonical convergence, migration and recovery contracts  
+**Phase progress:** 1/3  
+**Until Phase 3:** 2 slices  
+**Next:** STOP after Slice 2.1 under the one-at-a-time execution rule  
+**Next Safe Infrastructure slice:** Phase 2 / Slice 2.2 - Define versioned infrastructure generation and upgrade-recipe contract  
+**Next task:** none until Slice 2.2 starts and its adaptive task list is derived from fresh refs  
+**Blockers/drift/amendments:** none. Identity Hardening Phase 1 satisfied the entry gate without a protected-law amendment. Slice 2.1 preserved shipped update semantics, owner-native transaction recovery and canonical owner identity law while adding the bounded whole-install LKG/restore contract.
