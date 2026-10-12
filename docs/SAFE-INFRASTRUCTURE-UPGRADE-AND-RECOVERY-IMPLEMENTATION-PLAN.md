@@ -1,22 +1,22 @@
 # AI-Verse Safe Infrastructure Upgrade, Convergence and Recovery Implementation Plan
 
-**Status:** BLOCKED - PLAN AMENDMENT REQUIRED  
+**Status:** PAUSED - PHASE 1 COMPLETE; IDENTITY HARDENING REQUIRED BEFORE PHASE 2  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary orchestration repo:** `aiverse-filmmakers/ai-verse-distribution`  
 **Initial owner repos:** `aiverse-filmmakers/AI-Verse-OS`, `aiverse-filmmakers/AI-Verse-Skills`  
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 2  
-**Remaining:** 16  
-**Overall progress:** 11.1%  
-**Current phase:** Phase 1 - Audit current update, infrastructure and recovery reality  
-**Current phase progress:** 1/3  
-**Slices until Phase 2:** 2  
-**Next:** Resolve the Slice 1.1 ownership plan amendment before Slice 1.2  
-**Next slice task list:** BLOCKED until the protected Skill scope/provider ownership conflict is resolved
+**Completed:** 4  
+**Remaining:** 14  
+**Overall progress:** 22.2%  
+**Current phase:** Phase 1 - COMPLETE  
+**Current phase progress:** 3/3  
+**Slices until Phase 2:** 0, but Phase 2 is gated by Identity Hardening Phase 1  
+**Next:** Run `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` Slice 1.1 and Slice 1.2, then return to Safe Infrastructure Phase 2  
+**Next slice task list:** STOP - do not derive Safe Infrastructure Phase 2 tasks until the Identity Hardening shared identity contract is complete
 
-> This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Discovery may adapt the route; it may not silently change the destination.
+> This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Verified shipped source, shipped contracts and tests outrank roadmap assumptions. Discovery may adapt the route; it may not silently change the destination.
 
 ---
 
@@ -167,13 +167,17 @@ One owner check failing must be surfaced truthfully without causing the remainin
 
 ## 1.6 Canonical owners define migrations
 
-OS owns OS/workspace structure semantics and migrations.
+OS owns OS/Workspace structure semantics and migrations.
 
-Skills owns Skills state/layout/scope semantics and migrations.
+OS also owns capability provider scope, provider resolution/ranking, and cross-provider placement semantics for OS, personal/local, Workspace and managed distributed capabilities.
 
-Future components own their own migrations.
+Skills owns the managed `aiverse-skills` provider: package identity/metadata, source pins/provenance, profiles, immutable generations, install/update/rollback/uninstall, package integrity, provider manifest/index publication, and migrations wholly internal to that managed provider.
 
-Distribution discovers, plans, coordinates, checkpoints, invokes, verifies and records migrations. It must not invent sibling domain migration semantics.
+Personal reusable Skills remain user-owned. Workspace-local Skills remain Workspace-owned. Neither becomes Skills-distribution-owned merely because OS can resolve it.
+
+Future components own their own state/domain migrations.
+
+Distribution discovers, plans, coordinates, checkpoints, invokes, verifies and records migrations. It must not invent sibling domain migration semantics or Skill provider placement policy.
 
 ## 1.7 Machine-readable upgrade recipes, never AI guesswork
 
@@ -191,13 +195,19 @@ Skip-version behavior must be explicit: direct migration or a validated migratio
 
 These generations are machine control data, not concepts the member must understand.
 
-## 1.9 Stable identity over filesystem path
+## 1.9 Stable identity, scope and storage semantics follow owner contracts
 
-Any first-class entity that may move during a legitimate upgrade should use stable identity independent of its current path where technically applicable.
+A durable first-class entity should use stable owner-controlled identity when required for long-lived or cross-owner references.
 
-Moving a workspace or Skill must not silently create a new logical entity or orphan references merely because its path changed.
+Filesystem independence is not universal. A canonical owner may intentionally derive a physical storage slot from an ID.
 
-Apply this principle to any future first-class movable entity only when evidence shows path-independent identity is needed; do not create ceremonial IDs everywhere.
+For current Workspaces, `WORKSPACE.yaml:id` is the logical identity and the shipped canonical storage slot is `workspaces/<workspace-id>`. Current OS, Data, Brain and Memory integrations resolve that slot directly. Safe Infrastructure must not treat arbitrary Workspace relocation as already supported.
+
+If a future canonical contract deliberately admits Workspace relocation, the Workspace ID must survive that relocation, and all owner-declared references must resolve the new location before the old writable route may retire.
+
+For current capability/Skill providers, provider/scope participates in the shipped qualified identity. A cross-provider transfer must not be assumed to preserve qualified identity unless the canonical owner/System identity contract explicitly supports and tests such continuity.
+
+Display name or filesystem path alone must never be used to invent or silently rebind identity where an owner-controlled ID exists.
 
 ## 1.10 Migrations are idempotent and evidence-bound
 
@@ -208,6 +218,8 @@ Upgrade plans must be bound to source generation/state fingerprints and exact ta
 ## 1.11 Reference repair is part of migration
 
 A move is incomplete until affected references, indexes, manifests, automations, links and owner-declared dependants are either repaired or explicitly proven unaffected.
+
+A migration may only repair another owner's durable reference through that owner's admitted contract or handler. Distribution may coordinate, but may not shadow that owner logic.
 
 ## 1.12 Upgrade findings have an explicit disposition
 
@@ -254,9 +266,11 @@ The recovery system must truthfully classify local state into at least these con
 
 A recovery point may use snapshots, archives, copy-on-write, deduplicated storage, immutable refs or other proven techniques. The implementation must be chosen from Phase 1 evidence.
 
-The product promise is recoverability of the declared local scope, not an unnecessarily huge duplicate of caches, dependency folders, render outputs or other reconstructible/disposable material.
+The product promise is recoverability of the declared local scope, not an unnecessarily huge duplicate of caches, dependency folders or other proven reconstructible/disposable material.
 
-Secrets/credentials must not be copied into recovery material merely for completeness unless the approved recovery design explicitly proves secure handling and restore semantics.
+Workspace `assets/` and `outputs/` are user-owned under the current OS boundary. They may be large, but size alone does not make them disposable. They must be covered or explicitly represented/excluded through a truthful evidence-backed recovery policy.
+
+Secrets/credentials must not be copied into recovery material merely for completeness unless an approved recovery design explicitly proves secure handling and restore semantics.
 
 ## 1.16 Restore is preview-first, explicit and transactional
 
@@ -339,9 +353,11 @@ Full migration detail, evidence and provenance remain available through an expli
 
 ## 1.20 No concurrent-plan overwrite
 
-This program may coexist with the active repository-network governance program and future active programs, but implementation must refetch current files/refs before every write and must not overwrite overlapping work from another active plan.
+This program may coexist with the active repository-network governance program, the separate Identity Hardening program and future active programs, but implementation must refetch current files/refs before every write and must not overwrite overlapping work from another active plan.
 
 If another program is actively changing the same contract/surface incompatibly, block and reconcile rather than racing it.
+
+Identity Hardening remains a separate roadmap. Safe Infrastructure Phase 1 supplies evidence to it; the plans are not merged.
 
 ---
 
@@ -356,54 +372,63 @@ Owns canonical cross-repo laws for:
 - recovery-point/restore guarantees;
 - migration ownership;
 - upgrade-recipe semantics;
-- generation/identity invariants;
+- shared identity/reference invariants after the separate Identity Hardening Phase 1 defines them;
 - non-invasive plain-English member UX expectations;
 - natural-language lifecycle intent semantics across runtimes;
 - cross-component acceptance requirements.
 
-System does not implement migrations or runtime backup engines.
+System does not implement migrations, owner identity registries or runtime backup engines.
 
 ## AI-Verse-OS
 
-Initially owns:
+Owns:
 
-- workspace/domain hierarchy semantics;
-- workspace stable identity where appropriate;
-- workspace infrastructure generation;
-- detection of OS/workspace structural drift;
-- workspace migration planning/handlers;
-- reference repair for OS-owned references;
-- retirement of obsolete OS-owned workspace infrastructure.
+- Workspace schema, creation and current storage semantics;
+- Workspace logical identity interpretation;
+- Workspace infrastructure generation and structural drift detection;
+- Workspace migration planning/handlers when a migration is actually admitted;
+- repair of OS-owned Workspace references;
+- retirement of obsolete OS-owned Workspace infrastructure after proof;
+- capability provider scope, provider resolution/ranking and authorized provider roots;
+- cross-provider placement semantics for OS, local/personal, Workspace and managed distributed capabilities;
+- contextual execution permission and routing.
 
-The motivating fixture is the current class of problem:
+### Phase 1 Workspace storage freeze
+
+Verified current architecture uses:
 
 ```text
-Current:
-workspaces/<ChannelName>/youtube/...
-
-Possible target style:
-workspaces/YouTube/<ChannelName>/...
+workspaces/<workspace-id>/
 ```
 
-The exact target structure must be validated from current OS architecture during Phase 1 rather than assumed solely from this example.
+where `<workspace-id>` matches `WORKSPACE.yaml:id`.
 
-The member-facing product must not require the user to understand or choose these filesystem structures. The OS decides canonical structure from real-world meaning and owner rules; ambiguous/custom cases require natural-language clarification rather than architecture questions.
+The earlier motivating example suggesting a physical target such as:
+
+```text
+workspaces/YouTube/<ChannelName>/
+```
+
+is no longer an assumed target. Current OS/Data/Brain/Memory consumers resolve `workspaces/<id>` directly. Domain/category meaning may be represented semantically or by derived views, but this program must not introduce physical nesting until a later canonical identity/storage amendment explicitly permits it.
 
 ## AI-Verse-Skills
 
-Initially owns:
+Owns the managed `aiverse-skills` provider:
 
-- skill scope semantics;
-- workspace-local versus domain/shared versus OS-wide decisions where canonically representable;
-- Skills structural/state generations;
-- safe promotion/re-scoping migrations;
-- Skills stable identity/provenance across moves where applicable;
-- Skills-owned reference repair;
-- retirement of stale writable legacy Skill locations only after proof.
+- package identity and metadata;
+- source pins and provenance;
+- profiles;
+- immutable installation generations;
+- package integrity and provider manifest/index publication;
+- install/update/rollback/uninstall;
+- migrations wholly internal to the managed provider;
+- managed-provider reference repair within its ownership boundary.
 
-The motivating fixture is a reusable YouTube transcript/book Skill incorrectly created inside one channel/project and then reused from another project.
+Skills does not own OS provider ordering or cross-provider placement of user/Workspace capabilities.
 
-The member should never be asked to choose an internal Skills storage directory. When real-world scope is ambiguous, ask what the Skill is for and where it should be usable in normal language; Skills converts that meaning into canonical scope.
+Personal reusable packages remain user-owned and are resolved by OS through the local provider. Workspace-local packages remain Workspace-owned and are resolved by OS through the active Workspace provider.
+
+The motivating reusable-YouTube-Skill fixture is therefore a cross-provider promotion/re-scoping problem. OS owns the placement decision; source/destination owners preserve their own state and integrity. Under the current shipped provider contract, that promotion changes the provider-qualified identity unless a later canonical identity contract explicitly defines continuity.
 
 ## ai-verse-distribution
 
@@ -421,7 +446,7 @@ Owns orchestration and member-facing lifecycle:
 - restore orchestration;
 - short plain-English traffic-light UX and detailed/machine-readable views.
 
-Distribution must not decide workspace hierarchy, Skill scope rules or other owner-domain semantics itself.
+Distribution must not decide Workspace storage/hierarchy, Skill provider placement or other owner-domain semantics itself.
 
 ## Future component repos
 
@@ -433,24 +458,27 @@ A component adopts the recipe/generation/doctor model only when it has a real st
 
 # 3. Existing canonical law and shipped behavior that must be reconciled deliberately
 
-Two existing truths must be preserved rather than accidentally overwritten by this program.
-
 ## 3.1 Safe Update recovery ownership law
 
 `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md` currently states that Distribution should not duplicate every canonical store merely to claim update safety and should rely on owner-backed recovery guarantees.
 
 This program intentionally introduces a bounded additional product guarantee: one rotating whole-local-installation Last-Known-Good recovery point before every mutating software update or structural upgrade.
 
-Implementation must explicitly reconcile the laws so that:
+Phase 1 freezes the intended reconciliation:
 
 - owner-native checkpoints remain authoritative for component-internal transactional safety;
-- the single Distribution-orchestrated Last-Known-Good recovery point exists for whole-install/user recovery;
-- the recovery point may reconstruct exact software from immutable refs rather than blindly duplicating reconstructible software trees when proven safe;
-- the recovery snapshot remains immutable/non-canonical;
-- only one retained recovery point is required;
-- rotation cannot destroy the sole valid recovery point prematurely;
-- restore scope/exclusions are truthful;
-- restore itself cannot destroy its target recovery point before success.
+- Distribution owns the single whole-install/user-recovery Last-Known-Good transaction;
+- recovery material lives in Distribution-private state outside the live OS project;
+- exact software may be reconstructed from immutable refs/receipts only where exact reproducibility is proven;
+- canonical/user state is captured or otherwise durably represented;
+- owner-declared derived/disposable state is rebuilt rather than copied;
+- external/security-sensitive state has explicit truthful exclusions unless a secure mechanism is approved;
+- the recovery point remains immutable/non-canonical;
+- only one retained usable recovery point is required;
+- rotation cannot destroy the sole valid point before a verified successor exists;
+- restore cannot destroy its target before successful verification.
+
+Phase 2 must make this reconciliation canonical in the Safe Update contract.
 
 ## 3.2 Completed Core Update Program v1 behavior
 
@@ -474,13 +502,31 @@ This program must EXTEND that lifecycle, not regress it. In particular:
 - preserve status + doctor as mandatory update health gates;
 - extend recovery/convergence around it rather than creating a second updater.
 
-Phase 1 must audit the live implementation before any changes, and Phase 2 must make the combined contract explicit.
+## 3.3 Identity Hardening dependency after Phase 1
+
+`docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` remains a separate program.
+
+Safe Infrastructure Phase 1 has now frozen evidence that Identity Hardening must turn into the canonical shared identity/reference contract before Safe Infrastructure Phase 2 begins.
+
+Do not merge the plans. Do not implement Identity Hardening from this roadmap. The required order is:
+
+1. Safe Infrastructure Phase 1 COMPLETE;
+2. Identity Hardening Slice 1.1;
+3. Identity Hardening Slice 1.2;
+4. return to Safe Infrastructure Phase 2 / Slice 2.1.
 
 ---
 
 # 4. Adaptive execution and change authority
 
 This program follows `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`.
+
+Authority order when resolving conflicts:
+
+1. verified current source + shipped contracts + tests;
+2. canonical component ownership;
+3. approved System contracts/laws;
+4. roadmap assumptions.
 
 At the start of every substantial slice:
 
@@ -493,13 +539,7 @@ At the start of every substantial slice:
 
 Tasks and implementation technique are adaptive.
 
-Permanent laws, phase purpose, slice purpose and acceptance floors are protected.
-
-If evidence requires changing one of those, use:
-
-`BLOCKED - PLAN AMENDMENT REQUIRED`
-
-and prepare the amendment proposal required by the adaptive planning skill.
+Permanent laws, phase purpose, slice purpose and acceptance floors are protected. If verified evidence contradicts one, use `BLOCKED - PLAN AMENDMENT REQUIRED`, record the evidence and resolve the amendment explicitly rather than silently forcing the roadmap assumption.
 
 ---
 
@@ -514,7 +554,7 @@ Task counts are local to the current slice and may change from evidence.
 Before a slice becomes COMPLETE, this plan must record:
 
 - final derived tasks and statuses;
-- exact implementation refs;
+- exact implementation/evidence refs;
 - exact tests/evidence;
 - owner/System/Distribution impact;
 - preservation/recovery impact;
@@ -531,7 +571,7 @@ Overall: <completed>/18 slices (<percent>%)
 Phase: <phase number> - <title>
 Phase progress: <completed>/<total>
 Until next phase: <N> slice(s)
-Next: <next slice>
+Next: <next slice or required external gate>
 Blockers/drift/amendments: <none or concise status>
 ```
 
@@ -556,7 +596,7 @@ Blockers/drift/amendments: <none or concise status>
 - OPTIONAL / REQUIRED / BLOCKED structural findings are explicit internally and understandable externally;
 - conflict with current Safe Update backup law is identified rather than ignored;
 - OS, Skills, Distribution and System ownership is explicit;
-- workspace and Skill problems are represented as mandatory real-world fixtures;
+- Workspace and Skill motivating problems are represented as mandatory evidence fixtures;
 - low-level tasks remain adaptive;
 - future agents can resume without this conversation.
 
@@ -575,10 +615,10 @@ Slice 1.1.
 # Phase 1 - Audit current update, infrastructure and recovery reality
 
 **Phase size:** 3 slices  
-**Current phase progress:** 1/3  
-**Purpose:** prove what already exists before defining new machinery.
+**Current phase progress:** 3/3 COMPLETE  
+**Purpose:** prove what already exists before defining new machinery, resolve evidence-backed ownership/identity assumptions, and freeze the implementation architecture without starting Phase 2.
 
-## Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms
+## Slice 1.1 - Audit existing update, doctor, migration, Workspace, Skills and recovery mechanisms
 
 **Status:** COMPLETE  
 **Dependencies:** 0.1  
@@ -588,7 +628,7 @@ Slice 1.1.
 
 The initial task-list record captured four identifiers before their type was fully verified. During the audit, authoritative branch/commit evidence corrected the audit-start refs to:
 
-- `aiverse-filmmakers/AI-Verse-System@27e21a1e519a17ae79f98d977ffcdac1b63c4436` - pre-audit parent
+- `aiverse-filmmakers/AI-Verse-System@27e21a1e519a17ae79f98d977ffcdac1b63c4436`
 - `aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8`
 - `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
 - `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
@@ -597,189 +637,193 @@ Task-list record committed before product implementation:
 
 - `aiverse-filmmakers/AI-Verse-System@e843d5533ea8ec3367ac57b5a6afde8bac357002`
 
-This correction is explicit so the audit does not silently rewrite its own evidence history.
-
 ### Final derived task list
 
-Recorded before any Slice 1.1 product implementation change. This slice remained audit-only.
+- [x] **1.1-T1** Freeze starting refs and identify active overlapping plans/PRs/commits.
+- [x] **1.1-T2** Audit Distribution updater/lifecycle/recovery behavior and tests.
+- [x] **1.1-T3** Audit natural-language/runtime routing to canonical lifecycle.
+- [x] **1.1-T4** Audit OS Workspace identity/layout/creation/migration/health/preservation surfaces.
+- [x] **1.1-T5** Audit Skills storage/identity/provenance/scope/lifecycle/health surfaces.
+- [x] **1.1-T6** Classify motivating Workspace/Skill failures, restore/doctor gaps and preservation-critical state.
+- [x] **1.1-T7** Record the evidence matrix, classifications and acceptance closure.
 
-- [x] **1.1-T1** Freeze starting refs and identify active overlapping plans/PRs/commits that could affect audited or governance surfaces.
-- [x] **1.1-T2** Audit Distribution updater/CLI lifecycle, release-set staging/activation, package/owned-path metadata, status/doctor, journal/checkpoint/rollback/recovery behavior, and its existing tests.
-- [x] **1.1-T3** Audit natural-language/runtime routing into the canonical Distribution lifecycle across supported adapter surfaces and tests.
-- [x] **1.1-T4** Audit OS workspace identity/layout/creation, migration handlers, generated/member-facing projections, health/check surfaces, preservation boundaries, and existing tests.
-- [x] **1.1-T5** Audit Skills storage/identity/provenance/scope, migration machinery, health/check surfaces, preservation boundaries, and existing tests.
-- [x] **1.1-T6** Reproduce or evidence-classify the motivating workspace/Skill failure patterns, current restore/doctor gaps and preservation-critical user data surfaces, then run the targeted existing tests/read-only probes needed to prove current behavior.
-- [x] **1.1-T7** Record the final evidence matrix, REUSE/EXTEND/CREATE/RETIRE/BLOCK classifications, exact refs/tests, impacts and Slice 1.1 acceptance closure in this canonical plan.
+### Exact evidence
 
-Audit at minimum:
-
-- completed Core Update Program v1 behavior and exact current `aiverse update` / `--plan` semantics;
-- current Distribution update/status/doctor/rollback/recovery/journal/checkpoint behavior;
-- current natural-language update routing across `AGENTS.md`, `CLAUDE.md` and other supported runtime adapters;
-- current release-set staging/activation semantics;
-- existing package manifests and owned-path tracking;
-- current checkpoint/backup/recovery mechanisms and what they actually cover;
-- current OS workspace identity, layout, creation logic and references;
-- current Skills storage, identity, generations, provenance and local/global scoping;
-- existing migration schemas/handlers in OS and Skills;
-- existing owner health/doctor/check surfaces that Distribution can aggregate instead of duplicating;
-- existing generated/member-facing files affected by moves;
-- existing tests for path moves, user-file preservation and recovery;
-- active overlapping work from the repository-network governance plan or other plans.
-
-### Exact audit evidence
-
-Detailed evidence ledger:
+Detailed audit:
 
 - `docs/SAFE-INFRASTRUCTURE-SLICE-1.1-AUDIT.md`
-- evidence document commit: `aiverse-filmmakers/AI-Verse-System@1da8f5f6187fd8c265e10188b0b5c2d486f01df2`
+- evidence commit: `aiverse-filmmakers/AI-Verse-System@1da8f5f6187fd8c265e10188b0b5c2d486f01df2`
 
-Key evidence-backed classifications:
+Core evidence:
 
-- Distribution Core updater: `REUSE/EXTEND`; do not create a second updater.
-- Distribution release catalog, exact refs and evidence-bound transition admission: `REUSE/EXTEND`.
-- Distribution ownership/local-edit guards: `REUSE`.
-- Distribution update journal, receipt checkpoint and generated-file recovery: `REUSE/EXTEND`, but bounded to software/receipt/generated-file recovery rather than whole-install restore.
-- Distribution one-command owner doctor fan-out: `REUSE/EXTEND`.
-- existing natural-language update routing: `REUSE/EXTEND`.
-- natural-language doctor/upgrade/restore lifecycle routing: `EXTEND/CREATE` within the same canonical lifecycle.
-- rotating whole-install Last-Known-Good and `restore` preview/apply: `CREATE` on the existing transaction/verification substrate.
-- OS workspace manifest identity and conservative workspace owner behavior: `REUSE/EXTEND`.
-- OS domain-first hierarchy semantics: `EXTEND`; workspace hierarchy migration/reference repair: `CREATE` after the target architecture is frozen.
-- OS doctor/architecture checks: `REUSE/EXTEND`.
-- Skills immutable generation lifecycle, package IDs and provenance: `REUSE/EXTEND`.
-- cross-provider Skill scope/re-scoping ownership: `BLOCK/UNKNOWN` because current shipped contracts conflict with this plan's protected ownership statement.
-- no `RETIRE` action is justified by Slice 1.1 evidence.
-- exact recovery policy for large media/outputs, credentials/secrets, disposable state and external side effects remains `BLOCK/UNKNOWN` for later Phase 1 inventory/freeze rather than being guessed here.
+- Distribution exact audited ref `fd11b4a95487638d47ff55472a3703b03892d0e8`; GitHub Actions run `38241776330`, `Distribution CI`, success.
+- OS exact audited ref `64f7325444d18f94c9d4755d32eb89f3468bda6b`; GitHub Actions run `38228297894`, `Update Request Contract`, success.
+- Skills exact audited ref `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`; GitHub Actions run `38246389751`, `Full E2E Install`, success.
 
-### Motivating fixture classification
+### Key findings
 
-Workspace fixture: **REPRODUCED/CLASSIFIED**. Current OS creation still materializes `workspaces/<workspace-id>`, while stable logical ID already exists in `WORKSPACE.yaml`. No admitted current domain-first hierarchy migration was found.
+- shipped Core updater: `REUSE/EXTEND`, never duplicate;
+- release/transition admission and local-edit guards: `REUSE/EXTEND`;
+- Distribution update journal/receipt rollback/generated-file recovery: `REUSE/EXTEND`, but not whole-install restore;
+- Distribution doctor fan-out: `REUSE/EXTEND`;
+- product-level Last-Known-Good and restore: `CREATE` on existing transaction/verification substrate;
+- OS Workspace manifest identity/conservative owner behavior: `REUSE/EXTEND`;
+- Skills immutable generation lifecycle/package provenance: `REUSE/EXTEND`;
+- cross-provider Skill scope ownership conflicted with the original roadmap assumption and required explicit amendment.
 
-Skill fixture: **CLASSIFIED**. Current managed Skills lifecycle already has immutable generations and provenance, but the skill schema/registry has no canonical cross-provider scope field. More importantly, shipped OS/Skills integration contracts assign provider scope/resolution to OS while personal reusable and workspace Skills remain outside the installer-managed distributed provider.
+### Slice 1.1 amendment resolution
 
-### Doctor and restore reality
+The original `PLAN AMENDMENT PROPOSED` is now **RESOLVED** by Phase 1 continuation evidence.
 
-- Distribution already has a true one-command doctor aggregator that invokes owner checks and cannot turn an owner failure into a false aggregate PASS.
-- OS already has status/doctor/architecture checks.
-- Skills already has install verification/doctor/readiness and generation integrity checks.
-- Current product-level restore does not exist. There is no `aiverse restore` preview, no `aiverse restore --apply`, and no one rotating whole-install Last-Known-Good representation.
-- Existing Core rollback is software-only and owner-state-preserving, not a rewind of covered local user/owner state.
+Resolved Skill ownership:
 
-### Exact tests/workflow evidence
+- OS owns provider scope/resolution/ranking and cross-provider placement semantics;
+- Skills owns managed `aiverse-skills` package identity/lifecycle/generations and internal migrations;
+- personal reusable packages remain user-owned;
+- Workspace packages remain Workspace-owned;
+- Distribution coordinates without deciding placement.
 
-Distribution audited ref `fd11b4a95487638d47ff55472a3703b03892d0e8`:
-
-- GitHub Actions run `38241776330`, `Distribution CI`, conclusion `success` on the exact audited SHA;
-- workflow runs full unittest discovery on Ubuntu/macOS/Windows with Python 3.11/3.12;
-- inspected `tests/test_core_update_transaction.py`, `tests/test_component_preservation.py`, `tests/test_project_routing.py`, `tests/test_project_skills.py`.
-
-OS audited ref `64f7325444d18f94c9d4755d32eb89f3468bda6b`:
-
-- GitHub Actions run `38228297894`, `Update Request Contract`, conclusion `success` on the exact audited SHA across Ubuntu/macOS/Windows;
-- inspected `scripts/test-workspace-owner.mjs`, `.github/workflows/cli-smoke.yml`, `scripts/check-architecture.sh` and OS doctor/update code.
-
-Skills audited ref `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`:
-
-- GitHub Actions run `38246389751`, `Full E2E Install`, conclusion `success` on the exact audited SHA;
-- inspected `tests/test_generation_lifecycle.py` and immutable-generation/doctor implementation.
-
-A fresh local clone/test rerun was attempted only as a convenience check but the execution environment could not resolve `github.com`; that failed network attempt is not counted as evidence. Closure relies on exact-ref successful GitHub Actions plus inspected test definitions and read-only repository probes.
-
-### Preservation/recovery impact
-
-Current evidence protects or distinguishes workspace manifests/context/decisions/inbox/knowledge/skills/automations/assets/outputs, operator profile/Brain/Memory state, Brain direction/history, Memory provenance, Data records, connections, archives, apps, agents, extensions, custom files, personal reusable Skills, managed Skills generations and Distribution lifecycle evidence. Unknown/custom state remains user-owned unless ownership can be proved.
-
-Whole-install recovery coverage must still classify capture versus exact reconstruction versus rebuild versus external/security-sensitive state. Slice 1.1 deliberately did not guess that policy.
-
-### Concurrent work/drift
-
-The audit observed active concurrent System planning work plus Distribution PR `#26` and Skills PR `#20`. It did not overwrite those surfaces. The canonical plan was refetched before each write.
-
-### PLAN AMENDMENT PROPOSED
-
-**Current protected assumption:** the plan states that Skills owns Skills scope semantics, workspace/domain/OS-wide scope decisions and safe promotion/re-scoping migrations.
-
-**Evidence requiring amendment:** shipped `AI-Verse-Skills/docs/AI_VERSE_OS_INTEGRATION.md` and `AI-Verse-OS/system/contracts/capability-provider-v1/README.md` assign distributed package lifecycle to Skills, while OS owns provider scope/resolution/ranking, permissions and execution routing. Personal reusable Skills are a separate user-owned provider; workspace Skills remain workspace-owned.
-
-**Proposed ownership correction:**
-
-- OS owns cross-provider Skill scope semantics/resolution and maps practical member intent such as "use everywhere", "all YouTube work", or "only this project" into canonical provider/scope placement.
-- Skills owns the managed distributed provider's package lifecycle, stable package identity, package provenance, immutable generations, validation and migrations wholly internal to that managed provider.
-- Promotion/re-scoping that moves user/workspace Skills across providers is an OS-owned structural migration using Skills validation/provenance primitives where appropriate, not a Skills-owned placement decision.
-- Distribution continues to coordinate admitted owner migrations without inventing either domain's semantics.
-
-**Affected protected plan surfaces:** permanent law 1.6, Intended ownership / AI-Verse-Skills, Slice 1.2 ownership inventory, Slice 1.3 architecture freeze, Slice 2.2 recipe ownership, Slices 3.3 and 3.4, and downstream orchestration/qualification references to Skill scope ownership.
-
-**Acceptance-floor effect:** none of the member-facing safety/capability outcomes need to weaken. User-owned preservation, stable identity/provenance, explicit owner migration, reference repair, practical-language UX and deterministic convergence remain required.
-
-**Resume rule:** `BLOCKED - PLAN AMENDMENT REQUIRED`. Do not begin the affected Slice 1.2 ownership freeze or Skill scope/re-scoping implementation until this ownership amendment is resolved canonically.
+A second evidence-backed amendment was also required during Slice 1.2: current Workspace storage is `workspaces/<id>`, so the roadmap's earlier domain-first physical nesting example cannot be treated as an accepted target without a future canonical identity/storage amendment.
 
 ### Acceptance criteria
 
-- exact current behavior is evidenced before new implementation is proposed: **PASS**;
-- existing reusable mechanisms are identified: **PASS**;
-- the shipped safe updater is classified for REUSE/EXTEND rather than duplicated: **PASS**;
-- workspace and Skills motivating problems are reproduced/classified from real implementation: **PASS**;
-- current restore capability and gaps are known: **PASS**;
-- existing owner doctor/check surfaces and gaps are known: **PASS**;
-- no implementation change occurs before the audit is recorded: **PASS**.
-
-### Completion report
-
-```text
-Completed: Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms
-Tasks: 7/7
-Overall: 2/18 slices (11.1%)
-Phase: Phase 1 - Audit current update, infrastructure and recovery reality
-Phase progress: 1/3
-Until next phase: 2 slices
-Next: Resolve plan amendment, then Slice 1.2
-Blockers/drift/amendments: PLAN AMENDMENT PROPOSED for Skill scope/provider ownership; concurrent work recorded; initial ref bookkeeping corrected.
-```
+- exact current behavior evidenced before new implementation: **PASS**;
+- existing reusable mechanisms identified: **PASS**;
+- shipped safe updater classified `REUSE/EXTEND`: **PASS**;
+- motivating Workspace and Skill problems classified from implementation: **PASS**;
+- current restore capability/gaps known: **PASS**;
+- owner doctor/check surfaces/gaps known: **PASS**;
+- no product implementation occurred before/during audit: **PASS**.
 
 ### NEXT
 
-Resolve the proposed ownership amendment. After canonical resolution, Slice 1.2.
+Slice 1.2.
 
 ---
 
 ## Slice 1.2 - Build ownership, identity, reference, migration, health and recovery inventory
 
-**Status:** NOT STARTED  
-**Dependencies:** 1.1 plus resolution of the Slice 1.1 ownership amendment  
-**Adaptive tasks:** derive from Slice 1.1 findings only after amendment resolution
+**Status:** COMPLETE  
+**Dependencies:** 1.1; Slice 1.1 amendment resolved from shipped contracts  
+**Adaptive tasks:** 7/7 COMPLETE
 
-Classify relevant mechanisms as `REUSE`, `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN`.
+### Starting refs
 
-Inventory:
+- `aiverse-filmmakers/AI-Verse-System@11940b87838afa0f46570ecdd8f8e00f74b7de5a`
+- `aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8`
+- `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- `aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- `aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- `aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3`
 
-- canonical owner for every movable structure/state surface;
-- stable ID versus path-based identity;
-- reference/dependency edges affected by moves;
-- current structure/schema generations if any;
-- migration-chain capabilities;
-- owner doctor/check entrypoints and how a single Distribution doctor can call them sequentially;
-- OPTIONAL / REQUIRED / BLOCKED finding semantics;
-- user-owned versus package-owned/generated boundaries;
-- recovery-point scope and exclusions;
-- which state must be captured versus exactly reconstructible versus disposable versus external;
-- snapshot size/performance risks, including large media/render/dependency/cache surfaces;
-- credential/secret handling requirements;
-- current health signals needed before safe recovery-point rotation;
-- temporary transaction checkpoint needs for failed restore recovery;
-- legacy writable routes that may need retirement;
-- which technical evidence is internal-only versus suitable for default member output.
+### Final derived task list
+
+- [x] **1.2-T1** Resolve Skill ownership amendment against shipped OS/Skills provider contracts.
+- [x] **1.2-T2** Freeze Workspace logical identity, canonical storage and relocation support from current owners.
+- [x] **1.2-T3** Inventory proven cross-owner/path-derived Workspace consumers affected by future relocation.
+- [x] **1.2-T4** Freeze Skill provider identities, scope ownership, managed package identity/lifecycle and scope-transfer identity behavior.
+- [x] **1.2-T5** Inventory doctor/check fan-out and classify update/migration/recovery machinery.
+- [x] **1.2-T6** Classify recovery material into capture, exact reconstruction, rebuildable and external/security-sensitive categories.
+- [x] **1.2-T7** Record Identity Hardening reconciliation handoff items.
+
+### Exact evidence
+
+- detailed inventory: `docs/SAFE-INFRASTRUCTURE-SLICE-1.2-INVENTORY.md`
+- evidence commit: `aiverse-filmmakers/AI-Verse-System@d9920be2727a550266086b84b73aafbc397c07de`
+
+### Frozen ownership/identity inventory
+
+#### Skill scope/provider resolution
+
+OS is the canonical owner of provider scope, ranking, resolution and authorized placement semantics.
+
+#### Managed Skill package identity/lifecycle
+
+Skills owns the managed `aiverse-skills` provider package identity/metadata/provenance, profiles, source pins, immutable generations, lifecycle, integrity and provider index publication.
+
+#### Workspace identity/path
+
+- logical ID: `WORKSPACE.yaml:id`;
+- current canonical storage: `workspaces/<workspace-id>`;
+- path is storage derived from identity, not a second logical identity;
+- current shipped owners intentionally couple that ID to this physical slot;
+- arbitrary/nested relocation is not currently supported;
+- if future relocation is canonically admitted, the existing Workspace ID must survive.
+
+#### Current moved-Workspace resolution
+
+A Workspace moved away from `workspaces/<id>` does not resolve through current supported owners. Current OS/Data/Brain/Memory code reconstructs the path from the Workspace ID or direct-child layout.
+
+#### Proven future reference-repair edges
+
+Any future admitted Workspace relocation must update or prove unaffected at least:
+
+1. OS Workspace discovery/creation;
+2. OS current-context resolution;
+3. OS Workspace capability provider roots;
+4. Data Workspace manifest/database resolution;
+5. Memory Workspace scope discovery/storage;
+6. Brain Workspace direction/current-context paths;
+7. owner-declared durable relative-path/source references;
+8. connection/automation references only where their owners prove path dependence.
+
+#### Skill scope-transfer identity
+
+Current shipped qualified identities are:
+
+- `os:<name>`;
+- `aiverse-skills:<name>`;
+- `local:<name>`;
+- `workspace:<workspace-id>:<name>`.
+
+Provider/scope is therefore part of current qualified identity. Workspace -> local, local -> distributed, or Workspace A -> Workspace B transfer changes qualified identity unless a later canonical identity contract explicitly defines identity-preserving scope transfer.
+
+Managed distributed package identity may remain stable across immutable Skills generations because package/qualified ID is separate from generation/version/digest.
+
+### Recovery inventory
+
+Phase 1 freezes four classes:
+
+- **CAPTURE:** canonical/user state not safely reconstructible;
+- **RECONSTRUCT:** exact software/material reproducible from immutable verified refs/receipts and durable evidence;
+- **REBUILD:** owner-declared derived/disposable state;
+- **EXTERNAL/EXCLUDED:** external or security-sensitive state not truthfully rewound by local restore.
+
+Important evidence-backed consequences:
+
+- real Workspace trees, including `assets/` and `outputs/`, are user-owned under current OS boundaries and cannot be silently discarded merely because they are large;
+- OS `runtime/` is explicitly rebuildable/disposable;
+- connection registries are user-owned metadata but must not contain credentials/secrets;
+- external credential stores and remote side effects are outside local restore unless a future secure explicit mechanism exists;
+- unknown/custom state defaults toward preservation/review, not disposal.
+
+### Doctor inventory
+
+Existing Distribution doctor fan-out is `REUSE/EXTEND`: it verifies owner source/runtime binding, invokes owner checks independently, records per-owner failures, continues safe read-only checks, optionally runs OS composed health, and only returns aggregate PASS when required included checks pass.
 
 ### Acceptance criteria
 
-- Distribution shadow-domain logic is prohibited/identified;
-- path-identity risks are explicit;
-- one-command doctor fan-out ownership is explicit;
-- exact recovery coverage required for truthful `restore` is known;
-- recovery design does not assume a blind copy of all local bytes;
-- no duplicate migration/backup/update framework is planned where existing machinery can be extended;
-- ordinary user output can remain free of paths/generations/IDs without losing machine-verifiable evidence.
+- Distribution shadow-domain logic prohibited/identified: **PASS**;
+- path-identity risks explicit: **PASS**;
+- one-command doctor fan-out ownership explicit: **PASS**;
+- truthful restore coverage classes known: **PASS**;
+- no blind-copy recovery assumption: **PASS**;
+- duplicate update/migration/backup framework avoided: **PASS**;
+- user output can hide internals while machine evidence remains available: **PASS**.
+
+### Completion report
+
+```text
+Completed: Slice 1.2 - Build ownership, identity, reference, migration, health and recovery inventory
+Tasks: 7/7
+Overall: 3/18 slices (16.7%)
+Phase: Phase 1 - Audit current update, infrastructure and recovery reality
+Phase progress: 2/3
+Until next phase: 1 slice
+Next: Slice 1.3
+Blockers/drift/amendments: Skill ownership amendment resolved; Workspace physical hierarchy assumption amended from verified current owner contracts.
+```
 
 ### NEXT
 
@@ -789,56 +833,150 @@ Slice 1.3.
 
 ## Slice 1.3 - Freeze implementation architecture and acceptance matrix
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 1.2  
-**Adaptive tasks:** derive from evidence-backed inventory
+**Adaptive tasks:** 7/7 COMPLETE
 
-Freeze evidence-backed decisions for:
+### Final derived task list
 
-- shipped `update` versus structural `upgrade` activation semantics;
-- `update --plan`, doctor, upgrade preview and restore preview read-only contracts;
-- natural-language lifecycle routing for Claude/Codex/Gateway-compatible runtimes;
-- single-command doctor owner fan-out and aggregation order/failure behavior;
-- OPTIONAL / REQUIRED / BLOCKED convergence disposition;
-- upgrade-recipe schema/home;
-- generation/state-fingerprint semantics;
-- stable identity requirements;
-- reference-repair ownership;
-- Last-Known-Good location/scope/exclusions;
-- capture versus reconstruct versus rebuild versus external recovery classes;
-- credential/secret recovery policy;
-- atomic snapshot rotation policy;
-- restore preview, explicit apply and failed-restore transaction semantics;
-- health gate before snapshot replacement;
-- plain-English small-screen UX;
-- technical details/machine-readable output;
-- test matrix for current->target convergence and restore.
+- [x] **1.3-T1** Freeze update versus upgrade activation semantics without changing shipped update behavior.
+- [x] **1.3-T2** Freeze owner boundaries for Workspace structure, Skill provider scope, managed Skills lifecycle and Distribution orchestration.
+- [x] **1.3-T3** Freeze Workspace and Skill identity assumptions migrations may and may not rely on.
+- [x] **1.3-T4** Freeze owner doctor fan-out, failure aggregation and read-only preview contracts.
+- [x] **1.3-T5** Freeze Last-Known-Good ownership/location class, coverage/exclusions, rotation and restore invariants.
+- [x] **1.3-T6** Freeze plain-English UX and cross-runtime lifecycle routing.
+- [x] **1.3-T7** Freeze Phase 2/3 dependency gates and Identity Hardening handoff.
+
+### Exact evidence
+
+- architecture freeze: `docs/SAFE-INFRASTRUCTURE-SLICE-1.3-ARCHITECTURE-FREEZE.md`
+- evidence commit: `aiverse-filmmakers/AI-Verse-System@e515c6356b9619d5c20ec5f9448cba9f273ca015`
+
+### Architecture freeze
+
+#### Update versus structural upgrade
+
+- `aiverse update` remains the shipped mutating safe admitted software update;
+- `aiverse update --plan` remains read-only;
+- OPTIONAL infrastructure rearrangement never hides inside update;
+- `aiverse upgrade` is the structural preview;
+- `aiverse upgrade --apply` executes only admitted owner recipes after source revalidation and recovery-point protection;
+- `aiverse doctor`, `upgrade` preview and `restore` preview are read-only.
+
+#### Workspace identity/storage
+
+- canonical logical identity is `WORKSPACE.yaml:id`;
+- current canonical slot is `workspaces/<id>`;
+- arbitrary Workspace relocation is not admitted by current architecture;
+- if future relocation becomes canonical, the same Workspace ID must survive and all affected owner references must resolve before legacy storage retires.
+
+#### Skill provider/scope identity
+
+- OS owns provider scope/resolution/placement semantics;
+- Skills owns managed provider package identity/lifecycle;
+- managed package identity may survive generation changes;
+- current cross-provider scope transfer changes provider-qualified identity unless Identity Hardening later defines a tested continuity rule.
+
+#### One-command doctor
+
+Reuse Distribution's current fan-out. It must remain aggregation of owner truth, never a second implementation of owner health logic.
+
+#### Last-Known-Good and restore
+
+- owner: Distribution;
+- location class: Distribution-private state outside live OS/Workspace stores, rooted under existing private Distribution state home;
+- representation: verified manifest-backed recoverable state, not necessarily blind byte duplication;
+- four coverage classes: CAPTURE / RECONSTRUCT / REBUILD / EXTERNAL-EXCLUDED;
+- candidate is staged and verified before replacing the retained recovery point;
+- failed rotation cannot destroy the prior point;
+- exactly one usable retained point remains after successful rotation;
+- failed restore cannot destroy its retained target;
+- external effects are never falsely claimed restored.
+
+#### Structural finding semantics
+
+Every finding is deterministically `OPTIONAL`, `REQUIRED` or `BLOCKED/REVIEW`.
+
+#### Runtime and UX
+
+All supported runtimes converge on the same lifecycle meanings. Default member output stays practical and small-screen friendly; IDs/paths/generations/hashes remain opt-in evidence unless needed to explain an otherwise opaque conflict.
+
+### Phase 2/3 gates
+
+The following work is explicitly blocked at this Phase 1 pause point:
+
+- Workspace filesystem relocation implementation;
+- Workspace relocation reference-repair implementation;
+- cross-provider Skill re-scoping/promotion implementation that assumes identity continuity;
+- any generic identity migration engine;
+- Safe Infrastructure Phase 2 contract implementation.
+
+Before those paths continue, the separate Identity Hardening Phase 1 must refresh current identity reality and define the System-wide identity/reference contract.
 
 ### Acceptance criteria
 
-- every new mechanism has one canonical owner;
-- no unresolved source-of-truth duplication remains;
-- shipped Core Update v1 command behavior is preserved;
-- snapshot/restore promise is technically truthful and storage-bounded by evidence;
-- one-command doctor does not become a shadow implementation of owner logic;
-- normal member experience requires no architecture knowledge;
-- Phase 2 can change canonical law without architectural guessing.
+- every new mechanism has one canonical owner: **PASS**;
+- no unresolved source-of-truth duplication remains in the architecture freeze: **PASS**;
+- shipped Core Update v1 behavior preserved: **PASS**;
+- recovery promise truthful and storage-bounded by evidence: **PASS**;
+- doctor remains aggregator, not owner shadow logic: **PASS**;
+- member experience requires no architecture knowledge: **PASS**;
+- Phase 2 can proceed later without architecture guessing after Identity Hardening Phase 1: **PASS**.
+
+### Completion report
+
+```text
+Completed: Slice 1.3 - Freeze implementation architecture and acceptance matrix
+Tasks: 7/7
+Overall: 4/18 slices (22.2%)
+Phase: Phase 1 - Audit current update, infrastructure and recovery reality
+Phase progress: 3/3 COMPLETE
+Until next phase: 0 slices, but Phase 2 is gated by Identity Hardening Phase 1
+Next: STOP. Run Identity Hardening Slice 1.1 and Slice 1.2 before returning to Safe Infrastructure Phase 2.
+Blockers/drift/amendments: Two evidence-backed amendments resolved: Skill provider/scope ownership and current Workspace ID-derived storage semantics.
+```
 
 ### NEXT
 
-Phase 2 / Slice 2.1.
+**STOP.** Do not begin Safe Infrastructure Phase 2 yet.
+
+Run the separate Identity Hardening roadmap:
+
+1. `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` Slice 1.1;
+2. Identity Hardening Slice 1.2;
+3. then return to Safe Infrastructure Phase 2 / Slice 2.1.
+
+---
+
+# Phase 1 pause gate: Identity Hardening handoff
+
+Safe Infrastructure Phase 1 is complete. These findings must be reconciled by the separate Identity Hardening Phase 1 before this roadmap continues:
+
+1. canonically define Workspace stable ID versus the current ID-derived storage slot;
+2. define the minimum cross-owner durable-reference envelope without creating a global registry;
+3. decide whether any future Workspace relocation is actually required and, if so, define owner-controlled ID-to-location lookup semantics before migration work begins;
+4. define scope-transfer identity semantics for capabilities/Skills;
+5. reconcile exact shipped provider-qualified forms `os:*`, `aiverse-skills:*`, `local:*`, `workspace:<id>:*` with the shared System identity contract;
+6. keep package ID, provider-qualified ID, generation ID, version and digest distinct;
+7. preserve OS ownership of provider scope/resolution and Skills ownership of managed package lifecycle;
+8. define fail-closed behavior for duplicate/conflicting identity evidence;
+9. define the identity preservation evidence that update/upgrade/restore qualification may rely on.
+
+Safe Infrastructure must consume the resulting canonical identity contract. It must not pre-empt or duplicate it.
 
 ---
 
 # Phase 2 - Define canonical convergence, migration and recovery contracts
 
-**Phase size:** 3 slices
+**Phase size:** 3 slices  
+**Status:** NOT STARTED  
+**Entry gate:** Slice 1.3 COMPLETE **and** Identity Hardening Slice 1.1 + 1.2 COMPLETE with a canonical System identity/reference contract.
 
 ## Slice 2.1 - Amend the Safe Update and State Preservation Contract
 
 **Status:** NOT STARTED  
-**Dependencies:** 1.3  
-**Adaptive tasks:** derive from the frozen Phase 1 architecture
+**Dependencies:** 1.3 plus completed Identity Hardening Phase 1 shared identity contract  
+**Adaptive tasks:** derive only after the entry gate is satisfied
 
 Explicitly reconcile the current owner-backed backup law with the approved one-rotating-Last-Known-Good product guarantee.
 
@@ -860,7 +998,8 @@ Also define the separation between:
 - restore is preview-first and explicit before mutation;
 - restore does not falsely claim reversal of external systems;
 - restore transaction failure cannot destroy the retained recovery target;
-- sole valid recovery point cannot be destroyed before a verified successor exists.
+- sole valid recovery point cannot be destroyed before a verified successor exists;
+- identity/reference requirements are imported from, not duplicated against, the completed Identity Hardening contract.
 
 ### NEXT
 
@@ -872,7 +1011,7 @@ Slice 2.2.
 
 **Status:** NOT STARTED  
 **Dependencies:** 2.1  
-**Adaptive tasks:** reuse/extend existing component release metadata if Phase 1 proves appropriate
+**Adaptive tasks:** reuse/extend existing component release metadata if evidence proves appropriate
 
 Define the minimum machine-readable semantics required for an owner to publish a structural migration, including as applicable:
 
@@ -884,6 +1023,7 @@ Define the minimum machine-readable semantics required for an owner to publish a
 - applicability/disposition (`OPTIONAL` / `REQUIRED` / blocked when no safe recipe applies);
 - detection/preconditions;
 - migration handler/entrypoint;
+- identity guarantees imported from the canonical Identity Hardening contract;
 - reference-repair obligations;
 - postconditions;
 - risk/recovery requirements;
@@ -901,7 +1041,8 @@ Do not create a parallel release metadata system if the existing component relea
 - exact owner and exact migration path are machine-resolvable;
 - OPTIONAL versus REQUIRED behavior is machine-resolvable;
 - unsupported/unknown path fails closed or becomes REVIEW/BLOCKED;
-- recipe internals are not required knowledge for the member.
+- recipe internals are not required knowledge for the member;
+- recipes may rely only on identity guarantees explicitly admitted by the canonical identity contract.
 
 ### NEXT
 
@@ -914,11 +1055,9 @@ Slice 2.3.
 **Status:** NOT STARTED  
 **Dependencies:** 2.2
 
-Define permanent acceptance invariants, including:
-
 ### Convergence invariant
 
-After a successful admitted upgrade, package-owned/generated/migratable infrastructure should conform to the target release's current architecture while legitimate user state/history remains preserved.
+After a successful admitted upgrade, package-owned/generated/migratable infrastructure should conform to the target release's current architecture while legitimate user state/history and owner-defined durable identity remain preserved according to the canonical identity contract.
 
 ### Restore invariant
 
@@ -938,7 +1077,8 @@ Default output remains plain-English and small-screen friendly; technical detail
 - restore exactness/reproducibility is testable;
 - doctor fan-out and aggregation are testable;
 - user-facing simplicity does not remove machine-readable evidence;
-- member output does not require paths, generations, IDs or migration jargon.
+- member output does not require paths, generations, IDs or migration jargon;
+- identity continuity assertions are testable against the canonical Identity Hardening contract.
 
 ### NEXT
 
@@ -946,29 +1086,28 @@ Phase 3 / Slice 3.1.
 
 ---
 
-# Phase 3 - Implement canonical owner migrations for the motivating problems
+# Phase 3 - Implement canonical owner migrations for proven motivating problems
 
 **Phase size:** 4 slices
 
-## Slice 3.1 - Implement OS workspace identity, hierarchy and generation semantics
+## Slice 3.1 - Implement OS Workspace generation and evidence-backed structural semantics
 
 **Status:** NOT STARTED  
-**Dependencies:** 2.3  
-**Adaptive tasks:** derive from actual OS implementation
+**Dependencies:** 2.3 plus canonical Identity Hardening contract  
+**Adaptive tasks:** derive from actual OS implementation and the completed identity contract
 
-Implement only what Phase 1 proves necessary for OS to understand and create maintainable workspace hierarchy.
+Implement only what is proven necessary for OS to model maintainable Workspace infrastructure.
 
-Mandatory fixture: domain/category-first grouping such as YouTube -> channel/project, while preserving the ability to represent client/project structures such as Clients -> Nike where appropriate.
-
-This structure is an internal owner concern. User interaction should remain based on real-world meaning such as "my YouTube channel" or "the Nike client project," not filesystem hierarchy selection.
+Phase 1 freezes current physical storage as `workspaces/<workspace-id>`. Domain/category organization may be represented through semantic Workspace metadata, derived views or another later-approved mechanism. Do not introduce physical domain-first nesting unless the canonical identity/storage contract explicitly admits it.
 
 ### Acceptance criteria
 
 - OS owns the rule, not Distribution;
-- movable workspaces have stable identity where needed;
-- new workspace creation no longer reproduces the proven bad hierarchy case;
-- user custom hierarchy is not blindly normalized without evidence/approval;
-- ambiguous cases ask natural real-world questions rather than internal architecture questions.
+- Workspace ID/storage semantics follow the canonical identity contract;
+- current `workspaces/<id>` compatibility is preserved unless a later explicit amendment admits another location model;
+- user custom structure is not blindly normalized;
+- ambiguous cases ask practical real-world questions rather than internal architecture questions;
+- no relocation engine is created merely to satisfy the original roadmap example.
 
 ### NEXT
 
@@ -976,23 +1115,28 @@ Slice 3.2.
 
 ---
 
-## Slice 3.2 - Implement OS workspace migration, reference repair and legacy retirement
+## Slice 3.2 - Implement admitted OS Workspace migration/reference repair only if required
 
 **Status:** NOT STARTED  
 **Dependencies:** 3.1  
-**Adaptive tasks:** derive from proven OS reference graph
+**Adaptive tasks:** derive from proven OS/reference graph and canonical identity contract
 
-Provide admitted owner-controlled migration from the old fixture to the accepted target structure.
+A physical Workspace relocation is conditional, not presumed.
+
+If the canonical Identity Hardening/System contract keeps `workspaces/<id>` as the supported physical slot and no real migration requires a move, this slice must not invent a relocation. It may instead implement only genuinely required OS-owned structural migration/reference repair.
+
+If a later canonical contract admits relocatable Workspace storage, the owner migration must preserve the Workspace ID and repair the complete owner-declared reference graph before retiring the old writable route.
 
 ### Acceptance criteria
 
 - migration is idempotent;
 - files/content are preserved;
-- stable workspace identity survives the move;
-- OS-owned references are repaired or proven unaffected;
+- owner-defined Workspace identity continuity rules are satisfied;
+- affected owner references are repaired or proven unaffected;
+- no supported owner is left resolving only a retired slot;
 - old writable structure retires only after verification;
-- ambiguous/custom layouts fail safely or require natural-language review;
-- default user output explains the practical effect without exposing source/target filesystem paths unless details are requested.
+- ambiguous/custom layouts fail safely or require practical user review;
+- default output explains practical effect without exposing internal paths unless details are requested.
 
 ### NEXT
 
@@ -1000,31 +1144,24 @@ Slice 3.3.
 
 ---
 
-## Slice 3.3 - Implement Skills scope and generation semantics
+## Slice 3.3 - Implement cross-provider capability scope semantics and managed Skills generation alignment
 
 **Status:** NOT STARTED  
-**Dependencies:** 2.3  
-**Adaptive tasks:** derive from actual Skills implementation
+**Dependencies:** 2.3 plus canonical Identity Hardening scope-transfer contract  
+**Adaptive tasks:** derive from current OS provider resolver and Skills managed-provider lifecycle
 
-Define/implement evidence-backed reusable Skill scopes. An internal conceptual model may include scopes such as:
+OS owns cross-provider scope/placement semantics. Skills owns the managed distributed provider lifecycle.
 
-```text
-OS-wide
-Domain/shared
-Workspace-local
-```
-
-Exact names/storage must follow current Skills architecture rather than this plan guessing file layout.
-
-The member should deal in practical meaning: "use this everywhere," "use this for all YouTube work," or "only use this in this project." AI-Verse maps that meaning to canonical Skills scope.
+The member should deal in practical meaning such as "use this everywhere," "use this for all YouTube work," or "only use this in this project." OS maps that meaning to an authorized provider/scope according to canonical owner rules.
 
 ### Acceptance criteria
 
-- Skills owns scope semantics;
-- scope is represented canonically rather than inferred only from directory location;
-- new reusable Skills are not forced into one project's private location when wider scope is clearly canonical;
-- provenance/history survives scope changes;
-- the member is not required to choose storage folders or internal scope identifiers.
+- OS owns provider scope/placement semantics;
+- Skills continues owning managed provider package identity/lifecycle;
+- current provider-qualified identity forms remain compatible unless explicitly versioned/amended;
+- new reusable capabilities are not forced into a Workspace-private provider when wider user-owned reuse is clearly intended;
+- provenance/history survives promotion according to the canonical identity contract;
+- member never chooses storage folders or internal scope IDs.
 
 ### NEXT
 
@@ -1032,22 +1169,25 @@ Slice 3.4.
 
 ---
 
-## Slice 3.4 - Implement Skills promotion/migration and reference repair
+## Slice 3.4 - Implement admitted capability promotion/re-scoping and reference repair
 
 **Status:** NOT STARTED  
 **Dependencies:** 3.3  
-**Adaptive tasks:** derive from actual Skills references/consumers
+**Adaptive tasks:** derive from actual provider consumers and canonical scope-transfer identity law
 
-Mandatory fixture: a reusable YouTube transcript/book Skill initially created inside one channel/project and already consumed from another project.
+Mandatory fixture: a reusable YouTube transcript/book capability initially created inside one Workspace and already consumed from another context.
+
+Cross-provider promotion is OS-owned placement/migration semantics with source/destination owner participation. Do not assume qualified identity continuity. Under current shipped provider contract, a provider change changes qualified identity unless the later canonical identity contract explicitly defines another rule.
 
 ### Acceptance criteria
 
 - migration/promotion is owner-controlled and idempotent;
-- Skill identity/provenance/history survives;
-- consumers/references continue resolving;
-- duplicate canonical Skill copies are not created;
-- ambiguous user-created/local-only Skills are not silently promoted;
-- review questions are framed in practical user language, not repository/path terminology.
+- source/destination identity relationship follows the canonical identity contract;
+- provenance/history survives;
+- consumers/references continue resolving through admitted reference repair or explicit compatibility;
+- duplicate canonical copies are not created accidentally;
+- ambiguous user-created/local-only capabilities are not silently promoted;
+- review questions use practical language, not repository/path terminology.
 
 ### NEXT
 
@@ -1074,10 +1214,10 @@ Implement the bounded recovery guarantee without assuming that recoverability re
 - unhealthy/ambiguous current installation cannot destroy the sole known-good recovery point;
 - only one retained Last-Known-Good point remains after successful rotation;
 - canonical/user state required for recovery is captured or otherwise durably represented;
-- exact software may be reconstructed from verified immutable refs/receipts when Phase 1 proves that safe;
+- exact software may be reconstructed from verified immutable refs/receipts only where exact reproducibility is proven;
 - disposable/rebuildable caches, indexes and dependency trees are not copied merely to make the snapshot look complete;
-- large media/render/output surfaces have an explicit evidence-backed coverage policy rather than accidental inclusion;
-- secrets/credentials follow an explicit safe coverage policy;
+- large Workspace media/assets/outputs have an explicit evidence-backed coverage policy rather than accidental omission;
+- secrets/credentials follow an explicit safe exclusion or secure coverage policy;
 - recovery material is immutable/non-canonical during normal operation;
 - `aiverse restore` is preview-only and mutates nothing;
 - restore preview says what is covered, excluded and at risk of being replaced in plain English;
@@ -1109,7 +1249,7 @@ The completed Core Update Program v1 updater is the base. Extend it; do not repl
 - BLOCKED/REVIEW state cannot be misrepresented as safe automatic work;
 - update may safely stage only when staging is evidence-backed and activation truth remains explicit;
 - release/update transaction remains truthful after interruption;
-- the member is never asked for release IDs, repository paths, migration recipe IDs or infrastructure generations.
+- member is never asked for release IDs, repository paths, migration recipe IDs or infrastructure generations.
 
 ### NEXT
 
@@ -1123,9 +1263,9 @@ Slice 4.3.
 **Dependencies:** 3.2, 3.4, 4.2  
 **Adaptive tasks:** derive from owner doctor/recipe surfaces
 
-`aiverse doctor` is one member command. Distribution invokes the relevant owner checks internally in a controlled sequence and aggregates them without duplicating owner logic.
+`aiverse doctor` is one member command. Distribution invokes relevant owner checks internally in a controlled sequence and aggregates them without duplicating owner logic.
 
-`aiverse upgrade` consumes the owner findings/recipes and produces the structural convergence preview.
+`aiverse upgrade` consumes owner findings/recipes and produces the structural convergence preview.
 
 Default experience should resemble:
 
@@ -1155,13 +1295,13 @@ Recommended: Upgrade AI-Verse
 
 - one `aiverse doctor` command checks the whole supported installation from the member's perspective;
 - owner checks execute internally with isolated evidence/results;
-- one owner check failure is surfaced accurately and does not become a false whole-system PASS;
-- the member never needs component-specific doctor commands;
+- one owner failure is surfaced accurately and cannot become a false whole-system PASS;
+- member never needs component-specific doctor commands;
 - default summary is concise and plain English;
 - full technical evidence is available on demand and machine-readable;
 - doctor/upgrade preview mutate nothing;
-- OPTIONAL / REQUIRED / REVIEW/BLOCKED cases are impossible to misread;
-- default output does not expose internal paths/generations/IDs unless required to explain a conflict and no friendlier identifier exists.
+- OPTIONAL / REQUIRED / REVIEW-BLOCKED cases are impossible to misread;
+- default output does not expose internal paths/generations/IDs unless no friendlier conflict identifier exists.
 
 ### NEXT
 
@@ -1181,12 +1321,13 @@ Slice 4.4.
 - Last-Known-Good point is secured first;
 - owner handlers execute in dependency-safe order;
 - partial failure remains resumable/recoverable/truthful;
+- identity/reference conditions from the canonical Identity Hardening contract are revalidated;
 - reference repairs and postconditions are verified;
 - failed upgrade never reports success;
-- restore remains available after the upgrade;
+- restore remains available after upgrade;
 - OPTIONAL upgrades require explicit apply intent;
-- REQUIRED upgrades remain explicit rather than being hidden inside normal update;
-- member completion output explains what practically improved, what was preserved and whether health passed without requiring technical migration knowledge.
+- REQUIRED upgrades remain explicit rather than hidden inside normal update;
+- completion output explains what practically improved, what was preserved and whether health passed without migration jargon.
 
 ### NEXT
 
@@ -1217,25 +1358,28 @@ Test at minimum:
 - source drift invalidates stale plan;
 - migration applied twice is safe;
 - skip-version migration/chain behavior;
-- path move preserves stable identity;
-- references remain valid;
+- if Workspace relocation is ever admitted, it preserves owner-defined Workspace identity and repairs all declared references;
+- if Workspace relocation is not admitted, unsupported relocation is rejected without mutation;
+- cross-provider Skill/capability promotion obeys canonical scope-transfer identity semantics;
 - user custom files survive;
 - sole valid recovery point cannot be lost during failed rotation;
 - recovery can reproduce covered state without requiring blind cache/dependency duplication;
+- Workspace assets/outputs follow the declared coverage policy;
 - restore preview does not mutate;
 - restore apply replaces exactly the declared covered scope;
 - failed restore does not destroy the retained restore target;
 - injected mid-upgrade failure remains recoverable;
 - secrets/credential exclusions or secure coverage behave exactly as declared;
 - external side effects are not falsely claimed as restored;
-- Claude/Codex/Gateway-compatible runtime adapters converge on the same lifecycle commands;
+- Claude/Codex/Gateway-compatible adapters converge on the same lifecycle commands;
 - default member output remains understandable without paths, generations, IDs or migration terminology.
 
 ### Acceptance criteria
 
 - all permanent laws have executable proof or explicit canonical evidence owner;
 - negative tests prove blocked operations leave protected state unchanged;
-- user-flow tests prove one normal-language request/one command is sufficient for update, doctor, upgrade preview and restore preview.
+- user-flow tests prove one normal-language request/one command is sufficient for update, doctor, upgrade preview and restore preview;
+- identity continuity/identity-change behavior matches the canonical Identity Hardening contract.
 
 ### NEXT
 
@@ -1247,41 +1391,40 @@ Slice 5.2.
 
 **Status:** NOT STARTED  
 **Dependencies:** 5.1  
-**Adaptive tasks:** derive from real historical/current fixtures
-
-Run representative end-to-end cases including:
+**Adaptive tasks:** derive from real historical/current fixtures and the canonical identity contract
 
 ### Workspace fixture
 
-Old scattered channel workspace structure -> one doctor command -> plain-English upgrade preview -> explicit apply -> accepted current structure -> reference verification.
+Use the real historical Workspace drift identified by the implemented target architecture. Do not force a physical path move if the canonical architecture still uses `workspaces/<id>`.
 
-The member-facing fixture must not require the tester to choose filesystem hierarchy or internal generation numbers.
+One doctor command -> plain-English upgrade preview -> explicit apply where an admitted migration exists -> accepted current structure -> identity/reference verification.
 
 ### Skills fixture
 
-Project-local reusable YouTube Skill -> one doctor command -> practical promotion recommendation -> explicit apply -> shared/domain-appropriate scope -> consumer verification.
+Workspace-local reusable YouTube capability -> one doctor command -> practical promotion recommendation -> explicit apply -> target provider/scope -> consumer verification.
 
-The member-facing fixture must reason in terms of where the Skill should be usable, not where its files should live.
+The test must verify whether identity is preserved or intentionally changes according to the canonical scope-transfer contract. It must not assume continuity merely because content is similar.
 
 ### Restore fixture
 
-Retain pre-action Last-Known-Good -> perform software update + infrastructure upgrade -> create additional realistic covered local changes where test design allows -> run restore preview -> verify preview is truthful/read-only -> explicitly apply restore -> verify covered local state exactly matches/reproduces the retained recovery point.
+Retain pre-action Last-Known-Good -> perform software update + admitted infrastructure upgrade -> create additional realistic covered local changes -> run restore preview -> verify preview is truthful/read-only -> explicitly apply restore -> verify covered local state exactly matches/reproduces the retained recovery point.
 
 ### Fresh-versus-upgraded convergence fixture
 
-Compare a fresh current install with a historical install upgraded to current. Current package-owned/generated/migratable infrastructure must satisfy the same target contracts while historical user state remains preserved.
+Compare a fresh current install with a historical install upgraded to current. Current package-owned/generated/migratable infrastructure must satisfy the same target contracts while historical user state and owner-defined durable identities remain preserved.
 
 ### Runtime fixture
 
-For supported agent runtimes, natural-language lifecycle requests must resolve to the same canonical update/doctor/upgrade/restore behavior without requiring release IDs, paths or component-specific commands.
+For supported runtimes, natural-language lifecycle requests resolve to the same canonical update/doctor/upgrade/restore behavior without requiring release IDs, paths or component-specific commands.
 
 ### Acceptance criteria
 
-- motivating real-world problems are fixed for both future creation and existing installations;
+- real motivating problems are fixed for both future creation and existing installations;
 - convergence invariant passes;
 - restore invariant passes;
 - doctor aggregation invariant passes;
 - runtime convergence passes;
+- identity/reference behavior matches the canonical identity contract;
 - member UX remains concise, plain-English and non-technical.
 
 ### NEXT
@@ -1296,7 +1439,7 @@ Slice 5.3.
 **Dependencies:** 5.2  
 **Adaptive tasks:** derive only from real remaining closeout debt
 
-Update canonical System truth, owner docs, Distribution lifecycle docs, runtime adapters, changelog/readiness and any repository-network state required by the active governance program.
+Update canonical System truth, owner docs, Distribution lifecycle docs, runtime adapters, changelog/readiness and any repository-network state required by active governance.
 
 ### Acceptance criteria
 
@@ -1308,8 +1451,8 @@ Update canonical System truth, owner docs, Distribution lifecycle docs, runtime 
 - OPTIONAL / REQUIRED / BLOCKED behavior is deterministic and understandable;
 - one rotating Last-Known-Good recovery point is operational;
 - restore is preview-first, explicit, truthful and tested;
-- recovery scope is storage-conscious and technically reproducible rather than a blind-copy promise;
-- OS workspace and Skills scope fixtures pass;
+- recovery scope is storage-conscious and reproducible rather than a blind-copy promise;
+- Workspace and capability-scope fixtures pass according to the canonical identity contract;
 - supported runtime adapters converge on one lifecycle contract;
 - user-owned data/state protection remains satisfied;
 - default member UX requires no repository/path/generation/migration knowledge;
@@ -1333,51 +1476,57 @@ None. Program complete.
 - Added one rotating Last-Known-Good recovery point before every mutating update/upgrade operation.
 - Added atomic recovery-point rotation so the sole usable recovery point cannot be destroyed before a verified successor exists.
 - Added truthful whole-local-install restore semantics with explicit external exclusions.
-- Added concrete OS workspace and Skills scope problems as mandatory qualification fixtures.
+- Added concrete Workspace and Skill scope problems as mandatory qualification fixtures.
 - Identified the existing Safe Update contract backup policy as an intentional contract amendment required before implementation.
-- Limited initial implementation repos to System, Distribution, OS and Skills; future components adopt the framework only when a real migration need exists.
 
 ## 2026-10-12 - Owner-approved plan refinement before Phase 1 implementation
 
-- Preserved the already-shipped Core Update Program v1 semantics: `aiverse update` applies the safe admitted update and `aiverse update --plan` previews it. Removed the proposed regression to `update --apply`.
-- Made the normal member experience conversational and plain-English; paths, generations, stable IDs, recipe IDs, fingerprints and owner internals are evidence-layer concepts rather than required user knowledge.
-- Defined one `aiverse doctor` command that internally invokes owner health checks in a controlled sequence and returns one combined result; members do not run component-specific doctor commands.
-- Added deterministic OPTIONAL / REQUIRED / BLOCKED-REVIEW structural finding semantics so optional modernization never hides inside update and required convergence can safely gate activation.
-- Made `aiverse restore` preview-only and `aiverse restore --apply` the explicit mutating action.
-- Added transactional failed-restore protection without replacing/destroying the retained Last-Known-Good target before restore succeeds.
-- Refined the Last-Known-Good guarantee from a naive whole-folder duplicate into a complete recoverable representation: capture canonical/user state, reconstruct exact software from verified immutable references where safe, rebuild disposable state, and state external/security-sensitive exclusions truthfully.
+- Preserved shipped Core Update v1 semantics: `aiverse update` applies and `aiverse update --plan` previews.
+- Made normal member experience conversational and plain-English.
+- Defined one `aiverse doctor` command that internally invokes owner health checks and returns one combined result.
+- Added deterministic OPTIONAL / REQUIRED / BLOCKED-REVIEW semantics.
+- Made `aiverse restore` preview-only and `aiverse restore --apply` the explicit mutation.
+- Refined Last-Known-Good from a naive whole-folder duplicate into a complete recoverable representation.
 - Added explicit large-media/cache/dependency/credential recovery-scope audit requirements.
-- Generalized stable identity to first-class movable entities only where evidence proves path-independent identity is needed.
-- Added cross-runtime lifecycle convergence requirements so Claude Code, Codex-compatible, Gateway-hosted and other supported runtimes route the same natural-language lifecycle intent to the same canonical commands.
-- Strengthened Phase 5 with user-flow, doctor aggregation, restore preview/apply, runtime convergence and non-technical UX acceptance.
+- Added cross-runtime lifecycle convergence requirements.
 
-## 2026-10-12 - Slice 1.1 task list recorded before implementation
+## 2026-10-12 - Slice 1.1 task list and audit
 
-- Captured starting refs for System, Distribution, OS and Skills.
-- Recorded the seven evidence-backed audit tasks required by Slice 1.1 acceptance criteria.
-- Kept Slice 1.1 audit-only. No product/runtime implementation change was made before this record.
-
-## 2026-10-12 - Slice 1.1 audit completed and ownership amendment proposed
-
-- Corrected the initial starting-ref bookkeeping using authoritative branch/commit evidence rather than silently retaining non-commit identifiers.
+- Recorded the seven audit tasks before product implementation.
+- Corrected initial starting-ref bookkeeping using authoritative branch/commit evidence.
 - Completed all seven audit tasks with exact-ref repository evidence and successful exact-ref GitHub Actions runs.
-- Classified the shipped Core updater, release/transition machinery, zero-loss guards, doctor fan-out, OS workspace identity/health and Skills immutable-generation lifecycle for reuse/extension rather than duplication.
-- Reproduced/classified the current flat OS workspace creation behavior and classified the reusable-Skill fixture as a provider/scope migration problem.
-- Confirmed current software/update recovery mechanisms are bounded and that product-level rotating Last-Known-Good plus `restore` preview/apply do not yet exist.
-- Recorded detailed audit evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-1.1-AUDIT.md` at commit `1da8f5f6187fd8c265e10188b0b5c2d486f01df2`.
-- Discovered a protected ownership conflict: shipped OS/Skills contracts assign cross-provider Skill scope/resolution to OS, while this plan currently assigns it to Skills.
-- Proposed an evidence-backed ownership amendment without changing the protected law automatically.
-- Marked the program `BLOCKED - PLAN AMENDMENT REQUIRED` before Slice 1.2, as required by the adaptive planning protocol.
+- Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-1.1-AUDIT.md` at `1da8f5f6187fd8c265e10188b0b5c2d486f01df2`.
+- Proposed the Skill scope/provider ownership amendment after shipped OS/Skills contracts contradicted the original roadmap assumption.
+
+## 2026-10-12 - Slice 1.1 amendment resolved and Slice 1.2 completed
+
+- Resolved cross-provider Skill ownership from shipped contracts: OS owns provider scope/resolution/placement; Skills owns the managed distributed package lifecycle.
+- Added a second explicit evidence-backed amendment: current Workspace canonical storage remains `workspaces/<id>`; domain-first physical nesting is not an admitted target.
+- Froze Workspace logical identity as `WORKSPACE.yaml:id` while documenting current ID-derived storage coupling across OS/Data/Brain/Memory.
+- Froze current cross-provider capability scope transfer as qualified-identity-changing unless a later canonical identity contract explicitly defines continuity.
+- Classified recovery material into CAPTURE / RECONSTRUCT / REBUILD / EXTERNAL-EXCLUDED.
+- Recorded Slice 1.2 evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-1.2-INVENTORY.md` at `d9920be2727a550266086b84b73aafbc397c07de`.
+
+## 2026-10-12 - Slice 1.3 completed; Phase 1 architecture frozen
+
+- Froze update/upgrade/doctor/restore lifecycle semantics while preserving shipped Core Update v1 behavior.
+- Froze owner boundaries for Workspace structure, Skill provider scope, managed Skills lifecycle and Distribution recovery orchestration.
+- Froze Last-Known-Good private location class, four recovery coverage classes, atomic rotation and transactional restore requirements.
+- Explicitly blocked Workspace relocation and cross-provider identity-continuity implementation until the shared identity contract exists.
+- Recorded Slice 1.3 evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-1.3-ARCHITECTURE-FREEZE.md` at `e515c6356b9619d5c20ec5f9448cba9f273ca015`.
+- Completed Phase 1 at 3/3 slices.
+- Inserted the required pause before Safe Infrastructure Phase 2 so Identity Hardening Slice 1.1 and 1.2 can define the canonical System-wide identity/reference contract first.
 
 ---
 
 # Current execution pointer
 
-**Completed:** 2/18  
-**Overall:** 11.1%  
-**Phase:** Phase 1 - Audit current update, infrastructure and recovery reality  
-**Phase progress:** 1/3  
-**Until Phase 2:** 2 slices  
-**Next:** Resolve the proposed Skill scope/provider ownership amendment, then Slice 1.2  
-**Next task:** Owner decision on the recorded plan amendment; do not begin the affected Slice 1.2 ownership freeze before resolution  
-**Blockers/drift/amendments:** `PLAN AMENDMENT PROPOSED` for cross-provider Skill scope/re-scoping ownership. Concurrent System/Distribution/Skills work was recorded and not overwritten. Initial Slice 1.1 ref bookkeeping was corrected transparently.
+**Completed:** 4/18  
+**Overall:** 22.2%  
+**Phase:** Phase 1 - COMPLETE  
+**Phase progress:** 3/3  
+**Until Phase 2:** 0 Safe Infrastructure slices, but the Identity Hardening Phase 1 gate is mandatory  
+**Next:** STOP. Run `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md` Slice 1.1 and Slice 1.2  
+**Next Safe Infrastructure slice after that gate:** Phase 2 / Slice 2.1  
+**Next task:** none in Safe Infrastructure until Identity Hardening Phase 1 completes  
+**Blockers/drift/amendments:** resolved two evidence-backed roadmap amendments: (1) OS owns cross-provider Skill/capability scope resolution while Skills owns managed provider package lifecycle; (2) current Workspace storage is ID-derived `workspaces/<id>` and arbitrary physical relocation is not admitted. Phase 2 is intentionally paused pending the separate canonical identity contract.
