@@ -1,1 +1,421 @@
-{"schema_version":"ai-verse.repository-state/v1","state_id":"ai-verse.repository-network","registry_binding":{"path":"governance/repository-registry.json","schema_version":"ai-verse.repository-registry/v1","blob_sha":"175c269a7f8b036bab6f2378ecb794836d002f93"},"refresh":{"mode":"scoped-refresh","scope":"Core","status":"complete","repository_ids":[1367664026,1350081263,1361862361,1362233598,1361910454,1362243580,1364457521],"evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b","last_scoped_refresh":{"scope":"Core","status":"complete","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b","observed_at":null},"last_full_refresh":null},"watchdog":{"status":"WATCHDOG-STALE","heartbeat_revision":null,"last_successful_full_scan":null,"reason":"No scheduled repository drift watchdog has completed yet. Slice 3.2 will add the scheduled/manual full-scan heartbeat. Silence is not CLEAN."},"repositories":[{"repository_id":1367664026,"access":"verified","observed_head":"204ee5808b25499d6128ae72ea6ee11040a4039b","owner_acceptance":{"status":"not-applicable","revision":null,"evidence_refs":[]},"distribution_pin":{"status":"not-applicable","revision":null,"release_id":null,"evidence_refs":[]},"descriptor":{"status":"not-applicable","revision":null,"release_status":null,"blob_sha":null,"evidence_refs":[]},"system_sync":{"status":"not-applicable","checkpoint_revision":null,"evidence_refs":[]},"freshness":{"scope":"Core","status":"fresh","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b"}},{"repository_id":1350081263,"access":"verified","observed_head":"fd11b4a95487638d47ff55472a3703b03892d0e8","owner_acceptance":{"status":"unverified","revision":null,"evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"]},"distribution_pin":{"status":"not-applicable","revision":null,"release_id":null,"evidence_refs":[]},"descriptor":{"status":"not-applicable","revision":null,"release_status":null,"blob_sha":null,"evidence_refs":[]},"system_sync":{"status":"unverified","checkpoint_revision":null,"evidence_refs":[]},"freshness":{"scope":"Core","status":"fresh","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b"}},{"repository_id":1361862361,"access":"verified","observed_head":"64f7325444d18f94c9d4755d32eb89f3468bda6b","owner_acceptance":{"status":"accepted","revision":"9600929b946746c25c64e48471fcc83031fddda9","evidence_refs":["aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b:release/component-release.json"]},"distribution_pin":{"status":"pinned","revision":"64f7325444d18f94c9d4755d32eb89f3468bda6b","release_id":"core-first-run-rc1-2026-10-12","evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json"]},"descriptor":{"status":"observed","revision":"9600929b946746c25c64e48471fcc83031fddda9","release_status":"accepted","blob_sha":"633fda576622cfee15396994324f7a54f81a2fc8","evidence_refs":["aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b:release/component-release.json"]},"system_sync":{"status":"unverified","checkpoint_revision":null,"evidence_refs":[]},"freshness":{"scope":"Core","status":"fresh","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b"}},{"repository_id":1362233598,"access":"verified","observed_head":"69f7912eeb35f0178f6952ff0554aec8d7f2c496","owner_acceptance":{"status":"unverified","revision":null,"evidence_refs":["aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496:release/component-release.json"]},"distribution_pin":{"status":"pinned","revision":"69f7912eeb35f0178f6952ff0554aec8d7f2c496","release_id":"core-first-run-rc1-2026-10-12","evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json"]},"descriptor":{"status":"observed","revision":"75e1d713a422eec4caea89bdab5053cae23218c6","release_status":"development","blob_sha":"41e98dec82999192c7cbb3fbe23c65ee47c3f894","evidence_refs":["aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496:release/component-release.json"]},"system_sync":{"status":"unverified","checkpoint_revision":null,"evidence_refs":[]},"freshness":{"scope":"Core","status":"fresh","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b"}},{"repository_id":1361910454,"access":"verified","observed_head":"f1327be48ba2ee0043959021365e6dbb9dcb1d3a","owner_acceptance":{"status":"unverified","revision":null,"evidence_refs":["aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a:release/component-release.json"]},"distribution_pin":{"status":"pinned","revision":"f1327be48ba2ee0043959021365e6dbb9dcb1d3a","release_id":"core-first-run-rc1-2026-10-12","evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json"]},"descriptor":{"status":"observed","revision":"3f715bf43c8dc5f0ad8888e07d857b581482569e","release_status":"development","blob_sha":"a3bbd49cb9d94ddbab56eb5c820c9b6926b1e477","evidence_refs":["aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a:release/component-release.json"]},"system_sync":{"status":"unverified","checkpoint_revision":null,"evidence_refs":[]},"freshness":{"scope":"Core","status":"fresh","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b"}},{"repository_id":1362243580,"access":"verified","observed_head":"afde5c06307fba7d074de2929c2eb6c3dc6bdab8","owner_acceptance":{"status":"unverified","revision":null,"evidence_refs":["aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8:release/component-release.json"]},"distribution_pin":{"status":"pinned","revision":"afde5c06307fba7d074de2929c2eb6c3dc6bdab8","release_id":"core-first-run-rc1-2026-10-12","evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json"]},"descriptor":{"status":"observed","revision":"fa455961c17691862bd86b7e0f658690e9ecb86d","release_status":"development","blob_sha":"7c8531c2b72fb277d6403aa8bdc95798a41f1395","evidence_refs":["aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8:release/component-release.json"]},"system_sync":{"status":"unverified","checkpoint_revision":null,"evidence_refs":[]},"freshness":{"scope":"Core","status":"fresh","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b"}},{"repository_id":1364457521,"access":"verified","observed_head":"f8978f8f7a1bc94edecddc2662112233289159a3","owner_acceptance":{"status":"unverified","revision":null,"evidence_refs":["aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3:release/component-release.json"]},"distribution_pin":{"status":"pinned","revision":"f8978f8f7a1bc94edecddc2662112233289159a3","release_id":"core-first-run-rc1-2026-10-12","evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json"]},"descriptor":{"status":"observed","revision":"5cbf9908440ca7e11506991ba1dd7d3344f2b1fd","release_status":"development","blob_sha":"a83a924b52c88cdb1b1ea4c2e2c220c2e868440a","evidence_refs":["aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3:release/component-release.json"]},"system_sync":{"status":"unverified","checkpoint_revision":null,"evidence_refs":[]},"freshness":{"scope":"Core","status":"fresh","evidence_revision":"204ee5808b25499d6128ae72ea6ee11040a4039b"}}],"drift":[{"id":"core-owner-acceptance-exact-ref-gap","marker":"CANONICAL-DRIFT-DETECTED","status":"open","severity":"BLOCKING","scope":"Core","repository_ids":[1361862361,1362233598,1361910454,1362243580,1364457521],"reason":"The current Core release is Distribution-qualified and pins the live Core heads, but the component descriptor surface does not certify exact owner acceptance for those shipped revisions. OS points to an older accepted revision; Brain, Memory, Skills and Data point to older development revisions. This does not prove the shipped revisions were untested; it means the current owner descriptor surface cannot alone prove exact owner acceptance.","evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json","aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"],"required_action":"Extend and adopt the one canonical Component Release Descriptor and owner handoff so future Core release admission can bind exact accepted owner revisions and evidence. Do not create a second compatibility or acceptance format."},{"id":"purpose-context-blueprint-lag","marker":"CANONICAL-DRIFT-DETECTED","status":"open","severity":"WARNING","scope":"Core","repository_ids":[1367664026],"reason":"The stable System Blueprint still lags newer accepted Purpose Context implementation truth.","evidence_refs":["aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/FINAL-AI-VERSE-BLUEPRINT.md"],"required_action":"Reconcile current System truth evidence-first in Slice 3.3 without reverting accepted implementation merely because a stable document lags."},{"id":"core-maintainer-handoff-uneven","marker":"CANONICAL-DRIFT-DETECTED","status":"open","severity":"WARNING","scope":"Core","repository_ids":[1361862361,1362233598,1361910454,1362243580,1364457521],"reason":"Root-level cross-repository maintainer handoff guidance remains uneven across the five Core owner repositories.","evidence_refs":["aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"],"required_action":"Add minimal owner-specific source-only maintainer handoff in Slice 4.2 without copying global governance into component repositories."},{"id":"distribution-adapter-compatibility-shadow-risk","marker":"CANONICAL-DRIFT-DETECTED","status":"open","severity":"WARNING","scope":"Core","repository_ids":[1350081263],"reason":"Distribution contains hard-coded supported revision and command knowledge in trusted adapters. This is legitimate orchestration today but must not become a second compatibility or owner-acceptance authority.","evidence_refs":["aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"],"required_action":"Bind future admission to Registry, descriptor and owner evidence while retaining Distribution trusted argv routing."},{"id":"compact-release-receipt-not-yet-implemented","marker":"CANONICAL-DRIFT-DETECTED","status":"open","severity":"INFO","scope":"Core","repository_ids":[1350081263],"reason":"Durable release reconstruction evidence exists across current release-set and qualification files, but the planned compact single release receipt binding is not implemented yet.","evidence_refs":["aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"],"required_action":"Implement the compact immutable release receipt in Slice 5.4 without replacing existing qualification evidence."},{"id":"repository-watchdog-stale","marker":"CANONICAL-DRIFT-DETECTED","status":"open","severity":"WARNING","scope":"global","repository_ids":[1367664026],"reason":"The repository drift watchdog has not been implemented or completed a full-network heartbeat yet, so watchdog silence cannot be interpreted as CLEAN.","evidence_refs":["aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"],"required_action":"Implement scheduled/manual full scans and heartbeat freshness in Slice 3.2 using the same Repository State refresh engine."}],"semantics":{"dynamic_state_only":true,"registry_static_truth_authority":"governance/repository-registry.json","human_ledger_authority":false,"human_ledger_path":"docs/REPOSITORY-STATE-LEDGER.md","dates_informational_only":true,"unknown_evidence_fails_closed":true}}
+{
+  "schema_version": "ai-verse.repository-state/v1",
+  "state_id": "ai-verse.repository-network",
+  "registry_binding": {
+    "path": "governance/repository-registry.json",
+    "schema_version": "ai-verse.repository-registry/v1",
+    "blob_sha": "175c269a7f8b036bab6f2378ecb794836d002f93"
+  },
+  "refresh": {
+    "mode": "full-refresh",
+    "scope": "global",
+    "status": "complete",
+    "repository_ids": [
+      1367664026,
+      1350081263,
+      1361862361,
+      1362233598,
+      1361910454,
+      1362243580,
+      1364457521
+    ],
+    "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72",
+    "last_scoped_refresh": {
+      "scope": "global",
+      "status": "complete",
+      "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72",
+      "observed_at": "2026-10-12T16:56:00Z"
+    },
+    "last_full_refresh": {
+      "scope": "global",
+      "status": "complete",
+      "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72",
+      "observed_at": "2026-10-12T16:56:00Z"
+    }
+  },
+  "watchdog": {
+    "status": "WATCHDOG-CURRENT",
+    "heartbeat_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72",
+    "last_successful_full_scan": {
+      "scope": "global",
+      "status": "complete",
+      "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72",
+      "observed_at": "2026-10-12T16:56:00Z"
+    },
+    "reason": "Successful Registry-derived global heartbeat at 2026-10-12T16:56:00Z; all registered repositories were scanned with no access/fetch failure."
+  },
+  "repositories": [
+    {
+      "repository_id": 1367664026,
+      "access": "verified",
+      "observed_head": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72",
+      "owner_acceptance": {
+        "status": "not-applicable",
+        "revision": null,
+        "evidence_refs": []
+      },
+      "distribution_pin": {
+        "status": "not-applicable",
+        "revision": null,
+        "release_id": null,
+        "evidence_refs": []
+      },
+      "descriptor": {
+        "status": "not-applicable",
+        "revision": null,
+        "release_status": null,
+        "blob_sha": null,
+        "evidence_refs": []
+      },
+      "system_sync": {
+        "status": "not-applicable",
+        "checkpoint_revision": null,
+        "evidence_refs": []
+      },
+      "freshness": {
+        "scope": "global",
+        "status": "fresh",
+        "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72"
+      }
+    },
+    {
+      "repository_id": 1350081263,
+      "access": "verified",
+      "observed_head": "90f175418f8d13faeece8bcb1ad0796d2adecfb1",
+      "owner_acceptance": {
+        "status": "unverified",
+        "revision": null,
+        "evidence_refs": [
+          "aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"
+        ]
+      },
+      "distribution_pin": {
+        "status": "not-applicable",
+        "revision": null,
+        "release_id": null,
+        "evidence_refs": []
+      },
+      "descriptor": {
+        "status": "not-applicable",
+        "revision": null,
+        "release_status": null,
+        "blob_sha": null,
+        "evidence_refs": []
+      },
+      "system_sync": {
+        "status": "unverified",
+        "checkpoint_revision": null,
+        "evidence_refs": []
+      },
+      "freshness": {
+        "scope": "global",
+        "status": "fresh",
+        "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72"
+      }
+    },
+    {
+      "repository_id": 1361862361,
+      "access": "verified",
+      "observed_head": "64f7325444d18f94c9d4755d32eb89f3468bda6b",
+      "owner_acceptance": {
+        "status": "accepted",
+        "revision": "9600929b946746c25c64e48471fcc83031fddda9",
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b:release/component-release.json"
+        ]
+      },
+      "distribution_pin": {
+        "status": "pinned",
+        "revision": "64f7325444d18f94c9d4755d32eb89f3468bda6b",
+        "release_id": "core-first-run-rc1-2026-10-12",
+        "evidence_refs": [
+          "aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1:release-sets/core-first-run-rc1-2026-10-12.json"
+        ]
+      },
+      "descriptor": {
+        "status": "observed",
+        "revision": "9600929b946746c25c64e48471fcc83031fddda9",
+        "release_status": "accepted",
+        "blob_sha": "633fda576622cfee15396994324f7a54f81a2fc8",
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b:release/component-release.json"
+        ]
+      },
+      "system_sync": {
+        "status": "unverified",
+        "checkpoint_revision": null,
+        "evidence_refs": []
+      },
+      "freshness": {
+        "scope": "global",
+        "status": "fresh",
+        "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72"
+      }
+    },
+    {
+      "repository_id": 1362233598,
+      "access": "verified",
+      "observed_head": "69f7912eeb35f0178f6952ff0554aec8d7f2c496",
+      "owner_acceptance": {
+        "status": "unverified",
+        "revision": null,
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496:release/component-release.json"
+        ]
+      },
+      "distribution_pin": {
+        "status": "pinned",
+        "revision": "69f7912eeb35f0178f6952ff0554aec8d7f2c496",
+        "release_id": "core-first-run-rc1-2026-10-12",
+        "evidence_refs": [
+          "aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1:release-sets/core-first-run-rc1-2026-10-12.json"
+        ]
+      },
+      "descriptor": {
+        "status": "observed",
+        "revision": "75e1d713a422eec4caea89bdab5053cae23218c6",
+        "release_status": "development",
+        "blob_sha": "41e98dec82999192c7cbb3fbe23c65ee47c3f894",
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496:release/component-release.json"
+        ]
+      },
+      "system_sync": {
+        "status": "unverified",
+        "checkpoint_revision": null,
+        "evidence_refs": []
+      },
+      "freshness": {
+        "scope": "global",
+        "status": "fresh",
+        "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72"
+      }
+    },
+    {
+      "repository_id": 1361910454,
+      "access": "verified",
+      "observed_head": "f1327be48ba2ee0043959021365e6dbb9dcb1d3a",
+      "owner_acceptance": {
+        "status": "unverified",
+        "revision": null,
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a:release/component-release.json"
+        ]
+      },
+      "distribution_pin": {
+        "status": "pinned",
+        "revision": "f1327be48ba2ee0043959021365e6dbb9dcb1d3a",
+        "release_id": "core-first-run-rc1-2026-10-12",
+        "evidence_refs": [
+          "aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1:release-sets/core-first-run-rc1-2026-10-12.json"
+        ]
+      },
+      "descriptor": {
+        "status": "observed",
+        "revision": "3f715bf43c8dc5f0ad8888e07d857b581482569e",
+        "release_status": "development",
+        "blob_sha": "a3bbd49cb9d94ddbab56eb5c820c9b6926b1e477",
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a:release/component-release.json"
+        ]
+      },
+      "system_sync": {
+        "status": "unverified",
+        "checkpoint_revision": null,
+        "evidence_refs": []
+      },
+      "freshness": {
+        "scope": "global",
+        "status": "fresh",
+        "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72"
+      }
+    },
+    {
+      "repository_id": 1362243580,
+      "access": "verified",
+      "observed_head": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
+      "owner_acceptance": {
+        "status": "unverified",
+        "revision": null,
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8:release/component-release.json"
+        ]
+      },
+      "distribution_pin": {
+        "status": "pinned",
+        "revision": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
+        "release_id": "core-first-run-rc1-2026-10-12",
+        "evidence_refs": [
+          "aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1:release-sets/core-first-run-rc1-2026-10-12.json"
+        ]
+      },
+      "descriptor": {
+        "status": "observed",
+        "revision": "fa455961c17691862bd86b7e0f658690e9ecb86d",
+        "release_status": "development",
+        "blob_sha": "7c8531c2b72fb277d6403aa8bdc95798a41f1395",
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8:release/component-release.json"
+        ]
+      },
+      "system_sync": {
+        "status": "unverified",
+        "checkpoint_revision": null,
+        "evidence_refs": []
+      },
+      "freshness": {
+        "scope": "global",
+        "status": "fresh",
+        "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72"
+      }
+    },
+    {
+      "repository_id": 1364457521,
+      "access": "verified",
+      "observed_head": "f8978f8f7a1bc94edecddc2662112233289159a3",
+      "owner_acceptance": {
+        "status": "unverified",
+        "revision": null,
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3:release/component-release.json"
+        ]
+      },
+      "distribution_pin": {
+        "status": "pinned",
+        "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
+        "release_id": "core-first-run-rc1-2026-10-12",
+        "evidence_refs": [
+          "aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1:release-sets/core-first-run-rc1-2026-10-12.json"
+        ]
+      },
+      "descriptor": {
+        "status": "observed",
+        "revision": "5cbf9908440ca7e11506991ba1dd7d3344f2b1fd",
+        "release_status": "development",
+        "blob_sha": "a83a924b52c88cdb1b1ea4c2e2c220c2e868440a",
+        "evidence_refs": [
+          "aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3:release/component-release.json"
+        ]
+      },
+      "system_sync": {
+        "status": "unverified",
+        "checkpoint_revision": null,
+        "evidence_refs": []
+      },
+      "freshness": {
+        "scope": "global",
+        "status": "fresh",
+        "evidence_revision": "7a54cea11fc6fac160cc2c8e62bc262e5f335e72"
+      }
+    }
+  ],
+  "drift": [
+    {
+      "id": "core-owner-acceptance-exact-ref-gap",
+      "marker": "CANONICAL-DRIFT-DETECTED",
+      "status": "open",
+      "severity": "BLOCKING",
+      "scope": "Core",
+      "repository_ids": [
+        1361862361,
+        1362233598,
+        1361910454,
+        1362243580,
+        1364457521
+      ],
+      "reason": "The current Core release is Distribution-qualified and pins the live Core heads, but the component descriptor surface does not certify exact owner acceptance for those shipped revisions. OS points to an older accepted revision; Brain, Memory, Skills and Data point to older development revisions. This does not prove the shipped revisions were untested; it means the current owner descriptor surface cannot alone prove exact owner acceptance.",
+      "evidence_refs": [
+        "aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json",
+        "aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"
+      ],
+      "required_action": "Extend and adopt the one canonical Component Release Descriptor and owner handoff so future Core release admission can bind exact accepted owner revisions and evidence. Do not create a second compatibility or acceptance format."
+    },
+    {
+      "id": "purpose-context-blueprint-lag",
+      "marker": "CANONICAL-DRIFT-DETECTED",
+      "status": "open",
+      "severity": "WARNING",
+      "scope": "Core",
+      "repository_ids": [
+        1367664026
+      ],
+      "reason": "The stable System Blueprint still lags newer accepted Purpose Context implementation truth.",
+      "evidence_refs": [
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/FINAL-AI-VERSE-BLUEPRINT.md"
+      ],
+      "required_action": "Reconcile current System truth evidence-first in Slice 3.3 without reverting accepted implementation merely because a stable document lags."
+    },
+    {
+      "id": "core-maintainer-handoff-uneven",
+      "marker": "CANONICAL-DRIFT-DETECTED",
+      "status": "open",
+      "severity": "WARNING",
+      "scope": "Core",
+      "repository_ids": [
+        1361862361,
+        1362233598,
+        1361910454,
+        1362243580,
+        1364457521
+      ],
+      "reason": "Root-level cross-repository maintainer handoff guidance remains uneven across the five Core owner repositories.",
+      "evidence_refs": [
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
+      ],
+      "required_action": "Add minimal owner-specific source-only maintainer handoff in Slice 4.2 without copying global governance into component repositories."
+    },
+    {
+      "id": "distribution-adapter-compatibility-shadow-risk",
+      "marker": "CANONICAL-DRIFT-DETECTED",
+      "status": "open",
+      "severity": "WARNING",
+      "scope": "Core",
+      "repository_ids": [
+        1350081263
+      ],
+      "reason": "Distribution contains hard-coded supported revision and command knowledge in trusted adapters. This is legitimate orchestration today but must not become a second compatibility or owner-acceptance authority.",
+      "evidence_refs": [
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
+      ],
+      "required_action": "Bind future admission to Registry, descriptor and owner evidence while retaining Distribution trusted argv routing."
+    },
+    {
+      "id": "compact-release-receipt-not-yet-implemented",
+      "marker": "CANONICAL-DRIFT-DETECTED",
+      "status": "open",
+      "severity": "INFO",
+      "scope": "Core",
+      "repository_ids": [
+        1350081263
+      ],
+      "reason": "Durable release reconstruction evidence exists across current release-set and qualification files, but the planned compact single release receipt binding is not implemented yet.",
+      "evidence_refs": [
+        "aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"
+      ],
+      "required_action": "Implement the compact immutable release receipt in Slice 5.4 without replacing existing qualification evidence."
+    },
+    {
+      "id": "repository-watchdog-stale",
+      "marker": "CANONICAL-DRIFT-DETECTED",
+      "status": "resolved",
+      "severity": "WARNING",
+      "scope": "global",
+      "repository_ids": [
+        1367664026
+      ],
+      "reason": "The repository drift watchdog has not been implemented or completed a full-network heartbeat yet, so watchdog silence cannot be interpreted as CLEAN.",
+      "evidence_refs": [
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
+      ],
+      "required_action": "Implement scheduled/manual full scans and heartbeat freshness in Slice 3.2 using the same Repository State refresh engine."
+    }
+  ],
+  "semantics": {
+    "dynamic_state_only": true,
+    "registry_static_truth_authority": "governance/repository-registry.json",
+    "human_ledger_authority": false,
+    "human_ledger_path": "docs/REPOSITORY-STATE-LEDGER.md",
+    "dates_informational_only": true,
+    "unknown_evidence_fails_closed": true
+  }
+}
