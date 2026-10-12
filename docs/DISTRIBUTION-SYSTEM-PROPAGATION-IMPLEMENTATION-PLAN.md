@@ -13,7 +13,7 @@
 **Current phase progress:** 0/3 slices complete  
 **Slices until next phase:** 3  
 **Current slice:** 4.1 - Extend/reuse Component Release Descriptor  
-**Current slice status:** NOT STARTED  
+**Current slice status:** IN PROGRESS  
 **Next slice:** 4.2 - Wave 1/Core maintainer handoff
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
@@ -204,10 +204,44 @@ No plan amendment was required.
 
 ## Slice 4.1 - Extend/reuse Component Release Descriptor
 
-**Status:** NOT STARTED  
-**Dependencies:** 3.3
+**Status:** IN PROGRESS  
+**Dependencies:** 3.3  
+**Adaptive tasks:** 1/5 complete
 
 Extend only the existing descriptor where evidence proves missing compatibility fields. Acceptance: one metadata format, exact immutable revision binding, no live-health/readiness authority, breaking changes cannot masquerade as compatible.
+
+### Starting refs and live classification
+
+- `aiverse-filmmakers/AI-Verse-System@716714a363ee8b7cfa0b26f8c513320e40e9a194`
+- `aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1`
+- `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- `aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- `aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- `aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3`
+
+Classification from fresh evidence:
+
+- existing `ai-verse.component-release/v1` descriptor: `REUSE/EXTEND`;
+- exact 40-character descriptor/evidence revision binding: `REUSE`;
+- `release_metadata_only=true` and `live_health_truth=false`: `REUSE`;
+- existing `migration.compatibility`: `REUSE/EXTEND`, but it does not separately classify a release as breaking versus non-breaking;
+- Safe Infrastructure `migration.infrastructure` extension: `REUSE` unchanged and must remain valid;
+- immutable Distribution qualification snapshots containing older descriptor copies: `RETAIN` as historical evidence, never rewrite;
+- Wave 1 owner descriptor adoption/handoff: `DEFER` to Slice 4.2;
+- second compatibility fingerprint/acceptance format: `PROHIBITED`.
+
+The current Core owner-acceptance gap therefore remains open during 4.1. This slice defines the one canonical compatibility metadata surface; it does not relabel historical owner releases or perform the Slice 4.2 handoff.
+
+### Derived task list
+
+- [x] **4.1-T1** Refresh current State, canonical descriptor contract/schema/validator/tests, Wave 1 owner descriptor evidence, Distribution compatibility surfaces and concurrent Safe Infrastructure descriptor work; classify reuse boundaries.
+- [ ] **4.1-T2** Define the minimum compatibility metadata needed to make breaking classification explicit without creating a second descriptor or live-health authority.
+- [ ] **4.1-T3** Extend the canonical descriptor contract/schema/validator/examples/tests with fail-closed breaking-change semantics while preserving the infrastructure-upgrade extension.
+- [ ] **4.1-T4** Prove the exact resulting System ref with Contract Validation, including positive legacy/infrastructure coverage and destructive-negative compatibility regressions.
+- [ ] **4.1-T5** Publish the required scoped Repository State/ledger evidence, close only the drift actually resolved by 4.1, update this tracker and advance to Slice 4.2.
+
+No protected roadmap element changed and no plan amendment is required.
 
 ## Slice 4.2 - Wave 1/Core maintainer handoff
 
@@ -288,6 +322,15 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 
 # Program Change Log
 
+## 2026-10-12 - Slice 4.1 started
+
+- Refreshed the live System/Distribution/Core refs and resumed from the first genuinely incomplete slice after proving Phase 3 complete.
+- Reused the existing Component Release Descriptor, exact revision/evidence binding and negative live-health semantics instead of creating a second format.
+- Preserved the concurrent Safe Infrastructure `migration.infrastructure` extension as canonical existing work.
+- Classified Wave 1 owner adoption as Slice 4.2 work and historical Distribution qualification snapshots as immutable evidence, preventing both duplication and history rewrite.
+- Derived five tasks; implementation begins only after this tracker records the live boundary.
+- No protected roadmap change and no plan amendment.
+
 ## 2026-10-12 - Slice 3.3 and Phase 3 completed
 
 - Reconciled the stale Purpose Context blueprint forward to accepted/admitted v1 evidence.
@@ -331,6 +374,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 4 - Integrate canonical component owners  
 **Phase progress:** 0/3  
 **Until Phase 5:** 3 slices  
-**Current slice:** Slice 4.1 - Extend/reuse Component Release Descriptor (`NOT STARTED`)  
-**Next:** start Slice 4.1 with fresh State/owner-descriptor/contract inspection and exact-ref evidence  
-**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING; Core maintainer handoff WARNING; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
+**Current slice:** Slice 4.1 - Extend/reuse Component Release Descriptor (`IN PROGRESS`, 1/5 tasks complete)  
+**Next:** 4.1-T2 - define the minimum compatibility metadata and fail-closed breaking-change semantics  
+**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING remains open for Slice 4.2 adoption; Core maintainer handoff WARNING; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.

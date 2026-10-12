@@ -13,6 +13,8 @@ The descriptor is release metadata only.
 
 It is not canonical health, readiness, authority, installation state, workspace state, or user-state truth. Live `status` and `doctor` remain with the component owner.
 
+There is one component release/compatibility metadata format. Compatibility classification belongs inside this descriptor. A second compatibility fingerprint, sibling acceptance record, or health-derived release format is not permitted.
+
 ## Required identity
 
 A descriptor identifies:
@@ -68,19 +70,37 @@ The descriptor declares whether the component owns canonical state and must affi
 
 A component that cannot make these preservation claims is not valid for the normal safe-update train without first changing the contract/version and explicit release policy.
 
-## Migration claims
+## Migration and compatibility claims
 
 Migration metadata declares:
 
 - compatibility class;
+- explicit `change_classification` of `non-breaking` or `breaking`;
 - explicitly supported source versions;
 - whether explicit migration is required;
 - that migration remains owner-controlled;
 - checkpoint/recovery policy.
 
-`blocked` is a valid truthful compatibility class. It means Distribution must refuse the transition.
+The classifications have deliberately different jobs:
+
+- `change_classification=non-breaking` is the owner's release-time statement that the candidate does not introduce a known breaking compatibility boundary for the declared predecessor transitions. It does not make the release safe by itself and does not bypass Distribution qualification.
+- `change_classification=breaking` means the owner knows the candidate crosses a compatibility boundary. A breaking transition must name at least one predecessor in `from_versions` and may only use `compatibility=explicit-migration` or `compatibility=blocked`.
+- `compatibility=explicit-migration` means the breaking transition has an owner-controlled migration path that still requires normal evidence and Distribution qualification.
+- `compatibility=blocked` is a truthful fail-closed state. Distribution must refuse the transition, and a blocked descriptor cannot be published as `accepted`.
+
+A descriptor that declares a breaking change while claiming `compatible` or `none-required` is invalid. This prevents a known breaking transition from being represented as compatible inside the canonical metadata format.
+
+The owner is responsible for truthfully classifying its own interface/state compatibility. False classification is an owner-contract failure, not something Distribution may repair by guessing sibling semantics. Owner acceptance in the next handoff stage must validate the classification against the component's own tests/contracts.
 
 The descriptor does not authorize Distribution to edit owner state.
+
+### Historical descriptor evidence
+
+Previously published immutable descriptors and Distribution qualification snapshots remain historical evidence and are not rewritten to add new fields retroactively.
+
+New candidate/adoption work validated against the current canonical v1 contract must include `change_classification`. Historical descriptors that do not satisfy the current admission surface cannot be silently promoted as new owner acceptance evidence; owner adoption is handled explicitly by the rollout slices.
+
+The existing optional `migration.infrastructure` extension remains part of this same descriptor and is unaffected by the compatibility classification field. Infrastructure generation/recipe metadata is not a second release or compatibility format.
 
 ## Authority-negative facts
 
@@ -107,11 +127,15 @@ Evidence `status` in a publishable descriptor is `pass`.
 The repository validator additionally enforces:
 
 - evidence revision equals descriptor revision;
+- `change_classification` is mandatory and is exactly `non-breaking` or `breaking`;
+- breaking classification requires at least one explicit predecessor version;
+- breaking classification may only use `explicit-migration` or `blocked` compatibility;
 - explicit-migration compatibility implies `requires_explicit_migration=true`;
 - non-explicit compatibility requires `requires_explicit_migration=false`;
 - `none-required` cannot claim source versions;
 - `blocked` cannot be published as `accepted`;
-- release metadata semantics stay `release_metadata_only=true` and `live_health_truth=false`.
+- release metadata semantics stay `release_metadata_only=true` and `live_health_truth=false`;
+- infrastructure-upgrade recipe validation remains independently fail-closed when that optional block is present.
 
 ## Validation
 
@@ -131,3 +155,5 @@ Passing descriptor validation means only that the component has well-formed, sel
 It does not mean a Distribution release set is safe.
 
 Distribution must still evaluate explicit release-set transition compatibility, migration requirements, owner evidence, whole-product preservation acceptance, and promotion policy.
+
+Distribution must consume this canonical descriptor and owner evidence rather than create a competing component acceptance or compatibility authority.

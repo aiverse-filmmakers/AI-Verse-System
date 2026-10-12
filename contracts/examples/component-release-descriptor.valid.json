@@ -35,6 +35,7 @@
   },
   "migration": {
     "compatibility": "compatible",
+    "change_classification": "non-breaking",
     "from_versions": ["0.1.0-beta.0"],
     "requires_explicit_migration": false,
     "owner_controlled": true,
