@@ -19,11 +19,11 @@
       1362243580,
       1364457521
     ],
-    "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57",
+    "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903",
     "last_scoped_refresh": {
       "scope": "Core",
       "status": "complete",
-      "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57",
+      "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903",
       "observed_at": null
     },
     "last_full_refresh": null
@@ -38,7 +38,7 @@
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "8cb5fbff630f45f730db904771333d73d5616a57",
+      "observed_head": "fc0d178809867362dc29183411f26b9f65980903",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -65,7 +65,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57"
+        "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903"
       }
     },
     {
@@ -100,7 +100,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57"
+        "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903"
       }
     },
     {
@@ -139,7 +139,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57"
+        "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903"
       }
     },
     {
@@ -178,7 +178,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57"
+        "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903"
       }
     },
     {
@@ -217,7 +217,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57"
+        "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903"
       }
     },
     {
@@ -256,7 +256,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57"
+        "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903"
       }
     },
     {
@@ -295,7 +295,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "8cb5fbff630f45f730db904771333d73d5616a57"
+        "evidence_revision": "fc0d178809867362dc29183411f26b9f65980903"
       }
     }
   ],
@@ -323,7 +323,7 @@
       "repository_ids": [1367664026],
       "reason": "The stable System Blueprint still lags newer accepted Purpose Context implementation truth.",
       "evidence_refs": [
-        "aiverse-filmmakers/AI-Verse-System@8cb5fbff630f45f730db904771333d73d5616a57:docs/FINAL-AI-VERSE-BLUEPRINT.md"
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/FINAL-AI-VERSE-BLUEPRINT.md"
       ],
       "required_action": "Reconcile current System truth evidence-first in Slice 3.3 without reverting accepted implementation merely because a stable document lags."
     },
@@ -336,7 +336,7 @@
       "repository_ids": [1361862361, 1362233598, 1361910454, 1362243580, 1364457521],
       "reason": "Root-level cross-repository maintainer handoff guidance remains uneven across the five Core owner repositories.",
       "evidence_refs": [
-        "aiverse-filmmakers/AI-Verse-System@8cb5fbff630f45f730db904771333d73d5616a57:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
       ],
       "required_action": "Add minimal owner-specific source-only maintainer handoff in Slice 4.2 without copying global governance into component repositories."
     },
@@ -349,7 +349,7 @@
       "repository_ids": [1350081263],
       "reason": "Distribution contains hard-coded supported revision and command knowledge in trusted adapters. This is legitimate orchestration today but must not become a second compatibility or owner-acceptance authority.",
       "evidence_refs": [
-        "aiverse-filmmakers/AI-Verse-System@8cb5fbff630f45f730db904771333d73d5616a57:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
       ],
       "required_action": "Bind future admission to Registry, descriptor and owner evidence while retaining Distribution trusted argv routing."
     },
@@ -375,7 +375,7 @@
       "repository_ids": [1367664026],
       "reason": "The repository drift watchdog has not been implemented or completed a full-network heartbeat yet, so watchdog silence cannot be interpreted as CLEAN.",
       "evidence_refs": [
-        "aiverse-filmmakers/AI-Verse-System@8cb5fbff630f45f730db904771333d73d5616a57:docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
+        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
       ],
       "required_action": "Implement scheduled/manual full scans and heartbeat freshness in Slice 3.2 using the same Repository State refresh engine."
     }

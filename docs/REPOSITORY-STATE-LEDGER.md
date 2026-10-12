@@ -11,7 +11,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `manual-bootstrap`
 - Refresh scope: `Core`
 - Refresh status: `complete`
-- Refresh evidence revision: `8cb5fbff630f45f730db904771333d73d5616a57`
+- Refresh evidence revision: `fc0d178809867362dc29183411f26b9f65980903`
 - Last full refresh: `none`
 - Watchdog: `WATCHDOG-STALE`
 - Watchdog reason: No scheduled repository drift watchdog has completed yet. Slice 3.2 will add the scheduled/manual full-scan heartbeat. Silence is not CLEAN.
@@ -20,7 +20,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `8cb5fbff630f` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `fc0d17880986` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `fd11b4a95487` | unverified | not-applicable | not-applicable | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `64f7325444d1` | unverified | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `9600929b9467` / accepted | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `69f7912eeb35` | unverified | pinned `69f7912eeb35` / core-first-run-rc1-2026-10-12 | observed `75e1d713a422` / development | unverified | fresh / Core |
