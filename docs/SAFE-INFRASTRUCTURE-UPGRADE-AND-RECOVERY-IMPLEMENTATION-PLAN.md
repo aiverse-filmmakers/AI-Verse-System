@@ -1,20 +1,20 @@
 # AI-Verse Safe Infrastructure Upgrade, Convergence and Recovery Implementation Plan
 
-**Status:** ACTIVE  
+**Status:** BLOCKED - PLAN AMENDMENT REQUIRED  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary orchestration repo:** `aiverse-filmmakers/ai-verse-distribution`  
 **Initial owner repos:** `aiverse-filmmakers/AI-Verse-OS`, `aiverse-filmmakers/AI-Verse-Skills`  
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 1  
-**Remaining:** 17  
-**Overall progress:** 5.6%  
+**Completed:** 2  
+**Remaining:** 16  
+**Overall progress:** 11.1%  
 **Current phase:** Phase 1 - Audit current update, infrastructure and recovery reality  
-**Current phase progress:** 0/3  
-**Slices until Phase 2:** 3  
-**Next:** Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms  
-**Next slice task list:** RECORDED - 0/7 complete; execute the evidence-backed Slice 1.1 audit only
+**Current phase progress:** 1/3  
+**Slices until Phase 2:** 2  
+**Next:** Resolve the Slice 1.1 ownership plan amendment before Slice 1.2  
+**Next slice task list:** BLOCKED until the protected Skill scope/provider ownership conflict is resolved
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Discovery may adapt the route; it may not silently change the destination.
 
@@ -575,35 +575,41 @@ Slice 1.1.
 # Phase 1 - Audit current update, infrastructure and recovery reality
 
 **Phase size:** 3 slices  
-**Current phase progress:** 0/3  
+**Current phase progress:** 1/3  
 **Purpose:** prove what already exists before defining new machinery.
 
 ## Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 0.1  
-**Adaptive tasks:** RECORDED from live evidence before implementation
+**Adaptive tasks:** 7/7 COMPLETE
 
 ### Starting refs
 
-Captured at Slice 1.1 audit start on 2026-10-12:
+The initial task-list record captured four identifiers before their type was fully verified. During the audit, authoritative branch/commit evidence corrected the audit-start refs to:
 
-- `aiverse-filmmakers/AI-Verse-System@27e6baa27843933a475315831cab156e4c5b5e63`
-- `aiverse-filmmakers/ai-verse-distribution@e086453c1a56aa2f235dd569c18482b10ac42cc9`
-- `aiverse-filmmakers/AI-Verse-OS@2fc63d8da8ceeaa980d140c024bbde66e8bb2a0f`
-- `aiverse-filmmakers/AI-Verse-Skills@1cb812b156ac38feacb8dcbea1b2cee2257b8e19`
+- `aiverse-filmmakers/AI-Verse-System@27e21a1e519a17ae79f98d977ffcdac1b63c4436` - pre-audit parent
+- `aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8`
+- `aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- `aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
 
-### Derived task list
+Task-list record committed before product implementation:
 
-Recorded before any Slice 1.1 implementation change. This slice is audit-only.
+- `aiverse-filmmakers/AI-Verse-System@e843d5533ea8ec3367ac57b5a6afde8bac357002`
 
-- [ ] **1.1-T1** Freeze starting refs and identify active overlapping plans/PRs/commits that could affect audited or governance surfaces.
-- [ ] **1.1-T2** Audit Distribution updater/CLI lifecycle, release-set staging/activation, package/owned-path metadata, status/doctor, journal/checkpoint/rollback/recovery behavior, and its existing tests.
-- [ ] **1.1-T3** Audit natural-language/runtime routing into the canonical Distribution lifecycle across supported adapter surfaces and tests.
-- [ ] **1.1-T4** Audit OS workspace identity/layout/creation, migration handlers, generated/member-facing projections, health/check surfaces, preservation boundaries, and existing tests.
-- [ ] **1.1-T5** Audit Skills storage/identity/provenance/scope, migration machinery, health/check surfaces, preservation boundaries, and existing tests.
-- [ ] **1.1-T6** Reproduce or evidence-classify the motivating workspace/Skill failure patterns, current restore/doctor gaps and preservation-critical user data surfaces, then run the targeted existing tests/read-only probes needed to prove current behavior.
-- [ ] **1.1-T7** Record the final evidence matrix, REUSE/EXTEND/CREATE/RETIRE/BLOCK classifications, exact refs/tests, impacts and Slice 1.1 acceptance closure in this canonical plan.
+This correction is explicit so the audit does not silently rewrite its own evidence history.
+
+### Final derived task list
+
+Recorded before any Slice 1.1 product implementation change. This slice remained audit-only.
+
+- [x] **1.1-T1** Freeze starting refs and identify active overlapping plans/PRs/commits that could affect audited or governance surfaces.
+- [x] **1.1-T2** Audit Distribution updater/CLI lifecycle, release-set staging/activation, package/owned-path metadata, status/doctor, journal/checkpoint/rollback/recovery behavior, and its existing tests.
+- [x] **1.1-T3** Audit natural-language/runtime routing into the canonical Distribution lifecycle across supported adapter surfaces and tests.
+- [x] **1.1-T4** Audit OS workspace identity/layout/creation, migration handlers, generated/member-facing projections, health/check surfaces, preservation boundaries, and existing tests.
+- [x] **1.1-T5** Audit Skills storage/identity/provenance/scope, migration machinery, health/check surfaces, preservation boundaries, and existing tests.
+- [x] **1.1-T6** Reproduce or evidence-classify the motivating workspace/Skill failure patterns, current restore/doctor gaps and preservation-critical user data surfaces, then run the targeted existing tests/read-only probes needed to prove current behavior.
+- [x] **1.1-T7** Record the final evidence matrix, REUSE/EXTEND/CREATE/RETIRE/BLOCK classifications, exact refs/tests, impacts and Slice 1.1 acceptance closure in this canonical plan.
 
 Audit at minimum:
 
@@ -621,27 +627,128 @@ Audit at minimum:
 - existing tests for path moves, user-file preservation and recovery;
 - active overlapping work from the repository-network governance plan or other plans.
 
+### Exact audit evidence
+
+Detailed evidence ledger:
+
+- `docs/SAFE-INFRASTRUCTURE-SLICE-1.1-AUDIT.md`
+- evidence document commit: `aiverse-filmmakers/AI-Verse-System@1da8f5f6187fd8c265e10188b0b5c2d486f01df2`
+
+Key evidence-backed classifications:
+
+- Distribution Core updater: `REUSE/EXTEND`; do not create a second updater.
+- Distribution release catalog, exact refs and evidence-bound transition admission: `REUSE/EXTEND`.
+- Distribution ownership/local-edit guards: `REUSE`.
+- Distribution update journal, receipt checkpoint and generated-file recovery: `REUSE/EXTEND`, but bounded to software/receipt/generated-file recovery rather than whole-install restore.
+- Distribution one-command owner doctor fan-out: `REUSE/EXTEND`.
+- existing natural-language update routing: `REUSE/EXTEND`.
+- natural-language doctor/upgrade/restore lifecycle routing: `EXTEND/CREATE` within the same canonical lifecycle.
+- rotating whole-install Last-Known-Good and `restore` preview/apply: `CREATE` on the existing transaction/verification substrate.
+- OS workspace manifest identity and conservative workspace owner behavior: `REUSE/EXTEND`.
+- OS domain-first hierarchy semantics: `EXTEND`; workspace hierarchy migration/reference repair: `CREATE` after the target architecture is frozen.
+- OS doctor/architecture checks: `REUSE/EXTEND`.
+- Skills immutable generation lifecycle, package IDs and provenance: `REUSE/EXTEND`.
+- cross-provider Skill scope/re-scoping ownership: `BLOCK/UNKNOWN` because current shipped contracts conflict with this plan's protected ownership statement.
+- no `RETIRE` action is justified by Slice 1.1 evidence.
+- exact recovery policy for large media/outputs, credentials/secrets, disposable state and external side effects remains `BLOCK/UNKNOWN` for later Phase 1 inventory/freeze rather than being guessed here.
+
+### Motivating fixture classification
+
+Workspace fixture: **REPRODUCED/CLASSIFIED**. Current OS creation still materializes `workspaces/<workspace-id>`, while stable logical ID already exists in `WORKSPACE.yaml`. No admitted current domain-first hierarchy migration was found.
+
+Skill fixture: **CLASSIFIED**. Current managed Skills lifecycle already has immutable generations and provenance, but the skill schema/registry has no canonical cross-provider scope field. More importantly, shipped OS/Skills integration contracts assign provider scope/resolution to OS while personal reusable and workspace Skills remain outside the installer-managed distributed provider.
+
+### Doctor and restore reality
+
+- Distribution already has a true one-command doctor aggregator that invokes owner checks and cannot turn an owner failure into a false aggregate PASS.
+- OS already has status/doctor/architecture checks.
+- Skills already has install verification/doctor/readiness and generation integrity checks.
+- Current product-level restore does not exist. There is no `aiverse restore` preview, no `aiverse restore --apply`, and no one rotating whole-install Last-Known-Good representation.
+- Existing Core rollback is software-only and owner-state-preserving, not a rewind of covered local user/owner state.
+
+### Exact tests/workflow evidence
+
+Distribution audited ref `fd11b4a95487638d47ff55472a3703b03892d0e8`:
+
+- GitHub Actions run `38241776330`, `Distribution CI`, conclusion `success` on the exact audited SHA;
+- workflow runs full unittest discovery on Ubuntu/macOS/Windows with Python 3.11/3.12;
+- inspected `tests/test_core_update_transaction.py`, `tests/test_component_preservation.py`, `tests/test_project_routing.py`, `tests/test_project_skills.py`.
+
+OS audited ref `64f7325444d18f94c9d4755d32eb89f3468bda6b`:
+
+- GitHub Actions run `38228297894`, `Update Request Contract`, conclusion `success` on the exact audited SHA across Ubuntu/macOS/Windows;
+- inspected `scripts/test-workspace-owner.mjs`, `.github/workflows/cli-smoke.yml`, `scripts/check-architecture.sh` and OS doctor/update code.
+
+Skills audited ref `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`:
+
+- GitHub Actions run `38246389751`, `Full E2E Install`, conclusion `success` on the exact audited SHA;
+- inspected `tests/test_generation_lifecycle.py` and immutable-generation/doctor implementation.
+
+A fresh local clone/test rerun was attempted only as a convenience check but the execution environment could not resolve `github.com`; that failed network attempt is not counted as evidence. Closure relies on exact-ref successful GitHub Actions plus inspected test definitions and read-only repository probes.
+
+### Preservation/recovery impact
+
+Current evidence protects or distinguishes workspace manifests/context/decisions/inbox/knowledge/skills/automations/assets/outputs, operator profile/Brain/Memory state, Brain direction/history, Memory provenance, Data records, connections, archives, apps, agents, extensions, custom files, personal reusable Skills, managed Skills generations and Distribution lifecycle evidence. Unknown/custom state remains user-owned unless ownership can be proved.
+
+Whole-install recovery coverage must still classify capture versus exact reconstruction versus rebuild versus external/security-sensitive state. Slice 1.1 deliberately did not guess that policy.
+
+### Concurrent work/drift
+
+The audit observed active concurrent System planning work plus Distribution PR `#26` and Skills PR `#20`. It did not overwrite those surfaces. The canonical plan was refetched before each write.
+
+### PLAN AMENDMENT PROPOSED
+
+**Current protected assumption:** the plan states that Skills owns Skills scope semantics, workspace/domain/OS-wide scope decisions and safe promotion/re-scoping migrations.
+
+**Evidence requiring amendment:** shipped `AI-Verse-Skills/docs/AI_VERSE_OS_INTEGRATION.md` and `AI-Verse-OS/system/contracts/capability-provider-v1/README.md` assign distributed package lifecycle to Skills, while OS owns provider scope/resolution/ranking, permissions and execution routing. Personal reusable Skills are a separate user-owned provider; workspace Skills remain workspace-owned.
+
+**Proposed ownership correction:**
+
+- OS owns cross-provider Skill scope semantics/resolution and maps practical member intent such as "use everywhere", "all YouTube work", or "only this project" into canonical provider/scope placement.
+- Skills owns the managed distributed provider's package lifecycle, stable package identity, package provenance, immutable generations, validation and migrations wholly internal to that managed provider.
+- Promotion/re-scoping that moves user/workspace Skills across providers is an OS-owned structural migration using Skills validation/provenance primitives where appropriate, not a Skills-owned placement decision.
+- Distribution continues to coordinate admitted owner migrations without inventing either domain's semantics.
+
+**Affected protected plan surfaces:** permanent law 1.6, Intended ownership / AI-Verse-Skills, Slice 1.2 ownership inventory, Slice 1.3 architecture freeze, Slice 2.2 recipe ownership, Slices 3.3 and 3.4, and downstream orchestration/qualification references to Skill scope ownership.
+
+**Acceptance-floor effect:** none of the member-facing safety/capability outcomes need to weaken. User-owned preservation, stable identity/provenance, explicit owner migration, reference repair, practical-language UX and deterministic convergence remain required.
+
+**Resume rule:** `BLOCKED - PLAN AMENDMENT REQUIRED`. Do not begin the affected Slice 1.2 ownership freeze or Skill scope/re-scoping implementation until this ownership amendment is resolved canonically.
+
 ### Acceptance criteria
 
-- exact current behavior is evidenced before new implementation is proposed;
-- existing reusable mechanisms are identified;
-- the shipped safe updater is classified for REUSE/EXTEND rather than duplicated;
-- workspace and Skills motivating problems are reproduced/classified from real implementation;
-- current restore capability and gaps are known;
-- existing owner doctor/check surfaces and gaps are known;
-- no implementation change occurs before the audit is recorded.
+- exact current behavior is evidenced before new implementation is proposed: **PASS**;
+- existing reusable mechanisms are identified: **PASS**;
+- the shipped safe updater is classified for REUSE/EXTEND rather than duplicated: **PASS**;
+- workspace and Skills motivating problems are reproduced/classified from real implementation: **PASS**;
+- current restore capability and gaps are known: **PASS**;
+- existing owner doctor/check surfaces and gaps are known: **PASS**;
+- no implementation change occurs before the audit is recorded: **PASS**.
+
+### Completion report
+
+```text
+Completed: Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms
+Tasks: 7/7
+Overall: 2/18 slices (11.1%)
+Phase: Phase 1 - Audit current update, infrastructure and recovery reality
+Phase progress: 1/3
+Until next phase: 2 slices
+Next: Resolve plan amendment, then Slice 1.2
+Blockers/drift/amendments: PLAN AMENDMENT PROPOSED for Skill scope/provider ownership; concurrent work recorded; initial ref bookkeeping corrected.
+```
 
 ### NEXT
 
-Slice 1.2.
+Resolve the proposed ownership amendment. After canonical resolution, Slice 1.2.
 
 ---
 
 ## Slice 1.2 - Build ownership, identity, reference, migration, health and recovery inventory
 
 **Status:** NOT STARTED  
-**Dependencies:** 1.1  
-**Adaptive tasks:** derive from Slice 1.1 findings
+**Dependencies:** 1.1 plus resolution of the Slice 1.1 ownership amendment  
+**Adaptive tasks:** derive from Slice 1.1 findings only after amendment resolution
 
 Classify relevant mechanisms as `REUSE`, `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN`.
 
@@ -1250,15 +1357,27 @@ None. Program complete.
 - Recorded the seven evidence-backed audit tasks required by Slice 1.1 acceptance criteria.
 - Kept Slice 1.1 audit-only. No product/runtime implementation change was made before this record.
 
+## 2026-10-12 - Slice 1.1 audit completed and ownership amendment proposed
+
+- Corrected the initial starting-ref bookkeeping using authoritative branch/commit evidence rather than silently retaining non-commit identifiers.
+- Completed all seven audit tasks with exact-ref repository evidence and successful exact-ref GitHub Actions runs.
+- Classified the shipped Core updater, release/transition machinery, zero-loss guards, doctor fan-out, OS workspace identity/health and Skills immutable-generation lifecycle for reuse/extension rather than duplication.
+- Reproduced/classified the current flat OS workspace creation behavior and classified the reusable-Skill fixture as a provider/scope migration problem.
+- Confirmed current software/update recovery mechanisms are bounded and that product-level rotating Last-Known-Good plus `restore` preview/apply do not yet exist.
+- Recorded detailed audit evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-1.1-AUDIT.md` at commit `1da8f5f6187fd8c265e10188b0b5c2d486f01df2`.
+- Discovered a protected ownership conflict: shipped OS/Skills contracts assign cross-provider Skill scope/resolution to OS, while this plan currently assigns it to Skills.
+- Proposed an evidence-backed ownership amendment without changing the protected law automatically.
+- Marked the program `BLOCKED - PLAN AMENDMENT REQUIRED` before Slice 1.2, as required by the adaptive planning protocol.
+
 ---
 
 # Current execution pointer
 
-**Completed:** 1/18  
-**Overall:** 5.6%  
+**Completed:** 2/18  
+**Overall:** 11.1%  
 **Phase:** Phase 1 - Audit current update, infrastructure and recovery reality  
-**Phase progress:** 0/3  
-**Until Phase 2:** 3 slices  
-**Next:** Slice 1.1 - Audit existing update, doctor, migration, workspace, Skills and recovery mechanisms  
-**Next task:** 1.1-T1 - freeze starting refs and overlapping work, then continue the recorded audit  
-**Blockers/drift/amendments:** canonical Safe Update backup law requires explicit amendment in Phase 2; shipped Core Update v1 command semantics are now explicitly preserved by this plan.
+**Phase progress:** 1/3  
+**Until Phase 2:** 2 slices  
+**Next:** Resolve the proposed Skill scope/provider ownership amendment, then Slice 1.2  
+**Next task:** Owner decision on the recorded plan amendment; do not begin the affected Slice 1.2 ownership freeze before resolution  
+**Blockers/drift/amendments:** `PLAN AMENDMENT PROPOSED` for cross-provider Skill scope/re-scoping ownership. Concurrent System/Distribution/Skills work was recorded and not overwritten. Initial Slice 1.1 ref bookkeeping was corrected transparently.
