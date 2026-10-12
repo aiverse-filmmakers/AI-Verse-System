@@ -9,20 +9,19 @@
 **Completed:** 7  
 **Remaining:** 13  
 **Overall progress:** 35.0%  
-**Current execution phase:** Phase 2 - Define the canonical System control plane  
-**Current phase progress:** 3/3 slices complete  
-**Slices until next phase:** 0  
-**Current slice:** 2.3 - Define Repository State, generated ledger and maintainer entrypoint  
-**Current slice status:** COMPLETE  
-**Task progress:** 6/6  
-**Next slice:** 3.1 - Scoped/full repository refresh and generated ledger  
-**Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 3.1 starts
+**Current execution phase:** Phase 3 - Build System self-checking machinery and synchronize current truth  
+**Current phase progress:** 0/3 slices complete  
+**Slices until next phase:** 3  
+**Current slice:** 3.1 - Scoped/full repository refresh and generated ledger  
+**Current slice status:** IN PROGRESS  
+**Task progress:** 1/5  
+**Next slice:** 3.2 - Drift Watchdog and heartbeat
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update and progress accounting are committed.
 
 ## Tracker history preservation
 
-Verbose Phase 0/1 history is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Verbose Slice 2.1 history is preserved at closure `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 detailed start state is preserved at `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and closure evidence at `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 detailed start state is preserved at `8cb5fbff630f45f730db904771333d73d5616a57`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
+Verbose Phase 0/1 history is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Verbose Slice 2.1 history is preserved at closure `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 detailed start state is preserved at `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and closure at `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 detailed start state is preserved at `8cb5fbff630f45f730db904771333d73d5616a57`, closure bookkeeping at `fc0d178809867362dc29183411f26b9f65980903`, and final atomic State/ledger snapshot at `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
 
 ---
 
@@ -94,7 +93,7 @@ Overall progress = completed slices / 20. Task count is local only.
 ## Slice 0.1 - Canonical implementation program
 
 **Status:** COMPLETE  
-**Evidence:** this plan + `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`; archived detail at `acabfba8031421438747fed69bcbc65ba844787e`.
+**Evidence:** this plan + `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`.
 
 ---
 
@@ -107,127 +106,62 @@ Overall progress = completed slices / 20. Task count is local only.
 **Status:** COMPLETE  
 **Evidence:** `docs/REPOSITORY-NETWORK-AUDIT-2026-10-12.md`, commit `08e593c9f3b74cae57ab5bf22dbebc33a2a6c176`.
 
-Carried findings: descriptor exact-owner-acceptance gap BLOCKING for future Core release governance; Purpose Context Blueprint lag WARNING; Core maintainer handoff WARNING; Distribution safety machinery reuse-first.
-
 ## Slice 1.2 - Reuse/ownership/payload/drift inventory
 
 **Status:** COMPLETE  
 **Evidence:** `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md`, commit `8a45649276023ecc6626e5f8b25a76f0403c2912`.
-
-Decision: one Component Release Descriptor; reuse Distribution update/preservation/candidate/qualification/promotion; System owns Registry/State; generated ledger only; reject duplicate mechanisms.
 
 ## Slice 1.3 - Architecture freeze and Wave 1 acceptance matrix
 
 **Status:** COMPLETE  
 **Evidence:** `docs/REPOSITORY-NETWORK-IMPLEMENTATION-ARCHITECTURE-2026-10-12.md`, architecture commit `7450247a1d039bd6464e74e58babb6e80d90063a`, closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
-Frozen paths include Registry/State schemas and data, generated ledger, refresh/watchdog surfaces, existing component descriptor only and existing Distribution release machinery only.
-
 ---
 
 # Phase 2 - Define the canonical System control plane
 
-**Status:** COMPLETE, 3/3  
-**Phase size:** 3 slices  
-**Current phase progress:** 3/3
+**Status:** COMPLETE, 3/3
 
 ## Slice 2.1 - Repository-network governance, invariants and tombstones
 
 **Status:** COMPLETE  
-**Task progress:** 5/5  
-**Closure:** `11940b87838afa0f46570ecdd8f8e00f74b7de5a`
+**Closure:** `11940b87838afa0f46570ecdd8f8e00f74b7de5a`.
 
-Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`, `docs/ARCHITECTURE-TOMBSTONES.md` and README discoverability. Existing update/release contracts remain canonical for their domains.
+Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`, `docs/ARCHITECTURE-TOMBSTONES.md` and README discoverability.
 
 ## Slice 2.2 - Create the machine-readable Repository Registry
 
 **Status:** COMPLETE  
-**Dependencies:** 2.1  
-**Task progress:** 5/5  
-**Closure:** `98773f6db85ac727a32ed798cf5113fe839e24a1`
+**Closure:** `98773f6db85ac727a32ed798cf5113fe839e24a1`.
 
-Created `ai-verse.repository-registry/v1`, the canonical seven-entry Wave 1 Registry, semantic validator/tests and existing Contract Validation workflow coverage. Stable GitHub repository ID is logical identity; owner/name is routing metadata; dynamic state is excluded; unregistered first-class release participation is fail-closed; Distribution is not a competing Registry authority. GitHub Actions run `38256854398` passed Python 3.11 and 3.13.
+Created versioned `ai-verse.repository-registry/v1`, canonical seven-entry Wave 1 Registry, validation/tests and existing Contract Validation workflow coverage. Stable GitHub repository ID is logical identity; dynamic state is excluded; unregistered first-class release participation is fail-closed.
 
 ## Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint
 
 **Status:** COMPLETE  
-**Dependencies:** 2.2  
-**Task progress:** 6/6
+**Closure bookkeeping:** `fc0d178809867362dc29183411f26b9f65980903`  
+**Final atomic State/ledger snapshot:** `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`
 
-### Final task record
+Created `ai-verse.repository-state/v1`, canonical `governance/repository-state.json`, validator/tests, deterministic generated ledger, maintainer entrypoint and the single frozen `scripts/refresh_repository_state.py` path. Watchdog intentionally starts `WATCHDOG-STALE`. Final Contract Validation run `38260626280` passed Python 3.11 and 3.13.
 
-1. **2.3.1 - Refresh Wave 1 refs/evidence, inspect existing surfaces and derive/refine Slice 2.3 tasks.** `COMPLETE`
-2. **2.3.2 - Create the versioned Repository State schema and initial `governance/repository-state.json`, separating dynamic observations from Registry static truth and recording explicit scoped freshness, evidence availability, watchdog staleness and current open drift.** `COMPLETE`
-3. **2.3.3 - Create `scripts/validate_repository_state.py` plus positive/negative tests proving Registry/State identity binding, no static-field duplication, exact-ref semantics, unavailable-versus-failed evidence distinction, scoped freshness and fail-closed watchdog state.** `COMPLETE`
-4. **2.3.4 - Create the frozen `scripts/refresh_repository_state.py` path with deterministic ledger render/check mode, generate `docs/REPOSITORY-STATE-LEDGER.md`, and prove the Markdown ledger is reproducible projection only.** `COMPLETE`
-5. **2.3.5 - Create `docs/MAINTAINER-START-HERE.md` and README discoverability so maintainers know canonical read order, Registry/State/ledger authority boundaries, freshness rules and blocking-drift handling.** `COMPLETE`
-6. **2.3.6 - Extend existing Contract Validation CI, run/inspect real validation, refresh final refs/concurrency and close Slice 2.3/Phase 2 without runtime, release-composition, member-payload or protected-roadmap changes.** `COMPLETE`
+---
 
-### Implementation evidence
+# Phase 3 - Build System self-checking machinery and synchronize current truth
 
-- Slice start/tracker: `8cb5fbff630f45f730db904771333d73d5616a57`
-- Repository State schema: `be30b7b0c89179acf335004e4e6801ef8099b640`
-- Initial Wave 1 State: `865c89806a11c63241c10f4e176e2b0d61850716`
-- Semantic State validator: `fbac89f755015be8f3aa7749c1653c48e3cfa8ac`
-- State contract tests: `97c8f17a946dbac0281f634e183280d2b316121f`
-- Single refresh/projection entrypoint: `d12a78f6b7b1b0d027b106f7fa5df27d2074a804`
-- Generated ledger: `78f4917e8c0bd4952f59964bbd0cf652c9740284`
-- Ledger projection tests: `9f293a71150b83e054198f6574865a3a9c29f4eb`
-- Maintainer entrypoint: `9ad69bbc0bb2d0d259383cb3e9a223e43c7e53a3`
-- Projection test import hardening: `4ed61bb9a6506d805dbdf370969e9611997752e1`
-- README control-plane discoverability: `6d2a60b5dee82ed72315bf059480e1da0fbee427`
-- Existing Contract Validation CI extension: `82da53e74bb5363df1b5e54614c09ee46c1a8e37`
-- Self-observation semantics clarification: `a4c2fd58f2ddbac3106b463351a3c29cb77b90b2`
+**Phase size:** 3 slices  
+**Current phase progress:** 0/3
 
-Canonical surfaces now exist at:
+## Slice 3.1 - Scoped/full repository refresh and generated ledger
 
-- `contracts/repository-state.schema.json`
-- `governance/repository-state.json`
-- `scripts/validate_repository_state.py`
-- `scripts/refresh_repository_state.py`
-- `docs/REPOSITORY-STATE-LEDGER.md`
-- `docs/MAINTAINER-START-HERE.md`
+**Status:** IN PROGRESS  
+**Dependencies:** 2.3  
+**Task progress:** 1/5
 
-### State semantics accepted
+### Starting evidence and refs
 
-- schema version is `ai-verse.repository-state/v1`;
-- State binds to the canonical Registry by exact Git blob SHA and repository entries bind only by stable `repository_id`;
-- Registry static fields are forbidden as independently maintained State fields;
-- State records access, observed head, owner acceptance evidence state, Distribution pin, descriptor observation, System synchronization, scoped freshness and drift separately;
-- `accepted`, `unverified`, `unavailable`, `failed` and `not-applicable` are distinct evidence states where relevant;
-- current five Core live heads exactly match the released/default Distribution Core pins;
-- owner acceptance remains explicitly `unverified` for current shipped Core refs because current descriptors do not prove exact owner acceptance at those revisions;
-- descriptor observation truth is preserved separately: OS points to older accepted revision `9600929b946746c25c64e48471fcc83031fddda9`; Brain/Memory/Skills/Data point to older `development` revisions;
-- current known drift is machine-readable, including the existing Core owner-acceptance BLOCKING governance gap, Purpose Context WARNING, Core handoff WARNING, Distribution adapter shadow-risk WARNING, release-receipt INFO and global watchdog WARNING;
-- watchdog starts as `WATCHDOG-STALE`, with no successful full scan or heartbeat, so absent automation cannot masquerade as CLEAN;
-- the human ledger is deterministic generated projection only and CI rejects hand-edited/out-of-date output;
-- `scripts/refresh_repository_state.py` is the one frozen refresh/projection path. Slice 2.3 adds validation + deterministic projection only; Slice 3.1 extends the same file with live scoped/full evidence refresh rather than adding another engine;
-- because Repository State is stored inside System, the System `observed_head` is the exact pre-publication scan head. The State/ledger publication commit is expected to be its direct descendant; later System movement requires refresh before a dependent decision claims freshness.
+Fresh pre-implementation inspection on 2026-10-12 confirmed the Slice 2.3 final snapshot remains current and all six non-System Wave 1 repositories are unchanged:
 
-### Validation evidence
-
-Contract Validation workflow run `38259597020` on commit `82da53e74bb5363df1b5e54614c09ee46c1a8e37` completed `success`.
-
-Both matrix jobs passed:
-
-- Python 3.13 job `114846414824`
-- Python 3.11 job `114846415275`
-
-Both jobs passed:
-
-- existing component release descriptor validation;
-- existing whole-release preservation validation;
-- Repository Registry validation;
-- new Repository State validation;
-- generated Repository State ledger check;
-- full shared contract test suite, including State and projection tests.
-
-State tests prove registered-ID completeness/uniqueness, exact Registry blob binding, static-field exclusion, acceptance/pin/descriptor evidence requirements, shipped/non-shipped separation, unavailable-versus-failed distinction, exact complete Core scope membership, freshness evidence binding, watchdog fail-closed behavior and non-authoritative ledger semantics. Projection tests prove deterministic rendering, exact committed ledger equality, dynamic State projection and Registry-sourced static labels.
-
-### Final freshness and concurrency
-
-Final component/Distribution refs remained unchanged:
-
+- AI-Verse-System: `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`
 - ai-verse-distribution: `fd11b4a95487638d47ff55472a3703b03892d0e8`
 - AI-Verse-OS: `64f7325444d18f94c9d4755d32eb89f3468bda6b`
 - AI-Verse-Brain: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
@@ -235,42 +169,40 @@ Final component/Distribution refs remained unchanged:
 - AI-Verse-Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
 - AI-Verse-Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
 
-System started Slice 2.3 at `606bab362e68b3689f1d497849fc7dfc6545a934`, an unrelated prior Safe Infrastructure plan commit, then this program start record `8cb5fbff630f45f730db904771333d73d5616a57`. Exact comparison from the Slice 2.3 start through CI showed only the ten expected Slice 2.3 implementation surfaces plus README/workflow changes and no unrelated interleaving. The later self-observation clarification is also Slice 2.3 work. No component or Distribution repo was modified by this slice.
+Existing surfaces inspected and classified:
 
-### Acceptance disposition
+- `scripts/refresh_repository_state.py`: **EXTEND** as the one refresh/projection engine. No second refresh tool.
+- `governance/repository-registry.json`: **REUSE** as static identity/scope/routing input.
+- `contracts/repository-state.schema.json` + `scripts/validate_repository_state.py`: **REUSE**, extend only if implementation proves a missing state fact.
+- `docs/REPOSITORY-STATE-LEDGER.md`: **REUSE** as generated projection only.
+- Component `release/component-release.json` + canonical descriptor validator: **REUSE** for descriptor/owner-acceptance observation. Do not create another acceptance format.
+- Distribution `release-sets/`: **REUSE** for exact shipped pins/current default released composition. No second promotion or pin database.
+- Existing Contract Validation workflow: **EXTEND** for refresh tests/live dry-run if reliable; do not create watchdog scheduling before Slice 3.2.
 
-PASS.
+The current default released Core set remains `release-sets/core-first-run-rc1-2026-10-12.json`, with exact pins matching all five current Core heads. Current descriptor drift remains unchanged: OS describes older accepted revision `9600929b946746c25c64e48471fcc83031fddda9`; Brain/Memory/Skills/Data describe older `development` revisions.
 
-- one canonical dynamic Repository State exists;
-- Registry static truth is not duplicated as independent dynamic truth;
-- all seven Wave 1 entries are bound by stable repository ID;
-- evidence availability and failure states are explicit;
-- scoped Core freshness is explicit and exact-ref based;
-- watchdog silence is explicitly stale, not CLEAN;
-- generated ledger is deterministic and non-authoritative;
-- maintainer entrypoint is discoverable from README and explains authority/freshness/blocking rules;
-- existing CI validates Registry, State, ledger determinism and tests on Python 3.11/3.13;
-- no live network refresh, scheduled watchdog, runtime behavior, release composition, component implementation or member payload was changed;
-- no protected roadmap element changed and no plan amendment was required.
+### Derived task list
 
-Known drift carried forward: descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag WARNING; Core maintainer handoff WARNING; Distribution adapter hard-coded compatibility knowledge WARNING; compact release receipt INFO/future work; watchdog remains WARNING/STALE until Slice 3.2; U35/U36 remain RESOLVED/PASS.
+1. **3.1.1 - Refresh live Wave 1 refs, reread plan/skill/architecture, inspect current refresh/State/Registry/descriptor/Distribution surfaces and derive the execution tasks.** `COMPLETE`
+2. **3.1.2 - Extend the single `scripts/refresh_repository_state.py` engine with deterministic Registry-derived scope resolution and live GitHub evidence collection for stable repository identity, exact default-branch HEAD, exact descriptor-at-HEAD observation, canonical descriptor owner-acceptance evaluation and exact Distribution default released pins. Fail closed on ambiguity, access loss, fetch failure or System publication concurrency.** `IN PROGRESS`
+3. **3.1.3 - Extend refresh tests with injected/fake evidence to prove component/Core/Agent/Full/global scope selection, exact-ref behavior, accepted-vs-unverified owner evidence, exact Distribution pin selection, unavailable-vs-failed handling, deterministic output and no timestamp lineage authority.** `PENDING`
+4. **3.1.4 - Extend maintainer/CI usage so the existing validation path exercises a real read-only Core refresh dry-run without writing sibling repositories, while State/ledger write mode remains explicit and source-only.** `PENDING`
+5. **3.1.5 - Perform a real Core refresh, publish the refreshed State plus generated ledger atomically from an exact pre-publication System head, run final validation/CI, refresh concurrency/refs and close Slice 3.1 without watchdog scheduling, drift auto-reconciliation, runtime/member-payload or protected-roadmap changes.** `PENDING`
 
-### NEXT
+### Acceptance floor
 
-**Slice 3.1 - Scoped/full repository refresh and generated ledger.**
-
----
-
-# Phase 3 - Build System self-checking machinery and synchronize current truth
-
-**Phase size:** 3 slices
-
-## Slice 3.1 - Scoped/full repository refresh and generated ledger
-
-**Status:** NOT STARTED  
-**Dependencies:** 2.3
-
-Extend `scripts/refresh_repository_state.py` to consume Registry and exact Git/owner/Distribution evidence for scoped/full refreshes. Acceptance: deterministic/evidence-backed refresh, inaccessible repos explicit, dates informational only, generated ledger truthful, no member impact.
+- scoped decisions refresh only their required Registry-derived scope;
+- full/global refresh can cover all registered repositories without a second engine;
+- repository identity is verified against stable GitHub repository ID, not inferred from path/name;
+- exact immutable refs and exact-at-ref descriptor/release evidence are used;
+- canonical descriptor validation may prove an accepted descriptor revision, but Distribution qualification is never converted into owner acceptance;
+- inaccessible evidence is explicit and distinct from executed checks that fail;
+- ambiguous/multiple current Distribution pins fail closed rather than selecting by date or filename;
+- dates remain informational only and cannot establish freshness/lineage;
+- State publication detects System-head concurrency rather than silently overwriting fresher work;
+- generated ledger remains projection only;
+- no sibling repository writes, runtime behavior, release composition or member payload changes occur;
+- no plan amendment is currently required.
 
 ## Slice 3.2 - Drift Watchdog and heartbeat
 
@@ -378,23 +310,24 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 
 # Program Change Log
 
+## 2026-10-12 - Slice 3.1 started
+
+- Refreshed System, Distribution and all five Core heads before implementation; no Wave 1 ref moved since the Slice 2.3 final snapshot.
+- Re-read the adaptive planning method, architecture freeze, State/Registry control plane, descriptor contract and current Distribution default Core release set.
+- Classified the existing refresh script as EXTEND and all Registry/State/descriptor/Distribution authority surfaces as REUSE-first.
+- Derived five evidence-backed tasks with no plan amendment and no new competing source of truth.
+
 ## 2026-10-12 - Slice 2.3 Repository State control plane completed
 
-- Created versioned `ai-verse.repository-state/v1` schema and canonical `governance/repository-state.json` dynamic truth surface.
-- Bootstrapped all seven Wave 1 State entries from exact current Core heads, current released Distribution pins, descriptor observations and known drift without converting Distribution qualification into owner acceptance.
-- Added fail-closed semantic validation and tests for Registry binding, exact IDs/refs, evidence states, scope freshness and watchdog behavior.
-- Established `scripts/refresh_repository_state.py` as the single frozen refresh/projection path, currently providing deterministic State-to-ledger rendering/checking only; live refresh remains Slice 3.1.
-- Added generated `docs/REPOSITORY-STATE-LEDGER.md`, maintainer entrypoint and README discoverability.
-- Recorded `WATCHDOG-STALE` and global warning until scheduled/manual full scans exist.
-- GitHub Actions run `38259597020` passed Python 3.11 and 3.13 including State validation, ledger check and all contract tests.
-- Clarified unavoidable System self-observation: State records the exact pre-publication System head and its own publication commit is the expected direct descendant.
+- Created versioned `ai-verse.repository-state/v1`, canonical `governance/repository-state.json`, fail-closed validator/tests, deterministic generated ledger, maintainer entrypoint and single frozen refresh/projection path.
+- Final atomic State/ledger snapshot: `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`.
+- Final GitHub Actions run `38260626280` passed Python 3.11 and 3.13.
 - No runtime, component, Distribution composition or member payload changed.
 
 ## 2026-10-12 - Slice 2.2 machine-readable Repository Registry completed
 
-- Created versioned `ai-verse.repository-registry/v1` schema and the single System-owned `governance/repository-registry.json` authority.
-- Registered System, Distribution, OS, Brain, Memory, Skills and Data as initial Wave 1 entries using stable GitHub repository IDs as logical identity anchors.
-- Added Registry validation/tests and existing CI coverage. GitHub Actions run `38256854398` passed Python 3.11 and 3.13.
+- Created versioned Registry and canonical seven-entry Wave 1 Registry with validation/tests and existing CI coverage.
+- Closure: `98773f6db85ac727a32ed798cf5113fe839e24a1`.
 
 ## 2026-10-12 - Slice 2.1 permanent governance completed
 
@@ -414,11 +347,11 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 
 **Completed:** 7/20  
 **Overall:** 35.0%  
-**Phase:** Phase 2 - Define the canonical System control plane (`COMPLETE`)  
-**Phase progress:** 3/3  
-**Until Phase 3:** 0 slices  
-**Current slice:** Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint (`COMPLETE`)  
-**Tasks:** 6/6  
-**Next:** Slice 3.1 - Scoped/full repository refresh and generated ledger  
-**Next task:** not yet derived; generate from fresh Slice 3.1 evidence at slice start  
+**Phase:** Phase 3 - Build System self-checking machinery and synchronize current truth  
+**Phase progress:** 0/3  
+**Until Phase 4:** 3 slices  
+**Current slice:** Slice 3.1 - Scoped/full repository refresh and generated ledger (`IN PROGRESS`)  
+**Tasks:** 1/5  
+**Current task:** 3.1.2 - Extend the single refresh engine with live scoped/full exact-evidence collection  
+**Next:** complete 3.1 before starting 3.2  
 **Blockers/drift/amendments:** descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag WARNING; Core maintainer handoff WARNING; Distribution hard-coded adapter compatibility knowledge WARNING; compact release receipt INFO/future work; watchdog WARNING/STALE until Slice 3.2; U35/U36 RESOLVED/PASS. No plan amendment required.
