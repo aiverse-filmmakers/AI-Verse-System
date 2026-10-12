@@ -44,13 +44,18 @@ For product/UX/autonomy decisions, read `docs/OWNER-PRODUCT-INTENT.md` before ch
 
 ## Repository-network governance
 
-For meaningful work that crosses repository boundaries, read:
+For meaningful work that crosses repository boundaries, start with `docs/MAINTAINER-START-HERE.md`. It gives the canonical read order, authority boundaries, freshness rules, drift handling and cross-repository change route.
+
+The control-plane sources are:
 
 - `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md` for permanent canonical ownership, handoff, validation, non-regression, member-isolation, emergency-release and cross-repository authority rules;
+- `governance/repository-registry.json` for static repository identity, responsibility, lifecycle and release-participation truth;
+- `governance/repository-state.json` for dynamic observed heads, owner-acceptance evidence, Distribution pins, descriptor observations, System synchronization, freshness, watchdog state and drift;
+- `docs/REPOSITORY-STATE-LEDGER.md` as a generated human projection only. Never hand-edit it or treat it as machine authority;
 - `docs/ARCHITECTURE-TOMBSTONES.md` before recreating architecture described by old plans, audits or branches. Tombstoned structures must not be silently resurrected;
 - the specific update/release contract referenced by the governance contract for the behavior being changed.
 
-The repository-network implementation program is execution history and roadmap, not the permanent law surface. Future maintainers and agents should be able to find the governing rules from this README without first reading that program history.
+The repository-network implementation program is execution history and roadmap, not the permanent law surface. Future maintainers and agents should be able to find the governing rules and current control-plane truth from this README without first reading that program history.
 
 ## Planned component set
 
