@@ -26,6 +26,7 @@ PLATFORMS = {"linux", "macos", "windows"}
 RELEASE_STATUS = {"candidate", "accepted"}
 SOURCE_TYPES = {"git", "npm", "pypi", "archive"}
 MIGRATION_COMPATIBILITY = {"none-required", "compatible", "explicit-migration", "blocked"}
+CHANGE_CLASSIFICATION = {"non-breaking", "breaking"}
 CHECKPOINT_POLICIES = {"not-required", "owner-evidence-required", "unsupported"}
 RECIPE_DISPOSITIONS = {"OPTIONAL", "REQUIRED"}
 PATH_MODES = {"direct", "chain-step"}
@@ -428,7 +429,14 @@ def validate_descriptor(data: Any) -> list[str]:
     if migration:
         _exact_keys(
             migration,
-            {"compatibility", "from_versions", "requires_explicit_migration", "owner_controlled", "checkpoint_policy"},
+            {
+                "compatibility",
+                "change_classification",
+                "from_versions",
+                "requires_explicit_migration",
+                "owner_controlled",
+                "checkpoint_policy",
+            },
             "$.migration",
             errors,
             optional={"infrastructure"},
@@ -436,6 +444,9 @@ def validate_descriptor(data: Any) -> list[str]:
         compatibility = migration.get("compatibility")
         if compatibility not in MIGRATION_COMPATIBILITY:
             errors.append("$.migration.compatibility: invalid value")
+        change_classification = migration.get("change_classification")
+        if change_classification not in CHANGE_CLASSIFICATION:
+            errors.append("$.migration.change_classification: expected non-breaking or breaking")
         from_versions = migration.get("from_versions")
         if not isinstance(from_versions, list) or any(not isinstance(v, str) or not v for v in from_versions):
             errors.append("$.migration.from_versions: expected array of non-empty version strings")
@@ -456,6 +467,11 @@ def validate_descriptor(data: Any) -> list[str]:
             errors.append("$.migration: none-required must not declare from_versions")
         if compatibility == "blocked" and root.get("release_status") == "accepted":
             errors.append("$.migration: blocked descriptor cannot have release_status=accepted")
+        if change_classification == "breaking":
+            if compatibility not in {"explicit-migration", "blocked"}:
+                errors.append("$.migration: breaking change must use explicit-migration or blocked compatibility")
+            if not isinstance(from_versions, list) or not from_versions:
+                errors.append("$.migration: breaking change must declare at least one from_version")
         if "infrastructure" in migration:
             _validate_infrastructure(
                 migration.get("infrastructure"),
