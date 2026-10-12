@@ -13,7 +13,7 @@
 **Current phase progress:** 2/3 slices complete  
 **Slices until next phase:** 1  
 **Current slice:** 4.3 - Wave 2/3 handoff governance  
-**Current slice status:** NOT STARTED  
+**Current slice status:** IN PROGRESS  
 **Next slice:** 5.1 - Immutable candidate snapshot and owner-adoption gates
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
@@ -379,10 +379,59 @@ T5 refreshed only the canonical Core scope and closed only the two Wave 1 owner/
 
 ## Slice 4.3 - Wave 2/3 handoff governance
 
-**Status:** NOT STARTED  
-**Dependencies:** 4.2
+**Status:** IN PROGRESS  
+**Dependencies:** 4.2  
+**Adaptive tasks:** 0/5 complete
 
-Apply proven semantics only to Registry-confirmed active release-relevant repos. Acceptance: active first-class repos registered/handoff-capable, retired/experimental/external explicit, CI gaps visible, no broad write authority.
+Apply the proven owner-handoff semantics only to evidence-backed Wave 2/3 repositories. Acceptance remains unchanged: active first-class repos must be registered and handoff-capable, experimental/retired/external status must be explicit, missing CI must stay visible, and no broad cross-repository write or Distribution/member-release authority may be introduced.
+
+### Slice-start boundary
+
+Fresh bounded discovery used the canonical Registry, the living System Blueprint, the released Agent composition, the blocked Full composition, current repository trees and exact live `main` refs. Concurrent Safe Infrastructure work advanced System `main` after Slice 4.2; it is unrelated and is preserved.
+
+- `aiverse-filmmakers/AI-Verse-System@86a9f21ec7bb3e65c719dccabdd9270e0e066286`
+- `aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1`
+- Wave 2 Agent candidate owners:
+  - Gateway repository ID `1368762130`, `main@1772b75e2add73a524715f746e87b3a6b5561bf6`
+  - Automations repository ID `1368762786`, `main@287ce9d6718ef06e4589a2a3e767c6a9ba376755`
+  - Multiple Bots repository ID `1362278774`, `main@ddf70ac19736f6ca7f8d604901c20af9e46614fe`
+  - Token repository ID `1368748835`, `main@d36916323abb5f396bd8fd6b7f5c3ef84af519d0`
+- Wave 3 Full candidate owners:
+  - Connections repository ID `1364458279`, `main@602a1c52ab782cc9a8b7a4caa60ccb29efe403d1`
+  - Dashboard repository ID `1362252045`, `main@bd26986e202d4b911d0c5f64659db71363bfccfa`
+  - Apps repository ID `1364456634`, `main@db5b0115bf59d6eae9149137a40e891968f3a637`
+
+The current Registry still contains only Wave 1 entries, so none of these seven repositories is currently Registry-confirmed. Slice 4.3 must fix that static truth boundary before any later owner-admission machinery may rely on Agent/Full scope resolution.
+
+### Evidence-backed profile/lifecycle classification
+
+- Distribution `agent-context-ladder-rc1-2026-09-15` is a released Agent profile that explicitly contains Gateway, Automations, Multiple Bots and Token in addition to Core. These four are therefore `EXTEND Registry -> active / rollout wave 2 / Agent / distribution-shipped`, subject to T1 exact static registration validation.
+- Distribution `full-public-beta-pending` is `blocked` and explicitly names Connections, Dashboard and Apps as the missing Full additions. System Blueprint also treats Connections, Dashboard and Apps as first-class architecture responsibilities.
+- Connections and Dashboard have substantive implementations and native `.github/workflows/ci.yml`; classify them `EXTEND Registry -> active / rollout wave 3 / Full / distribution-shipped`, while preserving the fact that no admitted Full release currently exists.
+- Apps states `Founding architecture / research seed` and `Implementation status: Not started`; its repository contains only `README.md` and no native CI. Classify Apps `EXTEND Registry -> experimental / rollout wave 3 / Full / not distribution-shipped` until implementation and owner CI exist. Do not fabricate owner acceptance or a releasable descriptor for it.
+- Organization repositories not named by the canonical Blueprint/Agent/Full evidence, including `ai-verse-social` and `hub`, are `BLOCK/UNKNOWN` for this slice. Discovery location/name alone does not authorize registration, ownership transfer or writes.
+
+### Reuse/create/prohibited classification
+
+- Repository Registry schema/lifecycle values (`active | experimental | retired | external`), rollout waves 1-3 and `Core | Agent | Full` release profiles: `REUSE` unchanged.
+- Existing released Agent set and blocked Full record: `REUSE` as immutable composition/history evidence only; do not rewrite them in Phase 4.
+- Native implementation CI in Gateway, Automations, Multiple Bots, Token, Connections and Dashboard: `REUSE` as the implementation acceptance machinery.
+- Canonical `ai-verse.component-release/v1` descriptor, exact-revision native-CI binding and owner-only authority boundary proven in Slice 4.2: `REUSE` unchanged.
+- Canonical descriptor/gate/minimal maintainer handoff in those six active owners: `CREATE` because none currently exposes `release/component-release.json` or the proven owner-local descriptor gate.
+- Apps release descriptor/gate: `BLOCK/UNKNOWN`; no implementation/native CI exists, so accepted release evidence would be false.
+- Static Registry entries for the seven evidence-backed Wave 2/3 repositories: `CREATE/EXTEND` in System, with Apps explicitly experimental.
+- Corresponding fail-closed Repository State placeholders/generated ledger required to keep Registry/State structurally aligned when new identities are registered: `EXTEND` only as structural truth, not as early owner acceptance or final live refresh.
+- Broad write authority, copied global governance, duplicated native test harnesses, second acceptance formats, Distribution promotion changes and member payload changes: `PROHIBITED/DEFER`.
+
+### Derived task list
+
+- [ ] **4.3-T1** Extend the canonical System Registry with the seven evidence-backed Wave 2/3 repository identities and exact lifecycle/profile/shipping classifications; add only the fail-closed State placeholders/generated ledger changes required for Registry/State structural validity; prove Agent/Full scope resolution and keep Apps explicitly experimental with no release claim.
+- [ ] **4.3-T2** Establish the exact owner-adoption matrix for the six active Wave 2/3 owners by inspecting their current native CI, current heads and applicable immutable Distribution evidence; select one designated native workflow and exact candidate/accepted revision per owner, failing closed where evidence is insufficient. Apps remains an explicit no-CI experimental gap.
+- [ ] **4.3-T3** Publish the proven canonical Component Release Descriptor, owner-local exact-revision gate and minimal source-only maintainer handoff in only the six active owners whose T2 evidence passes, preserving native CI and denying Distribution/member-release/live-health authority.
+- [ ] **4.3-T4** Prove the adopted active-owner pattern across push and PR paths, exact revision/native-CI binding, canonical breaking-change rejection, handoff discoverability and read-only authority boundaries; prove Apps remains unaccepted rather than manufacturing readiness.
+- [ ] **4.3-T5** Refresh only the required Agent/Full/component Repository State scopes from exact resulting refs, resolve only Wave 2/3 governance drift proven closed, keep the Full release blocked wherever owner/CI/admission evidence remains incomplete, publish the deterministic ledger, close Slice 4.3 and Phase 4, advance to 5.1, and stop without beginning Phase 5.
+
+No component repository, Distribution release set, member payload, runtime behavior or user-owned state was changed during slice-start planning. No plan amendment is required.
 
 ---
 
@@ -448,6 +497,17 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-13 - Slice 4.3 Wave 2/3 bounded planning started
+
+- Preserved concurrent Safe Infrastructure System movement at `86a9f21ec7bb3e65c719dccabdd9270e0e066286`; it does not alter the propagation destination or invalidate Slice 4.2.
+- Confirmed the Registry currently contains only Wave 1 entries, so Wave 2/3 static identity must be established before later Agent/Full governance can rely on Registry scopes.
+- Reused released Agent evidence to identify Gateway, Automations, Multiple Bots and Token as active Wave 2 candidates; reused the blocked Full record plus System Blueprint to identify Connections, Dashboard and Apps as the Wave 3 boundary.
+- Confirmed native CI exists in Gateway, Automations, Multiple Bots, Token, Connections and Dashboard, while none currently exposes the canonical Component Release Descriptor/gate.
+- Confirmed Apps is still a founding architecture/research seed with implementation not started and no CI. It will be explicit `experimental`, not falsely owner-accepted or distribution-shipped.
+- Non-canonical organization repositories discovered by name alone are not absorbed into this rollout; discovery location does not determine ownership.
+- Derived five tasks. 4.3-T1 is the only next task. No Registry, State, component owner, Distribution release or member payload implementation was changed in this planning run.
+- Program progress remains 12/20, 60.0%; Phase 4 remains 2/3 complete. No plan amendment.
 
 ## 2026-10-12 - Slice 4.2 Wave 1/Core maintainer handoff completed
 
@@ -565,6 +625,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 4 - Integrate canonical component owners  
 **Phase progress:** 2/3  
 **Until Phase 5:** 1 slice  
-**Current slice:** Slice 4.3 - Wave 2/3 handoff governance (`NOT STARTED`)  
-**Next:** Slice 4.3 start - perform only bounded Registry-confirmed Wave 2/3 discovery, classify `REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN`, derive the smallest evidence-backed task list for Slice 4.3, record it in this roadmap and stop; do not execute the first implementation task in the same run  
-**Blockers/drift/amendments:** Wave 1/Core exact owner acceptance and maintainer handoff are resolved. Distribution adapter shadow-risk WARNING and compact release receipt INFO remain open for their planned later owners. Watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
+**Current slice:** Slice 4.3 - Wave 2/3 handoff governance (`IN PROGRESS`, 0/5 tasks complete)  
+**Next:** 4.3-T1 - extend the canonical System Registry with the seven evidence-backed Wave 2/3 repository identities and exact lifecycle/profile/shipping classifications; add only the fail-closed State placeholders/generated ledger changes required for Registry/State structural validity; prove Agent/Full scope resolution and keep Apps explicitly experimental with no release claim  
+**Blockers/drift/amendments:** Wave 1/Core exact owner acceptance and maintainer handoff remain resolved. Wave 2/3 repositories are not yet in the Registry; six active candidates have native CI but no canonical release descriptor/gate; Apps is experimental with implementation not started and no CI. Distribution adapter shadow-risk WARNING and compact release receipt INFO remain open for their planned later owners. Watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
