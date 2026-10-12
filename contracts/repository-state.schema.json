@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiverse.local/contracts/repository-state.schema.json",
+  "title": "AI-Verse Repository State",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "state_id",
+    "registry_binding",
+    "refresh",
+    "watchdog",
+    "repositories",
+    "drift",
+    "semantics"
+  ],
+  "properties": {
+    "schema_version": { "const": "ai-verse.repository-state/v1" },
+    "state_id": { "const": "ai-verse.repository-network" },
+    "registry_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "schema_version", "blob_sha"],
+      "properties": {
+        "path": { "const": "governance/repository-registry.json" },
+        "schema_version": { "const": "ai-verse.repository-registry/v1" },
+        "blob_sha": { "$ref": "#/$defs/sha40" }
+      }
+    },
+    "refresh": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "scope",
+        "status",
+        "repository_ids",
+        "evidence_revision",
+        "last_scoped_refresh",
+        "last_full_refresh"
+      ],
+      "properties": {
+        "mode": { "enum": ["manual-bootstrap", "scoped-refresh", "full-refresh"] },
+        "scope": { "enum": ["component", "Core", "Agent", "Full", "global"] },
+        "status": { "enum": ["complete", "partial", "failed"] },
+        "repository_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 1 }
+        },
+        "evidence_revision": { "$ref": "#/$defs/sha40" },
+        "last_scoped_refresh": { "$ref": "#/$defs/refresh_record" },
+        "last_full_refresh": {
+          "oneOf": [
+            { "$ref": "#/$defs/refresh_record" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "watchdog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "heartbeat_revision", "last_successful_full_scan", "reason"],
+      "properties": {
+        "status": { "enum": ["WATCHDOG-CURRENT", "WATCHDOG-STALE", "WATCHDOG-FAILED"] },
+        "heartbeat_revision": {
+          "oneOf": [
+            { "$ref": "#/$defs/sha40" },
+            { "type": "null" }
+          ]
+        },
+        "last_successful_full_scan": {
+          "oneOf": [
+            { "$ref": "#/$defs/refresh_record" },
+            { "type": "null" }
+          ]
+        },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 600 }
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/repository_state" }
+    },
+    "drift": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/drift_record" }
+    },
+    "semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dynamic_state_only",
+        "registry_static_truth_authority",
+        "human_ledger_authority",
+        "human_ledger_path",
+        "dates_informational_only",
+        "unknown_evidence_fails_closed"
+      ],
+      "properties": {
+        "dynamic_state_only": { "const": true },
+        "registry_static_truth_authority": { "const": "governance/repository-registry.json" },
+        "human_ledger_authority": { "const": false },
+        "human_ledger_path": { "const": "docs/REPOSITORY-STATE-LEDGER.md" },
+        "dates_informational_only": { "const": true },
+        "unknown_evidence_fails_closed": { "const": true }
+      }
+    }
+  },
+  "$defs": {
+    "sha40": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "nullable_sha40": {
+      "oneOf": [
+        { "$ref": "#/$defs/sha40" },
+        { "type": "null" }
+      ]
+    },
+    "evidence_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "evidence_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/evidence_ref" }
+    },
+    "refresh_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "status", "evidence_revision"],
+      "properties": {
+        "scope": { "enum": ["component", "Core", "Agent", "Full", "global"] },
+        "status": { "enum": ["complete", "partial", "failed"] },
+        "evidence_revision": { "$ref": "#/$defs/sha40" },
+        "observed_at": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "evidence_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "revision", "evidence_refs"],
+      "properties": {
+        "status": { "enum": ["accepted", "unverified", "unavailable", "failed", "not-applicable"] },
+        "revision": { "$ref": "#/$defs/nullable_sha40" },
+        "evidence_refs": { "$ref": "#/$defs/evidence_refs" }
+      }
+    },
+    "distribution_pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "revision", "release_id", "evidence_refs"],
+      "properties": {
+        "status": { "enum": ["pinned", "unpinned", "unverified", "unavailable", "failed", "not-applicable"] },
+        "revision": { "$ref": "#/$defs/nullable_sha40" },
+        "release_id": { "type": ["string", "null"], "minLength": 1, "maxLength": 160 },
+        "evidence_refs": { "$ref": "#/$defs/evidence_refs" }
+      }
+    },
+    "descriptor_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "revision", "release_status", "blob_sha", "evidence_refs"],
+      "properties": {
+        "status": { "enum": ["observed", "missing", "unavailable", "failed", "not-applicable"] },
+        "revision": { "$ref": "#/$defs/nullable_sha40" },
+        "release_status": { "type": ["string", "null"], "minLength": 1, "maxLength": 80 },
+        "blob_sha": { "$ref": "#/$defs/nullable_sha40" },
+        "evidence_refs": { "$ref": "#/$defs/evidence_refs" }
+      }
+    },
+    "system_sync": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "checkpoint_revision", "evidence_refs"],
+      "properties": {
+        "status": { "enum": ["synchronized", "unverified", "debt", "unavailable", "failed", "not-applicable"] },
+        "checkpoint_revision": { "$ref": "#/$defs/nullable_sha40" },
+        "evidence_refs": { "$ref": "#/$defs/evidence_refs" }
+      }
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "status", "evidence_revision"],
+      "properties": {
+        "scope": { "enum": ["component", "Core", "Agent", "Full", "global"] },
+        "status": { "enum": ["fresh", "stale", "unknown", "failed"] },
+        "evidence_revision": { "$ref": "#/$defs/sha40" }
+      }
+    },
+    "repository_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "access",
+        "observed_head",
+        "owner_acceptance",
+        "distribution_pin",
+        "descriptor",
+        "system_sync",
+        "freshness"
+      ],
+      "properties": {
+        "repository_id": { "type": "integer", "minimum": 1 },
+        "access": { "enum": ["verified", "unverified", "unavailable", "failed"] },
+        "observed_head": { "$ref": "#/$defs/nullable_sha40" },
+        "owner_acceptance": { "$ref": "#/$defs/evidence_state" },
+        "distribution_pin": { "$ref": "#/$defs/distribution_pin" },
+        "descriptor": { "$ref": "#/$defs/descriptor_observation" },
+        "system_sync": { "$ref": "#/$defs/system_sync" },
+        "freshness": { "$ref": "#/$defs/freshness" }
+      }
+    },
+    "drift_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "marker",
+        "status",
+        "severity",
+        "scope",
+        "repository_ids",
+        "reason",
+        "evidence_refs",
+        "required_action"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$", "minLength": 3, "maxLength": 120 },
+        "marker": { "const": "CANONICAL-DRIFT-DETECTED" },
+        "status": { "enum": ["open", "resolved"] },
+        "severity": { "enum": ["INFO", "WARNING", "BLOCKING"] },
+        "scope": { "enum": ["component", "Core", "Agent", "Full", "global"] },
+        "repository_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 1 }
+        },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "evidence_refs": { "$ref": "#/$defs/evidence_refs" },
+        "required_action": { "type": "string", "minLength": 1, "maxLength": 1000 }
+      }
+    }
+  }
+}
