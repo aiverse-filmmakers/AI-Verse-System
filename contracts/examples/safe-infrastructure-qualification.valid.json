@@ -1,0 +1,124 @@
+{
+  "schema_version": "ai-verse.safe-infrastructure-qualification/v1",
+  "target": {
+    "release_set_id": "2026.10-safe-infra-fixture",
+    "component_revisions": {
+      "ai-verse-os": "1111111111111111111111111111111111111111",
+      "ai-verse-data": "2222222222222222222222222222222222222222",
+      "ai-verse-memory": "3333333333333333333333333333333333333333"
+    }
+  },
+  "identity_contract": "ai-verse.durable-identity-reference/v1",
+  "upgrade_contract": "ai-verse.infrastructure-upgrade/v1",
+  "sections": {
+    "convergence": {
+      "status": "PASS",
+      "same_exact_target": true,
+      "target_contract_equivalent": true,
+      "user_state_preserved": true,
+      "identity_reference_verified": true,
+      "ambiguity_avoided": true,
+      "evidence": [
+        {
+          "kind": "fresh-vs-upgraded-target-contract",
+          "owner": "ai-verse-system",
+          "ref": "fixture://convergence/target-contract",
+          "result": "PASS"
+        },
+        {
+          "kind": "durable-identity-check",
+          "owner": "ai-verse-os",
+          "ref": "fixture://convergence/identity",
+          "result": "PASS"
+        }
+      ]
+    },
+    "restore": {
+      "status": "PASS",
+      "covered_state_exact": true,
+      "software_exact": true,
+      "owner_rebuild_verified": true,
+      "exclusions_truthful": true,
+      "retained_target_survived": true,
+      "identity_reference_verified": true,
+      "evidence": [
+        {
+          "kind": "recovery-manifest-verification",
+          "owner": "ai-verse-distribution",
+          "ref": "fixture://restore/manifest",
+          "result": "PASS"
+        },
+        {
+          "kind": "post-restore-owner-health",
+          "owner": "ai-verse-system",
+          "ref": "fixture://restore/owner-health",
+          "result": "PASS"
+        }
+      ]
+    },
+    "doctor": {
+      "status": "PASS",
+      "command": "aiverse doctor",
+      "aggregate_ok": true,
+      "read_only": true,
+      "required_owner_checks": [
+        "ai-verse-os",
+        "ai-verse-brain",
+        "ai-verse-memory",
+        "ai-verse-data",
+        "ai-verse-skills"
+      ],
+      "owner_results": [
+        {"owner": "ai-verse-os", "status": "PASS"},
+        {"owner": "ai-verse-brain", "status": "PASS"},
+        {"owner": "ai-verse-memory", "status": "PASS"},
+        {"owner": "ai-verse-data", "status": "PASS"},
+        {"owner": "ai-verse-skills", "status": "PASS"}
+      ],
+      "composed_system_checked": true,
+      "failure_injection": {
+        "injected_owner": "ai-verse-data",
+        "aggregate_ok": false,
+        "unrelated_checks_continued": true
+      },
+      "evidence": [
+        {
+          "kind": "doctor-owner-fanout",
+          "owner": "ai-verse-distribution",
+          "ref": "fixture://doctor/fanout",
+          "result": "PASS"
+        },
+        {
+          "kind": "doctor-failure-injection",
+          "owner": "ai-verse-distribution",
+          "ref": "fixture://doctor/failure-injection",
+          "result": "PASS"
+        }
+      ]
+    },
+    "member_ux": {
+      "status": "PASS",
+      "default_summary": "AI-Verse Check\n\nHealthy: YES\nSafe improvements: 0\nNeeds your review: 0\nNothing has changed.",
+      "plain_english": true,
+      "small_screen": true,
+      "read_only_preview_language": true,
+      "internal_jargon_required": false,
+      "technical_evidence_available": true,
+      "evidence": [
+        {
+          "kind": "member-summary-check",
+          "owner": "ai-verse-distribution",
+          "ref": "fixture://ux/default-summary",
+          "result": "PASS"
+        },
+        {
+          "kind": "json-evidence-availability",
+          "owner": "ai-verse-distribution",
+          "ref": "fixture://ux/json-details",
+          "result": "PASS"
+        }
+      ]
+    }
+  },
+  "overall": "PASS"
+}
