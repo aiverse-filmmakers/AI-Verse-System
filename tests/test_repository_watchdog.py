@@ -23,6 +23,7 @@ STATE = json.loads((ROOT / "governance" / "repository-state.json").read_text(enc
 def global_refresh(state, revision="b" * 40, status="complete"):
     value = copy.deepcopy(state)
     ids = [item["repository_id"] for item in REGISTRY["repositories"]]
+    registry_by_id = {item["repository_id"]: item for item in REGISTRY["repositories"]}
     record = {
         "scope": "global",
         "status": status,
@@ -38,7 +39,26 @@ def global_refresh(state, revision="b" * 40, status="complete"):
         "last_scoped_refresh": copy.deepcopy(record),
         "last_full_refresh": copy.deepcopy(record),
     }
-    for item in value["repositories"]:
+    for index, item in enumerate(value["repositories"]):
+        registry_entry = registry_by_id[item["repository_id"]]
+        if status == "complete" and item["access"] == "unverified":
+            synthetic_head = f"{index + 1:040x}"[-40:]
+            item["access"] = "verified"
+            item["observed_head"] = synthetic_head
+            if registry_entry["surface_classification"] == "runtime-component":
+                item["descriptor"] = {
+                    "status": "observed",
+                    "revision": synthetic_head,
+                    "release_status": "candidate",
+                    "blob_sha": f"{index + 101:040x}"[-40:],
+                    "evidence_refs": [f"synthetic-descriptor-{item['repository_id']}"],
+                }
+                item["distribution_pin"] = {
+                    "status": "unpinned",
+                    "revision": None,
+                    "release_id": None,
+                    "evidence_refs": ["synthetic-release-set-scan"],
+                }
         item["freshness"] = {
             "scope": "global",
             "status": "fresh" if item["access"] == "verified" else "unknown",
@@ -183,12 +203,14 @@ class RepositoryWatchdogTests(unittest.TestCase):
         self.assertEqual(result["watchdog"]["status"], "WATCHDOG-STALE")
 
     def test_current_age_check_fails_after_two_expected_daily_windows(self):
-        current, _, _ = repository_watchdog.apply_watchdog_transition(
+        current, successful, failures = repository_watchdog.apply_watchdog_transition(
             self.registry,
             self.state,
             global_refresh(self.state, revision="b" * 40),
             observed_at="2026-10-12T00:00:00Z",
         )
+        self.assertTrue(successful)
+        self.assertEqual(failures, [])
         ok, _ = repository_watchdog.watchdog_is_current(current, now="2026-10-13T23:59:59Z")
         self.assertTrue(ok)
         ok, reason = repository_watchdog.watchdog_is_current(current, now="2026-10-14T00:00:00Z")
