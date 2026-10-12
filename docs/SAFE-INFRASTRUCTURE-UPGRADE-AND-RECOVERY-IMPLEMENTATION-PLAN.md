@@ -1,20 +1,20 @@
 # AI-Verse Safe Infrastructure Upgrade, Convergence and Recovery Implementation Plan
 
-**Status:** IN PROGRESS - PHASE 2  
+**Status:** PAUSED - PHASE 2 COMPLETE; NEXT PHASE 3 / SLICE 3.1  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary orchestration repo:** `aiverse-filmmakers/ai-verse-distribution`  
 **Initial owner repos:** `aiverse-filmmakers/AI-Verse-OS`, `aiverse-filmmakers/AI-Verse-Skills`  
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 6  
-**Remaining:** 12  
-**Overall progress:** 33.3%  
-**Current phase:** Phase 2 - Define canonical convergence, migration and recovery contracts  
-**Current phase progress:** 2/3  
-**Slices until Phase 3:** 1  
-**Next:** Slice 2.3 - Define convergence, restore, doctor and member UX invariants  
-**Next slice task list:** STOP - derive only when Slice 2.3 starts
+**Completed:** 7  
+**Remaining:** 11  
+**Overall progress:** 38.9%  
+**Current phase:** Phase 2 - COMPLETE  
+**Current phase progress:** 3/3 COMPLETE  
+**Slices until Phase 3:** 0  
+**Next:** Phase 3 / Slice 3.1 - Implement OS Workspace generation and evidence-backed structural semantics  
+**Next slice task list:** STOP - derive only when Slice 3.1 starts
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Verified shipped source, shipped contracts and tests outrank roadmap assumptions. Discovery may adapt the route; it may not silently change the destination.
 
@@ -962,8 +962,8 @@ Safe Infrastructure Phase 1 completed with these required handoff items:
 # Phase 2 - Define canonical convergence, migration and recovery contracts
 
 **Phase size:** 3 slices  
-**Status:** IN PROGRESS  
-**Phase progress:** 2/3  
+**Status:** COMPLETE  
+**Phase progress:** 3/3 COMPLETE  
 **Entry gate:** SATISFIED. Slice 1.3 COMPLETE and Identity Hardening Slice 1.1 + 1.2 COMPLETE with canonical System identity/reference contract `ai-verse.durable-identity-reference/v1`.
 
 ## Slice 2.1 - Amend the Safe Update and State Preservation Contract
@@ -1287,43 +1287,210 @@ Next execution unit: Slice 2.3.
 
 ## Slice 2.3 - Define convergence, restore, doctor and member UX invariants
 
-**Status:** NOT STARTED  
-**Dependencies:** 2.2
+**Status:** COMPLETE  
+**Dependencies:** 2.2  
+**Adaptive tasks:** 6/6 COMPLETE
+
+### Starting refs
+
+- `aiverse-filmmakers/AI-Verse-System@e70a61c5fc9423ac2a5b5569f5829134c1e50f82`
+- `aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1`
+- slice-start evidence commit: `aiverse-filmmakers/AI-Verse-System@6d9f976d9776d44f0b0c8b58656e759563809ebc`
+
+### Final derived task list
+
+- [x] **2.3-T1** Refresh System/Distribution refs and inspect current doctor aggregation, CLI evidence separation, completed restore law and completed upgrade-recipe law.
+- [x] **2.3-T2** Define the convergence invariant so fresh-current and historically-upgraded installations can be compared at the target contract level without requiring byte-for-byte equality of legitimate user-owned state.
+- [x] **2.3-T3** Define the restore invariant so covered state/reconstructed software exactness, exclusions and retained-target safety are machine-testable.
+- [x] **2.3-T4** Define the doctor invariant so owner fan-out, aggregate truth and isolated-failure behavior are machine-testable without Distribution duplicating owner domain logic.
+- [x] **2.3-T5** Define the member UX invariant plus a minimal machine-readable qualification evidence envelope that keeps technical evidence available while forbidding internal jargon in default member summaries.
+- [x] **2.3-T6** Add focused schema/validator/examples/tests, run exact-ref System Contract Validation, update this canonical roadmap, and close Slice 2.3 only after every acceptance criterion passes.
+
+### Reused shipped substrate
+
+Distribution's existing `Orchestrator.doctor()` remains the canonical aggregation substrate to extend later:
+
+- it invokes owner doctor surfaces independently;
+- it records per-owner results;
+- isolated owner failures cannot become whole-system PASS;
+- remaining safe read-only checks continue unless a dependency prevents that;
+- OS composed-system doctor evidence is additive;
+- JSON evidence is already available separately from generic human output.
+
+The current generic non-JSON doctor formatter still exposes implementation-oriented identifiers. Final traffic-light member UX remains Phase 4 implementation work rather than being hidden inside this contract slice.
+
+### Canonical qualification contract
+
+Created:
+
+- `docs/SAFE-INFRASTRUCTURE-QUALIFICATION-INVARIANTS-CONTRACT.md`
+- contract ID: `ai-verse.safe-infrastructure-qualification/v1`
+- contract commit: `aiverse-filmmakers/AI-Verse-System@5a525520931de03d9fd4255ffd4ddd172a7c589f`
+
+The contract imports instead of redefining:
+
+- `ai-verse.durable-identity-reference/v1`;
+- `ai-verse.infrastructure-upgrade/v1`;
+- the Slice 2.1 whole-install Last-Known-Good/restore law.
 
 ### Convergence invariant
 
-After a successful admitted upgrade, package-owned/generated/migratable infrastructure should conform to the target release's current architecture while legitimate user state/history and owner-defined durable identity remain preserved according to the canonical identity contract.
+Fresh-current and historically-upgraded installations are structurally equivalent only when they are bound to the same exact admitted target release and satisfy the same target owner architecture/postcondition checks for package-owned/generated/migratable infrastructure.
+
+Convergence is not whole-directory byte equality.
+
+Legitimate user-owned/custom state, history and owner-defined durable identity/reference continuity must remain preserved. Owner-declared derived/cache/runtime differences do not by themselves fail convergence. Unsupported or ambiguous state must fail closed rather than being normalized by guesswork.
 
 ### Restore invariant
 
-After a successful `aiverse restore --apply`, all locally covered state must match or reproduce the retained Last-Known-Good recovery point exactly according to the declared restore scope and verification method. Reconstructed software must resolve to the exact retained admitted release/revisions.
+A successful restore qualifies only for its declared covered local recovery scope:
+
+- `CAPTURE` state is byte-exact or owner-verified equivalent canonical state;
+- `RECONSTRUCT` software/material resolves to exact immutable retained release/revision/digest evidence;
+- `REBUILD` state is rebuilt only where the owner declares it derived/disposable and owner postconditions pass;
+- `EXTERNAL/EXCLUDED` state remains truthfully outside restore scope;
+- the retained LKG target survives until restore verification succeeds;
+- partial restore failure cannot destroy the target;
+- durable identity/reference guarantees are revalidated after restore.
+
+External services and remote side effects cannot be reported as rewound merely because the covered local restore succeeds.
 
 ### Doctor invariant
 
-One `aiverse doctor` command must aggregate the relevant owner health/infrastructure checks without duplicating their domain logic and without requiring the member to know component boundaries.
+The canonical member command remains:
 
-### UX invariant
+```text
+aiverse doctor
+```
 
-Default output remains plain-English and small-screen friendly; technical details/evidence are opt-in.
+Final qualification must prove every required owner check runs or is explicitly not applicable, owner results remain independently identifiable, one required owner failure forces aggregate failure, unrelated safe checks continue after isolated failure where permitted, doctor remains read-only, and composed-system evidence supplements rather than replaces required owner checks.
+
+Injected-failure proof is mandatory.
+
+### Member UX invariant
+
+Default doctor/upgrade/restore output must be plain English, compact and practical. It must not require repository names, filesystem paths, Git SHAs, release-set IDs, infrastructure generations, migration recipe IDs, owner IDs or component-internal jargon.
+
+Read-only previews must make clear that nothing has changed yet.
+
+Detailed machine evidence remains separately available through JSON/details mode. Human simplicity cannot replace qualification evidence.
+
+### Machine-readable qualification envelope
+
+Created:
+
+- `contracts/safe-infrastructure-qualification-v1.schema.json`
+- schema commit: `aiverse-filmmakers/AI-Verse-System@993d2878e1671ef829b4ad94282c31c6dd4ae5d8`
+
+The required independent sections are:
+
+- `convergence`;
+- `restore`;
+- `doctor`;
+- `member_ux`.
+
+The whole qualification may report `PASS` only when every required section passes and all cross-field safety rules pass.
+
+Validator:
+
+- `scripts/validate_safe_infrastructure_qualification.py`
+- validator commit: `aiverse-filmmakers/AI-Verse-System@56d42ca9e52d67f4f448082422928dbcbefef0a5`
+
+The validator rejects false/unsafe qualification claims including:
+
+- overall PASS while a required section fails;
+- convergence PASS without exact target equivalence, user-state preservation or identity/reference proof;
+- restore PASS without covered-state exactness, exact software reconstruction, truthful exclusions or retained-target survival;
+- PASS sections relying on failed evidence;
+- missing/duplicate required doctor owner results;
+- doctor PASS hiding a required owner failure;
+- injected required-owner failure that still reports aggregate success;
+- doctor mutation;
+- failure injection targeting a non-required owner;
+- default member summaries exposing Git SHAs, Workspace paths, release/component identifiers, infrastructure-generation jargon or migration-recipe jargon;
+- default summaries exceeding the small-screen evidence bound;
+- replacement identity or upgrade contracts.
+
+### Examples and tests
+
+Positive qualification fixture:
+
+- `contracts/examples/safe-infrastructure-qualification.valid.json`
+- fixture commit: `aiverse-filmmakers/AI-Verse-System@f82cd7e9ecdfa40095609e0c87189511c5f95322`
+
+Focused tests:
+
+- `tests/test_safe_infrastructure_qualification.py`
+- tested commit: `aiverse-filmmakers/AI-Verse-System@7526d23bcbbc3ca0af7dfdadab927725baf3fdcc`
+
+The tests include destructive-negative cases for false whole-system PASS, incomplete restore proof, failed evidence under PASS, missing/duplicate doctor owner results, hidden owner failure, false injected-failure aggregate success, doctor mutation, internal-jargon/SHA/path leakage and small-screen summary bounds.
+
+A truthful failed qualification is also representable as `overall=FAIL`; the evidence format does not force failure fixtures to pretend success.
+
+### Exact validation evidence
+
+Detailed evidence:
+
+- `docs/SAFE-INFRASTRUCTURE-SLICE-2.3-INVARIANTS.md`
+- evidence closure commit: `aiverse-filmmakers/AI-Verse-System@716714a363ee8b7cfa0b26f8c513320e40e9a194`
+
+GitHub Actions:
+
+- workflow: `Contract Validation`;
+- run ID: `38285001313`;
+- exact head SHA: `7526d23bcbbc3ca0af7dfdadab927725baf3fdcc`;
+- conclusion: **SUCCESS**;
+- Python 3.11 contract tests: **SUCCESS**;
+- Python 3.13 contract tests: **SUCCESS**;
+- existing component-release/repository-state validation: **SUCCESS**;
+- live read-only Core repository refresh on Python 3.11: **SUCCESS**.
 
 ### Acceptance criteria
 
-- fresh-install versus upgraded-install structural equivalence is testable at the target contract level;
-- restore exactness/reproducibility is testable;
-- doctor fan-out and aggregation are testable;
-- user-facing simplicity does not remove machine-readable evidence;
-- member output does not require paths, generations, IDs or migration jargon;
-- identity continuity assertions are testable against the canonical Identity Hardening contract.
+- fresh-install versus upgraded-install structural equivalence is testable at the target contract level: **PASS**;
+- restore exactness/reproducibility is testable: **PASS**;
+- doctor fan-out and aggregation are testable: **PASS**;
+- user-facing simplicity does not remove machine-readable evidence: **PASS**;
+- member output does not require paths, generations, IDs or migration jargon: **PASS**;
+- identity continuity assertions are testable against the canonical Identity Hardening contract: **PASS**;
+- no owner migration, restore engine or final Phase 4 UX implementation was prematurely introduced: **PASS**.
+
+### Phase 2 closure
+
+Safe Infrastructure Phase 2 is now complete. Its three canonical layers are:
+
+1. Slice 2.1: safe update/state preservation plus one rotating Last-Known-Good and restore separation;
+2. Slice 2.2: owner-published infrastructure generation and deterministic upgrade-recipe contract;
+3. Slice 2.3: executable convergence, restore, doctor and member-UX qualification invariants.
+
+No protected-law conflict or directional plan amendment was required during Slice 2.3.
+
+### Completion report
+
+```text
+Completed: Slice 2.3 - Define convergence, restore, doctor and member UX invariants
+Tasks: 6/6
+Overall: 7/18 slices (38.9%)
+Phase: Phase 2 - Define canonical convergence, migration and recovery contracts
+Phase progress: 3/3 COMPLETE
+Until next phase: 0 slices
+Next: Phase 3 / Slice 3.1 - Implement OS Workspace generation and evidence-backed structural semantics
+Blockers/drift/amendments: none. Phase 2 completed without a protected-law amendment.
+```
 
 ### NEXT
 
-Phase 3 / Slice 3.1.
+**STOP after Slice 2.3 for the current one-at-a-time execution request.**
+
+Next execution unit: Phase 3 / Slice 3.1. Derive its adaptive task list only after fresh refs are fetched.
 
 ---
 
 # Phase 3 - Implement canonical owner migrations for proven motivating problems
 
-**Phase size:** 4 slices
+**Phase size:** 4 slices  
+**Status:** NOT STARTED  
+**Phase progress:** 0/4
 
 ## Slice 3.1 - Implement OS Workspace generation and evidence-backed structural semantics
 
@@ -1775,16 +1942,28 @@ None. Program complete.
 - Qualified exact-ref Contract Validation run `38283320350`: Python 3.11 and 3.13 both passed contract tests; the live read-only repository refresh also passed on Python 3.11.
 - Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-2.2-UPGRADE-RECIPE-CONTRACT.md` at `1dd9fccf35ecd5a4dfc6f963dea74de2b3c5d3cc`.
 
+## 2026-10-12 - Slice 2.3 completed; Phase 2 contract layer complete
+
+- Added canonical qualification contract `ai-verse.safe-infrastructure-qualification/v1` in `docs/SAFE-INFRASTRUCTURE-QUALIFICATION-INVARIANTS-CONTRACT.md`.
+- Defined target-contract convergence rather than unsafe whole-directory equality, preserving legitimate user-owned/custom state and owner-defined durable identities.
+- Made covered restore exactness/reproducibility, exact software reconstruction, truthful exclusions and retained-target survival machine-testable.
+- Made one-command doctor fan-out, aggregate truth, isolated-failure continuation and injected-owner-failure behavior machine-testable without duplicating owner health logic.
+- Defined compact plain-English member UX requirements while retaining separate JSON/details evidence.
+- Added schema `contracts/safe-infrastructure-qualification-v1.schema.json`, deterministic validator, positive fixture and destructive-negative tests.
+- Qualified exact-ref Contract Validation run `38285001313` at `7526d23bcbbc3ca0af7dfdadab927725baf3fdcc`: Python 3.11 and 3.13 contract tests passed; live read-only Core repository refresh passed on Python 3.11.
+- Recorded detailed Slice 2.3 evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-2.3-INVARIANTS.md` at `716714a363ee8b7cfa0b26f8c513320e40e9a194`.
+- Completed Phase 2 at 3/3 slices without a protected-law amendment.
+
 ---
 
 # Current execution pointer
 
-**Completed:** 6/18  
-**Overall:** 33.3%  
-**Phase:** Phase 2 - Define canonical convergence, migration and recovery contracts  
-**Phase progress:** 2/3  
-**Until Phase 3:** 1 slice  
-**Next:** STOP after Slice 2.2 under the one-at-a-time execution rule  
-**Next Safe Infrastructure slice:** Phase 2 / Slice 2.3 - Define convergence, restore, doctor and member UX invariants  
-**Next task:** none until Slice 2.3 starts and its adaptive task list is derived from fresh refs  
-**Blockers/drift/amendments:** none. Slice 2.2 safely extended existing component release metadata, imported canonical identity law, and introduced no parallel migration registry or owner-specific migration implementation.
+**Completed:** 7/18  
+**Overall:** 38.9%  
+**Phase:** Phase 2 - COMPLETE  
+**Phase progress:** 3/3 COMPLETE  
+**Until Phase 3:** 0 slices  
+**Next:** STOP after Slice 2.3 under the one-at-a-time execution rule  
+**Next Safe Infrastructure slice:** Phase 3 / Slice 3.1 - Implement OS Workspace generation and evidence-backed structural semantics  
+**Next task:** none until Slice 3.1 starts and its adaptive task list is derived from fresh refs  
+**Blockers/drift/amendments:** none. Phase 2 completed with canonical recovery, upgrade-recipe and qualification contracts while preserving owner boundaries, shipped update behavior and the canonical Identity law.
