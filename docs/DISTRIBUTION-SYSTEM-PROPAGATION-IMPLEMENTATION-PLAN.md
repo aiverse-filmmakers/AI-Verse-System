@@ -1,8 +1,9 @@
-# Distribution -> System Propagation, Canonical Owner Routing and Member Isolation Implementation Plan
+# Distribution -> System Propagation, Canonical Owner Routing, Component Handoff and Member Isolation Implementation Plan
 
 **Status:** ACTIVE  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary implementation repo:** `aiverse-filmmakers/ai-verse-distribution`  
+**Affected implementation repos:** AI-Verse component repositories that are shipped by Distribution  
 **Started:** 2026-10-12  
 **Program size:** 14 slices  
 **Completed:** 1  
@@ -12,226 +13,257 @@
 
 ## 0. Mission
 
-Make meaningful evolution in `aiverse-filmmakers/ai-verse-distribution` reliably propagate into the canonical `aiverse-filmmakers/AI-Verse-System` record, preserve the canonical implementation ownership of every AI-Verse component repository, and keep all maintainer/development governance completely outside the member-facing AI-Verse installation.
+Make the AI-Verse repository network behave as one controlled product without collapsing the repositories into one codebase.
 
-The finished behavior must achieve all three goals at once:
+The finished behavior must achieve four goals at once:
 
-1. **System stays current.** Meaningful Distribution features, improvements, fixes, lifecycle changes, release changes, preservation changes, compatibility changes, member-experience changes and architectural changes are evaluated and reflected appropriately in AI-Verse-System.
-2. **Canonical component owners stay current.** If Distribution work discovers or requires a change canonically owned by Skills, Brain, Memory, Data, OS, Gateway, Automations, Multiple Bots, Connections, Apps, Dashboard, Token or another sibling component, the actual fix/improvement must land in that owning repository. Distribution must not become a substitute implementation layer for the component.
-3. **Members receive only product-relevant files.** Maintainer rules, internal propagation instructions, roadmaps, qualification records, developer-only governance and System synchronization machinery are not copied, generated or exposed as part of the member project/runtime installation.
+1. **System stays current.** Meaningful product, architecture, lifecycle, readiness, compatibility, release, safety and member-experience changes are reflected appropriately in `aiverse-filmmakers/AI-Verse-System`.
+2. **Canonical component owners stay current.** Skills, Brain, Memory, Data, OS and every other component remain the canonical implementation home for their own behavior. Distribution must not hide or permanently patch sibling-owned defects.
+3. **Distribution ships only accepted component revisions.** A component revision must first satisfy its own owner-repo validation, then Distribution must qualify that exact revision as part of the composed AI-Verse release before it can become an admitted member release.
+4. **Members receive only product-relevant files.** Maintainer governance, cross-repo synchronization rules, internal roadmaps, qualification records and developer-only instructions remain outside the member-facing installation.
 
-This program is not a request to mirror every Distribution commit into System or to make Distribution edit sibling implementation files directly. It is a requirement that meaningful product truth cannot evolve in Distribution while System or the canonical component owner silently becomes stale.
+This program does not create blind repository synchronization. It creates explicit ownership, evidence and handoff rules.
 
 ---
 
-## 0A. Non-negotiable separation rule
+## 0A. Repository roles
 
-There are three different surfaces and they must not be confused.
+### AI-Verse-System
 
-### A. Canonical maintainer/source repositories
+Owns the evolving big picture:
 
-These may contain development governance, architecture plans, release qualification, tests, internal agent instructions and propagation rules.
+- canonical architecture;
+- component responsibilities and ownership;
+- system-wide lifecycle truth;
+- current versus intended behavior;
+- readiness and QC truth;
+- product intent;
+- cross-repo contracts;
+- canonical changelog and historical architectural decisions.
+
+System is not the runtime implementation of the component repos and is not the member installer.
+
+### AI-Verse component repositories
+
+Examples include:
+
+- `AI-Verse-OS`
+- `AI-Verse-Brain`
+- `AI-Verse-Memory`
+- `AI-Verse-Skills`
+- `AI-Verse-Data`
+- Gateway
+- Automations
+- Multiple Bots
+- Connections
+- Apps
+- Dashboard
+- Token
+- any future canonical component owner
+
+Each component repo owns its real implementation, native tests, component-specific lifecycle behavior and component-local defects/improvements.
+
+### ai-verse-distribution
+
+Owns product composition and delivery:
+
+- release sets;
+- exact immutable component refs;
+- compatibility resolution;
+- source acquisition;
+- installation;
+- setup orchestration;
+- update;
+- rollback;
+- Distribution receipts/locks;
+- clean-machine qualification;
+- whole-product acceptance;
+- release admission;
+- member delivery boundaries.
+
+Distribution does not become a second copy of the component engines.
+
+### Member installation
+
+The member receives the admitted product assembled by Distribution from the exact approved component revisions plus legitimate Distribution-owned runtime/generated artifacts.
+
+The member does not receive internal maintainer governance merely because that governance exists in source repos.
+
+---
+
+## 0B. Canonical System propagation rule
+
+Any meaningful change in Distribution or a shipped component repo must evaluate whether AI-Verse-System needs to change.
+
+Meaningful changes include, where relevant:
+
+- new capability;
+- meaningful improvement;
+- important defect repair;
+- lifecycle behavior change;
+- install/update/rollback change;
+- compatibility change;
+- preservation or user-state safety change;
+- security/trust change;
+- component ownership change;
+- member-facing behavior change;
+- release/readiness change;
+- architecture or topology change;
+- previously missing capability becoming implemented.
+
+If the change affects canonical product truth, update the relevant System records as part of the same body of work.
+
+Purely internal changes with no meaningful effect on product truth may be classified `NO SYSTEM IMPACT`, but the reason must be explicit where the governance gate requires it.
+
+Not every change must touch every System file. System must stay accurate, not noisy.
+
+---
+
+## 0C. Canonical owner routing law
+
+Discovery location does not determine ownership.
+
+If Distribution work discovers a problem, first determine the canonical owner.
 
 Examples:
 
-- `aiverse-filmmakers/AI-Verse-System`
-- `aiverse-filmmakers/ai-verse-distribution`
-- canonical sibling implementation repositories such as `AI-Verse-Skills`, `AI-Verse-Brain`, `AI-Verse-Memory`, `AI-Verse-Data` and `AI-Verse-OS`
+- Skills engine, Skill package, registry/provider, generation, provenance or Skills-specific lifecycle defect -> `AI-Verse-Skills`
+- Brain-specific domain behavior -> `AI-Verse-Brain`
+- Memory-specific domain behavior -> `AI-Verse-Memory`
+- Data-specific domain behavior -> `AI-Verse-Data`
+- OS/host-specific domain behavior -> `AI-Verse-OS`
+- release-set selection, immutable acquisition, packaging, compatibility, install/update/rollback orchestration or Distribution receipt behavior -> `ai-verse-distribution`
 
-### B. Distribution packaging/runtime machinery
-
-This is the code that resolves releases, installs AI-Verse, updates it, validates health, preserves user state and performs release/lifecycle work.
-
-It may internally know about maintainer-only rules when operating as source/development infrastructure, but those rules must not become member project instructions.
-
-### C. Member AI-Verse installation
-
-This is the user's actual OS/project/runtime surface.
-
-It may contain member-facing/generated files such as:
-
-- `AGENTS.md`
-- `CLAUDE.md`
-- `AI-VERSE.yaml`
-- capability adapters
-- runtime configuration
-- component/runtime files required by the installed release
-
-It must not receive maintainer-only governance merely because those files exist in the source repository.
-
-**A member installation must never inherit source-repository governance by broad repository copying.**
-
-Where practical, the installation boundary should be expressed as an explicit allowlist or deterministic generated payload rather than a blacklist of files to remove afterward.
-
----
-
-## 0B. Canonical System propagation rule to implement
-
-The implementation produced by this program must establish the following policy:
-
-> Any meaningful change to `aiverse-filmmakers/ai-verse-distribution`, including new features, improvements, fixes, lifecycle behavior, installation, updates, rollback, compatibility, preservation, release behavior, member experience, or architectural changes, must be evaluated and reflected appropriately in `aiverse-filmmakers/AI-Verse-System`.
->
-> Update whichever System records are relevant to the change, such as the canonical specification, blueprint, component documentation, QC/readiness, source maps, implementation plans, or `docs/SYSTEM-CHANGELOG.md`. Not every change requires every System document to change, but meaningful Distribution progress must not leave AI-Verse-System describing an outdated version of the product.
->
-> Purely internal changes with no meaningful effect on capability, behavior, architecture, safety, lifecycle, release state, compatibility, preservation, readiness, or product truth may be recorded as having no System impact.
->
-> These are maintainer/development rules only and must never be included in member installations or generated member project instructions.
-
-This rule is semantic, not commit-count based.
-
----
-
-## 0C. Meaningful-change decision model
-
-A Distribution change is presumed to require System evaluation when it changes or materially improves any of the following:
-
-- install behavior;
-- update behavior;
-- rollback behavior;
-- repair/reconcile behavior;
-- release selection or admission;
-- compatibility resolution;
-- preservation/user-state safety;
-- lifecycle ownership;
-- health/readiness/doctor semantics;
-- member-facing behavior or generated project behavior;
-- component composition;
-- source-of-truth boundaries;
-- security/trust assumptions;
-- packaging/distribution topology;
-- supported environments;
-- failure semantics;
-- migration behavior;
-- release state/readiness;
-- a previously missing capability becoming implemented;
-- a meaningful defect being repaired;
-- a meaningful improvement that makes System documentation materially incomplete or misleading if omitted.
-
-A change may be classified `NO SYSTEM IMPACT` only when it truly does not alter meaningful product truth. Examples may include:
-
-- formatting only;
-- comments only;
-- non-semantic renames;
-- mechanical test cleanup with no change in covered contract;
-- equivalent internal refactoring with no behavior, ownership, safety or readiness consequence.
-
-The implementation must make this classification explicit enough that an agent cannot silently skip the decision.
-
----
-
-## 0D. Canonical owner routing law
-
-Distribution is the packaging, release, compatibility, installation, update, rollback, qualification and lifecycle-orchestration owner. It is not a second implementation home for sibling component behavior.
-
-Whenever Distribution work discovers a defect, missing capability, required improvement or behavior change, the work must first determine the canonical owner.
-
-Examples of canonical ownership include:
-
-- `AI-Verse-Skills` owns Skills engine behavior, Skill packages, registry/provider behavior, generations, provenance, trust/admission and Skills-specific lifecycle semantics;
-- `AI-Verse-Brain` owns Brain implementation and Brain-specific domain behavior;
-- `AI-Verse-Memory` owns Memory implementation and Memory-specific domain behavior;
-- `AI-Verse-Data` owns Data implementation and Data-specific domain behavior;
-- `AI-Verse-OS` owns OS/host implementation and OS-specific domain behavior;
-- other AI-Verse component repositories retain their documented canonical responsibilities;
-- `ai-verse-distribution` owns cross-component packaging, release-set selection, compatibility resolution, immutable acquisition, install/update/rollback orchestration, Distribution receipts/locks, release-level qualification and Distribution-specific member delivery behavior.
-
-The required routing sequence is:
+Required flow for sibling-owned work:
 
 ```text
-Distribution work discovers or requires a change
+Problem or improvement discovered
         |
         v
 Determine canonical owner
         |
-        +--> DISTRIBUTION
-        |       |
-        |       v
-        |   Fix in Distribution
+        v
+Fix in owner repository
         |
-        +--> SIBLING COMPONENT
-                |
-                v
-        Fix in owning repository
-                |
-                v
-        Test/accept owner change
-                |
-                v
-        Record immutable owner commit/ref
-                |
-                v
-        Distribution pins/adopts that ref
-                |
-                v
-        Distribution qualifies the composed release
-                |
-                v
-        Propagate meaningful product truth to System
+        v
+Owner-repo tests / CI / acceptance pass
+        |
+        v
+Record exact immutable owner commit/ref
+        |
+        v
+Distribution adopts that exact accepted ref
+        |
+        v
+Distribution qualifies the composed AI-Verse release
+        |
+        v
+System reflects meaningful product truth
+        |
+        v
+Release may be admitted
 ```
 
-### Non-negotiable consequences
+Non-negotiable rules:
 
-1. **Do not patch a genuine sibling-owned defect only inside Distribution.** A Distribution workaround must not become the permanent substitute for repairing the canonical owner.
-2. **Do not duplicate sibling domain logic into Distribution merely to make a release pass.**
-3. **Do not claim a sibling-owned problem is fixed until the owner repository contains the accepted fix/improvement and exact evidence exists.**
-4. **Distribution may contain adapters only for concerns canonically owned by Distribution**, such as bounded orchestration, compatibility translation, packaging, release transitions or invocation of owner lifecycle surfaces. An adapter must not silently become a second copy of the sibling engine.
-5. **After a sibling-owned change lands, Distribution must adopt an immutable accepted revision before claiming that the composed product includes the change.**
-6. **System propagation happens after ownership truth is resolved.** AI-Verse-System must describe both the meaningful product change and the correct owner rather than documenting a Distribution workaround as canonical sibling behavior.
-7. If ownership is ambiguous, classify the work as `BLOCKED - OWNER UNRESOLVED` until System ownership evidence resolves it. Do not choose Distribution merely because the issue was discovered there.
+1. Do not permanently fix a sibling-owned defect only in Distribution.
+2. Do not duplicate sibling domain logic into Distribution merely to make qualification pass.
+3. Do not claim a sibling problem is fixed until the owner repo contains the accepted fix.
+4. Distribution adapters are allowed only for genuine Distribution-owned orchestration/compatibility concerns.
+5. Distribution must ship an immutable owner revision that contains the accepted fix before claiming the product includes it.
+6. If ownership is ambiguous, use `BLOCKED - OWNER UNRESOLVED` until canonical ownership is established.
 
-Every meaningful Distribution task/release covered by this program must be able to record:
+---
+
+## 0D. Component -> System and Component -> Distribution handoff law
+
+Component repositories must not be passive islands.
+
+A meaningful component change must evaluate two separate handoffs:
+
+### System handoff
+
+If the component change alters meaningful AI-Verse product truth, the relevant System records must be updated.
+
+### Distribution handoff
+
+If the component change is intended to ship as part of an AI-Verse release:
+
+1. the exact component revision must pass the component repo's own applicable tests/CI/acceptance;
+2. exact evidence for that tested revision must be recorded;
+3. the revision becomes eligible for Distribution adoption;
+4. Distribution must still independently qualify that exact revision as part of the whole composed AI-Verse system;
+5. only the Distribution release/admission process determines whether the new component revision ships to members.
+
+Component repos must not directly mutate Distribution or System main branches automatically. Prefer evidence, handoff records, pull requests or explicit maintainer workflow over broad cross-repo write authority.
+
+This creates two validation layers:
 
 ```text
-Canonical owner: <repo/component>
-Owner change required: YES | NO
-Owner reason: <why this owner is authoritative>
-Owner evidence: <commit/PR/ref when required>
-Distribution adaptation required: YES | NO
-Distribution evidence: <commit/PR/ref when applicable>
-System impact: YES | NO
-System evidence: <commit/PR/ref when YES>
+Component CI
+"Does this component work correctly?"
+        |
+        v
+Distribution qualification
+"Does this exact component revision work correctly inside AI-Verse?"
 ```
 
-This rule prevents implementation drift between Distribution and the actual component repositories.
+A commit merely existing is not sufficient release evidence.
 
 ---
 
 ## 0E. No blind cross-repo mirroring
 
-Do not implement a mechanism that automatically copies every Distribution commit or changelog line into AI-Verse-System or automatically edits every sibling repository.
+Do not create a web where every repository automatically edits every other repository.
 
-AI-Verse-System owns the evolving architectural/product truth. Component repositories own their implementations. Distribution owns composition and delivery.
+Preferred model:
 
-The desired loop is evidence-driven and ownership-aware, not repository mirroring.
+```text
+Component repo
+  -> owns implementation
+  -> validates its own revision
+  -> evaluates System impact
+  -> offers exact tested ref for Distribution adoption
 
-If automation is introduced, prefer validation, evidence and pull-request creation over direct unattended writes to another repository's default branch.
+Distribution
+  -> owns composition
+  -> validates exact refs together
+  -> controls release admission
+  -> routes discovered sibling defects back to their owners
+  -> evaluates System impact
+
+System
+  -> owns canonical big-picture truth
+  -> records ownership, architecture, readiness and meaningful evolution
+```
+
+Automation may validate references or create/request pull requests when safely designed. Direct unattended writes to other repositories' default branches are not the default.
 
 ---
 
 ## 0F. Member-isolation law
 
-A Distribution maintainer instruction is not a member instruction.
+Maintainer governance must remain separate from the installed member product.
 
 The implementation must prove that:
 
-- source `AGENTS.md`/`CLAUDE.md` maintainer rules are not reused blindly as generated member instructions;
-- internal System-propagation or owner-routing text is absent from member-facing generated `AGENTS.md` and `CLAUDE.md`;
-- internal roadmap/qualification/maintainer documents are absent from the member project payload;
-- internal propagation/owner-routing records are absent from normal runtime configuration unless a runtime field is genuinely needed for product behavior;
-- install/update qualification includes regression coverage for governance leakage;
-- future additions to maintainer-only paths cannot silently enter the member payload.
+- source-repo maintainer `AGENTS.md` or `CLAUDE.md` rules are not blindly reused as member instructions;
+- System propagation rules are absent from generated member instructions;
+- owner-routing and component-handoff governance are absent from normal member runtime files;
+- internal roadmaps, qualification material and maintainer docs are excluded from member payloads;
+- fresh install, update and rollback all respect the same boundary;
+- future maintainer files are excluded by default where practical;
+- user-owned files are never deleted merely to enforce internal packaging rules.
 
-If the user deliberately clones a source repository for development, source-only files naturally exist in that source checkout. That is distinct from the member AI-Verse installation produced by Distribution. This program protects the installed product surface.
+Prefer explicit member payload allowlists or deterministic generation over broad source-tree copying followed by deletion.
 
 ---
 
 ## 0G. Preservation law
 
-Nothing in this program may weaken the existing zero-loss update direction.
+Nothing in this program may weaken zero-loss update behavior.
 
-No member-owned state may be deleted, reset, overwritten, replaced or silently discarded to enforce packaging separation, canonical-owner routing or System propagation.
-
-Preserve canonical ownership of:
+Preserve member-owned state including, where applicable:
 
 - memories;
 - goals;
@@ -247,48 +279,76 @@ Preserve canonical ownership of:
 - automations;
 - extensions;
 - project history;
-- other user-owned state recognized by the current Distribution preservation contract.
+- other user-owned state covered by the current preservation contract.
 
-If a packaging, routing or propagation mechanism conflicts with user ownership, fail safely rather than rewriting user state.
+If packaging, routing, propagation or handoff logic conflicts with user ownership, fail safely.
 
 ---
 
-## 0H. Status vocabulary and required slice evidence
+## 0H. Required decision/evidence fields
+
+For meaningful work, use the applicable fields:
+
+```text
+Canonical owner: <repo/component>
+Owner change required: YES | NO
+Owner reason: <why>
+Owner implementation evidence: <commit/PR/ref when required>
+Owner CI/acceptance evidence: <workflow/run/check/ref when applicable>
+
+Distribution adoption required: YES | NO
+Distribution adopted revision: <exact immutable component ref when applicable>
+Distribution evidence: <commit/PR/ref>
+Distribution qualification evidence: <workflow/run/report>
+
+System impact: YES | NO
+System reason: <why>
+System destinations evaluated: <paths/categories>
+System evidence: <commit/PR/ref when YES>
+
+Member payload impact: YES | NO
+Member-isolation check: PASS | NOT APPLICABLE | BLOCKED
+```
+
+A missing required evidence field blocks completion. A `NO` decision must have a reason when the gate requires classification.
+
+---
+
+## 0I. Status vocabulary
 
 - `NOT STARTED`
 - `IN PROGRESS`
 - `BLOCKED`
 - `COMPLETE`
 
-Every slice must record, where applicable:
+Every slice records:
 
-- affected repo(s);
+- affected repos;
 - exact starting refs inspected;
-- canonical owner(s);
-- owner change required: `YES | NO`;
-- owner evidence/ref when required;
-- implementation decision;
+- ownership decision;
+- owner CI/acceptance decision where applicable;
+- Distribution adoption/qualification decision;
+- System impact decision;
 - member-isolation decision;
-- System-propagation decision;
 - acceptance criteria;
-- focused tests/validation;
-- exact commit/PR/workflow evidence;
+- tests/validation;
+- exact evidence;
 - explicit NEXT slice.
 
-Do not mark a slice COMPLETE merely because code was written.
+Code existing is not enough to mark a slice COMPLETE.
 
 ---
 
-## 0I. Program accounting rule
+## 0J. Program accounting
 
-This plan begins and remains at 14 slices unless implementation genuinely requires a denominator change.
+This plan remains 14 slices unless implementation genuinely requires a denominator change.
 
-Do not silently change the denominator. If implementation reveals that a slice must be split, added, merged or removed:
+If slices are added, split, merged or removed:
 
-1. update `Program size`, `Completed`, `Remaining` and `Progress`;
-2. explain the change in this document's Program Change Log;
-3. preserve completed-slice history;
-4. do not use denominator changes to inflate progress.
+1. update Program size, Completed, Remaining and Progress;
+2. explain the change in the Program Change Log;
+3. preserve completed history;
+4. do not manipulate the denominator to inflate progress.
 
 ---
 
@@ -302,72 +362,62 @@ Do not silently change the denominator. If implementation reveals that a slice m
 
 ### Acceptance criteria
 
-- canonical plan exists in AI-Verse-System;
-- mission covers Distribution -> System propagation, canonical component ownership and member-install isolation;
-- meaningful improvements, not only architecture changes, trigger System evaluation;
-- pure internal/no-impact changes are explicitly distinguished;
-- member-facing and maintainer-facing surfaces are explicitly separated;
-- broad repository copying is rejected as the member payload model;
-- sibling-owned fixes are prohibited from becoming Distribution-only permanent fixes;
-- phased implementation work is represented as resumable slices;
-- every future slice has evidence-gated completion;
-- future agents can resume from this file without the original conversation.
+- persistent plan exists in System;
+- Distribution -> System propagation is represented;
+- Distribution -> canonical owner routing is represented;
+- component -> System and component -> Distribution handoff is represented;
+- owner-native validation and whole-product Distribution qualification are distinguished;
+- member-isolation requirement is represented;
+- blind repo mirroring is rejected;
+- program is resumable without the original conversation.
 
 ### Evidence
 
 - canonical path: `docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md`
 - created: 2026-10-12
-- owner-routing requirement added to the persistent plan on 2026-10-12 without changing the 14-slice denominator
+- expanded on 2026-10-12 as additional repository relationships were clarified
 
 ### NEXT
 
-**Slice 1.1 - Audit the current Distribution source-to-member and Distribution-to-owner boundaries.**
+**Slice 1.1 - Audit current source, ownership, validation and handoff boundaries.**
 
 ---
 
-# Phase 1 - Prove the current boundaries before changing them
+# Phase 1 - Audit reality before changing it
 
-## Slice 1.1 - Audit current Distribution source-to-member and owner boundaries
+## Slice 1.1 - Audit Distribution, component and member boundaries
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution, AI-Verse-System, relevant sibling owner repositories as evidence requires  
+**Repos:** AI-Verse-System, ai-verse-distribution, all currently shipped Core component repos, other release-relevant component repos as needed  
 **Dependencies:** 0.1
 
-Read current Distribution source rather than relying on historical assumptions.
+Audit current source rather than relying on assumptions.
 
-Trace at minimum:
+Trace:
 
-- `AGENTS.md`;
-- `CLAUDE.md`;
-- `INSTALL.md`;
-- package/build configuration;
-- install/bootstrap orchestration;
-- project bootstrap/generation code;
-- generated project `AGENTS.md`;
-- generated project `CLAUDE.md`;
-- generated `AI-VERSE.yaml`;
-- runtime/package manifests;
-- release-set materialization;
-- private tool/cache/source-checkout locations;
-- member project root outputs;
-- update and rollback materialization paths;
-- tests that assert installed file trees;
-- all component-specific adapters and lifecycle handlers in Distribution;
-- any Distribution code that patches, rewrites, vendors, substitutes for or compensates for sibling-owned behavior;
-- current exact component refs used by admitted release sets;
-- current System ownership records for the affected components.
+- Distribution install/bootstrap/update/rollback paths;
+- generated member `AGENTS.md`, `CLAUDE.md`, `AI-VERSE.yaml`;
+- release-set materialization and exact component refs;
+- Distribution component adapters;
+- any local vendoring, patching or shadow implementations;
+- member file tree and private source/cache locations;
+- each shipped component repo's maintainer instructions;
+- each shipped component repo's CI/tests/acceptance surfaces;
+- whether component repos currently reference System or Distribution;
+- how an accepted component commit currently becomes a Distribution release candidate;
+- System ownership records and living-spec rules.
 
 ### Acceptance criteria
 
-- exact current member project payload path is documented from source evidence;
-- exact current generated-member-instruction path is documented;
-- exact current source-only/developer paths are documented;
-- any source checkout retained on a member machine is distinguished from the installed project/runtime payload;
-- all routes by which maintainer files could leak into member surfaces are identified;
-- all current Distribution-to-component adapters are classified by canonical owner;
-- any suspected case where Distribution contains a permanent workaround for a sibling-owned defect is identified for resolution rather than normalized;
-- exact current release refs show which owner revision Distribution actually ships;
-- no implementation change is made before both boundaries are understood.
+- member payload boundary is proven;
+- canonical owner of every component-specific behavior inspected is identified;
+- current Distribution-to-owner relationship is documented;
+- current owner-to-Distribution handoff is documented;
+- current owner-to-System handoff is documented;
+- native CI/acceptance capability of each shipped component is documented;
+- any missing maintainer handoff rule is identified;
+- any Distribution shadow-fix risk is identified;
+- no implementation change is made before the current boundaries are understood.
 
 ### Evidence
 
@@ -375,17 +425,17 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 1.2 - Build the canonical file/surface and owner classification inventory.**
+**Slice 1.2 - Build canonical surface, ownership and handoff inventory.**
 
 ---
 
-## Slice 1.2 - Classify relevant Distribution surfaces and ownership
+## Slice 1.2 - Classify surfaces, ownership and handoff state
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution, AI-Verse-System, relevant sibling owner repositories  
+**Repos:** AI-Verse-System, ai-verse-distribution, shipped component repos  
 **Dependencies:** 1.1
 
-Create a classification of relevant Distribution files/outputs using at least these surface classes:
+Classify Distribution/member surfaces:
 
 - `MAINTAINER-SOURCE-ONLY`
 - `BUILD/QUALIFICATION-ONLY`
@@ -393,26 +443,32 @@ Create a classification of relevant Distribution files/outputs using at least th
 - `MEMBER-RUNTIME`
 - `MEMBER-GENERATED-INSTRUCTION`
 - `USER-OWNED/PRESERVED`
-- `AMBIGUOUS - MUST RESOLVE BEFORE SHIPPING`
+- `AMBIGUOUS - BLOCK`
 
-For component-related behavior, also classify canonical ownership:
+Classify implementation ownership:
 
 - `DISTRIBUTION-OWNED`
-- `SIBLING-OWNER-IMPLEMENTATION`
+- `COMPONENT-OWNED`
 - `DISTRIBUTION-ADAPTER-TO-OWNER`
-- `AMBIGUOUS-OWNER - BLOCKED UNTIL RESOLVED`
+- `AMBIGUOUS-OWNER - BLOCK`
+
+Classify component handoff readiness:
+
+- `OWNER-CI-PRESENT`
+- `OWNER-CI-MISSING/INSUFFICIENT`
+- `SYSTEM-HANDOFF-PRESENT`
+- `SYSTEM-HANDOFF-MISSING`
+- `DISTRIBUTION-HANDOFF-PRESENT`
+- `DISTRIBUTION-HANDOFF-MISSING`
 
 ### Acceptance criteria
 
-- every current source-to-install route from 1.1 has a surface classification;
-- every component-specific Distribution behavior from 1.1 has an owner classification;
-- ambiguous paths are not silently treated as member-safe;
-- ambiguous ownership is not silently assigned to Distribution;
-- user-owned paths remain explicitly protected;
-- the inventory identifies the authoritative code/config that decides what becomes member-facing;
-- the inventory identifies the authoritative repository for every meaningful implementation concern encountered;
-- a future maintainer file has a safe default of exclusion rather than accidental inclusion;
-- a future sibling-owned defect has a safe default of routing to the owner rather than patching Distribution.
+- every relevant install route has a surface class;
+- every component concern has an owner class;
+- every shipped component has a validation/handoff class;
+- unknown maintainer files default to exclusion from member payload;
+- ambiguous ownership blocks rather than defaults to Distribution;
+- a component revision cannot be considered release-ready solely because a SHA exists.
 
 ### Evidence
 
@@ -420,52 +476,48 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 1.3 - Define enforceable member payload and canonical-owner contracts.**
+**Slice 1.3 - Define enforceable contracts.**
 
 ---
 
-## Slice 1.3 - Define member payload, owner-routing and leak threat contracts
+## Slice 1.3 - Define member payload, owner routing, component handoff and release evidence contracts
 
 **Status:** NOT STARTED  
 **Repos:** AI-Verse-System, ai-verse-distribution  
 **Dependencies:** 1.2
 
-Define the exact contract for what Distribution is allowed to place into a member installation and what Distribution is allowed to own when interacting with sibling components.
+Define canonical contracts for:
 
-Prefer an allowlist or deterministic generation model where technically practical.
+1. member payload isolation;
+2. canonical owner routing;
+3. component -> System handoff;
+4. component -> Distribution release handoff;
+5. owner-native acceptance evidence;
+6. Distribution whole-product qualification;
+7. immutable release ref adoption;
+8. safe cross-repo evidence without broad write authority.
 
-Document member-payload threats including:
+Threats to cover:
 
-- recursive copy of repository root;
-- package-data wildcard expansion;
-- docs accidentally included in a wheel/archive;
-- root `AGENTS.md` reused as member `AGENTS.md`;
-- root `CLAUDE.md` reused as member `CLAUDE.md`;
-- update code copying newly added source files into existing projects;
-- rollback restoring internal governance into project root;
-- release-set packaging admitting unexpected developer files;
-- test fixtures or qualification assets entering production payloads.
-
-Document ownership threats including:
-
-- fixing a Skills/Brain/Memory/Data/OS defect only in Distribution;
-- copying sibling engine/domain logic into a Distribution adapter;
-- leaving the owner repo broken while Distribution hides the defect;
-- pinning an old owner revision after claiming a newer owner fix is part of the product;
-- documenting a Distribution workaround in System as if it were canonical owner behavior;
-- allowing release qualification to pass when an owner-required change lacks exact owner evidence.
+- Distribution hiding a broken owner repo;
+- Distribution shipping an arbitrary unvalidated component SHA;
+- component repo claiming "ready" without native CI evidence where applicable;
+- Distribution claiming inclusion while pinning an older revision;
+- component change shipping without whole-product qualification;
+- System becoming stale;
+- broad source copy leaking maintainer docs to members;
+- automated repos silently editing each other's main branches.
 
 ### Acceptance criteria
 
-- explicit member payload contract exists;
-- explicit canonical-owner routing contract exists;
-- the safe default for unknown maintainer files is exclusion;
-- the safe default for ambiguous implementation ownership is fail/block until resolved;
-- generated member instructions are treated as distinct artifacts from source maintainer instructions;
-- update and rollback obey the same payload boundary as fresh install;
-- preservation rules take precedence over cleanup/removal of anything user-owned;
-- Distribution adapters cannot become untracked substitutes for sibling fixes;
-- contracts are ready to be enforced by tests in Phase 3.
+- contracts distinguish owner tests from Distribution integration tests;
+- owner validation is necessary but not sufficient for release;
+- Distribution qualification is required for composed-product release;
+- exact immutable refs are mandatory;
+- missing required owner evidence blocks adoption;
+- missing required System evidence blocks documentation completeness;
+- member isolation remains explicit;
+- no duplicate release database is introduced unnecessarily.
 
 ### Evidence
 
@@ -473,45 +525,41 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 2.1 - Create canonical System-side propagation and owner-routing contract.**
+**Slice 2.1 - Create canonical System governance contract.**
 
 ---
 
-# Phase 2 - Establish canonical propagation and ownership governance
+# Phase 2 - Make the rules canonical in System
 
-## Slice 2.1 - Create System-side Distribution propagation and owner-routing contract
+## Slice 2.1 - Create canonical repository-network governance contract
 
 **Status:** NOT STARTED  
 **Repos:** AI-Verse-System  
 **Dependencies:** 1.3
 
-Create the canonical System document that defines how meaningful Distribution evolution propagates into AI-Verse-System and how Distribution-discovered implementation work routes to canonical component owners.
+Create the canonical System-side contract covering:
 
-The contract must include:
-
-- meaningful-change triggers;
-- `SYSTEM IMPACT` versus `NO SYSTEM IMPACT` classification;
-- canonical owner classification;
-- `OWNER CHANGE REQUIRED` versus `NO OWNER CHANGE REQUIRED` classification;
-- examples for Distribution-owned work, sibling-owned work, improvements, fixes and internal-only work;
-- required sequence for owner fix -> immutable ref -> Distribution adoption -> qualification -> System propagation;
-- System destinations that may require updates;
-- owner and System evidence requirements;
-- completion semantics;
-- member-isolation requirement;
-- rule against blind commit mirroring;
-- rule against Distribution becoming a second sibling implementation layer;
-- rule against unattended direct writes to another repo's main branch unless separately approved and safely designed.
+- System propagation;
+- canonical owner routing;
+- component -> System handoff;
+- component -> Distribution handoff;
+- owner CI/acceptance evidence;
+- immutable component refs;
+- Distribution whole-product qualification;
+- release admission;
+- member isolation;
+- no blind mirroring;
+- no broad cross-repo auto-write authority.
 
 ### Acceptance criteria
 
-- contract is canonical and self-contained;
-- it covers meaningful improvements even when architecture does not change;
-- it is compatible with `docs/LIVING-SPEC-PROTOCOL.md`;
-- it preserves component repository implementation ownership;
-- it makes clear that discovery location does not determine canonical ownership;
-- it does not claim every change must touch every System document;
-- it cannot be interpreted as a runtime/member requirement.
+- contract is self-contained;
+- future agents can understand all repository directions without this conversation;
+- discovery location is clearly separated from ownership;
+- owner validation and Distribution qualification are clearly different gates;
+- component repos are not treated as passive implementation islands;
+- Distribution remains the release/composition authority;
+- System remains the canonical big-picture authority.
 
 ### Evidence
 
@@ -519,37 +567,35 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 2.2 - Integrate propagation and owner-routing rules into System living governance.**
+**Slice 2.2 - Integrate governance into living System truth.**
 
 ---
 
-## Slice 2.2 - Integrate propagation and owner routing into System living governance
+## Slice 2.2 - Integrate rules into living System governance
 
 **Status:** NOT STARTED  
 **Repos:** AI-Verse-System  
 **Dependencies:** 2.1
 
-Update the appropriate canonical System governance so future agents discover both rules naturally.
-
 Evaluate and update where appropriate:
 
 - `docs/LIVING-SPEC-PROTOCOL.md`;
 - `docs/OWNER-PRODUCT-INTENT.md`;
-- `docs/FINAL-AI-VERSE-BLUEPRINT.md` if ownership/topology requires clarification;
-- component ownership/specification records;
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`;
+- component specs/source maps/QC where ownership needs clarification;
 - Distribution-related System records;
 - `docs/SYSTEM-CHANGELOG.md`.
 
-Do not add text to files merely for repetition. Each update must have a clear canonical purpose.
-
 ### Acceptance criteria
 
-- future System agents discover the Distribution propagation requirement without needing this conversation;
-- future System agents discover the rule that sibling implementation fixes must land in the sibling owner repo;
-- owner intent records the requirement that maintainer governance stay outside member installations when this is the correct canonical destination;
-- System changelog records the adopted governance;
-- blueprint/spec changes are made only where they clarify real topology/ownership/lifecycle truth;
-- no claim of Distribution implementation is made before Phase 3 lands.
+- System agents discover all four relationships naturally:
+  - Distribution -> System
+  - Distribution -> component owners
+  - component repos -> System
+  - component repos -> Distribution
+- no false claim that implementation already exists before Phase 3;
+- changelog records the governance decision;
+- canonical files are updated only where they actually own the truth.
 
 ### Evidence
 
@@ -557,48 +603,36 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 2.3 - Define the owner/propagation decision and evidence schema used by Distribution work.**
+**Slice 2.3 - Finalize evidence schema and release handoff semantics.**
 
 ---
 
-## Slice 2.3 - Define owner-routing and propagation evidence schema
+## Slice 2.3 - Define evidence schema and release handoff semantics
 
 **Status:** NOT STARTED  
 **Repos:** AI-Verse-System, ai-verse-distribution  
 **Dependencies:** 2.2
 
-Define a lightweight, durable decision format that can be used by meaningful Distribution tasks/releases.
+Finalize the lightweight evidence format from section 0H.
 
-Minimum semantic fields:
+Define specifically:
 
-```text
-Canonical owner: <component/repository>
-Owner change required: YES | NO
-Owner reason: <concise rationale>
-Owner evidence: <commit/PR/ref when required>
-Distribution adaptation required: YES | NO
-Distribution evidence: <commit/PR/ref when applicable>
-System impact: YES | NO
-System reason: <concise rationale>
-System destinations evaluated: <paths/categories>
-System evidence: <commit/PR/ref when YES>
-Member payload impact: YES | NO
-Member-isolation check: PASS | NOT APPLICABLE | BLOCKED
-```
-
-The exact storage location must be chosen after the Phase 1 audit. Do not create a second general release database merely for this rule.
+- what counts as accepted owner CI/acceptance evidence;
+- what happens when a component repo has no suitable native CI;
+- exact immutable revision requirements;
+- lineage/descendant rules if explicitly allowed;
+- how Distribution records adoption;
+- how System impact is recorded;
+- where these maintainer records live;
+- how release admission fails when required evidence is absent.
 
 ### Acceptance criteria
 
-- schema is small enough to use routinely;
-- meaningful Distribution work cannot be closed without an owner decision and System-impact decision;
-- `Owner change required: YES` requires exact accepted owner evidence before the fix is represented as complete;
-- when owner change is required, Distribution adoption/pinning of the accepted immutable owner revision is evidence-gated;
-- `Owner change required: NO` requires enough rationale to show the concern is genuinely Distribution-owned or no implementation change is needed;
-- `System impact: NO` requires a reason rather than silent omission;
-- `System impact: YES` can point to exact System evidence;
-- schema does not expose maintainer governance into member runtime files;
-- schema composes with existing Distribution release/program records rather than duplicating them unnecessarily.
+- arbitrary SHA adoption cannot silently become a released Core;
+- owner CI evidence is tied to the exact candidate revision where technically possible;
+- missing native CI is visible and must be resolved or explicitly qualified before release;
+- Distribution qualification remains independent;
+- records stay outside member runtime files.
 
 ### Evidence
 
@@ -606,11 +640,11 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 3.1 - Add source-only maintainer instructions to Distribution.**
+**Slice 3.1 - Add Distribution maintainer instructions.**
 
 ---
 
-# Phase 3 - Enforce the rules in Distribution without leaking them to members
+# Phase 3 - Enforce the repository network
 
 ## Slice 3.1 - Add source-only Distribution maintainer instructions
 
@@ -618,23 +652,22 @@ To be recorded on completion.
 **Repos:** ai-verse-distribution  
 **Dependencies:** 2.3
 
-Update Distribution's source-repository maintainer instructions so an AI or contributor working on Distribution knows it must both route implementation work to the canonical owner and propagate meaningful product truth into System.
+Update source-only Distribution instructions so maintainers/agents must:
 
-Expected surfaces include current source `AGENTS.md` and `CLAUDE.md` where appropriate, but exact edits must follow the Phase 1 audit.
+- determine canonical owner;
+- route sibling-owned changes to the owner repo;
+- require accepted owner evidence;
+- require exact immutable revision adoption;
+- evaluate System impact;
+- keep governance out of member instructions;
+- never treat a random component SHA as automatically releasable.
 
 ### Acceptance criteria
 
-- meaningful Distribution evolution explicitly triggers System evaluation;
-- improvements and important fixes are included, not only architecture changes;
-- every meaningful component-related issue requires a canonical-owner decision;
-- sibling-owned defects/improvements explicitly route to the sibling repo first;
-- Distribution-only permanent patches for sibling-owned behavior are prohibited;
-- owner acceptance and exact immutable owner evidence are required before Distribution claims the sibling fix is included;
-- pure internal/no-impact work may be classified `NO SYSTEM IMPACT` with reason;
-- instruction points to canonical System governance where practical;
-- instruction explicitly states it is maintainer-only;
-- no member-generated `AGENTS.md`/`CLAUDE.md` inherits the maintainer rule;
-- focused tests prove member instruction templates remain clean.
+- rules are discoverable from Distribution development context;
+- member-generated instructions remain clean;
+- Distribution-only work remains possible when Distribution truly owns the concern;
+- sibling-owned work cannot be declared complete with only a Distribution commit.
 
 ### Evidence
 
@@ -642,65 +675,74 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 3.2 - Add canonical-owner and System-propagation completion gates to Distribution work/release flow.**
+**Slice 3.2 - Add component-repo maintainer handoff instructions.**
 
 ---
 
-## Slice 3.2 - Add Distribution owner-routing and propagation completion gates
+## Slice 3.2 - Add source-only component -> System / Distribution handoff instructions
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution  
+**Repos:** currently shipped Core component repos first, then other release-relevant component repos according to System ownership  
 **Dependencies:** 3.1
 
-Integrate the decision schema from 2.3 into the most authoritative existing Distribution development/release lifecycle surface.
+Add a minimal maintainer rule to each relevant canonical component repo, using the repo's existing instruction surface where possible instead of forcing identical file layouts.
 
-Do not invent a parallel lifecycle system if the existing Core/Agent release, roadmap, qualification or release-record machinery can carry the decisions.
+Required semantics:
+
+1. the component repo remains canonical for its own implementation;
+2. meaningful component changes evaluate System impact;
+3. if intended to ship, the exact revision must pass the repo's applicable native tests/CI/acceptance;
+4. exact accepted revision/evidence is handed to Distribution for adoption;
+5. Distribution, not the component repo, performs final whole-product qualification/release admission;
+6. component repos do not directly auto-write Distribution or System main by default;
+7. these are source-maintainer rules, not member runtime instructions.
 
 ### Acceptance criteria
 
-- meaningful task/release completion requires an explicit canonical-owner decision;
-- `OWNER CHANGE REQUIRED: YES` requires exact owner evidence;
-- sibling-owned changes cannot be represented as fixed solely by a Distribution commit;
-- when a sibling change is required, the composed release must point to/adopt the accepted immutable owner revision before qualification can claim inclusion;
-- `OWNER CHANGE REQUIRED: NO` requires rationale;
-- meaningful task/release completion requires an explicit System-impact decision;
-- `SYSTEM IMPACT: YES` requires exact System evidence before architectural/documentation completion is claimed;
-- `SYSTEM IMPACT: NO` requires rationale;
-- implementation may remain technically merged while owner/System completeness is visibly blocked if required evidence is missing;
-- no runtime/member file is used as canonical storage for maintainer decisions;
-- existing release/preservation contracts remain intact.
+- each shipped Core owner has an explicit handoff rule;
+- existing repo conventions are respected;
+- no unnecessary runtime/member files are changed;
+- no repo receives broad credentials to mutate other repos;
+- future maintainers can discover how a component change becomes part of AI-Verse.
 
 ### Evidence
 
-To be recorded on completion.
+To be recorded per repo.
 
 ### NEXT
 
-**Slice 3.3 - Enforce member payload isolation and prevent sibling implementation shadowing.**
+**Slice 3.3 - Enforce adoption, qualification and member isolation gates.**
 
 ---
 
-## Slice 3.3 - Enforce member payload isolation and component ownership boundaries
+## Slice 3.3 - Enforce owner evidence, Distribution adoption, release qualification and member isolation
 
 **Status:** NOT STARTED  
 **Repos:** ai-verse-distribution  
 **Dependencies:** 3.2
 
-Implement the member payload contract from 1.3 in the actual packaging/install/update paths and ensure Distribution materializes admitted owner revisions rather than carrying shadow copies of sibling implementations.
+Integrate the contracts into the most authoritative existing Distribution release/qualification flow.
 
-Where technically practical, prefer explicit inclusion of intended member artifacts over copying a broad source tree and deleting unwanted files afterward.
+Required behavior:
+
+- component change intended for release requires exact owner ref;
+- applicable owner CI/acceptance must be passing or explicitly resolved;
+- Distribution release candidate must point to the accepted ref;
+- Distribution performs clean-machine/composed-product qualification;
+- failed whole-product qualification blocks admission;
+- System evidence is required when System impact is `YES`;
+- member payload isolation applies to fresh install, update and rollback;
+- Distribution does not vendor a shadow copy of sibling implementation as a shortcut.
 
 ### Acceptance criteria
 
-- fresh install excludes maintainer-only governance;
-- update excludes maintainer-only governance;
-- rollback excludes maintainer-only governance;
-- generated member instructions come from their intended member templates/generation path, not source maintainer files;
-- unexpected new files under maintainer-only paths do not become member payload by default;
-- no user-owned file is deleted merely because its filename collides with an internal convention;
-- ambiguity fails safely rather than overwriting user content;
-- component bytes/behavior shipped by Distribution trace to the admitted canonical owner revision or an explicitly documented Distribution-owned adapter;
-- no new mechanism silently vendors a patched sibling implementation into Distribution as a substitute for the owner repository.
+- arbitrary new component commit is not automatically accepted;
+- owner tests and Distribution tests are both represented as separate gates;
+- release cannot claim a sibling fix while pinning an older ref;
+- release cannot ship when required owner evidence is missing;
+- release cannot ship when whole-product qualification fails;
+- maintainer files remain outside member payload;
+- zero-loss preservation remains intact.
 
 ### Evidence
 
@@ -708,47 +750,39 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 3.4 - Add automated isolation, owner-routing and propagation regression tests.**
+**Slice 3.4 - Add regression coverage.**
 
 ---
 
-## Slice 3.4 - Add regression coverage
+## Slice 3.4 - Add automated regression coverage
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution  
+**Repos:** ai-verse-distribution, representative component repos where needed  
 **Dependencies:** 3.3
 
-Add focused automated tests for member isolation, canonical-owner routing and System propagation.
+Required scenarios:
 
-Required scenarios include:
-
-- fresh member install contains expected generated member files;
-- fresh install does not contain maintainer propagation/owner-routing text or files;
-- update does not introduce maintainer files;
-- rollback does not introduce maintainer files;
-- newly added fake maintainer document remains excluded;
-- source maintainer `AGENTS.md` is distinguishable from generated member `AGENTS.md`;
-- source maintainer `CLAUDE.md` is distinguishable from generated member `CLAUDE.md`;
-- canonical-owner decision is required where the governance gate says it is required;
-- a simulated sibling-owned defect, such as a Skills-engine defect, cannot be closed with only Distribution evidence;
-- `OWNER CHANGE REQUIRED: YES` with missing owner evidence fails the gate;
-- accepted owner evidence plus Distribution adoption of the immutable owner ref can pass the owner gate;
-- a genuinely Distribution-owned orchestration change does not falsely require a sibling implementation commit;
-- propagation decision is required where the chosen governance gate says it is required;
-- explicit `NO SYSTEM IMPACT` path requires rationale;
-- missing System evidence blocks documented completion when impact is `YES`;
-- preservation fixtures prove user-owned state is unchanged.
+- Distribution-owned change with no sibling commit required;
+- sibling-owned Skills-like defect cannot close with only Distribution evidence;
+- owner commit exists but owner CI fails -> Distribution adoption/release blocked;
+- owner commit passes owner CI but Distribution whole-Core qualification fails -> release blocked;
+- owner commit passes both layers -> candidate may proceed;
+- Distribution pins wrong/older owner ref -> blocked;
+- required System evidence missing -> documentation/release gate blocked according to contract;
+- legitimate `NO SYSTEM IMPACT` requires rationale;
+- fresh install excludes maintainer governance;
+- update excludes maintainer governance;
+- rollback excludes maintainer governance;
+- user-owned state survives;
+- fake future maintainer file remains excluded.
 
 ### Acceptance criteria
 
-- tests fail on deliberate governance leakage;
-- tests fail when sibling-owned work is falsely represented as a Distribution-only fix;
-- tests fail when required owner evidence or required owner revision adoption is missing;
-- tests pass for legitimate Distribution-owned adapters/orchestration;
-- tests fail on missing required System propagation evidence;
-- tests pass on legitimate no-impact changes/fixtures;
-- tests protect update and rollback, not only first install;
-- tests do not weaken existing Core update preservation qualification.
+- tests prove both validation layers;
+- tests prove canonical owner routing;
+- tests prove System propagation gate;
+- tests prove member isolation;
+- tests do not weaken existing qualification/preservation coverage.
 
 ### Evidence
 
@@ -756,40 +790,36 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 4.1 - Add cross-repo owner and System evidence validation at the strongest safe boundary.**
+**Slice 4.1 - Add cross-repo evidence validation.**
 
 ---
 
-# Phase 4 - Close and qualify the loop
+# Phase 4 - Qualify and close the loop
 
-## Slice 4.1 - Add cross-repo owner and System evidence validation
+## Slice 4.1 - Add cross-repo evidence validation
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution, AI-Verse-System, relevant sibling owner repositories  
+**Repos:** ai-verse-distribution, AI-Verse-System, relevant component repos  
 **Dependencies:** 3.4
 
-Implement the strongest safe verification available without creating unsafe cross-repo write authority.
+Implement the strongest safe verification available.
 
-Preferred behavior:
+Preferred validation:
 
-- Distribution records an exact owner commit/PR/reference when owner change is required;
-- qualification verifies that the release actually adopts the accepted immutable owner revision or a descendant where the explicit release contract permits that lineage;
-- Distribution records an exact System commit/PR/reference when System impact is `YES`;
-- qualification validates evidence formats and, when repository permissions safely permit it, verifies that referenced evidence exists;
-- automation may create or request an owner/System PR only if separately justified and least-privilege credentials are available;
-- do not silently grant Distribution CI broad write access to System or sibling repositories;
-- do not directly auto-write to another repo's main branch merely for convenience.
+- owner commit/ref exists;
+- owner acceptance evidence corresponds to the intended revision where possible;
+- Distribution release candidate actually adopts that revision;
+- System evidence exists when required;
+- evidence failures are distinct from permission/access failures;
+- no broad cross-repo write credential is introduced merely for convenience.
 
 ### Acceptance criteria
 
-- stale/missing owner evidence is detectable at the chosen completion/release boundary;
-- a claimed sibling fix cannot qualify if the release still pins a revision that does not contain the accepted fix;
-- stale/missing System evidence is detectable at the chosen completion/release boundary;
-- validation fails closed where evidence is mandatory;
-- inability to access a cross-repo ref is reported distinctly from evidence being absent;
-- no secret is placed into member artifacts;
-- no new broad repository credential is introduced without explicit need and documented scope;
-- semantic propagation and canonical ownership remain the rules, not commit mirroring.
+- stale/missing owner evidence is detectable;
+- stale/missing System evidence is detectable;
+- wrong pinned component ref is detectable;
+- validation fails closed where the contract requires it;
+- evidence validation does not leak secrets or maintainer metadata into member installs.
 
 ### Evidence
 
@@ -797,58 +827,48 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 4.2 - Run end-to-end owner-to-Distribution-to-System-to-member qualification.**
+**Slice 4.2 - Run end-to-end repository-network qualification.**
 
 ---
 
 ## Slice 4.2 - End-to-end qualification
 
 **Status:** NOT STARTED  
-**Repos:** ai-verse-distribution, AI-Verse-System, at least one representative sibling owner repo  
+**Repos:** AI-Verse-System, ai-verse-distribution, at least one representative component owner, plus current Core as needed  
 **Dependencies:** 4.1
 
-Run representative end-to-end scenarios covering both ownership paths.
+Run three representative paths.
 
-### Scenario A - Distribution-owned meaningful improvement
+### Scenario A - Distribution-owned improvement
 
-1. make or simulate a meaningful Distribution-owned improvement;
-2. classify canonical owner as Distribution;
-3. classify System impact;
-4. update relevant System truth;
-5. record exact Distribution/System evidence;
-6. build/qualify Distribution;
-7. install into a clean member project;
-8. verify no maintainer governance leaks.
+Distribution change -> Distribution tests -> System impact decision -> whole-product qualification -> member install.
 
-### Scenario B - sibling-owned problem discovered during Distribution work
+### Scenario B - component-owned change initiated in the component repo
 
-1. discover or simulate a meaningful sibling-owned defect/improvement, preferably using Skills as one representative owner;
-2. classify the canonical owner correctly;
-3. implement or use an accepted owner-repo fix;
-4. record exact owner evidence;
-5. update Distribution to adopt the accepted immutable owner revision;
-6. qualify the composed release;
-7. update relevant System truth and record exact System evidence;
-8. install into a clean member project;
-9. inspect the complete member-facing file tree;
-10. inspect generated `AGENTS.md`, `CLAUDE.md` and `AI-VERSE.yaml`;
-11. perform an update over representative user-owned state;
-12. perform rollback where supported;
-13. verify no maintainer governance leaks at any member-facing stage;
-14. verify all protected member state survives unchanged;
-15. verify the canonical owner repository, Distribution release ref and System truth all agree about the shipped change.
+Component improvement -> owner CI pass -> System impact update -> exact ref handed to Distribution -> Distribution adopts ref -> whole-product qualification -> member install/update.
+
+### Scenario C - sibling-owned problem discovered by Distribution
+
+Distribution discovers problem -> routes to owner -> owner fixes and passes CI -> Distribution adopts exact ref -> Distribution qualification -> System truth synchronized -> member install/update.
+
+For all scenarios verify:
+
+- correct ownership;
+- exact refs;
+- owner evidence;
+- Distribution evidence;
+- System evidence;
+- no maintainer governance leakage;
+- protected member state survives;
+- rollback behavior remains safe where supported.
 
 ### Acceptance criteria
 
-- Distribution-owned work stays in Distribution without unnecessary sibling edits;
-- sibling-owned work is actually repaired in the canonical owner repository;
-- Distribution ships the accepted owner revision rather than a local substitute patch;
-- propagation loop works from meaningful change to current System evidence;
-- member project contains no maintainer propagation/owner-routing instructions or files;
-- install/update/rollback all respect the same boundary;
-- user-owned state preservation passes;
-- qualification output clearly distinguishes owner implementation evidence, Distribution evidence, System evidence and member payload;
-- any discovered ambiguity is fixed before completion.
+- all three paths work;
+- component repos, Distribution and System agree on the shipped truth;
+- owner CI alone cannot ship a release;
+- Distribution qualification cannot substitute for repairing a broken owner repo;
+- member experience remains one cohesive AI-Verse product.
 
 ### Evidence
 
@@ -856,43 +876,43 @@ To be recorded on completion.
 
 ### NEXT
 
-**Slice 4.3 - Synchronize canonical System truth and close program v1.**
+**Slice 4.3 - Canonical closeout.**
 
 ---
 
 ## Slice 4.3 - Canonical closeout
 
 **Status:** NOT STARTED  
-**Repos:** AI-Verse-System, ai-verse-distribution, affected sibling owner repositories  
+**Repos:** AI-Verse-System, ai-verse-distribution, affected component repos  
 **Dependencies:** 4.2
 
-Close the implementation only after end-to-end behavior is proven.
+Close only after the repository network is proven.
 
-Update all canonical records that actually need to change, including where relevant:
+Update as applicable:
 
-- this implementation plan;
-- `docs/LIVING-SPEC-PROTOCOL.md`;
-- `docs/OWNER-PRODUCT-INTENT.md`;
-- `docs/FINAL-AI-VERSE-BLUEPRINT.md`;
-- component ownership/specification records;
-- Distribution-related System documentation/QC/source maps;
-- `docs/SYSTEM-CHANGELOG.md`;
-- Distribution maintainer documentation;
-- qualification/release evidence.
+- this plan;
+- System living-spec/product-intent/blueprint;
+- component ownership/spec/QC/source maps;
+- System changelog;
+- Distribution maintainer docs;
+- component maintainer handoff docs;
+- release/qualification evidence.
 
 ### Acceptance criteria
 
 - all 14 slices are COMPLETE with exact evidence;
-- AI-Verse-System accurately describes the finished propagation and owner-routing behavior;
-- Distribution source instructions enforce both policies for future work;
-- member payload isolation is automated and regression-tested;
-- meaningful Distribution evolution cannot silently leave System stale under the supported maintainer workflow;
-- a sibling-owned defect/improvement discovered during Distribution work cannot be permanently fixed only in Distribution under the supported workflow;
-- released component behavior traces to the accepted canonical owner revision;
-- Distribution cannot claim a sibling fix is shipped while still pinning an owner revision that lacks it;
-- no maintainer governance is present in the member installation;
-- zero-loss update/preservation contracts remain satisfied;
-- program status is changed from ACTIVE to COMPLETE only after all acceptance criteria pass.
+- Distribution -> System propagation works;
+- Distribution -> component owner routing works;
+- component -> System handoff works;
+- component -> Distribution handoff works;
+- owner-native validation and Distribution whole-product qualification are both enforced;
+- arbitrary component SHAs cannot silently become admitted releases;
+- released component behavior traces to accepted canonical owner revisions;
+- Distribution cannot hide sibling defects with permanent local patches;
+- System accurately reflects meaningful product truth;
+- member installation contains no internal governance leakage;
+- zero-loss preservation remains satisfied;
+- program status changes to COMPLETE only after all gates pass.
 
 ### Evidence
 
@@ -906,25 +926,32 @@ None. Program v1 complete.
 
 # Program Change Log
 
+## 2026-10-12 - Component handoff and two-layer validation added
+
+- Added explicit component -> System handoff for meaningful component changes.
+- Added explicit component -> Distribution release handoff for component revisions intended to ship.
+- Added the rule that a component SHA is not releasable merely because it exists.
+- Added owner-native CI/test/acceptance evidence as the first validation layer.
+- Preserved Distribution whole-product qualification as the second, independent validation layer.
+- Added the requirement that shipped Core component repos receive lightweight maintainer handoff instructions.
+- Explicitly rejected making component repos directly auto-edit Distribution or System main by default.
+- Extended end-to-end qualification to cover Distribution-owned, component-originated and Distribution-discovered sibling changes.
+- Kept the program at 14 slices by using Slice 3.2 for component maintainer handoff and consolidating release gates into Slice 3.3.
+- Kept Slice 0.1 as the only completed slice. This update strengthens the plan and does not claim implementation is already complete.
+
 ## 2026-10-12 - Canonical owner routing added
 
-- Added the owner's requirement that Distribution must not become a substitute implementation repo for Skills, Brain, Memory, Data, OS or other sibling components.
-- Added the canonical routing sequence: determine owner -> fix owner repo when required -> test/accept owner change -> record immutable owner ref -> Distribution adopts/pins ref -> qualify composed release -> propagate meaningful truth to System.
-- Added mandatory owner decision/evidence fields to the program.
-- Extended Phase 1 to audit current Distribution-to-owner boundaries and detect existing workaround/shadow-implementation risks.
-- Extended Phase 2 to make owner routing part of canonical System governance.
-- Extended Phase 3 gates and regression coverage so a sibling-owned fix cannot be closed with only Distribution evidence.
-- Extended Phase 4 cross-repo validation and end-to-end qualification to prove both Distribution-owned and sibling-owned change paths.
-- Kept the program at 14 slices. No denominator change was required.
-- Kept Slice 0.1 as the only completed slice. This plan update defines the requirement but does not falsely claim the enforcement implementation already exists.
+- Added the rule that Distribution must not become a substitute implementation repo for sibling components.
+- Added owner routing, immutable owner refs and composed release qualification.
+- Added owner evidence fields and regression requirements.
+- Kept the program at 14 slices.
 
 ## 2026-10-12 - Program created
 
-- Created the canonical 14-slice implementation program.
-- Recorded the owner's requirement that meaningful Distribution improvements, not only architectural changes, propagate into System.
-- Recorded the owner's requirement that this governance remain separate from the member-installed OS.
-- Chose semantic propagation rather than blind commit mirroring.
-- Chose an audit-first approach so member/source boundaries are proven from current Distribution code before implementation.
+- Created the persistent implementation program.
+- Required meaningful Distribution evolution to propagate into System.
+- Required maintainer governance to stay outside member installations.
+- Chose semantic propagation instead of blind commit mirroring.
 - Marked only Slice 0.1 complete.
 
 ---
@@ -932,5 +959,6 @@ None. Program v1 complete.
 # Current execution pointer
 
 **Completed:** Slice 0.1  
-**Next:** Slice 1.1 - Audit current Distribution source-to-member and owner boundaries  
-**Do not skip directly to maintainer-rule edits before Slice 1.1 establishes the current packaging/generation boundary and identifies where component-specific behavior is canonically owned.**
+**Next:** Slice 1.1 - Audit current source, ownership, validation and handoff boundaries  
+
+Do not skip directly to maintainer-rule edits. Slice 1.1 must first prove the current member boundary, component ownership, component CI/acceptance surfaces, current Distribution adoption path and existing cross-repo handoff behavior.
