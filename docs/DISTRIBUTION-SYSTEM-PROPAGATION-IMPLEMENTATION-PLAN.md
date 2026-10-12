@@ -160,6 +160,7 @@ Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`, `docs/ARCHITECTURE-TOM
 - Semantic validator: `a0e14b9f74061594b30e6376ffef12db4a65bc48`
 - Contract tests: `6ddfc792e0200dfc4da653e9c8c59117c2eb47ed`
 - Existing Contract Validation workflow extension: `f8878460ee2757fad7249e3ca666b5af0d8a801a`
+- Initial closure tracker write: `f63e93b45cf42f37de51dc24a379cd63c1005fa7`
 - Canonical machine Registry: `governance/repository-registry.json`
 - Registry schema: `contracts/repository-registry.schema.json`
 - Validator: `scripts/validate_repository_registry.py`
@@ -173,10 +174,10 @@ Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`, `docs/ARCHITECTURE-TOM
 - first-class unregistered release participation is fail-closed with `unregistered_first_class_release: block`;
 - Distribution explicitly is not an independent Registry authority;
 - Registry holds only stable/declarative identity, responsibility, lifecycle, rollout wave, release-profile participation, shipping participation, descriptor path, acceptance discovery surface, System refs and optional known direct compatibility dependencies;
-- live HEAD, owner-accepted revision, Distribution pin, CI outcome, last refresh, drift and watchdog state are intentionally excluded and remain Repository State concerns;
+- live HEAD, owner-accepted revision, Distribution pin, CI outcome, last refresh, drift and watchdog state are excluded and remain Repository State concerns;
 - initial Wave 1 Registry contains exactly seven entries: System, Distribution, OS, Brain, Memory, Skills and Data;
 - System/Distribution are Wave 1 control-plane participants but are not marked as Distribution-shipped runtime components;
-- the five Core owners are active `runtime-component` entries, participate in `Core`, are Distribution-shipped and expect `release/component-release.json` plus component-native owner acceptance.
+- five Core owners are active `runtime-component` entries, participate in `Core`, are Distribution-shipped and expect `release/component-release.json` plus component-native owner acceptance.
 
 ### Validation evidence
 
@@ -187,15 +188,14 @@ Both matrix jobs passed:
 - Python 3.13 job `114837022223`
 - Python 3.11 job `114837022371`
 
-Both jobs passed the existing descriptor/preservation checks, the new `Validate repository registry` step and the full shared contract test suite. Registry tests include rename-safe identity, duplicate stable-ID/component-ID rejection, dynamic-field rejection, shipped-component descriptor/profile/native-acceptance requirements, Distribution authority rejection and unregistered dependency rejection.
+Both jobs passed the existing descriptor/preservation checks, the new `Validate repository registry` step and the full shared contract test suite. Registry tests prove rename-safe identity, duplicate stable-ID/component-ID rejection, dynamic-field rejection, shipped-component descriptor/profile/native-acceptance requirements, Distribution authority rejection and unregistered dependency rejection.
 
-Distribution searches for `repository-registry` and `repository_registry` returned no matching code entries. Results were marked incomplete by GitHub search, so this is supportive evidence rather than a standalone proof; it is consistent with the Phase 1 audit and with no Distribution changes during this slice.
+Distribution searches for `repository-registry` and `repository_registry` returned no matching code entries. GitHub marked those searches incomplete, so they are supportive evidence rather than standalone proof; they are consistent with the Phase 1 audit and with Distribution remaining unchanged during this slice.
 
-### Final freshness and concurrency
+### Final freshness and concurrent System work
 
-Final refs before closure:
+Component/Distribution refs remained unchanged through final refresh:
 
-- AI-Verse-System: `f8878460ee2757fad7249e3ca666b5af0d8a801a` before this closure commit
 - ai-verse-distribution: `fd11b4a95487638d47ff55472a3703b03892d0e8`
 - AI-Verse-OS: `64f7325444d18f94c9d4755d32eb89f3468bda6b`
 - AI-Verse-Brain: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
@@ -203,7 +203,12 @@ Final refs before closure:
 - AI-Verse-Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
 - AI-Verse-Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
 
-One concurrent System commit occurred after Registry tests and before the workflow integration: `d9920be2727a550266086b84b73aafbc397c07de`, message `Record Safe Infrastructure Slice 1.2 evidence inventory`. Exact compare proves it added only `docs/SAFE-INFRASTRUCTURE-SLICE-1.2-INVENTORY.md`. It did not touch this program, Registry schema/data, validator, tests or workflow. The subsequent successful CI run therefore validated the Registry on top of that preserved concurrent commit.
+Two unrelated concurrent System commits were preserved:
+
+1. `d9920be2727a550266086b84b73aafbc397c07de`, `Record Safe Infrastructure Slice 1.2 evidence inventory`, added only `docs/SAFE-INFRASTRUCTURE-SLICE-1.2-INVENTORY.md`.
+2. `e515c6356b9619d5c20ec5f9448cba9f273ca015`, `Freeze Safe Infrastructure Phase 1 architecture`, added only `docs/SAFE-INFRASTRUCTURE-SLICE-1.3-ARCHITECTURE-FREEZE.md`.
+
+Neither touched this program, Registry schema/data, validator, Registry tests or the Contract Validation workflow. The successful Registry CI run occurred after the first concurrent commit; the second concurrent commit landed after that successful CI and before the Slice 2.2 tracker closure. Exact compare proves the second commit is documentation-only and unrelated to Registry behavior. The initial closure tracker write `f63e93b45cf42f37de51dc24a379cd63c1005fa7` followed it without overwriting it.
 
 ### Acceptance disposition
 
@@ -211,11 +216,12 @@ PASS.
 
 - one canonical global Registry exists;
 - stable repository ID protects logical identity across owner/name rename;
-- static Registry truth is cleanly separated from future dynamic Repository State;
+- static Registry truth is separated from future dynamic Repository State;
 - Distribution has no competing Registry authority and remained unchanged;
 - unregistered first-class release participation is explicitly fail-closed;
-- schema, semantic validator, negative/positive tests and the existing Contract Validation path all cover the Registry;
+- schema, semantic validator, positive/negative tests and the existing Contract Validation path cover the Registry;
 - no runtime behavior, release composition, component implementation or member payload changed;
+- concurrent unrelated System work was preserved and explicitly accounted for;
 - no protected roadmap element changed and no plan amendment was required.
 
 Known drift carried forward unchanged: descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag WARNING; Core maintainer handoff WARNING; Distribution adapter hard-coded compatibility knowledge WARNING; compact release receipt INFO/future work; U35/U36 remain RESOLVED/PASS.
@@ -355,12 +361,12 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ## 2026-10-12 - Slice 2.2 machine-readable Repository Registry completed
 
 - Created versioned `ai-verse.repository-registry/v1` schema and the single System-owned `governance/repository-registry.json` authority.
-- Registered System, Distribution, OS, Brain, Memory, Skills and Data as the initial Wave 1 network using stable GitHub repository IDs as logical identity anchors.
+- Registered System, Distribution, OS, Brain, Memory, Skills and Data as initial Wave 1 entries using stable GitHub repository IDs as logical identity anchors.
 - Kept current `owner/name` as routing metadata and excluded live/dynamic state from Registry.
 - Added semantic validation for identity uniqueness, shipping/profile/lifecycle/descriptor/acceptance rules, fail-closed unregistered participation and non-Registry Distribution authority.
 - Added Registry tests and extended the existing Contract Validation workflow instead of creating parallel CI.
 - GitHub Actions run `38256854398` passed on Python 3.11 and 3.13, including Registry validation and shared tests.
-- Preserved unrelated concurrent Safe Infrastructure commit `d9920be2727a550266086b84b73aafbc397c07de`, which added only its own inventory document.
+- Preserved and accounted for unrelated concurrent System commits `d9920be2727a550266086b84b73aafbc397c07de` and `e515c6356b9619d5c20ec5f9448cba9f273ca015`, each of which added only a separate Safe Infrastructure evidence document.
 - No runtime, release composition, member payload or protected roadmap change occurred.
 
 ## 2026-10-12 - Slice 2.1 permanent governance completed
