@@ -13,14 +13,15 @@
 **Current phase progress:** 2/3 slices complete  
 **Slices until next phase:** 1  
 **Current slice:** 3.3 - Reconcile current System truth and known drift  
-**Current slice status:** NOT STARTED  
+**Current slice status:** IN PROGRESS  
+**Task progress:** 1/5  
 **Next slice:** 4.1 - Extend/reuse Component Release Descriptor
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
 ## Tracker history preservation
 
-Phase 0/1 detail is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Slice 2.1 closure is `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 start/closure are `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 start/closure/final State snapshot are `8cb5fbff630f45f730db904771333d73d5616a57`, `fc0d178809867362dc29183411f26b9f65980903` and `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Slice 3.1 start/final State snapshot/final CI are `dbe13e49d84176131e0447785a4748951a17ad8e`, `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2` and run `38279213073`. Slice 3.2 implementation commits and evidence are recorded below. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
+Phase 0/1 detail is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Slice 2.1 closure is `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 start/closure are `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f` and `98773f6db85ac727a32ed798cf5113fe839e24a1`. Slice 2.3 start/closure/final State snapshot are `8cb5fbff630f45f730db904771333d73d5616a57`, `fc0d178809867362dc29183411f26b9f65980903` and `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`. Slice 3.1 start/final State snapshot/final CI are `dbe13e49d84176131e0447785a4748951a17ad8e`, `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2` and run `38279213073`. Slice 3.2 closure bookkeeping/final heartbeat/final CI are `0ace417725831e0ba3843fdc77a27d578b3b3010`, `dc6cfca7498d086583f592a08422c2a088d9545a` and run `38281646978`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
 
 ---
 
@@ -133,9 +134,8 @@ Overall progress = completed slices / 20. Task count is local only.
 ## Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint
 
 **Status:** COMPLETE  
-**Closure bookkeeping:** `fc0d178809867362dc29183411f26b9f65980903`  
-**Final State/ledger snapshot:** `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`  
-**Final CI:** run `38260626280`, Python 3.11 and 3.13 passed.
+**Final State/ledger:** `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`  
+**Final CI:** run `38260626280`.
 
 ---
 
@@ -147,67 +147,91 @@ Overall progress = completed slices / 20. Task count is local only.
 ## Slice 3.1 - Scoped/full repository refresh and generated ledger
 
 **Status:** COMPLETE  
-**Dependencies:** 2.3  
 **Tasks:** 5/5 complete  
 **Final State/ledger:** `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2`  
-**Final CI:** run `38279213073`, Python 3.11 and 3.13 passed.
-
-The one System-owned refresh engine now performs Registry-derived component/Core/Agent/Full/global exact-ref observation. Distribution qualification never substitutes for owner acceptance; ambiguity/access/fetch failure fails visibly; the ledger remains projection only; System publication concurrency is rejected.
+**Final CI:** run `38279213073`.
 
 ## Slice 3.2 - Drift Watchdog and heartbeat
 
 **Status:** COMPLETE  
-**Dependencies:** 3.1  
-**Tasks:** 6/6 complete
+**Tasks:** 6/6 complete  
+**Closure bookkeeping:** `0ace417725831e0ba3843fdc77a27d578b3b3010`  
+**Final heartbeat State/ledger:** `dc6cfca7498d086583f592a08422c2a088d9545a`  
+**Final CI:** run `38281646978`.
 
-### Outcome
-
-A single daily/manual Repository Drift Watchdog now wraps the existing refresh engine rather than creating a second discovery/comparison system. It performs Registry-derived global scans, records successful heartbeat evidence in Repository State, distinguishes failed and stale watchdog conditions, preserves unrelated drift, never writes sibling repositories, never changes release pins or promotion, and publishes only System State + generated ledger with exact-head/concurrency-safe behavior.
-
-The existing v1 Repository State contract proved sufficient for the frozen watchdog semantics, so task 3.2.2 was completed by **REUSE** rather than unnecessary schema expansion. `refresh.last_full_refresh` records the full attempt, per-repository State records access/descriptor/pin evidence, and `watchdog.last_successful_full_scan` plus watchdog status records the successful heartbeat/failure transition. This adaptive reduction changed technique only, not the acceptance destination.
-
-### Task record
-
-1. **3.2.1 - Refresh state, reread plan/adaptive method/frozen architecture/governance, inspect State/refresh/CI/tests and derive tasks.** `COMPLETE`
-2. **3.2.2 - Prove and use the minimal State facts required for heartbeat/attempt/failure semantics.** `COMPLETE`, existing State v1 reused; no schema expansion required.
-3. **3.2.3 - Add watchdog transitions around the same global refresh engine.** `COMPLETE`, `scripts/run_repository_watchdog.py`.
-4. **3.2.4 - Prove complete/failed/stale/missed-window/scoped-isolation/unrelated-drift semantics.** `COMPLETE`, watchdog + State tests.
-5. **3.2.5 - Add daily/manual least-privilege System-only watchdog workflow and maintainer usage.** `COMPLETE`, `.github/workflows/repository-drift-watchdog.yml` and maintainer docs.
-6. **3.2.6 - Run and publish a real full-network heartbeat, validate the exact implementation and close.** `COMPLETE`; final State/ledger publication follows this closure bookkeeping commit as the direct child snapshot.
-
-### Evidence
-
-- Watchdog orchestration + transition tests: `e79aba5a70f0ea357384be890676558cbb5d7a42`
-- Daily/manual workflow + maintainer docs: `7a54cea11fc6fac160cc2c8e62bc262e5f335e72`
-- First real heartbeat snapshot: `3e4ccd7ec245f425832b61dd56f72b51b2736eb2`, direct child of exact observed System head `7a54cea11fc6fac160cc2c8e62bc262e5f335e72`
-- First heartbeat correctly observed Distribution movement to `90f175418f8d13faeece8bcb1ad0796d2adecfb1`; its two intervening commits changed only the transition contract document and its test. The default released Core set remained released/default and retained the same five exact Core pins.
-- First heartbeat State and ledger both validated, but Contract Validation run `38280880766` exposed five tests that incorrectly assumed the canonical State would remain permanently bootstrap-stale/global-inactive. This failure was not hidden.
-- Fixture correction: `c2d41e58eb68f343bb30769435b07b7061bb040c`. No production watchdog code changed.
-- Corrected Contract Validation run `38281202375`: 95 tests passed on Python 3.11 and 3.13; Python 3.11 live read-only Core refresh passed.
-- Final heartbeat State/ledger snapshot: direct child of this closure bookkeeping revision, changing only `governance/repository-state.json` and `docs/REPOSITORY-STATE-LEDGER.md`.
-
-### Frozen operational behavior
-
-- Schedule: once daily at `.github/workflows/repository-drift-watchdog.yml`, plus manual dispatch.
-- One refresh engine: `scripts/refresh_repository_state.py`; watchdog orchestration calls it with Registry-derived global scope.
-- Successful complete full scan -> `WATCHDOG-CURRENT` with exact heartbeat revision and timestamped successful full-scan record.
-- First unsuccessful expected full scan after CURRENT -> `WATCHDOG-FAILED`.
-- Second consecutive unsuccessful expected scan, or an inferred missed expected daily window plus failed attempt -> `WATCHDOG-STALE`.
-- A persisted CURRENT heartbeat at least two expected daily windows old is operationally not current even if no runner was available to write a transition.
-- Scoped refreshes preserve global watchdog truth and may satisfy scoped freshness where governance permits.
-- Watchdog-specific drift is changed independently; unrelated drift is preserved.
-- Workflow token is scoped to the System repository. A hard path guard permits only State + ledger changes. Normal non-force push makes concurrent movement fail rather than overwrite.
-
-### Drift disposition
-
-The former global `repository-watchdog-stale` warning is resolved by the successful full heartbeat. Existing non-watchdog drift remains unchanged: exact Core owner-acceptance gap `BLOCKING`; Purpose Context Blueprint lag `WARNING`; Core maintainer handoff `WARNING`; Distribution adapter shadow risk `WARNING`; compact release receipt `INFO`. No plan amendment was required.
+The one daily/manual watchdog wraps the existing global refresh engine, publishes only System State + ledger, never writes siblings, distinguishes CURRENT/FAILED/STALE, and preserves scoped-release freshness semantics. The successful final heartbeat records Distribution `90f175418f8d13faeece8bcb1ad0796d2adecfb1`; all five released Core pins remained unchanged.
 
 ## Slice 3.3 - Reconcile current System truth and known drift
 
-**Status:** NOT STARTED  
-**Dependencies:** 3.2
+**Status:** IN PROGRESS  
+**Dependencies:** 3.2  
+**Task progress:** 1/5
 
-Reconcile actual drift evidence-first, with Purpose Context as mandatory regression fixture. Acceptance: accepted implementation not reverted because docs lag; unvalidated newer code not canonized because newer; architecture docs remain appropriately stable; reconciliation recorded and Repository State truthful.
+### Starting refs
+
+- AI-Verse-System: `dc6cfca7498d086583f592a08422c2a088d9545a`
+- ai-verse-distribution: `90f175418f8d13faeece8bcb1ad0796d2adecfb1`
+- AI-Verse-OS: `64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- AI-Verse-Brain: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- AI-Verse-Memory: `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- AI-Verse-Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- AI-Verse-Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
+
+### Evidence-first reconciliation finding
+
+The mandatory Purpose Context regression fixture is an actual stale-System-document case, not an ambiguous implementation conflict:
+
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md` baseline is 2026-10-05 and contains no integrated Purpose Context v1 synthesis.
+- Purpose Context execution state is explicitly `COMPLETE / ACCEPTED / CORE ADMITTED`, 34/34 slices and 14/14 phases complete.
+- Admitted release `core-purpose-context-public-beta-2026-10-09` remains an immutable released Distribution record at current Distribution head.
+- Accepted Purpose Core refs are OS `4f03849444b1d01ad81317bf0fece082d5a30e79`, Brain `69f7912eeb35f0178f6952ff0554aec8d7f2c496`, Memory `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`, Skills `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`, Data `f8978f8f7a1bc94edecddc2662112233289159a3`.
+- Current Brain/Memory/Skills/Data are exactly those admitted refs.
+- Current OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` is six commits ahead of admitted Purpose OS `4f03849444b1d01ad81317bf0fece082d5a30e79`, with that admitted ref as the exact merge base. Later OS changes concern update-request/handoff surfaces rather than replacement of Purpose ownership.
+- Purpose v1 is an owner-backed, read-only, rebuildable strategic projection. It does not create a second Purpose store, promote Memory to current authority, permit stale fallback, weaken scope isolation, or rewrite release lineage.
+- `docs/LIVING-SPEC-PROTOCOL.md` explicitly requires the living blueprint to move with accepted implementation truth.
+
+Therefore stale blueprint text must be reconciled forward to accepted Purpose truth. Accepted implementation must not be reverted to match the older blueprint, while later unqualified branch movement must not be treated as new acceptance evidence.
+
+### Drift disposition boundary
+
+Only `purpose-context-blueprint-lag` is reconciled in Slice 3.3. Other findings remain open because their roadmap owners are later:
+
+- `core-owner-acceptance-exact-ref-gap`: `BLOCKING`, carry to Slice 4.1/4.2. Purpose historical acceptance does not prove exact acceptance of every current shipped revision.
+- `core-maintainer-handoff-uneven`: `WARNING`, Slice 4.2.
+- `distribution-adapter-compatibility-shadow-risk`: `WARNING`, owner-adoption/admission work in Phase 4/5.
+- `compact-release-receipt-not-yet-implemented`: `INFO`, Slice 5.4.
+- repository watchdog stale finding: already resolved in Slice 3.2.
+
+### Reuse classification
+
+- `docs/FINAL-AI-VERSE-BLUEPRINT.md`: **EXTEND narrowly** with accepted Purpose v1 system-level truth. Do not rewrite component implementation detail into System.
+- Purpose closure/execution documents and immutable Distribution release set: **REUSE as acceptance evidence**.
+- `docs/LIVING-SPEC-PROTOCOL.md`: **REUSE** as reconciliation law.
+- `docs/OWNER-PRODUCT-INTENT.md`: **REUSE** as product-direction authority, not implementation proof.
+- `governance/repository-state.json`: **EXTEND dynamic drift disposition only after reconciliation is validated**.
+- generated ledger: **REGENERATE only from State**.
+- current component implementations: **NO ROLLBACK / NO WRITE** for documentation reconciliation.
+- deferred drift: **CARRY OPEN**, not silently repaired early.
+
+### Derived tasks
+
+1. **3.3.1 - Refresh current refs/State, reread roadmap/adaptive method/living-spec law, inspect blueprint, Purpose completion/admission evidence and every open drift item; derive reconciliation boundary.** `COMPLETE`
+2. **3.3.2 - Record a durable evidence-first reconciliation matrix proving which findings resolve now versus carry forward, with Purpose Context as the stale-doc regression fixture.** `IN PROGRESS`
+3. **3.3.3 - Narrowly update the living final blueprint and System changelog to synthesize accepted Purpose Context v1 without inventing new component truth or changing release authority.** `PENDING`
+4. **3.3.4 - Add regression coverage that fails if the blueprint loses the accepted Purpose ownership/isolation/value laws or if reconciliation starts treating newer unvalidated code as acceptance. Run exact-head CI.** `PENDING`
+5. **3.3.5 - Resolve only the Purpose blueprint drift in Repository State, preserve all deferred drift, refresh/publish State + generated ledger from an exact System head, run final CI, close Slice 3.3 and Phase 3.** `PENDING`
+
+### Acceptance floor
+
+- accepted implementation is never reverted merely because an older System document lags;
+- branch recency alone never canonizes unvalidated code;
+- immutable release/acceptance evidence and ancestry determine the reconciliation direction;
+- the blueprint remains system synthesis, not a duplicate component implementation spec;
+- only evidence-backed in-scope drift is resolved;
+- deferred findings remain visible with their original severity/scope;
+- Repository State and generated ledger are updated only after reconciliation evidence/tests pass;
+- no sibling repository write, runtime behavior change, release composition change or member-payload change occurs;
+- no protected roadmap change and no plan amendment is required.
 
 ---
 
@@ -301,32 +325,25 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 
 # Program Change Log
 
+## 2026-10-12 - Slice 3.3 started
+
+- Final Slice 3.2 heartbeat `dc6cfca7498d086583f592a08422c2a088d9545a` and CI run `38281646978` are green.
+- Purpose Context was confirmed as the mandatory stale-doc regression fixture: accepted/admitted implementation evidence post-dates the October 5 blueprint, and current component ancestry preserves that accepted line.
+- Other open drift was classified to its already-planned future owner rather than being silently pulled forward.
+- Reconciliation will update System synthesis only, not component code, release composition or member payloads.
+- No protected roadmap change and no plan amendment.
+
 ## 2026-10-12 - Slice 3.2 Drift Watchdog completed
 
-- Reused the existing State v1 contract after evidence showed no new schema fields were needed.
-- Added watchdog orchestration and tests at `e79aba5a70f0ea357384be890676558cbb5d7a42`.
-- Added daily/manual System-only workflow and maintainer documentation at `7a54cea11fc6fac160cc2c8e62bc262e5f335e72`.
-- First heartbeat `3e4ccd7ec245f425832b61dd56f72b51b2736eb2` proved real Distribution-head movement could be recorded without changing released Core pins.
-- First-heartbeat CI exposed stale bootstrap fixture assumptions; those tests were corrected at `c2d41e58eb68f343bb30769435b07b7061bb040c` without production changes.
-- Corrected run `38281202375` passed 95 tests on Python 3.11 and 3.13 plus the live Core refresh.
-- Final canonical heartbeat snapshot is published as the direct child of this bookkeeping revision.
-- No protected roadmap change and no plan amendment.
+Closure bookkeeping `0ace417725831e0ba3843fdc77a27d578b3b3010`; final heartbeat `dc6cfca7498d086583f592a08422c2a088d9545a`; final CI `38281646978` passed.
 
 ## 2026-10-12 - Slice 3.1 scoped/full refresh completed
 
-Final State/ledger `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2`; final CI run `38279213073` passed.
+Final State/ledger `28ae533e7c2acb2ab155fa7d7cd11f10afd4c9f2`; final CI `38279213073` passed.
 
-## 2026-10-12 - Slice 2.3 Repository State control plane completed
+## 2026-10-12 - Phase 2 completed
 
-Final State/ledger `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`; final CI run `38260626280` passed.
-
-## 2026-10-12 - Slice 2.2 Repository Registry completed
-
-Closure `98773f6db85ac727a32ed798cf5113fe839e24a1`.
-
-## 2026-10-12 - Slice 2.1 permanent governance completed
-
-Closure `11940b87838afa0f46570ecdd8f8e00f74b7de5a`.
+Slice 2.3 final State/ledger `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`; final CI `38260626280` passed.
 
 ## 2026-10-12 - Phase 1 completed and architecture frozen
 
@@ -341,6 +358,8 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 3 - Build System self-checking machinery and synchronize current truth  
 **Phase progress:** 2/3  
 **Until Phase 4:** 1 slice  
-**Current slice:** Slice 3.3 - Reconcile current System truth and known drift (`NOT STARTED`)  
-**Next:** start Slice 3.3 with a fresh relevant State read and evidence-first reconciliation task derivation  
-**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING; Purpose Context lag WARNING; Core maintainer handoff WARNING; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT. No plan amendment required.
+**Current slice:** Slice 3.3 - Reconcile current System truth and known drift (`IN PROGRESS`)  
+**Tasks:** 1/5  
+**Current task:** 3.3.2 - durable evidence-first reconciliation matrix  
+**Next:** 3.3.3 - narrow blueprint + changelog synchronization  
+**Blockers/drift/amendments:** Core exact-owner-acceptance gap BLOCKING; Purpose Context blueprint lag WARNING targeted by this slice; Core maintainer handoff WARNING; Distribution adapter shadow-risk WARNING; compact release receipt INFO; watchdog CURRENT. No plan amendment required.
