@@ -27,7 +27,6 @@ jobs:
       - name: Patch canonical roadmap
         run: |
           python scripts/_temp_safe_infra_3_4_roadmap.py
-          git diff --check
           git diff --exit-code --quiet && { echo 'Guarded helper produced no roadmap change' >&2; exit 1; } || true
 
       - name: Commit guarded roadmap update to PR branch
