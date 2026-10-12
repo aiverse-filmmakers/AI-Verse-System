@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 3  
-**Remaining:** 17  
-**Overall progress:** 15.0%  
-**Current execution phase:** Phase 1 - Audit and normalize current reality  
-**Current phase progress:** 2/3 slices complete  
-**Slices until next phase:** 1  
+**Completed:** 4  
+**Remaining:** 16  
+**Overall progress:** 20.0%  
+**Current execution phase:** Phase 1 - Audit and normalize current reality (COMPLETE)  
+**Current phase progress:** 3/3 slices complete  
+**Slices until next phase:** 0  
 **Current slice:** 1.3 - Freeze the implementation architecture and acceptance matrix  
-**Current slice status:** IN PROGRESS  
-**Task progress:** 1/5  
+**Current slice status:** COMPLETE  
+**Task progress:** 5/5  
 **Next slice:** Phase 2 / Slice 2.1 - Create the canonical repository-network governance and invariant contract  
 **Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 2.1 starts
 
@@ -703,7 +703,7 @@ Do not mark work COMPLETE merely because code exists.
 # Phase 1 - Audit and normalize current reality
 
 **Phase size:** 3 slices  
-**Current phase progress:** 2/3  
+**Current phase progress:** 3/3  
 **Purpose:** prove what already exists before adding anything.
 
 ## Slice 1.1 - Audit the live repository network and existing safety machinery
@@ -981,9 +981,9 @@ Acceptance disposition: PASS. All five Slice 1.2 acceptance criteria are satisfi
 
 ## Slice 1.3 - Freeze the implementation architecture and acceptance matrix
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 1.2  
-**Task progress:** 1/5
+**Task progress:** 5/5
 
 ### Slice start record
 
@@ -1001,18 +1001,18 @@ Starting refs:
 
 Freshness delta since Slice 1.2 completion:
 
-- Distribution and all five Core owner HEADs are unchanged;
-- AI-Verse-System advanced from Slice 1.2 closure `bd3f5a4bc14d88ab5076b74b1226512728b327e0` to direct child `27e21a1e519a17ae79f98d977ffcdac1b63c4436`;
-- compare evidence shows that intervening commit changed only `docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md`, so it does not conflict with this repository-network plan or the Slice 1.2 inventory;
-- the Component Release Descriptor exact-owner-acceptance gap, Purpose Context Blueprint lag, Core maintainer handoff gap, Distribution adapter compatibility-knowledge risk and compact release-reconstruction receipt gap remain unchanged findings for this architecture-freeze slice.
+- Distribution and all five Core owner HEADs were unchanged;
+- AI-Verse-System advanced from Slice 1.2 closure `bd3f5a4bc14d88ab5076b74b1226512728b327e0` through two unrelated commits, `27e21a1e519a17ae79f98d977ffcdac1b63c4436` and `e843d5533ea8ec3367ac57b5a6afde8bac357002`, both changing only `docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md`;
+- the Slice 1.3 start commit `819f87aa111aaf6c7c0401e658b4420934a9f4e4` was based on `e843d5533ea8ec3367ac57b5a6afde8bac357002` and changed only this tracker;
+- the Component Release Descriptor exact-owner-acceptance gap, Purpose Context Blueprint lag, Core maintainer handoff gap, Distribution adapter compatibility-knowledge risk and compact release-reconstruction receipt gap remained unchanged findings for this architecture-freeze slice.
 
-Derived adaptive tasks, bounded to the fixed Slice 1.3 purpose and acceptance criteria:
+Final derived adaptive tasks, bounded to the fixed Slice 1.3 purpose and acceptance criteria:
 
 1. **1.3.1 - Refresh current state, inspect real System/Distribution layout conventions and derive/refine the execution tasks for this slice.** `COMPLETE`
-2. **1.3.2 - Freeze exact canonical ownership and target paths for the Registry, Repository State, generated ledger, maintainer entrypoint, refresh tooling, watchdog and architecture tombstones.** `IN PROGRESS`
-3. **1.3.3 - Freeze the release/compatibility architecture for descriptor extension, immutable candidate evidence snapshots, promotion, durable release receipts, emergency safety release and member payload isolation using existing Distribution machinery.** `NOT STARTED`
-4. **1.3.4 - Define explicit drift blocking rules, rollout-wave gates and the Core Wave 1 acceptance matrix across owner, System, Distribution and member boundaries.** `NOT STARTED`
-5. **1.3.5 - Record the canonical architecture freeze, verify every new file/tool has one owner with no duplicate source of truth, refresh final refs and prove Phase 2 can proceed without architectural guessing.** `NOT STARTED`
+2. **1.3.2 - Freeze exact canonical ownership and target paths for the Registry, Repository State, generated ledger, maintainer entrypoint, refresh tooling, watchdog and architecture tombstones.** `COMPLETE`
+3. **1.3.3 - Freeze the release/compatibility architecture for descriptor extension, immutable candidate evidence snapshots, promotion, durable release receipts, emergency safety release and member payload isolation using existing Distribution machinery.** `COMPLETE`
+4. **1.3.4 - Define explicit drift blocking rules, rollout-wave gates and the Core Wave 1 acceptance matrix across owner, System, Distribution and member boundaries.** `COMPLETE`
+5. **1.3.5 - Record the canonical architecture freeze, verify every new file/tool has one owner with no duplicate source of truth, refresh final refs and prove Phase 2 can proceed without architectural guessing.** `COMPLETE`
 
 Initial evidence-backed architecture classification:
 
@@ -1028,7 +1028,7 @@ Initial evidence-backed architecture classification:
 - architecture tombstones: `CREATE` as System-owned architecture history, with component-local tombstones only when a component's local interface/schema migration requires one;
 - member payload isolation: `REUSE + EXTEND` the deterministic Distribution/member boundary, not broad copy-and-delete cleanup.
 
-Protected-boundary check: PASS. The five tasks only freeze implementation architecture inside the existing Slice 1.3 outcome. They do not change product intent, canonical ownership, permanent laws, phase/slice purpose, acceptance criteria, safety/preservation/member-isolation floors, rollout ordering or the 20-slice denominator. No plan amendment is required.
+Protected-boundary check: PASS. The five tasks only froze implementation architecture inside the existing Slice 1.3 outcome. They did not change product intent, canonical ownership, permanent laws, phase/slice purpose, acceptance criteria, safety/preservation/member-isolation floors, rollout ordering or the 20-slice denominator. No plan amendment was required.
 
 Before coding, freeze the implementation decisions for:
 
@@ -1055,9 +1055,68 @@ Before coding, freeze the implementation decisions for:
 - Core Wave 1 acceptance matrix is defined;
 - Phase 2 can proceed without architectural guessing.
 
+### Slice completion record
+
+Canonical architecture freeze: `docs/REPOSITORY-NETWORK-IMPLEMENTATION-ARCHITECTURE-2026-10-12.md`.
+
+Frozen implementation decisions:
+
+- System machine control-plane data lives under `governance/`, with Registry at `governance/repository-registry.json` and Repository State at `governance/repository-state.json`, each validated by a schema under `contracts/`.
+- `docs/REPOSITORY-STATE-LEDGER.md` is generated from machine State and Registry labels only. It is not independently editable truth.
+- permanent governance will live at `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`; architecture retirement history will live at `docs/ARCHITECTURE-TOMBSTONES.md`; maintainer entrypoint will live at `docs/MAINTAINER-START-HERE.md`.
+- `scripts/refresh_repository_state.py` is the one future scoped/full refresh and ledger-generation implementation. `.github/workflows/repository-drift-watchdog.yml` must call that same machinery rather than invent a second state engine.
+- watchdog full scan is daily with manual dispatch, and `WATCHDOG-STALE` begins after two consecutive expected daily full scans are missed or fail to produce a successful heartbeat.
+- existing Component Release Descriptor remains the only component compatibility/release metadata format. No second compatibility fingerprint is permitted.
+- Distribution retains `release-sets/` as exact composition truth and reuses its existing candidate overlay, qualification, compatibility, lineage/promotion and channel mechanics.
+- future immutable candidate evidence is frozen at `qualification/<candidate-or-release-id>/candidate-evidence.json`.
+- future compact admitted-release reconstruction binding is frozen at `qualification/<release-id>/release-receipt.json`; release sets should reference it without giving it composition authority.
+- emergency safety release is a bounded path through the same owner-validation, qualification, preservation and promotion machinery. It may record `SYSTEM-SYNC-DEBT` but cannot bypass safety/owner evidence.
+- member payload remains deterministic inclusion with source governance excluded. Similar filenames never justify deleting user/local files; ambiguous ownership fails closed.
+- architecture tombstone entries carry durable retired/replaced/prohibited-resurrection evidence, while component-local tombstones remain limited to component-owned local APIs/schemas/migrations.
+- rollout remains Wave 1 Core, then Registry-confirmed Wave 2 Agent, then Registry-confirmed Wave 3 Full/future. No unregistered first-class repo may enter an admitted release.
+- explicit drift blocking rules are now frozen: required owner acceptance/evidence failures, unregistered release components, exact-ref mismatches, preservation failure, member-governance leakage, breaking contracts without migration, changed bound qualification inputs and missing final release receipt are release-blocking when scope intersects the candidate. INFO/WARNING drift does not automatically block unrelated releases.
+- the Core Wave 1 acceptance matrix now assigns one evidence owner per gate across component owners, System, Distribution and member boundary.
+
+Final scoped freshness check before closure:
+
+- ai-verse-distribution remained `fd11b4a95487638d47ff55472a3703b03892d0e8`.
+- AI-Verse-OS remained `64f7325444d18f94c9d4755d32eb89f3468bda6b`.
+- AI-Verse-Brain remained `69f7912eeb35f0178f6952ff0554aec8d7f2c496`.
+- AI-Verse-Memory remained `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`.
+- AI-Verse-Skills remained `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`.
+- AI-Verse-Data remained `f8978f8f7a1bc94edecddc2662112233289159a3`.
+- AI-Verse-System architecture evidence commit was `7450247a1d039bd6464e74e58babb6e80d90063a`.
+- after that evidence commit, concurrent System commit `9ce5ca1884718a210305de29ce896f873bdd94e9` added only `docs/AI-VERSE-IDENTITY-HARDENING-IMPLEMENTATION-PLAN.md`; compare evidence confirms it did not modify this tracker, the architecture freeze, repository-network contracts or Core composition.
+
+Drift carried into Phase 2 and later planned owners:
+
+- `BLOCKING`, Core release-governance evidence: current owner descriptors still do not certify the exact currently shipped refs, and four owners use the noncanonical `development` state. The target repair architecture is frozen; Slice 1.3 does not retroactively relabel historical evidence.
+- `WARNING`, Core/System: Purpose Context Blueprint wording remains stale and is still assigned to Slice 3.3.
+- `WARNING`, Core maintainer governance: owner-local handoff remains assigned to Slice 4.2.
+- `WARNING`, Distribution/component handoff: hard-coded adapter revision knowledge must remain routing support rather than acceptance authority.
+- `INFO`, Distribution reproducibility: the frozen `release-receipt.json` surface remains future Slice 5.4 implementation work.
+- U35/U36 remain `RESOLVED/PASS`.
+
+No product/runtime implementation was changed by Slice 1.3. System writes were limited to plan bookkeeping and the architecture-freeze evidence document. No protected roadmap element was changed, no acceptance criterion was weakened and no plan amendment was required.
+
 ### Evidence
 
-To be recorded on completion.
+- canonical architecture freeze: `docs/REPOSITORY-NETWORK-IMPLEMENTATION-ARCHITECTURE-2026-10-12.md`
+- architecture evidence commit: `7450247a1d039bd6464e74e58babb6e80d90063a`
+- slice-start bookkeeping commit: `819f87aa111aaf6c7c0401e658b4420934a9f4e4`
+- source inventory: `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md`
+- Distribution release catalog evidence: `src/aiverse_distribution/release_catalog.py`
+- current exact release: `release-sets/core-first-run-rc1-2026-10-12.json`
+- qualification evidence: `qualification/core-update-program-u35/qualification.json`, `qualification/core-update-program-u36/release-evidence.json`
+- owner change required: NO, because Slice 1.3 froze architecture only
+- Distribution adoption required: NO, because no component/release composition changed
+- System impact: YES, tracker + architecture-freeze evidence only
+- Repository-state impact: target paths/rules frozen; canonical Repository State implementation begins later
+- Member payload impact: NO runtime payload change; isolation rule frozen and PASS at design level
+- Reproducibility impact: target receipt path and binding semantics frozen; implementation remains Slice 5.4
+- Plan-amendment impact: NO
+
+Acceptance disposition: PASS. All five Slice 1.3 acceptance criteria are satisfied and all five derived tasks are complete. Phase 1 is complete.
 
 ### NEXT
 
@@ -1694,6 +1753,20 @@ None. Program complete.
 
 # Program Change Log
 
+## 2026-10-12 - Slice 1.3 implementation architecture and Wave 1 acceptance matrix frozen
+
+- Recorded `docs/REPOSITORY-NETWORK-IMPLEMENTATION-ARCHITECTURE-2026-10-12.md` as the canonical Phase 1 architecture-freeze evidence.
+- Froze one System machine control plane: Registry and Repository State under `governance/`, schemas under `contracts/`, validators/refresh under `scripts/`, generated human ledger under `docs/`, and watchdog under `.github/workflows/`.
+- Froze `scripts/refresh_repository_state.py` as the shared scoped/full refresh implementation so the watchdog cannot create a second state engine.
+- Froze explicit release-blocking versus informational drift rules, daily full watchdog heartbeat and two-missed-run stale semantics.
+- Kept Component Release Descriptor as the only component release/compatibility metadata format.
+- Reused Distribution release sets, candidates, compatibility, qualification, forward promotion/lineage and channels rather than introducing a parallel release database or ring system.
+- Froze immutable candidate evidence at `qualification/<candidate-or-release-id>/candidate-evidence.json` and future admitted release receipts at `qualification/<release-id>/release-receipt.json`.
+- Defined bounded emergency safety release semantics through the same validation/preservation/qualification path with only explicit `SYSTEM-SYNC-DEBT` allowed as temporary non-safety debt.
+- Froze deterministic member payload isolation, architecture tombstone format, rollout-wave gates and the complete Core Wave 1 acceptance matrix.
+- Verified no unresolved duplicate source of truth remains in the target design and no protected roadmap amendment is required.
+- Phase 1 is complete at 3/3 slices.
+
 ## 2026-10-12 - Slice 1.2 reuse, ownership, payload and drift inventory completed
 
 - Recorded `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md` as the evidence-backed target inventory for Phase 1.
@@ -1785,13 +1858,13 @@ None. Program complete.
 
 # Current execution pointer
 
-**Completed:** 3/20  
-**Overall:** 15.0%  
-**Phase:** Phase 1 - Audit and normalize current reality  
-**Phase progress:** 2/3  
-**Until Phase 2:** 1 slice  
-**Current slice:** Slice 1.3 - Freeze the implementation architecture and acceptance matrix (`IN PROGRESS`)  
-**Tasks:** 1/5  
-**Current task:** 1.3.2 - Freeze exact canonical ownership and target paths for Registry, Repository State, generated ledger, maintainer entrypoint, refresh tooling, watchdog and architecture tombstones  
+**Completed:** 4/20  
+**Overall:** 20.0%  
+**Phase:** Phase 1 - Audit and normalize current reality (`COMPLETE`)  
+**Phase progress:** 3/3  
+**Until Phase 2:** 0 slices  
+**Current slice:** Slice 1.3 - Freeze the implementation architecture and acceptance matrix (`COMPLETE`)  
+**Tasks:** 5/5  
 **Next:** Phase 2 / Slice 2.1 - Create the canonical repository-network governance and invariant contract  
-**Blockers/drift/amendments:** descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag is WARNING; Core maintainer handoff coverage is WARNING; Distribution hard-coded adapter compatibility knowledge is a WARNING extension risk; compact durable release reconstruction receipt remains INFO/future work; U35/U36 are RESOLVED/PASS. No plan amendment is required.
+**Next task:** not yet derived; generate from fresh Slice 2.1 evidence at slice start  
+**Blockers/drift/amendments:** descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag is WARNING; Core maintainer handoff coverage is WARNING; Distribution hard-coded adapter compatibility knowledge is a WARNING extension risk; future compact `release-receipt.json` remains INFO/future work; U35/U36 are RESOLVED/PASS. No plan amendment is required.
