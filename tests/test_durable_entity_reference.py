@@ -102,7 +102,7 @@ class DurableEntityReferenceContractTests(unittest.TestCase):
         self.assertIn("A cross-provider move or re-scope MUST NOT be assumed to preserve qualified identity", self.contract)
 
     def test_contract_forbids_global_identity_registry(self) -> None:
-        self.assertIn("It does not become a global ID allocator", self.contract)
+        self.assertIn("provide a global ID allocator", self.contract)
         self.assertIn("a central entity registry", self.contract)
 
 
