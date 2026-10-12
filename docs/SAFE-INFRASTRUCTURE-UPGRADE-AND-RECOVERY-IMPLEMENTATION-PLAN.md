@@ -1,20 +1,20 @@
 # AI-Verse Safe Infrastructure Upgrade, Convergence and Recovery Implementation Plan
 
-**Status:** IN PROGRESS - PHASE 4; SLICE 4.1 COMPLETE  
+**Status:** IN PROGRESS - PHASE 4; SLICE 4.2 COMPLETE  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary orchestration repo:** `aiverse-filmmakers/ai-verse-distribution`  
 **Initial owner repos:** `aiverse-filmmakers/AI-Verse-OS`, `aiverse-filmmakers/AI-Verse-Skills`  
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 12  
-**Remaining:** 6  
-**Overall progress:** 66.7%  
+**Completed:** 13  
+**Remaining:** 5  
+**Overall progress:** 72.2%  
 **Current phase:** Phase 4 - Implement Distribution orchestration and simple member UX  
-**Current phase progress:** 1/4  
-**Slices until Phase 5:** 3  
-**Next:** Slice 4.2 - Extend shipped update staging/activation around structural upgrade requirements  
-**Next slice task list:** STOP - derive only when Slice 4.2 starts
+**Current phase progress:** 2/4  
+**Slices until Phase 5:** 2  
+**Next:** Slice 4.3 - Implement one-command doctor and upgrade-plan aggregation with plain-English traffic-light UX  
+**Next slice task list:** STOP - derive only when Slice 4.3 starts
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Verified shipped source, shipped contracts and tests outrank roadmap assumptions. Discovery may adapt the route; it may not silently change the destination.
 
@@ -1933,7 +1933,7 @@ Next execution unit: Phase 4 / Slice 4.1. Derive its adaptive task list only aft
 
 **Phase size:** 4 slices  
 **Status:** IN PROGRESS  
-**Phase progress:** 1/4
+**Phase progress:** 2/4
 
 ## Slice 4.1 - Implement one rotating Last-Known-Good recovery point and restore engine
 
@@ -2026,11 +2026,20 @@ Next execution unit: Slice 4.2. Derive its adaptive task list only after fresh r
 
 ## Slice 4.2 - Extend shipped update staging/activation around structural upgrade requirements
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 4.1, 2.2  
-**Adaptive tasks:** derive from the current qualified Distribution update flow
+**Adaptive tasks:** 6/6 COMPLETE
 
-The completed Core Update Program v1 updater is the base. Extend it; do not replace it.
+Extended the shipped Core Update Program v1 updater rather than replacing it. Distribution now reads exact target component release metadata before mutation, classifies structural compatibility as COMPATIBLE / OPTIONAL / REQUIRED / BLOCKED-REVIEW, preserves preview-only planning, and prevents incompatible target software from being falsely activated. No structural migration is executed by normal update.
+
+### Final adaptive task list
+
+- [x] **4.2-T1** Refresh System, Distribution, OS and Skills refs; re-read Slice 4.2, the infrastructure recipe contract, shipped updater/LKG flow and current owner descriptor state; inventory overlapping work before writes.
+- [x] **4.2-T2** Implement exact target component descriptor acquisition/validation plus deterministic read-only structural requirement classification, consuming only `ai-verse.infrastructure-upgrade/v1` owner metadata and failing closed on missing/ambiguous/unverifiable evidence.
+- [x] **4.2-T3** Extend Core `update_plan` with OPTIONAL / REQUIRED / BLOCKED-REVIEW activation truth while preserving no-op behavior, keeping preview read-only and exposing a concise member-facing recommendation without generation IDs, recipe IDs, repository paths or hashes.
+- [x] **4.2-T4** Extend mutating update staging/activation so OPTIONAL work is never silently applied, REQUIRED/BLOCKED structural state cannot be falsely activated, and a blocked apply stops before live software/receipt mutation or owner migration. Preserve the existing Slice 4.1 LKG and interruption model.
+- [x] **4.2-T5** Add focused positive and destructive-negative tests for no-infrastructure compatibility, OPTIONAL compatibility, REQUIRED activation block, BLOCKED/REVIEW ambiguity/unrecognized generation, stale/unverifiable evidence, read-only preview, plain-English output and interruption/source-receipt truth.
+- [x] **4.2-T6** Qualify the exact Distribution PR head and merged main, record exact evidence and acceptance results in System, update canonical Phase 4/overall counters, close Slice 4.2 and stop before Slice 4.3.
 
 ### Acceptance criteria
 
@@ -2044,9 +2053,52 @@ The completed Core Update Program v1 updater is the base. Extend it; do not repl
 - release/update transaction remains truthful after interruption;
 - member is never asked for release IDs, repository paths, migration recipe IDs or infrastructure generations.
 
+### Exact evidence
+
+- detailed evidence: `docs/SAFE-INFRASTRUCTURE-SLICE-4.2-UPDATE-GATING.md`;
+- task-list / start record merged through System PR #200;
+- Distribution PR #31 qualified head: `51eb900ac2d692fce7f6e3ae705fdebca257c463`;
+- Distribution merged main: `9842451bca86f32e48763fbfe07243a613f15214`;
+- PR-head `Distribution CI` run `38320871651`: **SUCCESS**, six jobs;
+- exact merged-main `Distribution CI` run `38321170716`: **SUCCESS**, six jobs.
+
+### Validation discoveries
+
+- The admitted target OS snapshot has a historical stale top-level descriptor `revision` while publishing no `migration.infrastructure`. The gate therefore trusts the exact Git carrier snapshot to prove absence, but requires exact revision binding as soon as structural metadata is published. This preserves the already-qualified current Core update without weakening future recipe admission.
+- Existing preservation tests use `ReleaseSet.raw` for generated-file fixture metadata. Runtime structural descriptor probes are therefore limited to canonical catalog-shaped releases instead of treating any non-empty fixture metadata as an admitted runtime release.
+- Synthetic structural tests were corrected to use catalog-shaped release metadata so OPTIONAL / REQUIRED / BLOCKED-REVIEW assertions exercise the real runtime branch.
+
+### Acceptance criteria
+
+- `aiverse update` remains the one-action admitted software update: **PASS**;
+- `aiverse update --plan` remains read-only preview: **PASS**;
+- normal update does not perform OPTIONAL infrastructure rearrangement: **PASS**;
+- target software incompatible with current infrastructure is not falsely activated: **PASS**;
+- REQUIRED upgrade state is visible and actionable in plain English: **PASS**;
+- BLOCKED/REVIEW state cannot be misrepresented as safe automatic work: **PASS**;
+- update stages only when structural evidence permits it and activation truth remains explicit: **PASS**;
+- release/update transaction remains truthful after interruption, with known structural refusal occurring before LKG rotation or live mutation: **PASS**;
+- member-facing output does not require release IDs, repository paths, migration recipe IDs or infrastructure generations: **PASS**;
+- exact PR-head and exact merged-main six-platform Distribution CI are green: **PASS**.
+
+### Completion report
+
+```text
+Completed: Slice 4.2 - Extend shipped update staging/activation around structural upgrade requirements
+Tasks: 6/6
+Overall: 13/18 slices (72.2%)
+Phase: Phase 4 - Implement Distribution orchestration and simple member UX
+Phase progress: 2/4
+Until Phase 5: 2 slices
+Next: Slice 4.3 - Implement one-command doctor and upgrade-plan aggregation with plain-English traffic-light UX
+Blockers/drift/amendments: no Slice 4.2 blocker or protected-law amendment. Existing unrelated broad-gate issues remain separate.
+```
+
 ### NEXT
 
-Slice 4.3.
+**STOP after Slice 4.2 under the current one-at-a-time execution request.**
+
+Next execution unit: Slice 4.3. Derive its adaptive task list only after fresh refs are fetched. No Safe Infrastructure Slice 4.3 implementation was started here.
 
 ---
 
