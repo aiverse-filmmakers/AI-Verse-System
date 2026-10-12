@@ -36,17 +36,19 @@ Never copy a static Registry field into Repository State as a separately maintai
 
 A date alone never proves freshness. Exact Git identity, evidence refs, scope and ancestry are the governing evidence.
 
-Repository State is stored inside AI-Verse-System, so its own System `observed_head` has unavoidable self-publication semantics: it records the exact System head that was observed immediately before the State snapshot is published. The commit that publishes that State/ledger snapshot is therefore expected to be a direct descendant of the recorded System head. Do not treat that one publication step as unexplained drift. Any additional System movement after the snapshot requires a new relevant refresh before freshness can be claimed for a decision that depends on it.
+Repository State is stored inside AI-Verse-System, so its own System `observed_head` has unavoidable self-publication semantics: it records the exact System head observed immediately before the State snapshot is published. The commit that publishes that State/ledger snapshot is therefore expected to be a direct descendant of the recorded System head. Do not treat that one publication step as unexplained drift. Any additional System movement after the snapshot requires a new relevant refresh before freshness can be claimed for a decision that depends on it.
 
-Before a scoped decision, the relevant Repository State entries must have a valid scoped refresh covering the decision scope. For Core, that means System, Distribution, OS, Brain, Memory, Skills and Data. A changed component also requires its dependency closure where applicable.
+Before a scoped decision, refresh only the Registry-derived scope required by that decision. For Core, that means System, Distribution, OS, Brain, Memory, Skills and Data. Component scope includes System, Distribution, the selected component and its declared direct dependency closure. Agent, Full and global scopes are derived from Registry lifecycle/release participation rather than hard-coded repository names.
 
-Before full-network governance decisions, use a full registered-repository refresh. Slice 3.1 adds live scoped/full refresh behavior to the existing `scripts/refresh_repository_state.py` path.
+`scripts/refresh_repository_state.py` is the single refresh and projection engine. Live refresh is read-only against sibling repositories. It verifies stable GitHub repository IDs, resolves exact default-branch heads, reads component release descriptors at those exact heads, evaluates owner acceptance only through the canonical descriptor validator, and reads Distribution release-set evidence at the exact observed Distribution head.
 
-The current Slice 2.3 implementation of that script only validates existing machine truth and renders/checks the ledger. It does not yet contact GitHub or refresh live evidence. Until Slice 3.1 is complete, do not claim that running the renderer refreshed Repository State.
+A descriptor can validly describe an accepted revision older than the descriptor publication commit. The descriptor's exact `revision` is the owner release target. The commit containing the descriptor is not silently substituted as the accepted release revision.
 
-`WATCHDOG-STALE` and `WATCHDOG-FAILED` are never CLEAN. A valid scoped refresh may support a scoped decision while the full watchdog is stale only when the governance contract permits it. Slice 3.2 adds the scheduled/manual full-scan heartbeat.
+Distribution qualification never becomes owner acceptance. Multiple or ambiguous current Distribution pins fail closed instead of being resolved by filename or date. Inaccessible evidence is `unavailable`; an executed check that fails is `failed`.
 
-If evidence is inaccessible, record `unavailable`. If a check ran and failed, record `failed`. Do not collapse either state into `unverified`, PASS or CLEAN.
+The refresh engine checks that live System HEAD equals the exact local/evidence revision before a refresh can be published. Concurrent System movement fails the refresh instead of silently publishing stale State.
+
+`WATCHDOG-STALE` and `WATCHDOG-FAILED` are never CLEAN. A valid scoped refresh may support a scoped decision while the full watchdog is stale only when the governance contract permits it. Slice 3.2 adds the scheduled/manual full-scan heartbeat using this same refresh engine.
 
 ## Drift and release blocking
 
@@ -72,7 +74,33 @@ Validate dynamic State against Registry:
 python scripts/validate_repository_state.py governance/repository-state.json
 ```
 
-Regenerate the human ledger from machine truth:
+Run a read-only live Core refresh without changing files:
+
+```bash
+python scripts/refresh_repository_state.py --refresh --scope Core
+```
+
+Run a read-only live component refresh:
+
+```bash
+python scripts/refresh_repository_state.py --refresh --scope component --component ai-verse-os
+```
+
+Run a read-only full registered-repository refresh:
+
+```bash
+python scripts/refresh_repository_state.py --refresh --scope global
+```
+
+Publish a refreshed Core State and its generated ledger in a System checkout:
+
+```bash
+python scripts/refresh_repository_state.py --refresh --scope Core --write-state --write-ledger
+```
+
+`--write-state` and `--write-ledger` only modify the local System checkout. They never write sibling repositories. Publish the resulting State and ledger together so they describe one snapshot.
+
+Regenerate the human ledger from already-recorded machine truth:
 
 ```bash
 python scripts/refresh_repository_state.py --write-ledger
@@ -109,8 +137,8 @@ Registry, Repository State, generated governance ledger, tombstones, implementat
 
 Member installs receive only admitted runtime/product artifacts plus legitimate member-facing generated files. Unknown and user-owned files remain protected.
 
-## Current bootstrap warning
+## Current state warning
 
-Repository State v1 was bootstrapped during Slice 2.3 from exact current Wave 1 heads, the current released Core release set, current owner descriptor observations and known drift evidence. The watchdog is intentionally `WATCHDOG-STALE` until the later full-scan machinery is operational.
+The live refresh engine is operational, but the scheduled/manual Drift Watchdog heartbeat is intentionally not implemented until Slice 3.2. Repository State therefore remains `WATCHDOG-STALE`; a successful scoped refresh does not make the global watchdog CLEAN.
 
-The existing Core release may have successful owner/Distribution test history, but current component descriptors do not yet prove exact owner acceptance for all current shipped refs. Repository State records that as a Core `BLOCKING` governance gap for future release admission rather than rewriting history or claiming the shipped refs were untested.
+The existing Core release may have successful owner/Distribution test history, but current component descriptors do not yet prove exact owner acceptance for all current shipped refs. Repository State keeps that Core `BLOCKING` governance gap visible for future release admission rather than rewriting history or claiming the shipped refs were untested.
