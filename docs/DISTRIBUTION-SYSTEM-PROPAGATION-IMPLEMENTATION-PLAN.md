@@ -12,7 +12,8 @@
 **Current execution phase:** Phase 1 - Audit and normalize current reality  
 **Current phase progress:** 0/3 slices complete  
 **Slices until next phase:** 3  
-**Next slice:** 1.1 - Audit the live repository network and existing safety machinery
+**Next slice:** 1.1 - Audit the live repository network and existing safety machinery  
+**Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 1.1 starts
 
 > This file is the execution tracker. It must update before and after every implementation slice. A slice is not COMPLETE until its implementation, tests, evidence, plan update and progress accounting are all committed.
 
@@ -33,10 +34,17 @@ The finished system must satisfy all of the following at once:
 7. **Maintainer governance remains outside member installs.** Internal repository-network controls must not leak into generated member projects.
 8. **Every admitted release is reconstructable.** Exact software composition and durable release evidence remain recoverable later.
 9. **The repository network can detect its own decay.** Missing repos, stale watchdogs, stale System truth, invalid handoffs and mismatched release refs become visible failures rather than silent drift.
+10. **Execution adapts to evidence.** Slice outcomes stay stable, but low-level tasks are discovered/refined from current reality rather than fully guessed at program creation time.
 
 The central design rule is:
 
 > **Define centrally. Enforce at the canonical owner. Verify again at composition.**
+
+The execution-planning rule is:
+
+> **Fix the destination. Discover the safest route from current reality.**
+
+Reusable planning method: `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`.
 
 ---
 
@@ -364,18 +372,25 @@ Update this file to:
 
 - mark the slice `IN PROGRESS`;
 - record the exact starting refs in scope;
+- refresh only the current state needed to plan the slice safely;
+- derive and record the current adaptive task list for that slice;
+- record task count and task status;
 - record the current phase and progress counters;
 - preserve the previous evidence/history.
+
+No substantial slice should begin implementation from an old guessed task list.
 
 ## Before marking a slice COMPLETE
 
 The same body of work must update this file with:
 
 - final status = `COMPLETE`;
+- final task list with every required task closed or explicitly superseded with reason;
 - exact implementation commits/PRs;
 - exact tests/workflows/reports;
 - owner/System/Distribution/ledger/release evidence as applicable;
 - blockers discovered/resolved;
+- changed assumptions or task-list changes and their evidence;
 - current phase progress;
 - overall completed/total;
 - overall percentage;
@@ -392,7 +407,9 @@ Overall progress is slice-based:
 
 Display to one decimal place unless exactly integral.
 
-If the denominator changes, update the Program Change Log and all counters immediately. Never change the denominator silently.
+Task count is local execution detail only. If discovery adds or removes legitimate tasks, overall program percentage does not move backward because slices are the stable acceptance unit.
+
+If the slice/program denominator changes, update the Program Change Log and all counters immediately. Never change the denominator silently.
 
 ## Mandatory user-facing completion report
 
@@ -400,24 +417,146 @@ At the end of every completed slice, report in this compact format:
 
 ```text
 Completed: Slice X.Y - <title>
+Tasks: <completed>/<final derived task total>
 Overall: <completed>/<total> slices complete (<percent>%)
 Phase: <phase number> - <phase title>
 Phase progress: <completed in phase>/<total in phase>
 Until next phase: <N> slice(s)
-Next: Slice X.Y - <title>
+Next: <next slice; first task remains adaptive until derived>
 Blockers/drift: <none or concise status>
 ```
 
-If the slice is blocked, report the same structure with `Blocked:` and do not increment progress.
+While a slice is in progress, progress updates may also report:
+
+```text
+Current task: X.Y.N - <title>
+Task progress: <completed>/<current derived task total>
+Slice: IN PROGRESS
+Overall: <slice-based overall percentage>
+```
+
+If the slice is blocked, report the same structure with `Blocked:` and do not increment slice progress.
+
+---
+
+# 6A. Adaptive task discovery and execution law
+
+The 20 slices are the stable implementation roadmap. Their purpose, dependencies and acceptance criteria are intentionally more stable than their low-level task lists.
+
+Low-level tasks are **adaptive execution units** and must not all be frozen at program creation time.
+
+## Rigidity hierarchy
+
+Use three levels of rigidity:
+
+1. **Permanent laws / invariants** - hardest to change; change only with explicit architectural evidence.
+2. **Phases and slices** - stable roadmap/outcomes; may change when verified findings prove the roadmap itself is wrong or incomplete.
+3. **Tasks** - deliberately adaptive; derive/refine from current evidence while implementing the slice.
+
+Do not confuse task flexibility with acceptance flexibility. Tasks may change; the slice must still satisfy its acceptance criteria unless the roadmap is explicitly amended with evidence.
+
+## Task derivation at slice start
+
+For every substantial slice, derive tasks only after:
+
+1. reading the latest version of this plan and the adaptive planning skill;
+2. reviewing findings/evidence from completed dependencies;
+3. refreshing the live repositories/state relevant to the slice;
+4. inspecting existing implementation before proposing new implementation;
+5. classifying relevant needs as `REUSE`, `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN`;
+6. identifying the smallest task set necessary to satisfy the fixed slice acceptance criteria.
+
+A recommended first task for substantial slices is:
+
+`X.Y.1 - Refresh current state and derive/refine the execution tasks for this slice.`
+
+That discovery task is not permission for endless planning. It should produce a bounded current task list and move directly into execution.
+
+## Task eligibility rule
+
+Do not create speculative implementation tasks.
+
+A task is justified only when at least one is true:
+
+- required by the slice acceptance criteria;
+- required by a verified implementation/audit finding;
+- required to resolve a blocker or drift condition;
+- required to test/prove an important claim;
+- required to reuse/extend an existing mechanism safely;
+- required because a previous planned approach was proven invalid or duplicative.
+
+`It sounds sophisticated` is not valid justification.
+
+## Task evolution during a slice
+
+Tasks may be added, removed, split, merged or reordered when new evidence justifies the change.
+
+When the task list changes:
+
+- update this plan before relying on the new task structure;
+- record the finding/reason;
+- preserve completed task history;
+- do not silently delete failed/superseded work from the record;
+- do not weaken acceptance criteria merely to close the slice;
+- do not inflate or manipulate task counts to improve apparent progress.
+
+Examples:
+
+- if an audited mechanism already solves the need, remove the duplicate CREATE task and replace it with REUSE/EXTEND validation;
+- if a hidden dependency appears, add the smallest task needed to understand/fix it;
+- if ownership proves different from assumption, reroute work to the canonical owner rather than force the original task into the wrong repo.
+
+## Task progress accounting
+
+Task progress is local to the current slice and may legitimately change as tasks are discovered.
+
+Example:
+
+```text
+Slice 2.1 tasks: 4/7 complete
+```
+
+If two evidence-backed tasks are discovered:
+
+```text
+Slice 2.1 tasks: 4/9 complete
+```
+
+This does not reduce overall program progress. Overall percentage remains slice-based.
+
+## Roadmap self-correction
+
+If implementation proves a slice/phase itself is wrongly scoped, ordered or unnecessary:
+
+1. stop the affected work before forcing reality into the old roadmap;
+2. record the exact finding/evidence;
+3. revise/split/merge/reorder the affected slice or phase transparently;
+4. update denominator/counters if necessary;
+5. preserve completed history;
+6. explain the change in the Program Change Log;
+7. resume only from the corrected roadmap.
+
+The roadmap exists to control reality safely, not to overrule verified reality.
 
 ---
 
 # 7. Status vocabulary
 
+Slice status:
+
 - `NOT STARTED`
 - `IN PROGRESS`
 - `BLOCKED`
 - `COMPLETE`
+
+Task status:
+
+- `NOT STARTED`
+- `IN PROGRESS`
+- `BLOCKED`
+- `COMPLETE`
+- `SUPERSEDED` with reason/evidence
+- `NOT NEEDED` only when evidence proves it unnecessary
 
 Do not mark work COMPLETE merely because code exists.
 
@@ -440,13 +579,17 @@ Do not mark work COMPLETE merely because code exists.
 - existing safe-update/release contracts are explicitly reused rather than duplicated;
 - implementation order is dependency-safe;
 - mandatory plan bookkeeping and user progress reporting are defined;
+- adaptive task discovery/self-correction is defined without pre-guessing all future tasks;
+- reusable future planning skill exists;
 - future agents can resume without this conversation.
 
 ### Evidence
 
 - canonical path: `docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md`
+- planning skill: `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`
 - original program created 2026-10-12
 - normalized into this 20-slice dependency-safe program on 2026-10-12
+- adaptive task-discovery model added on 2026-10-12
 
 ### NEXT
 
@@ -463,7 +606,8 @@ Do not mark work COMPLETE merely because code exists.
 ## Slice 1.1 - Audit the live repository network and existing safety machinery
 
 **Status:** NOT STARTED  
-**Dependencies:** 0.1
+**Dependencies:** 0.1  
+**Adaptive tasks:** NOT YET DERIVED - derive from live state at slice start
 
 Audit current source and live repository state.
 
@@ -504,7 +648,8 @@ To be recorded on completion.
 ## Slice 1.2 - Build the reuse, ownership, payload and drift inventory
 
 **Status:** NOT STARTED  
-**Dependencies:** 1.1
+**Dependencies:** 1.1  
+**Adaptive tasks:** derive from Slice 1.1 findings when this slice starts
 
 Classify every relevant concern as:
 
@@ -548,7 +693,8 @@ To be recorded on completion.
 ## Slice 1.3 - Freeze the implementation architecture and acceptance matrix
 
 **Status:** NOT STARTED  
-**Dependencies:** 1.2
+**Dependencies:** 1.2  
+**Adaptive tasks:** derive from the evidence-backed inventory when this slice starts
 
 Before coding, freeze the implementation decisions for:
 
@@ -592,7 +738,8 @@ To be recorded on completion.
 ## Slice 2.1 - Create the repository-network governance, invariant and tombstone contract
 
 **Status:** NOT STARTED  
-**Dependencies:** 1.3
+**Dependencies:** 1.3  
+**Adaptive tasks:** derive at slice start from the frozen Phase 1 architecture
 
 Create the permanent System contract that defines:
 
@@ -630,7 +777,8 @@ To be recorded on completion.
 ## Slice 2.2 - Create the machine-readable Repository Registry
 
 **Status:** NOT STARTED  
-**Dependencies:** 2.1
+**Dependencies:** 2.1  
+**Adaptive tasks:** derive at slice start; reuse existing machine-readable surfaces if Phase 1 found them
 
 Create a versioned machine-readable Registry, for example:
 
@@ -674,7 +822,8 @@ To be recorded on completion.
 ## Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint
 
 **Status:** NOT STARTED  
-**Dependencies:** 2.2
+**Dependencies:** 2.2  
+**Adaptive tasks:** derive at slice start from the accepted Registry and existing maintainer surfaces
 
 Create versioned dynamic repository-state semantics, for example:
 
@@ -716,7 +865,8 @@ To be recorded on completion.
 ## Slice 3.1 - Implement scoped/full repository refresh and generated ledger
 
 **Status:** NOT STARTED  
-**Dependencies:** 2.3
+**Dependencies:** 2.3  
+**Adaptive tasks:** derive at slice start from accepted state/registry schemas and available GitHub/CI surfaces
 
 Implement System maintainer tooling that:
 
@@ -752,7 +902,8 @@ To be recorded on completion.
 ## Slice 3.2 - Implement Drift Watchdog and heartbeat
 
 **Status:** NOT STARTED  
-**Dependencies:** 3.1
+**Dependencies:** 3.1  
+**Adaptive tasks:** derive at slice start from the proven refresh tooling; do not duplicate its logic
 
 Implement whole-network maintainer automation that:
 
@@ -783,7 +934,8 @@ To be recorded on completion.
 ## Slice 3.3 - Reconcile current System truth and known drift
 
 **Status:** NOT STARTED  
-**Dependencies:** 3.2
+**Dependencies:** 3.2  
+**Adaptive tasks:** derive from actual drift results at slice start; do not pre-assume Purpose Context is the only drift
 
 Use exact accepted owner/Distribution evidence to reconcile System forward where System is stale.
 
@@ -820,7 +972,8 @@ To be recorded on completion.
 ## Slice 4.1 - Extend/reuse the existing component release descriptor
 
 **Status:** NOT STARTED  
-**Dependencies:** 3.3
+**Dependencies:** 3.3  
+**Adaptive tasks:** derive at slice start; only add descriptor fields Phase 1/3 evidence proves necessary
 
 Do not create a separate compatibility fingerprint format.
 
@@ -855,7 +1008,8 @@ To be recorded on completion.
 ## Slice 4.2 - Add Wave 1/Core component maintainer handoff rules
 
 **Status:** NOT STARTED  
-**Dependencies:** 4.1
+**Dependencies:** 4.1  
+**Adaptive tasks:** derive per Core repo from its real maintainer/CI conventions
 
 For OS, Brain, Memory, Skills and Data, add minimal source-only maintainer guidance using existing repo conventions where possible.
 
@@ -890,7 +1044,8 @@ To be recorded per repo.
 ## Slice 4.3 - Extend handoff governance to Wave 2 and Wave 3 repos
 
 **Status:** NOT STARTED  
-**Dependencies:** 4.2
+**Dependencies:** 4.2  
+**Adaptive tasks:** derive from Registry status and Wave 1 lessons; do not assume every future repo needs identical work
 
 Use the Core-proven pattern for Agent/Full/future release-relevant repos registered by System.
 
@@ -920,7 +1075,8 @@ To be recorded on completion.
 ## Slice 5.1 - Add immutable candidate evidence snapshot and owner-adoption gates
 
 **Status:** NOT STARTED  
-**Dependencies:** 4.3
+**Dependencies:** 4.3  
+**Adaptive tasks:** derive from audited Distribution candidate machinery; extend existing flow rather than parallel it
 
 Integrate into existing Distribution candidate/release machinery rather than creating a parallel release database.
 
@@ -947,7 +1103,8 @@ To be recorded on completion.
 ## Slice 5.2 - Enforce member payload isolation
 
 **Status:** NOT STARTED  
-**Dependencies:** 5.1
+**Dependencies:** 5.1  
+**Adaptive tasks:** derive from the actual install/update/rollback payload paths found in Phase 1
 
 Enforce deterministic member-facing payload boundaries for:
 
@@ -977,7 +1134,8 @@ To be recorded on completion.
 ## Slice 5.3 - Formalize promotion and qualification
 
 **Status:** NOT STARTED  
-**Dependencies:** 5.2
+**Dependencies:** 5.2  
+**Adaptive tasks:** derive from existing candidate/released/preservation mechanics and current release policy
 
 Build on existing candidate/released/preservation mechanics.
 
@@ -1025,7 +1183,8 @@ To be recorded on completion.
 ## Slice 5.4 - Implement reproducibility and durable release receipts
 
 **Status:** NOT STARTED  
-**Dependencies:** 5.3
+**Dependencies:** 5.3  
+**Adaptive tasks:** derive from existing release receipts/evidence discovered earlier; do not duplicate durable data already stored canonically
 
 For every admitted release persist a compact durable receipt containing enough immutable evidence to reconstruct the shipped software composition later.
 
@@ -1067,7 +1226,8 @@ To be recorded on completion.
 ## Slice 6.1 - Add cross-repo regression and evidence validation
 
 **Status:** NOT STARTED  
-**Dependencies:** 5.4
+**Dependencies:** 5.4  
+**Adaptive tasks:** derive from the invariants and actual implemented enforcement surfaces; do not create redundant tests
 
 Automate regression scenarios including:
 
@@ -1105,7 +1265,8 @@ To be recorded on completion.
 ## Slice 6.2 - Run end-to-end qualification
 
 **Status:** NOT STARTED  
-**Dependencies:** 6.1
+**Dependencies:** 6.1  
+**Adaptive tasks:** derive from the implemented paths and any remaining drift/blockers at slice start
 
 Run representative scenarios:
 
@@ -1156,7 +1317,8 @@ To be recorded on completion.
 ## Slice 6.3 - Canonical closeout and program handoff
 
 **Status:** NOT STARTED  
-**Dependencies:** 6.2
+**Dependencies:** 6.2  
+**Adaptive tasks:** derive from actual remaining closeout debt; do not perform ceremonial changes with no evidence-backed need
 
 Close only after all previous acceptance criteria pass.
 
@@ -1197,6 +1359,18 @@ None. Program complete.
 ---
 
 # Program Change Log
+
+## 2026-10-12 - Adaptive task discovery and reusable planning skill added
+
+- Added `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md` as the reusable method for future complex implementation plans.
+- Kept phases/slices as stable outcome and acceptance milestones while making low-level task lists intentionally adaptive.
+- Required each substantial slice to refresh relevant reality and derive/refine its task list at slice start rather than pre-guessing all future tasks.
+- Added task eligibility rules to prevent speculative implementation work.
+- Allowed evidence-backed task add/remove/split/merge/reorder with preserved history and explicit reasons.
+- Kept overall percentage slice-based so task discovery cannot make program progress artificially move backward.
+- Added task-level progress reporting for the current slice.
+- Added roadmap self-correction when verified evidence proves a slice/phase itself is wrongly scoped or ordered.
+- Marked future slice task lists as adaptive rather than falsely complete today.
 
 ## 2026-10-12 - Program normalized into dependency-safe 20-slice execution sequence
 
@@ -1250,4 +1424,5 @@ None. Program complete.
 **Phase progress:** 0/3  
 **Until Phase 2:** 3 slices  
 **Next:** Slice 1.1 - Audit the live repository network and existing safety machinery  
+**Next task:** not yet derived; generate from live Slice 1.1 evidence at slice start  
 **Blockers/drift:** none recorded by the plan yet; Slice 1.1 must establish the evidence-backed baseline before implementation changes begin.
