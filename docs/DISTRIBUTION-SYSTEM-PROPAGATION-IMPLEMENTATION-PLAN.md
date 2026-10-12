@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 5  
-**Remaining:** 15  
-**Overall progress:** 25.0%  
+**Completed:** 6  
+**Remaining:** 14  
+**Overall progress:** 30.0%  
 **Current execution phase:** Phase 2 - Define the canonical System control plane  
-**Current phase progress:** 1/3 slices complete  
-**Slices until next phase:** 2  
+**Current phase progress:** 2/3 slices complete  
+**Slices until next phase:** 1  
 **Current slice:** 2.2 - Create the machine-readable Repository Registry  
-**Current slice status:** IN PROGRESS  
-**Task progress:** 1/5  
+**Current slice status:** COMPLETE  
+**Task progress:** 5/5  
 **Next slice:** 2.3 - Define Repository State, generated ledger and maintainer entrypoint  
 **Next slice task list:** NOT YET DERIVED - generate from live evidence when Slice 2.3 starts
 
@@ -22,7 +22,7 @@
 
 ## Tracker history preservation
 
-Verbose Phase 0/1 history is preserved at Slice 1.3 closure commit `acabfba8031421438747fed69bcbc65ba844787e`. Verbose Slice 2.1 history is preserved at closure commit `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
+Verbose Phase 0/1 history is preserved at Slice 1.3 closure `acabfba8031421438747fed69bcbc65ba844787e`. Verbose Slice 2.1 history is preserved at closure `11940b87838afa0f46570ecdd8f8e00f74b7de5a`. Slice 2.2 detailed start state is preserved at `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f`. Compaction changes presentation only, never program laws, ownership, slice outcomes, acceptance criteria, ordering, denominator or evidence floors.
 
 ---
 
@@ -30,15 +30,9 @@ Verbose Phase 0/1 history is preserved at Slice 1.3 closure commit `acabfba80314
 
 Make the AI-Verse repository network behave as one controlled, self-checking product without collapsing repositories into one codebase.
 
-Central rule:
-
 > **Define centrally. Enforce at the canonical owner. Verify again at composition.**
 
-Execution rule:
-
 > **Fix the destination. Discover the safest route from current reality.**
-
-Adaptive-authority rule:
 
 > **Discovery may adapt the route. It may not silently change the destination.**
 
@@ -46,12 +40,12 @@ Reusable planning method: `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`.
 
 ## Canonical roles
 
-- **AI-Verse-System:** architecture/product intent, ownership, system invariants, cross-repo governance, Repository Registry, Repository State semantics, generated ledger, tombstones, shared governance semantics and current-vs-intended truth. Never a second component implementation home or installer.
+- **AI-Verse-System:** architecture/product intent, ownership, invariants, cross-repository governance, Repository Registry, Repository State semantics, generated ledger, tombstones and current-vs-intended truth. Never a second component implementation home or installer.
 - **Component repositories:** implementation, local APIs/schemas, local state/migration/recovery semantics, native CI/acceptance, component release descriptor/evidence and implementation provenance.
-- **ai-verse-distribution:** exact release composition, immutable refs, candidate admission, cross-component compatibility, lifecycle orchestration, member payload boundary, whole-product qualification, promotion/channels and durable release reconstruction evidence. Never sibling domain/state authority.
+- **ai-verse-distribution:** exact release composition, candidate admission, compatibility, lifecycle orchestration, member payload boundary, whole-product qualification, promotion/channels and durable release reconstruction. Never sibling domain/state authority.
 - **Member installation:** admitted runtime/product artifacts plus legitimate member-facing generated files only. Internal governance remains source-only.
 
-## Existing contracts to reuse
+## Canonical contracts to reuse
 
 - `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`
 - `docs/SAFE-UPDATE-AND-STATE-PRESERVATION-CONTRACT.md`
@@ -61,27 +55,25 @@ Reusable planning method: `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`.
 - `docs/OWNER-PRODUCT-INTENT.md`
 - `docs/ARCHITECTURE-TOMBSTONES.md`
 
-No second updater, compatibility fingerprint, whole-release acceptance database, Repository State authority, sibling acceptance authority or promotion database may be introduced silently.
+No second updater, compatibility fingerprint, whole-release acceptance database, Registry/State authority, sibling acceptance authority or promotion database may be introduced silently.
 
 ## Permanent laws
 
-1. Discovery location never determines ownership. Ambiguous ownership is `BLOCKED - OWNER UNRESOLVED`.
-2. Owner validation and Distribution whole-product qualification are separate mandatory layers.
-3. Repository Registry static truth and Repository State dynamic truth are separate; Markdown ledger is generated projection only.
+1. Discovery location never determines ownership. Ambiguity is `BLOCKED - OWNER UNRESOLVED`.
+2. Owner validation and Distribution qualification are separate mandatory layers.
+3. Repository Registry static truth, Repository State dynamic truth and generated human ledger are distinct.
 4. Scoped decisions use scoped refreshes; full scans are reserved for full-network decisions/watchdog.
 5. Stable repository identity, exact immutable refs and Git ancestry outrank timestamps for lineage.
-6. `CANONICAL-DRIFT-DETECTED` freezes automatic correction. Stale System docs cannot revert accepted implementation; newer unvalidated code cannot rewrite intent automatically.
-7. Drift records carry `INFO | WARNING | BLOCKING` plus `component | Core | Agent | Full | global`; only intersecting/global BLOCKING drift blocks a release.
-8. Maintainer governance never enters member installs by default. Unknown/user files remain protected.
+6. `CANONICAL-DRIFT-DETECTED` freezes automatic correction. Stale docs cannot regress accepted implementation; newer unvalidated code cannot auto-rewrite intent.
+7. Drift carries `INFO | WARNING | BLOCKING` plus `component | Core | Agent | Full | global`; only intersecting/global BLOCKING drift blocks release.
+8. Maintainer governance remains outside member installs. Unknown/user files remain protected.
 9. Candidate qualification binds exact Distribution/System/Registry/State/component/descriptor/owner/compatibility/preservation/toolchain evidence; bound-input change requires requalification.
-10. Admitted releases require durable reconstruction evidence, not only expiring CI artifacts.
-11. Emergency safety release may not bypass owner validation, exact refs, compatibility/migration, preservation, whole-product qualification or member isolation. Only explicit non-safety `SYSTEM-SYNC-DEBT` is temporarily allowed and blocks later normal promotion until reconciled.
-12. Retired/replaced/prohibited architecture leaves durable System tombstones.
-13. Depended-on APIs/schemas/interfaces cannot disappear silently. Breaking change requires compatible replacement, versioned coexistence or coordinated migration/release.
+10. Admitted releases require durable reconstruction evidence.
+11. Emergency safety release cannot bypass owner validation, exact refs, compatibility/migration, preservation, whole-product qualification or member isolation. Only explicit non-safety `SYSTEM-SYNC-DEBT` may be temporarily carried and it blocks later normal promotion until reconciled.
+12. Retired/replaced/prohibited architecture leaves durable tombstones.
+13. Depended-on contracts cannot disappear silently. Breaking change requires compatible replacement, versioned coexistence or coordinated migration/release.
 14. Rollout remains Wave 1 System+Distribution+Core, then Registry-confirmed Wave 2 Agent, then Registry-confirmed Wave 3 Full/future.
-15. Adaptive execution may alter tasks/techniques but never silently weaken ownership, product intent, permanent laws, slice outcomes, preservation, validation, member isolation, evidence floors, major ordering or denominator. Protected change requires `BLOCKED - PLAN AMENDMENT REQUIRED`.
-
-Non-degradation law:
+15. Adaptive execution may alter tasks/techniques but never silently weaken ownership, product intent, permanent laws, slice outcomes, safety, validation, member isolation, evidence floors, major ordering or denominator. Protected change requires `BLOCKED - PLAN AMENDMENT REQUIRED`.
 
 > **Discovery may reduce unnecessary work. It may never reduce safety, ownership, preservation, validation, member-isolation or required evidence on its own authority.**
 
@@ -89,9 +81,9 @@ Non-degradation law:
 
 # 1. Required execution bookkeeping
 
-Before every substantial slice: read the latest plan/skill, refresh only relevant live state, inspect existing implementation/contracts, classify `REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN`, derive the smallest evidence-backed tasks, update this tracker to `IN PROGRESS` before implementation, and verify no protected roadmap element changed.
+Before every substantial slice: read latest plan/skill, refresh relevant live state, inspect existing implementation/contracts, classify `REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN`, derive the smallest evidence-backed tasks, update this tracker to `IN PROGRESS` before implementation, and verify no protected roadmap element changed.
 
-Before `COMPLETE`: close/supersede every derived task with evidence, record exact commits/tests/reports/fresh refs/drift/amendments, update counters and commit this tracker.
+Before `COMPLETE`: close or supersede every task with evidence, record exact commits/tests/reports/final refs/drift/amendments, update counters and commit this tracker.
 
 Overall progress = completed slices / 20. Task count is local only.
 
@@ -122,21 +114,21 @@ Carried findings: descriptor exact-owner-acceptance gap BLOCKING for future Core
 **Status:** COMPLETE  
 **Evidence:** `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md`, commit `8a45649276023ecc6626e5f8b25a76f0403c2912`.
 
-Decision: one Component Release Descriptor; reuse Distribution update/preservation/candidate/qualification/promotion; System owns future Registry/State; generated ledger only; reject duplicate mechanisms.
+Decision: one Component Release Descriptor; reuse Distribution update/preservation/candidate/qualification/promotion; System owns Registry/State; generated ledger only; reject duplicate mechanisms.
 
 ## Slice 1.3 - Architecture freeze and Wave 1 acceptance matrix
 
 **Status:** COMPLETE  
 **Evidence:** `docs/REPOSITORY-NETWORK-IMPLEMENTATION-ARCHITECTURE-2026-10-12.md`, architecture commit `7450247a1d039bd6464e74e58babb6e80d90063a`, closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
-Frozen paths include `contracts/repository-registry.schema.json`, `governance/repository-registry.json`, later Repository State/ledger/refresh/watchdog surfaces, existing descriptor only and existing Distribution release machinery only.
+Frozen paths include Registry/State schemas and data, generated ledger, refresh/watchdog surfaces, existing component descriptor only and existing Distribution release machinery only.
 
 ---
 
 # Phase 2 - Define the canonical System control plane
 
 **Phase size:** 3 slices  
-**Current phase progress:** 1/3
+**Current phase progress:** 2/3
 
 ## Slice 2.1 - Repository-network governance, invariants and tombstones
 
@@ -144,70 +136,89 @@ Frozen paths include `contracts/repository-registry.schema.json`, `governance/re
 **Task progress:** 5/5  
 **Closure:** `11940b87838afa0f46570ecdd8f8e00f74b7de5a`
 
-Created permanent governance at `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`, tombstones at `docs/ARCHITECTURE-TOMBSTONES.md`, and README discoverability. Existing update/release contracts remain canonical for their own domains. No runtime/component/Distribution composition/member payload changed.
+Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md`, `docs/ARCHITECTURE-TOMBSTONES.md` and README discoverability. Existing update/release contracts remain canonical for their domains.
 
 ## Slice 2.2 - Create the machine-readable Repository Registry
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 2.1  
-**Task progress:** 1/5
+**Task progress:** 5/5
 
-### Slice start record
-
-Slice 2.2 begins from accepted Slice 2.1 governance and the frozen Phase 1 control-plane architecture. Fresh inspection confirms existing JSON schemas live under `contracts/`, semantic validators under `scripts/`, and `.github/workflows/contract-validation.yml` already runs Python 3.11/3.13 validation plus the shared unittest suite. Therefore this slice extends that existing validation path rather than creating parallel CI.
-
-Starting refs:
-
-- AI-Verse-System `main`: `11940b87838afa0f46570ecdd8f8e00f74b7de5a`
-- ai-verse-distribution `main`: `fd11b4a95487638d47ff55472a3703b03892d0e8`
-- AI-Verse-OS `main`: `64f7325444d18f94c9d4755d32eb89f3468bda6b`
-- AI-Verse-Brain `main`: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
-- AI-Verse-Memory `main`: `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
-- AI-Verse-Skills `main`: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
-- AI-Verse-Data `main`: `f8978f8f7a1bc94edecddc2662112233289159a3`
-
-All seven refs are unchanged from the end of Slice 2.1 except System, whose head is exactly the Slice 2.1 closure commit.
-
-Fresh stable repository identity verification:
-
-- System: GitHub repository ID `1367664026`, current name `aiverse-filmmakers/AI-Verse-System`
-- Distribution: `1350081263`, `aiverse-filmmakers/ai-verse-distribution`
-- OS: `1361862361`, `aiverse-filmmakers/AI-Verse-OS`
-- Brain: `1362233598`, `aiverse-filmmakers/AI-Verse-Brain`
-- Memory: `1361910454`, `aiverse-filmmakers/AI-Verse-Memory`
-- Skills: `1362243580`, `aiverse-filmmakers/AI-Verse-Skills`
-- Data: `1364457521`, `aiverse-filmmakers/AI-Verse-Data`
-
-The IDs match the Phase 1 audit and are the rename-safe identity anchor. Current `owner/name` remains declarative routing metadata, not logical identity.
-
-Relevant mechanism classification:
-
-- Registry schema at `contracts/repository-registry.schema.json`: `CREATE`, frozen Phase 1 destination.
-- Registry data at `governance/repository-registry.json`: `CREATE`, the one global static registry authority.
-- semantic validator at `scripts/validate_repository_registry.py`: `CREATE`, following existing validator convention.
-- contract validation workflow: `EXTEND`, reuse existing `.github/workflows/contract-validation.yml`.
-- shared unittest suite: `EXTEND` with Registry positive/negative semantic cases.
-- Distribution registry/database: `RETIRE/NOT NEEDED`; Distribution consumes/freeze-snapshots relevant System Registry evidence later but does not own a competing editable registry.
-- Repository State/current HEAD/accepted ref/Distribution pin/current drift: `NOT IN REGISTRY`; those remain Slice 2.3+ dynamic State concerns.
-
-Final derived adaptive tasks:
+### Final task record
 
 1. **2.2.1 - Refresh Wave 1 refs/stable repository identities, inspect schema/validator/CI conventions and derive/refine the task list.** `COMPLETE`
-2. **2.2.2 - Create `contracts/repository-registry.schema.json` with versioned static identity/ownership/lifecycle/profile/descriptor/acceptance/spec/dependency semantics and explicit exclusion of dynamic state.** `NOT STARTED`
-3. **2.2.3 - Create `governance/repository-registry.json` with System, Distribution and the five Core owners as Wave 1 entries, using stable GitHub IDs as logical identity anchors and current names as routing metadata.** `NOT STARTED`
-4. **2.2.4 - Add `scripts/validate_repository_registry.py`, Registry contract tests and extend existing contract-validation workflow; prove uniqueness, rename-safe identity, lifecycle/profile/shipping invariants and fail-closed unknown first-class release participation semantics.** `NOT STARTED`
-5. **2.2.5 - Run/inspect validation evidence, refresh final refs, verify Distribution has no competing registry and close Slice 2.2 without dynamic State/runtime/member-payload or protected-roadmap changes.** `NOT STARTED`
+2. **2.2.2 - Create `contracts/repository-registry.schema.json` with versioned static identity/ownership/lifecycle/profile/descriptor/acceptance/spec/dependency semantics and explicit exclusion of dynamic state.** `COMPLETE`
+3. **2.2.3 - Create `governance/repository-registry.json` with System, Distribution and five Core owners, stable GitHub IDs as logical identity anchors and current names as routing metadata.** `COMPLETE`
+4. **2.2.4 - Add semantic validator/tests and extend existing Contract Validation workflow; prove uniqueness, rename-safe identity, lifecycle/profile/shipping invariants and fail-closed unregistered release semantics.** `COMPLETE`
+5. **2.2.5 - Run validation, refresh final refs, verify no competing Distribution Registry, account for concurrency and close without dynamic State/runtime/member-payload/protected-roadmap changes.** `COMPLETE`
 
-Protected-boundary check: PASS. This slice implements only the already-frozen static System Registry. It does not create Repository State, infer current acceptance/HEAD/drift, change release composition, alter component ownership, modify member payload or weaken any safety/validation floor. No plan amendment is required.
+### Implementation evidence
 
-### Acceptance criteria
+- Slice start/tracker: `4e5b8b55a3f5227083daf72ec55d9fcaaef3a12f`
+- Registry schema: `7ecb833240ff6824aa43097f48be9d611b94c8f5`
+- Initial seven-entry Registry: `94179f1e26d2e19fae3b104cac7c2eb74d107917`
+- Semantic validator: `a0e14b9f74061594b30e6376ffef12db4a65bc48`
+- Contract tests: `6ddfc792e0200dfc4da653e9c8c59117c2eb47ed`
+- Existing Contract Validation workflow extension: `f8878460ee2757fad7249e3ca666b5af0d8a801a`
+- Canonical machine Registry: `governance/repository-registry.json`
+- Registry schema: `contracts/repository-registry.schema.json`
+- Validator: `scripts/validate_repository_registry.py`
+- Tests: `tests/test_repository_registry.py`
 
-- one canonical global Registry exists at `governance/repository-registry.json`;
-- stable repository identity prevents owner/name rename from silently creating a new logical component;
-- static Registry facts remain separate from dynamic Repository State;
-- Distribution does not maintain a competing independent Registry;
-- unregistered first-class release components cannot be treated as silently admitted by Registry semantics/validator;
-- schema, semantic validator and existing contract-validation path cover the Registry.
+### Registry semantics accepted
+
+- schema version is `ai-verse.repository-registry/v1`;
+- `repository_id` is the stable logical identity key;
+- current `owner/name` is routing metadata, so a rename with unchanged stable ID does not create a new logical repository;
+- first-class unregistered release participation is fail-closed with `unregistered_first_class_release: block`;
+- Distribution explicitly is not an independent Registry authority;
+- Registry holds only stable/declarative identity, responsibility, lifecycle, rollout wave, release-profile participation, shipping participation, descriptor path, acceptance discovery surface, System refs and optional known direct compatibility dependencies;
+- live HEAD, owner-accepted revision, Distribution pin, CI outcome, last refresh, drift and watchdog state are intentionally excluded and remain Repository State concerns;
+- initial Wave 1 Registry contains exactly seven entries: System, Distribution, OS, Brain, Memory, Skills and Data;
+- System/Distribution are Wave 1 control-plane participants but are not marked as Distribution-shipped runtime components;
+- the five Core owners are active `runtime-component` entries, participate in `Core`, are Distribution-shipped and expect `release/component-release.json` plus component-native owner acceptance.
+
+### Validation evidence
+
+Contract Validation workflow run `38256854398` on commit `f8878460ee2757fad7249e3ca666b5af0d8a801a` completed `success`.
+
+Both matrix jobs passed:
+
+- Python 3.13 job `114837022223`
+- Python 3.11 job `114837022371`
+
+Both jobs passed the existing descriptor/preservation checks, the new `Validate repository registry` step and the full shared contract test suite. Registry tests include rename-safe identity, duplicate stable-ID/component-ID rejection, dynamic-field rejection, shipped-component descriptor/profile/native-acceptance requirements, Distribution authority rejection and unregistered dependency rejection.
+
+Distribution searches for `repository-registry` and `repository_registry` returned no matching code entries. Results were marked incomplete by GitHub search, so this is supportive evidence rather than a standalone proof; it is consistent with the Phase 1 audit and with no Distribution changes during this slice.
+
+### Final freshness and concurrency
+
+Final refs before closure:
+
+- AI-Verse-System: `f8878460ee2757fad7249e3ca666b5af0d8a801a` before this closure commit
+- ai-verse-distribution: `fd11b4a95487638d47ff55472a3703b03892d0e8`
+- AI-Verse-OS: `64f7325444d18f94c9d4755d32eb89f3468bda6b`
+- AI-Verse-Brain: `69f7912eeb35f0178f6952ff0554aec8d7f2c496`
+- AI-Verse-Memory: `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`
+- AI-Verse-Skills: `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`
+- AI-Verse-Data: `f8978f8f7a1bc94edecddc2662112233289159a3`
+
+One concurrent System commit occurred after Registry tests and before the workflow integration: `d9920be2727a550266086b84b73aafbc397c07de`, message `Record Safe Infrastructure Slice 1.2 evidence inventory`. Exact compare proves it added only `docs/SAFE-INFRASTRUCTURE-SLICE-1.2-INVENTORY.md`. It did not touch this program, Registry schema/data, validator, tests or workflow. The subsequent successful CI run therefore validated the Registry on top of that preserved concurrent commit.
+
+### Acceptance disposition
+
+PASS.
+
+- one canonical global Registry exists;
+- stable repository ID protects logical identity across owner/name rename;
+- static Registry truth is cleanly separated from future dynamic Repository State;
+- Distribution has no competing Registry authority and remained unchanged;
+- unregistered first-class release participation is explicitly fail-closed;
+- schema, semantic validator, negative/positive tests and the existing Contract Validation path all cover the Registry;
+- no runtime behavior, release composition, component implementation or member payload changed;
+- no protected roadmap element changed and no plan amendment was required.
+
+Known drift carried forward unchanged: descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag WARNING; Core maintainer handoff WARNING; Distribution adapter hard-coded compatibility knowledge WARNING; compact release receipt INFO/future work; U35/U36 remain RESOLVED/PASS.
 
 ### NEXT
 
@@ -220,7 +231,7 @@ Protected-boundary check: PASS. This slice implements only the already-frozen st
 
 Create versioned dynamic Repository State at `governance/repository-state.json`, schema `contracts/repository-state.schema.json`, generated `docs/REPOSITORY-STATE-LEDGER.md` and `docs/MAINTAINER-START-HERE.md` semantics.
 
-Acceptance: Markdown ledger generated only; Registry facts are not independent dynamic truth; scoped freshness explicit; stale/missing watchdog evidence cannot masquerade as CLEAN.
+Acceptance: Markdown ledger generated only; Registry fields are not independently duplicated as dynamic truth; scoped freshness is explicit; `WATCHDOG-STALE`/equivalent exists so silence cannot masquerade as CLEAN.
 
 ---
 
@@ -233,7 +244,7 @@ Acceptance: Markdown ledger generated only; Registry facts are not independent d
 **Status:** NOT STARTED  
 **Dependencies:** 2.3
 
-Implement `scripts/refresh_repository_state.py` consuming Registry and exact Git/owner/Distribution evidence. Acceptance: deterministic evidence-backed refresh, inaccessible repos explicit, dates informational only, generated ledger truthful, no member impact.
+Implement `scripts/refresh_repository_state.py` consuming Registry and exact Git/owner/Distribution evidence. Acceptance: deterministic/evidence-backed refresh, inaccessible repos explicit, dates informational only, generated ledger truthful, no member impact.
 
 ## Slice 3.2 - Drift Watchdog and heartbeat
 
@@ -247,7 +258,7 @@ Scheduled/manual full scans reuse the same refresh engine and record heartbeat/f
 **Status:** NOT STARTED  
 **Dependencies:** 3.2
 
-Reconcile actual drift evidence-first, with Purpose Context as mandatory regression fixture. Acceptance: accepted implementation not reverted because docs lag; unvalidated newer code not canonized because newer; architecture docs remain appropriately stable; reconciliation is recorded and Repository State becomes truthful.
+Reconcile actual drift evidence-first, with Purpose Context as mandatory regression fixture. Acceptance: accepted implementation not reverted because docs lag; unvalidated newer code not canonized because newer; architecture docs remain appropriately stable; reconciliation recorded and Repository State truthful.
 
 ---
 
@@ -260,14 +271,14 @@ Reconcile actual drift evidence-first, with Purpose Context as mandatory regress
 **Status:** NOT STARTED  
 **Dependencies:** 3.3
 
-Extend only the existing descriptor where evidence proves missing compatibility fields. Acceptance: one metadata format, exact immutable revision binding, no live health/readiness authority, breaking changes cannot masquerade as compatible.
+Extend only the existing descriptor where evidence proves missing compatibility fields. Acceptance: one metadata format, exact immutable revision binding, no live-health/readiness authority, breaking changes cannot masquerade as compatible.
 
 ## Slice 4.2 - Wave 1/Core maintainer handoff
 
 **Status:** NOT STARTED  
 **Dependencies:** 4.1
 
-Add minimal source-only owner handoff semantics in OS, Brain, Memory, Skills and Data. Acceptance: discoverable handoff, exact candidate acceptance where possible, no copied global governance docs, local CI cannot claim member release alone.
+Add minimal source-only owner handoff semantics in OS, Brain, Memory, Skills and Data. Acceptance: discoverable handoff, exact candidate acceptance where technically possible, no copied global governance docs, local CI cannot claim member release alone.
 
 ## Slice 4.3 - Wave 2/3 handoff governance
 
@@ -321,7 +332,7 @@ Persist `qualification/<release-id>/release-receipt.json` as compact immutable r
 **Status:** NOT STARTED  
 **Dependencies:** 5.4
 
-Automate permanent-invariant regressions for owner routing, owner/Distribution failure, wrong pin, stale System, unregistered repo, stale watchdog, breaking contract, candidate drift, member leakage, user-state survival and receipt validity.
+Automate permanent-invariant regressions for owner routing, owner/Distribution failures, wrong pins, stale System, unregistered repos, stale watchdog, breaking contracts, candidate drift, member leakage, user-state survival and receipt validity.
 
 ## Slice 6.2 - End-to-end qualification
 
@@ -341,37 +352,40 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 
 # Program Change Log
 
-## 2026-10-12 - Slice 2.2 started from fresh Wave 1 identity evidence
+## 2026-10-12 - Slice 2.2 machine-readable Repository Registry completed
 
-- Confirmed all seven Wave 1 repository heads are unchanged from Slice 2.1 closure except System being exactly the Slice 2.1 closure commit.
-- Reverified stable GitHub repository IDs and current `owner/name` for System, Distribution, OS, Brain, Memory, Skills and Data.
-- Confirmed existing schema/validator/contract-validation conventions and chose `CREATE` for Registry schema/data/validator, `EXTEND` for existing CI/tests and `RETIRE/NOT NEEDED` for any Distribution-owned competing registry.
-- Derived five evidence-backed tasks without changing the frozen architecture or acceptance floor.
+- Created versioned `ai-verse.repository-registry/v1` schema and the single System-owned `governance/repository-registry.json` authority.
+- Registered System, Distribution, OS, Brain, Memory, Skills and Data as the initial Wave 1 network using stable GitHub repository IDs as logical identity anchors.
+- Kept current `owner/name` as routing metadata and excluded live/dynamic state from Registry.
+- Added semantic validation for identity uniqueness, shipping/profile/lifecycle/descriptor/acceptance rules, fail-closed unregistered participation and non-Registry Distribution authority.
+- Added Registry tests and extended the existing Contract Validation workflow instead of creating parallel CI.
+- GitHub Actions run `38256854398` passed on Python 3.11 and 3.13, including Registry validation and shared tests.
+- Preserved unrelated concurrent Safe Infrastructure commit `d9920be2727a550266086b84b73aafbc397c07de`, which added only its own inventory document.
+- No runtime, release composition, member payload or protected roadmap change occurred.
 
 ## 2026-10-12 - Slice 2.1 permanent governance completed
 
-- Created `docs/REPOSITORY-NETWORK-GOVERNANCE-CONTRACT.md` and `docs/ARCHITECTURE-TOMBSTONES.md`; linked both from README.
-- Reused existing update/release contracts; no runtime, release composition, component repository or member payload changed.
-- Closure commit: `11940b87838afa0f46570ecdd8f8e00f74b7de5a`.
+- Created repository-network governance contract and architecture tombstone ledger and linked them from README.
+- Closure: `11940b87838afa0f46570ecdd8f8e00f74b7de5a`.
 
 ## 2026-10-12 - Phase 1 completed and architecture frozen
 
 - Audit: `docs/REPOSITORY-NETWORK-AUDIT-2026-10-12.md`.
 - Inventory: `docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md`.
 - Architecture: `docs/REPOSITORY-NETWORK-IMPLEMENTATION-ARCHITECTURE-2026-10-12.md`.
-- Phase 1 closure: `acabfba8031421438747fed69bcbc65ba844787e`.
+- Closure: `acabfba8031421438747fed69bcbc65ba844787e`.
 
 ---
 
 # Current execution pointer
 
-**Completed:** 5/20  
-**Overall:** 25.0%  
+**Completed:** 6/20  
+**Overall:** 30.0%  
 **Phase:** Phase 2 - Define the canonical System control plane  
-**Phase progress:** 1/3  
-**Until Phase 3:** 2 slices  
-**Current slice:** Slice 2.2 - Create the machine-readable Repository Registry (`IN PROGRESS`)  
-**Tasks:** 1/5  
-**Current task:** 2.2.2 - Create the Registry schema  
-**Next:** Slice 2.3 after Slice 2.2 acceptance  
+**Phase progress:** 2/3  
+**Until Phase 3:** 1 slice  
+**Current slice:** Slice 2.2 - Create the machine-readable Repository Registry (`COMPLETE`)  
+**Tasks:** 5/5  
+**Next:** Slice 2.3 - Define Repository State, generated ledger and maintainer entrypoint  
+**Next task:** not yet derived; generate from fresh Slice 2.3 evidence at slice start  
 **Blockers/drift/amendments:** descriptor exact-owner-acceptance/evidence split remains BLOCKING for future Core release governance; Purpose Context Blueprint lag WARNING; Core maintainer handoff WARNING; Distribution hard-coded adapter compatibility knowledge WARNING; compact release receipt INFO/future work; U35/U36 RESOLVED/PASS. No plan amendment required.
