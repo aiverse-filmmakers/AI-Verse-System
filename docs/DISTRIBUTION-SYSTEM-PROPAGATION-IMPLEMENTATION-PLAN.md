@@ -381,7 +381,7 @@ T5 refreshed only the canonical Core scope and closed only the two Wave 1 owner/
 
 **Status:** IN PROGRESS  
 **Dependencies:** 4.2  
-**Adaptive tasks:** 0/5 complete
+**Adaptive tasks:** 1/5 complete
 
 Apply the proven owner-handoff semantics only to evidence-backed Wave 2/3 repositories. Acceptance remains unchanged: active first-class repos must be registered and handoff-capable, experimental/retired/external status must be explicit, missing CI must stay visible, and no broad cross-repository write or Distribution/member-release authority may be introduced.
 
@@ -425,13 +425,24 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 
 ### Derived task list
 
-- [ ] **4.3-T1** Extend the canonical System Registry with the seven evidence-backed Wave 2/3 repository identities and exact lifecycle/profile/shipping classifications; add only the fail-closed State placeholders/generated ledger changes required for Registry/State structural validity; prove Agent/Full scope resolution and keep Apps explicitly experimental with no release claim.
+- [x] **4.3-T1** Extend the canonical System Registry with the seven evidence-backed Wave 2/3 repository identities and exact lifecycle/profile/shipping classifications; add only the fail-closed State placeholders/generated ledger changes required for Registry/State structural validity; prove Agent/Full scope resolution and keep Apps explicitly experimental with no release claim.
 - [ ] **4.3-T2** Establish the exact owner-adoption matrix for the six active Wave 2/3 owners by inspecting their current native CI, current heads and applicable immutable Distribution evidence; select one designated native workflow and exact candidate/accepted revision per owner, failing closed where evidence is insufficient. Apps remains an explicit no-CI experimental gap.
 - [ ] **4.3-T3** Publish the proven canonical Component Release Descriptor, owner-local exact-revision gate and minimal source-only maintainer handoff in only the six active owners whose T2 evidence passes, preserving native CI and denying Distribution/member-release/live-health authority.
 - [ ] **4.3-T4** Prove the adopted active-owner pattern across push and PR paths, exact revision/native-CI binding, canonical breaking-change rejection, handoff discoverability and read-only authority boundaries; prove Apps remains unaccepted rather than manufacturing readiness.
 - [ ] **4.3-T5** Refresh only the required Agent/Full/component Repository State scopes from exact resulting refs, resolve only Wave 2/3 governance drift proven closed, keep the Full release blocked wherever owner/CI/admission evidence remains incomplete, publish the deterministic ledger, close Slice 4.3 and Phase 4, advance to 5.1, and stop without beginning Phase 5.
 
-No component repository, Distribution release set, member payload, runtime behavior or user-owned state was changed during slice-start planning. No plan amendment is required.
+### T1 evidence
+
+- Canonical Registry expansion landed at `237bb177516bb8d6434298c423a16facfd913f4f`; the exact Registry blob is `cc4df25367762c8a8148f87bf9015b4f5107ce17` and now contains 14 stable repository identities.
+- Gateway, Automations, Multiple Bots and Token are registered as active Wave 2 Agent runtime components and Distribution-shipped; Connections and Dashboard are registered as active Wave 3 Full runtime components and Distribution-shipped.
+- Apps is deliberately registered as `experimental`, rollout wave 3, non-shipped, with no release profile and no component release descriptor. T1 makes no release, CI or owner-acceptance claim for Apps.
+- Registry regression coverage landed at `3dd4243c0634b8b73f67ece903bd008c39188920`; Registry-derived Agent/Full/global scope coverage landed at `cbd5ca733be0272202357c9d3db3031344d8fddd`; expanded scoped-State regression coverage landed at `d7043c1a6541374e97acf192eee8a39158006741`.
+- Fail-closed structural Repository State landed at `9c01d9f3dc28c08c7f6fa90b146aeed8dd42c201` and the deterministic ledger projection at `f930ad857b785f5fae5d2658e927881e07ca3ec4`. Existing Core observations remain intact. The six new active runtime owners are present only as unverified/unavailable placeholders, while Apps is non-shipped/not-applicable for pin and descriptor state.
+- Registry expansion intentionally makes the prior seven-repository global heartbeat insufficient for current fourteen-repository coverage. Repository State therefore records `WATCHDOG-STALE` plus open global watchdog drift instead of falsely retaining `WATCHDOG-CURRENT`; the prior heartbeat remains historical evidence.
+- Initial Contract Validation run `38319410494` validated the 14-entry Registry but exposed that State scope validation incorrectly treated every governance-classified repository as a Core control. It is not closure evidence. Validator alignment landed at `831d2b983a71e1a329200657ef5ccb105ad86a4a`, making the complete-scope rule match the existing Registry resolver: only System and Distribution are control-plane inclusions.
+- Second Contract Validation run `38319517144` then validated Registry, State and ledger but exposed three watchdog unit fixtures that inherited persisted production watchdog assumptions. It is not closure evidence. Fixture alignment landed at `22d0470f4983d5c8e0e7c18adbc6db342232dfc5`, so synthetic successful global scans explicitly model verified newly registered runtime owners rather than treating the persisted STALE watchdog as already green.
+- Exact closing Contract Validation run `38319599011` on `22d0470f4983d5c8e0e7c18adbc6db342232dfc5` passed on Python 3.11 and 3.13. Both jobs validated the 14-entry Registry and State, confirmed the generated ledger is current and passed 142 tests. Python 3.11 also completed the unchanged live read-only Core refresh successfully: `REFRESH COMPLETE scope=Core repos=7 evidence=22d0470f4983d5c8e0e7c18adbc6db342232dfc5`.
+- No live Agent, Full or global refresh was run in T1. No component owner repository, Distribution release composition, member payload, runtime behavior or user-owned state was changed. No plan amendment was required.
 
 ---
 
@@ -497,6 +508,17 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-13 - Slice 4.3 T1 Registry expansion completed
+
+- Registered all seven evidence-backed Wave 2/3 repository identities in the canonical System Registry without promoting evidence beyond what is proven.
+- Registered Gateway, Automations, Multiple Bots and Token as active Wave 2 Agent runtime components; Connections and Dashboard as active Wave 3 Full runtime components; Apps remains experimental, non-shipped, without a release descriptor or release claim.
+- Added only fail-closed structural State placeholders and deterministic ledger projection for the new identities. Existing Core acceptance/pins remain intact and no live Agent/Full/global refresh was pulled forward.
+- Reopened watchdog-stale as a global WARNING because the previous successful full heartbeat covered the earlier seven-repository Registry, not the new fourteen-repository Registry. Silence is not treated as current coverage.
+- Aligned Registry-derived Agent/Full/global scope regressions and the State validator's control-plane scope semantics without changing the existing Core resolver.
+- Exact closing Contract Validation run `38319599011` on `22d0470f4983d5c8e0e7c18adbc6db342232dfc5` passed on Python 3.11 and 3.13 with 142 tests, current ledger projection and successful live read-only Core refresh of exactly 7 repositories.
+- Slice 4.3 is now 1/5 tasks complete. Program progress remains 12/20, 60.0%; Phase 4 remains 2/3 complete because the slice is not complete.
+- 4.3-T2 is the only next task. No plan amendment.
 
 ## 2026-10-13 - Slice 4.3 Wave 2/3 bounded planning started
 
@@ -625,6 +647,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 4 - Integrate canonical component owners  
 **Phase progress:** 2/3  
 **Until Phase 5:** 1 slice  
-**Current slice:** Slice 4.3 - Wave 2/3 handoff governance (`IN PROGRESS`, 0/5 tasks complete)  
-**Next:** 4.3-T1 - extend the canonical System Registry with the seven evidence-backed Wave 2/3 repository identities and exact lifecycle/profile/shipping classifications; add only the fail-closed State placeholders/generated ledger changes required for Registry/State structural validity; prove Agent/Full scope resolution and keep Apps explicitly experimental with no release claim  
-**Blockers/drift/amendments:** Wave 1/Core exact owner acceptance and maintainer handoff remain resolved. Wave 2/3 repositories are not yet in the Registry; six active candidates have native CI but no canonical release descriptor/gate; Apps is experimental with implementation not started and no CI. Distribution adapter shadow-risk WARNING and compact release receipt INFO remain open for their planned later owners. Watchdog CURRENT; Purpose blueprint lag RESOLVED. No plan amendment required.
+**Current slice:** Slice 4.3 - Wave 2/3 handoff governance (`IN PROGRESS`, 1/5 tasks complete)  
+**Next:** 4.3-T2 - establish the exact owner-adoption matrix for the six active Wave 2/3 owners by inspecting their current native CI, current heads and applicable immutable Distribution evidence; select one designated native workflow and exact candidate/accepted revision per owner, failing closed where evidence is insufficient; Apps remains an explicit no-CI experimental gap  
+**Blockers/drift/amendments:** Wave 1/Core exact owner acceptance and maintainer handoff remain resolved. Seven Wave 2/3 repositories are now registered. The six active Wave 2/3 runtime owners remain structurally unverified with unavailable canonical descriptors until T2/T3; Apps remains experimental, non-shipped and has no native CI. Watchdog is `WATCHDOG-STALE` because the Registry expanded after the last successful full heartbeat, and no full refresh was run in T1. Distribution adapter shadow-risk WARNING and compact release receipt INFO remain open for their planned later owners. Purpose blueprint lag remains RESOLVED. No plan amendment required.
