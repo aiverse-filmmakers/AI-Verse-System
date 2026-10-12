@@ -39,3 +39,5 @@ if text.count(old) != 1:
     raise SystemExit(f'Slice 3.3 start guard failed: expected exactly one untouched block, found {text.count(old)}')
 text = text.replace(old, new, 1)
 path.write_text(text, encoding='utf-8')
+
+# Trigger-only touch for the guarded roadmap workflow.
