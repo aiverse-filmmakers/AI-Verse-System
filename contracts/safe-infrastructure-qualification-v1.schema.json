@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiverse.local/contracts/safe-infrastructure-qualification-v1.schema.json",
+  "title": "AI-Verse Safe Infrastructure Qualification v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "target", "identity_contract", "upgrade_contract", "sections", "overall"],
+  "properties": {
+    "schema_version": {"const": "ai-verse.safe-infrastructure-qualification/v1"},
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["release_set_id", "component_revisions"],
+      "properties": {
+        "release_set_id": {"type": "string", "minLength": 1, "maxLength": 160},
+        "component_revisions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{40}$"}
+        }
+      }
+    },
+    "identity_contract": {"const": "ai-verse.durable-identity-reference/v1"},
+    "upgrade_contract": {"const": "ai-verse.infrastructure-upgrade/v1"},
+    "sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["convergence", "restore", "doctor", "member_ux"],
+      "properties": {
+        "convergence": {"$ref": "#/$defs/convergence"},
+        "restore": {"$ref": "#/$defs/restore"},
+        "doctor": {"$ref": "#/$defs/doctor"},
+        "member_ux": {"$ref": "#/$defs/member_ux"}
+      }
+    },
+    "overall": {"enum": ["PASS", "FAIL"]}
+  },
+  "$defs": {
+    "status": {"enum": ["PASS", "FAIL"]},
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "ref", "result"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1, "maxLength": 100},
+        "owner": {"type": "string", "minLength": 1, "maxLength": 100},
+        "ref": {"type": "string", "minLength": 1, "maxLength": 500},
+        "result": {"enum": ["PASS", "FAIL"]}
+      }
+    },
+    "evidence_list": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/evidence"}
+    },
+    "convergence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "same_exact_target",
+        "target_contract_equivalent",
+        "user_state_preserved",
+        "identity_reference_verified",
+        "ambiguity_avoided",
+        "evidence"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "same_exact_target": {"type": "boolean"},
+        "target_contract_equivalent": {"type": "boolean"},
+        "user_state_preserved": {"type": "boolean"},
+        "identity_reference_verified": {"type": "boolean"},
+        "ambiguity_avoided": {"type": "boolean"},
+        "evidence": {"$ref": "#/$defs/evidence_list"}
+      }
+    },
+    "restore": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "covered_state_exact",
+        "software_exact",
+        "owner_rebuild_verified",
+        "exclusions_truthful",
+        "retained_target_survived",
+        "identity_reference_verified",
+        "evidence"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "covered_state_exact": {"type": "boolean"},
+        "software_exact": {"type": "boolean"},
+        "owner_rebuild_verified": {"type": "boolean"},
+        "exclusions_truthful": {"type": "boolean"},
+        "retained_target_survived": {"type": "boolean"},
+        "identity_reference_verified": {"type": "boolean"},
+        "evidence": {"$ref": "#/$defs/evidence_list"}
+      }
+    },
+    "owner_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "status"],
+      "properties": {
+        "owner": {"type": "string", "minLength": 1, "maxLength": 100},
+        "status": {"enum": ["PASS", "FAIL", "NOT_APPLICABLE"]}
+      }
+    },
+    "doctor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "command",
+        "aggregate_ok",
+        "read_only",
+        "required_owner_checks",
+        "owner_results",
+        "composed_system_checked",
+        "failure_injection",
+        "evidence"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "command": {"const": "aiverse doctor"},
+        "aggregate_ok": {"type": "boolean"},
+        "read_only": {"const": true},
+        "required_owner_checks": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1, "maxLength": 100}
+        },
+        "owner_results": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/owner_result"}
+        },
+        "composed_system_checked": {"type": "boolean"},
+        "failure_injection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["injected_owner", "aggregate_ok", "unrelated_checks_continued"],
+          "properties": {
+            "injected_owner": {"type": "string", "minLength": 1, "maxLength": 100},
+            "aggregate_ok": {"const": false},
+            "unrelated_checks_continued": {"const": true}
+          }
+        },
+        "evidence": {"$ref": "#/$defs/evidence_list"}
+      }
+    },
+    "member_ux": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "default_summary",
+        "plain_english",
+        "small_screen",
+        "read_only_preview_language",
+        "internal_jargon_required",
+        "technical_evidence_available",
+        "evidence"
+      ],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "default_summary": {"type": "string", "minLength": 1, "maxLength": 900},
+        "plain_english": {"const": true},
+        "small_screen": {"const": true},
+        "read_only_preview_language": {"const": true},
+        "internal_jargon_required": {"const": false},
+        "technical_evidence_available": {"const": true},
+        "evidence": {"$ref": "#/$defs/evidence_list"}
+      }
+    }
+  }
+}
