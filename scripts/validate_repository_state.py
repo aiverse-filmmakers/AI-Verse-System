@@ -271,6 +271,36 @@ def _validate_system_sync(value: Any, path: str, errors: list[str]) -> dict[str,
     return item
 
 
+def _expected_complete_scope_ids(registry_by_id: dict[int, dict[str, Any]], scope: str) -> set[int] | None:
+    controls = {
+        repo_id
+        for repo_id, entry in registry_by_id.items()
+        if entry.get("surface_classification") in {"governance", "release-orchestrator"}
+    }
+    if scope == "Core":
+        return controls | {
+            repo_id
+            for repo_id, entry in registry_by_id.items()
+            if entry.get("lifecycle") == "active" and "Core" in (entry.get("release_profiles") or [])
+        }
+    if scope == "Agent":
+        return controls | {
+            repo_id
+            for repo_id, entry in registry_by_id.items()
+            if entry.get("lifecycle") == "active"
+            and any(profile in {"Core", "Agent"} for profile in (entry.get("release_profiles") or []))
+        }
+    if scope == "Full":
+        return controls | {
+            repo_id
+            for repo_id, entry in registry_by_id.items()
+            if entry.get("lifecycle") == "active" and entry.get("distribution_ships") is True
+        }
+    if scope == "global":
+        return set(registry_by_id)
+    return None
+
+
 def validate_state(state: Any, registry: Any, *, registry_path: Path | None = None) -> list[str]:
     errors: list[str] = []
     root = _object(state, "$", errors)
@@ -345,15 +375,12 @@ def validate_state(state: Any, registry: Any, *, registry_path: Path | None = No
         if refresh.get("mode") == "full-refresh" and last_full is None:
             errors.append("$.refresh: full-refresh requires last_full_refresh")
 
-        if refresh.get("status") == "complete" and scope in {"Core", "Agent", "Full"}:
-            expected = {
-                repo_id
-                for repo_id, entry in registry_by_id.items()
-                if entry.get("surface_classification") in {"governance", "release-orchestrator"}
-                or scope in (entry.get("release_profiles") or [])
-            }
-            if set(refresh_ids) != expected:
-                errors.append(f"$.refresh.repository_ids: complete {scope} refresh must contain exactly registered control-plane plus {scope} participants")
+        if refresh.get("status") == "complete":
+            expected = _expected_complete_scope_ids(registry_by_id, scope)
+            if expected is not None and set(refresh_ids) != expected:
+                errors.append(
+                    f"$.refresh.repository_ids: complete {scope} refresh must contain exactly the Registry-derived required scope"
+                )
 
     watchdog = _object(root.get("watchdog"), "$.watchdog", errors)
     watchdog_status = None
