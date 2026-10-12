@@ -11,7 +11,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `scoped-refresh`
 - Refresh scope: `Core`
 - Refresh status: `complete`
-- Refresh evidence revision: `1dd9fccf35ecd5a4dfc6f963dea74de2b3c5d3cc`
+- Refresh evidence revision: `c4bd8c5fe2c81428d7ea714f3a37be595b26ba75`
 - Last full refresh: `0ace417725831e0ba3843fdc77a27d578b3b3010`
 - Watchdog: `WATCHDOG-CURRENT`
 - Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-12T17:02:00Z; all registered repositories were scanned with no access/fetch failure.
@@ -20,9 +20,9 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `1dd9fccf35ec` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `c4bd8c5fe2c8` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `90f175418f8d` | unverified | not-applicable | not-applicable | unverified | fresh / Core |
-| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `64f7325444d1` | accepted `9600929b9467` | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `9600929b9467` / accepted | unverified | fresh / Core |
+| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `64f7325444d1` | unverified | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `9600929b9467` / accepted | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `69f7912eeb35` | unverified | pinned `69f7912eeb35` / core-first-run-rc1-2026-10-12 | observed `75e1d713a422` / development | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `f1327be48ba2` | unverified | pinned `f1327be48ba2` / core-first-run-rc1-2026-10-12 | observed `3f715bf43c8d` / development | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `afde5c06307f` | unverified | pinned `afde5c06307f` / core-first-run-rc1-2026-10-12 | observed `fa455961c176` / development | unverified | fresh / Core |
