@@ -19,11 +19,11 @@
       1362243580,
       1364457521
     ],
-    "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75",
+    "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc",
     "last_scoped_refresh": {
       "scope": "Core",
       "status": "complete",
-      "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75",
+      "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc",
       "observed_at": null
     },
     "last_full_refresh": {
@@ -48,7 +48,7 @@
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75",
+      "observed_head": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -75,7 +75,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75"
+        "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc"
       }
     },
     {
@@ -110,18 +110,18 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75"
+        "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc"
       }
     },
     {
       "repository_id": 1361862361,
       "access": "verified",
-      "observed_head": "64f7325444d18f94c9d4755d32eb89f3468bda6b",
+      "observed_head": "866359d877bfb3df0d8011d2d651a5ff947e21ca",
       "owner_acceptance": {
-        "status": "unverified",
-        "revision": null,
+        "status": "accepted",
+        "revision": "64f7325444d18f94c9d4755d32eb89f3468bda6b",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@866359d877bfb3df0d8011d2d651a5ff947e21ca:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -134,11 +134,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "9600929b946746c25c64e48471fcc83031fddda9",
+        "revision": "64f7325444d18f94c9d4755d32eb89f3468bda6b",
         "release_status": "accepted",
-        "blob_sha": "633fda576622cfee15396994324f7a54f81a2fc8",
+        "blob_sha": "04934f60d495d17efd8f48d258e3b6ace173d740",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@64f7325444d18f94c9d4755d32eb89f3468bda6b:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@866359d877bfb3df0d8011d2d651a5ff947e21ca:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -149,18 +149,18 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75"
+        "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc"
       }
     },
     {
       "repository_id": 1362233598,
       "access": "verified",
-      "observed_head": "69f7912eeb35f0178f6952ff0554aec8d7f2c496",
+      "observed_head": "4406d15068284b88e0076b6dfff5aa0b06890a24",
       "owner_acceptance": {
-        "status": "unverified",
-        "revision": null,
+        "status": "accepted",
+        "revision": "69f7912eeb35f0178f6952ff0554aec8d7f2c496",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Brain@4406d15068284b88e0076b6dfff5aa0b06890a24:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -173,11 +173,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "75e1d713a422eec4caea89bdab5053cae23218c6",
-        "release_status": "development",
-        "blob_sha": "41e98dec82999192c7cbb3fbe23c65ee47c3f894",
+        "revision": "69f7912eeb35f0178f6952ff0554aec8d7f2c496",
+        "release_status": "accepted",
+        "blob_sha": "8df7190fb39e97459167a7fb4e874c7680034a75",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Brain@69f7912eeb35f0178f6952ff0554aec8d7f2c496:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Brain@4406d15068284b88e0076b6dfff5aa0b06890a24:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -188,18 +188,18 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75"
+        "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc"
       }
     },
     {
       "repository_id": 1361910454,
       "access": "verified",
-      "observed_head": "f1327be48ba2ee0043959021365e6dbb9dcb1d3a",
+      "observed_head": "09911eae0b4b0cbf7e7e7969230fe5b86647b841",
       "owner_acceptance": {
-        "status": "unverified",
-        "revision": null,
+        "status": "accepted",
+        "revision": "f1327be48ba2ee0043959021365e6dbb9dcb1d3a",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Memory@09911eae0b4b0cbf7e7e7969230fe5b86647b841:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -212,11 +212,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "3f715bf43c8dc5f0ad8888e07d857b581482569e",
-        "release_status": "development",
-        "blob_sha": "a3bbd49cb9d94ddbab56eb5c820c9b6926b1e477",
+        "revision": "f1327be48ba2ee0043959021365e6dbb9dcb1d3a",
+        "release_status": "accepted",
+        "blob_sha": "63b4607fbcb07a8bd040239cdf6201d40eeab050",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Memory@f1327be48ba2ee0043959021365e6dbb9dcb1d3a:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Memory@09911eae0b4b0cbf7e7e7969230fe5b86647b841:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -227,18 +227,18 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75"
+        "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc"
       }
     },
     {
       "repository_id": 1362243580,
       "access": "verified",
-      "observed_head": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
+      "observed_head": "d4a02888ba8d83c4a15ce1b538ffdafaaf83bee1",
       "owner_acceptance": {
-        "status": "unverified",
-        "revision": null,
+        "status": "accepted",
+        "revision": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Skills@d4a02888ba8d83c4a15ce1b538ffdafaaf83bee1:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -251,11 +251,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "fa455961c17691862bd86b7e0f658690e9ecb86d",
-        "release_status": "development",
-        "blob_sha": "7c8531c2b72fb277d6403aa8bdc95798a41f1395",
+        "revision": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
+        "release_status": "accepted",
+        "blob_sha": "6673cf4b528ce8dee53de694ec7b6865ea8def10",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Skills@afde5c06307fba7d074de2929c2eb6c3dc6bdab8:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Skills@d4a02888ba8d83c4a15ce1b538ffdafaaf83bee1:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -266,18 +266,18 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75"
+        "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc"
       }
     },
     {
       "repository_id": 1364457521,
       "access": "verified",
-      "observed_head": "f8978f8f7a1bc94edecddc2662112233289159a3",
+      "observed_head": "7e9fadbd73752b24eb79e270aff6b311ad508109",
       "owner_acceptance": {
-        "status": "unverified",
-        "revision": null,
+        "status": "accepted",
+        "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -290,11 +290,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "5cbf9908440ca7e11506991ba1dd7d3344f2b1fd",
-        "release_status": "development",
-        "blob_sha": "a83a924b52c88cdb1b1ea4c2e2c220c2e868440a",
+        "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
+        "release_status": "accepted",
+        "blob_sha": "1944fabb102843682e3dd29414c1626af15424d7",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Data@f8978f8f7a1bc94edecddc2662112233289159a3:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -305,7 +305,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "c4bd8c5fe2c81428d7ea714f3a37be595b26ba75"
+        "evidence_revision": "84afaa49a77bc8c9869a0172e13f2c9f61718ddc"
       }
     }
   ],
@@ -313,7 +313,7 @@
     {
       "id": "core-owner-acceptance-exact-ref-gap",
       "marker": "CANONICAL-DRIFT-DETECTED",
-      "status": "open",
+      "status": "resolved",
       "severity": "BLOCKING",
       "scope": "Core",
       "repository_ids": [
@@ -323,12 +323,17 @@
         1362243580,
         1364457521
       ],
-      "reason": "The current Core release is Distribution-qualified and pins the live Core heads, but the component descriptor surface does not certify exact owner acceptance for those shipped revisions. OS points to an older accepted revision; Brain, Memory, Skills and Data point to older development revisions. This does not prove the shipped revisions were untested; it means the current owner descriptor surface cannot alone prove exact owner acceptance.",
+      "reason": "Resolved in Slice 4.2. All five current Core owner heads now publish canonical accepted Component Release Descriptors bound to the exact revisions pinned by the current Distribution Core release, and the owner-local gates have been proven on both push and pull-request paths with exact native-CI binding.",
       "evidence_refs": [
-        "aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:release-sets/core-first-run-rc1-2026-10-12.json",
-        "aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"
+        "aiverse-filmmakers/AI-Verse-OS@866359d877bfb3df0d8011d2d651a5ff947e21ca:release/component-release.json",
+        "aiverse-filmmakers/AI-Verse-Brain@4406d15068284b88e0076b6dfff5aa0b06890a24:release/component-release.json",
+        "aiverse-filmmakers/AI-Verse-Memory@09911eae0b4b0cbf7e7e7969230fe5b86647b841:release/component-release.json",
+        "aiverse-filmmakers/AI-Verse-Skills@d4a02888ba8d83c4a15ce1b538ffdafaaf83bee1:release/component-release.json",
+        "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:release/component-release.json",
+        "aiverse-filmmakers/ai-verse-distribution@90f175418f8d13faeece8bcb1ad0796d2adecfb1:release-sets/core-first-run-rc1-2026-10-12.json",
+        "aiverse-filmmakers/AI-Verse-System@181cdee251e6d76dac50ff2cfde484f7e4be3b4d:docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
       ],
-      "required_action": "Extend and adopt the one canonical Component Release Descriptor and owner handoff so future Core release admission can bind exact accepted owner revisions and evidence. Do not create a second compatibility or acceptance format."
+      "required_action": "No corrective action remains for the Wave 1 exact-owner-acceptance gap. Future release admission must continue to bind the exact accepted owner revision and evidence separately from Distribution qualification."
     },
     {
       "id": "purpose-context-blueprint-lag",
@@ -349,7 +354,7 @@
     {
       "id": "core-maintainer-handoff-uneven",
       "marker": "CANONICAL-DRIFT-DETECTED",
-      "status": "open",
+      "status": "resolved",
       "severity": "WARNING",
       "scope": "Core",
       "repository_ids": [
@@ -359,11 +364,15 @@
         1362243580,
         1364457521
       ],
-      "reason": "Root-level cross-repository maintainer handoff guidance remains uneven across the five Core owner repositories.",
+      "reason": "Resolved in Slice 4.2. Each Core owner now exposes minimal owner-specific source-only release descriptor handoff guidance naming the local gate, designated native workflow, exact-revision evidence rule and explicit separation from Distribution/member-release authority.",
       "evidence_refs": [
-        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
+        "aiverse-filmmakers/AI-Verse-OS@866359d877bfb3df0d8011d2d651a5ff947e21ca:docs/RELEASE-DESCRIPTOR.md",
+        "aiverse-filmmakers/AI-Verse-Brain@4406d15068284b88e0076b6dfff5aa0b06890a24:docs/RELEASE.md",
+        "aiverse-filmmakers/AI-Verse-Memory@09911eae0b4b0cbf7e7e7969230fe5b86647b841:docs/RELEASE-DESCRIPTOR.md",
+        "aiverse-filmmakers/AI-Verse-Skills@d4a02888ba8d83c4a15ce1b538ffdafaaf83bee1:docs/RELEASE-DESCRIPTOR.md",
+        "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:docs/RELEASE-DESCRIPTOR.md"
       ],
-      "required_action": "Add minimal owner-specific source-only maintainer handoff in Slice 4.2 without copying global governance into component repositories."
+      "required_action": "No corrective action remains for Wave 1/Core maintainer handoff. Keep handoff owner-specific and source-only; do not copy global governance into component repositories."
     },
     {
       "id": "distribution-adapter-compatibility-shadow-risk",
