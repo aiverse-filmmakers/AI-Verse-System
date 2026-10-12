@@ -1,0 +1,39 @@
+name: Temporary Safe Infrastructure 3.2 Roadmap
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  patch-roadmap:
+    if: "${{ github.event.head_commit.message == 'TEMP run Safe Infrastructure Slice 3.2 task list' || github.event.head_commit.message == 'TEMP run Safe Infrastructure Slice 3.2 closure' }}"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Patch canonical roadmap
+        run: python scripts/_temp_safe_infra_3_2_roadmap.py
+
+      - name: Commit guarded roadmap update
+        shell: bash
+        run: |
+          test -n "$(git status --porcelain -- docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md)"
+          test -z "$(git status --porcelain --untracked-files=no | grep -v '^ M docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md$' || true)"
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md
+          if [ "$(git log -1 --pretty=%s)" = "TEMP run Safe Infrastructure Slice 3.2 task list" ]; then
+            git commit -m "Record Safe Infrastructure Slice 3.2 task list"
+          else
+            git commit -m "Complete Safe Infrastructure Slice 3.2 roadmap"
+          fi
+          git push origin HEAD:main
