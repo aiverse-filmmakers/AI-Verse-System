@@ -90,11 +90,12 @@ Low-level tasks are adaptive and are derived only when the slice starts.
 ## 0E. Progress
 
 **Total slices:** 8  
-**Completed slices:** 2  
-**Overall:** 2/8 (25.0%)  
-**Current phase:** Phase 1  
-**Phase progress:** 1/2  
-**Next:** Slice 1.2 - IN PROGRESS
+**Completed slices:** 3  
+**Overall:** 3/8 (37.5%)  
+**Current phase:** Phase 1 - COMPLETE  
+**Phase progress:** 2/2  
+**Next program-local slice:** Slice 2.1 - Align owner integrations to the shared contract with minimum change  
+**Cross-program execution pause:** reconcile the completed Identity contract against Safe Infrastructure, then resume Safe Infrastructure Phase 2 / Slice 2.1 before returning to Identity Phase 2, per owner sequencing.
 
 ---
 
@@ -293,44 +294,149 @@ Next execution unit: **Slice 1.2 - Define the System identity and canonical-refe
 
 ## Slice 1.2 - Define the System identity and canonical-reference contract
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Repos:** AI-Verse-System  
 **Dependencies:** 1.1  
+**Adaptive tasks:** 5/5 COMPLETE  
 **Starting ref:** `aiverse-filmmakers/AI-Verse-System@a04c58f1e41f0097dccf24353d675af993a06df4`
 
-### Derived task list
+### Final derived task list
 
 - [x] **1.2-T1** Refresh the current System head and verify Slice 1.1 conclusions and the Identity plan remain authoritative despite concurrent System governance work.
-- [ ] **1.2-T2** Define one concise normative System identity contract preserving owner authority, owner-specific ID formats, current Workspace storage semantics and current qualified Skill/provider semantics.
-- [ ] **1.2-T3** Add the minimal versioned JSON Schema for the common durable-reference envelope: required `owner`, `kind`, `id`; optional `scope`; no owner-state registry or lookup database.
-- [ ] **1.2-T4** Add contract examples and focused validation tests covering Workspace, Skill/capability, Brain object, Automation, Bot, Connection, Data record and Memory record references, including invalid ambiguity/extra-shape cases.
-- [ ] **1.2-T5** Record exact implementation/test evidence, close acceptance criteria and stop before Slice 2.1.
+- [x] **1.2-T2** Define one concise normative System identity contract preserving owner authority, owner-specific ID formats, current Workspace storage semantics and current qualified Skill/provider semantics.
+- [x] **1.2-T3** Add the minimal versioned JSON Schema for the common durable-reference envelope: required `owner`, `kind`, `id`; optional `scope`; no owner-state registry or lookup database.
+- [x] **1.2-T4** Add contract examples and focused validation tests covering Workspace, Skill/capability, Brain object, Automation, Bot, Connection, Data record and Memory record references, including invalid ambiguity/extra-shape cases.
+- [x] **1.2-T5** Record exact implementation/test evidence, close acceptance criteria and stop before Slice 2.1.
 
-### Outcome
+### Canonical contract
 
-AI-Verse-System canonically defines the minimum identity law and one common cross-owner durable-reference shape without taking ownership of component identities.
+The shared identity law is now defined by:
+
+- `docs/DURABLE-IDENTITY-AND-CANONICAL-REFERENCE-CONTRACT.md`
+- contract ID: `ai-verse.durable-identity-reference/v1`
+- implementation commit: `aiverse-filmmakers/AI-Verse-System@32235170a99296104c0f90eef56691cbc4d781bd`
+
+The contract standardizes composition law only. Canonical owners retain their own ID formats, generation, validation, lookup, migration, collision handling and lifecycle semantics.
+
+It explicitly establishes:
+
+- stable owner-controlled IDs for durable first-class entities requiring long-lived/cross-owner references;
+- identity separate from display name, label, path, revision/version and temporary execution/correlation IDs;
+- no global ID service, UUID allocator, entity database or owner-object registry;
+- owner-defined filesystem independence and owner-defined scope-transfer semantics;
+- fail-closed behavior on ambiguous, malformed, duplicate or conflicting identity evidence;
+- current Workspace identity/storage law: `WORKSPACE.yaml:id` at `workspaces/<workspace-id>` with arbitrary relocation unsupported;
+- current capability provider semantics retained, including provider/scope as part of qualified capability identity;
+- managed package identity, qualified identity, generation, version and digest as distinct concepts;
+- update/upgrade/recovery/restore may rely only on identity guarantees explicitly published by the canonical owner.
+
+### Machine-readable reference envelope
+
+Normative schema:
+
+- `contracts/durable-entity-reference-v1.schema.json`
+- schema commit: `aiverse-filmmakers/AI-Verse-System@2d4db6140628d931aab886fb85f8e6bbfdd4015f`
+
+The v1 envelope is intentionally minimal:
+
+```json
+{
+  "owner": "ai-verse-brain",
+  "kind": "brain-object",
+  "id": "5b3bb42e-b423-4f68-8349-d8db64800f55"
+}
+```
+
+`scope` is optional and is present only when required by the canonical owner for correct resolution.
+
+The schema rejects extra representation/lifecycle fields. It intentionally does not impose owner-specific ID patterns beyond a non-empty bounded string.
+
+### Validator, examples and tests
+
+Added:
+
+- `scripts/validate_durable_entity_reference.py` at commit `8db084762e943393f215a4abef9709025ecb1272`;
+- `contracts/examples/durable-entity-references.valid.json` at commit `d9799704b6d3e63e23217aa21e1866a93e9e72d2`;
+- `tests/test_durable_entity_reference.py`, final tested revision at `ee4f494692c9cc36c024dacb390a1841362d1ca6`.
+
+Examples cover:
+
+1. Workspace;
+2. Skill/capability;
+3. Brain object;
+4. Automation;
+5. Bot;
+6. Connection;
+7. Data record;
+8. Memory record.
+
+Focused tests prove:
+
+- only `owner`, `kind`, `id`, optional `scope` belong in the common envelope;
+- `scope` is syntactically optional;
+- owner-specific ID/scope syntax remains opaque to System;
+- missing or empty required identity fails closed;
+- display name, filesystem path, generic version and other extra state are rejected from the shared reference envelope;
+- an attempted ambiguous-candidate shape is not a valid canonical reference;
+- the normative contract requires one unambiguous canonical result and fail-closed ambiguity handling;
+- Workspace and Skill constraints remain frozen;
+- no global identity registry/allocator is introduced.
+
+### Validation evidence
+
+The first exact-ref Contract Validation run on `52f04a04a50ebfbf238a6499c29b9a2be5910fc6` was **FAILURE** because one test asserted wording that did not exactly match the contract text. No contract law failed. The assertion was corrected without weakening behavior in commit `ee4f494692c9cc36c024dacb390a1841362d1ca6`.
+
+Final exact-ref evidence:
+
+- GitHub Actions workflow: `Contract Validation`;
+- run ID: `38267780226`;
+- exact head SHA: `ee4f494692c9cc36c024dacb390a1841362d1ca6`;
+- event: push to `main`;
+- conclusion: **SUCCESS**;
+- Python 3.11 contract tests: **SUCCESS**;
+- Python 3.13 contract tests: **SUCCESS**;
+- Python 3.11 live read-only Core repository refresh: **SUCCESS**.
+
+The existing `.github/workflows/contract-validation.yml` required no modification because it already executes `python -m unittest discover -s tests -p "test_*.py"` on Python 3.11 and 3.13.
+
+### Anti-bloat result
+
+Slice 1.2 created no runtime identity service, no central lookup registry, no universal UUID layer, no Workspace relocation engine and no generic re-scope framework.
+
+No owner repo was modified. Existing owner identity implementations remain canonical.
 
 ### Acceptance criteria
 
-- a concise normative identity contract exists;
-- the contract distinguishes entity identity from display name, storage path, revision and temporary execution IDs;
-- owner authority and lookup responsibility are explicit;
-- the common reference shape is versioned and minimal;
-- `scope` is optional unless required by the owner to resolve identity correctly;
-- ambiguity and duplicate identity fail closed;
-- the contract explicitly permits owner-specific ID formats;
-- Workspace path semantics and scope-transfer semantics remain owner-defined;
-- no central identity registry or service is introduced.
+- concise normative identity contract exists: **PASS**;
+- identity is distinguished from display name, storage path, revision and temporary execution IDs: **PASS**;
+- owner authority and lookup responsibility are explicit: **PASS**;
+- common reference shape is versioned and minimal: **PASS**;
+- `scope` is optional unless required by the owner: **PASS**;
+- ambiguity and duplicate/conflicting identity fail closed: **PASS**;
+- owner-specific ID formats remain permitted: **PASS**;
+- Workspace path semantics and scope-transfer semantics remain owner-defined: **PASS**;
+- no central identity registry or service was introduced: **PASS**;
+- required examples and validation tests exist and pass exact-ref CI: **PASS**.
 
-### Required evidence
+### Completion report
 
-- System contract/schema/document changes;
-- contract validation tests;
-- examples covering at least Workspace, Skill, Brain object, Automation, Bot, Connection, Data record and Memory record references.
+```text
+Completed: Slice 1.2 - Define the System identity and canonical-reference contract
+Tasks: 5/5
+Overall: 3/8 slices (37.5%)
+Phase: Phase 1 - Freeze the shared identity contract from current reality
+Phase progress: 2/2
+Until next phase: 0 slices
+Next program-local slice: Identity Slice 2.1 - Align owner integrations to the shared contract with minimum change
+Cross-program next execution unit: reconcile Identity Phase 1 against Safe Infrastructure, then resume Safe Infrastructure Phase 2 / Slice 2.1
+Blockers/drift/amendments: none. No protected directional change was required. Initial CI wording-assertion failure was corrected and final exact-ref Contract Validation passed.
+```
 
 ### NEXT
 
-**Slice 2.1 - Align owner integrations to the shared contract with minimum change.**
+**STOP after Slice 1.2 for the current one-at-a-time execution request.**
+
+Program-local next slice remains **Identity Slice 2.1**. Under the owner's cross-program sequencing instruction, the next execution unit is the reconciliation checkpoint against Safe Infrastructure before any further Identity implementation.
 
 ---
 
