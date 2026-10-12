@@ -71,7 +71,7 @@ The canonical Safe Infrastructure roadmap was reconciled before this slice began
 - [x] **4.1-T4** Integrate LKG qualification/rotation into the mutating installed Core `aiverse update` path before first mutation, reusing the existing lifecycle transaction and refusing mutation if a safe successor LKG cannot be qualified. Expose the reusable guard needed by future `upgrade --apply` without implementing Slice 4.2 orchestration.
 - [x] **4.1-T5** Implement `aiverse restore` preview and `aiverse restore --apply`: coverage/exclusion/replacement-risk preview, exact target validation, temporary restore checkpoint, covered local-state restore/reconstruction, owner/system verification, retained-target preservation, and truthful external-effect reporting.
 - [x] **4.1-T6** Add focused positive and destructive-negative tests for first LKG creation, rotation, failed candidate preservation, unhealthy refusal, exactly-one retention, large user assets, security exclusions, read-only preview, successful apply, restore failure recovery, and unchanged no-op/update-plan semantics.
-- [x] **4.1-T7** Run exact-head and exact-merged-main Distribution CI, record evidence, close every Slice 4.1 acceptance criterion, update the canonical roadmap to 12/18 (66.7%) with Phase 4 at 1/3, and stop before Slice 4.2.
+- [x] **4.1-T7** Run exact-head and exact-merged-main Distribution CI, record evidence, close every Slice 4.1 acceptance criterion, update the canonical roadmap to 12/18 (66.7%) with Phase 4 at 1/4, and stop before Slice 4.2.
 
 ## Distribution implementation
 
@@ -286,8 +286,8 @@ Completed: Slice 4.1 - Implement one rotating Last-Known-Good recovery point and
 Tasks: 7/7
 Overall: 12/18 slices (66.7%)
 Phase: Phase 4 - Implement Distribution orchestration and simple member UX
-Phase progress: 1/3
-Until Phase 5: 2 slices
+Phase progress: 1/4
+Until Phase 5: 3 slices
 Next: Slice 4.2 - Implement admitted structural upgrade orchestration
 Blockers/drift/amendments: no Slice 4.1 blocker or protected-law amendment. Two unrelated pre-existing broad-gate defects were isolated and not folded into this recovery slice.
 ```
