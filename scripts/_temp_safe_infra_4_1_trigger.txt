@@ -1,1 +1,1 @@
-Trigger guarded Slice 4.1 evidence/roadmap closure through the PR workflow. Temporary file; remove after closure succeeds.
+Trigger guarded Slice 4.1 evidence/roadmap closure through the PR workflow. Temporary file; retrigger after trusted base workflow installation.
