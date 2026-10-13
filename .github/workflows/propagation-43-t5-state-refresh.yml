@@ -50,7 +50,6 @@ jobs:
               'ai-verse-token': '363dde3d87edaf8e7acd072c542775017f0b5dbf',
               'ai-verse-connections': 'b557ef1d83a9d6c802070887ca84c3b3df2aef29',
               'ai-verse-dashboard': 'ec5d40aea7fa3111357c086660a2630cef20f51a',
-              'ai-verse-apps': 'db5b0115bf59d6eae9149137a40e891968f3a637',
           }
           active = [
               'ai-verse-gateway','ai-verse-automations','ai-verse-multiple-bots',
@@ -67,14 +66,16 @@ jobs:
               item = by_id[reg[component]['repository_id']]
               assert item['distribution_pin']['status'] == 'unpinned', (component, item['distribution_pin'])
           apps = by_id[reg['ai-verse-apps']['repository_id']]
-          assert apps['access'] == 'verified'
-          assert apps['observed_head'] == expected_heads['ai-verse-apps']
-          assert apps['descriptor']['status'] == 'not-applicable'
-          assert apps['distribution_pin']['status'] == 'not-applicable'
+          assert apps['access'] == 'unavailable', apps
+          assert apps['observed_head'] is None, apps
+          assert apps['descriptor']['status'] == 'not-applicable', apps
+          assert apps['distribution_pin']['status'] == 'not-applicable', apps
+          assert apps['owner_acceptance']['status'] == 'unverified', apps
+          assert apps['freshness']['status'] == 'unknown', apps
           assert state['watchdog']['status'] == 'WATCHDOG-STALE'
           assert state['refresh']['scope'] == 'Full'
           assert state['refresh']['status'] == 'complete'
-          print('T5 scoped observations fail-closed and exact')
+          print('T5 scoped observations fail-closed and exact; Apps remains unavailable/unaccepted')
       - name: Publish State and ledger
         run: |
           set -euo pipefail
