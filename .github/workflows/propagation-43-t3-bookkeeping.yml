@@ -1,0 +1,67 @@
+name: Propagation Slice 4.3 T3 Bookkeeping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/propagation-43-t3-bookkeeping.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-roadmap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Update canonical propagation roadmap
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text()
+
+          def replace_once(old, new, label):
+              global text
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match, found {count}')
+              text = text.replace(old, new, 1)
+
+          replace_once('**Adaptive tasks:** 2/5 complete', '**Adaptive tasks:** 3/5 complete', 'slice task count')
+
+          old_t3 = '- [ ] **4.3-T3** Publish the proven canonical Component Release Descriptor, owner-local exact-revision gate and minimal source-only maintainer handoff in only the six active owners whose T2 evidence passes, preserving native CI and denying Distribution/member-release/live-health authority.'
+          new_t3 = old_t3.replace('- [ ]', '- [x]', 1)
+          replace_once(old_t3, new_t3, 'T3 checkbox')
+
+          t2_tail = '- T2 changed only System evidence/bookkeeping. No owner repository, Distribution release set, Repository State, generated ledger, member payload, runtime behavior or user-owned state was changed. No plan amendment was required.\n\n---'
+          t3_evidence = '''- T2 changed only System evidence/bookkeeping. No owner repository, Distribution release set, Repository State, generated ledger, member payload, runtime behavior or user-owned state was changed. No plan amendment was required.\n\n### T3 evidence\n\n- Reused the proven `ai-verse.component-release/v1` owner-local pattern without changing any designated native implementation workflow. Each active owner now exposes `release/component-release.json`, `.github/workflows/release-descriptor.yml` and `docs/RELEASE-DESCRIPTOR.md`; Apps was not modified.\n- Gateway: descriptor stays `candidate` and is pinned to T2 revision `1772b75e2add73a524715f746e87b3a6b5561bf6` / native run `37876089214`; publication commit `95cc8319c1dc95b05da0ebb451d70469170ca3f8`; Release Descriptor push run `38383650087` passed.\n- Automations: descriptor stays `candidate` and is pinned to T2 revision `287ce9d6718ef06e4589a2a3e767c6a9ba376755` / native run `37050285820`; publication commit `fda8b25b11b8419113a2625d09fd3da66b61064f`; Release Descriptor push run `38383746914` passed.\n- Multiple Bots: descriptor stays `candidate` and is pinned to T2 revision `ddf70ac19736f6ca7f8d604901c20af9e46614fe` / native run `37240126310`; publication commit `b4ad4315e560db0f60615e7c5ea59cb13c86969b`; Release Descriptor push run `38383857771` passed.\n- Token: descriptor stays `candidate` and is pinned to T2 revision `d36916323abb5f396bd8fd6b7f5c3ef84af519d0` / native run `37239902766`; publication commit `363dde3d87edaf8e7acd072c542775017f0b5dbf`; Release Descriptor push run `38384028738` passed.\n- Connections: descriptor stays `candidate` and is pinned to T2 revision `602a1c52ab782cc9a8b7a4caa60ccb29efe403d1` / native run `37182362458`; publication commit `b557ef1d83a9d6c802070887ca84c3b3df2aef29`; Release Descriptor push run `38384137482` passed. No admitted Full revision was created.\n- Dashboard: descriptor stays `candidate` and is pinned to T2 revision `bd26986e202d4b911d0c5f64659db71363bfccfa` / native run `37859693102`; publication commit `ec5d40aea7fa3111357c086660a2630cef20f51a`; Release Descriptor push run `38384230593` passed. No admitted Full revision was created.\n- Every gate uses read-only `contents`/`actions` permissions, binds the descriptor to the exact designated native-workflow revision, fails closed on missing/mismatched evidence, keeps `release_metadata_only=true` and `live_health_truth=false`, preserves user/unknown files, and explicitly denies Distribution qualification, Agent/Full admission, member-release, permission, scope/direction and live-health authority.\n- Wave 2 immutable released Agent revisions remain unchanged as the only Distribution-accepted baselines. Connections and Dashboard remain candidate-only because Full remains blocked. Apps remains experimental, non-shipped, implementation-not-started and no-CI.\n- T3 changed only the six active owner repositories plus this roadmap bookkeeping. No Distribution release set, Repository State, generated ledger, member payload, runtime behavior or user-owned state was changed. T4 PR/negative/boundary proof was not begun. No plan amendment was required.\n\n---'''
+          replace_once(t2_tail, t3_evidence, 'T3 evidence insertion')
+
+          changelog_anchor = '## 2026-10-13 - Slice 4.3 T2 owner-adoption matrix completed'
+          changelog = '''## 2026-10-13 - Slice 4.3 T3 owner handoff published\n\n- Published the canonical Component Release Descriptor, exact-revision owner-local gate and minimal maintainer handoff in Gateway, Automations, Multiple Bots, Token, Connections and Dashboard only.\n- Preserved all existing native implementation CI and bound each new gate to the exact T2 candidate/native-run pair instead of treating the metadata commit or latest branch health as acceptance.\n- Kept all six descriptors `candidate`. The four Wave 2 released Agent baselines remain the only Distribution-accepted revisions, while Connections and Dashboard remain without an admitted Full revision.\n- All six Release Descriptor push runs passed: Gateway `38383650087`, Automations `38383746914`, Multiple Bots `38383857771`, Token `38384028738`, Connections `38384137482`, Dashboard `38384230593`.\n- Apps remained untouched and explicitly experimental/no-CI. No Distribution release set, Repository State/ledger, member payload, runtime state or user-owned state changed.\n- Slice 4.3 is now 3/5 tasks complete. 4.3-T4 is the only next task. Program progress remains 12/20, 60.0%; Phase 4 remains 2/3 complete. No plan amendment.\n\n'''
+          replace_once(changelog_anchor, changelog + changelog_anchor, 'change log insertion')
+
+          replace_once('**Current slice:** Slice 4.3 - Wave 2/3 handoff governance (`IN PROGRESS`, 2/5 tasks complete)', '**Current slice:** Slice 4.3 - Wave 2/3 handoff governance (`IN PROGRESS`, 3/5 tasks complete)', 'current pointer task count')
+
+          old_next = '**Next:** 4.3-T3 - publish the proven canonical Component Release Descriptor, owner-local exact-revision gate and minimal source-only maintainer handoff in only the six active owners whose T2 evidence passes, preserving native CI and denying Distribution/member-release/live-health authority'
+          new_next = '**Next:** 4.3-T4 - prove the adopted active-owner pattern across push and PR paths, exact revision/native-CI binding, canonical breaking-change rejection, handoff discoverability and read-only authority boundaries; prove Apps remains unaccepted rather than manufacturing readiness'
+          replace_once(old_next, new_next, 'current pointer next task')
+
+          old_blockers = '**Blockers/drift/amendments:** Wave 1/Core exact owner acceptance and maintainer handoff remain resolved. Seven Wave 2/3 repositories are registered. The six active owners now have exact T3 candidate revisions and designated successful native CI. Wave 2 retains older immutable released Agent revisions as its only Distribution-accepted baseline; the newer green heads are candidate-only. Connections and Dashboard have no admitted Full component revision and remain candidate-only because Full is blocked; Apps remains experimental, non-shipped and has no native CI. Canonical descriptors/gates are still unavailable until T3. Watchdog remains `WATCHDOG-STALE` because the Registry expanded after the last successful full heartbeat and T2 performed no refresh. Distribution adapter shadow-risk WARNING and compact release receipt INFO remain open for their planned later owners. Purpose blueprint lag remains RESOLVED. No plan amendment required.'
+          new_blockers = '**Blockers/drift/amendments:** Wave 1/Core exact owner acceptance and maintainer handoff remain resolved. Seven Wave 2/3 repositories are registered. Canonical candidate descriptors, exact-revision owner-local gates and maintainer handoffs are now published in all six active Wave 2/3 owners, with successful push-path gate evidence. Wave 2 retains the older immutable released Agent revisions as its only Distribution-accepted baseline; the newer pinned owner revisions remain candidate-only. Connections and Dashboard still have no admitted Full component revision because Full is blocked; Apps remains experimental, non-shipped and has no native CI. T4 proof across PR paths, canonical breaking-change rejection, handoff discoverability and read-only authority boundaries remains open. Watchdog remains `WATCHDOG-STALE` because the Registry expanded after the last successful full heartbeat and T3 performed no refresh. Distribution adapter shadow-risk WARNING and compact release receipt INFO remain open for their planned later owners. Purpose blueprint lag remains RESOLVED. No plan amendment required.'
+          replace_once(old_blockers, new_blockers, 'current pointer blockers')
+
+          path.write_text(text)
+      - name: Commit bookkeeping
+        run: |
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git diff --cached --check
+          git commit -m "Record Slice 4.3 T3 owner handoff"
+          git pull --rebase origin main
+          git push origin HEAD:main
