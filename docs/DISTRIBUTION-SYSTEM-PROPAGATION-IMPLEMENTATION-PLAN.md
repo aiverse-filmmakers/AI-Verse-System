@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 12  
-**Remaining:** 8  
-**Overall progress:** 60.0%  
-**Current execution phase:** Phase 4 - Integrate canonical component owners  
-**Current phase progress:** 2/3 slices complete  
-**Slices until next phase:** 1  
-**Current slice:** 4.3 - Wave 2/3 handoff governance  
+**Completed:** 13  
+**Remaining:** 7  
+**Overall progress:** 65.0%  
+**Current execution phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
+**Current phase progress:** 0/4 slices complete  
+**Slices until next phase:** 4  
+**Current slice:** 5.1 - Immutable candidate snapshot and owner-adoption gates  
 **Current slice status:** IN PROGRESS  
-**Next slice:** 5.1 - Immutable candidate snapshot and owner-adoption gates
+**Next slice:** 5.2 - Member payload isolation
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
@@ -502,10 +502,42 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 
 ## Slice 5.1 - Immutable candidate snapshot and owner-adoption gates
 
-**Status:** NOT STARTED  
-**Dependencies:** 4.3
+**Status:** IN PROGRESS  
+**Dependencies:** 4.3  
+**Adaptive tasks:** 0/4 complete
 
 Extend existing candidate machinery so arbitrary SHAs cannot enter admission and exact owner/System/Registry/State evidence is frozen.
+
+### Slice-start boundary
+
+Bounded discovery was limited to the Phase 5 destination, current System/Distribution refs, the frozen candidate architecture, and existing Distribution candidate/catalog/qualification surfaces. No component owner, release set, candidate, Repository State, member payload, promotion or receipt implementation was changed.
+
+- System planning boundary: `aiverse-filmmakers/AI-Verse-System@fbbaaa2c8690950e6250a7c82f3fded8ed62b277`.
+- Distribution boundary: `aiverse-filmmakers/ai-verse-distribution@10d04c723e5918506f1f76aabf1c59bfa23f7b8b`. The current head is unrelated Safe Infrastructure work and is preserved.
+- The frozen architecture already defines `qualification/<candidate-or-release-id>/candidate-evidence.json` as immutable qualification evidence binding exact Distribution, System, Registry, scoped Repository State, component, descriptor, owner-acceptance, compatibility/migration, toolchain and relevant drift inputs. It is not a second Registry, State database, release set or component acceptance authority.
+- Distribution already has the release-composition skeleton that must be reused: `release-sets/`, `compatibility/`, `.qualification/`, `qualification/`, the Core candidate overlay, forward promotion/lineage ledger, exact-ref catalog validation, transition admission and preservation machinery.
+- `src/aiverse_distribution/catalog/core_candidates.json` currently contains no candidate release sets. `release_catalog.py` already treats candidate-overlay entries as explicit qualification targets and enforces exact 40-character component SHAs, but it does not yet bind those SHAs to canonical owner adoption plus System/Registry/State evidence.
+- `src/aiverse_distribution/catalog/core_promotions.json` proves the current released Core already records frozen component refs and qualification evidence, but that historical promotion record is not the new cross-repository candidate-evidence binding and will not be rewritten retroactively.
+- `tests/test_candidate_transition_admission.py` already proves exact transition evidence and preservation for the current Core release. It is reused and extended rather than replaced.
+- `scripts/qualify-core-composition.py` contains historical hard-coded component refs. That code may remain historical/trusted orchestration evidence, but hard-coded Distribution knowledge is prohibited from becoming the sole owner-acceptance authority. This is the existing `distribution-adapter-compatibility-shadow-risk` boundary Phase 5 must constrain.
+- Phase 4 evidence remains accepted. Current Wave 2/3 descriptors are candidate-only, Connections/Dashboard remain unadmitted, Apps remains experimental/no-CI/unaccepted, and the global watchdog remains `WATCHDOG-STALE`. 5.1 does not promote any of them or require a global refresh merely to plan the candidate gate.
+
+### Reuse / extend / create / prohibited classification
+
+- Exact release-set composition, compatibility records, Core candidate overlay, forward promotion ledger, qualification directories, transition/preservation machinery and native Distribution CI: `REUSE`.
+- Canonical System Registry, Repository State, Component Release Descriptor and owner-local exact-revision acceptance evidence: `REUSE` as external evidence authorities. Distribution may snapshot exact evidence but may not copy their mutable authority.
+- One generic immutable candidate-evidence validator/binding at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary: `EXTEND/CREATE` inside Distribution.
+- Candidate catalog/admission validation that requires registered/profile-eligible components and exact evidence-bound refs before qualification: `EXTEND` the existing catalog/candidate path.
+- Positive and destructive-negative regression fixtures proving exact adoption, bound-input drift and arbitrary-SHA rejection: `CREATE` as test/evidence only.
+- A second Registry/State database, second component acceptance format, hard-coded adapter refs as acceptance truth, member-payload work, release promotion, channel changes and durable release receipts: `PROHIBITED/DEFER` for Slice 5.1.
+- Member payload isolation stays in 5.2, promotion/whole-product qualification stays in 5.3, compact release receipts stay in 5.4, and global watchdog remediation remains separate unless a later active candidate decision genuinely requires an unprovable global fact.
+
+### Derived task list
+
+- [ ] **5.1-T1** Define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority.
+- [ ] **5.1-T2** Integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged.
+- [ ] **5.1-T3** Prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority.
+- [ ] **5.1-T4** Run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation.
 
 ## Slice 5.2 - Member payload isolation
 
@@ -558,6 +590,15 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-14 - Slice 5.1 bounded planning started
+
+- Began Phase 5 from System `fbbaaa2c8690950e6250a7c82f3fded8ed62b277` and Distribution `10d04c723e5918506f1f76aabf1c59bfa23f7b8b`, preserving unrelated Safe Infrastructure movement.
+- Reused the frozen `candidate-evidence.json` architecture and existing Distribution release-set, candidate-overlay, qualification, compatibility, transition and preservation machinery instead of creating a parallel release framework.
+- Confirmed the current candidate overlay is empty and current catalog validation enforces immutable 40-character SHAs but does not yet prove those SHAs are bound to owner adoption plus System/Registry/State evidence.
+- Classified historical hard-coded Distribution revision knowledge as routing/orchestration only, never owner-acceptance authority; the existing adapter-shadow-risk remains open pending implementation proof.
+- Derived four tasks. 5.1-T1 is the only next task. No candidate, release set, promotion, member payload, Repository State, component owner or runtime behavior was changed.
+- Program progress remains 13/20, 65.0%; Phase 5 remains 0/4 complete. No plan amendment.
 
 ## 2026-10-13 - Slice 4.3 and Phase 4 completed
 
@@ -730,11 +771,13 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
+# Current execution pointer
+
 **Completed:** 13/20  
 **Overall:** 65.0%  
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
 **Phase progress:** 0/4  
 **Until Phase 6:** 4 slices  
-**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`NOT STARTED`)  
-**Next:** 5.1 slice-start - perform bounded discovery/planning for immutable candidate snapshots and owner-adoption gates, derive the adaptive task list, commit the roadmap, and stop before implementing 5.1-T1  
-**Blockers/drift/amendments:** Phase 4 owner integration is complete. The six active Wave 2/3 owners are registered, handoff-capable and proven across push/PR paths, but their current descriptors remain candidate-only with owner acceptance unverified and no current default-channel Distribution pin. Connections and Dashboard remain unadmitted because Full is still blocked. Apps remains experimental, non-shipped, implementation-not-started, no-CI and unavailable to the System repository-scoped Actions token, so no readiness is inferred. Watchdog remains `WATCHDOG-STALE` pending a successful expanded-Registry global scan. `distribution-adapter-compatibility-shadow-risk` WARNING remains open for Phase 5 admission work; `compact-release-receipt-not-yet-implemented` INFO remains open for Slice 5.4. Purpose blueprint lag and Wave 1/Core owner/handoff drift remain RESOLVED. No plan amendment required.
+**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 0/4 tasks complete)  
+**Next:** 5.1-T1 - define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority  
+**Blockers/drift/amendments:** Phase 4 owner integration remains accepted. Distribution already has exact release sets, qualification evidence, candidate overlay, promotion/lineage and transition/preservation machinery, but candidate admission is not yet generically bound to canonical owner/System/Registry/State evidence, so arbitrary exact SHAs remain insufficiently constrained for future admission. `distribution-adapter-compatibility-shadow-risk` WARNING remains open until the implemented gate proves hard-coded Distribution knowledge is not acceptance authority. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`, but valid scoped candidate evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.
