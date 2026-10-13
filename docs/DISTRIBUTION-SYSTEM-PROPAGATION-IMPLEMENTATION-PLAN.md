@@ -379,9 +379,9 @@ T5 refreshed only the canonical Core scope and closed only the two Wave 1 owner/
 
 ## Slice 4.3 - Wave 2/3 handoff governance
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 4.2  
-**Adaptive tasks:** 4/5 complete
+**Adaptive tasks:** 5/5 complete
 
 Apply the proven owner-handoff semantics only to evidence-backed Wave 2/3 repositories. Acceptance remains unchanged: active first-class repos must be registered and handoff-capable, experimental/retired/external status must be explicit, missing CI must stay visible, and no broad cross-repository write or Distribution/member-release authority may be introduced.
 
@@ -429,7 +429,7 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 - [x] **4.3-T2** Establish the exact owner-adoption matrix for the six active Wave 2/3 owners by inspecting their current native CI, current heads and applicable immutable Distribution evidence; select one designated native workflow and exact candidate/accepted revision per owner, failing closed where evidence is insufficient. Apps remains an explicit no-CI experimental gap.
 - [x] **4.3-T3** Publish the proven canonical Component Release Descriptor, owner-local exact-revision gate and minimal source-only maintainer handoff in only the six active owners whose T2 evidence passes, preserving native CI and denying Distribution/member-release/live-health authority.
 - [x] **4.3-T4** Prove the adopted active-owner pattern across push and PR paths, exact revision/native-CI binding, canonical breaking-change rejection, handoff discoverability and read-only authority boundaries; prove Apps remains unaccepted rather than manufacturing readiness.
-- [ ] **4.3-T5** Refresh only the required Agent/Full/component Repository State scopes from exact resulting refs, resolve only Wave 2/3 governance drift proven closed, keep the Full release blocked wherever owner/CI/admission evidence remains incomplete, publish the deterministic ledger, close Slice 4.3 and Phase 4, advance to 5.1, and stop without beginning Phase 5.
+- [x] **4.3-T5** Refresh only the required Agent/Full/component Repository State scopes from exact resulting refs, resolve only Wave 2/3 governance drift proven closed, keep the Full release blocked wherever owner/CI/admission evidence remains incomplete, publish the deterministic ledger, close Slice 4.3 and Phase 4, advance to 5.1, and stop without beginning Phase 5.
 
 ### T1 evidence
 
@@ -479,6 +479,20 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 - Apps stayed exactly at `db5b0115bf59d6eae9149137a40e891968f3a637`. Its root still contains only `README.md`, which states `Founding architecture / research seed` and `Implementation status: Not started`; no descriptor, owner CI or accepted Full evidence was manufactured.
 - All six temporary validation PRs were closed unmerged. Each `propagation-43-t4-validation` branch was force-with-lease reset from its exact negative fixture head back to the exact T3 owner head. No invalid fixture remains on the validation branches and no owner `main` was changed by T4.
 - T4 changed no Distribution release set, Repository State, generated ledger, member payload, runtime behavior or user-owned state. T5 State/ledger refresh and drift disposition were not begun. No plan amendment was required.
+
+### T5 evidence and closure
+
+- T5 began from System `d50c89021b41b0f5a5f4335264e51d176256b455`. Concurrent Distribution Safe Infrastructure work was preserved at `10d04c723e5918506f1f76aabf1c59bfa23f7b8b`; the released Agent evidence and blocked Full record remained semantically unchanged. Full `full-public-beta-pending.json` remains `blocked` with `components=[]` and still names Connections, Dashboard and Apps as lacking one admitted compatible Full release set.
+- The six active Wave 2/3 owner heads remained exactly their T3 publication heads at refresh time: Gateway `95cc8319c1dc95b05da0ebb451d70469170ca3f8`, Automations `fda8b25b11b8419113a2625d09fd3da66b61064f`, Multiple Bots `b4ad4315e560db0f60615e7c5ea59cb13c86969b`, Token `363dde3d87edaf8e7acd072c542775017f0b5dbf`, Connections `b557ef1d83a9d6c802070887ca84c3b3df2aef29`, Dashboard `ec5d40aea7fa3111357c086660a2630cef20f51a`. Apps independently remained at `db5b0115bf59d6eae9149137a40e891968f3a637`, but it is private and therefore intentionally inaccessible to the System repository-scoped Actions token.
+- Initial scoped refresh run `38388423147` correctly produced `PARTIAL` for the Apps component scope, then `COMPLETE` for Agent and Full, validated the 14-repository State and current ledger, but a T5-only assertion incorrectly expected private Apps to be Actions-readable. Publication was skipped, so this run is not closure evidence and no incorrect State reached `main`.
+- The fail-closed Apps expectation was aligned at `9f931d229d1bc003a81cfda7a25ed80ff07de100`: Apps must remain `access=unavailable`, `observed_head=null`, owner acceptance `unverified`, descriptor/pin `not-applicable`, freshness `unknown`. Corrected scoped refresh run `38388562514` passed Apps component, Agent and Full refresh semantics, exact-owner assertions and publication.
+- Canonical Repository State and deterministic ledger were published together at `cfad05d796713f233090735d47eff8507050194d`. The final persisted refresh is `Full / complete` over 13 accessible control/active repositories with evidence revision `9f931d229d1bc003a81cfda7a25ed80ff07de100`; the Apps component result remains separately fail-closed and unavailable.
+- Gateway, Automations, Multiple Bots, Token, Connections and Dashboard are all fresh and verified at their exact T3 publication heads, with their canonical descriptors observed as `candidate`. Owner acceptance remains `unverified` and Distribution pin status remains `unpinned`; T5 therefore does not turn owner-local candidate fitness into Distribution admission. Connections and Dashboard remain unadmitted, and Apps remains experimental/no-CI/unaccepted.
+- No existing State drift was falsely closed or a synthetic resolved drift invented. The refreshed repository observations resolve the Slice 4.3 placeholder/governance uncertainty while preserving the three real open drifts: `distribution-adapter-compatibility-shadow-risk` WARNING, `repository-watchdog-stale` WARNING, and `compact-release-receipt-not-yet-implemented` INFO. The expanded-Registry watchdog remains `WATCHDOG-STALE` because no successful 14-repository global scan exists and Apps is not readable by the repo-scoped System token.
+- T5 also preserved unrelated OS movement to `470ad89e6b96d898161dee36d4e4fa8064dd6a8d` (`Document admitted capability promotion semantics`). Its accepted descriptor remains bound to Distribution-pinned revision `64f7325444d18f94c9d4755d32eb89f3468bda6b`; no accepted Core release truth was rewritten.
+- Initial post-publication Contract Validation run `38388833467` validated Registry, State and the generated ledger but exposed three stale synthetic watchdog tests: their successful-global-scan helper only promoted persisted `unverified` access, while T5 now correctly persists private Apps as `unavailable`. The production watchdog was not changed. Regression alignment `12d765721f24154a753c0591115bc08b5e93ea41` changes only that synthetic fixture so a deliberately successful global scan models every non-verified repository as verified.
+- Exact clean-head Contract Validation run `38388998362` on `8765e31181fb4454e58bf3b313b315cbc00c62fe` passed Python 3.11 and 3.13, validated Registry and State, confirmed the deterministic ledger is current and passed all 142 tests. Python 3.11 also completed the live read-only Core refresh successfully.
+- T5 changed no component owner release status, Distribution release-set composition, member payload, runtime behavior or user-owned state. Slice 4.3 and Phase 4 are complete. Phase 5 implementation was not begun. No plan amendment was required.
 
 ---
 
@@ -544,6 +558,16 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-13 - Slice 4.3 and Phase 4 completed
+
+- Published the scoped Wave 2/3 Repository State and deterministic ledger at `cfad05d796713f233090735d47eff8507050194d` after an Apps component refresh plus Agent and Full refreshes.
+- Verified all six active Wave 2/3 owners at exact T3 publication heads while preserving their descriptors as `candidate`, owner acceptance as `unverified` and current Distribution pin status as `unpinned`; no candidate was silently promoted.
+- Kept Full explicitly blocked: Connections and Dashboard have no admitted Full revision, and private experimental Apps remains unavailable to the System Actions token, no-CI and unaccepted.
+- Preserved `WATCHDOG-STALE` and the existing Distribution shadow-risk and compact-receipt drifts. No unproven drift was resolved or invented.
+- Aligned only the synthetic watchdog success fixture at `12d765721f24154a753c0591115bc08b5e93ea41` after T5 correctly persisted Apps as unavailable. Production watchdog semantics were unchanged.
+- Exact clean-head Contract Validation `38388998362` on `8765e31181fb4454e58bf3b313b315cbc00c62fe` passed Python 3.11/3.13, all 142 tests, current ledger verification and live read-only Core refresh.
+- Slice 4.3 is complete at 5/5. Phase 4 is complete at 3/3. Program progress advances to 13/20, 65.0%. Phase 5 remains unstarted; Slice 5.1 bounded planning is the only next action. No plan amendment.
 
 ## 2026-10-13 - Slice 4.3 T4 owner validation matrix proven
 
@@ -706,11 +730,11 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-**Completed:** 12/20  
-**Overall:** 60.0%  
-**Phase:** Phase 4 - Integrate canonical component owners  
-**Phase progress:** 2/3  
-**Until Phase 5:** 1 slice  
-**Current slice:** Slice 4.3 - Wave 2/3 handoff governance (`IN PROGRESS`, 4/5 tasks complete)  
-**Next:** 4.3-T5 - refresh only the required Agent/Full/component Repository State scopes from exact resulting refs, resolve only Wave 2/3 governance drift proven closed, keep the Full release blocked wherever owner/CI/admission evidence remains incomplete, publish the deterministic ledger, close Slice 4.3 and Phase 4, advance to 5.1, and stop without beginning Phase 5  
-**Blockers/drift/amendments:** Wave 1/Core exact owner acceptance and maintainer handoff remain resolved. Seven Wave 2/3 repositories are registered. The six active Wave 2/3 owner handoffs are now proven across push and PR paths, exact-revision designated native-CI binding, fail-closed breaking-change rejection, discoverability and read-only authority boundaries. Wave 2 still retains the older immutable released Agent revisions as its only Distribution-accepted baseline; the newer pinned owner revisions remain candidate-only. Connections and Dashboard still have no admitted Full component revision because Full is blocked; Apps remains experimental, non-shipped, implementation-not-started and no-CI. T5 scoped State/ledger refresh and exact drift disposition remain open. Watchdog remains `WATCHDOG-STALE` because the Registry expanded after the last successful full heartbeat and T4 performed no refresh. Distribution adapter shadow-risk WARNING and compact release receipt INFO remain open for their planned later owners. Purpose blueprint lag remains RESOLVED. No plan amendment required.
+**Completed:** 13/20  
+**Overall:** 65.0%  
+**Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
+**Phase progress:** 0/4  
+**Until Phase 6:** 4 slices  
+**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`NOT STARTED`)  
+**Next:** 5.1 slice-start - perform bounded discovery/planning for immutable candidate snapshots and owner-adoption gates, derive the adaptive task list, commit the roadmap, and stop before implementing 5.1-T1  
+**Blockers/drift/amendments:** Phase 4 owner integration is complete. The six active Wave 2/3 owners are registered, handoff-capable and proven across push/PR paths, but their current descriptors remain candidate-only with owner acceptance unverified and no current default-channel Distribution pin. Connections and Dashboard remain unadmitted because Full is still blocked. Apps remains experimental, non-shipped, implementation-not-started, no-CI and unavailable to the System repository-scoped Actions token, so no readiness is inferred. Watchdog remains `WATCHDOG-STALE` pending a successful expanded-Registry global scan. `distribution-adapter-compatibility-shadow-risk` WARNING remains open for Phase 5 admission work; `compact-release-receipt-not-yet-implemented` INFO remains open for Slice 5.4. Purpose blueprint lag and Wave 1/Core owner/handoff drift remain RESOLVED. No plan amendment required.
