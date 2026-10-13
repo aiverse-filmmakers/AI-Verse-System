@@ -771,8 +771,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-# Current execution pointer
-
 **Completed:** 13/20  
 **Overall:** 65.0%  
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
