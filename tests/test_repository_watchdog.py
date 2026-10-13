@@ -41,7 +41,7 @@ def global_refresh(state, revision="b" * 40, status="complete"):
     }
     for index, item in enumerate(value["repositories"]):
         registry_entry = registry_by_id[item["repository_id"]]
-        if status == "complete" and item["access"] == "unverified":
+        if status == "complete" and item["access"] != "verified":
             synthetic_head = f"{index + 1:040x}"[-40:]
             item["access"] = "verified"
             item["observed_head"] = synthetic_head
