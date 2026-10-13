@@ -1,20 +1,20 @@
 # AI-Verse Safe Infrastructure Upgrade, Convergence and Recovery Implementation Plan
 
-**Status:** IN PROGRESS - PHASE 4; SLICE 4.3 COMPLETE  
+**Status:** IN PROGRESS - PHASE 4 COMPLETE; PHASE 5 NOT STARTED  
 **Canonical planning repo:** `aiverse-filmmakers/AI-Verse-System`  
 **Primary orchestration repo:** `aiverse-filmmakers/ai-verse-distribution`  
 **Initial owner repos:** `aiverse-filmmakers/AI-Verse-OS`, `aiverse-filmmakers/AI-Verse-Skills`  
 **Started:** 2026-10-12  
 **Planning method:** `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md`  
 **Program size:** 18 slices  
-**Completed:** 14  
-**Remaining:** 4  
-**Overall progress:** 77.8%  
-**Current phase:** Phase 4 - Implement Distribution orchestration and simple member UX  
-**Current phase progress:** 3/4  
-**Slices until Phase 5:** 1  
-**Next:** Slice 4.4 - Implement `upgrade --apply` orchestration, resume and verification  
-**Next slice task list:** STOP - derive only when Slice 4.4 starts
+**Completed:** 15  
+**Remaining:** 3  
+**Overall progress:** 83.3%  
+**Current phase:** Phase 4 - Implement Distribution orchestration and simple member UX (COMPLETE)  
+**Current phase progress:** 4/4 COMPLETE  
+**Slices until Phase 5:** 0  
+**Next:** Phase 5 / Slice 5.1 - Add cross-repo regression and destructive-negative tests (NOT STARTED)  
+**Next slice task list:** STOP - derive only when Slice 5.1 starts
 
 > This plan is intentionally stable at the level of laws, phase purpose, slice outcome and acceptance criteria, while low-level tasks remain adaptive. Verified shipped source, shipped contracts and tests outrank roadmap assumptions. Discovery may adapt the route; it may not silently change the destination.
 
@@ -1932,8 +1932,8 @@ Next execution unit: Phase 4 / Slice 4.1. Derive its adaptive task list only aft
 # Phase 4 - Implement Distribution orchestration and simple member UX
 
 **Phase size:** 4 slices  
-**Status:** IN PROGRESS  
-**Phase progress:** 3/4
+**Status:** COMPLETE  
+**Phase progress:** 4/4 COMPLETE
 
 ## Slice 4.1 - Implement one rotating Last-Known-Good recovery point and restore engine
 
@@ -2173,33 +2173,104 @@ Next execution unit: Slice 4.4. Derive its adaptive task list only after fresh r
 
 ## Slice 4.4 - Implement `upgrade --apply` orchestration, resume and verification
 
-**Status:** NOT STARTED  
+**Status:** COMPLETE  
 **Dependencies:** 4.3  
-**Adaptive tasks:** derive from real owner handlers and Distribution transaction engine
+**Adaptive tasks:** 7/7 COMPLETE
+
+Extended the shipped Distribution lifecycle engine with explicit structural apply rather than introducing a second update/migration transaction owner. `aiverse upgrade` remains read-only preview; `aiverse upgrade --apply` is the only structural mutation route.
+
+The currently admitted Core OS and Skills descriptors still publish no `migration.infrastructure`, so a real current member install truthfully remains a healthy no-op. Executable mutation semantics were qualified with exact admitted synthetic descriptors and a trusted injected owner executor rather than inventing a production migration.
+
+### Final adaptive task list
+
+- [x] **4.4-T1** Freeze refreshed refs and the real owner/transaction inventory before product implementation; classify current production no-recipe behavior and reject invented Workspace/Skills migrations.
+- [x] **4.4-T2** Bind executable infrastructure plans deterministically to the exact admitted release, component revision, source detection evidence and exact owner recipe path while keeping previews read-only and owner operation IDs opaque.
+- [x] **4.4-T3** Implement explicit `upgrade --apply` orchestration using the existing lifecycle transaction, exact pending-owner-effect recovery, immediate re-plan, LKG-first protection and a trusted owner lifecycle executor.
+- [x] **4.4-T4** Verify preconditions, identity/reference evidence, repairs, owner verification, postconditions and final whole-install health before committing success; persist truthful completion/recovery evidence without changing the installed software release.
+- [x] **4.4-T5** Keep default member output concise/non-technical for no-op, success, stale-plan and recovery-required outcomes while retaining full machine-readable JSON evidence and preserving existing doctor/update/restore routing.
+- [x] **4.4-T6** Add focused positive/destructive-negative coverage for current no-recipe no-op, OPTIONAL/REQUIRED explicit apply, source drift, LKG ordering, dependency order, repair, identity failure, interruption/resume, failed final health, idempotent replay, post-receipt crash recovery and retained restore availability.
+- [x] **4.4-T7** Qualify exact Distribution PR head and merged main across the full six-job Distribution CI matrix, record exact evidence, close Phase 4 at 4/4 and stop before Phase 5 / Slice 5.1.
+
+### Implementation result
+
+Distribution now:
+
+- revalidates the exact admitted component descriptor and executable-plan fingerprint immediately before structural apply;
+- secures the verified rotating Last-Known-Good point before the first owner mutation;
+- persists an integrity-bound private upgrade journal and reuses the existing lifecycle pending-effect marker for exact crash-visible ownership;
+- resumes only the exact matching pending operation and verifies already-completed owner steps instead of replaying blindly;
+- invokes opaque owner detect/apply/repair/verify operations in deterministic component and recipe order;
+- verifies canonical identity/reference evidence, owner pre/postconditions, repair results and final whole-install health before committing success;
+- preserves the retained pre-upgrade LKG after success so explicit restore remains available;
+- keeps OPTIONAL work explicit and REQUIRED work outside normal software update;
+- keeps default member output practical and non-technical while retaining full `--json` evidence.
+
+A qualification interaction required one narrow recovery-safe view: normal `status()`/`doctor()` correctly report `recovery-required` while any pending lifecycle effect exists. `OwnedEffectHealthState` therefore hides only the exact marker owned by the active structural transaction from that transaction's read-only final-health view, validates token/operation/base-generation ownership, blocks mutation through the view, and leaves the real durable marker visible to every normal caller until authoritative receipt commit.
+
+### Exact evidence
+
+Detailed evidence: `docs/SAFE-INFRASTRUCTURE-SLICE-4.4-UPGRADE-APPLY.md`.
+
+System start/task record:
+
+- System PR #204, start record head `1284b419f9725f99ef5c5d92be5be167daee36fa`;
+- Contract Validation run `38383576199`: **SUCCESS**, Python 3.11 and 3.13;
+- merged start record `1c824059e32d1e1bab5727aaea3b9636b146658b`.
+
+Distribution qualification:
+
+- PR #33 exact qualified head `6aee670cdee7417b9822aeacc0e6638c29d79a5e`;
+- PR-head Distribution CI `38386061553`: **SUCCESS**, all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs;
+- supporting exact-head gates Lifecycle Receipt Concurrency `38386061543`, Invisible Intelligence Scenarios A-F `38386062170`, Composed Semantic Migration Acceptance `38386061676` and Composed Two-System Isolation Acceptance `38386061693`: **SUCCESS**;
+- merged Distribution main `10d04c723e5918506f1f76aabf1c59bfa23f7b8b`;
+- merged-main Distribution CI `38386952080`: **SUCCESS**, all six Ubuntu/macOS/Windows x Python 3.11/3.12 jobs.
+
+Two unrelated broad-gate defects remain separately owned and were not used as Slice 4.4 acceptance authority: the pre-existing Clean Machine Core first-run `setup-required` defect, and a Windows Gateway runtime `EPERM` atomic-rename failure in Clean Machine Agent. Project Bootstrap also exposed a pre-existing `--help` routing defect, fixed narrowly without changing bootstrap install/update semantics.
 
 ### Acceptance criteria
 
-- exact upgrade plan is revalidated against source state immediately before apply;
-- Last-Known-Good point is secured first;
-- owner handlers execute in dependency-safe order;
-- partial failure remains resumable/recoverable/truthful;
-- identity/reference conditions from the canonical Identity Hardening contract are revalidated;
-- reference repairs and postconditions are verified;
-- failed upgrade never reports success;
-- restore remains available after upgrade;
-- OPTIONAL upgrades require explicit apply intent;
-- REQUIRED upgrades remain explicit rather than hidden inside normal update;
-- completion output explains what practically improved, what was preserved and whether health passed without migration jargon.
+- exact upgrade plan is revalidated against source state immediately before apply: **PASS**;
+- Last-Known-Good point is secured first: **PASS**;
+- owner handlers execute in dependency-safe order: **PASS**;
+- partial failure remains resumable/recoverable/truthful: **PASS**;
+- identity/reference conditions from the canonical Identity Hardening contract are revalidated: **PASS**;
+- required reference repairs and postconditions are verified: **PASS**;
+- failed upgrade never reports success: **PASS**;
+- restore remains available after upgrade: **PASS**;
+- OPTIONAL upgrades require explicit apply intent: **PASS**;
+- REQUIRED upgrades remain explicit rather than hidden inside normal update: **PASS**;
+- completion output explains practical improvement, preservation and health without migration jargon: **PASS**;
+- normal software update, expert component doctor and restore semantics remain intact: **PASS**;
+- exact PR-head and exact merged-main six-job Distribution CI are green: **PASS**.
+
+No protected-law amendment was required.
+
+### Completion report
+
+```text
+Completed: Slice 4.4 - Implement `upgrade --apply` orchestration, resume and verification
+Tasks: 7/7
+Overall: 15/18 slices (83.3%)
+Phase: Phase 4 - Implement Distribution orchestration and simple member UX
+Phase progress: 4/4 COMPLETE
+Until Phase 5: 0 slices
+Next: Phase 5 / Slice 5.1 - Add cross-repo regression and destructive-negative tests
+Blockers/drift/amendments: no Slice 4.4 blocker or protected-law amendment; known unrelated broad-gate defects remain separately owned.
+```
 
 ### NEXT
 
-Phase 5 / Slice 5.1.
+**STOP after Slice 4.4 under the current one-at-a-time execution request.**
+
+Next execution unit is Phase 5 / Slice 5.1. Derive its adaptive task list only after fresh refs are fetched. No Safe Infrastructure Slice 5.1 implementation was started here.
 
 ---
 
 # Phase 5 - Prove safety, convergence, restore and closeout
 
-**Phase size:** 3 slices
+**Phase size:** 3 slices  
+**Status:** NOT STARTED  
+**Phase progress:** 0/3
 
 ## Slice 5.1 - Add cross-repo regression and destructive-negative tests
 
@@ -2481,14 +2552,39 @@ None. Program complete.
 
 ---
 
+## 2026-10-13 - Slice 4.2 completed; structural activation gating operational
+
+- Extended shipped Core update planning/activation with exact owner infrastructure classification without making normal update perform OPTIONAL structural work.
+- Kept REQUIRED/BLOCKED structural state from being falsely activated and preserved read-only `update --plan` behavior.
+- Landed Distribution PR #31 at `9842451bca86f32e48763fbfe07243a613f15214`; exact merged-main Distribution CI `38321170716` passed all six jobs.
+- Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-4.2-UPDATE-GATING.md`.
+
+## 2026-10-13 - Slice 4.3 completed; one-command doctor and structural preview operational
+
+- Extended whole-install doctor with truthful aggregate health while retaining isolated owner evidence and existing expert component diagnostics.
+- Added read-only `aiverse upgrade` structural preview with concise traffic-light member UX and full JSON evidence.
+- Landed Distribution PR #32 at `15e03219185f484cbbc4c5887d967ddc5630d1a6`; exact merged-main Distribution CI `38375126907` passed all six jobs.
+- Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-4.3-DOCTOR-UPGRADE-UX.md`.
+
+## 2026-10-13 - Slice 4.4 completed; Phase 4 complete
+
+- Added explicit `aiverse upgrade --apply` orchestration over the existing Distribution lifecycle transaction with exact-plan revalidation, LKG-first protection, opaque owner operation execution, durable exact resume and final verification.
+- Preserved normal `aiverse update`, read-only upgrade preview, expert doctor compatibility and retained restore availability.
+- Qualified the current admitted no-recipe release as a truthful no-op while exercising real orchestration semantics through exact admitted fixtures rather than inventing a production migration.
+- Qualified Distribution PR #33 exact head `6aee670cdee7417b9822aeacc0e6638c29d79a5e` with six-job Distribution CI `38386061553` and merged main `10d04c723e5918506f1f76aabf1c59bfa23f7b8b` with six-job Distribution CI `38386952080`, both successful.
+- Recorded detailed evidence in `docs/SAFE-INFRASTRUCTURE-SLICE-4.4-UPGRADE-APPLY.md`.
+- Completed Phase 4 at 4/4 slices. Program progress is 15/18, 83.3%. Phase 5 remains unstarted.
+
+---
+
 # Current execution pointer
 
-**Completed:** 12/18  
-**Overall:** 66.7%  
-**Phase:** Phase 4 - Implement Distribution orchestration and simple member UX  
-**Phase progress:** 1/4  
-**Until Phase 5:** 3 slices  
-**Next:** STOP after Slice 4.1 under the one-at-a-time execution rule  
-**Next Safe Infrastructure slice:** Slice 4.2 - Extend shipped update staging/activation around structural upgrade requirements  
-**Next task:** none until Slice 4.2 starts and its adaptive task list is derived from fresh System/Distribution/owner refs  
-**Blockers/drift/amendments:** no Slice 4.1 blocker or protected-law amendment. The canonical Phase 4 denominator is four slices; two unrelated pre-existing broad-gate defects remain separate from the LKG/restore implementation.
+**Completed:** 15/18  
+**Overall:** 83.3%  
+**Phase:** Phase 4 - Implement Distribution orchestration and simple member UX (COMPLETE)  
+**Phase progress:** 4/4 COMPLETE  
+**Until Phase 5:** 0 slices  
+**Next:** STOP after Slice 4.4 under the one-at-a-time execution rule  
+**Next Safe Infrastructure slice:** Slice 5.1 - Add cross-repo regression and destructive-negative tests  
+**Next task:** none until Slice 5.1 starts and its adaptive task list is derived from fresh System/Distribution/owner refs plus the implemented invariants  
+**Blockers/drift/amendments:** no Slice 4.4 blocker or protected-law amendment. Current admitted production releases publish no structural recipe, so production apply remains a truthful no-op; executable owner orchestration is evidence-bound and qualified. Known unrelated broad-gate defects remain separately owned. Phase 5 is not started.
