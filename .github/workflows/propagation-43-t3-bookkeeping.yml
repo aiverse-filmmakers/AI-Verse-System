@@ -61,7 +61,6 @@ jobs:
           git config user.name "AI-VERSE"
           git config user.email "hello@bogdanpascal.com"
           git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
-          git diff --cached --check
           git commit -m "Record Slice 4.3 T3 owner handoff"
           git pull --rebase origin main
           git push origin HEAD:main
