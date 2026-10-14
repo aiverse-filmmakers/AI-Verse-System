@@ -1,0 +1,74 @@
+name: Propagation Slice 5.1 T1 Bookkeeping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/propagation-51-t1-bookkeeping.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-t1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Record Slice 5.1 T1 evidence
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text(encoding='utf-8')
+
+          start = '## Slice 5.1 - Immutable candidate snapshot and owner-adoption gates\n'
+          end = '## Slice 5.2 - Member payload isolation\n'
+          if text.count(start) != 1 or text.count(end) != 1:
+              raise SystemExit('Slice 5.1/5.2 boundary not unique')
+          before, rest = text.split(start, 1)
+          section, after = rest.split(end, 1)
+
+          if '**Adaptive tasks:** 0/4 complete' not in section:
+              raise SystemExit('5.1 task count is not 0/4')
+          section = section.replace('**Adaptive tasks:** 0/4 complete', '**Adaptive tasks:** 1/4 complete', 1)
+
+          t1_open = '- [ ] **5.1-T1** Define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority.\n'
+          t1_done = t1_open.replace('- [ ]', '- [x]', 1)
+          if section.count(t1_open) != 1:
+              raise SystemExit('5.1-T1 open checkbox not found exactly once')
+          section = section.replace(t1_open, t1_done, 1)
+
+          evidence = '''\n### T1 evidence\n\n- Preserved unrelated System Safe Infrastructure movement through `2f9538830733d6726c390e6eedd737eaf03f0a9c`; its only propagation-era delta from `db42146189d2d869925d26668a6683cf437fdd80` is the separate `docs/SAFE-INFRASTRUCTURE-SLICE-5.1-REGRESSION-TESTS.md`.\n- Distribution began T1 at unchanged `10d04c723e5918506f1f76aabf1c59bfa23f7b8b` and published the complete T1 contract atomically at `381ead50a9a4d790af945f4d95d268c65ed94060` (`Define immutable candidate evidence contract`).\n- Added canonical Distribution-owned `contracts/candidate-evidence.schema.json`, `docs/CANDIDATE-EVIDENCE-CONTRACT.md`, reusable pure-stdlib validator `src/aiverse_distribution/candidate_evidence.py`, maintainer CLI `scripts/validate-candidate-evidence.py`, and `tests/test_candidate_evidence_contract.py`.\n- The v1 snapshot contract is `aiverse.distribution-candidate-evidence/v1` at canonical instance path `qualification/<candidate-id>/candidate-evidence.json`. It binds exact Distribution candidate revision/definition digest, System governance inputs, Registry, scoped Repository State, component refs, descriptor refs/digests, exact successful owner-acceptance evidence, compatibility inputs, runtime/toolchain and dependency-lock inputs, and drift records tied to the scoped State digest.\n- Owner adoption fails structurally unless the canonical descriptor is `accepted`, its declared revision equals the candidate component revision, and owner acceptance names the same exact revision with successful designated native-CI evidence.\n- The schema and validator force `immutable_snapshot_only=true` and `registry_authority=false`, `repository_state_authority=false`, `owner_acceptance_authority=false`, `release_admission_authority=false`, `live_health_authority=false`, `member_state_authority=false`; candidate evidence therefore cannot become a second Registry, State database, owner-acceptance record, admission authority or live/member-state truth.\n- The validator intentionally performs no GitHub/network lookup and does not modify or admit the candidate overlay. External evidence existence, Registry/profile eligibility, exact live binding and catalog/admission integration remain exclusively 5.1-T2.\n- Exact Distribution CI run `38636995462` passed all six jobs: Linux, macOS and Windows on Python 3.11 and 3.12. Every job passed installation, the full unit suite including seven new candidate-evidence contract tests, and the existing CLI catalog smoke.\n- T1 changed no release set, compatibility matrix, candidate overlay, promotion/channel, component owner, System Registry/State, member payload, runtime behavior or user-owned state. `distribution-adapter-compatibility-shadow-risk` remains WARNING because T1 defines the evidence boundary but does not yet wire it into admission. No plan amendment required.\n\n'''
+          if '### T1 evidence\n' in section:
+              raise SystemExit('T1 evidence already present')
+          section = section.rstrip() + evidence
+          text = before + start + section + end + after
+
+          changelog_anchor = '## 2026-10-14 - Slice 5.1 bounded planning started\n'
+          changelog = '''## 2026-10-14 - Slice 5.1 T1 candidate-evidence contract defined\n\n- Published the immutable Distribution candidate-evidence schema, contract, reusable validator, CLI and focused regressions at Distribution `381ead50a9a4d790af945f4d95d268c65ed94060`.\n- Bound exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs without creating a second authority surface.\n- Enforced exact owner-accepted component revision equality and explicit negative authority flags; the validator is intentionally offline/internal only and does not perform T2 admission integration.\n- Exact Distribution CI `38636995462` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs.\n- Slice 5.1 is now 1/4 tasks complete. Program progress remains 13/20, 65.0%; Phase 5 remains 0/4 slices complete. 5.1-T2 is the only next task. No plan amendment.\n\n'''
+          if text.count(changelog_anchor) != 1:
+              raise SystemExit('changelog anchor not unique')
+          text = text.replace(changelog_anchor, changelog + changelog_anchor, 1)
+
+          marker = '# Current execution pointer\n\n'
+          if text.count(marker) != 1:
+              raise SystemExit('current execution pointer marker not unique')
+          prefix, _ = text.split(marker, 1)
+          pointer = '''# Current execution pointer\n\n**Completed:** 13/20  \n**Overall:** 65.0%  \n**Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  \n**Phase progress:** 0/4  \n**Until Phase 6:** 4 slices  \n**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 1/4 tasks complete)  \n**Next:** 5.1-T2 - integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged  \n**Blockers/drift/amendments:** T1 is accepted at Distribution `381ead50a9a4d790af945f4d95d268c65ed94060` with CI `38636995462` green on all six Linux/macOS/Windows Python 3.11/3.12 jobs. The immutable `candidate-evidence.json` contract now binds exact external evidence and explicitly denies competing authority, but it is not yet integrated into the candidate catalog/admission path; that exact gap is T2. `distribution-adapter-compatibility-shadow-risk` WARNING therefore remains open. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`; valid scoped evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.\n'''
+          text = prefix + marker + pointer
+          path.write_text(text, encoding='utf-8')
+
+      - name: Commit T1 bookkeeping
+        run: |
+          set -euo pipefail
+          remote_head="$(git ls-remote origin refs/heads/main | cut -f1)"
+          test "$remote_head" = "$GITHUB_SHA"
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git diff --cached --quiet && { echo 'No roadmap change'; exit 1; }
+          git commit -m "Record Slice 5.1 T1 candidate evidence contract"
+          git push origin HEAD:main
