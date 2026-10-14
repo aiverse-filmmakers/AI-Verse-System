@@ -1,0 +1,73 @@
+name: Propagation Slice 5.1 T2 Bookkeeping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/propagation-51-t2-bookkeeping.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-t2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Record Slice 5.1 T2 evidence
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text(encoding='utf-8')
+
+          start = '## Slice 5.1 - Immutable candidate snapshot and owner-adoption gates\n'
+          end = '## Slice 5.2 - Member payload isolation\n'
+          if text.count(start) != 1 or text.count(end) != 1:
+              raise SystemExit('Slice 5.1/5.2 boundary not unique')
+          before, rest = text.split(start, 1)
+          section, after = rest.split(end, 1)
+
+          if '**Adaptive tasks:** 1/4 complete' not in section:
+              raise SystemExit('5.1 task count is not 1/4')
+          section = section.replace('**Adaptive tasks:** 1/4 complete', '**Adaptive tasks:** 2/4 complete', 1)
+
+          t2_open = '- [ ] **5.1-T2** Integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged.\n'
+          if section.count(t2_open) != 1:
+              raise SystemExit('5.1-T2 open checkbox not found exactly once')
+          section = section.replace(t2_open, t2_open.replace('- [ ]', '- [x]', 1), 1)
+
+          evidence = '''\n### T2 evidence\n\n- Preserved concurrent System Safe Infrastructure movement through `d7a7e5b38712a32c417d49b47c3d39b7015b92b9`; its delta from the T2 observation boundary `69ea1553f8545350a0ab54211ed22e1ba8844b61` adds only `docs/SAFE-INFRASTRUCTURE-SLICE-5.2-CONVERGENCE-RESTORE.md`.\n- Preserved unrelated Distribution Safe Infrastructure regression movement after T1. The final clean T2 Distribution head is `18926197c9bbee2d45fb78d5ab66d59b853e498e`, a descendant of T1 `381ead50a9a4d790af945f4d95d268c65ed94060`.\n- Added reusable source-side admission verification in `src/aiverse_distribution/candidate_admission.py`, maintainer entrypoint `scripts/validate-candidate-admission.py` and focused integration coverage `tests/test_candidate_admission.py`.\n- Extended the existing `core_candidates.json` overlay with a one-to-one `candidate_evidence` binding map and extended `Catalog._apply_core_candidates()` so an explicit qualification candidate cannot enter the runtime catalog without an immutable `qualification/<candidate-id>/candidate-evidence.json` path plus exact SHA-256 binding. The live overlay remains intentionally empty; no candidate or release was created.\n- The source-side gate verifies the frozen candidate definition and exact System governance, Registry, scoped Repository State, owner descriptor/native-CI, compatibility, dependency-lock/toolchain and relevant drift evidence. Registry lifecycle/shipping/profile eligibility, exact accepted owner revision, descriptor blob identity and native workflow run are required; intersecting open `BLOCKING` drift fails admission.\n- Hard-coded Distribution adapter knowledge is not consulted as owner-acceptance evidence; it remains routing/orchestration knowledge only. Historical released sets, promotion/lineage records and channels are untouched. The `distribution-adapter-compatibility-shadow-risk` WARNING remains open until T3/T4 prove the adopted gate destructively and close the drift deliberately.\n- Added the permanent `Candidate admission gate` to Distribution CI on Ubuntu/Python 3.11 before the full unit suite. Exact clean-head Distribution CI `38643389149` on `18926197c9bbee2d45fb78d5ab66d59b853e498e` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs; the new admission step passed on its designated job.\n- T2 changed no admitted release set, promotion/channel, component owner, System Registry/State, member payload, runtime behavior or user-owned state. T3 destructive-positive/negative proof was not started. No plan amendment required.\n\n'''
+          if '### T2 evidence\n' in section:
+              raise SystemExit('T2 evidence already present')
+          section = section.rstrip() + evidence
+          text = before + start + section + end + after
+
+          changelog_anchor = '## 2026-10-14 - Slice 5.1 T1 candidate-evidence contract defined\n'
+          changelog = '''## 2026-10-14 - Slice 5.1 T2 candidate admission integrated\n\n- Integrated the T1 immutable candidate-evidence contract into the existing explicit Core candidate overlay and runtime catalog without creating a parallel release mechanism.\n- Future candidate entries now require one exact digest-bound evidence snapshot; the source-side gate verifies Registry/profile eligibility, scoped State, exact accepted owner descriptor/native CI, compatibility/toolchain evidence and intersecting drift.\n- Kept the live candidate overlay empty and preserved all historical released sets, promotion/lineage records and channels unchanged.\n- Exact final Distribution head `18926197c9bbee2d45fb78d5ab66d59b853e498e`; Distribution CI `38643389149` passed all six platform/version jobs and the new candidate admission gate.\n- Slice 5.1 is now 2/4 tasks complete. Program progress remains 13/20, 65.0%; Phase 5 remains 0/4 slices complete. 5.1-T3 is the only next task. `distribution-adapter-compatibility-shadow-risk` remains WARNING pending destructive proof and final T4 disposition. No plan amendment.\n\n'''
+          if text.count(changelog_anchor) != 1:
+              raise SystemExit('T1 changelog anchor not unique')
+          text = text.replace(changelog_anchor, changelog + changelog_anchor, 1)
+
+          marker = '# Current execution pointer\n\n'
+          if text.count(marker) != 1:
+              raise SystemExit(f'current execution pointer marker count={text.count(marker)}')
+          prefix, _ = text.split(marker, 1)
+          pointer = '''# Current execution pointer\n\n**Completed:** 13/20  \n**Overall:** 65.0%  \n**Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  \n**Phase progress:** 0/4  \n**Until Phase 6:** 4 slices  \n**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 2/4 tasks complete)  \n**Next:** 5.1-T3 - prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority  \n**Blockers/drift/amendments:** T1/T2 are accepted. Distribution now requires immutable evidence binding before an explicit Core qualification candidate can enter the catalog, and the source-side admission gate verifies canonical Registry/profile eligibility, scoped State, exact accepted owner descriptor/native CI, compatibility/toolchain inputs and intersecting drift. The live overlay remains empty and historical releases are unchanged. T3 destructive proof is still open, so `distribution-adapter-compatibility-shadow-risk` WARNING remains open pending T3/T4 final disposition. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`; valid scoped evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.\n'''
+          text = prefix + pointer
+          path.write_text(text, encoding='utf-8')
+
+      - name: Commit T2 bookkeeping
+        run: |
+          set -euo pipefail
+          remote_head="$(git ls-remote origin refs/heads/main | cut -f1)"
+          test "$remote_head" = "$GITHUB_SHA"
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git diff --cached --quiet && { echo 'No roadmap change'; exit 1; }
+          git commit -m "Record Slice 5.1 T2 candidate admission"
+          git push origin HEAD:main
