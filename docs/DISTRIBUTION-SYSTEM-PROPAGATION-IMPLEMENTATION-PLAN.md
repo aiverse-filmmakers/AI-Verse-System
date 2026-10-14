@@ -538,6 +538,7 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 - [ ] **5.1-T2** Integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged.
 - [ ] **5.1-T3** Prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority.
 - [ ] **5.1-T4** Run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation.
+
 ### T1 evidence
 
 - Preserved unrelated System Safe Infrastructure movement through `2f9538830733d6726c390e6eedd737eaf03f0a9c`; its only propagation-era delta from `db42146189d2d869925d26668a6683cf437fdd80` is the separate `docs/SAFE-INFRASTRUCTURE-SLICE-5.1-REGRESSION-TESTS.md`.
@@ -787,8 +788,6 @@ Slice 2.3 final State/ledger `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`; final C
 Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 ---
-
-# Current execution pointer
 
 # Current execution pointer
 
