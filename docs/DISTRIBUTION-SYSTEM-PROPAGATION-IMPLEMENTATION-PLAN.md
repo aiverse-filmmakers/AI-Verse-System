@@ -504,7 +504,7 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 
 **Status:** IN PROGRESS  
 **Dependencies:** 4.3  
-**Adaptive tasks:** 0/4 complete
+**Adaptive tasks:** 1/4 complete
 
 Extend existing candidate machinery so arbitrary SHAs cannot enter admission and exact owner/System/Registry/State evidence is frozen.
 
@@ -534,10 +534,21 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 
 ### Derived task list
 
-- [ ] **5.1-T1** Define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority.
+- [x] **5.1-T1** Define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority.
 - [ ] **5.1-T2** Integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged.
 - [ ] **5.1-T3** Prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority.
 - [ ] **5.1-T4** Run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation.
+### T1 evidence
+
+- Preserved unrelated System Safe Infrastructure movement through `2f9538830733d6726c390e6eedd737eaf03f0a9c`; its only propagation-era delta from `db42146189d2d869925d26668a6683cf437fdd80` is the separate `docs/SAFE-INFRASTRUCTURE-SLICE-5.1-REGRESSION-TESTS.md`.
+- Distribution began T1 at unchanged `10d04c723e5918506f1f76aabf1c59bfa23f7b8b` and published the complete T1 contract atomically at `381ead50a9a4d790af945f4d95d268c65ed94060` (`Define immutable candidate evidence contract`).
+- Added canonical Distribution-owned `contracts/candidate-evidence.schema.json`, `docs/CANDIDATE-EVIDENCE-CONTRACT.md`, reusable pure-stdlib validator `src/aiverse_distribution/candidate_evidence.py`, maintainer CLI `scripts/validate-candidate-evidence.py`, and `tests/test_candidate_evidence_contract.py`.
+- The v1 snapshot contract is `aiverse.distribution-candidate-evidence/v1` at canonical instance path `qualification/<candidate-id>/candidate-evidence.json`. It binds exact Distribution candidate revision/definition digest, System governance inputs, Registry, scoped Repository State, component refs, descriptor refs/digests, exact successful owner-acceptance evidence, compatibility inputs, runtime/toolchain and dependency-lock inputs, and drift records tied to the scoped State digest.
+- Owner adoption fails structurally unless the canonical descriptor is `accepted`, its declared revision equals the candidate component revision, and owner acceptance names the same exact revision with successful designated native-CI evidence.
+- The schema and validator force `immutable_snapshot_only=true` and `registry_authority=false`, `repository_state_authority=false`, `owner_acceptance_authority=false`, `release_admission_authority=false`, `live_health_authority=false`, `member_state_authority=false`; candidate evidence therefore cannot become a second Registry, State database, owner-acceptance record, admission authority or live/member-state truth.
+- The validator intentionally performs no GitHub/network lookup and does not modify or admit the candidate overlay. External evidence existence, Registry/profile eligibility, exact live binding and catalog/admission integration remain exclusively 5.1-T2.
+- Exact Distribution CI run `38636995462` passed all six jobs: Linux, macOS and Windows on Python 3.11 and 3.12. Every job passed installation, the full unit suite including seven new candidate-evidence contract tests, and the existing CLI catalog smoke.
+- T1 changed no release set, compatibility matrix, candidate overlay, promotion/channel, component owner, System Registry/State, member payload, runtime behavior or user-owned state. `distribution-adapter-compatibility-shadow-risk` remains WARNING because T1 defines the evidence boundary but does not yet wire it into admission. No plan amendment required.
 
 ## Slice 5.2 - Member payload isolation
 
@@ -590,6 +601,14 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-14 - Slice 5.1 T1 candidate-evidence contract defined
+
+- Published the immutable Distribution candidate-evidence schema, contract, reusable validator, CLI and focused regressions at Distribution `381ead50a9a4d790af945f4d95d268c65ed94060`.
+- Bound exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs without creating a second authority surface.
+- Enforced exact owner-accepted component revision equality and explicit negative authority flags; the validator is intentionally offline/internal only and does not perform T2 admission integration.
+- Exact Distribution CI `38636995462` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs.
+- Slice 5.1 is now 1/4 tasks complete. Program progress remains 13/20, 65.0%; Phase 5 remains 0/4 slices complete. 5.1-T2 is the only next task. No plan amendment.
 
 ## 2026-10-14 - Slice 5.1 bounded planning started
 
@@ -771,11 +790,13 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
+# Current execution pointer
+
 **Completed:** 13/20  
 **Overall:** 65.0%  
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
 **Phase progress:** 0/4  
 **Until Phase 6:** 4 slices  
-**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 0/4 tasks complete)  
-**Next:** 5.1-T1 - define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority  
-**Blockers/drift/amendments:** Phase 4 owner integration remains accepted. Distribution already has exact release sets, qualification evidence, candidate overlay, promotion/lineage and transition/preservation machinery, but candidate admission is not yet generically bound to canonical owner/System/Registry/State evidence, so arbitrary exact SHAs remain insufficiently constrained for future admission. `distribution-adapter-compatibility-shadow-risk` WARNING remains open until the implemented gate proves hard-coded Distribution knowledge is not acceptance authority. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`, but valid scoped candidate evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.
+**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 1/4 tasks complete)  
+**Next:** 5.1-T2 - integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged  
+**Blockers/drift/amendments:** T1 is accepted at Distribution `381ead50a9a4d790af945f4d95d268c65ed94060` with CI `38636995462` green on all six Linux/macOS/Windows Python 3.11/3.12 jobs. The immutable `candidate-evidence.json` contract now binds exact external evidence and explicitly denies competing authority, but it is not yet integrated into the candidate catalog/admission path; that exact gap is T2. `distribution-adapter-compatibility-shadow-risk` WARNING therefore remains open. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`; valid scoped evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.
