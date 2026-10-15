@@ -2,7 +2,7 @@
 
 **Status:** Canonical living system synthesis  
 **Baseline date:** 2026-10-05  
-**Last evidence-first reconciliation:** 2026-10-12  
+**Last evidence-first reconciliation:** 2026-10-15 (Safe Infrastructure lifecycle only; earlier component/release baselines retain their recorded evidence scope)
 **Scope:** AI-Verse OS family across the original 10 audited component repositories plus current first-class Gateway and Automations platform components  
 **Authority:** System-level architecture, ownership, lifecycle, interoperability, readiness and roadmap synthesis
 
@@ -310,6 +310,40 @@ Token observes the system. It does not become the system.
 ---
 
 ## 5. Canonical lifecycle
+
+### CURRENT: completed Safe Infrastructure whole-install lifecycle
+
+The Safe Infrastructure program completed on 2026-10-15 with **18/18 slices, 100%** and no remaining implementation slice. Its [canonical closeout and handoff](SAFE-INFRASTRUCTURE-SLICE-5.3-CLOSEOUT-HANDOFF.md) records the exact owner revisions, qualification and exclusions. The [completed implementation plan](SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md) is preserved as execution history.
+
+| Member command | Current whole-install behavior |
+| --- | --- |
+| `aiverse update` | Apply the newest admitted compatible software update, with a verified pre-action Last-Known-Good point when mutation is required. |
+| `aiverse update --plan` | Read-only software update preview. |
+| `aiverse doctor` | Read-only aggregate health check that invokes relevant canonical owner checks. |
+| `aiverse upgrade` | Read-only preview of optional, required or review-blocked structural findings. |
+| `aiverse upgrade --apply` | Explicit, evidence-bound structural apply through admitted owner operations, with recovery protection, source-plan revalidation, resumable execution and final verification. |
+| `aiverse restore` | Read-only preview of the retained recovery point, covered state and replacement impact. |
+| `aiverse restore --apply` | Explicit transactional restore of the declared covered local scope and exact software reconstruction, followed by verification. |
+
+Distribution owns whole-install orchestration, compatible release selection, aggregate doctor, structural-upgrade coordination, rotating Last-Known-Good recovery and restore. Component owners retain component-local lifecycle, health, state and migration semantics. OS owns Workspace structure, capability placement/resolution and promotion. Skills owns managed capability packages, immutable generations and their rollback/uninstall retention. The completed program preserves these boundaries.
+
+Normal software update never silently performs optional structural modernization. Structural findings resolve deterministically to `OPTIONAL`, `REQUIRED` or `BLOCKED/REVIEW`. Missing owner recipes, ambiguous ownership and stale plans fail closed. No production Workspace relocation recipe was invented: unsupported historical layouts remain review-only. Current real-member structural apply may correctly be a no-op where the admitted descriptors publish no migration recipe.
+
+Recovery retains one verification-first rotating Last-Known-Good point. Coverage distinguishes `CAPTURE`, `RECONSTRUCT`, `REBUILD` and `EXTERNAL/EXCLUDED`; user-owned files and large Workspace assets follow the declared preservation policy, while credentials and external side effects remain truthfully excluded. The retained restore target survives until restoration verifies. Recovery material never becomes a second live canonical store.
+
+Permanent Distribution Safe Infrastructure Regression and Convergence gates cover Ubuntu, macOS and Windows with Python 3.11/3.12. The real historical-to-current fixture proves the admitted Core software transition, fresh-versus-upgraded package contracts, owner-defined capability promotion and covered-state restore. The fixture's later frozen OS promotion source is explicitly distinguished from the older shipped Core OS revision. Supported runtime lifecycle adapters converge on the same commands and consent semantics.
+
+Canonical detail and acceptance boundaries:
+
+- [Slice 5.1 regression qualification](SAFE-INFRASTRUCTURE-SLICE-5.1-REGRESSION-TESTS.md)
+- [Slice 5.2 real convergence and restore](SAFE-INFRASTRUCTURE-SLICE-5.2-CONVERGENCE-RESTORE.md)
+- [Slice 5.3 final closeout and handoff](SAFE-INFRASTRUCTURE-SLICE-5.3-CLOSEOUT-HANDOFF.md)
+- [Qualification invariants](SAFE-INFRASTRUCTURE-QUALIFICATION-INVARIANTS-CONTRACT.md)
+- [Infrastructure generation and owner recipe contract](INFRASTRUCTURE-GENERATION-AND-UPGRADE-RECIPE-CONTRACT.md)
+
+Safe Infrastructure completion does not mark unrelated Full-profile work, separately owned public-admitted-Core first-run/setup-required defects, every later owner revision, or a new release channel complete or accepted. Earlier component audits and release snapshots below retain their original evidence scope. Distribution remains the authority for current admitted composition and promotion.
+
+### Component availability, readiness and authority
 
 The system target is not one generic boolean such as installed=true.
 

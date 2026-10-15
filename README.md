@@ -99,6 +99,16 @@ See `docs/MASTER-PLAN.md` for the audit methodology and synthesis process.
 
 This repository remains canonical after the blueprint baseline. The blueprint and component specs must evolve whenever the system evolves.
 
+## Whole-install lifecycle baseline
+
+The Safe Infrastructure program completed on 2026-10-15: **18/18 slices, 100%**. It is now permanent maintenance infrastructure.
+
+Distribution owns the whole-install lifecycle: software update and preview, aggregate doctor, structural upgrade preview/apply, rotating Last-Known-Good recovery, and restore preview/apply. OS and Skills retain their existing component ownership and state semantics.
+
+Start with the [canonical closeout and handoff](docs/SAFE-INFRASTRUCTURE-SLICE-5.3-CLOSEOUT-HANDOFF.md) for the completed command surface, exact merged revisions, passing qualification and explicit exclusions. The [completed implementation plan](docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md) remains the execution record. Permanent shared requirements live in the [qualification invariants](docs/SAFE-INFRASTRUCTURE-QUALIFICATION-INVARIANTS-CONTRACT.md) and [infrastructure upgrade recipe contract](docs/INFRASTRUCTURE-GENERATION-AND-UPGRADE-RECIPE-CONTRACT.md).
+
+This completion is specific to Safe Infrastructure. Current release selection remains Distribution-owned; unrelated Full-profile and first-run/release work retain their own readiness gates.
+
 
 ## Implementation plans
 
