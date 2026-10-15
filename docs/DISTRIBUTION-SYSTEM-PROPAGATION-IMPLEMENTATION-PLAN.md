@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 15  
-**Remaining:** 5  
-**Overall progress:** 75.0%  
+**Completed:** 16  
+**Remaining:** 4  
+**Overall progress:** 80.0%  
 **Current execution phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Current phase progress:** 2/4 slices complete  
-**Slices until next phase:** 2  
-**Current slice:** 5.3 - Promotion and qualification  
-**Current slice status:** IN PROGRESS  
-**Next slice:** 5.4 - Durable release receipts
+**Current phase progress:** 3/4 slices complete  
+**Slices until next phase:** 1  
+**Current slice:** 5.4 - Durable release receipts  
+**Current slice status:** NOT STARTED  
+**Next slice:** 6.1 - Cross-repo regression/evidence validation
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
@@ -669,9 +669,9 @@ Bounded discovery was limited to the current System/Distribution refs and existi
 
 ## Slice 5.3 - Promotion and qualification
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 5.2  
-**Adaptive tasks:** 3/4 complete
+**Adaptive tasks:** 4/4 complete
 
 Use existing candidate/released/preservation/promotion mechanics. Owner failure blocks adoption; whole-product failure blocks promotion; intersecting BLOCKING drift blocks; emergency path preserves all safety gates; `SYSTEM-SYNC-DEBT` blocks later normal promotion.
 
@@ -737,9 +737,20 @@ Bounded discovery was limited to the current System/Distribution refs, the canon
 - Post-merge catalog inspection confirms `core_candidates.json.release_sets` remains empty, `core_promotions.json.current_release` remains `core-first-run-rc1-2026-10-12`, and `system_sync_debts` remains `[]`. No live release, promotion or channel mutation occurred.
 - The carried OS concern remains unresolved by design: accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` can still report `Setup: setup-required` on the clean-machine Core path. T1/T3 qualification regressions prove that state cannot qualify or gain an emergency safety bypass. Repair or final disposition is not pulled into T3. No plan amendment was required.
 
-- [ ] **5.3-T4** Run clean Distribution and required System cross-validation for the adopted qualification/promotion path, record exact release/debt/drift and carried OS-concern disposition, close Slice 5.3, advance to 5.4, and stop without beginning durable release receipts.
+- [x] **5.3-T4** Run clean Distribution and required System cross-validation for the adopted qualification/promotion path, record exact release/debt/drift and carried OS-concern disposition, close Slice 5.3, advance to 5.4, and stop without beginning durable release receipts.
 
-Slice 5.3 planning is complete. 5.3-T1, 5.3-T2 and 5.3-T3 are complete; 5.3-T4 has not begun.
+
+### T4 evidence
+
+- Final validation-only Distribution evidence landed through PR `#42`. The corrected PR head was `e3c5cebd101d9dde23ba9a95adcd1f290e1151f4`; the merged clean-main Distribution head is `23a532737e94812d7dc4d53edf23fd23db1cbb02`. The PR changed only `docs/SLICE-5.3-T4-CROSS-VALIDATION.md`; no qualification, promotion, candidate, release, channel, owner, runtime, member-payload, migration, recovery or durable-receipt semantics changed.
+- Exact PR-head positive validation passed: Distribution CI `38807901407`; Clean Machine Agent Release Gate `38807901195`; Lifecycle Receipt Concurrency `38807901311`; Composed Two-System Isolation `38807901242` on Linux/macOS/Windows; Safe Infrastructure Regression `38807901390`; and Safe Infrastructure Convergence `38807901462`.
+- Exact PR-head Clean Machine Core Acceptance `38807901169` failed on Linux, macOS and Windows for the same carried release-specific concern: released Core set `core-first-run-rc1-2026-10-12` pins OS `64f7325444d18f94c9d4755d32eb89f3468bda6b`, whose doctor reports `Setup: setup-required` while Brain, Memory, Skills and Data are ready. This concern is not claimed resolved. T1-T3 qualification/promotion gates permanently fail closed for this condition, and emergency promotion cannot bypass it.
+- Exact clean-main validation on Distribution `23a532737e94812d7dc4d53edf23fd23db1cbb02` passed: Distribution CI `38808998735`, Safe Infrastructure Regression `38808998640`, and Safe Infrastructure Convergence `38808998662`, all across their required platform/Python matrices.
+- Post-validation live catalogs remain unchanged: candidate overlay is empty; `current_release` remains `core-first-run-rc1-2026-10-12`; `system_sync_debts` remains `[]`; and the released OS pin remains `64f7325444d18f94c9d4755d32eb89f3468bda6b`. No live candidate, release, promotion, default-channel or debt mutation occurred in T4.
+- System closure workflow `38809729601` performed a fresh canonical Core refresh and regenerated the deterministic ledger before closure. State refresh status is `complete` with scope `Core`, evidence revision `734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9`, and exact observed Distribution head `23a532737e94812d7dc4d53edf23fd23db1cbb02`. Open canonical drift after refresh: compact-release-receipt-not-yet-implemented (INFO/Core). No intersecting/global `BLOCKING` drift is open for this closing Core scope.
+- Durable release receipts remain explicitly out of scope for T4. Any open `compact-release-receipt-not-yet-implemented` INFO drift remains owned by Slice 5.4. No plan amendment was required.
+
+Slice 5.3 planning and execution are complete. 5.3-T1 through 5.3-T4 are complete; Slice 5.3 is closed.
 
 ## Slice 5.4 - Durable release receipts
 
@@ -1038,11 +1049,11 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-**Completed:** 15/20  
-**Overall:** 75.0%  
+**Completed:** 16/20  
+**Overall:** 80.0%  
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Phase progress:** 2/4  
-**Until Phase 6:** 2 slices  
-**Current slice:** Slice 5.3 - Promotion and qualification (`IN PROGRESS`, 3/4 tasks complete)  
-**Next:** 5.3-T4 - run clean Distribution and required System cross-validation for the adopted qualification/promotion path, record exact release/debt/drift and carried OS-concern disposition, close Slice 5.3, advance to 5.4, and stop without beginning durable release receipts  
-**Blockers/drift/amendments:** 5.3-T3 is accepted at final Distribution `87cf3268b0b5918ebfbaee7c4bba80bfcfd262ef` with clean Distribution CI `38804922520` successful across all six Linux/macOS/Windows Python 3.11/3.12 jobs and 402 Ubuntu/Python 3.11 tests with 11 skips. The permanent T3 suite adds 17 focused qualification/promotion regressions and the existing T1/T2 gates remain green. The live candidate overlay remains empty; `current_release` remains `core-first-run-rc1-2026-10-12`; `system_sync_debts` remains empty; no live release, promotion or channel mutation occurred. The carried clean-machine OS concern remains unresolved: accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` may report `setup-required`, and qualification now has permanent regression proof that this state and failed doctor/health/preservation/owner evidence cannot pass or be bypassed by emergency promotion. Canonical State freshness/drift disposition is intentionally unchanged in T3; final clean Distribution/System cross-validation and exact drift/debt/OS-concern disposition belong to 5.3-T4. `compact-release-receipt-not-yet-implemented` remains open `INFO` for 5.4. No plan amendment required. 5.3-T4 has not begun.
+**Phase progress:** 3/4  
+**Until Phase 6:** 1 slice  
+**Current slice:** Slice 5.4 - Durable release receipts (`NOT STARTED`)  
+**Next:** Slice 5.4 start - perform only bounded discovery/planning for durable release receipts, record the adaptive task list and first execution task, then stop without implementing receipts  
+**Blockers/drift/amendments:** Slice 5.3 is complete at Distribution `23a532737e94812d7dc4d53edf23fd23db1cbb02`. Final clean-main Distribution CI `38808998735`, Safe Infrastructure Regression `38808998640` and Safe Infrastructure Convergence `38808998662` are successful. Fresh canonical Core State observes Distribution exactly at `23a532737e94812d7dc4d53edf23fd23db1cbb02`; open canonical drift is compact-release-receipt-not-yet-implemented (INFO/Core). Candidate overlay remains empty, `current_release` remains `core-first-run-rc1-2026-10-12`, and `system_sync_debts` remains empty. The released OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` still has the release-specific clean-machine `setup-required` concern; it remains unresolved but is permanently fail-closed for new whole-product qualification/promotion and cannot be emergency-bypassed. Durable release receipts remain the next-slice concern. No plan amendment required. Slice 5.4 has not begun.
