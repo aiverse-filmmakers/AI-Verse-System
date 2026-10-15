@@ -1,0 +1,72 @@
+name: Propagation Slice 5.1 T3 Bookkeeping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/propagation-51-t3-bookkeeping.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-t3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Record Slice 5.1 T3 evidence
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text(encoding='utf-8')
+
+          start = '## Slice 5.1 - Immutable candidate snapshot and owner-adoption gates\n'
+          end = '## Slice 5.2 - Member payload isolation\n'
+          if text.count(start) != 1 or text.count(end) != 1:
+              raise SystemExit('Slice 5.1/5.2 boundary not unique')
+          before, rest = text.split(start, 1)
+          section, after = rest.split(end, 1)
+
+          if '**Adaptive tasks:** 2/4 complete' not in section:
+              raise SystemExit('5.1 task count is not 2/4')
+          section = section.replace('**Adaptive tasks:** 2/4 complete', '**Adaptive tasks:** 3/4 complete', 1)
+
+          t3_open = '- [ ] **5.1-T3** Prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority.\n'
+          if section.count(t3_open) != 1:
+              raise SystemExit('5.1-T3 open checkbox not found exactly once')
+          section = section.replace(t3_open, t3_open.replace('- [ ]', '- [x]', 1), 1)
+
+          evidence = '''\n### T3 evidence\n\n- Preserved unrelated Safe Infrastructure convergence already merged at Distribution `004112410ec4608e4b9a758b651c4d6bba3b7f8c`, which directly descends from the accepted T2 head `18926197c9bbee2d45fb78d5ab66d59b853e498e`.\n- Published permanent T3 regression coverage at Distribution `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b` (`Prove candidate admission destructive regressions`). The commit is exactly one child of `004112410ec4608e4b9a758b651c4d6bba3b7f8c` and adds only `tests/test_candidate_admission_regressions.py`; no production admission/catalog code changed.\n- The exact frozen candidate positive path passes. Destructive negatives prove fail-closed rejection for an arbitrary component SHA even after the Distribution candidate definition is refrozen, wrong repository identity, unregistered component identity, Registry profile ineligibility, missing descriptor evidence, semantically mismatched accepted descriptor, missing owner-native CI binding, changed System governance input, changed Registry input, changed Repository State input, and intersecting frozen `BLOCKING` drift.\n- Changed System/Registry/State bytes fail their immutable digest bindings before admission, proving a bound-input change cannot reuse prior qualification evidence and requires requalification.\n- A dedicated regression keeps the Distribution candidate definition and compatibility coherent while making State owner acceptance unverified; admission still fails. This proves hard-coded/current Distribution composition knowledge cannot substitute for canonical owner acceptance authority.\n- Exact Distribution CI `38712853052` on `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b` completed `SUCCESS` across all six Linux/macOS/Windows Python 3.11/3.12 jobs. The designated Ubuntu/Python 3.11 job passed the permanent Candidate admission gate and all 346 unit tests; all thirteen T3 regression cases passed.\n- T3 created no live candidate, release set, promotion/channel change, component-owner mutation, System Registry/State mutation, member payload, runtime mutation or user-owned-state change. `distribution-adapter-compatibility-shadow-risk` remains `WARNING`; T4 alone owns final cross-validation, deliberate drift disposition and Slice 5.1 closure. No plan amendment required.\n\n'''
+          if '### T3 evidence\n' in section:
+              raise SystemExit('T3 evidence already present')
+          section = section.rstrip() + evidence
+          text = before + start + section + end + after
+
+          changelog_anchor = '## 2026-10-14 - Slice 5.1 T2 candidate admission integrated\n'
+          changelog = '''## 2026-10-15 - Slice 5.1 T3 candidate admission regressions proven\n\n- Added permanent positive/destructive-negative admission regressions only; production admission logic and live release data were unchanged.\n- Exact frozen evidence passes; arbitrary SHA, wrong identity/profile, descriptor/owner-evidence failures, changed System/Registry/State bindings and intersecting BLOCKING drift all fail closed.\n- Proved bound-input change requires requalification and Distribution definition/compatibility knowledge cannot replace canonical owner acceptance.\n- Exact Distribution regression commit `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b`; CI `38712853052` passed all six platform/version jobs, with 346 tests green on Ubuntu/Python 3.11.\n- Slice 5.1 is now 3/4 tasks complete. Program progress remains 13/20, 65.0%; Phase 5 remains 0/4 slices complete. 5.1-T4 is the only next task. `distribution-adapter-compatibility-shadow-risk` remains WARNING pending T4 disposition. No plan amendment.\n\n'''
+          if text.count(changelog_anchor) != 1:
+              raise SystemExit('T2 changelog anchor not unique')
+          text = text.replace(changelog_anchor, changelog + changelog_anchor, 1)
+
+          marker = '# Current execution pointer\n\n'
+          if text.count(marker) != 1:
+              raise SystemExit(f'current execution pointer marker count={text.count(marker)}')
+          prefix, _ = text.split(marker, 1)
+          pointer = '''# Current execution pointer\n\n**Completed:** 13/20  \n**Overall:** 65.0%  \n**Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  \n**Phase progress:** 0/4  \n**Until Phase 6:** 4 slices  \n**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 3/4 tasks complete)  \n**Next:** 5.1-T4 - run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation  \n**Blockers/drift/amendments:** T1/T2/T3 are accepted. Distribution now requires immutable candidate-evidence binding and T3 permanently proves the exact positive path plus fail-closed arbitrary SHA, wrong identity/profile, descriptor/owner-evidence, System/Registry/State drift and intersecting BLOCKING-drift cases. Bound-input change requires requalification, and Distribution composition/compatibility knowledge cannot substitute for canonical owner acceptance. The live candidate overlay remains empty and historical releases are unchanged. `distribution-adapter-compatibility-shadow-risk` remains WARNING until T4 performs the required clean cross-validation and deliberate final disposition. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`; valid scoped evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.\n'''
+          path.write_text(prefix + pointer, encoding='utf-8')
+
+      - name: Commit T3 bookkeeping
+        run: |
+          set -euo pipefail
+          remote_head="$(git ls-remote origin refs/heads/main | cut -f1)"
+          test "$remote_head" = "$GITHUB_SHA"
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git diff --cached --quiet && { echo 'No roadmap change'; exit 1; }
+          git commit -m "Record Slice 5.1 T3 regression proof"
+          git push origin HEAD:main
