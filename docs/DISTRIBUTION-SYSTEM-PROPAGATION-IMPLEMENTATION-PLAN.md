@@ -502,9 +502,9 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 
 ## Slice 5.1 - Immutable candidate snapshot and owner-adoption gates
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 4.3  
-**Adaptive tasks:** 3/4 complete
+**Adaptive tasks:** 4/4 complete
 
 Extend existing candidate machinery so arbitrary SHAs cannot enter admission and exact owner/System/Registry/State evidence is frozen.
 
@@ -537,7 +537,7 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 - [x] **5.1-T1** Define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority.
 - [x] **5.1-T2** Integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged.
 - [x] **5.1-T3** Prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority.
-- [ ] **5.1-T4** Run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation.
+- [x] **5.1-T4** Run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation.
 
 ### T1 evidence
 
@@ -569,6 +569,18 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 - A dedicated regression keeps the Distribution candidate definition and compatibility coherent while making State owner acceptance unverified; admission still fails. This proves hard-coded/current Distribution composition knowledge cannot substitute for canonical owner acceptance authority.
 - Exact Distribution CI `38712853052` on `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b` completed `SUCCESS` across all six Linux/macOS/Windows Python 3.11/3.12 jobs. The designated Ubuntu/Python 3.11 job passed the permanent Candidate admission gate and all 346 unit tests; all thirteen T3 regression cases passed.
 - T3 created no live candidate, release set, promotion/channel change, component-owner mutation, System Registry/State mutation, member payload, runtime mutation or user-owned-state change. `distribution-adapter-compatibility-shadow-risk` remains `WARNING`; T4 alone owns final cross-validation, deliberate drift disposition and Slice 5.1 closure. No plan amendment required.
+
+
+### T4 evidence and closure
+
+- T4 preserved unrelated Safe Infrastructure movement through System `45893e1ef471bdabca3332bf6be1ba9c144ed76e`. Distribution remained exactly at T3 head `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b`; no Distribution product/release mutation was required for closure.
+- Exact current-head Distribution CI `38712853052` on `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b` is `SUCCESS` across all six Linux/macOS/Windows Python 3.11/3.12 jobs. Ubuntu/Python 3.11 passed the permanent Candidate admission gate and all 346 tests, including the T3 positive/destructive-negative matrix.
+- T3 proves hard-coded/current Distribution definition and compatibility knowledge cannot substitute for canonical owner acceptance: a coherent Distribution definition/compatibility fixture still fails when bound State owner acceptance is unverified. System/Registry/State input changes require requalification, arbitrary SHAs and wrong identity/profile fail closed, and intersecting `BLOCKING` drift blocks admission.
+- The deliberate T4 State disposition was published at System `9c480a3b83dd73b1d6cb1ed351c0782c1c63a778`, updating only the proven `distribution-adapter-compatibility-shadow-risk`, the deterministic State ledger, and the one stale Phase 4 regression that still required that later-slice risk to remain open. The adapter shadow-risk is now `resolved`; trusted adapter revision/command knowledge remains routing/orchestration only and is not owner-acceptance authority.
+- The first unpublished T4 helper validation correctly exposed that stale Phase 4 regression and stopped before publication. After aligning that expectation, State validation, ledger validation and all 142 System tests passed before the State/ledger commit was pushed.
+- Exact clean System Contract Validation `38716670669` on `5a89bc120711ed1856acbaae7f6c871074fdb76a` completed `SUCCESS` on Python 3.11 and 3.13. Both jobs validated Registry, Repository State, deterministic ledger and all contract tests; Python 3.11 also completed the live read-only Core refresh successfully.
+- `repository-watchdog-stale` remains open `WARNING` and the watchdog remains `WATCHDOG-STALE`; `compact-release-receipt-not-yet-implemented` remains open `INFO` for Slice 5.4. Connections and Dashboard remain unadmitted because Full is blocked, and Apps remains experimental/no-CI/unaccepted.
+- T4 changed no Distribution release set, promotion/channel, component owner, member payload, runtime behavior or user-owned state. Slice 5.2 member-payload isolation was not begun. Slice 5.1 is complete. No plan amendment was required.
 
 ## Slice 5.2 - Member payload isolation
 
@@ -621,6 +633,15 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-15 - Slice 5.1 completed
+
+- Closed the immutable candidate snapshot and owner-adoption gate after clean Distribution and System cross-validation.
+- Distribution remains at `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b`; CI `38712853052` passed all six platform/version jobs and 346 tests on the designated Ubuntu/Python 3.11 path.
+- Resolved `distribution-adapter-compatibility-shadow-risk` at System `9c480a3b83dd73b1d6cb1ed351c0782c1c63a778` because immutable Registry/State/owner-evidence admission now proves trusted adapter knowledge is orchestration-only, not acceptance authority.
+- Clean System Contract Validation `38716670669` on `5a89bc120711ed1856acbaae7f6c871074fdb76a` passed Python 3.11/3.13, State/ledger/contracts and the Python 3.11 live read-only Core refresh.
+- Preserved watchdog-stale and compact-receipt drift, blocked Full admission, and experimental Apps exactly as unresolved later work. No candidate, release, promotion, member payload or user-owned state was changed.
+- Slice 5.1 is complete at 4/4. Program progress advances to 14/20, 70.0%; Phase 5 advances to 1/4 slices complete. Slice 5.2 remains NOT STARTED. No plan amendment.
 
 ## 2026-10-15 - Slice 5.1 T3 candidate admission regressions proven
 
@@ -826,11 +847,11 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-**Completed:** 13/20  
-**Overall:** 65.0%  
+**Completed:** 14/20  
+**Overall:** 70.0%  
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Phase progress:** 0/4  
-**Until Phase 6:** 4 slices  
-**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 3/4 tasks complete)  
-**Next:** 5.1-T4 - run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation  
-**Blockers/drift/amendments:** T1/T2/T3 are accepted. Distribution now requires immutable candidate-evidence binding and T3 permanently proves the exact positive path plus fail-closed arbitrary SHA, wrong identity/profile, descriptor/owner-evidence, System/Registry/State drift and intersecting BLOCKING-drift cases. Bound-input change requires requalification, and Distribution composition/compatibility knowledge cannot substitute for canonical owner acceptance. The live candidate overlay remains empty and historical releases are unchanged. `distribution-adapter-compatibility-shadow-risk` remains WARNING until T4 performs the required clean cross-validation and deliberate final disposition. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`; valid scoped evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.
+**Phase progress:** 1/4  
+**Until Phase 6:** 3 slices  
+**Current slice:** Slice 5.2 - Member payload isolation (`NOT STARTED`)  
+**Next:** 5.2 slice-start bounded discovery/planning - inspect only the existing Distribution install/setup/update/rollback payload ownership and preservation surfaces, classify reuse/extend/create/prohibited boundaries, derive the adaptive task list, commit the plan, and stop before 5.2-T1 implementation  
+**Blockers/drift/amendments:** Slice 5.1 is accepted and closed. Explicit candidates require immutable Registry/profile/scoped-State/exact owner descriptor/native-CI evidence before qualification, and `distribution-adapter-compatibility-shadow-risk` is resolved because trusted adapter knowledge no longer acts as acceptance authority. The live candidate overlay remains empty and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. Slice 5.2 has not begun. No plan amendment required.
