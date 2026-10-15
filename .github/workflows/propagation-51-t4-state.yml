@@ -55,6 +55,30 @@ jobs:
               if required not in open_ids:
                   raise SystemExit(f"unrelated drift unexpectedly closed: {required}")
 
+      - name: Align stale Phase 4 drift expectation
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("tests/test_system_truth_reconciliation.py")
+          text = path.read_text(encoding="utf-8")
+          old = '''    def test_later_slice_drift_remains_open_after_core_owner_handoff(self):
+              by_id = {item["id"]: item for item in self.state["drift"]}
+              self.assertEqual(by_id["distribution-adapter-compatibility-shadow-risk"]["status"], "open")
+              self.assertEqual(by_id["compact-release-receipt-not-yet-implemented"]["status"], "open")
+          '''
+          new = '''    def test_later_slice_drift_tracks_current_governance_boundaries(self):
+              by_id = {item["id"]: item for item in self.state["drift"]}
+              shadow = by_id["distribution-adapter-compatibility-shadow-risk"]
+              self.assertEqual(shadow["status"], "resolved")
+              self.assertEqual(shadow["severity"], "WARNING")
+              self.assertIn("Resolved in Slice 5.1", shadow["reason"])
+              self.assertEqual(by_id["compact-release-receipt-not-yet-implemented"]["status"], "open")
+          '''
+          if old not in text:
+              raise SystemExit("stale Phase 4 drift expectation block not found exactly")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+
       - name: Regenerate deterministic ledger
         run: python scripts/refresh_repository_state.py --write-ledger
 
@@ -68,7 +92,7 @@ jobs:
         run: |
           git config user.name "AI-VERSE"
           git config user.email "hello@bogdanpascal.com"
-          git add governance/repository-state.json docs/REPOSITORY-STATE-LEDGER.md
+          git add governance/repository-state.json docs/REPOSITORY-STATE-LEDGER.md tests/test_system_truth_reconciliation.py
           git diff --cached --exit-code && { echo "No T4 State changes staged"; exit 1; } || true
           git commit -m "Resolve candidate admission shadow risk"
           git push origin HEAD:main
