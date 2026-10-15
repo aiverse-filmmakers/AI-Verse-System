@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 14  
-**Remaining:** 6  
-**Overall progress:** 70.0%  
+**Completed:** 15  
+**Remaining:** 5  
+**Overall progress:** 75.0%  
 **Current execution phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Current phase progress:** 1/4 slices complete  
-**Slices until next phase:** 3  
-**Current slice:** 5.2 - Member payload isolation  
+**Current phase progress:** 2/4 slices complete  
+**Slices until next phase:** 2  
+**Current slice:** 5.3 - Promotion and qualification  
 **Current slice status:** IN PROGRESS  
-**Next slice:** 5.3 - Promotion and qualification
+**Next slice:** 5.4 - Durable release receipts
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
@@ -669,10 +669,44 @@ Bounded discovery was limited to the current System/Distribution refs and existi
 
 ## Slice 5.3 - Promotion and qualification
 
-**Status:** NOT STARTED  
-**Dependencies:** 5.2
+**Status:** IN PROGRESS  
+**Dependencies:** 5.2  
+**Adaptive tasks:** 0/4 complete
 
 Use existing candidate/released/preservation/promotion mechanics. Owner failure blocks adoption; whole-product failure blocks promotion; intersecting BLOCKING drift blocks; emergency path preserves all safety gates; `SYSTEM-SYNC-DEBT` blocks later normal promotion.
+
+### Slice-start boundary
+
+Bounded discovery was limited to the current System/Distribution refs, the canonical release-safety laws, current Repository State semantics, and existing Distribution candidate, qualification, preservation, lineage and promotion surfaces. No Distribution product/runtime code, candidate, release set, promotion/channel, component owner, Registry/State, member installation or user-owned state was changed.
+
+- System planning boundary: `aiverse-filmmakers/AI-Verse-System@ecd681de460f05e2753c39ee2110e67611d58fe8`. The tail execution pointer already reflected the accepted Slice 5.2 closure, while the summary header still showed stale 5.2/14-of-20 bookkeeping; this planning record reconciles only that tracker summary before starting 5.3.
+- Distribution planning boundary: `aiverse-filmmakers/ai-verse-distribution@d524f8d04652d8911b931109d0bebc71be34f143`, the accepted Slice 5.2 payload-isolation head. The live Core candidate overlay is empty, so slice-start planning creates no candidate merely to exercise promotion.
+- `src/aiverse_distribution/release_catalog.py`, `core_lineage.json`, `core_promotions.json`, `core_candidates.json` and `transition_contract.py` already provide the canonical forward release composition mechanics. Promoted Core releases extend the append-only lineage, only `released` sets may back channels, candidates remain explicit/evidence-bound, and promotion does not rewrite immutable component evidence. These are `REUSE/EXTEND`, not a reason to create a second promotion database.
+- Current `core_promotions.json` keeps `core-first-run-rc1-2026-10-12` as the released Core channel with accepted qualification/member-bootstrap evidence and exact immutable component pins. Historical U35 qualification and U36 release evidence prove the intended separation between exact whole-product qualification and explicit promotion, but they are release-specific frozen evidence, not a reusable generalized qualification authority.
+- The canonical `ai-verse.release-preservation/v1` contract already defines exact source/target Distribution binding, clean-install, real-upgrade, cross-platform, restart/recovery, authority, migration, preservation and destructive-negative evidence. Its promotion rule explicitly says preservation evidence is necessary but is not itself the promotion decision. Slice 5.3 must consume that contract rather than invent a second preservation format.
+- Candidate admission from Slice 5.1 already binds exact System/Registry/State/component/descriptor/owner/compatibility/toolchain evidence and requalification on bound-input change. Slice 5.3 must reuse that admission as an input and add whole-product qualification above it; owner-local acceptance still cannot substitute for composed runtime readiness.
+- The carried clean-machine Core run `38757724853` is current contradictory whole-product evidence: Linux, macOS and Windows all reached the accepted OS revision `64f7325444d18f94c9d4755d32eb89f3468bda6b`, but OS doctor reported `Setup: setup-required` after the normal Distribution setup path while Brain, Memory, Skills and Data were ready. Historical qualification success cannot erase that newer failure. It is `BLOCK/UNKNOWN` for any promotion decision that depends on that whole-product path until 5.3 proves a qualifying result or an owner-corrected accepted input; it is not a Slice 5.2 payload-loss finding.
+- Canonical Repository State is globally fresh with `WATCHDOG-CURRENT`, no intersecting open `BLOCKING` Core drift, and existing `system_sync.status` semantics already include `synchronized | unverified | debt | unavailable | failed | not-applicable`. The emergency rule therefore reuses canonical System-sync debt semantics; it must not create another synchronization/debt authority.
+- `compact-release-receipt-not-yet-implemented` remains open `INFO` and stays owned by Slice 5.4. Durable compact reconstruction must not be pulled into 5.3 merely because promotion needs exact qualification evidence.
+
+### Reuse / extend / create / prohibited classification
+
+- Slice 5.1 candidate evidence/admission, exact bound-input requalification, Registry/profile/owner acceptance and intersecting-drift checks: `REUSE`.
+- Canonical Whole-Release Preservation Result contract/schema/validator plus Slice 5.2 lifecycle payload and preservation proofs: `REUSE`.
+- `release_catalog.py`, forward Core lineage, `core_promotions.json`, explicit candidate overlay, compatibility matrix and transition contract: `REUSE/EXTEND` as the only Distribution release/promotion surfaces.
+- U35 qualification bundle, U36 release evidence and their permanent tests: `RETAIN/REUSE AS PATTERN`; frozen historical evidence must never be rewritten into current proof.
+- One reusable Distribution whole-product qualification decision/evidence layer that composes already-admitted candidate evidence with exact transition/preservation, composed clean-machine/status/doctor/health, owner results and current scoped System/Registry/State/drift inputs: `CREATE/EXTEND` in Distribution. It is qualification evidence, not a new Registry, State, component-health owner or promotion database.
+- Explicit normal/emergency promotion gating around the existing forward promotion ledger/channel mechanics: `EXTEND/CREATE`. Normal promotion requires all safety/qualification gates and no unresolved System-sync debt. Emergency promotion may relax only non-safety System synchronization, must preserve every owner/exact-ref/compatibility/migration/preservation/whole-product/member-isolation gate, and must carry explicit `SYSTEM-SYNC-DEBT` bound to the existing canonical `system_sync=debt` semantics until reconciled.
+- A second release database, a second whole-release preservation format, direct channel writes that bypass qualification, arbitrary/floating component refs, weakening owner or payload gates, treating historical green evidence as proof against fresh failure, hiding intersecting `BLOCKING` drift, emergency bypass of safety, Distribution-side repair of owner state/health, component-owner feature work, compact release receipts, or broad unrequested Registry/State refresh: `PROHIBITED/DEFER`.
+
+### Derived task list
+
+- [ ] **5.3-T1** Implement one reusable whole-product qualification gate/evidence builder for an already-admitted exact candidate, binding candidate admission, exact release/transition/compatibility, canonical whole-release preservation evidence, owner acceptance/native evidence, composed clean-install/status/doctor/health, current scoped System/Registry/State and intersecting drift; fail closed on owner or whole-product failure including `setup-required`, and produce qualification evidence only with no promotion/channel mutation.
+- [ ] **5.3-T2** Wire explicit promotion around the existing forward Core promotion/lineage/channel mechanics so only an exact passed whole-product qualification can become released/default; preserve immutable history and candidate separation, enforce normal System synchronization, and implement the emergency path only with the same safety gates plus explicit non-safety `SYSTEM-SYNC-DEBT` that blocks later normal promotion until exact reconciliation.
+- [ ] **5.3-T3** Prove positive and destructive-negative qualification/promotion regressions: exact qualified inputs may promote; owner failure or `setup-required`, clean-machine/status/doctor/health failure, preservation/member-payload failure, wrong or changed bound evidence, stale/unverified required inputs, intersecting/global `BLOCKING` drift and emergency safety-bypass attempts fail closed; emergency debt cannot weaken safety and later normal promotion remains blocked until the debt is reconciled.
+- [ ] **5.3-T4** Run clean Distribution and required System cross-validation for the adopted qualification/promotion path, record exact release/debt/drift and carried OS-concern disposition, close Slice 5.3, advance to 5.4, and stop without beginning durable release receipts.
+
+Slice 5.3 planning is complete. 5.3-T1 has not begun.
 
 ## Slice 5.4 - Durable release receipts
 
@@ -711,6 +745,13 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-15 - Slice 5.3 bounded planning started
+
+- Preserved live boundaries System `ecd681de460f05e2753c39ee2110e67611d58fe8` and Distribution `d524f8d04652d8911b931109d0bebc71be34f143`; no candidate, release, channel, owner, State, member payload or runtime mutation was performed.
+- Reused the existing candidate-admission, whole-release preservation, forward lineage/promotion and System-sync debt semantics rather than creating duplicate acceptance or promotion authorities.
+- The three-platform OS `setup-required` clean-machine evidence remains an explicit fail-closed whole-product qualification concern; historical green evidence does not override it.
+- Derived four tasks. The only next action is 5.3-T1 whole-product qualification gating; promotion integration has not begun.
 
 ## 2026-10-15 - Slice 5.2 closed after clean payload-boundary cross-validation
 
@@ -969,6 +1010,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
 **Phase progress:** 2/4  
 **Until Phase 6:** 2 slices  
-**Current slice:** Slice 5.3 - Promotion and qualification (`NOT STARTED`)  
-**Next:** Slice 5.3 start - perform bounded discovery/planning for Promotion and qualification, derive the adaptive task list from the existing candidate/released/preservation/promotion mechanics and the carried clean-machine OS `setup-required` qualification concern, commit that planning boundary, and stop before 5.3-T1  
-**Blockers/drift/amendments:** Slice 5.2 is accepted and closed at Distribution `d524f8d04652d8911b931109d0bebc71be34f143` with fresh CI attempt 2 `38758297678` and current System Contract Validation `38794142075`. The clean-machine Core result `38757724853` remains an explicit Slice 5.3 whole-product qualification concern because accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` reports `setup-required` after the normal setup path; it is not claimed resolved and did not invalidate the Slice 5.2 zero-loss boundary. Slice 5.1 remains accepted and closed. `distribution-adapter-compatibility-shadow-risk` and `repository-watchdog-stale` are resolved; canonical State is globally fresh with `WATCHDOG-CURRENT`. The live candidate overlay and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. `compact-release-receipt-not-yet-implemented` remains open `INFO` for 5.4. No plan amendment required. Slice 5.3 has not begun.
+**Current slice:** Slice 5.3 - Promotion and qualification (`IN PROGRESS`, 0/4 tasks complete)  
+**Next:** 5.3-T1 - implement one reusable whole-product qualification gate/evidence builder for an already-admitted exact candidate, binding candidate admission, exact release/transition/compatibility, canonical whole-release preservation evidence, owner acceptance/native evidence, composed clean-install/status/doctor/health, current scoped System/Registry/State and intersecting drift; fail closed on owner or whole-product failure including `setup-required`, produce qualification evidence only, and stop without beginning promotion integration  
+**Blockers/drift/amendments:** Slice 5.3 bounded planning is complete at starting boundaries System `ecd681de460f05e2753c39ee2110e67611d58fe8` and Distribution `d524f8d04652d8911b931109d0bebc71be34f143`; 5.3-T1 has not begun. The live candidate overlay remains empty. Clean-machine run `38757724853` remains a fail-closed whole-product qualification concern because accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` reports `setup-required` after the normal setup path; historical U35/U36 evidence does not override that fresh result. Canonical State is globally fresh with `WATCHDOG-CURRENT`, `distribution-adapter-compatibility-shadow-risk` and `repository-watchdog-stale` resolved, and no open intersecting Core `BLOCKING` drift. Existing `system_sync=debt` semantics are reserved for the permanent emergency rule; no debt has been created by planning. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. `compact-release-receipt-not-yet-implemented` remains open `INFO` for 5.4. No plan amendment required.
