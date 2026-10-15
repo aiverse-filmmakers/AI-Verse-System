@@ -586,7 +586,7 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 
 **Status:** IN PROGRESS  
 **Dependencies:** 5.1  
-**Adaptive tasks:** 0/4 complete
+**Adaptive tasks:** 1/4 complete
 
 Enforce deterministic payload boundaries across install/setup/update/rollback while preserving unknown/user files and zero-loss behavior.
 
@@ -615,12 +615,23 @@ Bounded discovery was limited to the current System/Distribution refs and existi
 
 ### Derived task list
 
-- [ ] **5.2-T1** Extend the existing zero-loss ownership policy into one reusable lifecycle member-payload guard/evidence builder for exact filesystem and structured-state mutation units, covering fresh/resumed install, setup, update and rollback while reusing ProjectLayout/project receipts, `update_safety.py` and preservation semantics; unknown/member content must fail closed and owner-migratable state must remain owner-lifecycle-only.
+- [x] **5.2-T1** Extend the existing zero-loss ownership policy into one reusable lifecycle member-payload guard/evidence builder for exact filesystem and structured-state mutation units, covering fresh/resumed install, setup, update and rollback while reusing ProjectLayout/project receipts, `update_safety.py` and preservation semantics; unknown/member content must fail closed and owner-migratable state must remain owner-lifecycle-only.
 - [ ] **5.2-T2** Wire the reusable payload guard into the existing Distribution-controlled install/setup/update/rollback write paths, including bootstrap-owned/generated files and mixed-ownership structured state, so every direct Distribution replace/create/delete is containment/receipt/provenance/admission-bound and unrelated fields/files survive unchanged; preserve current Core owner migration, journal, recovery and software-only rollback semantics.
 - [ ] **5.2-T3** Prove lifecycle-wide zero-loss with positive and destructive-negative regressions on populated roots: fresh/resumed install and setup preserve unknown/member content; update and rollback preserve workspace/profile/context/decisions/knowledge/assets/outputs/connections/automations/local Skills/extensions/history and semantic Data rows; mixed structured state preserves unrelated entries; local edits, missing/stale receipts, ambiguous ownership and wrong mutation routes fail before destructive writes; interruption/retry/recovery remains idempotent and preservation-safe.
 - [ ] **5.2-T4** Run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification.
 
-5.2 planning changes roadmap bookkeeping only. 5.2-T1 implementation has not begun.
+5.2-T1 is complete. 5.2-T2 lifecycle wiring has not begun.
+
+### T1 evidence
+
+- Published the reusable, authority-neutral lifecycle member-payload guard at Distribution `ccf8fa793306d9d3bb7518119cab43caaf0f4263` (`Define lifecycle member payload guard`). The commit adds only `src/aiverse_distribution/lifecycle_payload.py`, `tests/test_lifecycle_payload_guard.py` and `docs/MEMBER-PAYLOAD-GUARD.md`; no install/setup/update/rollback caller was wired in T1.
+- The `distribution-member-payload-v1` guard composes the existing five-class ownership model and `core-update-zero-loss-v1` decision policy for exact `filesystem` and `structured-state` mutation units across install, setup, update and rollback. Ownership defaults to `ambiguous-conflict`, so unclassified content fails closed.
+- Project receipt proof reuses the existing `ProjectLayout`/`project.json` identity and `owned_files`/`pending_files` SHA-256 ledgers without creating or mutating receipt authority. CREATE requires an exact pending digest and an absent contained target; REPLACE/DELETE require an exact current receipt-bound digest. Unknown files, local edits, symlinks or missing provenance fail closed.
+- Shared JSON-like state is diffed at exact logical paths before mutation. A proposed edit that changes a sibling, parent, unrelated field or unknown entry outside the declared slice raises a structured-state conflict, preserving mixed-ownership documents at the smallest safe mutation unit.
+- `owner-migratable-state` remains owner-lifecycle-only because T1 delegates the actual decision to the existing zero-loss policy. Raw Distribution replacement is denied; an owner-managed mutation still requires owner routing, admitted lifecycle evidence, owner authorization and preservation proof.
+- The guard wraps, rather than replaces, `snapshot_member_state()` / `require_member_state_preserved()` so project root, local Skills and Distribution history remain bound to the existing semantic zero-loss contract, including workspace identities and Data row preservation.
+- Exact Distribution CI run `38744356980` on `ccf8fa793306d9d3bb7518119cab43caaf0f4263` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs. Ubuntu/Python 3.11 passed the permanent Candidate admission gate, all 357 unit tests with 11 new T1 lifecycle-payload tests, and CLI catalog smoke.
+- T1 changed no release set, candidate, promotion/channel, component owner, System Registry/State, live member installation or user-owned state. Lifecycle wiring is intentionally deferred to 5.2-T2. Existing watchdog and compact-receipt drift remain unchanged. No plan amendment required.
 
 ## Slice 5.3 - Promotion and qualification
 
@@ -666,6 +677,14 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-15 - Slice 5.2 T1 lifecycle payload guard defined
+
+- Published `distribution-member-payload-v1` at Distribution `ccf8fa793306d9d3bb7518119cab43caaf0f4263` as a read-only evidence/policy adapter over the existing zero-loss ownership and preservation contracts.
+- Added exact filesystem and structured-state mutation-unit evidence, read-only ProjectLayout/project-receipt proof, mixed-ownership structured-state confinement and existing semantic member-state snapshot reuse.
+- Proved unknown/member content fails closed and owner-migratable state remains owner-lifecycle-only across install/setup/update/rollback semantics.
+- Distribution CI `38744356980` passed all six platform/version jobs; Ubuntu/Python 3.11 ran 357 tests, including 11 new T1 guard tests, plus Candidate admission and catalog smoke.
+- No lifecycle caller was wired, no member payload was mutated, and no release/State/owner authority changed. 5.2-T2 is the only next task. No plan amendment.
 
 ## 2026-10-15 - Slice 5.2 started
 
@@ -893,6 +912,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
 **Phase progress:** 1/4  
 **Until Phase 6:** 3 slices  
-**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 0/4 tasks complete)  
-**Next:** 5.2-T1 - extend the existing zero-loss ownership policy into one reusable lifecycle member-payload guard/evidence builder for exact filesystem and structured-state mutation units across fresh/resumed install, setup, update and rollback, reusing ProjectLayout/project receipts, `update_safety.py` and preservation semantics while keeping unknown/member content fail-closed and owner-migratable state owner-lifecycle-only  
-**Blockers/drift/amendments:** Slice 5.1 remains accepted and closed. The unrelated Safe Infrastructure merge regressed only stale summary bookkeeping, repaired by this slice-start record without changing accepted evidence. `distribution-adapter-compatibility-shadow-risk` remains resolved. The live candidate overlay remains empty and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. Slice 5.2 implementation has not begun. No plan amendment required.
+**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 1/4 tasks complete)  
+**Next:** 5.2-T2 - wire the reusable lifecycle member-payload guard into the existing Distribution-controlled install/setup/update/rollback write paths, including bootstrap-owned/generated files and mixed-ownership structured state, so every direct Distribution replace/create/delete is containment/receipt/provenance/admission-bound and unrelated fields/files survive unchanged while preserving current Core owner migration, journal, recovery and software-only rollback semantics  
+**Blockers/drift/amendments:** 5.2-T1 is accepted at Distribution `ccf8fa793306d9d3bb7518119cab43caaf0f4263` with CI `38744356980`. T1 is policy/evidence only; lifecycle callers are not yet wired, which is exactly 5.2-T2. Slice 5.1 remains accepted and closed. `distribution-adapter-compatibility-shadow-risk` remains resolved. The live candidate overlay and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. No plan amendment required.
