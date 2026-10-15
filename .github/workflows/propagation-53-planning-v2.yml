@@ -1,0 +1,52 @@
+name: Propagation Slice 5.3 Planning Retry
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/propagation-53-planning-v2.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-planning:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reuse exact planning transform
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          workflow = Path('.github/workflows/propagation-53-planning.yml').read_text(encoding='utf-8')
+          start_marker = "          python - <<'PY'\n"
+          end_marker = "\n          PY\n"
+          start = workflow.index(start_marker) + len(start_marker)
+          end = workflow.index(end_marker, start)
+          source = textwrap.dedent(workflow[start:end])
+          exec(compile(source, 'propagation-53-planning-transform', 'exec'), {})
+          PY
+
+      - name: Verify planning-only diff
+        shell: bash
+        run: |
+          changed="$(git diff --name-only)"
+          test "$changed" = "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
+          git diff --numstat -- docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+
+      - name: Commit Slice 5.3 planning
+        shell: bash
+        run: |
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git commit -m "Plan Slice 5.3 promotion qualification"
+          git push origin HEAD:main
