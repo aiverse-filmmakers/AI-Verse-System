@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 13  
-**Remaining:** 7  
-**Overall progress:** 65.0%  
+**Completed:** 14  
+**Remaining:** 6  
+**Overall progress:** 70.0%  
 **Current execution phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Current phase progress:** 0/4 slices complete  
-**Slices until next phase:** 4  
-**Current slice:** 5.1 - Immutable candidate snapshot and owner-adoption gates  
+**Current phase progress:** 1/4 slices complete  
+**Slices until next phase:** 3  
+**Current slice:** 5.2 - Member payload isolation  
 **Current slice status:** IN PROGRESS  
-**Next slice:** 5.2 - Member payload isolation
+**Next slice:** 5.3 - Promotion and qualification
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
@@ -584,10 +584,43 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 
 ## Slice 5.2 - Member payload isolation
 
-**Status:** NOT STARTED  
-**Dependencies:** 5.1
+**Status:** IN PROGRESS  
+**Dependencies:** 5.1  
+**Adaptive tasks:** 0/4 complete
 
 Enforce deterministic payload boundaries across install/setup/update/rollback while preserving unknown/user files and zero-loss behavior.
+
+### Slice-start boundary
+
+Bounded discovery was limited to the current System/Distribution refs and existing Distribution install, setup, update, rollback, ownership, preservation, bootstrap and recovery surfaces. No Distribution product/runtime code, release set, candidate, promotion/channel, component owner, System Registry/State, member installation or user-owned state was changed.
+
+- System planning boundary: `aiverse-filmmakers/AI-Verse-System@8facceabd5cadaa1fe0f4893cfa84d1785e46387`. The concurrent Safe Infrastructure merge is preserved. It regressed the roadmap summary header to stale 5.1 progress while leaving the accepted 5.1 closure and tail execution pointer intact; this planning record restores only that bookkeeping truth before advancing 5.2.
+- Distribution planning boundary: `aiverse-filmmakers/ai-verse-distribution@d41c3abc1702fba85693c971de49a3a539ee7327`, the accepted 5.1 current-head descendant with green Distribution CI `38716176205`.
+- `docs/CORE-UPDATE-OWNERSHIP-CONTRACT.md` already defines the five canonical mutation classes: `system-owned-replaceable`, `generated-system-owned-replaceable-with-receipt`, `user-owned-immutable-to-updater`, `owner-migratable-state`, and fail-closed `ambiguous-conflict`. Mixed ownership must resolve at the smallest safe mutation unit; unclassified or locally modified content is never silently replaceable.
+- `src/aiverse_distribution/update_safety.py` already encodes that contract as the deterministic `core-update-zero-loss-v1` pre-write decision policy. Slice 5.2 must extend its use rather than invent a second payload classifier or member-state authority.
+- `src/aiverse_distribution/preservation.py` already fingerprints canonical member files, workspace identities, local Skills, semantic Data rows and pre-existing Distribution history, and can prove zero-loss after an operation. `tests/test_populated_update_acceptance.py` already proves this for populated Core update and recovery, but not yet as one invariant across install/setup/update/rollback.
+- Project bootstrap already protects important install boundaries: `ProjectLayout.inspect()` refuses an unclaimed occupied project, the tool stack lives outside the OS root, and `_write_owned()` replaces only bootstrap-owned receipt-bound files while preserving unknown/local edits. Generated refresh already routes receipt/provenance-bound writes through `require_mutation_permitted()` and recovery refuses to overwrite a file changed after update.
+- The remaining gap is consistency, not a missing safety architecture. Direct lifecycle surfaces still use different local protections. In particular, project bootstrap edits the shared extension registry as a structured document, setup delegates owner mutations without one common member-payload envelope, and legacy/general lifecycle paths do not uniformly consume the same deterministic payload gate plus pre/post preservation proof.
+- Core update/recovery already reuses exact transition admission, clean-source checks, owner-controlled migration/reconcile, generated-file receipts, update journaling, software-only rollback rules and final health. Slice 5.2 must preserve those semantics and must not create a second updater or move owner state into Distribution.
+
+### Reuse / extend / create / prohibited classification
+
+- Canonical ownership classes, precedence and mixed-ownership rules in `docs/CORE-UPDATE-OWNERSHIP-CONTRACT.md`: `REUSE`.
+- `update_safety.py` deterministic mutation decision policy, `preservation.py` zero-loss snapshots, ProjectLayout occupied-root admission, bootstrap `project.json` ownership/pending ledgers, `generated_refresh.py`, owner lifecycle adapters, StateStore serialization, Core update journal/recovery and current populated fixtures: `REUSE`.
+- One reusable lifecycle payload guard/evidence builder that applies the existing ownership classes and mutation policy to the exact filesystem or structured-state mutation unit for install/setup/update/rollback: `EXTEND/CREATE` inside Distribution. It is a policy adapter, not a new Registry, member-state database or ownership authority.
+- Existing install/setup/update/rollback direct Distribution mutation paths: `EXTEND` so Distribution-owned writes require containment plus receipt/provenance/admission evidence, owner state remains owner-lifecycle-only, and user/unknown content fails closed before mutation. Shared structured files must preserve unrelated/unknown fields and entries.
+- Existing preservation fixture/tests: `EXTEND` with lifecycle-wide positive and destructive-negative evidence for fresh/resumed install, setup, update, rollback and interrupted recovery.
+- A second member-state store, recursive project replacement, copy-away-and-recreate as the normal safety strategy, raw Distribution mutation of owner state, treating unknown paths as system-owned, silently overwriting local edits, weakening current recovery/transition gates, release promotion, channel changes, compact release receipts, component-owner work or broad Registry/State refresh: `PROHIBITED/DEFER` for Slice 5.2.
+- Promotion/whole-product qualification stays in 5.3. Compact immutable release reconstruction stays in 5.4. Global watchdog remediation remains separate unless a later active release decision genuinely requires an unprovable global fact.
+
+### Derived task list
+
+- [ ] **5.2-T1** Extend the existing zero-loss ownership policy into one reusable lifecycle member-payload guard/evidence builder for exact filesystem and structured-state mutation units, covering fresh/resumed install, setup, update and rollback while reusing ProjectLayout/project receipts, `update_safety.py` and preservation semantics; unknown/member content must fail closed and owner-migratable state must remain owner-lifecycle-only.
+- [ ] **5.2-T2** Wire the reusable payload guard into the existing Distribution-controlled install/setup/update/rollback write paths, including bootstrap-owned/generated files and mixed-ownership structured state, so every direct Distribution replace/create/delete is containment/receipt/provenance/admission-bound and unrelated fields/files survive unchanged; preserve current Core owner migration, journal, recovery and software-only rollback semantics.
+- [ ] **5.2-T3** Prove lifecycle-wide zero-loss with positive and destructive-negative regressions on populated roots: fresh/resumed install and setup preserve unknown/member content; update and rollback preserve workspace/profile/context/decisions/knowledge/assets/outputs/connections/automations/local Skills/extensions/history and semantic Data rows; mixed structured state preserves unrelated entries; local edits, missing/stale receipts, ambiguous ownership and wrong mutation routes fail before destructive writes; interruption/retry/recovery remains idempotent and preservation-safe.
+- [ ] **5.2-T4** Run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification.
+
+5.2 planning changes roadmap bookkeeping only. 5.2-T1 implementation has not begun.
 
 ## Slice 5.3 - Promotion and qualification
 
@@ -633,6 +666,14 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-15 - Slice 5.2 started
+
+- Restored the propagation roadmap summary header from a stale 5.1 snapshot introduced by unrelated Safe Infrastructure movement; the accepted 5.1 closure and tail pointer already remained intact.
+- Bounded discovery inspected only Distribution lifecycle payload ownership/preservation surfaces at `d41c3abc1702fba85693c971de49a3a539ee7327` and current System planning boundary `8facceabd5cadaa1fe0f4893cfa84d1785e46387`.
+- Reused the existing five-class ownership contract, `core-update-zero-loss-v1` mutation policy, project/bootstrap receipts, semantic member-state preservation snapshots, owner lifecycle routing, generated-file receipt gating and Core journal/recovery rather than creating duplicate authority.
+- Identified the remaining work as uniform lifecycle enforcement across install/setup/update/rollback plus mixed-ownership structured state and lifecycle-wide zero-loss regressions.
+- Derived four adaptive tasks. No 5.2 product/runtime implementation, release/promotion work, member mutation, Registry/State refresh or plan amendment was performed.
 
 ## 2026-10-15 - Slice 5.1 completed
 
@@ -852,6 +893,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
 **Phase progress:** 1/4  
 **Until Phase 6:** 3 slices  
-**Current slice:** Slice 5.2 - Member payload isolation (`NOT STARTED`)  
-**Next:** 5.2 slice-start bounded discovery/planning - inspect only the existing Distribution install/setup/update/rollback payload ownership and preservation surfaces, classify reuse/extend/create/prohibited boundaries, derive the adaptive task list, commit the plan, and stop before 5.2-T1 implementation  
-**Blockers/drift/amendments:** Slice 5.1 is accepted and closed. Explicit candidates require immutable Registry/profile/scoped-State/exact owner descriptor/native-CI evidence before qualification, and `distribution-adapter-compatibility-shadow-risk` is resolved because trusted adapter knowledge no longer acts as acceptance authority. The live candidate overlay remains empty and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. Slice 5.2 has not begun. No plan amendment required.
+**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 0/4 tasks complete)  
+**Next:** 5.2-T1 - extend the existing zero-loss ownership policy into one reusable lifecycle member-payload guard/evidence builder for exact filesystem and structured-state mutation units across fresh/resumed install, setup, update and rollback, reusing ProjectLayout/project receipts, `update_safety.py` and preservation semantics while keeping unknown/member content fail-closed and owner-migratable state owner-lifecycle-only  
+**Blockers/drift/amendments:** Slice 5.1 remains accepted and closed. The unrelated Safe Infrastructure merge regressed only stale summary bookkeeping, repaired by this slice-start record without changing accepted evidence. `distribution-adapter-compatibility-shadow-risk` remains resolved. The live candidate overlay remains empty and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. Slice 5.2 implementation has not begun. No plan amendment required.
