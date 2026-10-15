@@ -1,0 +1,131 @@
+name: Propagation Slice 5.2 T3 Bookkeeping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/propagation-52-t3-bookkeeping.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  record-t3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Record Slice 5.2 T3 evidence
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text(encoding='utf-8')
+
+          def replace_once(old, new, label):
+              global text
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match, found {count}')
+              text = text.replace(old, new, 1)
+
+          replace_once(
+              '- [ ] **5.2-T3** Prove lifecycle-wide zero-loss with positive and destructive-negative regressions on populated roots:',
+              '- [x] **5.2-T3** Prove lifecycle-wide zero-loss with positive and destructive-negative regressions on populated roots:',
+              'T3 checkbox',
+          )
+          replace_once(
+              '5.2-T1 and T2 are complete. 5.2-T3 lifecycle-wide zero-loss regression proof has not begun.',
+              '5.2-T1, T2 and T3 are complete. 5.2-T4 clean cross-validation and closure has not begun.',
+              'slice status sentence',
+          )
+
+          evidence = '''### T3 evidence
+
+- Published permanent regression-only T3 coverage at Distribution main `d524f8d04652d8911b931109d0bebc71be34f143` through PR `#37`; compare from accepted T2 `7529482286816d3c4f19bddf693f7635ea05d57d` changes exactly one file, `tests/test_lifecycle_payload_zero_loss.py`, with no production/runtime bytes changed.
+- Fresh and resumed bootstrap publication preserve a fully populated member root and unrelated extension-registry entries while retaining exact pending/owned receipt semantics. Setup stays on the owner route, and exact pending setup retry completes once without replay or member-payload loss.
+- Populated update and rollback proofs exercise all five Core components while preserving workspace/profile/context/decisions/knowledge/assets/outputs/connections/automations/local Skills/member extensions/Distribution history and semantic Data rows. Owner-owned migration metadata, schema additions and rebuildable derived state may change only through the existing owner lifecycle.
+- Mixed structured-state sibling edits, missing receipts over unknown files, stale receipts/local edits, ambiguous ownership and raw Distribution routing of owner-migratable state all fail before destructive writes; original bytes/fields remain unchanged.
+- Existing interruption/retry/recovery, LKG, journal and concurrency regressions remained green in the same suite, including `test_u26_interrupted_receipt_recovers_then_retries_idempotently`; no duplicate recovery or ownership authority was introduced.
+- Exact clean-head Distribution CI `38758297678` on `d524f8d04652d8911b931109d0bebc71be34f143` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs. Ubuntu/Python 3.11 passed Candidate admission, all 372 tests including all 10 new T3 zero-loss regressions, and CLI catalog smoke.
+- Direct PR qualification also passed Lifecycle Receipt Concurrency `38757724383`, Safe Infrastructure Regression `38757724556` and Safe Infrastructure Convergence `38757724490`, including the real Ubuntu convergence/promotion/restore path.
+- An auxiliary PR Clean Machine Core Ubuntu job in run `38757724853` reported the existing OS owner state as `setup-required`; the T3 diff is test-only and all T3 lifecycle, preservation, concurrency and convergence gates passed. This observation does not change T3 acceptance or resolve any drift; final cross-validation/disposition remains owned by T4.
+- T3 changed no release set, candidate, promotion/channel, component owner, System Registry/State, live member installation or user-owned state. Existing watchdog and compact-receipt drift remain unchanged. No plan amendment required. 5.2-T4 has not begun.
+
+'''
+          marker = '## Slice 5.3 - Promotion and qualification\n'
+          if text.count(marker) != 1:
+              raise SystemExit(f'T3 evidence insertion marker expected once, found {text.count(marker)}')
+          text = text.replace(marker, evidence + marker, 1)
+
+          changelog = '''## 2026-10-15 - Slice 5.2 T3 lifecycle zero-loss regressions proven
+
+- Added permanent populated-root positive/destructive-negative lifecycle regressions only; Distribution main is `d524f8d04652d8911b931109d0bebc71be34f143`, and the T2-to-T3 compare changes only `tests/test_lifecycle_payload_zero_loss.py`.
+- Proved fresh/resumed bootstrap and setup/retry preservation, all-five-Core update/rollback semantic zero-loss, exact mixed-state confinement, receipt/local-edit fail-closed behavior, ambiguous ownership denial and owner-route enforcement.
+- Clean Distribution CI `38758297678` passed all six platform/version jobs; Ubuntu/Python 3.11 passed Candidate admission, all 372 tests including the 10 new T3 regressions, and CLI smoke. PR concurrency `38757724383`, Safe Infrastructure regression `38757724556` and convergence `38757724490` also passed.
+- The auxiliary PR Core clean-machine Ubuntu `setup-required` observation is deferred to T4 final cross-validation/disposition and is not a T3 blocker. No production/release/owner/State/member payload changed and no plan amendment was required.
+- Slice 5.2 is now 3/4 tasks complete. Program progress remains 14/20, 70.0%; Phase 5 remains 1/4 slices complete. 5.2-T4 is the only next task.
+
+'''
+          changelog_marker = '# Program Change Log\n\n'
+          if text.count(changelog_marker) != 1:
+              raise SystemExit(f'changelog marker expected once, found {text.count(changelog_marker)}')
+          text = text.replace(changelog_marker, changelog_marker + changelog, 1)
+
+          pointer_marker = '# Current execution pointer\n'
+          if text.count(pointer_marker) != 1:
+              raise SystemExit(f'pointer marker expected once, found {text.count(pointer_marker)}')
+          before, pointer = text.split(pointer_marker, 1)
+          old_slice = '**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 2/4 tasks complete)  '
+          if pointer.count(old_slice) != 1:
+              raise SystemExit(f'current slice pointer expected once, found {pointer.count(old_slice)}')
+          pointer = pointer.replace(
+              old_slice,
+              '**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 3/4 tasks complete)  ',
+              1,
+          )
+          pointer, next_count = re.subn(
+              r'^\*\*Next:\*\* 5\.2-T3 - .*?  $',
+              '**Next:** 5.2-T4 - run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification  ',
+              pointer,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if next_count != 1:
+              raise SystemExit(f'next pointer expected once, found {next_count}')
+          pointer, blocker_count = re.subn(
+              r'^\*\*Blockers/drift/amendments:\*\* .*$',
+              '**Blockers/drift/amendments:** 5.2-T1, T2 and T3 are accepted. T3 is regression-only at Distribution `d524f8d04652d8911b931109d0bebc71be34f143` with clean CI `38758297678`; 5.2-T4 final clean cross-validation and closure has not begun. The auxiliary PR Core clean-machine Ubuntu `setup-required` observation from run `38757724853` is deferred to T4 and has not been used to change acceptance or drift. Slice 5.1 remains accepted and closed. `distribution-adapter-compatibility-shadow-risk` remains resolved. The live candidate overlay and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. No plan amendment required.',
+              pointer,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if blocker_count != 1:
+              raise SystemExit(f'blocker pointer expected once, found {blocker_count}')
+          text = before + pointer_marker + pointer
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Verify bookkeeping-only diff
+        shell: bash
+        run: |
+          changed="$(git diff --name-only)"
+          test "$changed" = "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
+          git diff --check
+          git diff -- docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+
+      - name: Commit Slice 5.2 T3 bookkeeping
+        shell: bash
+        run: |
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git commit -m "Record Slice 5.2 T3 zero-loss proof"
+          git push origin HEAD:main
