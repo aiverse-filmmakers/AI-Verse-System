@@ -1,0 +1,37 @@
+name: Safe Infrastructure Final Closure Bookkeeping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/safe-infra-53-closure.yml
+
+permissions:
+  contents: write
+
+jobs:
+  close-program:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch canonical Safe Infrastructure roadmap
+        run: python .github/scripts/safe_infra_53_close.py
+
+      - name: Commit canonical final closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          remote_head="$(git ls-remote origin refs/heads/main | cut -f1)"
+          test "$remote_head" = "$GITHUB_SHA"
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/SAFE-INFRASTRUCTURE-UPGRADE-AND-RECOVERY-IMPLEMENTATION-PLAN.md
+          if git diff --cached --quiet; then
+            echo "Expected final canonical roadmap changes were not produced" >&2
+            exit 1
+          fi
+          git commit -m "Complete Safe Infrastructure program roadmap"
+          git push origin HEAD:main
