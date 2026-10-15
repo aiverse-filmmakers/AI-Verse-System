@@ -90,7 +90,6 @@ jobs:
           if refresh_status != 'complete' or refresh_scope != 'Core':
               raise SystemExit(f'unexpected closing refresh state: status={refresh_status} scope={refresh_scope}')
 
-          # Program header.
           text = replace_once(text, '**Completed:** 15  ', '**Completed:** 16  ', 'header completed')
           text = replace_once(text, '**Remaining:** 5  ', '**Remaining:** 4  ', 'header remaining')
           text = replace_once(text, '**Overall progress:** 75.0%  ', '**Overall progress:** 80.0%  ', 'header progress')
@@ -100,7 +99,6 @@ jobs:
           text = replace_once(text, '**Current slice status:** IN PROGRESS  ', '**Current slice status:** NOT STARTED  ', 'header current status')
           text = replace_once(text, '**Next slice:** 5.4 - Durable release receipts', '**Next slice:** 6.1 - Cross-repo regression/evidence validation', 'header next slice')
 
-          # Slice 5.3 section only.
           start_marker = '## Slice 5.3 - Promotion and qualification\n'
           end_marker = '## Slice 5.4 - Durable release receipts\n'
           if text.count(start_marker) != 1 or text.count(end_marker) != 1:
@@ -124,7 +122,6 @@ jobs:
           section = replace_once(section, marker, marker + evidence, 'T4 evidence insertion')
           text = before + start_marker + section + end_marker + after
 
-          # Current execution pointer.
           pointer_marker = '# Current execution pointer\n'
           if text.count(pointer_marker) != 1:
               raise SystemExit('current execution pointer marker is not unique')
@@ -160,6 +157,7 @@ jobs:
       - name: Remove one-shot closure workflow and verify bounded diff
         shell: bash
         run: |
+          find scripts tests -type d -name __pycache__ -prune -exec rm -rf {} +
           git rm .github/workflows/propagation-53-t4-closure.yml
           changed="$(git status --short | sed -E 's/^...//' | sort)"
           printf '%s\n' "$changed"
