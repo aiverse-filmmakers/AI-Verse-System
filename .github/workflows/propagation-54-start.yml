@@ -41,43 +41,44 @@ jobs:
               'header current slice status',
           )
 
-          old_section = '''## Slice 5.4 - Durable release receipts
+          old_section = (
+              '## Slice 5.4 - Durable release receipts\n\n'
+              '**Status:** NOT STARTED  \n'
+              '**Dependencies:** 5.3\n\n'
+              'Persist `qualification/<release-id>/release-receipt.json` as compact immutable reconstruction binding without user secrets/state.\n'
+          )
 
-**Status:** NOT STARTED  
-**Dependencies:** 5.3
-
-Persist `qualification/<release-id>/release-receipt.json` as compact immutable reconstruction binding without user secrets/state.
-'''
-
-          new_section = '''## Slice 5.4 - Durable release receipts
-
-**Status:** IN PROGRESS  
-**Dependencies:** 5.3  
-**Adaptive tasks:** 0/4 complete
-
-Persist `qualification/<release-id>/release-receipt.json` as compact immutable reconstruction binding without user secrets/state.
-
-### Slice-start bounded discovery
-
-Planning is bound to System `43b7c4049ce9d840ba8fbb67e44e9fe55fe5f6b3` and Distribution `23a532737e94812d7dc4d53edf23fd23db1cbb02`. No Distribution product/runtime file, release catalog, candidate overlay, member installation, canonical Repository State or ledger was changed during planning.
-
-- **REUSE:** `release-sets/` remains canonical composition truth; candidate evidence and whole-product qualification remain the exact owner/System/Registry/State/compatibility/preservation binding; Core promotion remains the single final-admission write path; existing dependency-lock manifests and canonical hashing/safe-path/atomic-write patterns remain reusable evidence machinery.
-- **EXTEND:** whole-product qualification only where needed to preserve explicit source refs for receipt reconstruction; Core promotion so a future admitted release cannot complete without a valid durable receipt; the final release-set evidence section with a non-cyclic receipt reference; Distribution release documentation/validation surfaces as needed.
-- **CREATE:** one compact immutable release-receipt v1 contract/builder/validator plus permanent reconstruction and destructive-negative regression coverage. The receipt binds existing authorities; it does not become a second release set, Registry, Repository State, owner-acceptance database or member-state store.
-- **RETAIN SEPARATE:** the mutable local lifecycle receipt in `StateStore` (`~/.aiverse/distribution/locks/current.json`) remains member-machine lifecycle state and is not the durable release receipt. Its member paths, runtime state and lifecycle generation must never enter source-owned release reconstruction evidence.
-- **RETIRE:** nothing. Existing task-specific historical `qualification/core-update-program-u36/release-evidence.json` remains valid historical evidence and is not rewritten or retroactively replaced.
-- **BLOCK/UNKNOWN:** no architecture blocker was found. The open `compact-release-receipt-not-yet-implemented` `INFO/Core` drift is the intended Slice 5.4 work item. The carried OS `setup-required` concern remains separate and fail-closed under Slice 5.3 qualification/promotion rules.
-- The frozen architecture requires future admitted releases to persist `qualification/<release-id>/release-receipt.json`, with the release set referencing that receipt while the receipt binds the final release-set content identity. The implementation must avoid a digest cycle, exclude secrets/private/user-owned state, keep software reconstruction separate from user-state recovery, and preserve all prior authority boundaries.
-
-### Adaptive task list
-
-- [ ] **5.4-T1** Define and implement the release-receipt v1 contract and read-only builder/validator, binding the existing exact release-set, component/descriptor/owner, System/Registry/State, dependency/toolchain, compatibility/migration, qualification/preservation, promotion/known-good and sync-debt evidence; minimally extend qualification evidence only if explicit immutable source refs are otherwise unavailable; prove secret/member/user-state exclusion and authority boundaries with focused unit tests; do not persist a receipt or alter promotion yet.
-- [ ] **5.4-T2** Wire future Core final admission to construct, validate and atomically persist `qualification/<release-id>/release-receipt.json`, add the non-cyclic receipt reference to final release-set evidence, preserve immutable no-overwrite semantics, and fail closed before promotion/channel mutation when reconstruction evidence is incomplete or invalid; keep the member lifecycle receipt separate and perform no live promotion.
-- [ ] **5.4-T3** Add permanent positive and destructive-negative reconstruction regressions proving exact receipt reconstruction and failure on changed/missing release-set bytes, qualification/evidence bindings, component/descriptor/owner refs, Registry/State, dependency locks, compatibility/preservation/promotion/debt facts, unsafe/floating refs, secret/private/user-state leakage or attempted duplicate authority; preserve historical U36 release evidence unchanged and keep planning paths read-only.
-- [ ] **5.4-T4** Run clean Distribution and required System cross-validation for the adopted durable-receipt path, confirm final release/debt/drift state, resolve `compact-release-receipt-not-yet-implemented` only if exact evidence proves the future-admission requirement is enforced, publish required closing Core State/ledger, close Slice 5.4 and Phase 5, advance to Slice 6.1, and stop without beginning Phase 6 execution.
-
-Slice 5.4 planning is complete. 5.4-T1 through 5.4-T4 have not begun. No durable receipt was implemented or persisted during this planning run. No plan amendment was required.
-'''
+          new_lines = [
+              '## Slice 5.4 - Durable release receipts',
+              '',
+              '**Status:** IN PROGRESS  ',
+              '**Dependencies:** 5.3  ',
+              '**Adaptive tasks:** 0/4 complete',
+              '',
+              'Persist `qualification/<release-id>/release-receipt.json` as compact immutable reconstruction binding without user secrets/state.',
+              '',
+              '### Slice-start bounded discovery',
+              '',
+              'Planning is bound to System `43b7c4049ce9d840ba8fbb67e44e9fe55fe5f6b3` and Distribution `23a532737e94812d7dc4d53edf23fd23db1cbb02`. No Distribution product/runtime file, release catalog, candidate overlay, member installation, canonical Repository State or ledger was changed during planning.',
+              '',
+              '- **REUSE:** `release-sets/` remains canonical composition truth; candidate evidence and whole-product qualification remain the exact owner/System/Registry/State/compatibility/preservation binding; Core promotion remains the single final-admission write path; existing dependency-lock manifests and canonical hashing/safe-path/atomic-write patterns remain reusable evidence machinery.',
+              '- **EXTEND:** whole-product qualification only where needed to preserve explicit source refs for receipt reconstruction; Core promotion so a future admitted release cannot complete without a valid durable receipt; the final release-set evidence section with a non-cyclic receipt reference; Distribution release documentation/validation surfaces as needed.',
+              '- **CREATE:** one compact immutable release-receipt v1 contract/builder/validator plus permanent reconstruction and destructive-negative regression coverage. The receipt binds existing authorities; it does not become a second release set, Registry, Repository State, owner-acceptance database or member-state store.',
+              '- **RETAIN SEPARATE:** the mutable local lifecycle receipt in `StateStore` (`~/.aiverse/distribution/locks/current.json`) remains member-machine lifecycle state and is not the durable release receipt. Its member paths, runtime state and lifecycle generation must never enter source-owned release reconstruction evidence.',
+              '- **RETIRE:** nothing. Existing task-specific historical `qualification/core-update-program-u36/release-evidence.json` remains valid historical evidence and is not rewritten or retroactively replaced.',
+              '- **BLOCK/UNKNOWN:** no architecture blocker was found. The open `compact-release-receipt-not-yet-implemented` `INFO/Core` drift is the intended Slice 5.4 work item. The carried OS `setup-required` concern remains separate and fail-closed under Slice 5.3 qualification/promotion rules.',
+              '- The frozen architecture requires future admitted releases to persist `qualification/<release-id>/release-receipt.json`, with the release set referencing that receipt while the receipt binds the final release-set content identity. The implementation must avoid a digest cycle, exclude secrets/private/user-owned state, keep software reconstruction separate from user-state recovery, and preserve all prior authority boundaries.',
+              '',
+              '### Adaptive task list',
+              '',
+              '- [ ] **5.4-T1** Define and implement the release-receipt v1 contract and read-only builder/validator, binding the existing exact release-set, component/descriptor/owner, System/Registry/State, dependency/toolchain, compatibility/migration, qualification/preservation, promotion/known-good and sync-debt evidence; minimally extend qualification evidence only if explicit immutable source refs are otherwise unavailable; prove secret/member/user-state exclusion and authority boundaries with focused unit tests; do not persist a receipt or alter promotion yet.',
+              '- [ ] **5.4-T2** Wire future Core final admission to construct, validate and atomically persist `qualification/<release-id>/release-receipt.json`, add the non-cyclic receipt reference to final release-set evidence, preserve immutable no-overwrite semantics, and fail closed before promotion/channel mutation when reconstruction evidence is incomplete or invalid; keep the member lifecycle receipt separate and perform no live promotion.',
+              '- [ ] **5.4-T3** Add permanent positive and destructive-negative reconstruction regressions proving exact receipt reconstruction and failure on changed/missing release-set bytes, qualification/evidence bindings, component/descriptor/owner refs, Registry/State, dependency locks, compatibility/preservation/promotion/debt facts, unsafe/floating refs, secret/private/user-state leakage or attempted duplicate authority; preserve historical U36 release evidence unchanged and keep planning paths read-only.',
+              '- [ ] **5.4-T4** Run clean Distribution and required System cross-validation for the adopted durable-receipt path, confirm final release/debt/drift state, resolve `compact-release-receipt-not-yet-implemented` only if exact evidence proves the future-admission requirement is enforced, publish required closing Core State/ledger, close Slice 5.4 and Phase 5, advance to Slice 6.1, and stop without beginning Phase 6 execution.',
+              '',
+              'Slice 5.4 planning is complete. 5.4-T1 through 5.4-T4 have not begun. No durable receipt was implemented or persisted during this planning run. No plan amendment was required.',
+          ]
+          new_section = '\n'.join(new_lines) + '\n'
           text = replace_once(text, old_section, new_section, 'Slice 5.4 section')
 
           pointer_marker = '# Current execution pointer\n'
@@ -108,7 +109,6 @@ Slice 5.4 planning is complete. 5.4-T1 through 5.4-T4 have not begun. No durable
           if count != 1:
               raise SystemExit('expected exactly one pointer blocker line')
           text = before + pointer_marker + pointer
-
           path.write_text(text, encoding='utf-8')
           PY
 
