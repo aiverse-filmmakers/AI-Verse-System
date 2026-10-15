@@ -1,0 +1,120 @@
+name: Propagation Slice 5.2 T1 Bookkeeping Retry
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/propagation-52-t1-bookkeeping-v2.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-t1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Record Slice 5.2 T1 evidence
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md")
+          text = path.read_text(encoding="utf-8")
+
+          required = [
+              "**Completed:** 14/20",
+              "**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 0/4 tasks complete)",
+              "- [ ] **5.2-T1** Extend the existing zero-loss ownership policy",
+              "5.2 planning changes roadmap bookkeeping only. 5.2-T1 implementation has not begun.",
+          ]
+          for marker in required:
+              if marker not in text:
+                  raise SystemExit(f"5.2 T1 prerequisite marker missing: {marker}")
+
+          slice_52_start = text.index("## Slice 5.2 - Member payload isolation")
+          slice_53_start = text.index("## Slice 5.3 - Promotion and qualification", slice_52_start)
+          slice_52 = text[slice_52_start:slice_53_start]
+          if "### T1 evidence" in slice_52:
+              raise SystemExit("Slice 5.2 T1 evidence already exists")
+
+          text = text.replace("**Adaptive tasks:** 0/4 complete", "**Adaptive tasks:** 1/4 complete", 1)
+          text = text.replace(
+              "- [ ] **5.2-T1** Extend the existing zero-loss ownership policy",
+              "- [x] **5.2-T1** Extend the existing zero-loss ownership policy",
+              1,
+          )
+          text = text.replace(
+              "5.2 planning changes roadmap bookkeeping only. 5.2-T1 implementation has not begun.",
+              "5.2-T1 is complete. 5.2-T2 lifecycle wiring has not begun.",
+              1,
+          )
+
+          t1_evidence = '''### T1 evidence
+
+          - Published the reusable, authority-neutral lifecycle member-payload guard at Distribution `ccf8fa793306d9d3bb7518119cab43caaf0f4263` (`Define lifecycle member payload guard`). The commit adds only `src/aiverse_distribution/lifecycle_payload.py`, `tests/test_lifecycle_payload_guard.py` and `docs/MEMBER-PAYLOAD-GUARD.md`; no install/setup/update/rollback caller was wired in T1.
+          - The `distribution-member-payload-v1` guard composes the existing five-class ownership model and `core-update-zero-loss-v1` decision policy for exact `filesystem` and `structured-state` mutation units across install, setup, update and rollback. Ownership defaults to `ambiguous-conflict`, so unclassified content fails closed.
+          - Project receipt proof reuses the existing `ProjectLayout`/`project.json` identity and `owned_files`/`pending_files` SHA-256 ledgers without creating or mutating receipt authority. CREATE requires an exact pending digest and an absent contained target; REPLACE/DELETE require an exact current receipt-bound digest. Unknown files, local edits, symlinks or missing provenance fail closed.
+          - Shared JSON-like state is diffed at exact logical paths before mutation. A proposed edit that changes a sibling, parent, unrelated field or unknown entry outside the declared slice raises a structured-state conflict, preserving mixed-ownership documents at the smallest safe mutation unit.
+          - `owner-migratable-state` remains owner-lifecycle-only because T1 delegates the actual decision to the existing zero-loss policy. Raw Distribution replacement is denied; an owner-managed mutation still requires owner routing, admitted lifecycle evidence, owner authorization and preservation proof.
+          - The guard wraps, rather than replaces, `snapshot_member_state()` / `require_member_state_preserved()` so project root, local Skills and Distribution history remain bound to the existing semantic zero-loss contract, including workspace identities and Data row preservation.
+          - Exact Distribution CI run `38744356980` on `ccf8fa793306d9d3bb7518119cab43caaf0f4263` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs. Ubuntu/Python 3.11 passed the permanent Candidate admission gate, all 357 unit tests with 11 new T1 lifecycle-payload tests, and CLI catalog smoke.
+          - T1 changed no release set, candidate, promotion/channel, component owner, System Registry/State, live member installation or user-owned state. Lifecycle wiring is intentionally deferred to 5.2-T2. Existing watchdog and compact-receipt drift remain unchanged. No plan amendment required.
+
+          '''
+          marker = "## Slice 5.3 - Promotion and qualification\n"
+          if marker not in text:
+              raise SystemExit("Slice 5.3 marker missing")
+          text = text.replace(marker, t1_evidence + marker, 1)
+
+          change_log = '''## 2026-10-15 - Slice 5.2 T1 lifecycle payload guard defined
+
+          - Published `distribution-member-payload-v1` at Distribution `ccf8fa793306d9d3bb7518119cab43caaf0f4263` as a read-only evidence/policy adapter over the existing zero-loss ownership and preservation contracts.
+          - Added exact filesystem and structured-state mutation-unit evidence, read-only ProjectLayout/project-receipt proof, mixed-ownership structured-state confinement and existing semantic member-state snapshot reuse.
+          - Proved unknown/member content fails closed and owner-migratable state remains owner-lifecycle-only across install/setup/update/rollback semantics.
+          - Distribution CI `38744356980` passed all six platform/version jobs; Ubuntu/Python 3.11 ran 357 tests, including 11 new T1 guard tests, plus Candidate admission and catalog smoke.
+          - No lifecycle caller was wired, no member payload was mutated, and no release/State/owner authority changed. 5.2-T2 is the only next task. No plan amendment.
+
+          '''
+          heading = "# Program Change Log\n\n"
+          if heading not in text:
+              raise SystemExit("Program Change Log heading missing")
+          text = text.replace(heading, heading + change_log, 1)
+
+          pointer_marker = "# Current execution pointer\n\n"
+          if text.count(pointer_marker) != 1:
+              raise SystemExit("expected exactly one current execution pointer")
+          before_pointer, _ = text.split(pointer_marker, 1)
+          pointer = '''# Current execution pointer
+
+          **Completed:** 14/20  
+          **Overall:** 70.0%  
+          **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
+          **Phase progress:** 1/4  
+          **Until Phase 6:** 3 slices  
+          **Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 1/4 tasks complete)  
+          **Next:** 5.2-T2 - wire the reusable lifecycle member-payload guard into the existing Distribution-controlled install/setup/update/rollback write paths, including bootstrap-owned/generated files and mixed-ownership structured state, so every direct Distribution replace/create/delete is containment/receipt/provenance/admission-bound and unrelated fields/files survive unchanged while preserving current Core owner migration, journal, recovery and software-only rollback semantics  
+          **Blockers/drift/amendments:** 5.2-T1 is accepted at Distribution `ccf8fa793306d9d3bb7518119cab43caaf0f4263` with CI `38744356980`. T1 is policy/evidence only; lifecycle callers are not yet wired, which is exactly 5.2-T2. Slice 5.1 remains accepted and closed. `distribution-adapter-compatibility-shadow-risk` remains resolved. The live candidate overlay and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. No plan amendment required.
+          '''
+          text = before_pointer.rstrip() + "\n\n" + pointer
+          path.write_text(text, encoding="utf-8")
+
+      - name: Verify T1 bookkeeping-only diff
+        run: |
+          test "$(git diff --name-only | wc -l)" -eq 1
+          test "$(git diff --name-only)" = "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
+          grep -F "**Adaptive tasks:** 1/4 complete" docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          grep -F -- "- [x] **5.2-T1**" docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          grep -F "**Next:** 5.2-T2" docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          grep -F "38744356980" docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+
+      - name: Commit Slice 5.2 T1 bookkeeping
+        run: |
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git commit -m "Record Slice 5.2 T1 payload guard"
+          git push origin HEAD:main
