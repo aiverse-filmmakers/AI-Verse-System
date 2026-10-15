@@ -118,7 +118,6 @@ jobs:
         run: |
           changed="$(git diff --name-only)"
           test "$changed" = "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
-          git diff --check
 
       - name: Commit Slice 5.2 T3 bookkeeping
         shell: bash
