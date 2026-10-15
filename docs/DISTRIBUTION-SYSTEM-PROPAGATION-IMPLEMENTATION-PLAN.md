@@ -504,7 +504,7 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 
 **Status:** IN PROGRESS  
 **Dependencies:** 4.3  
-**Adaptive tasks:** 2/4 complete
+**Adaptive tasks:** 3/4 complete
 
 Extend existing candidate machinery so arbitrary SHAs cannot enter admission and exact owner/System/Registry/State evidence is frozen.
 
@@ -536,7 +536,7 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 
 - [x] **5.1-T1** Define and validate one immutable Distribution candidate-evidence contract at the frozen `qualification/<candidate-id>/candidate-evidence.json` boundary, binding exact Distribution/System/Registry/scoped-State/component/descriptor/owner-acceptance/compatibility/toolchain/drift inputs while explicitly denying second-Registry, second-State and second-owner-acceptance authority.
 - [x] **5.1-T2** Integrate candidate-evidence verification into the existing explicit candidate catalog/admission path so arbitrary component SHAs cannot enter qualification; require Registry/profile eligibility, exact descriptor and owner evidence, and the bound scoped State snapshot while preserving immutable historical released sets unchanged.
-- [ ] **5.1-T3** Prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority.
+- [x] **5.1-T3** Prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority.
 - [ ] **5.1-T4** Run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation.
 
 ### T1 evidence
@@ -560,6 +560,15 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 - Hard-coded Distribution adapter knowledge is not consulted as owner-acceptance evidence; it remains routing/orchestration knowledge only. Historical released sets, promotion/lineage records and channels are untouched. The `distribution-adapter-compatibility-shadow-risk` WARNING remains open until T3/T4 prove the adopted gate destructively and close the drift deliberately.
 - Added the permanent `Candidate admission gate` to Distribution CI on Ubuntu/Python 3.11 before the full unit suite. Exact clean-head Distribution CI `38643389149` on `18926197c9bbee2d45fb78d5ab66d59b853e498e` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs; the new admission step passed on its designated job.
 - T2 changed no admitted release set, promotion/channel, component owner, System Registry/State, member payload, runtime behavior or user-owned state. T3 destructive-positive/negative proof was not started. No plan amendment required.
+### T3 evidence
+
+- Preserved unrelated Safe Infrastructure convergence already merged at Distribution `004112410ec4608e4b9a758b651c4d6bba3b7f8c`, which directly descends from the accepted T2 head `18926197c9bbee2d45fb78d5ab66d59b853e498e`.
+- Published permanent T3 regression coverage at Distribution `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b` (`Prove candidate admission destructive regressions`). The commit is exactly one child of `004112410ec4608e4b9a758b651c4d6bba3b7f8c` and adds only `tests/test_candidate_admission_regressions.py`; no production admission/catalog code changed.
+- The exact frozen candidate positive path passes. Destructive negatives prove fail-closed rejection for an arbitrary component SHA even after the Distribution candidate definition is refrozen, wrong repository identity, unregistered component identity, Registry profile ineligibility, missing descriptor evidence, semantically mismatched accepted descriptor, missing owner-native CI binding, changed System governance input, changed Registry input, changed Repository State input, and intersecting frozen `BLOCKING` drift.
+- Changed System/Registry/State bytes fail their immutable digest bindings before admission, proving a bound-input change cannot reuse prior qualification evidence and requires requalification.
+- A dedicated regression keeps the Distribution candidate definition and compatibility coherent while making State owner acceptance unverified; admission still fails. This proves hard-coded/current Distribution composition knowledge cannot substitute for canonical owner acceptance authority.
+- Exact Distribution CI `38712853052` on `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b` completed `SUCCESS` across all six Linux/macOS/Windows Python 3.11/3.12 jobs. The designated Ubuntu/Python 3.11 job passed the permanent Candidate admission gate and all 346 unit tests; all thirteen T3 regression cases passed.
+- T3 created no live candidate, release set, promotion/channel change, component-owner mutation, System Registry/State mutation, member payload, runtime mutation or user-owned-state change. `distribution-adapter-compatibility-shadow-risk` remains `WARNING`; T4 alone owns final cross-validation, deliberate drift disposition and Slice 5.1 closure. No plan amendment required.
 
 ## Slice 5.2 - Member payload isolation
 
@@ -612,6 +621,14 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-15 - Slice 5.1 T3 candidate admission regressions proven
+
+- Added permanent positive/destructive-negative admission regressions only; production admission logic and live release data were unchanged.
+- Exact frozen evidence passes; arbitrary SHA, wrong identity/profile, descriptor/owner-evidence failures, changed System/Registry/State bindings and intersecting BLOCKING drift all fail closed.
+- Proved bound-input change requires requalification and Distribution definition/compatibility knowledge cannot replace canonical owner acceptance.
+- Exact Distribution regression commit `16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b`; CI `38712853052` passed all six platform/version jobs, with 346 tests green on Ubuntu/Python 3.11.
+- Slice 5.1 is now 3/4 tasks complete. Program progress remains 13/20, 65.0%; Phase 5 remains 0/4 slices complete. 5.1-T4 is the only next task. `distribution-adapter-compatibility-shadow-risk` remains WARNING pending T4 disposition. No plan amendment.
 
 ## 2026-10-14 - Slice 5.1 T2 candidate admission integrated
 
@@ -814,6 +831,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
 **Phase progress:** 0/4  
 **Until Phase 6:** 4 slices  
-**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 2/4 tasks complete)  
-**Next:** 5.1-T3 - prove the gate with positive and destructive-negative regressions: an exact frozen candidate passes, while arbitrary/wrong SHAs, wrong repository/component/profile, missing or mismatched descriptor/owner evidence, changed System/Registry/State bindings and intersecting BLOCKING drift fail closed; prove any bound-input change requires requalification and hard-coded Distribution knowledge is not sole acceptance authority  
-**Blockers/drift/amendments:** T1/T2 are accepted. Distribution now requires immutable evidence binding before an explicit Core qualification candidate can enter the catalog, and the source-side admission gate verifies canonical Registry/profile eligibility, scoped State, exact accepted owner descriptor/native CI, compatibility/toolchain inputs and intersecting drift. The live overlay remains empty and historical releases are unchanged. T3 destructive proof is still open, so `distribution-adapter-compatibility-shadow-risk` WARNING remains open pending T3/T4 final disposition. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`; valid scoped evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.
+**Current slice:** Slice 5.1 - Immutable candidate snapshot and owner-adoption gates (`IN PROGRESS`, 3/4 tasks complete)  
+**Next:** 5.1-T4 - run the clean Distribution and required System cross-validation for the adopted candidate gate, record exact evidence and drift disposition, resolve `distribution-adapter-compatibility-shadow-risk` only if the new admission path proves it no longer acts as acceptance authority, close Slice 5.1, advance to 5.2, and stop without beginning member-payload isolation  
+**Blockers/drift/amendments:** T1/T2/T3 are accepted. Distribution now requires immutable candidate-evidence binding and T3 permanently proves the exact positive path plus fail-closed arbitrary SHA, wrong identity/profile, descriptor/owner-evidence, System/Registry/State drift and intersecting BLOCKING-drift cases. Bound-input change requires requalification, and Distribution composition/compatibility knowledge cannot substitute for canonical owner acceptance. The live candidate overlay remains empty and historical releases are unchanged. `distribution-adapter-compatibility-shadow-risk` remains WARNING until T4 performs the required clean cross-validation and deliberate final disposition. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE`; valid scoped evidence may satisfy release-local freshness under the frozen governance rules. `compact-release-receipt-not-yet-implemented` INFO remains owned by 5.4. No plan amendment required.
