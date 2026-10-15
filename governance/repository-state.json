@@ -650,17 +650,18 @@
     {
       "id": "distribution-adapter-compatibility-shadow-risk",
       "marker": "CANONICAL-DRIFT-DETECTED",
-      "status": "open",
+      "status": "resolved",
       "severity": "WARNING",
       "scope": "Core",
       "repository_ids": [
         1350081263
       ],
-      "reason": "Distribution contains hard-coded supported revision and command knowledge in trusted adapters. This is legitimate orchestration today but must not become a second compatibility or owner-acceptance authority.",
+      "reason": "Resolved in Slice 5.1. Distribution trusted adapter revision and command knowledge remains orchestration-only. Explicit candidate admission is independently bound to immutable candidate evidence proving canonical Registry/profile eligibility, exact scoped Repository State, accepted owner descriptor/native-CI evidence, compatibility/toolchain inputs and intersecting drift. T3 proves coherent Distribution definition/compatibility knowledge cannot substitute for owner acceptance.",
       "evidence_refs": [
-        "aiverse-filmmakers/AI-Verse-System@fc0d178809867362dc29183411f26b9f65980903:docs/REPOSITORY-NETWORK-REUSE-OWNERSHIP-INVENTORY-2026-10-12.md"
+        "aiverse-filmmakers/ai-verse-distribution@18926197c9bbee2d45fb78d5ab66d59b853e498e:src/aiverse_distribution/candidate_admission.py",
+        "aiverse-filmmakers/ai-verse-distribution@16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b:tests/test_candidate_admission_regressions.py"
       ],
-      "required_action": "Bind future admission to Registry, descriptor and owner evidence while retaining Distribution trusted argv routing."
+      "required_action": "No corrective action remains for this shadow-authority risk. Keep trusted adapters limited to argv/routing/orchestration; every future explicit candidate must continue to pass immutable Registry/State/owner-evidence admission before qualification."
     },
     {
       "id": "compact-release-receipt-not-yet-implemented",

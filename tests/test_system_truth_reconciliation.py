@@ -70,10 +70,14 @@ class SystemTruthReconciliationTests(unittest.TestCase):
         self.assertEqual(matches[0]["scope"], "Core")
         self.assertIn("Resolved in Slice 4.2", matches[0]["reason"])
 
-    def test_later_slice_drift_remains_open_after_core_owner_handoff(self):
+    def test_later_slice_drift_tracks_current_governance_boundaries(self):
         by_id = {item["id"]: item for item in self.state["drift"]}
-        self.assertEqual(by_id["distribution-adapter-compatibility-shadow-risk"]["status"], "open")
+        shadow = by_id["distribution-adapter-compatibility-shadow-risk"]
+        self.assertEqual(shadow["status"], "resolved")
+        self.assertEqual(shadow["severity"], "WARNING")
+        self.assertIn("Resolved in Slice 5.1", shadow["reason"])
         self.assertEqual(by_id["compact-release-receipt-not-yet-implemented"]["status"], "open")
+
 
 
 if __name__ == "__main__":

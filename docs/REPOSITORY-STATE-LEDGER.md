@@ -39,7 +39,6 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Severity | Scope | Drift | Repositories | Reason | Required action |
 | --- | --- | --- | --- | --- | --- |
-| WARNING | Core | distribution-adapter-compatibility-shadow-risk | ai-verse-distribution | Distribution contains hard-coded supported revision and command knowledge in trusted adapters. This is legitimate orchestration today but must not become a second compatibility or owner-acceptance authority. | Bind future admission to Registry, descriptor and owner evidence while retaining Distribution trusted argv routing. |
 | WARNING | global | repository-watchdog-stale | ai-verse-system | Slice 4.3-T1 expanded the canonical Registry after the last successful global heartbeat. The prior heartbeat remains valid historical evidence for the earlier seven-repository Registry but cannot be treated as current coverage for the fourteen-repository Registry. | Run the existing full Registry-derived watchdog against the expanded Registry before interpreting watchdog status as current. Do not infer owner acceptance or release readiness from Registry registration alone. |
 | INFO | Core | compact-release-receipt-not-yet-implemented | ai-verse-distribution | Durable release reconstruction evidence exists across current release-set and qualification files, but the planned compact single release receipt binding is not implemented yet. | Implement the compact immutable release receipt in Slice 5.4 without replacing existing qualification evidence. |
 
