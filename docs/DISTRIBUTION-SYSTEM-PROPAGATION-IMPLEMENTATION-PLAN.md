@@ -584,9 +584,9 @@ Bounded discovery was limited to the Phase 5 destination, current System/Distrib
 
 ## Slice 5.2 - Member payload isolation
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 5.1  
-**Adaptive tasks:** 2/4 complete
+**Adaptive tasks:** 4/4 complete
 
 Enforce deterministic payload boundaries across install/setup/update/rollback while preserving unknown/user files and zero-loss behavior.
 
@@ -618,9 +618,9 @@ Bounded discovery was limited to the current System/Distribution refs and existi
 - [x] **5.2-T1** Extend the existing zero-loss ownership policy into one reusable lifecycle member-payload guard/evidence builder for exact filesystem and structured-state mutation units, covering fresh/resumed install, setup, update and rollback while reusing ProjectLayout/project receipts, `update_safety.py` and preservation semantics; unknown/member content must fail closed and owner-migratable state must remain owner-lifecycle-only.
 - [x] **5.2-T2** Wire the reusable payload guard into the existing Distribution-controlled install/setup/update/rollback write paths, including bootstrap-owned/generated files and mixed-ownership structured state, so every direct Distribution replace/create/delete is containment/receipt/provenance/admission-bound and unrelated fields/files survive unchanged; preserve current Core owner migration, journal, recovery and software-only rollback semantics.
 - [x] **5.2-T3** Prove lifecycle-wide zero-loss with positive and destructive-negative regressions on populated roots: fresh/resumed install and setup preserve unknown/member content; update and rollback preserve workspace/profile/context/decisions/knowledge/assets/outputs/connections/automations/local Skills/extensions/history and semantic Data rows; mixed structured state preserves unrelated entries; local edits, missing/stale receipts, ambiguous ownership and wrong mutation routes fail before destructive writes; interruption/retry/recovery remains idempotent and preservation-safe.
-- [ ] **5.2-T4** Run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification.
+- [x] **5.2-T4** Run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification.
 
-5.2-T1, T2 and T3 are complete. 5.2-T4 clean cross-validation and closure has not begun.
+5.2-T1 through T4 are complete. Slice 5.2 is closed.
 
 ### T1 evidence
 
@@ -656,6 +656,16 @@ Bounded discovery was limited to the current System/Distribution refs and existi
 - Direct PR qualification also passed Lifecycle Receipt Concurrency `38757724383`, Safe Infrastructure Regression `38757724556` and Safe Infrastructure Convergence `38757724490`, including the real Ubuntu convergence/promotion/restore path.
 - An auxiliary PR Clean Machine Core Ubuntu job in run `38757724853` reported the existing OS owner state as `setup-required`; the T3 diff is test-only and all T3 lifecycle, preservation, concurrency and convergence gates passed. This observation does not change T3 acceptance or resolve any drift; final cross-validation/disposition remains owned by T4.
 - T3 changed no release set, candidate, promotion/channel, component owner, System Registry/State, live member installation or user-owned state. Existing watchdog and compact-receipt drift remain unchanged. No plan amendment required. 5.2-T4 has not begun.
+
+### T4 evidence and closure
+
+- T4 changed no Distribution product/runtime bytes. The adopted payload-boundary head remains `aiverse-filmmakers/ai-verse-distribution@d524f8d04652d8911b931109d0bebc71be34f143`; no release set, candidate overlay, promotion/channel, component owner, member installation or user-owned state changed.
+- Fresh T4 Distribution qualification re-ran exact main-head Distribution CI `38758297678` as attempt 2 on `d524f8d04652d8911b931109d0bebc71be34f143`. All six Linux/macOS/Windows Python 3.11/3.12 jobs passed. Ubuntu/Python 3.11 passed the permanent Candidate admission gate, all 372 tests including the 10 Slice 5.2 populated-root zero-loss regressions, and CLI catalog smoke.
+- Same-head permanent cross-repo safety remained green: Safe Infrastructure Regression `38758298074` and Safe Infrastructure Convergence `38758298419` both completed `SUCCESS` on `d524f8d04652d8911b931109d0bebc71be34f143`.
+- Required System cross-validation used current System `9f970bf3723ed357d7f6e94ea42e7830612dd8f3`, preserving the unrelated Safe Infrastructure closeout documentation change from `f1c6368252580f44453898d781b4c4a40bc0b636`. Contract Validation `38794142075` completed `SUCCESS` on Python 3.11 and 3.13; both jobs validated the descriptor/preservation examples, Registry, canonical Repository State, deterministic State ledger and contract tests, and Python 3.11 completed the live read-only Core repository refresh successfully.
+- Canonical `governance/repository-state.json` blob `34a01a412793b903ad522379c1a57e30380ae14c` records a complete global refresh, Distribution observed exactly at `d524f8d04652d8911b931109d0bebc71be34f143`, all accepted Core pins still exact/fresh, watchdog `WATCHDOG-CURRENT`, and `repository-watchdog-stale` resolved. `distribution-adapter-compatibility-shadow-risk` remains resolved. The only carried Core drift in this scope is `compact-release-receipt-not-yet-implemented` open `INFO`, owned by Slice 5.4.
+- The deferred PR clean-machine run `38757724853` failed on Linux, macOS and Windows because the accepted OS revision `64f7325444d18f94c9d4755d32eb89f3468bda6b` reported `Setup: setup-required` after the normal Distribution Core setup path, while Brain, Memory, Skills and Data were ready. This is not member-payload loss, payload-guard bypass or a Slice 5.2 acceptance failure. It is also not claimed resolved. It is carried forward explicitly as a Slice 5.3 whole-product qualification concern, where owner failure blocks adoption/promotion.
+- Slice 5.2 therefore closes with the adopted lifecycle payload boundary proven across install/setup/update/rollback and recovery. No plan amendment was required. Slice 5.3 implementation/qualification has not begun.
 
 ## Slice 5.3 - Promotion and qualification
 
@@ -701,6 +711,13 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-15 - Slice 5.2 closed after clean payload-boundary cross-validation
+
+- Fresh Distribution CI attempt 2 `38758297678` on exact adopted head `d524f8d04652d8911b931109d0bebc71be34f143` passed all six platform/version jobs; Ubuntu/Python 3.11 passed Candidate admission, all 372 tests and CLI smoke. Same-head Safe Infrastructure Regression `38758298074` and Convergence `38758298419` remained green.
+- Current System `9f970bf3723ed357d7f6e94ea42e7830612dd8f3` passed Contract Validation `38794142075` on Python 3.11/3.13, including Registry/State/ledger/contracts and the live read-only Core refresh on Python 3.11. Canonical State is globally fresh with `WATCHDOG-CURRENT`; the old watchdog warning is resolved.
+- The three-platform clean-machine OS `setup-required` result from `38757724853` is preserved as an unresolved Slice 5.3 whole-product qualification concern, not mislabeled as payload loss and not silently closed.
+- Slice 5.2 is complete. Program progress is 15/20, 75.0%; Phase 5 is 2/4 slices complete. The only next action is the bounded Slice 5.3 discovery/planning start; no 5.3 qualification work has begun.
 
 ## 2026-10-15 - Slice 5.2 T3 lifecycle zero-loss regressions proven
 
@@ -947,11 +964,11 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-**Completed:** 14/20  
-**Overall:** 70.0%  
+**Completed:** 15/20  
+**Overall:** 75.0%  
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Phase progress:** 1/4  
-**Until Phase 6:** 3 slices  
-**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 3/4 tasks complete)  
-**Next:** 5.2-T4 - run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification  
-**Blockers/drift/amendments:** 5.2-T1, T2 and T3 are accepted. T3 is regression-only at Distribution `d524f8d04652d8911b931109d0bebc71be34f143` with clean CI `38758297678`; 5.2-T4 final clean cross-validation and closure has not begun. The auxiliary PR Core clean-machine Ubuntu `setup-required` observation from run `38757724853` is deferred to T4 and has not been used to change acceptance or drift. Slice 5.1 remains accepted and closed. `distribution-adapter-compatibility-shadow-risk` remains resolved. The live candidate overlay and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. Watchdog remains `WATCHDOG-STALE` with `repository-watchdog-stale` open WARNING. `compact-release-receipt-not-yet-implemented` remains open INFO for 5.4. No plan amendment required.
+**Phase progress:** 2/4  
+**Until Phase 6:** 2 slices  
+**Current slice:** Slice 5.3 - Promotion and qualification (`NOT STARTED`)  
+**Next:** Slice 5.3 start - perform bounded discovery/planning for Promotion and qualification, derive the adaptive task list from the existing candidate/released/preservation/promotion mechanics and the carried clean-machine OS `setup-required` qualification concern, commit that planning boundary, and stop before 5.3-T1  
+**Blockers/drift/amendments:** Slice 5.2 is accepted and closed at Distribution `d524f8d04652d8911b931109d0bebc71be34f143` with fresh CI attempt 2 `38758297678` and current System Contract Validation `38794142075`. The clean-machine Core result `38757724853` remains an explicit Slice 5.3 whole-product qualification concern because accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` reports `setup-required` after the normal setup path; it is not claimed resolved and did not invalidate the Slice 5.2 zero-loss boundary. Slice 5.1 remains accepted and closed. `distribution-adapter-compatibility-shadow-risk` and `repository-watchdog-stale` are resolved; canonical State is globally fresh with `WATCHDOG-CURRENT`. The live candidate overlay and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. `compact-release-receipt-not-yet-implemented` remains open `INFO` for 5.4. No plan amendment required. Slice 5.3 has not begun.
