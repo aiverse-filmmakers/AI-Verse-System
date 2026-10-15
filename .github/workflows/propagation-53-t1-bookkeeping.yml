@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  record-t1:
+  correct-t1:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,64 +19,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Record Slice 5.3 T1 evidence
+      - name: Correct stale planning sentence
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
 
           path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
           text = path.read_text(encoding='utf-8')
-
-          old_count = '**Adaptive tasks:** 0/4 complete'
-          if text.count(old_count) != 1:
-              raise SystemExit(f'expected one 5.3 task count, found {text.count(old_count)}')
-          text = text.replace(old_count, '**Adaptive tasks:** 1/4 complete', 1)
-
-          old_t1 = '- [ ] **5.3-T1** Implement one reusable whole-product qualification gate/evidence builder for an already-admitted exact candidate, binding candidate admission, exact release/transition/compatibility, canonical whole-release preservation evidence, owner acceptance/native evidence, composed clean-install/status/doctor/health, current scoped System/Registry/State and intersecting drift; fail closed on owner or whole-product failure including `setup-required`, and produce qualification evidence only with no promotion/channel mutation.'
-          new_t1 = old_t1.replace('- [ ]', '- [x]', 1)
-          if text.count(old_t1) != 1:
-              raise SystemExit(f'expected one unchecked 5.3-T1, found {text.count(old_t1)}')
-          text = text.replace(old_t1, new_t1, 1)
-
-          marker = new_t1 + '\n'
-          evidence = '''\n### T1 evidence\n\n- Distribution whole-product qualification is implemented and merged by PR `#38` at `aiverse-filmmakers/ai-verse-distribution@c2f6bfda8b455470995a2f140847d498fd7e4368`. The net T1 delta adds only `src/aiverse_distribution/whole_product_qualification.py`, `scripts/build-whole-product-qualification.py`, `tests/test_whole_product_qualification.py` and `docs/WHOLE-PRODUCT-QUALIFICATION.md`; candidate catalogs, released sets, lineage, promotion/channel state, owner repositories, Registry/State and member payload were not changed.\n- The gate reuses exact Slice 5.1 candidate admission and the canonical `ai-verse.release-preservation/v1` result. It additionally binds exact composed clean-install/status/doctor/health evidence for the candidate platform/component set and emits `aiverse.distribution-whole-product-qualification/v1` evidence only. The output explicitly has no promotion, channel, Registry, Repository State, owner-health or member-state authority.\n- Clean `main` Distribution CI run `38797718430` on exact merge head `c2f6bfda8b455470995a2f140847d498fd7e4368` completed successfully across all six Linux/macOS/Windows Python 3.11/3.12 jobs. Ubuntu/Python 3.11 passed Candidate admission, all 381 tests with 11 skips, all nine new T1 qualification tests and CLI catalog smoke. PR CI run `38797413570` also completed successfully across the same six-job matrix before merge.\n- Permanent T1 regressions prove exact admitted evidence can produce qualification evidence, the result binds candidate/System/Registry/State/owner/runtime inputs, `setup-required` fails closed, doctor failure fails closed, preservation failure fails closed, wrong Distribution revision fails closed, platform-scope mismatch fails closed, owner-admission failure blocks qualification, and an empty live candidate overlay cannot invent qualification.\n- The carried clean-machine Core run `38757724853` therefore remains unresolved product evidence, not hidden historical noise: accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` still reports `setup-required` after the normal setup path, and the new qualification gate explicitly rejects that state. T1 does not repair OS, create a candidate, promote a release, create `SYSTEM-SYNC-DEBT`, or mutate a channel.\n\n'''
-          if text.count(marker) != 1:
-              raise SystemExit('T1 evidence insertion marker must occur once')
-          text = text.replace(marker, marker + evidence, 1)
-
-          pointer_marker = '# Current execution pointer\n'
-          if text.count(pointer_marker) != 1:
-              raise SystemExit('execution pointer marker must occur once')
-          before, pointer = text.split(pointer_marker, 1)
-
-          old_current = '**Current slice:** Slice 5.3 - Promotion and qualification (`IN PROGRESS`, 0/4 tasks complete)  '
-          new_current = '**Current slice:** Slice 5.3 - Promotion and qualification (`IN PROGRESS`, 1/4 tasks complete)  '
-          if pointer.count(old_current) != 1:
-              raise SystemExit(f'expected one old pointer count, found {pointer.count(old_current)}')
-          pointer = pointer.replace(old_current, new_current, 1)
-
-          old_next = '**Next:** 5.3-T1 - implement one reusable whole-product qualification gate/evidence builder for an already-admitted exact candidate, binding candidate admission, exact release/transition/compatibility, canonical whole-release preservation evidence, owner acceptance/native evidence, composed clean-install/status/doctor/health, current scoped System/Registry/State and intersecting drift; fail closed on owner or whole-product failure including `setup-required`, produce qualification evidence only, and stop without beginning promotion integration  '
-          new_next = '**Next:** 5.3-T2 - wire explicit promotion around the existing forward Core promotion/lineage/channel mechanics so only an exact passed whole-product qualification can become released/default; preserve immutable history and candidate separation, enforce normal System synchronization, and implement the emergency path only with the same safety gates plus explicit non-safety `SYSTEM-SYNC-DEBT` that blocks later normal promotion until exact reconciliation, then stop without beginning destructive-negative promotion regressions  '
-          if pointer.count(old_next) != 1:
-              raise SystemExit(f'expected one T1 next pointer, found {pointer.count(old_next)}')
-          pointer = pointer.replace(old_next, new_next, 1)
-
-          blocker = ('**Blockers/drift/amendments:** 5.3-T1 is accepted at Distribution '
-                     '`c2f6bfda8b455470995a2f140847d498fd7e4368` with clean Distribution CI `38797718430` '
-                     'successful across all six jobs and 381 Ubuntu/Python 3.11 tests. The live candidate overlay remains empty and no release, '
-                     'promotion, channel or `SYSTEM-SYNC-DEBT` mutation occurred. Clean-machine run `38757724853` remains an unresolved '
-                     'whole-product qualification concern because accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` reports '
-                     '`setup-required`; the new gate now fails closed on that state rather than resolving it. Canonical State remains globally '
-                     'fresh with `WATCHDOG-CURRENT`, no open intersecting Core `BLOCKING` drift, and the previously resolved adapter/watchdog '
-                     'drifts remain resolved. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. '
-                     '`compact-release-receipt-not-yet-implemented` remains open `INFO` for 5.4. No plan amendment required. 5.3-T2 has not begun.')
-          pointer, n = re.subn(r'^\*\*Blockers/drift/amendments:\*\* .*$', blocker, pointer, count=1, flags=re.MULTILINE)
-          if n != 1:
-              raise SystemExit('expected one blocker line')
-
-          text = before + pointer_marker + pointer
+          old = 'Slice 5.3 planning is complete. 5.3-T1 has not begun.'
+          new = 'Slice 5.3 planning is complete. 5.3-T1 is complete; 5.3-T2 has not begun.'
+          if text.count(old) != 1:
+              raise SystemExit(f'expected one stale planning sentence, found {text.count(old)}')
+          text = text.replace(old, new, 1)
           path.write_text(text, encoding='utf-8')
           PY
 
@@ -87,11 +42,11 @@ jobs:
           test "$changed" = "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
           git diff --numstat -- docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
 
-      - name: Commit T1 bookkeeping
+      - name: Commit correction
         shell: bash
         run: |
           git config user.name "AI-VERSE"
           git config user.email "hello@bogdanpascal.com"
           git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
-          git commit -m "Record Slice 5.3 T1 qualification gate"
+          git commit -m "Correct Slice 5.3 T1 tracker sentence"
           git push origin HEAD:main
