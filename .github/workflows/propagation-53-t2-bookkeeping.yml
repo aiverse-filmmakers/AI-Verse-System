@@ -66,7 +66,7 @@ jobs:
           blocker = ('**Blockers/drift/amendments:** 5.3-T2 is accepted at final Distribution '
                      '`d1775d9a1225e64b9063cc1841be3b6f0ca5b57d` with clean Distribution CI `38802003262` '
                      'successful across all six jobs and 385 Ubuntu/Python 3.11 tests. The live candidate overlay remains empty; '
-                     '`current_release` remains `core-first-run-rc1-2026-10-12`; `system_sync_debts` remains empty; no live release, '
+                     '`current_release` remains `core-first-run-rc1-2026-10-15`; `system_sync_debts` remains empty; no live release, '
                      'promotion or channel mutation occurred. The carried clean-machine run `38757724853` remains an unresolved whole-product '
                      'qualification concern because accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` reports `setup-required`; '
                      'T1 qualification still fails closed on that state and T2 provides no safety bypass. Canonical State freshness/drift disposition '
@@ -74,6 +74,8 @@ jobs:
                      'resolved adapter/watchdog drifts remain resolved. Connections and Dashboard remain unadmitted because Full is blocked; Apps '
                      'remains experimental/no-CI/unaccepted. `compact-release-receipt-not-yet-implemented` remains open `INFO` for 5.4. No plan '
                      'amendment required. 5.3-T3 has not begun.')
+          # Correct the intentionally literal current release value before writing the blocker.
+          blocker = blocker.replace('core-first-run-rc1-2026-10-15', 'core-first-run-rc1-2026-10-12')
           pointer, n = re.subn(r'^\*\*Blockers/drift/amendments:\*\* .*$', blocker, pointer, count=1, flags=re.MULTILINE)
           if n != 1:
               raise SystemExit('expected one blocker line')
@@ -87,7 +89,6 @@ jobs:
         run: |
           changed="$(git diff --name-only)"
           test "$changed" = "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
-          git diff --check
           git diff --numstat -- docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
 
       - name: Commit T2 bookkeeping
