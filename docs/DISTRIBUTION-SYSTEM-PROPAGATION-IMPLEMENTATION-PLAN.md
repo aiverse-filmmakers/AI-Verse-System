@@ -715,7 +715,7 @@ Bounded discovery was limited to the current System/Distribution refs, the canon
 - [ ] **5.3-T3** Prove positive and destructive-negative qualification/promotion regressions: exact qualified inputs may promote; owner failure or `setup-required`, clean-machine/status/doctor/health failure, preservation/member-payload failure, wrong or changed bound evidence, stale/unverified required inputs, intersecting/global `BLOCKING` drift and emergency safety-bypass attempts fail closed; emergency debt cannot weaken safety and later normal promotion remains blocked until the debt is reconciled.
 - [ ] **5.3-T4** Run clean Distribution and required System cross-validation for the adopted qualification/promotion path, record exact release/debt/drift and carried OS-concern disposition, close Slice 5.3, advance to 5.4, and stop without beginning durable release receipts.
 
-Slice 5.3 planning is complete. 5.3-T1 has not begun.
+Slice 5.3 planning is complete. 5.3-T1 is complete; 5.3-T2 has not begun.
 
 ## Slice 5.4 - Durable release receipts
 
