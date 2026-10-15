@@ -1,0 +1,74 @@
+name: Propagation Slice 5.1 T4 State
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/propagation-51-t4-state.yml
+
+permissions:
+  contents: write
+
+jobs:
+  resolve-shadow-risk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve proven adapter shadow risk only
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          path = Path("governance/repository-state.json")
+          state = json.loads(path.read_text(encoding="utf-8"))
+          matches = [item for item in state["drift"] if item.get("id") == "distribution-adapter-compatibility-shadow-risk"]
+          if len(matches) != 1:
+              raise SystemExit("expected exactly one adapter shadow-risk drift record")
+          record = matches[0]
+          if record.get("status") != "open" or record.get("severity") != "WARNING":
+              raise SystemExit("adapter shadow-risk is not at the expected open WARNING boundary")
+          record["status"] = "resolved"
+          record["reason"] = (
+              "Resolved in Slice 5.1. Distribution trusted adapter revision and command knowledge remains "
+              "orchestration-only. Explicit candidate admission is independently bound to immutable candidate "
+              "evidence proving canonical Registry/profile eligibility, exact scoped Repository State, accepted "
+              "owner descriptor/native-CI evidence, compatibility/toolchain inputs and intersecting drift. T3 "
+              "proves coherent Distribution definition/compatibility knowledge cannot substitute for owner acceptance."
+          )
+          record["evidence_refs"] = [
+              "aiverse-filmmakers/ai-verse-distribution@18926197c9bbee2d45fb78d5ab66d59b853e498e:src/aiverse_distribution/candidate_admission.py",
+              "aiverse-filmmakers/ai-verse-distribution@16d7f0b8a4a2e75f1fd3af8dea89b7c63d5a934b:tests/test_candidate_admission_regressions.py",
+          ]
+          record["required_action"] = (
+              "No corrective action remains for this shadow-authority risk. Keep trusted adapters limited to "
+              "argv/routing/orchestration; every future explicit candidate must continue to pass immutable "
+              "Registry/State/owner-evidence admission before qualification."
+          )
+          path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+
+          open_ids = {item.get("id") for item in state["drift"] if item.get("status") == "open"}
+          for required in {"repository-watchdog-stale", "compact-release-receipt-not-yet-implemented"}:
+              if required not in open_ids:
+                  raise SystemExit(f"unrelated drift unexpectedly closed: {required}")
+
+      - name: Regenerate deterministic ledger
+        run: python scripts/refresh_repository_state.py --write-ledger
+
+      - name: Validate State and ledger
+        run: |
+          python scripts/validate_repository_state.py governance/repository-state.json
+          python scripts/refresh_repository_state.py --check-ledger
+          python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Commit T4 drift disposition
+        run: |
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add governance/repository-state.json docs/REPOSITORY-STATE-LEDGER.md
+          git diff --cached --exit-code && { echo "No T4 State changes staged"; exit 1; } || true
+          git commit -m "Resolve candidate admission shadow risk"
+          git push origin HEAD:main
