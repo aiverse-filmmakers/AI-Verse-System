@@ -13,7 +13,7 @@
 **Current phase progress:** 3/4 slices complete  
 **Slices until next phase:** 1  
 **Current slice:** 5.4 - Durable release receipts  
-**Current slice status:** NOT STARTED  
+**Current slice status:** IN PROGRESS  
 **Next slice:** 6.1 - Cross-repo regression/evidence validation
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
@@ -754,10 +754,32 @@ Slice 5.3 planning and execution are complete. 5.3-T1 through 5.3-T4 are complet
 
 ## Slice 5.4 - Durable release receipts
 
-**Status:** NOT STARTED  
-**Dependencies:** 5.3
+**Status:** IN PROGRESS  
+**Dependencies:** 5.3  
+**Adaptive tasks:** 0/4 complete
 
 Persist `qualification/<release-id>/release-receipt.json` as compact immutable reconstruction binding without user secrets/state.
+
+### Slice-start bounded discovery
+
+Planning is bound to System `43b7c4049ce9d840ba8fbb67e44e9fe55fe5f6b3` and Distribution `23a532737e94812d7dc4d53edf23fd23db1cbb02`. No Distribution product/runtime file, release catalog, candidate overlay, member installation, canonical Repository State or ledger was changed during planning.
+
+- **REUSE:** `release-sets/` remains canonical composition truth; candidate evidence and whole-product qualification remain the exact owner/System/Registry/State/compatibility/preservation binding; Core promotion remains the single final-admission write path; existing dependency-lock manifests and canonical hashing/safe-path/atomic-write patterns remain reusable evidence machinery.
+- **EXTEND:** whole-product qualification only where needed to preserve explicit source refs for receipt reconstruction; Core promotion so a future admitted release cannot complete without a valid durable receipt; the final release-set evidence section with a non-cyclic receipt reference; Distribution release documentation/validation surfaces as needed.
+- **CREATE:** one compact immutable release-receipt v1 contract/builder/validator plus permanent reconstruction and destructive-negative regression coverage. The receipt binds existing authorities; it does not become a second release set, Registry, Repository State, owner-acceptance database or member-state store.
+- **RETAIN SEPARATE:** the mutable local lifecycle receipt in `StateStore` (`~/.aiverse/distribution/locks/current.json`) remains member-machine lifecycle state and is not the durable release receipt. Its member paths, runtime state and lifecycle generation must never enter source-owned release reconstruction evidence.
+- **RETIRE:** nothing. Existing task-specific historical `qualification/core-update-program-u36/release-evidence.json` remains valid historical evidence and is not rewritten or retroactively replaced.
+- **BLOCK/UNKNOWN:** no architecture blocker was found. The open `compact-release-receipt-not-yet-implemented` `INFO/Core` drift is the intended Slice 5.4 work item. The carried OS `setup-required` concern remains separate and fail-closed under Slice 5.3 qualification/promotion rules.
+- The frozen architecture requires future admitted releases to persist `qualification/<release-id>/release-receipt.json`, with the release set referencing that receipt while the receipt binds the final release-set content identity. The implementation must avoid a digest cycle, exclude secrets/private/user-owned state, keep software reconstruction separate from user-state recovery, and preserve all prior authority boundaries.
+
+### Adaptive task list
+
+- [ ] **5.4-T1** Define and implement the release-receipt v1 contract and read-only builder/validator, binding the existing exact release-set, component/descriptor/owner, System/Registry/State, dependency/toolchain, compatibility/migration, qualification/preservation, promotion/known-good and sync-debt evidence; minimally extend qualification evidence only if explicit immutable source refs are otherwise unavailable; prove secret/member/user-state exclusion and authority boundaries with focused unit tests; do not persist a receipt or alter promotion yet.
+- [ ] **5.4-T2** Wire future Core final admission to construct, validate and atomically persist `qualification/<release-id>/release-receipt.json`, add the non-cyclic receipt reference to final release-set evidence, preserve immutable no-overwrite semantics, and fail closed before promotion/channel mutation when reconstruction evidence is incomplete or invalid; keep the member lifecycle receipt separate and perform no live promotion.
+- [ ] **5.4-T3** Add permanent positive and destructive-negative reconstruction regressions proving exact receipt reconstruction and failure on changed/missing release-set bytes, qualification/evidence bindings, component/descriptor/owner refs, Registry/State, dependency locks, compatibility/preservation/promotion/debt facts, unsafe/floating refs, secret/private/user-state leakage or attempted duplicate authority; preserve historical U36 release evidence unchanged and keep planning paths read-only.
+- [ ] **5.4-T4** Run clean Distribution and required System cross-validation for the adopted durable-receipt path, confirm final release/debt/drift state, resolve `compact-release-receipt-not-yet-implemented` only if exact evidence proves the future-admission requirement is enforced, publish required closing Core State/ledger, close Slice 5.4 and Phase 5, advance to Slice 6.1, and stop without beginning Phase 6 execution.
+
+Slice 5.4 planning is complete. 5.4-T1 through 5.4-T4 have not begun. No durable receipt was implemented or persisted during this planning run. No plan amendment was required.
 
 ---
 
@@ -1054,6 +1076,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
 **Phase progress:** 3/4  
 **Until Phase 6:** 1 slice  
-**Current slice:** Slice 5.4 - Durable release receipts (`NOT STARTED`)  
-**Next:** Slice 5.4 start - perform only bounded discovery/planning for durable release receipts, record the adaptive task list and first execution task, then stop without implementing receipts  
-**Blockers/drift/amendments:** Slice 5.3 is complete at Distribution `23a532737e94812d7dc4d53edf23fd23db1cbb02`. Final clean-main Distribution CI `38808998735`, Safe Infrastructure Regression `38808998640` and Safe Infrastructure Convergence `38808998662` are successful. Fresh canonical Core State observes Distribution exactly at `23a532737e94812d7dc4d53edf23fd23db1cbb02`; open canonical drift is compact-release-receipt-not-yet-implemented (INFO/Core). Candidate overlay remains empty, `current_release` remains `core-first-run-rc1-2026-10-12`, and `system_sync_debts` remains empty. The released OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` still has the release-specific clean-machine `setup-required` concern; it remains unresolved but is permanently fail-closed for new whole-product qualification/promotion and cannot be emergency-bypassed. Durable release receipts remain the next-slice concern. No plan amendment required. Slice 5.4 has not begun.
+**Current slice:** Slice 5.4 - Durable release receipts (`IN PROGRESS`, 0/4 tasks complete)  
+**Next:** 5.4-T1 - define and implement the release-receipt v1 contract and read-only builder/validator with focused unit tests and no receipt persistence or promotion wiring  
+**Blockers/drift/amendments:** Slice 5.4 bounded planning is complete from System `43b7c4049ce9d840ba8fbb67e44e9fe55fe5f6b3` and Distribution `23a532737e94812d7dc4d53edf23fd23db1cbb02`. No `release-receipt.json` exists today; the reusable authorities are the exact release set, candidate/whole-product qualification, Core promotion, dependency locks and canonical System/Registry/State evidence. The mutable member lifecycle receipt remains separate. Historical U36 `release-evidence.json` will not be rewritten. `compact-release-receipt-not-yet-implemented` remains open `INFO/Core` until final Slice 5.4 evidence proves future final admission is receipt-gated. No architecture blocker or plan amendment was found, no Distribution implementation changed, and 5.4-T1 has not begun.
