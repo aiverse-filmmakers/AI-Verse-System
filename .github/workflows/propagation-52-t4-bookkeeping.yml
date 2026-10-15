@@ -1,0 +1,134 @@
+name: Propagation Slice 5.2 T4 Bookkeeping
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/propagation-52-t4-bookkeeping.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-t4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Record Slice 5.2 T4 closure
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text(encoding='utf-8')
+
+          def replace_once(old, new, label):
+              global text
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match, found {count}')
+              text = text.replace(old, new, 1)
+
+          start = text.index('## Slice 5.2 - Member payload isolation')
+          end = text.index('## Slice 5.3 - Promotion and qualification', start)
+          before = text[:start]
+          section = text[start:end]
+          after = text[end:]
+
+          def section_replace(old, new, label):
+              global section
+              count = section.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one match in Slice 5.2, found {count}')
+              section = section.replace(old, new, 1)
+
+          section_replace('**Status:** IN PROGRESS  ', '**Status:** COMPLETE  ', 'Slice 5.2 status')
+          section_replace('**Adaptive tasks:** 2/4 complete', '**Adaptive tasks:** 4/4 complete', 'Slice 5.2 task count')
+          section_replace('- [ ] **5.2-T4** Run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification.', '- [x] **5.2-T4** Run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification.', 'T4 checkbox')
+          section_replace('5.2-T1, T2 and T3 are complete. 5.2-T4 clean cross-validation and closure has not begun.', '5.2-T1 through T4 are complete. Slice 5.2 is closed.', 'Slice 5.2 completion sentence')
+
+          t4_lines = [
+              '### T4 evidence and closure',
+              '',
+              '- T4 changed no Distribution product/runtime bytes. The adopted payload-boundary head remains `aiverse-filmmakers/ai-verse-distribution@d524f8d04652d8911b931109d0bebc71be34f143`; no release set, candidate overlay, promotion/channel, component owner, member installation or user-owned state changed.',
+              '- Fresh T4 Distribution qualification re-ran exact main-head Distribution CI `38758297678` as attempt 2 on `d524f8d04652d8911b931109d0bebc71be34f143`. All six Linux/macOS/Windows Python 3.11/3.12 jobs passed. Ubuntu/Python 3.11 passed the permanent Candidate admission gate, all 372 tests including the 10 Slice 5.2 populated-root zero-loss regressions, and CLI catalog smoke.',
+              '- Same-head permanent cross-repo safety remained green: Safe Infrastructure Regression `38758298074` and Safe Infrastructure Convergence `38758298419` both completed `SUCCESS` on `d524f8d04652d8911b931109d0bebc71be34f143`.',
+              '- Required System cross-validation used current System `9f970bf3723ed357d7f6e94ea42e7830612dd8f3`, preserving the unrelated Safe Infrastructure closeout documentation change from `f1c6368252580f44453898d781b4c4a40bc0b636`. Contract Validation `38794142075` completed `SUCCESS` on Python 3.11 and 3.13; both jobs validated the descriptor/preservation examples, Registry, canonical Repository State, deterministic State ledger and contract tests, and Python 3.11 completed the live read-only Core repository refresh successfully.',
+              '- Canonical `governance/repository-state.json` blob `34a01a412793b903ad522379c1a57e30380ae14c` records a complete global refresh, Distribution observed exactly at `d524f8d04652d8911b931109d0bebc71be34f143`, all accepted Core pins still exact/fresh, watchdog `WATCHDOG-CURRENT`, and `repository-watchdog-stale` resolved. `distribution-adapter-compatibility-shadow-risk` remains resolved. The only carried Core drift in this scope is `compact-release-receipt-not-yet-implemented` open `INFO`, owned by Slice 5.4.',
+              '- The deferred PR clean-machine run `38757724853` failed on Linux, macOS and Windows because the accepted OS revision `64f7325444d18f94c9d4755d32eb89f3468bda6b` reported `Setup: setup-required` after the normal Distribution Core setup path, while Brain, Memory, Skills and Data were ready. This is not member-payload loss, payload-guard bypass or a Slice 5.2 acceptance failure. It is also not claimed resolved. It is carried forward explicitly as a Slice 5.3 whole-product qualification concern, where owner failure blocks adoption/promotion.',
+              '- Slice 5.2 therefore closes with the adopted lifecycle payload boundary proven across install/setup/update/rollback and recovery. No plan amendment was required. Slice 5.3 implementation/qualification has not begun.',
+              '',
+          ]
+          section = section.rstrip() + '\n\n' + '\n'.join(t4_lines) + '\n'
+          text = before + section + after
+
+          changelog_lines = [
+              '## 2026-10-15 - Slice 5.2 closed after clean payload-boundary cross-validation',
+              '',
+              '- Fresh Distribution CI attempt 2 `38758297678` on exact adopted head `d524f8d04652d8911b931109d0bebc71be34f143` passed all six platform/version jobs; Ubuntu/Python 3.11 passed Candidate admission, all 372 tests and CLI smoke. Same-head Safe Infrastructure Regression `38758298074` and Convergence `38758298419` remained green.',
+              '- Current System `9f970bf3723ed357d7f6e94ea42e7830612dd8f3` passed Contract Validation `38794142075` on Python 3.11/3.13, including Registry/State/ledger/contracts and the live read-only Core refresh on Python 3.11. Canonical State is globally fresh with `WATCHDOG-CURRENT`; the old watchdog warning is resolved.',
+              '- The three-platform clean-machine OS `setup-required` result from `38757724853` is preserved as an unresolved Slice 5.3 whole-product qualification concern, not mislabeled as payload loss and not silently closed.',
+              '- Slice 5.2 is complete. Program progress is 15/20, 75.0%; Phase 5 is 2/4 slices complete. The only next action is the bounded Slice 5.3 discovery/planning start; no 5.3 qualification work has begun.',
+              '',
+          ]
+          changelog = '\n'.join(changelog_lines) + '\n'
+          marker = '# Program Change Log\n\n'
+          if text.count(marker) != 1:
+              raise SystemExit(f'changelog marker expected once, found {text.count(marker)}')
+          text = text.replace(marker, marker + changelog, 1)
+
+          pointer_marker = '# Current execution pointer\n'
+          if text.count(pointer_marker) != 1:
+              raise SystemExit(f'pointer marker expected once, found {text.count(pointer_marker)}')
+          before_pointer, pointer = text.split(pointer_marker, 1)
+
+          replacements = [
+              ('**Completed:** 14/20  ', '**Completed:** 15/20  ', 'completed slices'),
+              ('**Overall:** 70.0%  ', '**Overall:** 75.0%  ', 'overall progress'),
+              ('**Phase progress:** 1/4  ', '**Phase progress:** 2/4  ', 'phase progress'),
+              ('**Until Phase 6:** 3 slices  ', '**Until Phase 6:** 2 slices  ', 'phase distance'),
+              ('**Current slice:** Slice 5.2 - Member payload isolation (`IN PROGRESS`, 3/4 tasks complete)  ', '**Current slice:** Slice 5.3 - Promotion and qualification (`NOT STARTED`)  ', 'current slice'),
+              ('**Next:** 5.2-T4 - run clean Distribution and required System cross-validation for the adopted payload boundary, record exact evidence/drift disposition, close Slice 5.2, advance to 5.3, and stop without beginning promotion or whole-product qualification  ', '**Next:** Slice 5.3 start - perform bounded discovery/planning for Promotion and qualification, derive the adaptive task list from the existing candidate/released/preservation/promotion mechanics and the carried clean-machine OS `setup-required` qualification concern, commit that planning boundary, and stop before 5.3-T1  ', 'next pointer'),
+          ]
+          for old, new, label in replacements:
+              count = pointer.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected exactly one pointer match, found {count}')
+              pointer = pointer.replace(old, new, 1)
+
+          pointer, blocker_count = re.subn(
+              r'^\*\*Blockers/drift/amendments:\*\* .*$',
+              '**Blockers/drift/amendments:** Slice 5.2 is accepted and closed at Distribution `d524f8d04652d8911b931109d0bebc71be34f143` with fresh CI attempt 2 `38758297678` and current System Contract Validation `38794142075`. The clean-machine Core result `38757724853` remains an explicit Slice 5.3 whole-product qualification concern because accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` reports `setup-required` after the normal setup path; it is not claimed resolved and did not invalidate the Slice 5.2 zero-loss boundary. Slice 5.1 remains accepted and closed. `distribution-adapter-compatibility-shadow-risk` and `repository-watchdog-stale` are resolved; canonical State is globally fresh with `WATCHDOG-CURRENT`. The live candidate overlay and historical released sets are unchanged. Connections and Dashboard remain unadmitted because Full is blocked; Apps remains experimental/no-CI/unaccepted. `compact-release-receipt-not-yet-implemented` remains open `INFO` for 5.4. No plan amendment required. Slice 5.3 has not begun.',
+              pointer,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if blocker_count != 1:
+              raise SystemExit(f'blocker pointer expected once, found {blocker_count}')
+
+          text = before_pointer + pointer_marker + pointer
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Verify bookkeeping-only diff
+        shell: bash
+        run: |
+          changed="$(git diff --name-only)"
+          test "$changed" = "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
+          git diff --numstat -- docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+
+      - name: Commit Slice 5.2 T4 closure
+        shell: bash
+        run: |
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git commit -m "Close Slice 5.2 payload isolation"
+          git push origin HEAD:main
