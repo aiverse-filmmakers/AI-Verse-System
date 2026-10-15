@@ -98,3 +98,15 @@ For the practical answer to what can be used now, what interface to use, progres
 See `docs/MASTER-PLAN.md` for the audit methodology and synthesis process.
 
 This repository remains canonical after the blueprint baseline. The blueprint and component specs must evolve whenever the system evolves.
+
+
+## Implementation plans
+
+Implementation plans intended for future AI-Verse work live in [plans/](plans/README.md).
+
+- [plans/in-progress/](plans/in-progress/) contains plans ready for implementation or actively being implemented.
+- [plans/completed/](plans/completed/) contains plans whose implementation and acceptance evidence are complete.
+- [plans/blocked/](plans/blocked/) contains plans paused for an explicit blocker or protected plan amendment.
+- [plans/archive/](plans/archive/) contains superseded or retired plans kept for history.
+
+Plans are not implementation code and do not prove that a feature is shipped. They use the [Adaptive Implementation Planning Skill](docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md): fixed destination, phases, acceptance-based slices, adaptive execution tasks, and explicit evidence. Discovery may adapt execution tasks, but protected architectural or product-direction changes require a recorded plan amendment.
