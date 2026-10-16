@@ -1,0 +1,111 @@
+name: Propagation Slice 5.4 T1 Bookkeeping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/propagation-54-t1-bookkeeping.yml
+
+permissions:
+  contents: write
+
+jobs:
+  record-t1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Record Slice 5.4 T1 evidence and advance pointer once
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text(encoding='utf-8')
+
+          slice_start = text.index('## Slice 5.4 - Durable release receipts')
+          slice_end = text.index('\n---\n\n# Phase 6', slice_start)
+          section = text[slice_start:slice_end]
+
+          old_count = '**Adaptive tasks:** 0/4 complete'
+          if section.count(old_count) != 1:
+              raise SystemExit(f'expected one Slice 5.4 task count, found {section.count(old_count)}')
+          section = section.replace(old_count, '**Adaptive tasks:** 1/4 complete', 1)
+
+          t1 = '- [ ] **5.4-T1** Define and implement the release-receipt v1 contract and read-only builder/validator, binding the existing exact release-set, component/descriptor/owner, System/Registry/State, dependency/toolchain, compatibility/migration, qualification/preservation, promotion/known-good and sync-debt evidence; minimally extend qualification evidence only if explicit immutable source refs are otherwise unavailable; prove secret/member/user-state exclusion and authority boundaries with focused unit tests; do not persist a receipt or alter promotion yet.'
+          if section.count(t1) != 1:
+              raise SystemExit(f'expected one unchecked T1 line, found {section.count(t1)}')
+          evidence = [
+              '',
+              '### T1 evidence',
+              '',
+              '- Distribution PR `#43` implemented the read-only durable receipt layer. Exact PR head `b5787d08e750eb63aa47772b1129933ebf601196` merged to clean `main` as `789935ce18edf9af7c9882ddb7e697b6f4a3ebe9`.',
+              '- `src/aiverse_distribution/release_receipt.py` defines `aiverse.distribution-release-receipt/v1`, a read-only builder/validator that binds exact release-set composition identity, component revisions, descriptor and owner-native acceptance evidence, System/Registry/Repository State evidence, candidate evidence, toolchain/dependency-lock inputs, compatibility/migration facts, whole-product qualification, whole-release preservation, composed acceptance, applied promotion/channel state, previous known-good release and exact non-safety `SYSTEM-SYNC-DEBT` snapshot when applicable.',
+              '- Whole-product qualification was minimally extended with optional repository-relative preservation and composed-acceptance source bindings while retaining the existing deterministic digests and backward-compatible callers. The qualification CLI records those refs only when inputs are repository-local. No promotion semantics were changed.',
+              '- Receipt authority is explicitly reconstruction-evidence-only. It has no release-composition, promotion/channel, Registry/State, owner-acceptance, member-state or user-state-recovery authority. Explicit secret/private/member/user-state keys fail closed, and the mutable local lifecycle receipt remains separate.',
+              '- Focused T1 coverage adds five receipt tests proving exact read-only reconstruction, mandatory preservation/composed source refs, component-to-owner revision equality, private/user-state exclusion and exact emergency sync-debt binding. PR Distribution CI `38890385790` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs; Ubuntu/Python 3.11 ran 407 tests with 11 skips and all five receipt tests passed. Clean-main Distribution CI `38890839565` also passed all six jobs on exact merge head `789935ce18edf9af7c9882ddb7e697b6f4a3ebe9`.',
+              '- No `release-receipt.json` was persisted, no promotion/channel wiring was added, and no live candidate, release, catalog, debt, Registry/State, member installation or user-owned state was mutated. Historical U36 release evidence remains untouched. `compact-release-receipt-not-yet-implemented` remains open `INFO/Core` until later Slice 5.4 evidence proves final admission is receipt-gated.',
+          ]
+          checked_t1 = t1.replace('- [ ]', '- [x]', 1)
+          section = section.replace(t1, checked_t1 + '\n'.join(evidence), 1)
+
+          old_tail = 'Slice 5.4 planning is complete. 5.4-T1 through 5.4-T4 have not begun. No durable receipt was implemented or persisted during this planning run. No plan amendment was required.'
+          new_tail = 'Slice 5.4 planning is complete and 5.4-T1 is complete. 5.4-T2 through 5.4-T4 have not begun. The receipt contract/builder/validator is read-only; no durable receipt has been persisted or wired into final admission yet. No plan amendment was required.'
+          if section.count(old_tail) != 1:
+              raise SystemExit(f'expected one Slice 5.4 planning tail, found {section.count(old_tail)}')
+          section = section.replace(old_tail, new_tail, 1)
+          text = text[:slice_start] + section + text[slice_end:]
+
+          pointer_marker = '# Current execution pointer\n'
+          if text.count(pointer_marker) != 1:
+              raise SystemExit('current execution pointer marker is not unique')
+          before, pointer = text.split(pointer_marker, 1)
+
+          old_current = '**Current slice:** Slice 5.4 - Durable release receipts (`IN PROGRESS`, 0/4 tasks complete)  '
+          new_current = '**Current slice:** Slice 5.4 - Durable release receipts (`IN PROGRESS`, 1/4 tasks complete)  '
+          if pointer.count(old_current) != 1:
+              raise SystemExit(f'expected one old current-slice pointer, found {pointer.count(old_current)}')
+          pointer = pointer.replace(old_current, new_current, 1)
+
+          old_next = '**Next:** 5.4-T1 - define and implement the release-receipt v1 contract and read-only builder/validator with focused unit tests and no receipt persistence or promotion wiring  '
+          new_next = '**Next:** 5.4-T2 - wire future Core final admission to construct, validate and atomically persist `qualification/<release-id>/release-receipt.json`, add the non-cyclic receipt reference to final release-set evidence, preserve immutable no-overwrite semantics, and fail closed before promotion/channel mutation when reconstruction evidence is incomplete or invalid; keep the member lifecycle receipt separate and perform no live promotion  '
+          if pointer.count(old_next) != 1:
+              raise SystemExit(f'expected one old next pointer, found {pointer.count(old_next)}')
+          pointer = pointer.replace(old_next, new_next, 1)
+
+          lines = pointer.splitlines()
+          matches = [i for i, line in enumerate(lines) if line.startswith('**Blockers/drift/amendments:**')]
+          if len(matches) != 1:
+              raise SystemExit(f'expected one pointer blocker line, found {len(matches)}')
+          lines[matches[0]] = '**Blockers/drift/amendments:** 5.4-T1 is complete at Distribution `789935ce18edf9af7c9882ddb7e697b6f4a3ebe9` via PR `#43`; PR CI `38890385790` and clean-main CI `38890839565` both passed all six Linux/macOS/Windows Python 3.11/3.12 jobs. The read-only `aiverse.distribution-release-receipt/v1` builder/validator now binds the required exact reconstruction authorities and rejects private/user-state content; qualification can preserve explicit repository-local preservation/composed source refs without changing promotion semantics. No receipt is persisted and no final-admission/promotion wiring exists yet, so `compact-release-receipt-not-yet-implemented` remains open `INFO/Core`. Historical U36 evidence, live catalogs/channels/debts, canonical State/ledger, member installations and user-owned state are unchanged. No plan amendment required. 5.4-T2 has not begun.'
+          pointer = '\n'.join(lines)
+          if text.endswith('\n'):
+              pointer += '\n'
+          text = before + pointer_marker + pointer
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Remove one-shot workflow and verify bounded diff
+        shell: bash
+        run: |
+          git rm .github/workflows/propagation-54-t1-bookkeeping.yml
+          changed="$(git status --short | sed -E 's/^...//' | sort)"
+          printf '%s\n' "$changed"
+          expected="$(printf '%s\n' \
+            '.github/workflows/propagation-54-t1-bookkeeping.yml' \
+            'docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md' | sort)"
+          test "$changed" = "$expected"
+
+      - name: Commit T1 bookkeeping
+        shell: bash
+        run: |
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git commit -m "Record Slice 5.4 T1 durable receipt evidence"
+          git push origin HEAD:main
