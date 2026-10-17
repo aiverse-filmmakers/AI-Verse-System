@@ -6,6 +6,7 @@ on:
       - slice-5.4-t4-closure
     paths:
       - '.github/workflows/slice-54-t4-closure.yml'
+      - 'tests/test_system_truth_reconciliation.py'
 
 permissions:
   contents: write
@@ -40,7 +41,7 @@ jobs:
           SYSTEM_CLOSURE_RUN_ID: ${{ github.run_id }}
         run: python .github/slice-54-t4-close.py finalize
 
-      - name: Validate closing contracts
+      - name: Validate closing contracts and reconciled drift regression
         run: |
           python scripts/validate_repository_registry.py governance/repository-registry.json
           python scripts/validate_repository_state.py governance/repository-state.json
