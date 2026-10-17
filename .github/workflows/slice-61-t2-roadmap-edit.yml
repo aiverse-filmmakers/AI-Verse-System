@@ -1,0 +1,82 @@
+name: Slice 6.1 T2 Roadmap Edit
+
+on:
+  push:
+    branches: [slice-6.1-t2-bookkeeping]
+    paths:
+      - ".github/workflows/slice-61-t2-roadmap-edit.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  edit-roadmap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Record T2 evidence and advance pointer only
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md')
+          text = path.read_text(encoding='utf-8')
+          start = text.index('## Slice 6.1 - Cross-repo regression/evidence validation')
+          end = text.index('## Slice 6.2 - End-to-end qualification', start)
+          block = text[start:end]
+          old = '**Adaptive tasks:** 1/3 complete'
+          if block.count(old) != 1:
+              raise SystemExit(f'expected one adaptive task count, got {block.count(old)}')
+          block = block.replace(old, '**Adaptive tasks:** 2/3 complete', 1)
+          t2 = '- [ ] **6.1-T2** Extend the same permanent harness with preservation/reconstruction invariants by reusing lifecycle zero-loss and receipt regressions: member leakage must fail closed, legitimate member/user state must survive install/setup/update/rollback, owner-routed lifecycle failures remain owner-scoped, and durable receipt reconstruction/immutability/authority/leakage/debt bindings remain exact; preserve historical U36 and perform no live promotion.'
+          if block.count(t2) != 1:
+              raise SystemExit(f'expected one T2 checklist line, got {block.count(t2)}')
+          evidence = '\n'.join([
+              '- [x] **6.1-T2** Extend the same permanent harness with preservation/reconstruction invariants by reusing lifecycle zero-loss and receipt regressions: member leakage must fail closed, legitimate member/user state must survive install/setup/update/rollback, owner-routed lifecycle failures remain owner-scoped, and durable receipt reconstruction/immutability/authority/leakage/debt bindings remain exact; preserve historical U36 and perform no live promotion.',
+              '',
+              '### T2 evidence',
+              '',
+              '- Distribution PR #47 merged the T2-only harness extension at `7606df1579d04813098938f6925478be332bd885`; exact permanent PR head `dbd3d5791b3ca1c6d8669fa46b87e2ae922f0673`. Net permanent delta modifies only `scripts/run-repository-network-governance-regression.py` and `tests/test_repository_network_governance_regression.py`; permanent multi-repository CI wiring remains reserved for 6.1-T3.',
+              '- Exact temporary multi-repository qualification `39057748427` completed `SUCCESS` against canonical accepted System boundary `b917f8812f21a02f4b58e402ce6dc5838303bb5d` plus State-observed owner heads OS `83747a90998077ad2ab4636f202ca2e065a9a6bb`, Brain `4406d15068284b88e0076b6dfff5aa0b06890a24`, Memory `09911eae0b4b0cbf7e7e7969230fe5b86647b841`, Skills `23779f10515951ac92c83cba34a1a868c02c4d87`, Data `7e9fadbd73752b24eb79e270aff6b311ad508109`; all tracked evidence remained unchanged.',
+              '- The harness now requires the already-permanent `test_lifecycle_payload_zero_loss.py`, `test_release_receipt_admission.py` and `test_release_receipt_reconstruction_regressions.py` suites in addition to governance/admission coverage. Reused lifecycle tests prove populated member/user state survives install/resume/setup/retry/update/rollback and wrong/ambiguous owner routing fails before member mutation. Reused receipt tests prove immutable/non-cyclic final admission, exact reconstruction, authority boundaries, leakage rejection and exact emergency sync-debt binding.',
+              '- Historical `qualification/core-update-program-u36/release-evidence.json` remains canonical Git blob `0fec6e5290e659469a52a5f769da620f329f8c5a`; no historical U36 `release-receipt.json` was introduced or backfilled.',
+              '- PR Distribution CI `39057862304` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs; Ubuntu/Python 3.11 ran 444 tests with 11 expected skips. Clean-main Distribution CI `39057988135` passed the same six-job matrix on exact merge `7606df1579d04813098938f6925478be332bd885`.',
+              '- T2 changed no live release/catalog, promotion/channel, System Registry/State/ledger, component owner implementation, member installation or user-owned state and performed no live promotion. 6.1-T3 permanent CI wiring and slice closure were not begun. No plan amendment was required.',
+          ])
+          block = block.replace(t2, evidence, 1)
+          old_tail = 'Slice 6.1 planning is complete and 6.1-T1 is complete. 6.1-T2 and 6.1-T3 have not begun. No plan amendment was required.'
+          new_tail = 'Slice 6.1 planning is complete and 6.1-T1 through 6.1-T2 are complete. 6.1-T3 has not begun. No plan amendment was required.'
+          if block.count(old_tail) != 1:
+              raise SystemExit(f'expected one slice tail, got {block.count(old_tail)}')
+          block = block.replace(old_tail, new_tail, 1)
+          text = text[:start] + block + text[end:]
+          pointer = text.index('# Current execution pointer')
+          pointer_lines = [
+              '# Current execution pointer',
+              '',
+              '**Completed:** 17/20  ',
+              '**Overall:** 85.0%  ',
+              '**Phase:** Phase 6 - Prove the network and close  ',
+              '**Phase progress:** 0/3  ',
+              '**Until program completion:** 3 slices  ',
+              '**Current slice:** Slice 6.1 - Cross-repo regression/evidence validation (`IN PROGRESS`, 2/3 tasks complete)',
+              '**Next:** 6.1-T3 - wire the complete repository-network regression harness into permanent CI with exact immutable multi-repository checkouts, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member state remains unchanged, close Slice 6.1, advance only to Slice 6.2 start, and stop without beginning end-to-end qualification',
+              '**Blockers/drift/amendments:** 6.1-T2 is complete at Distribution `7606df1579d04813098938f6925478be332bd885` via PR #47. Exact preservation/reconstruction qualification `39057748427`, PR CI `39057862304` and clean-main CI `39057988135` are green. The read-only harness now permanently requires lifecycle zero-loss plus durable-receipt admission/reconstruction regressions while historical U36 remains byte-identical. Final live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay and `system_sync_debts` remain empty, canonical State/ledger and member/user-owned state are unchanged, and no live promotion occurred. Permanent exact-ref CI wiring, final cross-validation and Slice 6.1 closure remain exclusively 6.1-T3. No plan amendment required. 6.1-T3 has not begun.',
+              '',
+          ]
+          text = text[:pointer] + '\n'.join(pointer_lines)
+          path.write_text(text, encoding='utf-8')
+          PY
+          mapfile -t changed < <(git status --short | sed -E 's/^...//')
+          if [ "${#changed[@]}" -ne 1 ] || [ "${changed[0]}" != "docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md" ]; then
+            printf 'unexpected changed files:\n%s\n' "${changed[@]}" >&2
+            exit 1
+          fi
+          git config user.name "AI-VERSE"
+          git config user.email "hello@bogdanpascal.com"
+          git add docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md
+          git commit -m "Record Slice 6.1 T2 preservation reconstruction evidence"
+          git push origin HEAD:slice-6.1-t2-bookkeeping
