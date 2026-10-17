@@ -8,12 +8,12 @@ head, sep, rest = text.partition('\n---\n')
 if not sep:
     raise SystemExit('roadmap header separator not found')
 header_replacements = [
-    ('**Completed:** 17  ', '**Completed:** 18  '),
-    ('**Remaining:** 3  ', '**Remaining:** 2  '),
-    ('**Overall progress:** 85.0%  ', '**Overall progress:** 90.0%  '),
-    ('**Current phase progress:** 0/3 slices complete  ', '**Current phase progress:** 1/3 slices complete  '),
-    ('**Slices until program completion:** 3  ', '**Slices until program completion:** 2  '),
-    ('**Current slice:** 6.1 - Cross-repo regression/evidence validation  ', '**Current slice:** 6.2 - End-to-end qualification  '),
+    ('**Completed:** 17  ', '**Completed:** 18'),
+    ('**Remaining:** 3  ', '**Remaining:** 2'),
+    ('**Overall progress:** 85.0%  ', '**Overall progress:** 90.0%'),
+    ('**Current phase progress:** 0/3 slices complete  ', '**Current phase progress:** 1/3 slices complete'),
+    ('**Slices until program completion:** 3  ', '**Slices until program completion:** 2'),
+    ('**Current slice:** 6.1 - Cross-repo regression/evidence validation  ', '**Current slice:** 6.2 - End-to-end qualification'),
     ('**Next slice:** 6.2 - End-to-end qualification', '**Next slice:** 6.3 - Canonical closeout and handoff'),
 ]
 for old, new in header_replacements:
