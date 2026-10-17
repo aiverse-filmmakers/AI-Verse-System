@@ -880,7 +880,7 @@ Slice 6.1 is COMPLETE, 3/3. Permanent exact-ref repository-network CI now contin
 
 **Status:** IN PROGRESS
 **Dependencies:** 6.1
-**Adaptive tasks:** 0/5 complete
+**Adaptive tasks:** 1/5 complete
 
 Prove Distribution-originated, component-originated, sibling-defect, stale-doc, breaking-contract and emergency paths end to end with exact refs, preservation, member isolation, provenance and reconstructability.
 
@@ -897,13 +897,21 @@ Planning is bound to System `27ebfcfadb07260aa8854374bd03bd28d248f743` and Distr
 
 ### Adaptive task list
 
-- [ ] **6.2-T1** Build the isolated end-to-end qualification harness around the existing candidate-admission, preservation/composed-acceptance, whole-product-qualification, promotion and durable-receipt machinery, then prove a Distribution-originated forward Core candidate using unchanged exact owner-accepted component refs can traverse admission through isolated final admission and exact receipt reconstruction while member/user state and all live catalogs remain untouched.
+- [x] **6.2-T1** Build the isolated end-to-end qualification harness around the existing candidate-admission, preservation/composed-acceptance, whole-product-qualification, promotion and durable-receipt machinery, then prove a Distribution-originated forward Core candidate using unchanged exact owner-accepted component refs can traverse admission through isolated final admission and exact receipt reconstruction while member/user state and all live catalogs remain untouched.
 - [ ] **6.2-T2** Prove the component-originated positive path with one real exact owner-accepted forward component revision: reuse existing exact acceptance if available or obtain bounded temporary owner-native candidate evidence at the canonical owner, freeze the required scoped System/Registry/State evidence in an isolated workspace, adopt exactly that ref in Distribution, and prove qualification, preservation/member isolation, isolated final admission and reconstructability without treating observed/latest refs as acceptance or mutating live release state.
 - [ ] **6.2-T3** Extend the isolated harness with end-to-end sibling-defect, stale-doc and breaking-contract cases: a sibling defect must route back to the canonical owner and cannot be patched/adopted by Distribution without exact owner acceptance; stale System prose must produce evidence-first drift/reconciliation without regressing accepted implementation or fabricating release authority; a depended-on breaking contract must block composition/promotion unless an accepted compatibility/migration path exists. Prove exact provenance, no destructive member/user-state mutation and fail-closed/requalification behavior where required.
 - [ ] **6.2-T4** Prove the emergency path end to end in isolation through the same owner validation, exact refs, compatibility/migration, preservation, member isolation and whole-product qualification gates; allow only explicit non-safety `SYSTEM-SYNC-DEBT`, bind the exact debt in durable receipt evidence, prove later normal promotion is blocked while debt is open, and prove reconciliation requires exact synchronized canonical State before normal promotion can resume. Perform no live promotion.
 - [ ] **6.2-T5** Wire the accepted end-to-end harness into permanent exact-ref CI by extending the existing repository-network gate or adding only the minimal non-duplicative qualification gate, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member and canonical State/ledger remain unchanged, close Slice 6.2, advance only to the Slice 6.3 bounded discovery/planning start, and stop without beginning canonical closeout.
 
-Slice 6.2 planning is complete. 6.2-T1 has not begun. No plan amendment was required.
+### T1 evidence
+
+- Distribution PR #49 merged the T1-only disposable qualification harness and four focused regressions to main as `bfa712ddbc3d3037349591acfd8a3c5db5fd314a` (accepted PR head `90e887295fdce05eda5cda41118388baff76f556`). Its permanent delta adds exactly `tests/e2e_qualification_harness.py` and `tests/test_distribution_origin_end_to_end.py`. No implementation, live release/catalog, qualification instance, System/owner, Registry/State/ledger or member installation changed.
+- The isolated forward Core fixture copies all five exact unchanged component revisions from the currently admitted release `core-first-run-rc1-2026-10-12`, freezes synthetic **test-only** candidate/owner/Registry/State inputs in a disposable staging root, and invokes the actual Distribution candidate-admission, whole-product qualification, Core promotion plan/apply and durable receipt reconstruction code. Synthetic owner workflow replies and synthetic composed-acceptance results are **not** new real owner-native CI or clean-machine release qualification; this task proves the wiring and isolation path without claiming a live candidate acceptance.
+- Four permanent positive/destructive-negative tests prove one full five-Core-revision path from exact candidate admission through isolated final admission and immutable non-cyclic receipt reconstruction, read-only promotion planning, deterministic post-reconstruction byte identity, owner-native wrong-head denial, `setup-required` whole-product rejection, receipt reconstruction tamper failure, and unchanged real source catalogs/current release/U36 evidence plus untouched simulated user-owned member bytes.
+- PR Distribution CI `39072823619` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs; Ubuntu/Python 3.11 ran 450 tests with 11 expected skips and all four new scenarios green. PR Repository Network Regression `39072823576` passed against the existing exact-ref accepted seven-repository boundary. Clean-main Distribution CI `39072957309` passed all six jobs on merge `bfa712ddbc3d3037349591acfd8a3c5db5fd314a`; clean-main Repository Network Regression `39072957285` passed.
+- Existing live Core stays `core-first-run-rc1-2026-10-12`; the candidate overlay and `system_sync_debts` remain empty; historical U36 evidence remains unchanged. No live promotion, durable live receipt, or member/user-owned state write occurred. Future 6.2-T2 must separately obtain actual exact owner-native forward-candidate acceptance; the T1 test doubles must never be treated as such evidence. No drift disposition or plan amendment needed.
+
+Slice 6.2-T1 is complete, 1/5 tasks. 6.2-T2 has not begun. No plan amendment was required.
 
 ## Slice 6.3 - Canonical closeout and handoff
 
@@ -915,6 +923,13 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-18 - Slice 6.2 T1 isolated forward qualification proven
+
+- Distribution PR #49 merge `bfa712ddbc3d3037349591acfd8a3c5db5fd314a`, PR CI `39072823619`, clean-main CI `39072957309`, exact-ref Repository Network Regression `39072957285`; all required primary gates passed.
+- Two test-only files prove five admitted unchanged Core revision pins through disposable candidate admission, preservation/composed qualification, isolated promotion and immutable receipt reconstruction, plus owner wrong-head, `setup-required`, and receipt tamper fail-closed tests.
+- Synthetic fixture owner CI/composed results are not real new-release owner acceptance; 6.2-T2 must acquire exact native owner acceptance independently. Live release/catalog/State/ledger/U36/member state unchanged.
+- 6.2 is 1/5 complete, 6.2-T2 is the only next task. No plan amendment.
 
 ## 2026-10-17 - Slice 6.2 bounded planning started
 
@@ -1187,6 +1202,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 6 - Prove the network and close
 **Phase progress:** 1/3
 **Until program completion:** 2 slices
-**Current slice:** Slice 6.2 - End-to-end qualification (`IN PROGRESS`, 0/5 tasks complete)
-**Next:** 6.2-T1 - build the isolated end-to-end qualification harness around the existing candidate-admission, preservation/composed-acceptance, whole-product-qualification, promotion and durable-receipt machinery, then prove a Distribution-originated forward Core candidate using unchanged exact owner-accepted component refs can traverse admission through isolated final admission and exact receipt reconstruction while member/user state and all live catalogs remain untouched
-**Blockers/drift/amendments:** Slice 6.2 planning is complete at System `27ebfcfadb07260aa8854374bd03bd28d248f743` and Distribution `74a317497a54ec9e12c14ac705b7bbb251eddfe4`. Live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay and `system_sync_debts` remain empty, historical U36 and canonical System State/ledger are unchanged. No architecture blocker or plan amendment. For later 6.2-T2, a component-originated positive path must use real exact owner-native acceptance rather than a newer observed head; fresh exact composed acceptance is required and historical `setup-required` evidence is not PASS. 6.2-T1 has not begun.
+**Current slice:** Slice 6.2 - End-to-end qualification (`IN PROGRESS`, 1/5 tasks complete)
+**Next:** 6.2-T2 - prove the component-originated positive path with one real exact owner-accepted forward component revision: reuse existing exact acceptance if available or obtain bounded temporary owner-native candidate evidence at the canonical owner, freeze the required scoped System/Registry/State evidence in an isolated workspace, adopt exactly that ref in Distribution, and prove qualification, preservation/member isolation, isolated final admission and reconstructability without treating observed/latest refs as acceptance or mutating live release state
+**Blockers/drift/amendments:** 6.2-T1 implementation merged at Distribution `bfa712ddbc3d3037349591acfd8a3c5db5fd314a`, clean-main Distribution CI `39072957309` passed six jobs and exact seven-repository CI `39072957285` passed. Five unchanged admitted Core refs are exercised by synthetic test-only owner/qualification fixtures; no real forward owner candidate was claimed or admitted. Live Core release `core-first-run-rc1-2026-10-12`, candidate overlay, sync-debt catalog, historical U36, System State/ledger and member/user-owned data unchanged. No blocker or plan amendment. 6.2-T2 has not begun.
