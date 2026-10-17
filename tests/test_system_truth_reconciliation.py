@@ -76,8 +76,17 @@ class SystemTruthReconciliationTests(unittest.TestCase):
         self.assertEqual(shadow["status"], "resolved")
         self.assertEqual(shadow["severity"], "WARNING")
         self.assertIn("Resolved in Slice 5.1", shadow["reason"])
-        self.assertEqual(by_id["compact-release-receipt-not-yet-implemented"]["status"], "open")
 
+        receipt = by_id["compact-release-receipt-not-yet-implemented"]
+        self.assertEqual(receipt["status"], "resolved")
+        self.assertEqual(receipt["severity"], "INFO")
+        self.assertEqual(receipt["scope"], "Core")
+        self.assertIn("Future Core final admission now constructs and validates", receipt["reason"])
+        self.assertIn(
+            "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:src/aiverse_distribution/core_promotion.py",
+            receipt["evidence_refs"],
+        )
+        self.assertIn("No corrective action remains", receipt["required_action"])
 
 
 if __name__ == "__main__":
