@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 16  
-**Remaining:** 4  
-**Overall progress:** 80.0%  
-**Current execution phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Current phase progress:** 3/4 slices complete  
-**Slices until next phase:** 1  
-**Current slice:** 5.4 - Durable release receipts  
-**Current slice status:** IN PROGRESS  
-**Next slice:** 6.1 - Cross-repo regression/evidence validation
+**Completed:** 17  
+**Remaining:** 3  
+**Overall progress:** 85.0%  
+**Current execution phase:** Phase 6 - Prove the network and close  
+**Current phase progress:** 0/3 slices complete  
+**Slices until program completion:** 3  
+**Current slice:** 6.1 - Cross-repo regression/evidence validation  
+**Current slice status:** NOT STARTED  
+**Next slice:** 6.2 - End-to-end qualification
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
@@ -498,7 +498,8 @@ The current Registry still contains only Wave 1 entries, so none of these seven 
 
 # Phase 5 - Enforce safe composition and delivery in Distribution
 
-**Phase size:** 4 slices
+**Phase size:** 4 slices  
+**Status:** COMPLETE, 4/4
 
 ## Slice 5.1 - Immutable candidate snapshot and owner-adoption gates
 
@@ -754,9 +755,9 @@ Slice 5.3 planning and execution are complete. 5.3-T1 through 5.3-T4 are complet
 
 ## Slice 5.4 - Durable release receipts
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 5.3  
-**Adaptive tasks:** 3/4 complete
+**Adaptive tasks:** 4/4 complete
 
 Persist `qualification/<release-id>/release-receipt.json` as compact immutable reconstruction binding without user secrets/state.
 
@@ -805,9 +806,18 @@ Planning is bound to System `43b7c4049ce9d840ba8fbb67e44e9fe55fe5f6b3` and Distr
 - Clean-main Distribution CI `39008351455` passed the same six-job matrix on exact merge head `f407302df93fee18ae407d59cf0409227436ddfe`; Ubuntu/Python 3.11 again ran 431 tests with 11 expected skips. The candidate admission gate remained valid with an empty overlay.
 - Exact post-merge catalogs remain unchanged: candidate overlay empty, `current_release` still `core-first-run-rc1-2026-10-12`, and `system_sync_debts` empty. No live promotion or durable receipt instance was created. Canonical State/ledger are intentionally unchanged in T3, so `compact-release-receipt-not-yet-implemented` remains the existing `INFO/Core` State record for T4 closure evaluation. No plan amendment was required.
 
-- [ ] **5.4-T4** Run clean Distribution and required System cross-validation for the adopted durable-receipt path, confirm final release/debt/drift state, resolve `compact-release-receipt-not-yet-implemented` only if exact evidence proves the future-admission requirement is enforced, publish required closing Core State/ledger, close Slice 5.4 and Phase 5, advance to Slice 6.1, and stop without beginning Phase 6 execution.
+- [x] **5.4-T4** Run clean Distribution and required System cross-validation for the adopted durable-receipt path, confirm final release/debt/drift state, resolve `compact-release-receipt-not-yet-implemented` only if exact evidence proves the future-admission requirement is enforced, publish required closing Core State/ledger, close Slice 5.4 and Phase 5, advance to Slice 6.1, and stop without beginning Phase 6 execution.
 
-Slice 5.4 planning and 5.4-T1 through 5.4-T3 are complete. 5.4-T4 has not begun. Future Core final admission is durable-receipt-gated, cross-platform deterministic and protected by permanent exact-reconstruction/destructive-negative regressions; no live release was promoted and canonical State/ledger remain intentionally unchanged until closure. No plan amendment was required.
+### T4 closure evidence
+
+- Fresh marker-free Distribution validation used exact head `5f2ce4bfe9902c3944ec2d467d7766516dede077`, whose tree is identical to accepted T3 merge `f407302df93fee18ae407d59cf0409227436ddfe`. Distribution CI `39051973345` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs. No product/runtime/release/catalog bytes changed during the validation trigger.
+- Exact final live catalogs remain unchanged: candidate overlay is empty (blob `c1352da686207d404536a34464b7a03438c5d81a`), `current_release` remains `core-first-run-rc1-2026-10-12`, and `system_sync_debts` remains empty (promotion catalog blob `8646ead86a03c31ce369f510fea2e0ac8cb227c5`). No live promotion and no retroactive receipt instance occurred.
+- Exact implementation evidence proves the future-admission requirement: `core_promotion.py` constructs and validates the v1 receipt, immutably publishes it before release/promotion/channel writes, refuses overwrite, and the final release-set carries the non-cyclic receipt reference. `release_receipt.py`, admission regressions and permanent reconstruction regressions bind the exact release/evidence/owner/Registry/State/lock/compatibility/preservation/promotion/debt facts while excluding member/user-state authority.
+- The canonical `compact-release-receipt-not-yet-implemented` `INFO/Core` drift is resolved, with exact evidence refs at Distribution `5f2ce4bfe9902c3944ec2d467d7766516dede077`. The closing Registry-derived Core scoped refresh is complete and records Distribution `5f2ce4bfe9902c3944ec2d467d7766516dede077` while preserving the five current Core component pins at `core-first-run-rc1-2026-10-12`. The generated ledger is regenerated from that State and has no open drift.
+- System closure workflow run `39052545349` validated Registry, closing State, deterministic ledger and the complete System contract test suite before publishing. Historical U36 evidence remains untouched; member lifecycle/user-owned state remains untouched. No plan amendment was required.
+
+
+Slice 5.4 is COMPLETE, 4/4. Future Core final admission is durable-receipt-gated, immutable, non-cyclic, cross-platform deterministic and protected by permanent exact-reconstruction/destructive-negative regressions. The compact-receipt drift is resolved in closing Core State/ledger; live release/candidate/debt state is unchanged and no live promotion occurred. Phase 5 is COMPLETE, 4/4. Phase 6 has not begun. No plan amendment was required.
 
 ---
 
@@ -1099,11 +1109,11 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-**Completed:** 16/20  
-**Overall:** 80.0%  
-**Phase:** Phase 5 - Enforce safe composition and delivery in Distribution  
-**Phase progress:** 3/4  
-**Until Phase 6:** 1 slice  
-**Current slice:** Slice 5.4 - Durable release receipts (`IN PROGRESS`, 3/4 tasks complete)
-**Next:** 5.4-T4 - run clean Distribution and required System cross-validation for the adopted durable-receipt path, confirm final release/debt/drift state, resolve `compact-release-receipt-not-yet-implemented` only if exact evidence proves the future-admission requirement is enforced, publish required closing Core State/ledger, close Slice 5.4 and Phase 5, advance to Slice 6.1, and stop without beginning Phase 6 execution
-**Blockers/drift/amendments:** 5.4-T3 is complete at Distribution `f407302df93fee18ae407d59cf0409227436ddfe` via PR `#45`; final PR CI `39008232501` and clean-main CI `39008351455` both passed all six Linux/macOS/Windows Python 3.11/3.12 jobs, with 431 tests and 11 expected skips on Ubuntu/Python 3.11. The permanent tests-only matrix now proves exact reconstruction and destructive failure across release/evidence bytes, owner/component/descriptor bindings, Registry/State, locks, compatibility/preservation/promotion/debt, unsafe/floating refs, leakage and duplicate-authority attempts, while promotion planning remains read-only. Historical U36 evidence remains exact at blob `0fec6e5290e659469a52a5f769da620f329f8c5a`. Live candidate overlay remains empty, `current_release` remains `core-first-run-rc1-2026-10-12`, sync debt remains empty, and no live promotion or receipt instance was created. Canonical State/ledger were not refreshed, so `compact-release-receipt-not-yet-implemented` remains the existing `INFO/Core` record for T4 closure evaluation. No plan amendment required. 5.4-T4 has not begun.
+**Completed:** 17/20  
+**Overall:** 85.0%  
+**Phase:** Phase 6 - Prove the network and close  
+**Phase progress:** 0/3  
+**Until program completion:** 3 slices  
+**Current slice:** Slice 6.1 - Cross-repo regression/evidence validation (`NOT STARTED`; slice-start planning has not begun)
+**Next:** Slice 6.1 start - perform only bounded discovery/planning for the cross-repo regression/evidence-validation slice, classify `REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN`, record the smallest evidence-backed adaptive task list and first execution task, then stop without implementing or pre-validating that task
+**Blockers/drift/amendments:** Slice 5.4 and Phase 5 are complete. Fresh clean Distribution CI `39051973345` passed on marker-free head `5f2ce4bfe9902c3944ec2d467d7766516dede077` with the exact accepted T3 tree. Final live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay remains empty, and `system_sync_debts` remains empty. Closing Core State/ledger resolve `compact-release-receipt-not-yet-implemented` only after exact receipt-gated final-admission and reconstruction-regression evidence; no open canonical drift remains in the closing scoped Core snapshot. No live promotion, historical U36 rewrite, member lifecycle mutation or user-owned-state mutation occurred. No plan amendment required. Slice 6.1 planning has not begun.

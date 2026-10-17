@@ -19,11 +19,11 @@
       1362243580,
       1364457521
     ],
-    "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9",
+    "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6",
     "last_scoped_refresh": {
       "scope": "Core",
       "status": "complete",
-      "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9",
+      "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6",
       "observed_at": null
     },
     "last_full_refresh": {
@@ -48,7 +48,7 @@
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9",
+      "observed_head": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -75,13 +75,13 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9"
+        "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6"
       }
     },
     {
       "repository_id": 1350081263,
       "access": "verified",
-      "observed_head": "23a532737e94812d7dc4d53edf23fd23db1cbb02",
+      "observed_head": "5f2ce4bfe9902c3944ec2d467d7766516dede077",
       "owner_acceptance": {
         "status": "unverified",
         "revision": null,
@@ -110,7 +110,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9"
+        "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6"
       }
     },
     {
@@ -129,7 +129,7 @@
         "revision": "64f7325444d18f94c9d4755d32eb89f3468bda6b",
         "release_id": "core-first-run-rc1-2026-10-12",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@23a532737e94812d7dc4d53edf23fd23db1cbb02:release-sets/core-first-run-rc1-2026-10-12.json"
+          "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:release-sets/core-first-run-rc1-2026-10-12.json"
         ]
       },
       "descriptor": {
@@ -149,7 +149,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9"
+        "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6"
       }
     },
     {
@@ -168,7 +168,7 @@
         "revision": "69f7912eeb35f0178f6952ff0554aec8d7f2c496",
         "release_id": "core-first-run-rc1-2026-10-12",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@23a532737e94812d7dc4d53edf23fd23db1cbb02:release-sets/core-first-run-rc1-2026-10-12.json"
+          "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:release-sets/core-first-run-rc1-2026-10-12.json"
         ]
       },
       "descriptor": {
@@ -188,7 +188,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9"
+        "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6"
       }
     },
     {
@@ -207,7 +207,7 @@
         "revision": "f1327be48ba2ee0043959021365e6dbb9dcb1d3a",
         "release_id": "core-first-run-rc1-2026-10-12",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@23a532737e94812d7dc4d53edf23fd23db1cbb02:release-sets/core-first-run-rc1-2026-10-12.json"
+          "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:release-sets/core-first-run-rc1-2026-10-12.json"
         ]
       },
       "descriptor": {
@@ -227,7 +227,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9"
+        "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6"
       }
     },
     {
@@ -246,7 +246,7 @@
         "revision": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
         "release_id": "core-first-run-rc1-2026-10-12",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@23a532737e94812d7dc4d53edf23fd23db1cbb02:release-sets/core-first-run-rc1-2026-10-12.json"
+          "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:release-sets/core-first-run-rc1-2026-10-12.json"
         ]
       },
       "descriptor": {
@@ -266,7 +266,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9"
+        "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6"
       }
     },
     {
@@ -285,7 +285,7 @@
         "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
         "release_id": "core-first-run-rc1-2026-10-12",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@23a532737e94812d7dc4d53edf23fd23db1cbb02:release-sets/core-first-run-rc1-2026-10-12.json"
+          "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:release-sets/core-first-run-rc1-2026-10-12.json"
         ]
       },
       "descriptor": {
@@ -305,7 +305,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9"
+        "evidence_revision": "ec6d09817edfc343a0f8d61006d4e3a3bd8329f6"
       }
     },
     {
@@ -660,17 +660,20 @@
     {
       "id": "compact-release-receipt-not-yet-implemented",
       "marker": "CANONICAL-DRIFT-DETECTED",
-      "status": "open",
+      "status": "resolved",
       "severity": "INFO",
       "scope": "Core",
       "repository_ids": [
         1350081263
       ],
-      "reason": "Durable release reconstruction evidence exists across current release-set and qualification files, but the planned compact single release receipt binding is not implemented yet.",
+      "reason": "Future Core final admission now constructs and validates the compact immutable release receipt, publishes it before promotion/channel mutation, binds exact reconstruction evidence without duplicate authority, and is protected by permanent destructive-negative reconstruction regressions.",
       "evidence_refs": [
-        "aiverse-filmmakers/ai-verse-distribution@fd11b4a95487638d47ff55472a3703b03892d0e8:qualification/core-update-program-u36/release-evidence.json"
+        "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:src/aiverse_distribution/core_promotion.py",
+        "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:src/aiverse_distribution/release_receipt.py",
+        "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:tests/test_release_receipt_admission.py",
+        "aiverse-filmmakers/ai-verse-distribution@5f2ce4bfe9902c3944ec2d467d7766516dede077:tests/test_release_receipt_reconstruction_regressions.py"
       ],
-      "required_action": "Implement the compact immutable release receipt in Slice 5.4 without replacing existing qualification evidence."
+      "required_action": "No corrective action remains for this drift. Keep every future Core final admission receipt-gated, immutable, non-cyclic, reconstruction-bound and separate from member lifecycle/user-state recovery authority."
     },
     {
       "id": "repository-watchdog-stale",
