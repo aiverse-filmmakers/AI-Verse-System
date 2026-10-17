@@ -827,10 +827,27 @@ Slice 5.4 is COMPLETE, 4/4. Future Core final admission is durable-receipt-gated
 
 ## Slice 6.1 - Cross-repo regression/evidence validation
 
-**Status:** NOT STARTED  
-**Dependencies:** 5.4
+**Status:** IN PROGRESS  
+**Dependencies:** 5.4  
+**Adaptive tasks:** 0/3 complete
 
 Automate permanent-invariant regressions for owner routing, owner/Distribution failures, wrong pins, stale System, unregistered repos, stale watchdog, breaking contracts, candidate drift, member leakage, user-state survival and receipt validity.
+
+### Bounded planning
+
+Planning is bound to System `e98dd12026a15f82f92d119a713029dbad0742e5` and Distribution `5f2ce4bfe9902c3944ec2d467d7766516dede077`. This run performed discovery/planning only; no 6.1 implementation, regression execution, release mutation or State refresh was performed.
+
+- **REUSE:** current System Contract Validation plus Registry/State/watchdog/descriptor/truth-reconciliation regressions; current Distribution CI plus candidate-admission, promotion/qualification, lifecycle zero-loss and durable-receipt reconstruction regressions; the existing immutable multi-repository checkout pattern; the current Registry/State and exact five-component Core release pins.
+- **EXTEND:** extend the proven OS/Skills cross-repository pattern to canonical System plus all five current Core owners, and bind the already-permanent isolated invariant tests into one repository-network regression gate without creating a second acceptance authority.
+- **CREATE:** one permanent read-only repository-network regression harness/workflow in Distribution that checks exact immutable cross-repository evidence and fails closed on cross-boundary disagreement.
+- **RETIRE:** nothing. Existing owner-native CI, System Contract Validation, Distribution CI, Safe Infrastructure regression and historical qualification evidence remain authoritative in their existing scopes.
+- **BLOCK/UNKNOWN:** no architecture blocker. The Safe Infrastructure gate's older OS/Skills refs remain scoped evidence rather than 6.1 acceptance; the historical `.qualification/system-contract-58bbcefe...` snapshot remains historical rather than current System authority. Closing canonical State has no open drift. No plan amendment is required.
+
+- [ ] **6.1-T1** Create the read-only repository-network regression harness for governance/admission invariants using exact canonical System plus current five Core owner refs; reuse existing validators/regressions to prove owner routing and owner/Distribution separation, registered identity and exact pins, stale System/State inputs, unregistered repositories/components, stale watchdog, breaking contracts and candidate drift fail closed; do not mutate product/runtime/release/catalog/State/member data and do not perform end-to-end qualification.
+- [ ] **6.1-T2** Extend the same permanent harness with preservation/reconstruction invariants by reusing lifecycle zero-loss and receipt regressions: member leakage must fail closed, legitimate member/user state must survive install/setup/update/rollback, owner-routed lifecycle failures remain owner-scoped, and durable receipt reconstruction/immutability/authority/leakage/debt bindings remain exact; preserve historical U36 and perform no live promotion.
+- [ ] **6.1-T3** Wire the complete repository-network regression harness into permanent CI with exact immutable multi-repository checkouts, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member state remains unchanged, close Slice 6.1, advance only to Slice 6.2 start, and stop without beginning end-to-end qualification.
+
+Slice 6.1 planning is complete. 6.1-T1 through 6.1-T3 have not begun. No plan amendment was required.
 
 ## Slice 6.2 - End-to-end qualification
 
@@ -1114,6 +1131,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 6 - Prove the network and close  
 **Phase progress:** 0/3  
 **Until program completion:** 3 slices  
-**Current slice:** Slice 6.1 - Cross-repo regression/evidence validation (`NOT STARTED`; slice-start planning has not begun)
-**Next:** Slice 6.1 start - perform only bounded discovery/planning for the cross-repo regression/evidence-validation slice, classify `REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN`, record the smallest evidence-backed adaptive task list and first execution task, then stop without implementing or pre-validating that task
-**Blockers/drift/amendments:** Slice 5.4 and Phase 5 are complete. Fresh clean Distribution CI `39051973345` passed on marker-free head `5f2ce4bfe9902c3944ec2d467d7766516dede077` with the exact accepted T3 tree. Final live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay remains empty, and `system_sync_debts` remains empty. Closing Core State/ledger resolve `compact-release-receipt-not-yet-implemented` only after exact receipt-gated final-admission and reconstruction-regression evidence; no open canonical drift remains in the closing scoped Core snapshot. No live promotion, historical U36 rewrite, member lifecycle mutation or user-owned-state mutation occurred. No plan amendment required. Slice 6.1 planning has not begun.
+**Current slice:** Slice 6.1 - Cross-repo regression/evidence validation (`IN PROGRESS`, 0/3 tasks complete)
+**Next:** 6.1-T1 - create the read-only repository-network regression harness for governance/admission invariants using exact canonical System plus current five Core owner refs; reuse existing validators/regressions to prove owner routing and owner/Distribution separation, registered identity and exact pins, stale System/State inputs, unregistered repositories/components, stale watchdog, breaking contracts and candidate drift fail closed; do not mutate product/runtime/release/catalog/State/member data and do not perform end-to-end qualification
+**Blockers/drift/amendments:** Slice 6.1 bounded planning is complete at System `e98dd12026a15f82f92d119a713029dbad0742e5` and Distribution `5f2ce4bfe9902c3944ec2d467d7766516dede077`. Existing permanent invariant tests are reused rather than duplicated; the missing boundary is one current exact-ref cross-repository gate spanning System plus all five Core owners. The older Safe Infrastructure OS/Skills gate and historical System contract snapshot remain scoped historical evidence, not current 6.1 authority. Final live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay and sync debt remain empty, closing canonical State has no open drift, and no release/member/user-state mutation or State refresh occurred during planning. No plan amendment required. 6.1-T1 has not begun.
