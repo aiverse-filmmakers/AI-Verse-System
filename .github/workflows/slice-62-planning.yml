@@ -20,6 +20,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # The helper performs roadmap-only bounded planning bookkeeping.
           python .github/slice-62-planning.py
           rm .github/slice-62-planning.py
           rm .github/workflows/slice-62-planning.yml
