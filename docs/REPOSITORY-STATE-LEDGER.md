@@ -11,7 +11,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `scoped-refresh`
 - Refresh scope: `Core`
 - Refresh status: `complete`
-- Refresh evidence revision: `734c9fe71d05aa4619e048f0e0a9e073b5cc4eb9`
+- Refresh evidence revision: `ec6d09817edfc343a0f8d61006d4e3a3bd8329f6`
 - Last full refresh: `414ddb0d34ac555113a86ad3e96b8b7119b46996`
 - Watchdog: `WATCHDOG-CURRENT`
 - Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-15T15:21:15Z; all registered repositories were scanned with no access/fetch failure.
@@ -20,8 +20,8 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `734c9fe71d05` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
-| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `23a532737e94` | unverified | not-applicable | not-applicable | unverified | fresh / Core |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `ec6d09817edf` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
+| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `5f2ce4bfe990` | unverified | not-applicable | not-applicable | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `83747a909980` | accepted `64f7325444d1` | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `64f7325444d1` / accepted | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `4406d1506828` | accepted `69f7912eeb35` | pinned `69f7912eeb35` / core-first-run-rc1-2026-10-12 | observed `69f7912eeb35` / accepted | unverified | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-first-run-rc1-2026-10-12 | observed `f1327be48ba2` / accepted | unverified | fresh / Core |
@@ -39,7 +39,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Severity | Scope | Drift | Repositories | Reason | Required action |
 | --- | --- | --- | --- | --- | --- |
-| INFO | Core | compact-release-receipt-not-yet-implemented | ai-verse-distribution | Durable release reconstruction evidence exists across current release-set and qualification files, but the planned compact single release receipt binding is not implemented yet. | Implement the compact immutable release receipt in Slice 5.4 without replacing existing qualification evidence. |
+| INFO | global | none | - | No open drift recorded. | Continue normal evidence refresh. |
 
 ## Authority and freshness rules
 
