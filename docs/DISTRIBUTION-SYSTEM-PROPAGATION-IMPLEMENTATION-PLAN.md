@@ -827,9 +827,9 @@ Slice 5.4 is COMPLETE, 4/4. Future Core final admission is durable-receipt-gated
 
 ## Slice 6.1 - Cross-repo regression/evidence validation
 
-**Status:** IN PROGRESS  
+**Status:** COMPLETE  
 **Dependencies:** 5.4  
-**Adaptive tasks:** 2/3 complete
+**Adaptive tasks:** 3/3 complete
 
 Automate permanent-invariant regressions for owner routing, owner/Distribution failures, wrong pins, stale System, unregistered repos, stale watchdog, breaking contracts, candidate drift, member leakage, user-state survival and receipt validity.
 
@@ -863,9 +863,18 @@ Planning is bound to System `e98dd12026a15f82f92d119a713029dbad0742e5` and Distr
 - Historical `qualification/core-update-program-u36/release-evidence.json` remains canonical Git blob `0fec6e5290e659469a52a5f769da620f329f8c5a`; no historical U36 `release-receipt.json` was introduced or backfilled.
 - PR Distribution CI `39057862304` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs; Ubuntu/Python 3.11 ran 444 tests with 11 expected skips. Clean-main Distribution CI `39057988135` passed the same six-job matrix on exact merge `7606df1579d04813098938f6925478be332bd885`.
 - T2 changed no live release/catalog, promotion/channel, System Registry/State/ledger, component owner implementation, member installation or user-owned state and performed no live promotion. 6.1-T3 permanent CI wiring and slice closure were not begun. No plan amendment was required.
-- [ ] **6.1-T3** Wire the complete repository-network regression harness into permanent CI with exact immutable multi-repository checkouts, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member state remains unchanged, close Slice 6.1, advance only to Slice 6.2 start, and stop without beginning end-to-end qualification.
+- [x] **6.1-T3** Wire the complete repository-network regression harness into permanent CI with exact immutable multi-repository checkouts, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member state remains unchanged, close Slice 6.1, advance only to Slice 6.2 start, and stop without beginning end-to-end qualification.
 
-Slice 6.1 planning is complete and 6.1-T1 through 6.1-T2 are complete. 6.1-T3 has not begun. No plan amendment was required.
+### T3 closure evidence
+
+- Distribution PR #48 permanently added `.github/workflows/repository-network-regression.yml` plus the focused workflow contract `tests/test_repository_network_workflow.py`. Exact PR head `e7cb11eff4ac78036efb7125bcc7712847f51681` merged to clean `main` as `74a317497a54ec9e12c14ac705b7bbb251eddfe4`; no product/runtime/catalog or owner implementation file changed.
+- The permanent gate runs on every pull request and `main` push with `contents: read`, exact immutable checkout of accepted System evidence boundary `b917f8812f21a02f4b58e402ce6dc5838303bb5d`, and State-observed owner heads OS `83747a90998077ad2ab4636f202ca2e065a9a6bb`, Brain `4406d15068284b88e0076b6dfff5aa0b06890a24`, Memory `09911eae0b4b0cbf7e7e7969230fe5b86647b841`, Skills `23779f10515951ac92c83cba34a1a868c02c4d87`, Data `7e9fadbd73752b24eb79e270aff6b311ad508109`.
+- PR Repository Network Regression `39058807756` passed the exact seven-repository read-only gate. PR Distribution CI `39058807688` passed all six Linux/macOS/Windows Python 3.11/3.12 jobs; Ubuntu/Python 3.11 ran 446 tests with 11 expected skips, including the two permanent workflow-contract tests.
+- Clean-main Repository Network Regression `39058966474` passed on exact merge `74a317497a54ec9e12c14ac705b7bbb251eddfe4`. Clean-main Distribution CI `39058966481` passed the full six-job matrix on the same exact merge head.
+- The permanent gate proves the live Core candidate overlay remains empty, `current_release` remains `core-first-run-rc1-2026-10-12`, `system_sync_debts` remains empty, historical U36 release evidence remains canonical Git blob `0fec6e5290e659469a52a5f769da620f329f8c5a` with no retrofitted receipt, and all seven tracked checkouts remain unchanged after the regression.
+- No live promotion, release/catalog mutation, System Registry/State/ledger refresh, component-owner implementation change, member installation change or user-owned-state mutation occurred. Required current-System Contract Validation remains a merge gate for this roadmap-only closure and must pass again on clean `main`; no plan amendment was required.
+
+Slice 6.1 is COMPLETE, 3/3. Permanent exact-ref repository-network CI now continuously enforces governance/admission, preservation/member isolation and durable-receipt reconstruction invariants without creating a second authority. Live release/candidate/debt/member state is unchanged. Slice 6.2 has not begun. No plan amendment was required.
 
 ## Slice 6.2 - End-to-end qualification
 
@@ -1144,11 +1153,11 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-**Completed:** 17/20  
-**Overall:** 85.0%  
-**Phase:** Phase 6 - Prove the network and close  
-**Phase progress:** 0/3  
-**Until program completion:** 3 slices  
-**Current slice:** Slice 6.1 - Cross-repo regression/evidence validation (`IN PROGRESS`, 2/3 tasks complete)
-**Next:** 6.1-T3 - wire the complete repository-network regression harness into permanent CI with exact immutable multi-repository checkouts, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member state remains unchanged, close Slice 6.1, advance only to Slice 6.2 start, and stop without beginning end-to-end qualification
-**Blockers/drift/amendments:** 6.1-T2 is complete at Distribution `7606df1579d04813098938f6925478be332bd885` via PR #47. Exact preservation/reconstruction qualification `39057748427`, PR CI `39057862304` and clean-main CI `39057988135` are green. The read-only harness now permanently requires lifecycle zero-loss plus durable-receipt admission/reconstruction regressions while historical U36 remains byte-identical. Final live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay and `system_sync_debts` remain empty, canonical State/ledger and member/user-owned state are unchanged, and no live promotion occurred. Permanent exact-ref CI wiring, final cross-validation and Slice 6.1 closure remain exclusively 6.1-T3. No plan amendment required. 6.1-T3 has not begun.
+**Completed:** 18/20
+**Overall:** 90.0%
+**Phase:** Phase 6 - Prove the network and close
+**Phase progress:** 1/3
+**Until program completion:** 2 slices
+**Current slice:** Slice 6.2 - End-to-end qualification (`NOT STARTED`)
+**Next:** Slice 6.2 bounded discovery/planning start - inspect only the permanent laws and exact accepted evidence needed to derive the adaptive task list and first task; do not execute end-to-end qualification, mutate releases, refresh State/ledger, or implement any 6.2 path in that planning run
+**Blockers/drift/amendments:** Slice 6.1 is complete at Distribution `74a317497a54ec9e12c14ac705b7bbb251eddfe4` via PR #48. Permanent Repository Network Regression is live and clean-main run `39058966474` is green; clean-main Distribution CI `39058966481` is green 6/6. Live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay and `system_sync_debts` remain empty, historical U36 remains unchanged, and canonical System State/ledger plus member/user-owned state remain untouched. This roadmap-only closure is gated by current System Contract Validation before merge and again on clean main. No plan amendment required. Slice 6.2 has not begun.
