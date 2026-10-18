@@ -6,15 +6,15 @@
 **Affected repos:** AI-Verse-System, ai-verse-distribution, all releasable AI-Verse component repositories  
 **Started:** 2026-10-12  
 **Program size:** 20 slices  
-**Completed:** 18
-**Remaining:** 2
-**Overall progress:** 90.0%
+**Completed:** 19
+**Remaining:** 1
+**Overall progress:** 95.0%
 **Current execution phase:** Phase 6 - Prove the network and close  
-**Current phase progress:** 1/3 slices complete
-**Slices until program completion:** 2
-**Current slice:** 6.2 - End-to-end qualification
-**Current slice status:** IN PROGRESS  
-**Next slice:** 6.3 - Canonical closeout and handoff
+**Current phase progress:** 2/3 slices complete
+**Slices until program completion:** 1
+**Current slice:** 6.3 - Canonical closeout and handoff
+**Current slice status:** NOT STARTED  
+**Next slice:** None after 6.3 - program closeout
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
 
@@ -878,9 +878,9 @@ Slice 6.1 is COMPLETE, 3/3. Permanent exact-ref repository-network CI now contin
 
 ## Slice 6.2 - End-to-end qualification
 
-**Status:** IN PROGRESS
+**Status:** COMPLETE
 **Dependencies:** 6.1
-**Adaptive tasks:** 4/5 complete
+**Adaptive tasks:** 5/5 complete
 
 Prove Distribution-originated, component-originated, sibling-defect, stale-doc, breaking-contract and emergency paths end to end with exact refs, preservation, member isolation, provenance and reconstructability.
 
@@ -901,7 +901,7 @@ Planning is bound to System `27ebfcfadb07260aa8854374bd03bd28d248f743` and Distr
 - [x] **6.2-T2** Prove the component-originated positive path with one real exact owner-accepted forward component revision: reuse existing exact acceptance if available or obtain bounded temporary owner-native candidate evidence at the canonical owner, freeze the required scoped System/Registry/State evidence in an isolated workspace, adopt exactly that ref in Distribution, and prove qualification, preservation/member isolation, isolated final admission and reconstructability without treating observed/latest refs as acceptance or mutating live release state.
 - [x] **6.2-T3** Extend the isolated harness with end-to-end sibling-defect, stale-doc and breaking-contract cases: a sibling defect must route back to the canonical owner and cannot be patched/adopted by Distribution without exact owner acceptance; stale System prose must produce evidence-first drift/reconciliation without regressing accepted implementation or fabricating release authority; a depended-on breaking contract must block composition/promotion unless an accepted compatibility/migration path exists. Prove exact provenance, no destructive member/user-state mutation and fail-closed/requalification behavior where required.
 - [x] **6.2-T4** Prove the emergency path end to end in isolation through the same owner validation, exact refs, compatibility/migration, preservation, member isolation and whole-product qualification gates; allow only explicit non-safety `SYSTEM-SYNC-DEBT`, bind the exact debt in durable receipt evidence, prove later normal promotion is blocked while debt is open, and prove reconciliation requires exact synchronized canonical State before normal promotion can resume. Perform no live promotion.
-- [ ] **6.2-T5** Wire the accepted end-to-end harness into permanent exact-ref CI by extending the existing repository-network gate or adding only the minimal non-duplicative qualification gate, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member and canonical State/ledger remain unchanged, close Slice 6.2, advance only to the Slice 6.3 bounded discovery/planning start, and stop without beginning canonical closeout.
+- [x] **6.2-T5** Wire the accepted end-to-end harness into permanent exact-ref CI by extending the existing repository-network gate or adding only the minimal non-duplicative qualification gate, run clean Distribution and required System cross-validation, confirm live release/candidate/debt/member and canonical State/ledger remain unchanged, close Slice 6.2, advance only to the Slice 6.3 bounded discovery/planning start, and stop without beginning canonical closeout.
 
 ### T1 evidence
 
@@ -938,7 +938,16 @@ Planning is bound to System `27ebfcfadb07260aa8854374bd03bd28d248f743` and Distr
 - PR Distribution CI `39090621871` passed all six platform/Python jobs (Ubuntu/Python 3.11: 465 tests, 11 expected skips, all four new cases passed); PR Repository Network Regression `39090621936` passed. Clean-main Distribution CI `39090696008` passed all six jobs and exact-ref Repository Network Regression `39090696015` passed on merge `0372ee4340759182dafff4330b12124ee5c56f26`.
 - Live `current_release` remains `core-first-run-rc1-2026-10-12`; `core_candidates.json` empty (blob `c1352da686207d404536a34464b7a03438c5d81a`), `core_promotions.json` unchanged (blob `8646ead86a03c31ce369f510fea2e0ac8cb227c5`), live `system_sync_debts` empty; historical U36, owner-main commits, canonical Registry/State/ledger, member installations and user-owned state unchanged. Permanent T5 CI wiring has not begun. No plan amendment.
 
-Slice 6.2-T4 is complete, 4/5 tasks. 6.2-T5 has not begun. No plan amendment was required.
+### T5 evidence and Slice 6.2 closure
+
+- Distribution PR #53 merged the accepted two-file, minimal permanent network-CI extension at `742176fe25fc67408626587e117851cdfc42d14f` (exact PR head `0d58a9d0a7d980cb59ef86d816ef8a683cd8eff6`). The only changed files are `scripts/run-repository-network-governance-regression.py` and `tests/test_repository_network_governance_regression.py`. No extra workflow, duplicate release authority or runtime/product code was created.
+- The existing `Repository Network Regression` workflow already checks out canonical System evidence at immutable `b917f8812f21a02f4b58e402ce6dc5838303bb5d`, plus the five State-observed exact owner heads (OS `83747a90998077ad2ab4636f202ca2e065a9a6bb`, Brain `4406d15068284b88e0076b6dfff5aa0b06890a24`, Memory `09911eae0b4b0cbf7e7e7969230fe5b86647b841`, Skills `23779f10515951ac92c83cba34a1a868c02c4d87`, Data `7e9fadbd73752b24eb79e270aff6b311ad508109`), and exact PR/main Distribution checkout. T5 requires all four T1-T4 test modules to execute in that gate, in addition to existing cross-repo governance/admission/zero-loss/receipt regressions. A new contract regression fails if any module is omitted; all 19 isolated end-to-end tests and the focused suite passed in the network gate.
+- PR Repository Network Regression `39091005947` passed, and PR Distribution CI `39091005925` passed six Linux/macOS/Windows Python 3.11/3.12 jobs (Ubuntu 3.11 ran 466 tests with 11 expected skips). Clean-main Repository Network Regression `39091120460` passed, and clean-main Distribution CI `39091120450` passed all six matrix jobs on the exact T5 merged tree.
+- Live Core release remains `core-first-run-rc1-2026-10-12` with exact `core_promotions.json` blob `8646ead86a03c31ce369f510fea2e0ac8cb227c5`; the live candidate overlay remains empty with blob `c1352da686207d404536a34464b7a03438c5d81a`; `system_sync_debts` remains empty. Historical U36 evidence retains blob `0fec6e5290e659469a52a5f769da620f329f8c5a` and no retroactive receipt. System Registry blob `cc4df25367762c8a8148f87bf9015b4f5107ce17`, canonical Core State blob `154d1cab5a0b0883c7a311376a10432f8a426366` (complete scoped Core, no open drift) and State ledger blob `c8fabd37d6e8ce5f38c14059482b009ef11dc089` remain unchanged; no owner-main/member/user-state modification or live promotion occurred.
+- **Evidence limit remains explicit:** T1-T4 positive State/composition fixtures are disposable; T2's owner-native Brain forward revision is genuinely exact owner-tested but was not merged as a production release. In particular `reconcile_system_sync_debt` validates caller-supplied synchronized State bytes/digest but does not itself retrieve/authenticate remote canonical System provenance. The permanent network gate does not retroactively turn synthetic synchronized State into live canonical State authority. Real future release/debt closure requires separately authenticated live canonical evidence, not this test snapshot. Preserve this distinction during Slice 6.3 handoff.
+- Slice 6.2 is COMPLETE at 5/5 tasks, after all six required end-to-end path families and their fail-closed preservation/provenance/regression conditions were exercised within accepted boundaries. No plan amendment. No Slice 6.3 work has begun.
+
+Slice 6.2 is COMPLETE, 5/5 tasks. Slice 6.3 bounded planning has not begun. No plan amendment was required.
 
 ## Slice 6.3 - Canonical closeout and handoff
 
@@ -950,6 +959,13 @@ Close only after all 20 slices pass, required rollout waves are governed, no dup
 ---
 
 # Program Change Log
+
+## 2026-10-18 - Slice 6.2 closed with permanent exact-ref end-to-end CI
+
+- Distribution PR #53 merge `742176fe25fc67408626587e117851cdfc42d14f`, PR CI `39091005925` 6/6, clean-main CI `39091120450` 6/6, PR exact-network regression `39091005947` and clean-main exact-network regression `39091120460` passed.
+- Existing frozen seven-repo gate now requires T1-T4 isolated tests (19 end-to-end cases) alongside System/Distribution owner/drift/preservation/receipt regressions; no parallel release/State authority, live release change, or synthetic evidence promotion.
+- Preservation confirmed: live Core release, empty candidate/debt catalogs, historical U36, System Registry/State/ledger, owner main and member/user state unchanged.
+- 6.2 closed 5/5, overall program 19/20 = 95.0%, Phase 6 2/3. Next 6.3 bounded planning only. No amendment.
 
 ## 2026-10-18 - Slice 6.2 T4 isolated emergency qualification and debt reconciliation proven
 
@@ -1245,11 +1261,11 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 
 # Current execution pointer
 
-**Completed:** 18/20
-**Overall:** 90.0%
+**Completed:** 19/20
+**Overall:** 95.0%
 **Phase:** Phase 6 - Prove the network and close
-**Phase progress:** 1/3
-**Until program completion:** 2 slices
-**Current slice:** Slice 6.2 - End-to-end qualification (`IN PROGRESS`, 4/5 tasks complete)
-**Next:** 6.2-T5 - wire the accepted T1-T4 isolated end-to-end regression harness into permanent exact-ref network CI using the smallest non-duplicative change; run clean Distribution and required System cross-validation, verify unchanged live release/candidate/sync-debt, canonical State/ledger, U36 and member state; close 6.2 and advance only to 6.3 bounded planning start without starting 6.3
-**Blockers/drift/amendments:** T4 tests-only Distribution PR #52 merged at `0372ee4340759182dafff4330b12124ee5c56f26`. PR CI `39090621871` 6/6, clean-main CI `39090696008` 6/6 and Repository Network Regression `39090696015` passed. Four emergency/receipt/debt/isolated-reconciliation tests reuse genuine exact owner CI observations and synthetic temporary System State/composition. Existing reconciliation validates supplied synchronized State bytes and digest but does not independently authenticate remote canonical System origin: real future reconciliation must retrieve/verify System State, and T5 must not present this isolated test as remote canonical State synchronization. Live Core `core-first-run-rc1-2026-10-12`, empty candidate overlay, empty system_sync_debts, historical U36, Registry/State/ledger, owner main, member/user-owned state unchanged. No plan amendment. 6.2-T5 has not begun.
+**Phase progress:** 2/3
+**Until program completion:** 1 slice
+**Current slice:** Slice 6.3 - Canonical closeout and handoff (`NOT STARTED`; bounded planning has not begun)
+**Next:** Slice 6.3 start - perform only bounded discovery/planning under the permanent one-task execution law; inspect the exact final-closeout acceptance requirements, current canonical Registry/State/ledger/watchdog, accepted 6.1/6.2 and rollout-wave evidence; classify REUSE | EXTEND | CREATE | RETIRE | BLOCK/UNKNOWN; record the smallest evidence-backed adaptive task list and first execution task, then STOP without beginning implementation, global State refresh, live promotion or final handoff
+**Blockers/drift/amendments:** Slice 6.2 closed 5/5 with permanent exact-ref T1-T4 network regression wiring at Distribution `742176fe25fc67408626587e117851cdfc42d14f`, clean-main CI `39091120450` 6/6 and network regression `39091120460` green. Live release `core-first-run-rc1-2026-10-12`, candidate overlay empty, sync-debt ledger empty, U36 untouched, canonical Registry/State/ledger, owner-main and member/user-state unchanged. T2 Brain forward owner-native evidence was a bounded qualification candidate, not a live release; T1-T4 synthetic scoped State/composed inputs are not canonical acceptance. The reconciliation API does not authenticate caller-supplied State against remote canonical System; real debt closure requires independently sourced canonical State evidence. No open blocking drift in accepted scoped Core snapshot, no plan amendment. Slice 6.3 planning has not begun.
