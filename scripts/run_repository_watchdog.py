@@ -302,6 +302,16 @@ def main() -> int:
         print(f"WATCHDOG REFRESH FAILED: {exc}", file=sys.stderr)
         return 1
 
+    # Preserve exact failure identity for a fail-closed operator diagnosis.
+    # Never print credential-bearing request URLs or auth headers.
+    for failure in failures:
+        print(
+            "WATCHDOG EVIDENCE FAILURE "
+            f"repository_id={failure['repository_id']} "
+            f"surface={failure['surface']} kind={failure['kind']}",
+            file=sys.stderr,
+        )
+
     errors = state_refresh.validate_state(result, registry, registry_path=args.registry)
     if errors:
         print("WATCHDOG PRODUCED INVALID STATE", file=sys.stderr)
