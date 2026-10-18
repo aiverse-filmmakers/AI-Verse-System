@@ -121,6 +121,8 @@ class RepositoryStateTests(unittest.TestCase):
 
     def test_complete_core_refresh_must_cover_exact_registered_core_scope(self):
         state = copy.deepcopy(self.state)
+        # Assert complete-refresh invariants even when canonical State is partial.
+        state["refresh"]["status"] = "complete"
         state["refresh"]["mode"] = "scoped-refresh"
         state["refresh"]["scope"] = "Core"
         state["refresh"]["last_scoped_refresh"]["scope"] = "Core"
@@ -157,6 +159,8 @@ class RepositoryStateTests(unittest.TestCase):
 
     def test_complete_global_refresh_requires_every_registered_repository(self):
         state = copy.deepcopy(self.state)
+        # Assert complete-refresh invariants even when canonical State is partial.
+        state["refresh"]["status"] = "complete"
         state["refresh"]["scope"] = "global"
         state["refresh"]["mode"] = "full-refresh"
         state["refresh"]["last_scoped_refresh"]["scope"] = "global"
@@ -168,6 +172,8 @@ class RepositoryStateTests(unittest.TestCase):
 
     def test_repository_in_complete_refresh_must_bind_current_freshness_revision(self):
         state = copy.deepcopy(self.state)
+        # Assert complete-refresh invariants even when canonical State is partial.
+        state["refresh"]["status"] = "complete"
         state["repositories"][2]["freshness"]["evidence_revision"] = "f" * 40
         self.assertInvalid(state, "must equal current refresh evidence revision")
 
