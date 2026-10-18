@@ -13,7 +13,7 @@
 **Current phase progress:** 2/3 slices complete
 **Slices until program completion:** 1
 **Current slice:** 6.3 - Canonical closeout and handoff
-**Current slice status:** IN PROGRESS (bounded planning recorded; 0/4 tasks; next 6.3-T1)  
+**Current slice status:** IN PROGRESS (1/4 tasks complete; next 6.3-T2)  
 **Next slice:** None after 6.3 - program closeout
 
 > This file is the execution tracker. A slice is not COMPLETE until implementation, tests/evidence, tracker update, required canonical State/ledger publication and progress accounting are committed.
@@ -953,7 +953,7 @@ Slice 6.2 is COMPLETE, 5/5 tasks. Slice 6.3 bounded planning has not begun. No p
 
 **Status:** IN PROGRESS  
 **Dependencies:** 6.2  
-**Adaptive tasks:** 0/4 complete
+**Adaptive tasks:** 1/4 complete
 
 Close only after all 20 slices pass, required rollout waves are governed, no duplicate truth remains, admitted releases use accepted owner refs plus whole-product qualification, preservation/member isolation pass, and Registry/State/watchdog/receipt evidence is operational.
 
@@ -970,7 +970,7 @@ Planning is bound to System `fcdbb7033c762fbd71be83cd37e44a159e89b77f` and Distr
 
 ### Adaptive task list
 
-- [ ] **6.3-T1** Assemble the exact final-acceptance evidence matrix from accepted slice closures and immutable System/Distribution/owner refs: distinguish tested isolated paths from live admission, map each final 6.3 criterion to proof or a precisely scoped gap, and record evidence/provenance limits without re-running accepted slices or refreshing State prematurely. Update this roadmap with T1 evidence and point only to T2, then STOP.
+- [x] **6.3-T1** Assemble the exact final-acceptance evidence matrix from accepted slice closures and immutable System/Distribution/owner refs: distinguish tested isolated paths from live admission, map each final 6.3 criterion to proof or a precisely scoped gap, and record evidence/provenance limits without re-running accepted slices or refreshing State prematurely. Update this roadmap with T1 evidence and point only to T2, then STOP.
 - [ ] **6.3-T2** Reconcile the final acceptance matrix with Registry-confirmed Wave 1 Core, Wave 2 Agent and Wave 3 Full/experimental handoff truth; confirm no duplicate authority, unsupported admission claim, unresolved intersecting drift or undocumented preservation/member-isolation limitation. Extend only canonical source-only handoff evidence where necessary; do not adopt/promote owners or expand into sibling implementation. Record disposition and point only to T3, then STOP.
 - [ ] **6.3-T3** Run the required final exact-ref cross-validation and permitted canonical full-network watchdog/Registry-derived State refresh with deterministic ledger verification/publication at the proper final evidence boundary; qualify any necessary System/Distribution documentation changes on their exact refs. Preserve immutable release/receipt/U36/member state and stop on stale, failed, divergent or unauthenticated evidence. Record results and point only to T4, then STOP.
 - [ ] **6.3-T4** Publish the minimal canonical maintainer closeout/handoff, including immutable accepted Core and Agent boundaries, blocked Full/experimental disposition, operator validation/recovery routes and emergency State-provenance limitation. Confirm all 20 slice acceptance floors, required green cross-validation, operational canonical Registry/State/watchdog/receipt evidence and source-only/member isolation; close Slice 6.3 and the 20-slice program only on exact proven evidence, then STOP.
@@ -979,9 +979,34 @@ Planning is bound to System `fcdbb7033c762fbd71be83cd37e44a159e89b77f` and Distr
 
 Next authorized run is **6.3-T1 only**. No implementation, final admission, State refresh, rollout promotion or closeout was begun during 6.3 planning.
 
+### T1 final-acceptance evidence matrix (2026-10-18)
+
+T1 assembled the final acceptance matrix from accepted, immutable closures, current exact source blobs and pre-existing CI records. It did **not** re-run any accepted slice, promote a release, publish a State/ledger refresh, qualify any new candidate or inspect/mutate an actual member installation. The matrix is a historical proof and gap map, not a new current-health authority.
+
+| Final Slice 6.3 acceptance | Accepted exact proof and meaning | Honest remaining boundary / next owner |
+| --- | --- | --- |
+| **All 20 slices pass** | The canonical tracker marks 0.1, 1.1-1.3, 2.1-2.3, 3.1-3.3, 4.1-4.3, 5.1-5.4, 6.1 and 6.2 COMPLETE (19/20). Last closure: System PR #231 at `fcdbb7033c762fbd71be83cd37e44a159e89b77f`. Slice 6.3 start/planning: System PR #232 at `3c696cff2ea95ef2e1b8e1f1a36f37b7d9dbb2f2`, clean-main Contract Validation `39112087257` passed. | 6.3 is not complete. Final 20/20 accounting and handoff remain reserved for T4, after T2/T3 acceptances. |
+| **Required rollout waves governed** | Registry `cc4df25367762c8a8148f87bf9015b4f5107ce17` contains 14 entries across Wave 1 (7), Wave 2 (4), Wave 3 (3); Slice 4.2 establishes exact Wave 1 descriptor/owner handoff; 4.3 closes Wave 2/3 owner adoption. Released Agent record `agent-video-editor-rc1-2026-10-04.json` is immutable blob `111342a54e7090494c9af958584c80868455ffc2`. | Newer Wave 2 native-green candidates are **not** automatically admitted Agent releases. Full record `full-public-beta-pending.json` blob `c8270e23654264f22655ad8d9d4a070f1421c304` is `blocked` with no components; Apps is experimental/non-shipped/no native CI. T2 must disposition governance without inventing Full readiness. |
+| **No duplicate System/owner/Distribution truth** | Phase 2 contracts/Registry/State closures (`11940b87838afa0f46570ecdd8f8e00f74b7de5a`, `98773f6db85ac727a32ed798cf5113fe839e24a1`, `423e04917a9f1a9b4f012fa9daf4366fc8135e8c`), 5.1 evidence-bound candidate gate, and 6.1 permanent exact seven-repo Network Regression followed by 6.2 gate wiring at Distribution `742176fe25fc67408626587e117851cdfc42d14f`. Clean-main Network Regression `39091120460` passed. | This proves contracts, source ownership and destructive-negative gates at their accepted boundaries, not universal absence of drift at every future ref. T2 owns the bounded final authority/handoff reconciliation. |
+| **Admitted releases use accepted owner refs and whole-product qualification** | Released Core catalog `core_promotions.json` blob `8646ead86a03c31ce369f510fea2e0ac8cb227c5` names `core-first-run-rc1-2026-10-12`; historical U35 exact qualification (`qualification/core-update-program-u35/qualification.json`, blob `aa363259abb9b7245c3febb02285fda9fc2016cd`) records accepted transition/preservation/status/doctor evidence. Phase 5 candidate, composed qualification and promotion paths fail closed; 6.2 isolated T1-T4 paths exercise both positive and destructive-negative behavior. | **Carried contrary evidence:** historical Clean Machine Core Acceptance `38807901169` completed `failure` because accepted OS `64f7325444d18f94c9d4755d32eb89f3468bda6b` reported `Setup: setup-required`. This does not retroactively erase U35, but is not a clean-machine PASS and cannot authorize a new qualification/promotion. T2 must explicitly disposition the limitation; no owner repair or release promotion is authorized by T1. |
+| **Preservation and member-payload isolation pass** | Slice 5.2 adopted Distribution payload boundary `d524f8d04652d8911b931109d0bebc71be34f143`; Distribution CI `38758297678` passed the ten populated-root zero-loss regressions. 6.1 exact network gate enforces lifecycle/receipt zero-loss, and 6.2 isolated acceptance preserves member/user sentinel bytes across simulated promotion and failure. | Exact regression/fixture proof is not a new real-member pilot or a claim that all installations were scanned. Preserve historic U36 and user-owned-state distinctions in T2/T4 handoff. |
+| **Registry/State/watchdog/receipt evidence operational** | Current source blobs: Registry `cc4df25367762c8a8148f87bf9015b4f5107ce17`, scoped Core State `154d1cab5a0b0883c7a311376a10432f8a426366`, deterministic ledger `c8fabd37d6e8ce5f38c14059482b009ef11dc089`. Stored watchdog is `WATCHDOG-CURRENT` for its last global scan at `2026-10-15T15:21:15Z`; current State has no open drift records. Slice 5.4 future Core admission requires a durable immutable non-cyclic receipt; 6.1/6.2 regressions prove reconstruction and tamper/fail-closed behavior. | The persisted watchdog label is **not** a fresh October 18 full scan. T3 alone owns required final current canonical refresh/ledger and validation. Historical U36 blob `0fec6e5290e659469a52a5f769da620f329f8c5a` intentionally has no retroactive receipt; no live forward promotion/receipt was made. |
+| **Emergency and cross-origin provenance boundaries** | Slice 6.2-T1/T2/T3/T4 isolated suites were permanently wired into exact-ref CI via PR #53; all 19 cases passed clean-main network run `39091120460` (Distribution CI `39091120450` 6/6). They cover Distribution-origin, exact owner-origin, sibling failure, stale docs, breaking contracts and emergency debt/receipt/requalification. The Brain T2 forward ref has genuine owner-native acceptance (`CI` `39088696092`, descriptor `39088807245`) but remained a bounded unmerged qualification candidate. | Positive State/composition fixtures are disposable and not live canonical State or real promotion. `reconcile_system_sync_debt` validates caller-supplied State bytes/digest but does **not** authenticate remote System provenance. Any real future debt closure requires independently sourced canonical System State; T1 makes no live emergency/reconciliation claim. |
+
+**T1 disposition:** Accepted 1-6.2 closures and regression floors provide the exact historical foundation, but T1 does **not** satisfy T2 rollout/authority disposition, T3 fresh full-network evidence or T4 final closeout. The known OS clean-machine `setup-required` failure, blocked Full/experimental Apps status and emergency remote-State provenance limitation are explicitly carried forward, not silently resolved. No new plan amendment is proposed on this evidence-only task; T2 must fail closed or use the amendment protocol if protected final acceptance cannot be met.
+
+**T1 preservation:** Distribution `main` remains `742176fe25fc67408626587e117851cdfc42d14f`, live Core release remains `core-first-run-rc1-2026-10-12`, candidate overlay blob remains `c1352da686207d404536a34464b7a03438c5d81a` (empty), sync debt remains empty and promotion blob remains `8646ead86a03c31ce369f510fea2e0ac8cb227c5`. System Registry/State/ledger/U36 are unchanged. No T2-T4 pre-work was performed.
+
+**Exact next task:** 6.3-T2 only. STOP after accepted T1 bookkeeping.
+
 ---
 
 # Program Change Log
+
+## 2026-10-18 - Slice 6.3 T1 final acceptance evidence matrix recorded
+
+- Read accepted 19/20 slice closures, exact Core/Agent/blocked-Full release records, U35/U36, canonical Registry/State/ledger/watchdog and prior permanent CI; recorded proof versus gaps without executing final acceptance or T2 rollout reconciliation.
+- Preserved the carried failed Core clean-machine OS `setup-required` result (`38807901169`), synthetic-vs-live 6.2 boundaries, emergency remote canonical State provenance limit and October 15 watchdog timestamp. T1 is complete (1/4); exact pointer is T2 only. No State refresh, live promotion, owner/member write or plan amendment.
 
 ## 2026-10-18 - Slice 6.3 bounded closeout planning started
 
@@ -1294,6 +1319,6 @@ Closure `acabfba8031421438747fed69bcbc65ba844787e`.
 **Phase:** Phase 6 - Prove the network and close
 **Phase progress:** 2/3
 **Until program completion:** 1 slice
-**Current slice:** Slice 6.3 - Canonical closeout and handoff (`IN PROGRESS`; bounded planning recorded; 0/4 tasks complete)
-**Next:** 6.3-T1 - assemble the exact final-acceptance evidence matrix and classify proof versus gaps/provenance limits; record only T1 findings and advance one pointer, then STOP. No T2-T4 pre-work.
-**Blockers/drift/amendments:** Accepted 6.2 closeout and its clean-main Distribution/System CI remain the current regression floor. Live Core remains `core-first-run-rc1-2026-10-12`; candidate/debt empty; exact Registry/State/ledger and U36 unchanged. Stored `WATCHDOG-CURRENT` global scan is dated 2026-10-15, so the final fresh canonical full-network/ledger claim is reserved for 6.3-T3, not this planning run. Wave 2 Agent has accepted immutable released baselines, not automatic acceptance of newer candidates. Full remains blocked and Apps experimental. Synthetic 6.2 fixtures and isolated Brain owner-native forward evidence are not live admission; emergency debt reconciliation still requires independently verified canonical System State. No open intersecting Core BLOCKING drift in the accepted snapshot, no plan amendment, no live release/member mutation.
+**Current slice:** Slice 6.3 - Canonical closeout and handoff (`IN PROGRESS`; 1/4 tasks complete)
+**Next:** 6.3-T2 - reconcile the accepted final evidence matrix with Wave 1/2/3 governance and exact ownership/admission/handoff boundaries; disposition carried OS clean-machine, blocked Full/Apps and provenance limits within scope; record only T2 and then STOP. Do not run T3 fresh State/ledger validation or T4 handoff.
+**Blockers/drift/amendments:** T1 accepted historical 19/20 slice closure evidence and 6.1/6.2 exact-ref regression floors, but final readiness remains unclaimed. The 5.3 Clean Machine Core run `38807901169` failed on carried OS `setup-required`; it is not a PASS and cannot authorize promotion. Full remains blocked and Apps experimental; newer Wave 2 heads are not automatically admitted. Stored global watchdog is dated 2026-10-15 and requires T3 fresh verification; emergency reconciliation requires independently authenticated canonical System State. Current live Core, empty candidate/debt, U36 and canonical Registry/State/ledger unchanged. No new plan amendment and no T2-T4 work begun.
