@@ -1,3 +1,11 @@
+## 2026-10-19: Add proportional engineering guidance to implementation planning
+
+- Extended the canonical planning method with compact, standard and extended depth; concise product requirements; architecture simplicity and dependency checks; relevant engineering-risk review; meaningful behavioral verification; and disciplined diagnosis.
+- Added an optional reusable template with examples for a bounded fix, a multi-caller feature and an owner-backed lifecycle change. The method remains the rule source and existing bounded-adaptation, preservation and owner laws remain unchanged.
+- Linked the template from the repository README. This is maintainer guidance; it does not claim CI enforcement or change component ownership.
+
+---
+
 ## 2026-10-15: Synchronized completed Safe Infrastructure lifecycle into the living specification
 
 - Recorded Safe Infrastructure as **COMPLETE: 18/18 slices, 100%**, handed off as permanent maintenance infrastructure.
