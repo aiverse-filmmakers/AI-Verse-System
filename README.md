@@ -119,4 +119,4 @@ Implementation plans intended for future AI-Verse work live in [plans/](plans/RE
 - [plans/blocked/](plans/blocked/) contains plans paused for an explicit blocker or protected plan amendment.
 - [plans/archive/](plans/archive/) contains superseded or retired plans kept for history.
 
-Plans are not implementation code and do not prove that a feature is shipped. They use the [Adaptive Implementation Planning Skill](docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md): fixed destination, phases, acceptance-based slices, adaptive execution tasks, and explicit evidence. Discovery may adapt execution tasks, but protected architectural or product-direction changes require a recorded plan amendment.
+Plans are not implementation code and do not prove that a feature is shipped. They follow the [Adaptive Implementation Planning Skill](docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md), which remains the rule source; use the [implementation plan template](docs/IMPLEMENTATION-PLAN-TEMPLATE.md) when a starting structure helps. Discovery may adapt execution tasks, but protected architectural or product-direction changes require a recorded plan amendment.

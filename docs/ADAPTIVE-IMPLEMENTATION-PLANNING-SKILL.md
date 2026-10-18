@@ -255,6 +255,30 @@ Blockers/drift/amendments: <none or concise status>
 
 If a plan amendment is pending, report it explicitly and do not imply the roadmap change is already accepted.
 
+## 12. Make implementation plans technically useful and proportional
+
+The plan should give the implementer enough product and engineering context to make sound routine decisions without turning every change into paperwork. Choose depth by impact:
+
+| Depth | Use when | Keep in the plan |
+|---|---|---|
+| Compact | Bounded change with a known owner and no public-contract, data, permission or recovery change | Problem and current behavior, bounded change, relevant risk, observable acceptance, focused verification and recovery |
+| Standard | New behavior or several interacting modules | A concise product brief, requirements, caller/owner map, design choice, applicable risk decisions, slices and verification |
+| Extended | Multiple owners, persistent state, permissions, migration, installer/lifecycle or hard-to-reverse effects | Standard depth plus explicit contracts, compatibility, migration/recovery, owner acceptance and composed qualification |
+
+Use the shortest depth that still covers the real risks. Keep one living plan with linked evidence; a plan is not a reason to create duplicate PRD, architecture and status documents.
+
+For standard and extended work, state who needs the change, the observed problem, the intended user journey, scope and non-goals, behavior/data to preserve, and unresolved assumptions. Give important requirements stable IDs and map each to an observable success case, meaningful failure case and verification. Set performance, resource, accessibility or cost targets only when evidence supports them; otherwise plan a bounded measurement.
+
+Before choosing a design, trace the current trigger and caller through validation, owner effects and result/error. Compare reuse/configuration with new code. Explain why the selected approach is the simplest maintainable way to meet the requirement. Justify added dependencies, services, stores, abstractions and configuration; apply a deletion test to proposed layers. Use established repository patterns, not speculative frameworks.
+
+Screen relevant risks once: canonical ownership and permissions; privacy, security and untrusted input; persistence, migration and concurrency; supported runtimes/platforms; user-visible failure/recovery; and AI-specific scope, prompt-injection, context-budget and evaluation risks. Record a concrete decision or a reason an area does not apply. This is a judgment aid, not a checklist of features to build.
+
+For code slices, choose a public behavior that proves the requirement. Use a meaningful failing regression before a fix when practical, then implement the smallest complete behavior, verify it and simplify. Do not manufacture a failing test for documentation or pure cleanup; characterize existing behavior and compare the relevant outputs instead. Tests must exercise the intended caller and fail when the defect returns; do not weaken assertions or hide errors to get a green result. When a defect is unclear, reproduce it, probe one falsifiable cause at a time, remove temporary diagnostics and rerun the original case. Measure performance against a baseline only when the requirement or observed bottleneck makes it relevant.
+
+Issue drafts may be derived from accepted slices when they help execution. Keep requirement IDs, dependencies and acceptance intact. Drafting or publishing issues is optional and follows existing authorization.
+
+These checks supplement the fixed-outcome, bounded-adaptation, preservation, owner and evidence laws above; they do not change the roadmap or grant permission.
+
 ## Planning principle
 
 > **Fix the destination. Discover the safest route from current reality.**
