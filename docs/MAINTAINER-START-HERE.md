@@ -159,8 +159,10 @@ Registry, Repository State, generated governance ledger, tombstones, implementat
 
 Member installs receive only admitted runtime/product artifacts plus legitimate member-facing generated files. Unknown and user-owned files remain protected.
 
-## Current state warning
+## Current operational evidence and program handoff
 
-The watchdog implementation and workflow exist in Slice 3.2, but Repository State must remain `WATCHDOG-STALE` until the first successful full registered-repository heartbeat is actually run and published. Merely adding the workflow is not evidence of a successful heartbeat.
+The 20-slice repository-network governance program's exact acceptance matrix, source-only closeout and ongoing operator caveats are in [Repository Network Program Closeout and Handoff](REPOSITORY-NETWORK-PROGRAM-CLOSEOUT-HANDOFF-2026-10-18.md). The canonical Registry/State files and successful workflow runs remain the machine/evidence truth; this entrypoint is not a separate current-health or release authority.
 
-The existing Core release may have successful owner/Distribution test history, but current component descriptors do not yet prove exact owner acceptance for all current shipped refs. Repository State keeps that Core `BLOCKING` governance gap visible for future release admission rather than rewriting history or claiming the shipped refs were untested.
+The last verified global heartbeat at program closeout is `WATCHDOG-CURRENT`, a complete 14/14 Registry-derived scan observed `2026-10-18T19:54:04Z` on evidence revision `c5e0920d155b6b284b8d68f16ddf694bbb5dd6ab`, published in System commit `5557c734982776f73b8aaed07ed67fcd1adf0ab5`. It reported zero evidence failures and zero open drift, and its State/ledger were validated. That historic exact snapshot is not a claim that a later unrelated System/owner ref is automatically synchronized. For future full-network decisions, obtain a properly scoped fresh refresh/watchdog at the exact decision boundary. The preceding failed scheduled watchdog attempts remain genuine failures in the roadmap.
+
+All five released Core pins have exact accepted owner descriptors at the inspected T2 refs, but the historical three-OS clean-machine acceptance failure `38807901169` still reported `Setup: setup-required` and does not authorize a **new** promotion. Wave 2/3 current-head acceptance remains `unverified`/`unpinned`; Agent historical release is nondefault, Full blocked and Apps experimental despite Apps now being public. Real emergency debt closure requires independently authenticated remote canonical System State. Do not equate source acceptance, passing isolated regressions or the global heartbeat with a universal live member-health or promotion pass.
