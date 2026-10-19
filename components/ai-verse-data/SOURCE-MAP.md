@@ -12,6 +12,22 @@
 
 ---
 
+## 2026-10-19 accepted-source map
+
+**Accepted source:** `f8978f8f7a1bc94edecddc2662112233289159a3`; the owner descriptor observed at `7e9fadbd73752b24eb79e270aff6b311ad508109` confirms that revision. The old 8edde7d source map is 16 commits behind the accepted source.
+
+New accepted source surfaces include:
+
+- `src/purpose/current-values.ts` and `src/purpose/current-value-status.ts` — bounded exact-reference reads with provenance/freshness and present/stale/missing classification;
+- `src/native/natural-key-create.ts` — validated natural-key creation inside an immediate write transaction;
+- `src/scope/trusted-root.ts` — immutable trusted root/scope provenance and root containment checks;
+- `src/native/host-engine.ts` — installed host actor binding for the owner-controlled mutation route;
+- `test/purpose-current-values.test.ts`, `test/purpose-current-values-freshness.test.ts`, `test/purpose-current-values-provenance.test.ts`, `test/purpose-no-row-copy.test.ts` — current-value bounds, freshness, provenance and no-row-copy cases;
+- `test/natural-key-concurrency.test.ts` — concurrent natural-key deduplication and idempotent replay;
+- `test/trusted-scope-provenance.test.ts` — forged-scope rejection before outside-path access.
+
+The owner-native CI/acceptance descriptor binds the accepted revision to [run 37645269881](https://github.com/aiverse-filmmakers/AI-Verse-Data/actions/runs/37645269881). The current Core release ID remains `core-first-run-rc1-2026-10-12` and already pins this Data revision. Remaining legacy/standalone adoption and migration UX limitations remain open; source mapping does not claim them resolved.
+
 ## 2026-09-14 current superseding source map
 
 **CURRENT head:** `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`
