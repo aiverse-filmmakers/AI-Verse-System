@@ -11,18 +11,18 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `full-refresh`
 - Refresh scope: `global`
 - Refresh status: `complete`
-- Refresh evidence revision: `d2a4317f2acb4a4c21d3dfd133dd4f63213a1f4f`
-- Last full refresh: `d2a4317f2acb4a4c21d3dfd133dd4f63213a1f4f`
+- Refresh evidence revision: `e0f5c127cbb6c99f99d671936a52b5f4c9874c0d`
+- Last full refresh: `e0f5c127cbb6c99f99d671936a52b5f4c9874c0d`
 - Watchdog: `WATCHDOG-CURRENT`
-- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-19T03:15:53Z; all registered repositories were scanned with no access/fetch failure.
+- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-19T03:59:15Z; all registered repositories were scanned with no access/fetch failure.
 
 ## Repository state
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `d2a4317f2acb` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `e0f5c127cbb6` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `eab886735b42` | unverified | not-applicable | not-applicable | unverified | fresh / global |
-| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `26045ee1e665` | accepted `b6d8c7c7eea0` | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `b6d8c7c7eea0` / accepted | unverified | fresh / global |
+| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `7adbc79e7083` | accepted `98eed935a933` | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `98eed935a933` / accepted | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `39336cd19eb4` | accepted `f746806e4361` | pinned `69f7912eeb35` / core-first-run-rc1-2026-10-12 | observed `f746806e4361` / accepted | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-first-run-rc1-2026-10-12 | observed `f1327be48ba2` / accepted | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `23779f105159` | accepted `afde5c06307f` | pinned `afde5c06307f` / core-first-run-rc1-2026-10-12 | observed `afde5c06307f` / accepted | unverified | fresh / global |
