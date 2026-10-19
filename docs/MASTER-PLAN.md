@@ -465,7 +465,7 @@ For any Codex integration, distinguish four things: owner-accepted source, packa
 
 ---
 
-## Change propagation rule## Change propagation rule
+## Change propagation rule
 
 When implementation work occurs in any AI-Verse repository, the follow-up documentation check is:
 
