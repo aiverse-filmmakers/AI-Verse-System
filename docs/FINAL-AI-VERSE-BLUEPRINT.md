@@ -1582,7 +1582,7 @@ The owner implementation and exact hosted composition are current. The runtime c
 
 ---
 
-## 31. Final system conclusion## 31. Final system conclusion
+## 31. Final system conclusion
 
 AI-Verse is no longer primarily an architectural idea.
 
