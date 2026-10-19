@@ -1647,7 +1647,7 @@ The OS succeeds when these independently owned pieces feel like **one coherent s
 
 The implementation is owner-accepted and the exact cross-repository test workflow passed in [OS Four Repo Acceptance run #39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). That run proves the pinned owner composition and tests; it does not prove real Codex app trust, callbacks, review, or fresh-chat recall for a separately installed candidate. Distribution remains the authority for member packaging, qualification and release admission.
 
-## 53. Open decisions## 53. Open decisions
+## 53. Open decisions
 
 1. What should the universal component activation command syntax be?
 2. Should component discovery be registry-driven and self-describing instead of hardcoded IDs?
