@@ -22,8 +22,8 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | aiverse-filmmakers/AI-Verse-System | ai-verse-system | `967013147705` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `2b9f8a15307b` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | unverified | fresh / global |
-| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `37f14c85e480` | accepted `558f4ecb2f68` | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `558f4ecb2f68` / accepted | unverified | fresh / global |
-| aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `39336cd19eb4` | accepted `f746806e4361` | pinned `69f7912eeb35` / core-first-run-rc1-2026-10-12 | observed `f746806e4361` / accepted | unverified | fresh / global |
+| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `37f14c85e480` | accepted `558f4ecb2f68` | pinned `64f7325444d1` / core-first-run-rc1-2026-10-12 | observed `558f4ecb2f68` / accepted | synchronized `967013147705` | fresh / global |
+| aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `39336cd19eb4` | accepted `f746806e4361` | pinned `69f7912eeb35` / core-first-run-rc1-2026-10-12 | observed `f746806e4361` / accepted | synchronized `967013147705` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-first-run-rc1-2026-10-12 | observed `f1327be48ba2` / accepted | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `23779f105159` | accepted `afde5c06307f` | pinned `afde5c06307f` / core-first-run-rc1-2026-10-12 | observed `afde5c06307f` / accepted | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `7e9fadbd7375` | accepted `f8978f8f7a1b` | pinned `f8978f8f7a1b` / core-first-run-rc1-2026-10-12 | observed `f8978f8f7a1b` / accepted | unverified | fresh / global |
