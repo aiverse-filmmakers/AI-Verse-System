@@ -2333,7 +2333,19 @@ The architecture is successful when the user experiences one coherent intelligen
 ---
 
 
-## 70. Open decisions
+### 69A. Current owner-controlled workspace links (2026-10-19)
+
+**CURRENT owner interface:** Brain's accepted intent contract supports explicitly approved workspace links through the Brain owner API. The link metadata is optional and does not make Brain the owner of workspace context or workspace direction.
+
+- Link and unlink operations require the explicit operator authority, exact workspace scope, evidence reference, expected record revision and retry-safe operation identity.
+- Updates are idempotent and fail closed on conflicting revisions or mismatched scope.
+- Exact-scope projections redact other workspace links and link-only evidence; legacy records remain readable without rewriting them during reads.
+- Generic intent creation cannot bypass the explicit link/unlink owner API.
+- AI-Verse OS may expose only links explicitly approved through this Brain contract. It does not infer links or copy Brain strategy into OS-owned current context.
+
+The interface is accepted in Brain revisions `a1e9a6a09fe38a9cce61086706cbc76a9bc73f9f` and `f746806e4361c2b1cd67ee97810071cc86db7b9`, with [PR #31](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/31) preserving legacy behavior and closing the direct-write bypass. The exact owner-linked adapter composition passed [OS Four Repo Acceptance run #39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). This is owner/API and hosted composition evidence, not proof of real Codex desktop callbacks or fresh-chat behavior.
+
+## 70. Open decisions## 70. Open decisions
 
 1. What should the supported `enable` CLI look like?
 2. Should Brain expose one higher-level `activate` command, or should AI-Verse OS orchestrate activation?
