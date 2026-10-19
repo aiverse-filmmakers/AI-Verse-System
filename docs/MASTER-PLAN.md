@@ -459,6 +459,12 @@ The Final AI-Verse Blueprint must continue to tell the story of:
 - the path from the current implementation to that end state.
 
 
+## Codex local-runtime evidence law (2026-10-19)
+
+For any Codex integration, distinguish four things: owner-accepted source, packaged/composed tests, Codex trust for the exact hook definitions, and behavior in a real fresh conversation. Evidence from one layer does not prove the others. Project hooks and user-level hooks may both load, but an integration package must keep its generated project hook definitions in its own project scope and call canonical AI-Verse owners. A previously trusted local definition does not silently authorize a changed package definition.
+
+---
+
 ## Change propagation rule
 
 When implementation work occurs in any AI-Verse repository, the follow-up documentation check is:

@@ -894,6 +894,18 @@ Core doctor reports OS ready without automatically checking component doctor or 
 
 ---
 
+## 24A. 2026-10-19 Codex adapter and owner-composition evidence
+
+The current accepted OS implementation adds an optional local Codex learning adapter while preserving existing owner boundaries.
+
+- [OS accepted source revision `558f4ecb2f6810b10a0e152bfcf610e725fc7032`](https://github.com/aiverse-filmmakers/AI-Verse-OS/tree/558f4ecb2f6810b10a0e152bfcf610e725fc7032) contains `system/extensions/packages/ai-verse-codex-learning/` and its lifecycle, setup and test surfaces.
+- The package README documents the six project handlers, exact-definition trust requirement, local desktop scope, setup/doctor guidance and the distinction between fixture evidence and a real fresh Codex conversation.
+- System State records the accepted OS owner revision through the descriptor at observed owner head `ecd2dd9a290a1fcca918cd26470d4788fc2695e0`; Distribution candidate evidence binds exact OS source `558f4ecb2f6810b10a0e152bfcf610e725fc7032`.
+- [OS PR #94](https://github.com/aiverse-filmmakers/AI-Verse-OS/pull/94) pins exact v4 owner revisions in Four Repo Acceptance. [Run #39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429) completed successfully.
+- [Distribution candidate v4 evidence](https://github.com/aiverse-filmmakers/ai-verse-distribution/blob/main/qualification/core-local-upgrades-candidate-2026-10-19-v4/candidate-evidence.json) binds accepted OS, Brain, Memory, Skills and Data source revisions. Its separate [clean-machine acceptance run #39208360534](https://github.com/aiverse-filmmakers/ai-verse-distribution/actions/runs/39208360534) passed on the declared platform matrix.
+
+These hosted results are component/composition evidence. They do not prove candidate-specific Codex GUI trust, callbacks, original-turn review or fresh-chat recall. Distribution owns that product-path qualification and the promotion gate.
+
 ## 25. Evidence limitations
 
 1. This review did not treat other component repositories as primary sources.

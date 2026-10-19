@@ -1569,6 +1569,19 @@ This narrows the earlier generic self-improvement intent into a concrete reusabl
 
 ---
 
+## 30F. Codex local adapter and Brain-owned intent links (2026-10-19)
+
+Codex is an optional local host for AI-Verse OS capabilities. Its adapter lives with OS and uses the same canonical owners as other runtimes:
+
+- OS supplies bounded current context, Purpose Context routing, local setup and installation/version guidance.
+- Brain owns strategic intent and explicit workspace-link writes; the link API is scoped, revision-checked and evidence-backed.
+- Memory owns historical recall, Data owns structured operational truth, and Skills owns reusable capability state.
+- Codex hook definitions are project-level files in the AI-Verse project. User-level Codex hooks may coexist; neither source changes the OS owner boundaries. Changed non-managed hook definitions require their own trust review.
+
+The owner implementation and exact hosted composition are current. The runtime contract must keep installation and setup evidence separate from real desktop trust, callbacks, review receipts and fresh-chat recall. Distribution remains the owner of candidate qualification, member release admission and promotion. See the OS and Brain component specifications and source maps for exact revisions and evidence.
+
+---
+
 ## 31. Final system conclusion
 
 AI-Verse is no longer primarily an architectural idea.
