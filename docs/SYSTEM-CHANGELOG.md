@@ -1,3 +1,13 @@
+## 2026-10-19: Record owner-accepted Codex and Purpose Context integration
+
+- Added the current OS-owned local Codex adapter boundary and Brain-owned explicit workspace-link API to the living component specifications.
+- Recorded exact OS/Brain source evidence and the successful pinned Four Repo Acceptance run. The test proves the declared hosted composition, not candidate-specific desktop trust, callbacks, review receipts or fresh-chat recall.
+- Updated the Blueprint and current-target QC notes to preserve the distinction between implementation acceptance and member release readiness. Distribution continues to own packaging, qualification and Core promotion; user-owned local state remains outside upstream acceptance.
+
+Canonical detail: `components/ai-verse-os/COMPONENT-SPEC.md`, `components/ai-verse-os/SOURCE-MAP.md`, `components/ai-verse-os/QC.md`, `components/ai-verse-brain/COMPONENT-SPEC.md`, `components/ai-verse-brain/SOURCE-MAP.md`, `components/ai-verse-brain/QC.md`, and `docs/FINAL-AI-VERSE-BLUEPRINT.md`.
+
+---
+
 ## 2026-10-19: Add proportional engineering guidance to implementation planning
 
 - Extended the canonical planning method with compact, standard and extended depth; concise product requirements; architecture simplicity and dependency checks; relevant engineering-risk review; meaningful behavioral verification; and disciplined diagnosis.
