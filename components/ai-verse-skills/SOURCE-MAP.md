@@ -6,6 +6,23 @@
 **Audit date:** 2026-09-13  
 **Scope rule:** Skills was audited standalone. Cross-repository evidence was limited to contracts and acceptance surfaces that Skills itself names or depends on.
 
+## 2026-10-19 accepted-source map
+
+**Accepted source:** `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`; owner head observed at `23779f10515951ac92c83cba34a1a868c02c4d87`. The accepted descriptor binds the owner-native CI/acceptance evidence to that exact revision.
+
+Relevant implementation and contract surfaces:
+
+- `docs/IMMUTABLE_GENERATIONS.md` — execution-generation leases and pinned use;
+- `installer/generation_lifecycle.py` and `installer/controller_containment.py` — generation lifecycle and controller path containment;
+- `tests/test_generation_lifecycle.py` — lifecycle regressions;
+- `registry/skills.json`, `registry/packages.json`, `registry/profiles.json` — canonical catalog, package and profile sources;
+- `docs/VIDEO_EDITOR.md`, `docs/VIDEO_EDITOR_ARCHITECTURE.md`, and Video Editor release tests — composite contract;
+- `tests/test_cinematic_realism_director_contract.py` and `tests/test_cinematic_realism_director_security.py` — first-party director contract and security cases.
+
+Exact-source evidence: Skills owner CI/acceptance [37183671930](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183671930), validation [37183672008](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183672008), install E2E [38246389751](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/38246389751), and release-descriptor check [37183671957](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183671957). Exact-v4 hosted OS composition passed at [39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). Test-file presence is source mapping; only the linked hosted runs are claimed as execution evidence.
+
+The Core release ID remains `core-first-run-rc1-2026-10-12`. This documentation update does not promote a candidate. Codex adapter exposure/invocation, desktop hook trust and candidate-specific member approval remain outside the verified Skills owner claim.
+
 ## 2026-09-14 merged source-map update
 
 **CURRENT repository:** `aiverse-filmmakers/AI-Verse-Skills`  
