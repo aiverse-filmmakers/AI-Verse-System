@@ -1,3 +1,14 @@
+## 2026-10-19: Reconcile accepted Memory lifecycle and migration implementation
+
+- Replaced the stale September Memory gap assessment for the exact accepted Core source with current owner implementation, targeted tests, owner CI, and exact-v4 OS composition evidence.
+- Recorded native path containment, snapshot-bound migration, verified legacy-writer retirement, canonical mutation recovery, and the supported component lifecycle while preserving health-depth and hosted-composition limits.
+- Updated the Blueprint to distinguish the accepted Memory source from the still-pinned Core release and open candidate-specific Codex/member promotion evidence.
+- System Repository State remains unsynchronized until this documentation change is merged and a later checkpoint is recorded.
+
+Canonical detail: `components/ai-verse-memory/COMPONENT-SPEC.md`, `components/ai-verse-memory/SOURCE-MAP.md`, `components/ai-verse-memory/QC.md`, and `docs/FINAL-AI-VERSE-BLUEPRINT.md`.
+
+---
+
 ## 2026-10-19: Record owner-accepted Codex and Purpose Context integration
 
 - Added the current OS-owned local Codex adapter boundary and Brain-owned explicit workspace-link API to the living component specifications.
