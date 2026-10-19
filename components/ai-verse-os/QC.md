@@ -873,3 +873,8 @@ The OS document remains living and must be updated whenever:
 - docs are corrected;
 - release evidence changes;
 - a new component introduces a new OS-wide law.
+
+## 2026-10-19 Current-target update: Codex local adapter
+
+The optional Codex adapter has owner-accepted source and exact pinned four-repository acceptance evidence. Setup, status and doctor are implemented, and the v4 clean-machine acceptance workflow passed its Linux/macOS/Windows matrix. Keep these claims scoped to the tested source and workflow. Real candidate-specific Codex app trust, callbacks, review receipts and fresh-chat recall have not been demonstrated by those hosted tests. The adapter is not evidence that the candidate is the default Core release; Distribution qualification and promotion remain separate gates.
+
