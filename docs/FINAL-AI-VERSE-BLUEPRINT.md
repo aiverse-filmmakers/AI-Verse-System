@@ -22,6 +22,12 @@ The exact accepted AI-Verse-Skills source is `afde5c06307fba7d074de2929c2eb6c3dc
 
 This updates Skills implementation knowledge only. The Core release ID remains `core-first-run-rc1-2026-10-12`; no member release is promoted here. Hosted composition does not establish runtime-specific Codex invocation, desktop trust or candidate-specific member approval. Keep those claims separate from the user's existing trusted local hooks.
 
+## 2026-10-19 accepted Data integration checkpoint
+
+The accepted AI-Verse-Data source is `f8978f8f7a1bc94edecddc2662112233289159a3`, confirmed by the owner descriptor at observed head `7e9fadbd73752b24eb79e270aff6b311ad508109`. It provides bounded, provenance-bearing reads of exact Data fields for Purpose context, a separate freshness status view, atomic natural-key creation, and stronger trusted workspace-root checks. Owner CI/acceptance passed at [37645269881](https://github.com/aiverse-filmmakers/AI-Verse-Data/actions/runs/37645269881).
+
+Data remains the owner of structured records; Purpose receives selected current values without importing whole rows. Legacy/standalone adoption and migration/recovery ergonomics remain open. This source is already pinned by the unchanged `core-first-run-rc1-2026-10-12` Core release; this documentation update does not promote a release.
+
 ## 1. Executive definition
 
 AI-Verse is a modular, local-first AI operating environment for persistent AI-assisted work.
