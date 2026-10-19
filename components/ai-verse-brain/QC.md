@@ -1259,3 +1259,8 @@ Relevant accepted changes:
 - A-F acceptance proves safe Skill/Data routes and dangerous/destructive boundaries against their actual owners.
 
 This closes the accepted Agent-path admission/routing gap without changing Brain's canonical responsibility for intent, goals, strategy, evaluation and learning. Broader future owner classes still require owner-specific contracts.
+
+## 2026-10-19 Current-target update: workspace-link owner API
+
+The accepted Brain interface now supports explicit, revision-checked workspace link/unlink operations with evidence, idempotency, legacy compatibility and exact-scope redaction. OS's exact pinned adapter composition passed the hosted Four Repo Acceptance workflow. This closes the owner-interface and hosted-composition gap for workspace links. It does not close Brain's separately listed lifecycle, rollback, release identity, composite readiness or real Codex member-runtime gaps. Do not infer desktop hook activation from owner CI.
+
