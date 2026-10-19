@@ -126,7 +126,8 @@ class RepositoryRegistryTests(unittest.TestCase):
         registry = copy.deepcopy(self.registry)
         distribution = next(entry for entry in registry["repositories"] if entry["component_id"] == "ai-verse-distribution")
         distribution["component_release_descriptor_path"] = "release/component-release.json"
-        distribution["owner_acceptance"]["discovery_paths"].append("release/component-release.json")
+        if "release/component-release.json" not in distribution["owner_acceptance"]["discovery_paths"]:
+            distribution["owner_acceptance"]["discovery_paths"].append("release/component-release.json")
         self.assertEqual(registry_validator.validate_registry(registry), [])
         self.assertFalse(distribution["distribution_ships"])
         self.assertEqual(distribution["release_profiles"], [])
