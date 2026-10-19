@@ -116,11 +116,27 @@ class RepositoryRegistryTests(unittest.TestCase):
         registry["admission_policy"]["distribution_registry_authority"] = True
         self.assertInvalid(registry, "must be false")
 
-    def test_non_runtime_control_plane_cannot_publish_component_descriptor(self):
+    def test_system_control_plane_cannot_publish_component_descriptor(self):
         registry = copy.deepcopy(self.registry)
         system = next(entry for entry in registry["repositories"] if entry["component_id"] == "ai-verse-system")
         system["component_release_descriptor_path"] = "release/component-release.json"
         self.assertInvalid(registry, "must not declare component release descriptor")
+
+    def test_distribution_owner_descriptor_does_not_make_distribution_a_shipped_component(self):
+        registry = copy.deepcopy(self.registry)
+        distribution = next(entry for entry in registry["repositories"] if entry["component_id"] == "ai-verse-distribution")
+        distribution["component_release_descriptor_path"] = "release/component-release.json"
+        distribution["owner_acceptance"]["discovery_paths"].append("release/component-release.json")
+        self.assertEqual(registry_validator.validate_registry(registry), [])
+        self.assertFalse(distribution["distribution_ships"])
+        self.assertEqual(distribution["release_profiles"], [])
+
+    def test_other_release_orchestrator_cannot_publish_component_descriptor(self):
+        registry = copy.deepcopy(self.registry)
+        distribution = next(entry for entry in registry["repositories"] if entry["component_id"] == "ai-verse-distribution")
+        distribution["component_release_descriptor_path"] = "release/component-release.json"
+        distribution["owner_acceptance"]["kind"] = "component-native"
+        self.assertInvalid(registry, "release-orchestrator descriptor is only allowed for Distribution-native owner evidence")
 
     def test_declared_compatibility_dependency_must_be_registered(self):
         registry = copy.deepcopy(self.registry)
