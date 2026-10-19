@@ -10,6 +10,22 @@
 **Evidence rule:** this specification was reconstructed from AI-Verse-Data itself using docs/AUDIT-METHODOLOGY.md. Other repositories were not independently audited. Cross-repository evidence appears only where the Data repository itself contains pinned integration contracts or acceptance workflows.
 
 
+## 2026-10-19 accepted Data source integration
+
+**Accepted owner source:** `f8978f8f7a1bc94edecddc2662112233289159a3` (Data v0.1.0-alpha.1.dev0), confirmed by the owner descriptor at observed head `7e9fadbd73752b24eb79e270aff6b311ad508109`. This exact source is the Data revision already pinned by Core release `core-first-run-rc1-2026-10-12`.
+
+The accepted revision adds or confirms three integration surfaces:
+
+- a bounded, read-only Purpose current-value API that resolves exact Data references, returns only primitive values, and carries provenance and freshness; a companion status API distinguishes present, stale and missing values using Data's update time and caller-owned freshness thresholds;
+- an atomic natural-key create path so concurrent callers cannot create duplicate canonical records, while preserving request idempotency;
+- stronger trusted-scope provenance and root checks so forged scope objects cannot open or create a database outside the trusted workspace root.
+
+The Purpose read is a scoped projection. It does not copy whole Data rows into Brain or Memory, and it does not transfer Data ownership. The APIs enforce request and output bounds and fail closed on invalid references, unavailable records or fields.
+
+**Exact owner evidence:** owner-native CI and acceptance passed on `f8978f8` in [run 37645269881](https://github.com/aiverse-filmmakers/AI-Verse-Data/actions/runs/37645269881). The descriptor says Data is available on Linux, macOS and Windows, requires Node 22+, and does not require a separate setup action. This is owner evidence, not proof of every downstream host workflow.
+
+Remaining work includes broader legacy/standalone adoption and migration/recovery ergonomics. This documentation does not claim those areas are complete or promote a new Core release.
+
 ## 2026-09-14 current superseding update
 
 **CURRENT accepted head:** `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`  
