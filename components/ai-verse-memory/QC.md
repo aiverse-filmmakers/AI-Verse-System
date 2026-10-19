@@ -1,6 +1,27 @@
 # AI-Verse Memory QC
 
-## Audit identity
+## Current accepted-source reassessment — 2026-10-19
+
+This focused reassessment supersedes the September 13 QC verdict for the accepted source below. It reviews the owner implementation, its targeted tests, the exact owner CI run, and the exact-v4 OS composition. It is not a repeat of the full independent 46-lens audit.
+
+Accepted owner revision: `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`. Owner CI and local acceptance passed at that revision in [run 37686666851](https://github.com/aiverse-filmmakers/AI-Verse-Memory/actions/runs/37686666851). Exact-v4 OS Four Repo Acceptance passed in [run 39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429).
+
+| Dimension | Current evidence and verdict |
+|---|---|
+| Canonical ownership and native source separation | PASS. OS current truth, Memory historical records, Brain-owned strategy, Skills packages, and derived SQLite remain separate. |
+| Native read/write containment | PASS for accepted implementation. Physical and lexical path validation rejects escaping destinations; targeted symlink tests cover operator and workspace writes. |
+| External migration | PASS for tested cases. Missing provenance is handled; reviewed source drift fails closed; source/destination checks reject escapes. |
+| Authority handoff | PASS for tested completion and recovery paths. Unresolved records keep the old writer active; retirement follows verified destination handoff; interruption tests verify journal recovery. |
+| Lifecycle | PASS for implemented component commands, including install/setup/status/doctor/enable/disable/update/uninstall and explicit reconcile/detach/migrate. Lifecycle tests cover preservation and recovery. |
+| Health reporting | PASS WITH LIMITS. Component status/doctor expose health depth; the lifecycle test explicitly reports system-composed health as `not-checked`. |
+| Owner qualification | PASS at the exact accepted revision and declared Linux/macOS/Windows and Python matrix in the owner workflow. |
+| Core hosted composition | PASS for the exact v4 composition exercised by OS run 39245128429. This is limited to the workflow's declared owner/lifecycle, Skills-provider, and Memory-isolation checks. |
+| System documentation synchronization | OPEN until this documentation update is merged and a subsequent System State checkpoint references it. |
+| Candidate-specific Codex desktop behavior and member release promotion | OPEN outside Memory owner CI. The current local six hooks are treated as already trusted for this operator's local integration; no additional hook-trust step is required. The candidate's changed packaged definitions, callbacks, review receipts, and fresh-chat recall remain unverified. |
+
+The prior September FAIL/MISSING cells below are historical findings against `f5b417f9e7ce1b3f05bc80d10a483d10f6ad10ee`; they must not be read as defects in the accepted f1327be source. Conversely, this focused update does not claim that every whole-system or live-member gate has passed.
+
+## Historical audit identity (2026-09-13 baseline)
 
 - **Repository:** `aiverse-filmmakers/AI-Verse-Memory`
 - **Reviewed branch:** `main`
@@ -9,7 +30,7 @@
 - **Current repository version:** `0.2.0`
 - **Latest reviewed main CI:** `34709185500`, success
 
-## Final QC verdict
+## Historical final QC verdict (2026-09-13 baseline)
 
 **CURRENT TARGET: NOT YET COMPLETE**
 
