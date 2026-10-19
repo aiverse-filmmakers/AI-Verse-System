@@ -10,6 +10,20 @@
 
 ---
 
+## 2026-10-19 accepted-source and integration QC
+
+**Accepted owner source:** `f8978f8f7a1bc94edecddc2662112233289159a3`; descriptor observed at `7e9fadbd73752b24eb79e270aff6b311ad508109`. The exact owner CI/acceptance run [37645269881](https://github.com/aiverse-filmmakers/AI-Verse-Data/actions/runs/37645269881) passed.
+
+Current evidence-backed results:
+
+- **Purpose current values:** exact referenced fields are read through a bounded read-only API, returned as primitives with provenance and freshness; a separate status API reports present, stale or missing.
+- **No row copying:** the dedicated regression covers the no-row-copy boundary; Data remains canonical for structured records.
+- **Natural-key create:** accepted implementation validates a safe scalar key and performs lookup/create atomically; its concurrency suite checks that competing IDs produce one canonical record and that idempotent replay remains intact.
+- **Trusted scope:** regression tests reject forged scope/root values before outside database paths are touched.
+- **Owner acceptance:** exact-revision native CI/acceptance passed in run 37645269881.
+
+**Limits retained:** broad legacy/standalone adoption and richer migration/recovery ergonomics remain open. This record does not claim every downstream host composition or use case has been requalified. Current Core already pins this accepted Data revision; no release promotion occurs here.
+
 ## 2026-09-14 current superseding QC
 
 **Current accepted head:** `8edde7dca5afa34e300130cc6b8ee2b4170ad40f`  
