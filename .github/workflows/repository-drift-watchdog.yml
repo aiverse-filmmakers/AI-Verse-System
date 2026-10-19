@@ -27,6 +27,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Run System unit tests against the committed State fixture
+        run: python -m unittest discover -s tests -p "test_*.py"
+
       - name: Run Registry-derived global watchdog refresh
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -39,7 +42,6 @@ jobs:
           python scripts/validate_repository_registry.py governance/repository-registry.json
           python scripts/validate_repository_state.py governance/repository-state.json
           python scripts/refresh_repository_state.py --check-ledger
-          python -m unittest discover -s tests -p "test_*.py"
 
       - name: Guard System-only publication scope
         shell: bash
