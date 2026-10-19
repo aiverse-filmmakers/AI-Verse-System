@@ -1636,7 +1636,18 @@ The OS succeeds when these independently owned pieces feel like **one coherent s
 
 ---
 
-## 53. Open decisions
+### 52A. Current Codex member adapter (2026-10-19)
+
+**CURRENT owner implementation:** AI-Verse-OS revision `558f4ecb2f6810b10a0e152bfcf610e725fc7032` contains an optional local Codex learning adapter package at `system/extensions/packages/ai-verse-codex-learning/`. The adapter connects Codex lifecycle events to existing OS context and capability routes; Memory, Brain, Skills and Data retain their own state and write authority.
+
+- The package generates six project handlers under the member project's `.codex/hooks.json`. Codex project hooks are distinct from user-level hooks; trust is tied to the exact hook definition. A trusted local installation does not establish trust or runtime behavior for a changed candidate package.
+- Purpose Context is a scoped projection over canonical owners. Workspace context remains OS-owned; strategic intent and explicitly linked workspace relations remain Brain-owned; historical Memory and structured Data remain owner-routed.
+- Setup, status and doctor provide installation guidance and structural readiness. These checks do not assert that a desktop conversation has executed the hooks or reviewed the original turn.
+- The member-facing version reporter reports installed and admitted release information separately from local source recency.
+
+The implementation is owner-accepted and the exact cross-repository test workflow passed in [OS Four Repo Acceptance run #39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). That run proves the pinned owner composition and tests; it does not prove real Codex app trust, callbacks, review, or fresh-chat recall for a separately installed candidate. Distribution remains the authority for member packaging, qualification and release admission.
+
+## 53. Open decisions## 53. Open decisions
 
 1. What should the universal component activation command syntax be?
 2. Should component discovery be registry-driven and self-describing instead of hardcoded IDs?
