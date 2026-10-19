@@ -599,20 +599,13 @@ Primary blockers:
 
 ### AI-Verse Memory
 
-**CURRENT:** Strong local-first historical memory engine with native OS mode, standalone mode, workspace-isolated recall, supersession and explicit legacy migration. Its frozen revision is part of the first-member beta.
+**CURRENT (2026-10-19):** Memory owns historical atomic records, provenance, corrections, experiences and lessons. OS remains canonical for current profile/context/decisions and workspace topology; Brain owns strategic direction after explicit handover; Skills owns executable capability packages. SQLite is derived and rebuildable.
 
-**DOGFOOD VERDICT:** READY in the supported frozen OS composition.
+The owner-accepted Core source `f1327be48ba2ee0043959021365e6dbb9dcb1d3a` includes physical read/write containment, snapshot-bound legacy adoption and verified authority retirement, serialized canonical mutations, and a public lifecycle with explicit recovery/adoption commands. Owner-native CI passed at that exact revision, and the exact-v4 OS hosted composition passed its declared Four Repo Acceptance checks.
 
-**GAP TO MATURE PRODUCT:** Broader migration-handoff hardening, full lifecycle polish and future release/distribution improvements remain.
+**CORE / MEMBER STATUS:** System still pins the existing `core-first-run-rc1-2026-10-12` release, and System documentation synchronization is pending. Candidate acceptance does not promote a new default member release. Candidate-specific Codex desktop trust, callbacks, review receipts and fresh-chat recall remain separate evidence gates.
 
-Primary blockers:
-
-- canonical write containment must be as strict as read containment;
-- external migration provenance fallback has a known failure case;
-- migration does not yet complete machine-enforced canonical authority handoff;
-- transaction/idempotency hardening remains for canonical effects;
-- detach/uninstall/reconcile semantics need closure;
-- immutable release/distribution remains incomplete.
+**REMAINING GAPS:** Complete System documentation synchronization and State refresh; then re-admit/requalify the immutable composed candidate through Distribution's normal promotion gates. Do not infer whole-product readiness from Memory's owner CI or component doctor.
 
 ### AI-Verse Data
 
