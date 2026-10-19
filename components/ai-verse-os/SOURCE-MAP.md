@@ -906,7 +906,7 @@ The current accepted OS implementation adds an optional local Codex learning ada
 
 These hosted results are component/composition evidence. They do not prove candidate-specific Codex GUI trust, callbacks, original-turn review or fresh-chat recall. Distribution owns that product-path qualification and the promotion gate.
 
-## 25. Evidence limitations## 25. Evidence limitations
+## 25. Evidence limitations
 
 1. This review did not treat other component repositories as primary sources.
 2. Cross-component details were accepted only where AI-Verse-OS itself references/tests them.
