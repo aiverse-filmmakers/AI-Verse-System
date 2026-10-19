@@ -8,6 +8,22 @@
 
 Skills' immutable distribution/provider engineering is strong. The largest remaining risks are no longer transactional installation correctness. They are package admission/trust, licensing and release freeze, plus whether generic runtime "support" means more than exposing directories.
 
+## 2026-10-19 accepted-source and integration QC
+
+**Accepted source:** `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`; current owner head observed at `23779f10515951ac92c83cba34a1a868c02c4d87`. The accepted descriptor binds the owner-native gate to the exact accepted source.
+
+Current evidence-backed results:
+
+- **Immutable in-flight use:** execution-generation leases bind a Skill execution to one immutable generation.
+- **Controller containment:** controller path resolution enforces physical containment and rejects symlink/junction/reparse escapes.
+- **Catalog additions:** the accepted source contains the `video-editor` composite and first-party `cinematic-realism-director` package.
+- **Owner lifecycle:** owner CI/acceptance run [37183671930](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183671930), validation [37183672008](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183672008), install E2E [38246389751](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/38246389751), and descriptor check [37183671957](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183671957) passed for their recorded revisions; the owner descriptor binds the acceptance gate to `afde5c0`.
+- **Hosted composition:** exact-v4 OS run [39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429) passed the Four Repo Acceptance suite.
+
+**Limits retained:** this does not prove runtime-specific Codex skill invocation, trust approval in a separate candidate checkout, post-update callbacks, or fresh-chat recall. Existing local trusted hooks do not transfer as candidate evidence. Skills remains a capability/package owner and does not grant host authority.
+
+The current Core release ID remains `core-first-run-rc1-2026-10-12`; this QC reconciliation does not promote a new release.
+
 ## 2026-09-14 Interface Designer merged-release QC
 
 **Merged main head:** `71264af6b2b9a575812fe18858d75a54ea2ff545`  

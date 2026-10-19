@@ -1,3 +1,14 @@
+## 2026-10-19: Reconcile accepted Skills lifecycle and capability integration
+
+- Replaced the September Skills implementation baseline with the accepted owner source at `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`, while retaining the observed descriptor head separately.
+- Recorded immutable execution-generation leases, physical controller-path containment, and the accepted Video Editor / Cinematic Realism capabilities with owner-native and exact-v4 composition evidence.
+- Kept runtime-specific Codex invocation and candidate desktop trust/approval unverified; local hook trust is not release evidence.
+- This is a System documentation reconciliation only. The existing Core release pin is unchanged and promotion remains separate.
+
+Canonical detail: `components/ai-verse-skills/COMPONENT-SPEC.md`, `components/ai-verse-skills/SOURCE-MAP.md`, `components/ai-verse-skills/QC.md`, and `docs/FINAL-AI-VERSE-BLUEPRINT.md`.
+
+---
+
 ## 2026-10-19: Reconcile accepted Memory lifecycle and migration implementation
 
 - Replaced the stale September Memory gap assessment for the exact accepted Core source with current owner implementation, targeted tests, owner CI, and exact-v4 OS composition evidence.

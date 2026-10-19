@@ -16,6 +16,12 @@ The component repositories remain the owners of implementation. The component sp
 
 ---
 
+## 2026-10-19 accepted Skills integration checkpoint
+
+The exact accepted AI-Verse-Skills source is `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`, confirmed by its owner descriptor at observed head `23779f10515951ac92c83cba34a1a868c02c4d87`. It adds immutable execution-generation leases, physical containment for controller paths, the `video-editor` member-facing composite and first-party `cinematic-realism-director` capability. Owner CI/acceptance, validation, install E2E and descriptor checks passed for their recorded exact revisions; the exact-v4 Four Repo Acceptance run [39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429) passed.
+
+This updates Skills implementation knowledge only. The Core release ID remains `core-first-run-rc1-2026-10-12`; no member release is promoted here. Hosted composition does not establish runtime-specific Codex invocation, desktop trust or candidate-specific member approval. Keep those claims separate from the user's existing trusted local hooks.
+
 ## 1. Executive definition
 
 AI-Verse is a modular, local-first AI operating environment for persistent AI-assisted work.

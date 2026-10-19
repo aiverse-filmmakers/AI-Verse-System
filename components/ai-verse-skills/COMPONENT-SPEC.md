@@ -8,6 +8,21 @@
 **Fresh standalone review:** 2026-09-13  
 **Method:** `docs/AUDIT-METHODOLOGY.md`
 
+## 2026-10-19 accepted Skills source integration
+
+**Accepted owner source:** `afde5c06307fba7d074de2929c2eb6c3dc6bdab8` (Skills v1.1.0-beta.2.dev0). The observed owner head is `23779f10515951ac92c83cba34a1a868c02c4d87`; its descriptor confirms that accepted revision. The current Core release ID remains `core-first-run-rc1-2026-10-12`; this System documentation reconciliation does not promote a new member release.
+
+The accepted source adds or confirms:
+
+- immutable execution-generation leases, binding in-flight Skill use to one complete generation;
+- physical containment for controller paths, rejecting symlink, junction and reparse escapes;
+- the member-facing `video-editor` composite and first-party `cinematic-realism-director` capability;
+- the existing ownership boundary: Skills owns package bytes, admission and immutable generations; OS/runtime owns scope, authorization, approval and invocation.
+
+**Exact-source evidence:** owner CI and acceptance run [37183671930](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183671930); Skills validation [37183672008](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183672008); full install E2E [38246389751](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/38246389751); release descriptor [37183671957](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/37183671957). Exact-v4 OS composition run [39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429) passed the declared Four Repo Acceptance suite.
+
+These checks establish the named owner source and hosted composition. They do not establish runtime-specific Codex invocation, desktop trust or member approval for a separately staged candidate. Existing local hook trust remains local evidence and is not a Skills release claim.
+
 ## 2026-09-14 current merged release update
 
 **CURRENT branch:** `main`  
