@@ -496,49 +496,71 @@ def _discover_distribution_pins(
     distribution_head: str,
     target_components: Iterable[str],
 ) -> tuple[dict[str, dict[str, Any]], str | None]:
-    """Return exact default released pins for component IDs and optional evidence failure kind."""
+    """Return exact pins from Distribution's current Core promotion and any failure kind."""
 
     full_name = distribution_entry["repository_full_name"]
     target_set = set(target_components)
-    result: dict[str, list[dict[str, Any]]] = {component_id: [] for component_id in target_set}
-    directory_ref = _evidence_ref(full_name, distribution_head, "release-sets/")
+    catalog_path = "src/aiverse_distribution/catalog/core_promotions.json"
+    catalog_ref = _evidence_ref(full_name, distribution_head, catalog_path)
     try:
-        items = client.list_contents(full_name, "release-sets", distribution_head)
-        files = sorted(
-            item["path"]
-            for item in items
-            if item.get("type") == "file"
-            and isinstance(item.get("path"), str)
-            and item["path"].endswith(".json")
-        )
-        for path in files:
-            payload = client.contents(full_name, path, distribution_head)
-            text, _ = _decode_content(payload, _evidence_ref(full_name, distribution_head, path))
-            release = json.loads(text)
-            if not isinstance(release, dict):
+        catalog_payload = client.contents(full_name, catalog_path, distribution_head)
+        catalog_text, _ = _decode_content(catalog_payload, catalog_ref)
+        catalog = json.loads(catalog_text)
+        if not isinstance(catalog, dict):
+            raise EvidenceFailed("invalid Distribution Core promotions catalog")
+        release_id = catalog.get("current_release")
+        if not isinstance(release_id, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", release_id):
+            raise EvidenceFailed("invalid current Core release ID in Distribution promotions catalog")
+
+        release_path = f"release-sets/{release_id}.json"
+        release_ref = _evidence_ref(full_name, distribution_head, release_path)
+        release_payload = client.contents(full_name, release_path, distribution_head)
+        release_text, _ = _decode_content(release_payload, release_ref)
+        release = json.loads(release_text)
+        if (
+            not isinstance(release, dict)
+            or release.get("id") != release_id
+            or release.get("profile") != "core"
+            or release.get("status") != "released"
+            or not isinstance(release.get("promotion"), dict)
+            or release["promotion"].get("default_channel") is not True
+        ):
+            raise EvidenceFailed(f"current Core release is not a valid released default: {release_path}")
+
+        components = release.get("components")
+        if not isinstance(components, list):
+            raise EvidenceFailed(f"invalid component list in current Core release: {release_path}")
+
+        # Historical release sets keep immutable default-channel evidence. The
+        # promotion catalog, rather than those historical flags, identifies
+        # which Core composition is current.
+        pins: dict[str, dict[str, Any]] = {
+            component_id: {
+                "status": "unpinned",
+                "revision": None,
+                "release_id": None,
+                "evidence_refs": [catalog_ref],
+            }
+            for component_id in target_set
+        }
+        seen: set[str] = set()
+        for component in components:
+            if not isinstance(component, dict):
+                raise EvidenceFailed(f"invalid component entry in current Core release: {release_path}")
+            component_id = component.get("id")
+            if component_id not in target_set:
                 continue
-            promotion = release.get("promotion")
-            if release.get("status") != "released" or not isinstance(promotion, dict) or promotion.get("default_channel") is not True:
-                continue
-            release_id = release.get("id")
-            components = release.get("components")
-            if not isinstance(release_id, str) or not release_id or not isinstance(components, list):
-                raise EvidenceFailed(f"invalid released default-channel release set: {path}")
-            for component in components:
-                if not isinstance(component, dict):
-                    raise EvidenceFailed(f"invalid component entry in {path}")
-                component_id = component.get("id")
-                if component_id not in target_set:
-                    continue
-                revision = _exact_sha(component.get("revision"), f"{path}:{component_id} revision")
-                result[component_id].append(
-                    {
-                        "status": "pinned",
-                        "revision": revision,
-                        "release_id": release_id,
-                        "evidence_refs": [_evidence_ref(full_name, distribution_head, path)],
-                    }
-                )
+            if component_id in seen:
+                raise EvidenceFailed(f"duplicate component entry in current Core release: {component_id}")
+            seen.add(component_id)
+            revision = _exact_sha(component.get("revision"), f"{release_path}:{component_id} revision")
+            pins[component_id] = {
+                "status": "pinned",
+                "revision": revision,
+                "release_id": release_id,
+                "evidence_refs": [catalog_ref, release_ref],
+            }
+        return pins, None
     except EvidenceUnavailable:
         return (
             {
@@ -546,7 +568,7 @@ def _discover_distribution_pins(
                     "status": "unavailable",
                     "revision": None,
                     "release_id": None,
-                    "evidence_refs": [directory_ref],
+                    "evidence_refs": [catalog_ref],
                 }
                 for component_id in target_set
             },
@@ -559,34 +581,12 @@ def _discover_distribution_pins(
                     "status": "failed",
                     "revision": None,
                     "release_id": None,
-                    "evidence_refs": [directory_ref],
+                    "evidence_refs": [catalog_ref],
                 }
                 for component_id in target_set
             },
             "failed",
         )
-
-    pins: dict[str, dict[str, Any]] = {}
-    for component_id, candidates in result.items():
-        if len(candidates) == 1:
-            pins[component_id] = candidates[0]
-        elif not candidates:
-            pins[component_id] = {
-                "status": "unpinned",
-                "revision": None,
-                "release_id": None,
-                "evidence_refs": [directory_ref],
-            }
-        else:
-            refs = sorted({ref for item in candidates for ref in item["evidence_refs"]})
-            pins[component_id] = {
-                "status": "failed",
-                "revision": None,
-                "release_id": None,
-                "evidence_refs": refs,
-            }
-    ambiguity = "failed" if any(pin["status"] == "failed" for pin in pins.values()) else None
-    return pins, ambiguity
 
 
 def refresh_state(

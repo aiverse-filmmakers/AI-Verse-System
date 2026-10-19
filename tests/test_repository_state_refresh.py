@@ -103,6 +103,10 @@ class FakeClient:
         }
         self.release_paths = [release_path]
         self.files[(distribution_name, release_path, distribution_head)] = content_payload(release)
+        promotion_catalog_path = "src/aiverse_distribution/catalog/core_promotions.json"
+        self.files[(distribution_name, promotion_catalog_path, distribution_head)] = content_payload(
+            {"schema_version": 1, "current_release": "test-core-default", "system_sync_debts": []}
+        )
 
     def repository(self, full_name):
         self.calls.append(("repository", full_name))
@@ -290,7 +294,7 @@ class RepositoryStateRefreshTests(unittest.TestCase):
         self.assertEqual(by_id[data["repository_id"]]["access"], "failed")
         self.assertEqual(by_id[data["repository_id"]]["freshness"]["status"], "failed")
 
-    def test_multiple_default_release_pins_fail_closed(self):
+    def test_current_release_catalog_ignores_historical_default_flags(self):
         client = FakeClient(self.registry, evidence_revision=self.evidence_revision)
         distribution = client.entries["ai-verse-distribution"]
         distribution_name = distribution["repository_full_name"]
@@ -308,6 +312,30 @@ class RepositoryStateRefreshTests(unittest.TestCase):
         client.release_paths.append(second_path)
         client.files[(distribution_name, second_path, distribution_head)] = content_payload(second_release)
         refreshed = self.refresh(client)
+        os_state = next(item for item in refreshed["repositories"] if item["repository_id"] == os_entry["repository_id"])
+        self.assertEqual(refreshed["refresh"]["status"], "complete")
+        self.assertEqual(os_state["distribution_pin"]["status"], "pinned")
+        self.assertEqual(os_state["distribution_pin"]["release_id"], "test-core-default")
+        self.assertEqual(os_state["distribution_pin"]["revision"], client.heads[os_entry["repository_full_name"]])
+        self.assertEqual(
+            os_state["distribution_pin"]["evidence_refs"],
+            [
+                f"aiverse-filmmakers/ai-verse-distribution@{distribution_head}:src/aiverse_distribution/catalog/core_promotions.json",
+                f"aiverse-filmmakers/ai-verse-distribution@{distribution_head}:release-sets/test-core-default.json",
+            ],
+        )
+
+    def test_current_release_catalog_missing_exact_release_fails_closed(self):
+        client = FakeClient(self.registry, evidence_revision=self.evidence_revision)
+        distribution = client.entries["ai-verse-distribution"]
+        distribution_name = distribution["repository_full_name"]
+        distribution_head = client.heads[distribution_name]
+        catalog_path = "src/aiverse_distribution/catalog/core_promotions.json"
+        client.files[(distribution_name, catalog_path, distribution_head)] = content_payload(
+            {"schema_version": 1, "current_release": "missing-release", "system_sync_debts": []}
+        )
+        refreshed = self.refresh(client)
+        os_entry = client.entries["ai-verse-os"]
         os_state = next(item for item in refreshed["repositories"] if item["repository_id"] == os_entry["repository_id"])
         self.assertEqual(refreshed["refresh"]["status"], "partial")
         self.assertEqual(os_state["distribution_pin"]["status"], "failed")
