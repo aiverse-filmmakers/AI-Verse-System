@@ -1267,3 +1267,15 @@ Relevant accepted changes:
 - A-F acceptance proves safe Skill/Data routes and dangerous/destructive boundaries against their actual owners.
 
 This closes the accepted Agent-path admission/routing gap without changing Brain's canonical responsibility for intent, goals, strategy, evaluation and learning. Broader future owner classes still require owner-specific contracts.
+
+## 2026-10-19 Owner-controlled workspace-link evidence
+
+The accepted Brain contract adds a narrow relation between a Brain-owned intent and explicitly approved workspaces while preserving Brain as the sole writer of link metadata.
+
+- [Brain PR #30](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/30) adds the link/unlink owner interface and exact-scope projection. [PR #31](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/31) preserves pre-contract records, redacts link-only evidence and prevents generic intent creation from writing links directly.
+- The accepted implementation is Brain revision `f746806e4361c2b1cd67ee97810071cc86db7b9`; its observed owner descriptor is at `39336cd19eb4600d5ece58f5649f0c494cd02754`.
+- [PR #31's merged revision](https://github.com/aiverse-filmmakers/AI-Verse-Brain/commit/107100e850f31c6720f69ae47f27c1d8d34b3abf) passed Brain CI. The exact pinned adapter composition passed [OS Four Repo Acceptance run #39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429).
+- Workspace links remain optional explicit metadata. Reads do not rewrite legacy state; writes require expected revision, evidence and idempotency identity; projections are limited to the exact workspace scope.
+
+These checks establish the owner API and hosted composition. They do not establish that a fresh Codex desktop conversation has executed and reviewed the adapter hooks.
+
