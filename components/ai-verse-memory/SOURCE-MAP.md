@@ -1,6 +1,25 @@
 # AI-Verse Memory Source Map
 
-## Audit identity
+## Current evidence update — 2026-10-19
+
+The 2026-09-13 inventory and findings below are a historical baseline. The exact accepted Core source is Memory `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`; System records it as accepted and pinned. The observed repository head `09911eae0b4b0cbf7e7e7969230fe5b86647b841` is three commits ahead, limited by the compare result to the release-descriptor workflow/docs and descriptor; the accepted component source remains f1327be.
+
+Owner evidence: [native workflow run 37686666851](https://github.com/aiverse-filmmakers/AI-Verse-Memory/actions/runs/37686666851) passed at the accepted revision. Exact-v4 OS composition passed [Four Repo Acceptance run 39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). These establish owner CI and the tested hosted composition, not GUI behavior in a member's Codex desktop.
+
+Current implementation sources and focused evidence:
+
+| Concern | Accepted source | Relevant tests/evidence |
+|---|---|---|
+| Native path containment | `scripts/public_beta.py` | `tests/test_public_beta_hardening.py`, `tests/test_external_legacy_migration.py` |
+| Snapshot-bound migration and authority retirement | `scripts/public_beta.py`, `migration/MIGRATION.md` | `tests/test_public_beta_hardening.py`, `tests/test_migration_handoff_atomicity.py` |
+| Lifecycle commands and preservation | `scripts/component.py` | `tests/test_component_lifecycle.py` |
+| Memory history provenance in Purpose reads | `scripts/purpose_history.py` | `tests/test_purpose_history.py` |
+| Progressive exact-source recall and orientation | `scripts/progressive_recall.py`, `scripts/orientation_map.py` | `tests/test_progressive_recall.py`, `tests/test_orientation_map.py`, `tests/test_exact_source.py` |
+| Relationships and bounded history promotion | `scripts/relationship_projection.py`, `scripts/session_promotion.py` | `tests/test_relationship_projection.py`, `tests/test_session_digests.py` |
+
+The current architecture and migration contracts are `docs/ARCHITECTURE.md`, `protocol/MEMORY-PROTOCOL.md`, and `migration/MIGRATION.md` at the accepted revision. Consult these owner sources for the full contract. System synchronization remains unverified until the documentation checkpoint is merged and State is refreshed afterward.
+
+## Historical audit identity (2026-09-13 baseline)
 
 - **Repository:** `aiverse-filmmakers/AI-Verse-Memory`
 - **Default branch:** `main`
