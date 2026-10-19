@@ -469,8 +469,16 @@ def validate_state(state: Any, registry: Any, *, registry_path: Path | None = No
             errors.append(f"{path}.distribution_pin: non-shipped repository must be not-applicable")
         if runtime and descriptor.get("status") == "not-applicable":
             errors.append(f"{path}.descriptor: runtime component descriptor cannot be not-applicable")
-        if not runtime and descriptor.get("status") != "not-applicable":
+        distribution_owner_descriptor = (
+            registry_entry.get("component_id") == "ai-verse-distribution"
+            and registry_entry.get("surface_classification") == "release-orchestrator"
+            and registry_entry.get("owner_acceptance", {}).get("kind") == "distribution-native"
+            and registry_entry.get("component_release_descriptor_path") == "release/component-release.json"
+        )
+        if not runtime and descriptor.get("status") != "not-applicable" and not distribution_owner_descriptor:
             errors.append(f"{path}.descriptor: control-plane repository descriptor must be not-applicable")
+        if distribution_owner_descriptor and descriptor.get("status") == "not-applicable":
+            errors.append(f"{path}.descriptor: registered Distribution owner descriptor must be observed")
         if runtime and acceptance.get("status") == "not-applicable":
             errors.append(f"{path}.owner_acceptance: runtime component acceptance cannot be not-applicable")
 

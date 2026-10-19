@@ -40,13 +40,14 @@
       "rollout_wave": 1,
       "release_profiles": [],
       "distribution_ships": false,
-      "component_release_descriptor_path": null,
+      "component_release_descriptor_path": "release/component-release.json",
       "owner_acceptance": {
         "kind": "distribution-native",
         "discovery_paths": [
           ".github/workflows",
           "release-sets",
-          "qualification"
+          "qualification",
+          "release/component-release.json"
         ]
       },
       "system_refs": [

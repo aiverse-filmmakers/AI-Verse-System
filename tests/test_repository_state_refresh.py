@@ -23,6 +23,8 @@ state_refresh = importlib.util.module_from_spec(spec)
 assert spec.loader is not None
 spec.loader.exec_module(state_refresh)
 
+from validate_repository_state import validate_state
+
 
 def git_blob_sha(text):
     raw = text.encode("utf-8")
@@ -230,6 +232,36 @@ class RepositoryStateRefreshTests(unittest.TestCase):
         self.assertTrue(descriptor_calls)
         for _, full_name, _, ref in descriptor_calls:
             self.assertEqual(ref, client.heads[full_name])
+
+    def test_distribution_owner_descriptor_is_observed_without_creating_a_member_release_pin(self):
+        distribution = next(item for item in self.registry["repositories"] if item["component_id"] == "ai-verse-distribution")
+        distribution["component_release_descriptor_path"] = "release/component-release.json"
+        if "release/component-release.json" not in distribution["owner_acceptance"]["discovery_paths"]:
+            distribution["owner_acceptance"]["discovery_paths"].append("release/component-release.json")
+        client = FakeClient(self.registry, evidence_revision=self.evidence_revision)
+        head = client.heads[distribution["repository_full_name"]]
+        accepted_revision = "2" * 40
+        client.files[(distribution["repository_full_name"], "release/component-release.json", head)] = content_payload(
+            descriptor("ai-verse-distribution", distribution["repository_full_name"], accepted_revision, "accepted")
+        )
+
+        refreshed = self.refresh(client)
+        item = next(value for value in refreshed["repositories"] if value["repository_id"] == distribution["repository_id"])
+        self.assertEqual(item["observed_head"], head)
+        self.assertEqual(item["owner_acceptance"]["status"], "accepted")
+        self.assertEqual(item["owner_acceptance"]["revision"], accepted_revision)
+        self.assertNotEqual(item["owner_acceptance"]["revision"], item["observed_head"])
+        self.assertEqual(item["distribution_pin"]["status"], "not-applicable")
+        self.assertEqual(item["descriptor"]["status"], "observed")
+        self.assertEqual(validate_state(refreshed, self.registry), [])
+
+        other_registry = copy.deepcopy(self.registry)
+        other_distribution = next(value for value in other_registry["repositories"] if value["repository_id"] == distribution["repository_id"])
+        other_distribution["component_id"] = "another-release-orchestrator"
+        self.assertIn(
+            "$.repositories[1].descriptor: control-plane repository descriptor must be not-applicable",
+            validate_state(refreshed, other_registry),
+        )
 
     def test_invalid_development_descriptor_is_observed_but_not_owner_accepted(self):
         client = FakeClient(self.registry, evidence_revision=self.evidence_revision)

@@ -218,8 +218,16 @@ def validate_registry(data: Any) -> list[str]:
         elif surface == "runtime-component":
             errors.append(f"{path}: runtime-component must declare distribution_ships=true in Registry v1")
 
-        if surface in {"governance", "release-orchestrator"} and descriptor_path is not None:
+        if surface == "governance" and descriptor_path is not None:
             errors.append(f"{path}: non-runtime control-plane repository must not declare component release descriptor")
+        if surface == "release-orchestrator" and descriptor_path is not None:
+            distribution_owner_descriptor = (
+                component_id == "ai-verse-distribution"
+                and acceptance_kind == "distribution-native"
+                and descriptor_path == "release/component-release.json"
+            )
+            if not distribution_owner_descriptor:
+                errors.append(f"{path}: release-orchestrator descriptor is only allowed for Distribution-native owner evidence")
 
     registered_components = set(seen_components)
     for index, entry in enumerate(entries):

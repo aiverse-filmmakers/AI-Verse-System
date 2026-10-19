@@ -112,6 +112,8 @@ Distribution owns:
 
 Distribution must not become the canonical owner of sibling component domain logic, sibling canonical state or sibling acceptance truth.
 
+Distribution's own accepted source revision may be recorded from its canonical owner descriptor. That records owner acceptance of Distribution's implementation only; it does not qualify or promote a member release.
+
 ---
 
 # 4. Required cross-repository handoffs
