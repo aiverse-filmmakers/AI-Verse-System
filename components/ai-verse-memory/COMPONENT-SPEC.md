@@ -1,6 +1,23 @@
 # AI-Verse Memory Component Specification
 
-## Audit record
+## Current accepted implementation update — 2026-10-19
+
+This review supersedes the current-state and gap claims in the September 13, 2026 baseline below. The baseline is retained as historical audit evidence.
+
+AI-Verse Memory's accepted Core source is `f1327be48ba2ee0043959021365e6dbb9dcb1d3a`. System's Repository State records this exact owner revision as accepted and pinned to `core-first-run-rc1-2026-10-12`; the owner descriptor is present at observed head `09911eae0b4b0cbf7e7e7969230fe5b86647b841`. The owner-native test and acceptance workflow passed on the accepted source in [run 37686666851](https://github.com/aiverse-filmmakers/AI-Verse-Memory/actions/runs/37686666851). The exact-v4 OS Four Repo Acceptance workflow also passed in [run 39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). System synchronization remains unverified until this documentation update is merged and a later System State checkpoint records it.
+
+The accepted implementation addresses the four September findings:
+
+- **Native write containment:** reads and writes validate both lexical and resolved physical boundaries. Symlinked operator/workspace Memory destinations are rejected; see `scripts/public_beta.py` and `tests/test_public_beta_hardening.py`.
+- **External migration provenance:** missing legacy provenance falls back to the validated old source path; source files and destinations are checked for symlink escape; see `tests/test_external_legacy_migration.py`.
+- **Authority handoff:** adoption is bound to source and target snapshots, source drift fails closed, unresolved items keep the old route active, and the old supported writer is retired only after verified destination handoff. Recovery is covered across injected interruption points in `tests/test_migration_handoff_atomicity.py`.
+- **Lifecycle and mutation closure:** the public component CLI provides install, setup, status, doctor, enable, disable, update, and uninstall; explicit expert commands provide reconcile, detach, and migrate. Canonical writes are serialized and atomic, with recoverable supersession/handoff journals and retry-safe effects. Lifecycle and preservation paths are covered in `tests/test_component_lifecycle.py`.
+
+Memory remains the owner of historical records and their provenance; OS owns current profile/context/decisions and workspace topology; Brain owns strategic direction when explicitly handed over; Skills owns executable capability packages. SQLite remains derived. A PASS from component doctor reports its declared health depths; it does not claim whole-system readiness.
+
+This focused reconciliation updates the accepted owner source and its relevant lifecycle, migration, containment, and host-composition evidence. It is not a new independent 46-lens audit. The release pin is still the existing Core release; this update does not promote a new member release or prove candidate-specific real Codex trust, callbacks, review receipts, or fresh-chat recall.
+
+## Historical audit record (2026-09-13 baseline)
 
 - **Component:** AI-Verse Memory
 - **Repository:** `aiverse-filmmakers/AI-Verse-Memory`
@@ -12,7 +29,7 @@
 - **Tracked implementation inventory:** 43 files at the reviewed revision, excluding no vendor/build subtree because none is tracked.
 - **Latest main CI evidence:** workflow run `34709185500`, successful at the reviewed revision across the full configured matrix.
 
-## Executive verdict
+## Historical v0.2 executive verdict (2026-09-13 baseline)
 
 AI-Verse Memory is a strong local-first memory engine with a coherent native AI-Verse OS v2 architecture. Its most important architectural decision is already correct:
 
