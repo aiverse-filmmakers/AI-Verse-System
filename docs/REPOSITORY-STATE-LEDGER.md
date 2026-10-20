@@ -11,17 +11,17 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `full-refresh`
 - Refresh scope: `global`
 - Refresh status: `complete`
-- Refresh evidence revision: `36f4462373b5a936a676e6f057b8a29d1a9b171c`
-- Last full refresh: `36f4462373b5a936a676e6f057b8a29d1a9b171c`
+- Refresh evidence revision: `28b596ba802ddc1a882e4d5971a85c407dbe5aa6`
+- Last full refresh: `28b596ba802ddc1a882e4d5971a85c407dbe5aa6`
 - Watchdog: `WATCHDOG-CURRENT`
-- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-19T22:27:47Z; all registered repositories were scanned with no access/fetch failure.
+- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-20T08:32:24Z; all registered repositories were scanned with no access/fetch failure.
 
 ## Repository state
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `36f4462373b5` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
-| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `f3b69eb19edf` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `28b596ba802d` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
+| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `0cf6ee8c222e` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / global |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `37f14c85e480` | accepted `558f4ecb2f68` | pinned `558f4ecb2f68` / core-local-upgrades-candidate-2026-10-19-v6 | observed `558f4ecb2f68` / accepted | synchronized `967013147705` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `39336cd19eb4` | accepted `f746806e4361` | pinned `f746806e4361` / core-local-upgrades-candidate-2026-10-19-v6 | observed `f746806e4361` / accepted | synchronized `967013147705` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-local-upgrades-candidate-2026-10-19-v6 | observed `f1327be48ba2` / accepted | synchronized `3c5715230f10` | fresh / global |
