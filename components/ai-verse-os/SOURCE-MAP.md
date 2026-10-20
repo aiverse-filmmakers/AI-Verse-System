@@ -915,3 +915,14 @@ These hosted results are component/composition evidence. They do not prove candi
 5. No unrecorded external inspiration history is invented.
 6. Current release status is a point-in-time repository record, not a permanent guarantee.
 7. This source map focuses on architecture/product contracts rather than line-by-line implementation.
+
+
+## 2026-10-21 version reporting and safe-update reconciliation
+
+OS PR98 source `36a85bdb6233622b90812a2bb6ea32a99d517c97` repairs friendly version reporting. Source-pinned descriptors remain preferred; canonical post-commit owner metadata is used only when its accepted revision exactly matches the Distribution-admitted OS revision. A different, unaccepted or unavailable descriptor never supplies a label. The installed label is reused only for the same receipt revision.
+
+All26 exact-source checks passed, including Repository QC39507020086 and Four Repo Acceptance39507019946. Owner acceptance metadata is recorded separately in OS PR99; Distribution must independently qualify and admit a composition before members receive this software.
+
+OS96/97 define recoverable local-source adoption. Distribution70/72 implement the launcher and bounded preparation/update path; the actual pioneering-member RC1→v6 update completed with allfive component doctors passing. This is an update-path improvement, not an immutable software/member-home redesign. Unknown source edits and unsafe preservation remain review cases.
+
+The optional adapter remains separately installed. Core source inclusion does not establish host trust, real callbacks or fresh-chat recall. Distribution73 binds helper upgrades to the current Core Brain runtime rather than historical first-install metadata and improves conflict guidance; its publication/qualification remains a separate record.
