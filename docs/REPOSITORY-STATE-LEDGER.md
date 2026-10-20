@@ -11,7 +11,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `scoped-refresh`
 - Refresh scope: `Core`
 - Refresh status: `complete`
-- Refresh evidence revision: `b43b640a77958a4c2dc21f75008a36f8e7bac1d7`
+- Refresh evidence revision: `4f7b55c12af0eb2e1fc9bba4d8eb79364201de0a`
 - Last full refresh: `28b596ba802ddc1a882e4d5971a85c407dbe5aa6`
 - Watchdog: `WATCHDOG-CURRENT`
 - Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-20T08:32:24Z; all registered repositories were scanned with no access/fetch failure.
@@ -20,8 +20,8 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `b43b640a7795` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
-| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `2317edac21a6` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / Core |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `4f7b55c12af0` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
+| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `40ae9f51a047` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / Core |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `906d70d0c896` | accepted `36a85bdb6233` | pinned `558f4ecb2f68` / core-local-upgrades-candidate-2026-10-19-v6 | observed `36a85bdb6233` / accepted | synchronized `b43b640a7795` | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `39336cd19eb4` | accepted `f746806e4361` | pinned `f746806e4361` / core-local-upgrades-candidate-2026-10-19-v6 | observed `f746806e4361` / accepted | synchronized `967013147705` | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-local-upgrades-candidate-2026-10-19-v6 | observed `f1327be48ba2` / accepted | synchronized `3c5715230f10` | fresh / Core |
