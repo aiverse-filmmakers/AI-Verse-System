@@ -26,22 +26,22 @@
       1362252045,
       1364456634
     ],
-    "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e",
+    "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
     "last_scoped_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e",
-      "observed_at": "2026-10-21T06:13:47Z"
+      "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
+      "observed_at": "2026-10-21T08:34:25Z"
     },
     "last_full_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e",
-      "observed_at": "2026-10-21T06:13:47Z"
+      "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
+      "observed_at": "2026-10-21T08:34:25Z"
     }
   },
   "watchdog": {
-    "status": "WATCHDOG-CURRENT",
+    "status": "WATCHDOG-FAILED",
     "heartbeat_revision": "48ff526f7557a88d2006143ec070a53e2db9982e",
     "last_successful_full_scan": {
       "scope": "global",
@@ -49,13 +49,13 @@
       "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e",
       "observed_at": "2026-10-21T06:13:47Z"
     },
-    "reason": "Successful Registry-derived global heartbeat at 2026-10-21T06:13:47Z; all registered repositories were scanned with no access/fetch failure."
+    "reason": "Global watchdog attempt at 2026-10-21T08:34:25Z did not produce a successful full heartbeat; missed_expected_scans=0; failures=1364457521:descriptor:failed."
   },
   "repositories": [
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "48ff526f7557a88d2006143ec070a53e2db9982e",
+      "observed_head": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -82,7 +82,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -124,7 +124,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -168,7 +168,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -215,7 +215,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -262,7 +262,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -309,7 +309,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -317,8 +317,8 @@
       "access": "verified",
       "observed_head": "7e9fadbd73752b24eb79e270aff6b311ad508109",
       "owner_acceptance": {
-        "status": "accepted",
-        "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
+        "status": "failed",
+        "revision": null,
         "evidence_refs": [
           "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:release/component-release.json"
         ]
@@ -333,10 +333,10 @@
         ]
       },
       "descriptor": {
-        "status": "observed",
-        "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
-        "release_status": "accepted",
-        "blob_sha": "1944fabb102843682e3dd29414c1626af15424d7",
+        "status": "failed",
+        "revision": null,
+        "release_status": null,
+        "blob_sha": null,
         "evidence_refs": [
           "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:release/component-release.json"
         ]
@@ -356,7 +356,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -395,7 +395,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -434,7 +434,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -473,7 +473,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -512,7 +512,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -551,7 +551,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -590,7 +590,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     },
     {
@@ -623,7 +623,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e"
+        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
       }
     }
   ],
@@ -740,6 +740,21 @@
         "aiverse-filmmakers/AI-Verse-System@2c731347c62323bce5ea9f9bdc8a81a554df47eb:docs/DISTRIBUTION-SYSTEM-PROPAGATION-IMPLEMENTATION-PLAN.md"
       ],
       "required_action": "Run the existing full Registry-derived watchdog against the expanded Registry before interpreting watchdog status as current. Do not infer owner acceptance or release readiness from Registry registration alone."
+    },
+    {
+      "id": "repository-watchdog-failed",
+      "marker": "CANONICAL-DRIFT-DETECTED",
+      "status": "open",
+      "severity": "WARNING",
+      "scope": "global",
+      "repository_ids": [
+        1367664026
+      ],
+      "reason": "Global watchdog attempt at 2026-10-21T08:34:25Z did not produce a successful full heartbeat; missed_expected_scans=0; failures=1364457521:descriptor:failed.",
+      "evidence_refs": [
+        "aiverse-filmmakers/AI-Verse-System@d11e58ace9ec4cd39010c85b723083ad05a0e4ed:scripts/run_repository_watchdog.py"
+      ],
+      "required_action": "Run the same Registry-derived global watchdog refresh successfully. Do not auto-rewrite sibling repositories or treat silence as CLEAN."
     }
   ],
   "semantics": {

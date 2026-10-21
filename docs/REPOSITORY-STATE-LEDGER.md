@@ -11,22 +11,22 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `full-refresh`
 - Refresh scope: `global`
 - Refresh status: `complete`
-- Refresh evidence revision: `48ff526f7557a88d2006143ec070a53e2db9982e`
-- Last full refresh: `48ff526f7557a88d2006143ec070a53e2db9982e`
-- Watchdog: `WATCHDOG-CURRENT`
-- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-21T06:13:47Z; all registered repositories were scanned with no access/fetch failure.
+- Refresh evidence revision: `d11e58ace9ec4cd39010c85b723083ad05a0e4ed`
+- Last full refresh: `d11e58ace9ec4cd39010c85b723083ad05a0e4ed`
+- Watchdog: `WATCHDOG-FAILED`
+- Watchdog reason: Global watchdog attempt at 2026-10-21T08:34:25Z did not produce a successful full heartbeat; missed_expected_scans=0; failures=1364457521:descriptor:failed.
 
 ## Repository state
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `48ff526f7557` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `d11e58ace9ec` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `66e0ac2c5c63` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / global |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `906d70d0c896` | accepted `36a85bdb6233` | pinned `36a85bdb6233` / core-member-polish-candidate-2026-10-21 | observed `36a85bdb6233` / accepted | synchronized `b43b640a7795` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `39336cd19eb4` | accepted `f746806e4361` | pinned `f746806e4361` / core-member-polish-candidate-2026-10-21 | observed `f746806e4361` / accepted | synchronized `967013147705` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-member-polish-candidate-2026-10-21 | observed `f1327be48ba2` / accepted | synchronized `3c5715230f10` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `23779f105159` | accepted `afde5c06307f` | pinned `afde5c06307f` / core-member-polish-candidate-2026-10-21 | observed `afde5c06307f` / accepted | synchronized `6be63e25b7eb` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `7e9fadbd7375` | accepted `f8978f8f7a1b` | pinned `f8978f8f7a1b` / core-member-polish-candidate-2026-10-21 | observed `f8978f8f7a1b` / accepted | synchronized `b4d6ec721c5d` | fresh / global |
+| aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `7e9fadbd7375` | failed | pinned `f8978f8f7a1b` / core-member-polish-candidate-2026-10-21 | failed | synchronized `b4d6ec721c5d` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Gateway | ai-verse-gateway | `95cc8319c1dc` | unverified | unpinned | observed `1772b75e2add` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Automations | ai-verse-automations | `fda8b25b11b8` | unverified | unpinned | observed `287ce9d6718e` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Multiple-Bots | ai-verse-multiple-bots | `b4ad4315e560` | unverified | unpinned | observed `ddf70ac19736` / candidate | unverified | fresh / global |
@@ -39,7 +39,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Severity | Scope | Drift | Repositories | Reason | Required action |
 | --- | --- | --- | --- | --- | --- |
-| INFO | global | none | - | No open drift recorded. | Continue normal evidence refresh. |
+| WARNING | global | repository-watchdog-failed | ai-verse-system | Global watchdog attempt at 2026-10-21T08:34:25Z did not produce a successful full heartbeat; missed_expected_scans=0; failures=1364457521:descriptor:failed. | Run the same Registry-derived global watchdog refresh successfully. Do not auto-rewrite sibling repositories or treat silence as CLEAN. |
 
 ## Authority and freshness rules
 
