@@ -1,7 +1,7 @@
 # Shared Skills Library — implementation plan
 
-Date: 2026-10-21. Status: STEP 6 ACTIVE — authorized complete delivery on 23 October 2026.
-Implementation milestones: 5/6 complete. OS, Skills and Brain source changes are merged and accepted; Distribution Core release is merged; personal rollout remains active.
+Date: 2026-10-21. Status: COMPLETE — closed 23 October 2026.
+Implementation milestones: 6/6 complete. Accepted source, qualified Core release, personal rollout and explicit manual skill migration are complete.
 
 ## Authorization and scope
 
@@ -197,7 +197,7 @@ plan before content changes; it is not silently included in this first layer.
 
 ## Progress and next action
 
-Implementation milestones: 5/6 complete (83% of milestones, not an effort estimate).
+Implementation milestones: 6/6 complete (100% of milestones).
 Steps1–4 have implementation evidence. OS/Skills/Brain source changes and accepted
 release descriptors are merged; System source snapshots and qualification records
 are merged. Distribution PR75 is merged with qualified Core promotion.
@@ -206,16 +206,24 @@ Skills390c6e1633afc809040bd1159840045f4f9ff27e and
 Brain7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f.
 Current released Core is core-shared-skills-candidate-2026-10-23-v4; superseded
 v1/v2/v3 evidence is historical and must not be promoted. V4 fixes exact
-Distribution lifecycle mapping for the final owner revisions.557 local tests pass
+Distribution lifecycle mapping for the final owner revisions.558 final local tests pass
 with11 skips; authenticated candidate admission passes. Three-platform and isolated
 populated-update qualification passed; all62 final publication checks passed.
-No actual member update, personal skill migration or deletion has occurred.
-Execution pointer: finish step6 canonical
-member update, explicit manual skill imports with retained originals/log and audit.
+Actual canonical member update, separate optional package upgrade, explicit manual imports and bounded audit are complete. No originals were deleted.
+Execution pointer: NONE. See the step6 completion evidence.
 See STEP-5 evidence and the private execution pointer for dated run IDs/results.
 
 ## Shared release published — 23 October 2026
 
 Distribution PR75 merged at2257ecb23f5aa21d033d85b48f0fdadc59bd0c23 after all62 checks passed on exact head2219c65c6c723ed9c5d063beaf686e8fa84707df. Live Core default is core-shared-skills-candidate-2026-10-23-v4. Final corrected Core run39966657286 passed every platform/job. Canonical whole-product qualification and normal synchronized promotion have zero debt; superseded evidence remains historical. Step5 is complete.
 
-Actual member repeated bootstrap refreshed private tooling and stopped without overwriting a new root package.json customization. Network-enabled official-source preview verifies allthree changed owner descriptors and compatible infrastructure, but package.json is outside the existing owner-adoption allowlist and remains review-required. Step6 therefore remains incomplete; no actual Core activation or manual skills move occurred. Exact original package, lock and script copies plus134 selected preservation fingerprints are retained privately. Resolve through an explicitly reviewed local customization decision; do not weaken the updater's unknown-path refusal.
+Historical pre-update checkpoint: actual member repeated bootstrap refreshed private tooling and stopped without overwriting a new root package.json customization. Network-enabled official-source preview verifies allthree changed owner descriptors and compatible infrastructure, but package.json is outside the existing owner-adoption allowlist and remains review-required. At that checkpoint step6 remained incomplete; no actual Core activation or manual skills move had occurred. Exact original package, lock and script copies plus134 selected preservation fingerprints are retained privately. Resolve through an explicitly reviewed local customization decision; do not weaken the updater's unknown-path refusal.
+
+
+## Final personal rollout — 23 October 2026
+
+Step6 is complete. The operator explicitly approved isolating the personal tool dependencies and reconciling the exact Core manifest, with original files and credentials preserved. The canonical update then succeeded, allfive component health checks passed, and installed/latest OS version matched0.3.8. The selected138-file personal preservation baseline was unchanged by Core update. The separate optional package upgrade reports READY with six trusted hooks and execution/review observed.
+
+Twenty manually approved skill imports are verified:18 shared and2 workspace-restricted. All20 source packages are unchanged, import retries deduplicate, library doctor passes, and66 resolver checks confirm shared discovery and private isolation. The manual migration is private member work, not an automatic Core migration feature. No private skill contents or member credentials are published here.
+
+Live postmerge Core workflow39969515000 and System workflow39970078008 succeeded. See [step6 completion](SHARED-SKILLS-LIBRARY-STEP-6-2026-10-23.md) for bounded evidence and follow-ups. Skills repository content curation remains a separate effort.
