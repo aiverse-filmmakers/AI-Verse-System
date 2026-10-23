@@ -1,6 +1,6 @@
 # Personal tool dependency placement — implementation plan
 
-Date: 23 October 2026. Status: implementing. Progress: 1/3 slices.
+Date: 23 October 2026. Status: COMPLETE. Progress: 3/3 slices (100%).
 Method: canonical Adaptive Implementation Planning Skill, standard depth with explicit release/preservation evidence. Owner: OS; System owns plan, Distribution owns qualified member delivery.
 
 ## Product brief
@@ -38,14 +38,36 @@ Risks: reject symlinks on all controlled ancestors; validate workspace through e
 ### 1 — Contract and safe tool owner (complete)
 Start: OS main50f9f67; installed shared Skills Core v4. Tasks: inspect existing caller/owners; implement helper and contract; exercise meaningful success/refusal/preservation cases. Acceptance: R01–R04 locally verified, no new dependencies. Recovery: discard source branch; no member mutation.
 
-### 2 — Owner acceptance and official delivery
+### 2 — Owner acceptance and official delivery (complete)
 Depends on slice1. Tasks derived at start: owner review/CI, accepted descriptor, System State source update, Distribution exact candidate and platform qualification/promotion. Acceptance: R05 release published with no weakening of existing lifecycle gates. Recovery: retain prior admitted Core; no direct installed source patch.
 
-### 3 — Personal rollout and closeout
+### 3 — Personal rollout and closeout (complete)
 Depends on slice2. Canonical update, selected personal-state fingerprints, real helper preview/check without external package execution, doctor/version, final plan evidence. Acceptance: installed accepted release, preserved member files, honest enforcement limits. Recovery: canonical lifecycle recovery only; no migration of old tools.
 
-Execution pointer: slice2 — owner acceptance and qualified delivery. New tasks may refine implementation but not weaken requirements or enlarge scope.
+Execution pointer: NONE. All three slices are complete. New tasks may refine implementation but not weaken requirements or enlarge scope.
 
 ## Slice1 evidence
 
-OS PR106, exact source7bb6226783396ef7a00b325306da26b0f4b17474. One dependency-free production helper;34 local behavioral checks pass and architecture check passes with zero warnings. Native placement checks pass on Linux/macOS/Windows (exact run link retained in PR106). Core manifests remain unchanged; personal apps are gitignored. Official plan accepted through System PR265. Broader owner acceptance is still running; source is not yet an accepted member release.
+OS PR106, exact source7bb6226783396ef7a00b325306da26b0f4b17474. One dependency-free production helper;34 local behavioral checks pass and architecture check passes with zero warnings. Native placement checks pass on Linux/macOS/Windows (exact run link retained in PR106). Core manifests remain unchanged; personal apps are gitignored. Official plan accepted through System PR265. All41 source checks passed; OS PR106/107 accepted the exact source as0.3.9. Distribution now publishes it through the qualified release below.
+
+## Slice2 completion — official delivery
+
+Completed tasks: exact owner acceptance and descriptor; authenticated System source State; immutable candidate admission; real three-platform fresh/populated/optional qualification; preservation/qualification receipts; normal synchronized promotion; exact final-head CI; live-default verification.
+
+OS source7bb6226783396ef7a00b325306da26b0f4b17474 is accepted as0.3.9. System PR265 adopted this plan; PR266 merged source snapshot343a13b1d8fade4553878a4deefb7c9da6f44cfe. All147 System tests pass. Distribution definitiond9e7c85f397a8515b9aaec7c45001ede99d01e47 is bound to exact authenticated owner evidence. The three new-release jobs in40014222597 and allsix unit jobs in40014222655 passed on tested head4346b8aa494284bc6b8a318d4b955f7b1cbc495b. The superseded aggregate40014222597 was stopped only after those three required jobs passed, to unblock final publication; no whole-workflow success is claimed for that superseded run.
+
+Canonical whole-product qualification and normal synchronized promotion passed with zero debt. Distribution PR76 merged at a3db40f5418eef5c8b8ca030d251c66f623dfe1a after all65 checks passed on exact publication headab59ac4240cdd16ab7f8a3e5037cf696f7273da1. Final Core workflow40017661046 succeeded, including allhistorical and new-release platform jobs. Live default is `core-tool-placement-candidate-2026-10-23`; other component pins and dependency locks are unchanged.
+
+Adaptive findings: the populated fixture now seeds Skills in the prior configured personal library, using its historical fallback only when no binding exists. Historical version identity remains exact; the current version label is checked against the current accepted descriptor. These are qualification-fixture corrections, not member data moves or relaxed preservation. Final network checks bind the exact qualified System/owner heads; no harness safety logic was weakened.
+
+## Slice3 completion — actual member rollout
+
+Completed tasks: ready preflight;143-file selected baseline; official repeated bootstrap into the receipt-owned tool refresh and canonical default updater; health/version; installed helper and scoped preview; skill routing/privacy and native optional-package preservation; durable private completion evidence.
+
+The actual update succeeded and changed only OS. Installed/latest version is0.3.9, status ready and doctor passes. All143 selected personal/configuration/tool files are byte-identical after update. All66 shared/scoped Skills routing checks pass. Existing private tool package check passes; new workspace tool creation preview makes no changes. Architecture check passes with zero warnings. The unchanged optional Codex package reports READY with approval_required=false and actual execution/review observed. No new hook behavior or trust action was introduced.
+
+Private member evidence remains in its development workspace and runtime reports; no credentials, private workspace names, tool contents or user paths are published here. No SDK task, caption retrieval, advertising action or generation was executed on the real member installation. New-member and populated-member dependency installs were exercised in isolated qualification fixtures.
+
+## Closure and remaining scope
+
+R01–R05 accepted.3/3 slices complete. Execution pointer:NONE. This is enforcement for supported AI-Verse tool creation/install paths, not arbitrary process/filesystem isolation. Existing tools are not automatically migrated. Skills repository content curation remains a separate effort. Postmerge main workflow40020025558 is additional live validation; its current status must be read from GitHub rather than inferred from this closeout.
