@@ -1,6 +1,6 @@
 # Gateway Completion and Dashboard-Ready Delivery Plan
 
-**Status:** G0.1 COMPLETE (5/5), G0.2 COMPLETE (4/4), G1.1 COMPLETE (4/4); G1.2 IN PROGRESS (1/4 task). T2–T3 authorized; T4 awaits owner `next`.
+**Status:** G0.1 COMPLETE (5/5), G0.2 COMPLETE (4/4), G1.1 COMPLETE (4/4); G1.2 IN PROGRESS (2/4 tasks done, T3 in review). T4 awaits owner `next`.
 **Created:** 2026-10-23
 **Plan owner:** `aiverse-filmmakers/AI-Verse-System`
 **Canonical code owner:** `aiverse-filmmakers/AI-Verse-Gateway`
@@ -9,7 +9,7 @@
 **Method:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md)
 **Fixed destination:** Finish the *existing* canonical Gateway as a reliable, securely bounded, owner-backed, Dashboard-ready local Agent edge, with verified current-generation chat/runs/events/controls, restart behavior, composed integration and honest release qualification. Do not expand "finish" to speculative enterprise or every future owner feature.
 **Checkpoint:** 3 / 10 new acceptance slices complete (30%). Historical Gateway implementation remains preserved and is not counted as 0% built.
-**Next:** G1.2 Task 2: add the smallest missing ordinary HTTP streaming/owner-boundary regression to the *existing* Gateway native test suite, without inventing a new runtime or Goal owner. Then Task 3: attest/reuse existing Distribution→Brain Goal bridge and negative fail-closed current owner evidence. STOP before G1.2 Task 4.
+**Next:** Finish G1.2 Task 3 ONLY: qualify the current Distribution Goal owner version/scope negative regression [PR #78](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/78) and existing positive composed Bridge evidence. STOP before G1.2 T4 until owner `next`.
 
 ## 1. Product brief and finish line
 
@@ -309,13 +309,13 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 
 **Derived 4 tasks (T1–T3 authorized now; T4 WAITING):**
 1. **T1 COMPLETE:** Inspect current canonical Gateway call/run/OS scope and Distribution Brain bridge, exact source and admitted vs not-yet-promoted boundaries. Preserve prior accepted mechanisms and identify only meaningful missing caller tests.
-2. **T2 NEXT:** Add one compact *external HTTP SSE normal chat* and negative scope/lifecycle check to existing `Gateway/test/clean-install.test.mjs` if uncovered. Prove actual streamed text, terminal marker, authorized bearer/declared system and no side-effect/scope bypass with deterministic host fixture; if an existing equivalent is found, cite it instead. Native six-runner CI and merged-main validation, no production changes unless real failure exposed.
-3. **T3 AUTHORIZED:** Confirm Distribution Goal bridge real source, workspace/version correctness and negative fail-closed boundaries with existing [`tests/test_goal_bridge.py`](https://github.com/aiverse-filmmakers/ai-verse-distribution/blob/main/tests/test_goal_bridge.py), [Gateway existing Goal negative HTTP test](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/clean-install.test.mjs) and exact candidate composed acceptance. If a genuine current-generation adapter gap is found, add a **minimal** owner-native regression; otherwise **REUSE/VERIFY** the accepted tests, not duplicate the Bridge.
+2. **T2 COMPLETE:** [Gateway PR #67](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/67) merged SHA **`9aa3bc6e1e94669f3cbcc18de6c7bde2d62a90cb`** with one external-HTTP regression added to existing `test/clean-install.test.mjs`. Test exercises four fast authenticated `stream:true` ordinary chats, verifies OpenAI text deltas and terminal `data: [DONE]`, and rejects no-bearer 401 / unapproved browser Origin 403. [Six-runner Gateway CI 39992651435](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/39992651435) passed on Node20/22 Linux/Windows/macOS; no production runtime, OS host, Goal bridge or owner state changed. Verify merged-main run separately before release claim.
+3. **T3 IN REVIEW:** [Distribution PR #78](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/78) adds the **missing negative owner-adapter regression** in existing `tests/test_goal_bridge.py`: reject boolean/string/null/float `expected_version`, missing evidence and unsupported Goal operation **before any Brain CLI call**. Exposed current `isinstance(True, int)` accept-as-version bug; single-line change to `type(expected) is int` in existing `goal_bridge.py` fails closed without a second adapter/Goal store. Existing positive workspace/evidence-scope Bridge test retained; current Agent two-system [composed 39990671192](https://github.com/aiverse-filmmakers/ai-verse-distribution/actions/runs/39990671192) passed three OS. **Not yet accepted until exact PR-head native Distribution CI, merge and owner state check.**
 4. **T4 WAITING for new `next`:** Reconcile G1.2 T1–T3 exact merged Gateway native and composed owner results, check ordinary run permissions/Purpose/context regression CI and record true unavailable/runtime-model conditions, close slice only if the fixed acceptance is proved. Do not promote Distribution pins or alter Dashboard MC1.4.
 
 **G1.2 scope laws:** Goal truth stays in Brain; Distribution owns the already-existing Goal bridge/setup; Gateway owns ingress, bounded execution/authorization state; OS owns final host/effect admission. Model inference alone cannot complete evidence-gated Goal criteria. `goal_owner_configured` reports *config presence*, not a live health check; an absent adapter fails closed. Default Gateway remains loopback, bearer-only and scoped to one system. Dashboard MC1.4 remains BLOCKED, a different owner gate. No general release set, consent semantics, or unrelated PR changed.
 
-**Checkpoint:** G1.1 **COMPLETE**, G1.2 **T1/4 complete** (slice IN PROGRESS). Overall **3/10 new slices (30%)**, Phase G1 **1/2**. The owner has authorized T2–T3, not T4.
+**Checkpoint:** G1.1 **COMPLETE**; G1.2 **2/4 tasks accepted** (T1/T2), T3 undergoing exact Distribution CI; T4 waiting for new `next`. Overall **3/10 new slices (30%)**, Phase G1 **1/2**. Owner authorized T3 but not T4.
 
 
 - **Owner:** Gateway, with Brain/OS owner approvals only if their public surface must change.
@@ -384,5 +384,5 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 - **During implementation:** one narrow owner branch/PR; prove a public failure or meaningful negative case, implement smallest safe fix, run focused and full relevant regression, inspect diff/adversarial paths and test exact head. No speculative new abstraction. Preserve concurrent owner work.
 - **At every slice close:** merge tested owner work, verify merged-main CI and composed evidence as applicable, update this living System plan with PR/SHA/CI, blockers, counters and next slice. Separate `code merged`, `owner accepted`, `Distribution qualified` and `member released`.
 - **Protected amendment:** any changed architecture, owner, scope, slice goal, acceptance, denominator or release behavior stops with `BLOCKED - PLAN AMENDMENT REQUIRED` and evidence-based proposal.
-- **Progress:** G0 2/2; G1 1/2; G2 0/2; G3 0/2; G4 0/2; overall **3/10 slices (30%)**. G0.1 5/5, G0.2 4/4, G1.1 4/4 COMPLETE; G1.2 **1/4 tasks COMPLETE**, T2–T3 authorized, T4 waits for next. Historical completions preserved.
-- **Current execution pointer:** **G1.1 T4 accepted with exact 3-OS composed evidence; G1.2 T1 source trace complete.** Do G1.2 T2 and T3 only, then STOP before T4. Dashboard MC1.4 remains separately BLOCKED; no release pin promoted.
+- **Progress:** G0 2/2; G1 1/2; G2 0/2; G3 0/2; G4 0/2; overall **3/10 slices (30%)**. G0.1 5/5, G0.2 4/4, G1.1 4/4 COMPLETE; G1.2 **2/4 tasks COMPLETE**, T3 in review, T4 waits for next. Historical completions preserved.
+- **Current execution pointer:** **G1.2 T2 merged, T3 in qualification.** Finish only T3 after native CI/merge, then STOP before T4. Dashboard MC1.4 remains separately BLOCKED; no release pin promoted.
