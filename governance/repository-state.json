@@ -19,11 +19,11 @@
       1362243580,
       1364457521
     ],
-    "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5",
+    "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7",
     "last_scoped_refresh": {
       "scope": "Core",
       "status": "complete",
-      "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5",
+      "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7",
       "observed_at": null
     },
     "last_full_refresh": {
@@ -48,7 +48,7 @@
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "f9a705d434419ac064f398256e1ef7183def04a5",
+      "observed_head": "196b8c684f58e6e9456eb6ee605ef10c75b327a7",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -75,7 +75,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
+        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
       }
     },
     {
@@ -117,18 +117,18 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
+        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
       }
     },
     {
       "repository_id": 1361862361,
       "access": "verified",
-      "observed_head": "a0a7f6d9ae57c2159b22a5350abbd1bf3cc829cd",
+      "observed_head": "86f152258f278d161e72e934bca8793bdd34a205",
       "owner_acceptance": {
         "status": "accepted",
-        "revision": "88e283aaac40ec6152b07d1ce764fb769515852e",
+        "revision": "5845fcfed123910e854ff764cb895c826a0b3291",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@a0a7f6d9ae57c2159b22a5350abbd1bf3cc829cd:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@86f152258f278d161e72e934bca8793bdd34a205:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -142,11 +142,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "88e283aaac40ec6152b07d1ce764fb769515852e",
+        "revision": "5845fcfed123910e854ff764cb895c826a0b3291",
         "release_status": "accepted",
-        "blob_sha": "09e0e7e1405cdffdd1ba1c9b78ed1ab7744aaa0a",
+        "blob_sha": "2cde3334023828e7b63bdda30b8b7005708c8105",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@a0a7f6d9ae57c2159b22a5350abbd1bf3cc829cd:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@86f152258f278d161e72e934bca8793bdd34a205:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -161,7 +161,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
+        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
       }
     },
     {
@@ -208,7 +208,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
+        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
       }
     },
     {
@@ -255,7 +255,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
+        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
       }
     },
     {
@@ -302,7 +302,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
+        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
       }
     },
     {
@@ -349,7 +349,7 @@
       "freshness": {
         "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
+        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
       }
     },
     {
