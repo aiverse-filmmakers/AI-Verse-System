@@ -1,6 +1,6 @@
 # Personal tool dependency placement — implementation plan
 
-Date: 23 October 2026. Status: implementing. Progress: 0/3 slices.
+Date: 23 October 2026. Status: implementing. Progress: 1/3 slices.
 Method: canonical Adaptive Implementation Planning Skill, standard depth with explicit release/preservation evidence. Owner: OS; System owns plan, Distribution owns qualified member delivery.
 
 ## Product brief
@@ -35,7 +35,7 @@ Risks: reject symlinks on all controlled ancestors; validate workspace through e
 
 ## Slices
 
-### 1 — Contract and safe tool owner (active)
+### 1 — Contract and safe tool owner (complete)
 Start: OS main50f9f67; installed shared Skills Core v4. Tasks: inspect existing caller/owners; implement helper and contract; exercise meaningful success/refusal/preservation cases. Acceptance: R01–R04 locally verified, no new dependencies. Recovery: discard source branch; no member mutation.
 
 ### 2 — Owner acceptance and official delivery
@@ -44,4 +44,8 @@ Depends on slice1. Tasks derived at start: owner review/CI, accepted descriptor,
 ### 3 — Personal rollout and closeout
 Depends on slice2. Canonical update, selected personal-state fingerprints, real helper preview/check without external package execution, doctor/version, final plan evidence. Acceptance: installed accepted release, preserved member files, honest enforcement limits. Recovery: canonical lifecycle recovery only; no migration of old tools.
 
-Execution pointer: slice1. New tasks may refine implementation but not weaken requirements or enlarge scope.
+Execution pointer: slice2 — owner acceptance and qualified delivery. New tasks may refine implementation but not weaken requirements or enlarge scope.
+
+## Slice1 evidence
+
+OS PR106, exact source7bb6226783396ef7a00b325306da26b0f4b17474. One dependency-free production helper;34 local behavioral checks pass and architecture check passes with zero warnings. Native placement checks pass on Linux/macOS/Windows (exact run link retained in PR106). Core manifests remain unchanged; personal apps are gitignored. Official plan accepted through System PR265. Broader owner acceptance is still running; source is not yet an accepted member release.
