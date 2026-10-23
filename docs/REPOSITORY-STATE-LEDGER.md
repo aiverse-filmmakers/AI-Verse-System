@@ -8,10 +8,10 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 - State schema: `ai-verse.repository-state/v1`
 - Registry binding blob: `88839264a3270d65d21297ade089f111aa843975`
-- Refresh mode: `full-refresh`
-- Refresh scope: `global`
+- Refresh mode: `scoped-refresh`
+- Refresh scope: `Core`
 - Refresh status: `complete`
-- Refresh evidence revision: `2d25213b0dc46e7274c7790dd5881694f94c08ae`
+- Refresh evidence revision: `74b5b0bd52f28fe1a952aa1961336f86db1383f9`
 - Last full refresh: `2d25213b0dc46e7274c7790dd5881694f94c08ae`
 - Watchdog: `WATCHDOG-CURRENT`
 - Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-23T08:33:22Z; all registered repositories were scanned with no access/fetch failure.
@@ -20,13 +20,13 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `2d25213b0dc4` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
-| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `66e0ac2c5c63` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / global |
-| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `86f152258f27` | accepted `5845fcfed123` | pinned `36a85bdb6233` / core-member-polish-candidate-2026-10-21 | observed `5845fcfed123` / accepted | synchronized `b43b640a7795` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `6ad408e38b6b` | accepted `7e6f7a7e8a3d` | pinned `f746806e4361` / core-member-polish-candidate-2026-10-21 | observed `7e6f7a7e8a3d` / accepted | synchronized `967013147705` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-member-polish-candidate-2026-10-21 | observed `f1327be48ba2` / accepted | synchronized `3c5715230f10` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `dab4d3b59505` | accepted `424e2a7b1300` | pinned `afde5c06307f` / core-member-polish-candidate-2026-10-21 | observed `424e2a7b1300` / accepted | synchronized `6be63e25b7eb` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `7e9fadbd7375` | accepted `f8978f8f7a1b` | pinned `f8978f8f7a1b` / core-member-polish-candidate-2026-10-21 | observed `f8978f8f7a1b` / accepted | synchronized `b4d6ec721c5d` | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `74b5b0bd52f2` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / Core |
+| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `66e0ac2c5c63` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / Core |
+| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `50f9f678eb84` | accepted `4a134190355e` | pinned `36a85bdb6233` / core-member-polish-candidate-2026-10-21 | observed `4a134190355e` / accepted | synchronized `b43b640a7795` | fresh / Core |
+| aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `6ad408e38b6b` | accepted `7e6f7a7e8a3d` | pinned `f746806e4361` / core-member-polish-candidate-2026-10-21 | observed `7e6f7a7e8a3d` / accepted | synchronized `967013147705` | fresh / Core |
+| aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-member-polish-candidate-2026-10-21 | observed `f1327be48ba2` / accepted | synchronized `3c5715230f10` | fresh / Core |
+| aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `297c63a5be95` | accepted `390c6e1633af` | pinned `afde5c06307f` / core-member-polish-candidate-2026-10-21 | observed `390c6e1633af` / accepted | synchronized `6be63e25b7eb` | fresh / Core |
+| aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `7e9fadbd7375` | accepted `f8978f8f7a1b` | pinned `f8978f8f7a1b` / core-member-polish-candidate-2026-10-21 | observed `f8978f8f7a1b` / accepted | synchronized `b4d6ec721c5d` | fresh / Core |
 | aiverse-filmmakers/AI-Verse-Gateway | ai-verse-gateway | `95cc8319c1dc` | unverified | unpinned | observed `1772b75e2add` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Automations | ai-verse-automations | `fda8b25b11b8` | unverified | unpinned | observed `287ce9d6718e` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Multiple-Bots | ai-verse-multiple-bots | `b4ad4315e560` | unverified | unpinned | observed `ddf70ac19736` / candidate | unverified | fresh / global |
