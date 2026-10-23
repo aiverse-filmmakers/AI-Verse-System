@@ -932,3 +932,9 @@ The optional adapter remains separately installed. Core source inclusion does no
 [Owner source PR #100](https://github.com/aiverse-filmmakers/AI-Verse-OS/pull/100) is merged. Accepted source: `88e283aaac40ec6152b07d1ce764fb769515852e`. 32 source checks passed, including Repository QC, composed optional adapter acceptance and shared member Skills on Linux, macOS and Windows. OS owns installation-bound discovery, explicit collision selection and non-secret scoped settings.
 
 Core composition, release qualification and promotion remain separate Distribution gates. A source merge or catalog entry does not itself establish installed member health or native desktop callback evidence. See `docs/SHARED-SKILLS-LIBRARY-IMPLEMENTATION-PLAN-2026-10-21.md`.
+
+## 2026-10-23 shared Skills private-settings hardening
+
+OS PR102 accepts source `5845fcfed123910e854ff764cb895c826a0b3291`. All32 source checks passed, including actual Git privacy checks on Linux, macOS and Windows (run39908401200), Repository QC39908401125 and composed adapter acceptance39908401175. Provider roots, external source registrations, operator skill bindings and their transactional sidecars remain private by default while canonical OS source remains tracked. OS PR103 publishes the exact-source 0.3.7 descriptor.
+
+The unpromoted shared Skills v1 candidate is superseded. Distribution must freeze new evidence for v2 and repeat whole-product qualification; no v1 results alone admit the privacy-hardened composition.
