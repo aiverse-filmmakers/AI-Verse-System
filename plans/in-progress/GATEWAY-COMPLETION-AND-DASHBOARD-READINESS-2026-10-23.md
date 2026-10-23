@@ -1,6 +1,6 @@
 # Gateway Completion and Dashboard-Ready Delivery Plan
 
-**Status:** READY TO START; no implementation slice claimed complete by this new plan
+**Status:** IN PROGRESS, Slice G0.1; Task 1 of 5 complete, awaiting owner `next` before Task 2
 **Created:** 2026-10-23
 **Plan owner:** `aiverse-filmmakers/AI-Verse-System`
 **Canonical code owner:** `aiverse-filmmakers/AI-Verse-Gateway`
@@ -9,7 +9,7 @@
 **Method:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md)
 **Fixed destination:** Finish the *existing* canonical Gateway as a reliable, securely bounded, owner-backed, Dashboard-ready local Agent edge, with verified current-generation chat/runs/events/controls, restart behavior, composed integration and honest release qualification. Do not expand "finish" to speculative enterprise or every future owner feature.
 **Checkpoint:** 0 / 10 new acceptance slices complete (0%). This is the remaining-work program, **not** an assertion that existing Gateway is 0% implemented.
-**Next:** G0.1 — reconcile actual completed/unfinished Gateway workstreams and exact active owner/dependency refs, derive bounded tasks and capture a traceable gap ledger. No code change until G0.1 proves the gap and collision scope.
+**Next:** G0.1 Task 2 ONLY, after owner says `next`: compare earlier Gateway plans, branch/PR history and actual current implementation/CI; do not perform Task 2 yet. No Gateway code change until G0.1 proves the gap and collision scope.
 
 ## 1. Product brief and finish line
 
@@ -119,6 +119,32 @@ Documented starting path:
 
 #### G0.1 — Resume-ledger and active-gap verification
 
+#### G0.1 bounded task execution ledger (opened 2026-10-23)
+
+Task progress for this slice: **1/5**, with only Task 1 accepted. The fixed slice remains **IN PROGRESS**; overall **0/10 completed slices (0%)**. The task order below is gated by the owner's explicit **`next`** between tasks.
+
+1. **COMPLETE (2026-10-23):** Refresh live exact Gateway, System, Distribution, Dashboard, OS and Brain main refs, open PRs, candidate descriptors, issue #60, governance observation and MC1.4 gate. Evidence recorded below.
+2. **WAITING FOR OWNER `next`:** Compare completed and interrupted historic Gateway plans/branches/PRs with current owner code and exact CI; classify only evidence-backed unimplemented gaps.
+3. **WAITING:** Trace the actual Gateway-to-Dashboard API and current Goal-owner adapter contract; mark supported vs unavailable surfaces with exact current-generation evidence.
+4. **WAITING:** Publish categorized no-duplication gap/collision ledger with source links.
+5. **WAITING:** Review gaps and derive the smallest bounded G0.2 task list. Do not automatically advance into G0.2 without the owner's `next`.
+
+##### Task 1: live source-of-truth checkpoint
+
+| Source | Live observation (all checked 2026-10-23) | Exact evidence |
+| --- | --- | --- |
+| Gateway main | `95cc8319c1dc95b05da0ebb451d70469170ca3f8`; **0 open PRs**; main CI and Release Descriptor workflow success on the exact main ref. | [Main commit](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/commit/95cc8319c1dc95b05da0ebb451d70469170ca3f8); [CI 38383650023](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/38383650023); [Descriptor gate 38383650087](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/38383650087) |
+| Gateway descriptor | `0.1.0-beta.1`, **candidate** at exact source ref `1772b75e2add73a524715f746e87b3a6b5561bf6`; exact candidate CI `37876089214` passed. Descriptor's `supported_platforms` is `linux` even though separate native tests use multiple platforms. It is release metadata, not a live deployed-health or whole-product release claim. | [Descriptor](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/release/component-release.json); [Candidate CI](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/37876089214) |
+| Gateway open defect | [#60](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/issues/60) **OPEN**. Windows concurrent two-system Gateway run hit repeated `EPERM` during atomic rename, producing a failed run / HTTP 409. Issue states existing transient retries were insufficient for the tested pinned Agent path. Do not mark fixed from unrelated green native CI. | [Issue #60](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/issues/60); referenced Distribution composed run `38062934358` |
+| Dashboard main and descriptor | Main `ec5d40aea7fa3111357c086660a2630cef20f51a`, **0 open PRs**, Dashboard main CI success `38384230668`; descriptor `0.1.0-alpha.0` candidate at `bd26986e202d4b911d0c5f64659db71363bfccfa`. | [Dashboard main](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/commit/ec5d40aea7fa3111357c086660a2630cef20f51a); [CI](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/38384230668); [Descriptor](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/blob/main/release/component-release.json) |
+| Dashboard integration handoff | [Canonical tracker](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/blob/main/docs/MISSION-CONTROL-EXECUTION-TRACKER-2026-09-15.md) remains **11/100**; MC1.1–MC1.3 accepted; MC1.4 real local Mission Control-to-Gateway proof **BLOCKED** in that owner tracker, MC1.5 **PENDING**. The separate [Oct 5 controlled dogfood decision](../../docs/public-beta-audit/repairs/FINAL-INDEPENDENT-RECHECK-2026-10-05.md) covers synthetic-data supervised Agent testing but is not documented as an explicit Dashboard MC1.4 tracker unblocking. | [Dashboard execution tracker](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/blob/main/docs/MISSION-CONTROL-EXECUTION-TRACKER-2026-09-15.md) |
+| Distribution main | `66e0ac2c5c631d450cf0708fec208b30fb784402`, native Distribution CI success; **one open PR #75** from `e486c97efdac005c28427d9abf8f71912d4a4700` about member Shared Skills lifecycle. Do not edit its branch, freeze or claim it merged. | [Main commit](https://github.com/aiverse-filmmakers/ai-verse-distribution/commit/66e0ac2c5c631d450cf0708fec208b30fb784402); [PR #75](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/75); [CI](https://github.com/aiverse-filmmakers/ai-verse-distribution/actions/runs/39554078673) |
+| Current owner dependencies | OS main `50f9f678eb847dc447560020ecdb74b9ecc7ea20`; Brain main `6ad408e38b6b876cc8049f207fcba1e86ffd6554`. Both moved on October 23 in Shared Skills work and have no open PR at checkpoint. Do not assume the new refs were already admitted to every Agent composition. | [OS main](https://github.com/aiverse-filmmakers/AI-Verse-OS/commit/50f9f678eb847dc447560020ecdb74b9ecc7ea20); [Brain main](https://github.com/aiverse-filmmakers/AI-Verse-Brain/commit/6ad408e38b6b876cc8049f207fcba1e86ffd6554) |
+| System main and governance | System main at task start `9f68f77f3d40eb9decfaef430d8c710ed0265504` (plan merged through PR #259), **0 open PRs** at start. The last published 14/14 Registry-derived full watchdog scan at `2026-10-23T08:33:22Z` was `WATCHDOG-CURRENT`. Its snapshot marks **current Gateway owner acceptance `unverified` and Distribution pin `unpinned`** in that snapshot, distinct from historical immutable Agent acceptance records. System has advanced after the watchdog observation, so it is a historical persisted evidence snapshot, not a new current-ref refresh/publication by this task. | [System plan merge](https://github.com/aiverse-filmmakers/AI-Verse-System/commit/9f68f77f3d40eb9decfaef430d8c710ed0265504); [Repository State](https://github.com/aiverse-filmmakers/AI-Verse-System/blob/main/governance/repository-state.json); [Watchdog](https://github.com/aiverse-filmmakers/AI-Verse-System/actions/runs/39925331838) |
+
+**Task 1 outcome:** Exact current owner refs, relevant PR collision, descriptors, unresolved Windows issue and still-blocked Dashboard MC1.4 are recorded. This is **read-only discovery plus a System planning update**, not implementation code, a new owner acceptance, a fresh formal Registry/State publication, a Distribution promotion or a release. Next permitted task, after an explicit `next`: **G0.1 Task 2**.
+
+
 - **Owner/scope:** System planning record and read-only Gateway/Distribution/Dashboard/OS/Brain state inspection; no production code mutation.
 - **Start:** Gateway `main` `95cc8319c1dc95b05da0ebb451d70469170ca3f8`; System plan creation based on `a6697ed24a1d70962544795259427a2acc765021`. Recheck live refs at execution.
 - **Dependencies:** This plan present; current sibling PR and CI status checked.
@@ -216,5 +242,5 @@ Documented starting path:
 - **During implementation:** one narrow owner branch/PR; prove a public failure or meaningful negative case, implement smallest safe fix, run focused and full relevant regression, inspect diff/adversarial paths and test exact head. No speculative new abstraction. Preserve concurrent owner work.
 - **At every slice close:** merge tested owner work, verify merged-main CI and composed evidence as applicable, update this living System plan with PR/SHA/CI, blockers, counters and next slice. Separate `code merged`, `owner accepted`, `Distribution qualified` and `member released`.
 - **Protected amendment:** any changed architecture, owner, scope, slice goal, acceptance, denominator or release behavior stops with `BLOCKED - PLAN AMENDMENT REQUIRED` and evidence-based proposal.
-- **Progress:** G0 0/2; G1 0/2; G2 0/2; G3 0/2; G4 0/2; overall 0/10 (0%). Previous accepted programs keep their recorded historical completions; this new counter is not a reset of them.
-- **First execution pointer:** **G0.1, task 1**: refresh Gateway `main`, issue #60, current release descriptor, System/Distribution relevant refs, Dashboard MC1.4 gate, then publish a precise continuation ledger. No coding until a real missing behavior is proven.
+- **Progress:** G0 0/2; G1 0/2; G2 0/2; G3 0/2; G4 0/2; overall 0/10 slices (0%). Within G0.1, Task 1/5 complete, Task 2 awaits owner `next`. Previous accepted programs keep their recorded historical completions; this new counter is not a reset of them.
+- **Current execution pointer:** **STOP after G0.1 Task 1**. Await owner `next` to start **G0.1 Task 2**, comparing historic plans/branches/PRs and existing current implementation for duplication and actual missing behavior. No coding until a real gap is proven.
