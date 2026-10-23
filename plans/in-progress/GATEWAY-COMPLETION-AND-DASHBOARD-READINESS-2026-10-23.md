@@ -1,6 +1,6 @@
 # Gateway Completion and Dashboard-Ready Delivery Plan
 
-**Status:** Slice G0.1 COMPLETE (5/5); Slice G0.2 IN PROGRESS (**3/4** tasks done), awaiting owner `next` for G0.2 Task 4. G0.2 outcome slice NOT YET accepted.
+**Status:** G0.1 COMPLETE (5/5), G0.2 COMPLETE (4/4), G1.1 IN PROGRESS (1/4 tasks); G1.1 T2 and T3 authorized now, T4 waits for owner `next`.
 **Created:** 2026-10-23
 **Plan owner:** `aiverse-filmmakers/AI-Verse-System`
 **Canonical code owner:** `aiverse-filmmakers/AI-Verse-Gateway`
@@ -8,8 +8,8 @@
 **Planning depth:** EXTENDED: persistent run state, authenticated permissions, cross-repo contracts, Windows durability and release gates
 **Method:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md)
 **Fixed destination:** Finish the *existing* canonical Gateway as a reliable, securely bounded, owner-backed, Dashboard-ready local Agent edge, with verified current-generation chat/runs/events/controls, restart behavior, composed integration and honest release qualification. Do not expand "finish" to speculative enterprise or every future owner feature.
-**Checkpoint:** 1 / 10 new acceptance slices complete (10%). Historical Gateway implementation remains preserved and is not counted as 0% built.
-**Next:** STOP after G0.2 Task 3. G0.2 Task 4 ONLY after owner says `next`: verify integrated contract evidence and current compatible refs, freeze Gateway issue #60 G1.1 entry conditions, then decide G0.2 closure (not done).
+**Checkpoint:** 2 / 10 new acceptance slices complete (20%). Historical Gateway implementation remains preserved and is not counted as 0% built.
+**Next:** G1.1 T2 ONLY: characterize and regression-test the original eight-attempt atomic rename boundary in Gateway. Then G1.1 T3: minimally harden retries plus long-contention/bounded failure tests. STOP before G1.1 T4 Distribution composed qualification, which requires new owner `next`.
 
 ## 1. Product brief and finish line
 
@@ -248,9 +248,9 @@ Task progress for this slice: **5/5 COMPLETE**. The fixed G0.1 outcome is accept
 
 **Scope and release distinction:** Three source-owner PRs merged in order, with zero Gateway production module changes; they provide documented existing behavior and new meaningful regression evidence, **not** a first-class Dashboard MC2 client or accepted MC1.4 live proof. No release descriptor, Distribution pin or System Registry generated snapshot was touched; current Gateway merged source is `c08d9f2957b767252b925b352281bba4b46258c0`, **not automatically admitted**. Windows issue #60 remains open. Concurrent Distribution [PR #76](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/76) was not touched.
 
-**G0.2 Task 4 — WAITING FOR OWNER `next`.** Check exact merged-main CI and unaffected owner refs; confirm the current protocol version/identity/capability error table against this documentation and tests; freeze only the genuinely missing G1.1 Windows issue #60 regression plan, Dashboard separate MC1.4/MC2 handoff and Brain transport blocker; close G0.2 only if its acceptance is fully evidenced. **Do not perform this task without the next user authorization.**
+**G0.2 Task 4 — COMPLETE (2026-10-23, authorized by owner's next-four request).** Reviewed merged Gateway ref `c08d9f2957b767252b925b352281bba4b46258c0`, [exact merged-main CI 39980088773](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/39980088773) **success**, [owner Protocol](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/docs/PROTOCOL.md), documented model `aiverse`, status/identity, mandatory bearer/lifecycle and scope binding, [HTTP regression](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/clean-install.test.mjs) positive/negative caller paths and optional Goal unavailable. Dashboard MC1.4 remains BLOCKED and Dashboard MC2 pending. Brain production Goal provider remains UNPROVEN; no direct sibling write. Explicit [issue #60](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/issues/60) carries the next bounded implementation. **G0.2 4/4 accepted as a source-contract and test outcome; not live Dashboard integration, Brain owner qualification or release promotion.**
 
-**Progress:** G0.1 **5/5 COMPLETE**; G0.2 **3/4 tasks COMPLETE**, **slice IN PROGRESS**. Fixed outcome counter remains **1/10 new slices (10%)** and Phase G0 **1/2 slices**. Preserve old accepted historical program outcomes and the unmodified other repositories.
+**Progress:** G0.1 **5/5 COMPLETE**; G0.2 **4/4 COMPLETE**, **slice accepted**. Fixed outcome counter **2/10 new slices (20%)** and Phase G0 **2/2 slices**. Preserve old accepted historical program outcomes and other owner repositories.
 
 
 
@@ -269,6 +269,26 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 ### Phase G1 — Close evidenced core defects and runtime compatibility (2 slices)
 
 #### G1.1 — Windows durable run-state replacement / issue #60
+
+##### G1.1 source checkpoint, fixed outcome and derived tasks (2026-10-23)
+
+**Task 1 — COMPLETE, exact incident/pin characterization.** [Issue #60](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/issues/60) reports repeated Windows `EPERM` of temp-to-run-state JSON rename during concurrently running isolated Agent systems, with chat HTTP 409 after run failure. The original [Distribution PR #28](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/28) [composed CI 38062934358](https://github.com/aiverse-filmmakers/ai-verse-distribution/actions/runs/38062934358) and failing Windows job/rerun `114244706994`/`114246240117` are **historical incident evidence**; current workflow remains [`composed-two-system-acceptance.yml`](https://github.com/aiverse-filmmakers/ai-verse-distribution/blob/main/.github/workflows/composed-two-system-acceptance.yml) calling [`composed_two_system_acceptance.py`](https://github.com/aiverse-filmmakers/ai-verse-distribution/blob/main/tests/acceptance/composed_two_system_acceptance.py) with separate roots/ports concurrently. Ubuntu/macOS passed in the original incident. No new composed run claimed.
+
+**Exact pin/ancestry evidence:** Current Gateway `main` is `c08d9f2957b767252b925b352281bba4b46258c0` and zero Gateway open PRs before coding. [Distribution Agent public-beta](https://github.com/aiverse-filmmakers/ai-verse-distribution/blob/main/release-sets/agent-public-beta-2026-09-14.json) pins Gateway `240c2b1b71abc7a8dbdc4d573da7fd85a110ca8f` (ancestor, **318 behind** current main, old `util.mjs` has no transient rename helper); [Context Ladder Agent release](https://github.com/aiverse-filmmakers/ai-verse-distribution/blob/main/release-sets/agent-context-ladder-rc1-2026-09-15.json) and [Video Editor Agent](https://github.com/aiverse-filmmakers/ai-verse-distribution/blob/main/release-sets/agent-video-editor-rc1-2026-10-04.json) pin Gateway `46c15ee58b028dd7fb8b310327ea705ef618805e` (ancestor, **120 behind**, exact pinned `src/util.mjs` already has eight total rename attempts). Older Invisible Intelligence candidate pins `7627df658b2071ecb4ea242572343edfb7abf768` (ancestor, **221 behind**, prior to retry helper). These distinctions **do not prove which exact pin generated the historical failed PR #28 log**; original pinned workflow/artifact context remains Distribution-owned and must be checked at composed qualification. Do not overwrite any published historical release set.
+
+**Current root-cause boundary, code-exact:** [Gateway `src/util.mjs`](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/src/util.mjs) serializes same-file in-process writes and does atomic temp write followed by `renameWithTransientRetry` retrying `EPERM`/`EACCES`/`EBUSY` for **eight total attempts** (initial attempt + seven retries; delays 10+20+40+80+160+320+320ms ≈ 950ms). A longer Windows file handle/scanner hold exhausts it, propagating the same rename error while the prior destination remains intact. This mechanism is the minimal repair target, not a second store or unsafe delete-then-rename.
+
+**G1.1 outcome remains fixed:** robust *bounded* handling of repeated transient Windows contention, no wrong-run state or corruption, CI + Distribution's exact composed Windows evidence before G1.1 close. Derived **four** sequential tasks; owner authorized **T1–T3 only** here.
+
+1. **T1 COMPLETE:** Exact issue, three released pin ancestry/ref differences and existing retry budget characterized, with current concurrent Distribution collision. No production edits.
+2. **T2 NEXT, AUTHORIZED — characterization seam and baseline regression:** In existing Gateway `src/util.mjs`/native security tests, allow a **bounded, internal injectable rename/wait operation** solely to deterministically test existing transient retry behavior and non-transient short-circuit. Keep old policy unchanged; preserve atomic replacement; test real caller-visible file outcomes. CI must pass. Do not add an independent filesystem service.
+3. **T3 AUTHORIZED — smallest current retry upgrade plus extended regression:** Add a deterministic regression that fails under old eight-attempt limit and succeeds after minimum longer bounded Windows recovery; assert `EPERM`, `EACCES`, `EBUSY`, bounded permanent failure, file preservation and no stale temp pollution, with existing concurrent-file tests passing. Modify **only current Gateway rename retry policy/test**; native Linux/macOS/Windows CI green and exact Gateway merged-main ref recorded. Do not claim composed fix yet.
+4. **T4 WAITING for another owner `next` — Distribution composed Windows acceptance:** Verify any correct proposed/qualified Gateway source ancestry and run/re-run affected `composed-two-system-acceptance` on exact pinned composed Agent artifact with other OS owners; reconcile release set without mutating historical pins. G1.1 remains IN PROGRESS until this proof passes; then close Gateway issue #60 if actually fixed and accepted, otherwise track precise blocker. **Do not do T4 in current request.**
+
+**Starting refs and collision:** Gateway `c08d9f2957b767252b925b352281bba4b46258c0`, System `1de014f76a15748eb51a26cd7fd73ec3e2d41788`, Dashboard `ec5d40aea7fa3111357c086660a2630cef20f51a`, Brain `6ad408e38b6b876cc8049f207fcba1e86ffd6554`, OS `d490db4c02e7b72c5cc8eae07080eccfa4dc3989`, Distribution `2257ecb23f5aa21d033d85b48f0fdadc59bd0c23` with open personal-tool [PR #76](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/76). No changes to Distribution branches or shared tool dependencies.
+
+**Stop rule:** This user's four authorized tasks are G0.2 T4 + G1.1 T1/T2/T3. G1.1 is not accepted at T3 regardless of green Gateway-native CI. No change to stable slice count/requirements or current member state.
+
 
 - **Owner:** Gateway; Distribution provides composed verification only.
 - **Dependencies:** G0.2, exact current Distribution pinned Gateway ancestry inspected.
@@ -345,5 +365,5 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 - **During implementation:** one narrow owner branch/PR; prove a public failure or meaningful negative case, implement smallest safe fix, run focused and full relevant regression, inspect diff/adversarial paths and test exact head. No speculative new abstraction. Preserve concurrent owner work.
 - **At every slice close:** merge tested owner work, verify merged-main CI and composed evidence as applicable, update this living System plan with PR/SHA/CI, blockers, counters and next slice. Separate `code merged`, `owner accepted`, `Distribution qualified` and `member released`.
 - **Protected amendment:** any changed architecture, owner, scope, slice goal, acceptance, denominator or release behavior stops with `BLOCKED - PLAN AMENDMENT REQUIRED` and evidence-based proposal.
-- **Progress:** G0 1/2; G1 0/2; G2 0/2; G3 0/2; G4 0/2; overall **1/10 slices (10%)**. G0.1 5/5 tasks COMPLETE; G0.2 **3/4 tasks COMPLETE**, T4 waiting for owner `next`. Earlier accepted programs keep their historical completions.
-- **Current execution pointer:** **STOP after G0.2 Task 3** (four tasks in this user request including G0.1 T5). Await owner `next` for G0.2 Task 4 only. New slice **G0.2 is not yet accepted**. No local Mission Control acceptance/Brain production Goal integration claimed.
+- **Progress:** G0 2/2; G1 0/2; G2 0/2; G3 0/2; G4 0/2; overall **2/10 slices (20%)**. G0.1 5/5 and G0.2 4/4 tasks COMPLETE; G1.1 1/4 tasks COMPLETE, T2/T3 authorized and T4 waiting for owner `next`.
+- **Current execution pointer:** **G0.2 T4 accepted; G1.1 T1 characterized. Start G1.1 T2**, then T3, then STOP before T4. Native CI does not count as composed Windows qualification. No local Mission Control acceptance/Brain production Goal integration claimed.
