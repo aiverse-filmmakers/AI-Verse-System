@@ -12,7 +12,7 @@ Date: 2026-10-21. COMPLETE LOCALLY; not merged or released. Stop before step 5.
 | Distribution | 5117564695defd42f89a25b523e3be7300bfddb0 |
 
 Existing checkouts remain on `codex/shared-skills-library`; new Brain checkout:
-`/private/tmp/aiverse-brain-shared-library-20261021`.
+the Brain development checkout.
 
 ## Delivered
 

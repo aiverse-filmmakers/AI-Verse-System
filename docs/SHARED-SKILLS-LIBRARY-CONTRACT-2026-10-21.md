@@ -15,7 +15,7 @@ connection access, credentials, approval or strategic authority.
 Fresh installations start with the correct structure. Members bringing skills
 use an explicit import workflow. Updates preserve existing skills in place.
 Do not build a broad automatic legacy-folder reorganization framework.
-Bogdan's existing local skills move is a separate manual operation after shared
+The requesting member's existing local skills move is a separate manual operation after shared
 delivery, with inventory, retained originals, verification and a move log.
 Skills-repository consolidation/deletion is another subsequent effort.
 

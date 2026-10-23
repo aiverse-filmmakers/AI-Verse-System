@@ -3,7 +3,7 @@
 Date: 2026-10-21. Status: COMPLETE LOCALLY; not merged or released.
 Scope: Skills-owned personal package lifecycle only. Stop before step 3.
 
-Owner source: `/private/tmp/aiverse-skills-shared-library-20261021`, branch
+Owner source: the Skills development checkout, branch
 `codex/shared-skills-library`, local commit `ac38ab8`.
 Implementation: `installer/member_library.py`, canonical CLI wrapper
 `installer/aiverse_skills.py`, `docs/MEMBER_SKILL_LIBRARY.md`, README route,

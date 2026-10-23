@@ -1,6 +1,6 @@
 # Shared Skills Library — implementation plan
 
-Date: 2026-10-21. Status: STEPS 1–4 COMPLETE LOCALLY; stopped before step 5.
+Date: 2026-10-21. Status: STEP 5 ACTIVE — authorized complete delivery on 23 October 2026.
 Local work: 4/6 outcomes completed locally; repository/release acceptance: 0/6.
 
 ## Authorization and scope
@@ -162,7 +162,7 @@ Completion: four owner commits recorded in [step 4 completion](SHARED-SKILLS-LIB
 Actual owner-composition fixture and focused regressions pass. Native independent
 callbacks, owner review/merge and release/platform qualification remain step 5.
 
-### 5 — Fresh install, skill import and release qualification (QUEUED)
+### 5 — Fresh install, skill import and release qualification (ACTIVE)
 
 Owners: Distribution and component owners. Depends on 2–4. R01–R10.
 Exercise fresh/public install, explicit skill import and populated member updates, collisions,
@@ -200,7 +200,7 @@ plan before content changes; it is not silently included in this first layer.
 Local outcome completion: 4/6 (67% of milestones, not an effort estimate).
 Repository/release acceptance: 0/6. Steps 1–4 are finished locally.
 No member-state migration or skill deletion has occurred.
-Execution pointer: STOP — operator requested step 4 only. Step 5 is queued.
+Execution pointer: complete steps 5–6, authorized 23 October 2026. Restored verified source bundles after temporary checkout cleanup; release qualification is active.
 OS/Skills/Brain/Distribution integration is locally committed and tested; no
 release or actual member update has been started.
 Future repository review/merge must not be described as already completed.

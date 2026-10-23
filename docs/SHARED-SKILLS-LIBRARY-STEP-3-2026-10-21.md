@@ -4,7 +4,7 @@ Date: 2026-10-21. COMPLETE LOCALLY; not merged or released. Stop before step 4.
 
 OS local commit: `fde3a2712c24722104269c26a282ce143cd40798`, branch
 `codex/shared-skills-library`, checkout
-`/Users/bogdan/.codex/worktrees/core-integration-main/AI-Verse OS | Personal Agent`.
+`<OS development checkout>`.
 Skills owner fixture: step 2 commit `ac38ab80a1dfe5e247f711f1f1f913c43388ff00`.
 
 ## Delivered
