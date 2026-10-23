@@ -1,6 +1,6 @@
 # Gateway Completion and Dashboard-Ready Delivery Plan
 
-**Status:** Slice G0.1 COMPLETE (5/5), Slice G0.2 IN PROGRESS (0/4 derived tasks). No G0.2 acceptance claimed yet.
+**Status:** Slice G0.1 COMPLETE (5/5); Slice G0.2 IN PROGRESS (**3/4** tasks done), awaiting owner `next` for G0.2 Task 4. G0.2 outcome slice NOT YET accepted.
 **Created:** 2026-10-23
 **Plan owner:** `aiverse-filmmakers/AI-Verse-System`
 **Canonical code owner:** `aiverse-filmmakers/AI-Verse-Gateway`
@@ -9,7 +9,7 @@
 **Method:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md)
 **Fixed destination:** Finish the *existing* canonical Gateway as a reliable, securely bounded, owner-backed, Dashboard-ready local Agent edge, with verified current-generation chat/runs/events/controls, restart behavior, composed integration and honest release qualification. Do not expand "finish" to speculative enterprise or every future owner feature.
 **Checkpoint:** 1 / 10 new acceptance slices complete (10%). Historical Gateway implementation remains preserved and is not counted as 0% built.
-**Next:** G0.2 Task 1 (of 4), authorized in the same owner request: publish exact consumer-facing canonical Gateway contract and compare the already published Dashboard MC2 obligations. Then Task 2 (current caller regression evidence) and Task 3 (Goal adapter unavailable/scope fail-closed regression) only; STOP before Task 4.
+**Next:** STOP after G0.2 Task 3. G0.2 Task 4 ONLY after owner says `next`: verify integrated contract evidence and current compatible refs, freeze Gateway issue #60 G1.1 entry conditions, then decide G0.2 closure (not done).
 
 ## 1. Product brief and finish line
 
@@ -238,6 +238,22 @@ Task progress for this slice: **5/5 COMPLETE**. The fixed G0.1 outcome is accept
 
 ##### G0.2 execution ledger — 0/4 tasks accepted at slice start
 
+##### G0.2 tasks 1–3 acceptance checkpoint (2026-10-23)
+
+**Task 1 — COMPLETE, docs / source owner.** Extended the **existing** [Gateway Protocol](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/docs/PROTOCOL.md) with actual canonical `/v1` routes, scopes/auth/lifecycle/readiness, sessions/runs/streaming/event/control/idempotency, Goal unavailable and the separate Dashboard `/rpc` ownership. [Gateway PR #62](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/62) merged at **`37aa0853f2d2269321dfa9b8d5238c1b8f2afa44`** after [six-platform-version CI matrix 39979084000](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/39979084000) passed. **No protocol behavior changed**, no second spec/owner/endpoint introduced.
+
+**Task 2 — COMPLETE, native external HTTP contract test.** Added one focused test in existing [`test/clean-install.test.mjs`](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/clean-install.test.mjs) verifying authenticated `/v1/models`; `POST /v1/runs` = 202 and immutable configured system/workspace; no transcript in public run metadata; identical retry same run ID; changed workspace/same idempotency key fails 409; unauthenticated run and events fail 401; authenticated SSE replays an exact bound run event. [Gateway PR #63](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/63) merged at **`bf96b6a417b09ca490095c5bbd3e3527fcfff452`**, [six-runner CI 39979490303](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/39979490303) passed. This tests the actual HTTP server, unlike the already accepted isolated idempotency store tests. **No production runtime change**.
+
+**Task 3 — COMPLETE, Goal unavailability guard.** Added a second focused existing-suite HTTP regression in [`test/clean-install.test.mjs`](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/clean-install.test.mjs): `/status.goal_owner_configured=false`; ordinary authenticated deterministic chat succeeds without a Goal adapter; a Goal-bound run with forged client `metadata.system_id` remains configured-system scoped and ends **failed** with `GOAL_OWNER_UNAVAILABLE`; `run.failed` event is persisted before any model delta/Goal verdict/approval. This **complements**, not duplicates, existing [fixture-backed positive Goal test](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/loop-contracts.test.mjs). [Gateway PR #64](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/64) merged at **`c08d9f2957b767252b925b352281bba4b46258c0`**, [six-runner PR-head CI 39979853487](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/39979853487) passed; dedicated Context Ladder, Workers, Bots and Automations acceptance workflows also passed at the PR head. The merge triggers [merged-main CI 39980088773](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/39980088773) **also completed SUCCESS** on exact merged Gateway head `c08d9f2957b767252b925b352281bba4b46258c0`. This proves owner-native merged source checks only, not Distribution admission or real Brain Goal transport. **No new Brain transport, local Goal truth or security bypass**.
+
+**Scope and release distinction:** Three source-owner PRs merged in order, with zero Gateway production module changes; they provide documented existing behavior and new meaningful regression evidence, **not** a first-class Dashboard MC2 client or accepted MC1.4 live proof. No release descriptor, Distribution pin or System Registry generated snapshot was touched; current Gateway merged source is `c08d9f2957b767252b925b352281bba4b46258c0`, **not automatically admitted**. Windows issue #60 remains open. Concurrent Distribution [PR #76](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/76) was not touched.
+
+**G0.2 Task 4 — WAITING FOR OWNER `next`.** Check exact merged-main CI and unaffected owner refs; confirm the current protocol version/identity/capability error table against this documentation and tests; freeze only the genuinely missing G1.1 Windows issue #60 regression plan, Dashboard separate MC1.4/MC2 handoff and Brain transport blocker; close G0.2 only if its acceptance is fully evidenced. **Do not perform this task without the next user authorization.**
+
+**Progress:** G0.1 **5/5 COMPLETE**; G0.2 **3/4 tasks COMPLETE**, **slice IN PROGRESS**. Fixed outcome counter remains **1/10 new slices (10%)** and Phase G0 **1/2 slices**. Preserve old accepted historical program outcomes and the unmodified other repositories.
+
+
+
 **Starting exact refs:** Gateway `95cc8319c1dc95b05da0ebb451d70469170ca3f8`; Dashboard `ec5d40aea7fa3111357c086660a2630cef20f51a`; Brain `6ad408e38b6b876cc8049f207fcba1e86ffd6554`; OS `d490db4c02e7b72c5cc8eae07080eccfa4dc3989`; Distribution `2257ecb23f5aa21d033d85b48f0fdadc59bd0c23`. The later shared tool-placement PR #76 remains outside this Gateway slice.
 
 Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gateway caller regression; T3 Goal unavailable/scope negative regression; T4 qualified evidence handoff and G1.1 backlog freeze.** T1–T3 are user-authorized now and must execute sequentially; T4 **WAITING**. Within this slice, do not claim `Goal` real Brain interop, MC1.4 proof or OS release admission.
@@ -329,5 +345,5 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 - **During implementation:** one narrow owner branch/PR; prove a public failure or meaningful negative case, implement smallest safe fix, run focused and full relevant regression, inspect diff/adversarial paths and test exact head. No speculative new abstraction. Preserve concurrent owner work.
 - **At every slice close:** merge tested owner work, verify merged-main CI and composed evidence as applicable, update this living System plan with PR/SHA/CI, blockers, counters and next slice. Separate `code merged`, `owner accepted`, `Distribution qualified` and `member released`.
 - **Protected amendment:** any changed architecture, owner, scope, slice goal, acceptance, denominator or release behavior stops with `BLOCKED - PLAN AMENDMENT REQUIRED` and evidence-based proposal.
-- **Progress:** G0 1/2; G1 0/2; G2 0/2; G3 0/2; G4 0/2; overall **1/10 slices (10%)**. G0.1 5/5 tasks COMPLETE; G0.2 0/4 tasks initially, T1–T3 authorized, T4 awaiting a later `next`. Previous accepted programs keep their recorded historical completions.
-- **Current execution pointer:** **G0.1 closed with Task 5; start G0.2 T1** as part of this user's four-task authorization. Continue through G0.2 T2 and T3 sequentially and STOP before T4. No local Mission Control acceptance/Brain production Goal integration claimed.
+- **Progress:** G0 1/2; G1 0/2; G2 0/2; G3 0/2; G4 0/2; overall **1/10 slices (10%)**. G0.1 5/5 tasks COMPLETE; G0.2 **3/4 tasks COMPLETE**, T4 waiting for owner `next`. Earlier accepted programs keep their historical completions.
+- **Current execution pointer:** **STOP after G0.2 Task 3** (four tasks in this user request including G0.1 T5). Await owner `next` for G0.2 Task 4 only. New slice **G0.2 is not yet accepted**. No local Mission Control acceptance/Brain production Goal integration claimed.
