@@ -1,7 +1,7 @@
 # Shared Skills Library — implementation plan
 
-Date: 2026-10-21. Status: STEP 5 ACTIVE — authorized complete delivery on 23 October 2026.
-Local work: 4/6 outcomes completed locally; repository/release acceptance: 0/6.
+Date: 2026-10-21. Status: STEP 6 ACTIVE — authorized complete delivery on 23 October 2026.
+Implementation milestones: 5/6 complete. OS, Skills and Brain source changes are merged and accepted; Distribution Core release is merged; personal rollout remains active.
 
 ## Authorization and scope
 
@@ -162,7 +162,7 @@ Completion: four owner commits recorded in [step 4 completion](SHARED-SKILLS-LIB
 Actual owner-composition fixture and focused regressions pass. Native independent
 callbacks, owner review/merge and release/platform qualification remain step 5.
 
-### 5 — Fresh install, skill import and release qualification (ACTIVE)
+### 5 — Fresh install, skill import and release qualification (COMPLETE)
 
 Owners: Distribution and component owners. Depends on 2–4. R01–R10.
 Exercise fresh/public install, explicit skill import and populated member updates, collisions,
@@ -170,7 +170,7 @@ workspace privacy, interruption, retry, old references and recovery. Bind exact
 source refs to real evidence; publish through normal Core admission/promotion.
 No qualification based solely on synthetic metadata or file presence.
 
-### 6 — Member rollout, audit and handoff (QUEUED)
+### 6 — Member rollout, audit and handoff (ACTIVE)
 
 Owners: Distribution/local installed owners/System. Depends on 5. R01–R10.
 Deliver through the canonical updater with preservation and final owner
@@ -197,10 +197,25 @@ plan before content changes; it is not silently included in this first layer.
 
 ## Progress and next action
 
-Local outcome completion: 4/6 (67% of milestones, not an effort estimate).
-Repository/release acceptance: 0/6. Steps 1–4 are finished locally.
-No member-state migration or skill deletion has occurred.
-Execution pointer: complete steps 5–6, authorized 23 October 2026. Restored verified source bundles after temporary checkout cleanup; release qualification is active.
-OS/Skills/Brain/Distribution integration is locally committed and tested; no
-release or actual member update has been started.
-Future repository review/merge must not be described as already completed.
+Implementation milestones: 5/6 complete (83% of milestones, not an effort estimate).
+Steps1–4 have implementation evidence. OS/Skills/Brain source changes and accepted
+release descriptors are merged; System source snapshots and qualification records
+are merged. Distribution PR75 is merged with qualified Core promotion.
+Final owner sources: OS4a134190355e590f4f52e0607ca13bbddd1ac36e,
+Skills390c6e1633afc809040bd1159840045f4f9ff27e and
+Brain7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f.
+Current released Core is core-shared-skills-candidate-2026-10-23-v4; superseded
+v1/v2/v3 evidence is historical and must not be promoted. V4 fixes exact
+Distribution lifecycle mapping for the final owner revisions.557 local tests pass
+with11 skips; authenticated candidate admission passes. Three-platform and isolated
+populated-update qualification passed; all62 final publication checks passed.
+No actual member update, personal skill migration or deletion has occurred.
+Execution pointer: finish step6 canonical
+member update, explicit manual skill imports with retained originals/log and audit.
+See STEP-5 evidence and the private execution pointer for dated run IDs/results.
+
+## Shared release published — 23 October 2026
+
+Distribution PR75 merged at2257ecb23f5aa21d033d85b48f0fdadc59bd0c23 after all62 checks passed on exact head2219c65c6c723ed9c5d063beaf686e8fa84707df. Live Core default is core-shared-skills-candidate-2026-10-23-v4. Final corrected Core run39966657286 passed every platform/job. Canonical whole-product qualification and normal synchronized promotion have zero debt; superseded evidence remains historical. Step5 is complete.
+
+Actual member repeated bootstrap refreshed private tooling and stopped without overwriting a new root package.json customization. Network-enabled official-source preview verifies allthree changed owner descriptors and compatible infrastructure, but package.json is outside the existing owner-adoption allowlist and remains review-required. Step6 therefore remains incomplete; no actual Core activation or manual skills move occurred. Exact original package, lock and script copies plus134 selected preservation fingerprints are retained privately. Resolve through an explicitly reviewed local customization decision; do not weaken the updater's unknown-path refusal.
