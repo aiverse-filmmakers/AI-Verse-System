@@ -1,6 +1,6 @@
 # Gateway Completion and Dashboard-Ready Delivery Plan
 
-**Status:** G0.1 COMPLETE (5/5), G0.2 COMPLETE (4/4), G1.1 COMPLETE (4/4), G1.2 COMPLETE (4/4); G2.1 IN PROGRESS (T1/4 done, T2 authorized). G2.1 T3–T4 await owner `next`.
+**Status:** G0.1 COMPLETE (5/5), G0.2 COMPLETE (4/4), G1.1 COMPLETE (4/4), G1.2 COMPLETE (4/4); G2.1 IN PROGRESS (**2/4** tasks complete), T3–T4 awaiting owner `next`.
 **Created:** 2026-10-23
 **Plan owner:** `aiverse-filmmakers/AI-Verse-System`
 **Canonical code owner:** `aiverse-filmmakers/AI-Verse-Gateway`
@@ -9,7 +9,7 @@
 **Method:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md)
 **Fixed destination:** Finish the *existing* canonical Gateway as a reliable, securely bounded, owner-backed, Dashboard-ready local Agent edge, with verified current-generation chat/runs/events/controls, restart behavior, composed integration and honest release qualification. Do not expand "finish" to speculative enterprise or every future owner feature.
 **Checkpoint:** 4 / 10 new acceptance slices complete (40%). Historical Gateway implementation remains preserved and is not counted as 0% built.
-**Next:** G2.1 Task 2 ONLY: add one focused existing-Gateway HTTP negative approval-decision regression and minimally reject invalid approval payload before control idempotency/owner mutation; preserve genuine approve/deny. STOP before G2.1 Task 3 unless owner explicitly says `next`.
+**Next:** STOP after G2.1 Task 2. Await owner `next` for G2.1 Task 3 only: inspect and prove remaining run-control idempotency/authorization negative behavior, without duplicating previous tests or bypassing Dashboard MC1.4.
 
 ## 1. Product brief and finish line
 
@@ -336,11 +336,11 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 
 **Four-task sequence; owner authorized T1–T2 only:**
 1. **T1 COMPLETE:** Map real source-backed Gateway-to-Dashboard consumer endpoints, evidence for auth/runs/SSE/approval, unavailable semantics and smallest uncovered negative control contract; preserve owner boundaries and MC1.4 blocker.
-2. **T2 AUTHORIZED:** In existing Gateway `test/loop-contracts.test.mjs`, add a real HTTP malformed-`decision` regression while a run awaits approval: empty/missing/`"maybe"`/nonstring must be 400 and must leave the pending approval intact; follow with legitimate `"approve"` continuing the same run. Modify only existing `src/server.mjs` request validation at control ingress; native and merged-main CI must pass. No auto-denial on invalid payload and no runtime replay rewrite.
+2. **T2 COMPLETE (2026-10-23):** [Gateway PR #68](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/68) merged at exact SHA **`ae030e4b86a6fe1637e64aaf9c63c3aa0103ede9`**, adds one focused external-HTTP regression inside the **existing** [positive approval interruption test](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/loop-contracts.test.mjs). Empty/missing/`"maybe"`/non-string decision now returns HTTP 400 `APPROVAL_DECISION_INVALID` and preserves the same `awaiting_approval` run state; a subsequent legitimate explicit `"approve"` completes the bounded owner action exactly once. [Six-runner Gateway CI 39995685228](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/39995685228) **SUCCESS** across Linux/macOS/Windows Node20/22; final merged-main CI outcome is tracked separately and not assumed if in progress. The **existing** [server control ingress](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/src/server.mjs) now validates only this decision before idempotency or owner side effect. No session authority, Brain Goal adapter, member release pins or Dashboard code changed.
 3. **T3 WAITING next:** Independently verify/capture owned run control/idempotency replay, wrong method, absent bearer and cross-principal negative access, adding only one genuinely missing HTTP test or narrowly fixing a confirmed bug; no new auth system.
 4. **T4 WAITING next:** Exact-source review of stream vs richer event SSE, pause/resume/cancel/approval state visibility, truthful unavailable capability fields, and transfer minimum read-only handoff to Dashboard MC2 without closing blocked MC1.4 or promoting releases. Close G2.1 only with fixed acceptance evidence.
 
-**G2.1 source refs:** Gateway `9aa3bc6e1e94669f3cbcc18de6c7bde2d62a90cb`, Dashboard `ec5d40aea7fa3111357c086660a2630cef20f51a`, OS `d490db4c02e7b72c5cc8eae07080eccfa4dc3989`, Brain `6ad408e38b6b876cc8049f207fcba1e86ffd6554`, Distribution source now `37bdf4d9526abf59e5ce5b0cf783ee349428f3d7` (Goal guard merged), Release candidate PR #77 still open; do not alter concurrent PR #76. G2.1 **1/4 tasks completed** when this ledger opens, **slice IN PROGRESS**. Overall **4/10 accepted outcome slices** unchanged until full G2.1 acceptance.
+**G2.1 source refs:** Gateway started from `9aa3bc6e1e94669f3cbcc18de6c7bde2d62a90cb`, T2 merged Gateway `ae030e4b86a6fe1637e64aaf9c63c3aa0103ede9`, Dashboard `ec5d40aea7fa3111357c086660a2630cef20f51a`, OS `d490db4c02e7b72c5cc8eae07080eccfa4dc3989`, Brain `6ad408e38b6b876cc8049f207fcba1e86ffd6554`, Distribution source now `37bdf4d9526abf59e5ce5b0cf783ee349428f3d7` (Goal guard merged), Release candidate PR #77 still open; do not alter concurrent PR #76. G2.1 **2/4 tasks completed** as of this update, **slice IN PROGRESS**. Overall **4/10 accepted outcome slices** unchanged until full G2.1 acceptance.
 
 
 - **Owner:** Gateway for protocol and behavior; Dashboard for typed UI client code in its own canonical program.
@@ -399,5 +399,5 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 - **During implementation:** one narrow owner branch/PR; prove a public failure or meaningful negative case, implement smallest safe fix, run focused and full relevant regression, inspect diff/adversarial paths and test exact head. No speculative new abstraction. Preserve concurrent owner work.
 - **At every slice close:** merge tested owner work, verify merged-main CI and composed evidence as applicable, update this living System plan with PR/SHA/CI, blockers, counters and next slice. Separate `code merged`, `owner accepted`, `Distribution qualified` and `member released`.
 - **Protected amendment:** any changed architecture, owner, scope, slice goal, acceptance, denominator or release behavior stops with `BLOCKED - PLAN AMENDMENT REQUIRED` and evidence-based proposal.
-- **Progress:** G0 2/2; G1 2/2; G2 0/2; G3 0/2; G4 0/2; overall **4/10 slices (40%)**. G0.1 5/5, G0.2 4/4, G1.1 4/4, G1.2 4/4 COMPLETE; G2.1 T1/4 COMPLETE, T2 authorized, T3–T4 awaiting owner `next`. Historical completions preserved.
-- **Current execution pointer:** **G1.2 closed on exact owner source / composed candidate proof; G2.1 T1 owner contract gap mapped.** Finish authorized G2.1 T2 only, then STOP before T3. Dashboard MC1.4 remains BLOCKED; no member release pin promoted.
+- **Progress:** G0 2/2; G1 2/2; G2 0/2; G3 0/2; G4 0/2; overall **4/10 slices (40%)**. G0.1 5/5, G0.2 4/4, G1.1 4/4, G1.2 4/4 COMPLETE; G2.1 **2/4 tasks COMPLETE**, T3–T4 awaiting owner `next`. Historical completions preserved.
+- **Current execution pointer:** **STOP after G2.1 T2 accepted.** Await new owner `next` for G2.1 T3 only; no additional code, release promotion or Dashboard MC1.4 acceptance claimed.
