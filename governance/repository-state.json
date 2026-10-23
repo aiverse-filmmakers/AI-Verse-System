@@ -7,8 +7,8 @@
     "blob_sha": "88839264a3270d65d21297ade089f111aa843975"
   },
   "refresh": {
-    "mode": "scoped-refresh",
-    "scope": "Core",
+    "mode": "full-refresh",
+    "scope": "global",
     "status": "complete",
     "repository_ids": [
       1367664026,
@@ -17,38 +17,45 @@
       1362233598,
       1361910454,
       1362243580,
-      1364457521
+      1364457521,
+      1368762130,
+      1368762786,
+      1362278774,
+      1368748835,
+      1364458279,
+      1362252045,
+      1364456634
     ],
-    "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7",
+    "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae",
     "last_scoped_refresh": {
-      "scope": "Core",
+      "scope": "global",
       "status": "complete",
-      "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7",
-      "observed_at": null
+      "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae",
+      "observed_at": "2026-10-23T08:33:22Z"
     },
     "last_full_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
-      "observed_at": "2026-10-21T08:34:25Z"
+      "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae",
+      "observed_at": "2026-10-23T08:33:22Z"
     }
   },
   "watchdog": {
-    "status": "WATCHDOG-FAILED",
-    "heartbeat_revision": "48ff526f7557a88d2006143ec070a53e2db9982e",
+    "status": "WATCHDOG-CURRENT",
+    "heartbeat_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae",
     "last_successful_full_scan": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "48ff526f7557a88d2006143ec070a53e2db9982e",
-      "observed_at": "2026-10-21T06:13:47Z"
+      "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae",
+      "observed_at": "2026-10-23T08:33:22Z"
     },
-    "reason": "Global watchdog attempt at 2026-10-21T08:34:25Z did not produce a successful full heartbeat; missed_expected_scans=0; failures=1364457521:descriptor:failed."
+    "reason": "Successful Registry-derived global heartbeat at 2026-10-23T08:33:22Z; all registered repositories were scanned with no access/fetch failure."
   },
   "repositories": [
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "196b8c684f58e6e9456eb6ee605ef10c75b327a7",
+      "observed_head": "2d25213b0dc46e7274c7790dd5881694f94c08ae",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -73,9 +80,9 @@
         "evidence_refs": []
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -115,9 +122,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -159,9 +166,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -206,9 +213,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -253,9 +260,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -300,9 +307,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -347,9 +354,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "196b8c684f58e6e9456eb6ee605ef10c75b327a7"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -388,7 +395,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -427,7 +434,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -466,7 +473,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -505,7 +512,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -544,7 +551,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -583,7 +590,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     },
     {
@@ -616,7 +623,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "2d25213b0dc46e7274c7790dd5881694f94c08ae"
       }
     }
   ],
@@ -737,7 +744,7 @@
     {
       "id": "repository-watchdog-failed",
       "marker": "CANONICAL-DRIFT-DETECTED",
-      "status": "open",
+      "status": "resolved",
       "severity": "WARNING",
       "scope": "global",
       "repository_ids": [
