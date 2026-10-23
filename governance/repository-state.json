@@ -7,8 +7,8 @@
     "blob_sha": "88839264a3270d65d21297ade089f111aa843975"
   },
   "refresh": {
-    "mode": "full-refresh",
-    "scope": "global",
+    "mode": "scoped-refresh",
+    "scope": "Core",
     "status": "complete",
     "repository_ids": [
       1367664026,
@@ -17,21 +17,14 @@
       1362233598,
       1361910454,
       1362243580,
-      1364457521,
-      1368762130,
-      1368762786,
-      1362278774,
-      1368748835,
-      1364458279,
-      1362252045,
-      1364456634
+      1364457521
     ],
-    "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
+    "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5",
     "last_scoped_refresh": {
-      "scope": "global",
+      "scope": "Core",
       "status": "complete",
-      "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
-      "observed_at": "2026-10-21T08:34:25Z"
+      "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5",
+      "observed_at": null
     },
     "last_full_refresh": {
       "scope": "global",
@@ -55,7 +48,7 @@
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed",
+      "observed_head": "f9a705d434419ac064f398256e1ef7183def04a5",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -80,9 +73,9 @@
         "evidence_refs": []
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
       }
     },
     {
@@ -122,20 +115,20 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
       }
     },
     {
       "repository_id": 1361862361,
       "access": "verified",
-      "observed_head": "906d70d0c89621a805515d769ee601027c294ef4",
+      "observed_head": "a0a7f6d9ae57c2159b22a5350abbd1bf3cc829cd",
       "owner_acceptance": {
         "status": "accepted",
-        "revision": "36a85bdb6233622b90812a2bb6ea32a99d517c97",
+        "revision": "88e283aaac40ec6152b07d1ce764fb769515852e",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@906d70d0c89621a805515d769ee601027c294ef4:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@a0a7f6d9ae57c2159b22a5350abbd1bf3cc829cd:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -149,11 +142,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "36a85bdb6233622b90812a2bb6ea32a99d517c97",
+        "revision": "88e283aaac40ec6152b07d1ce764fb769515852e",
         "release_status": "accepted",
-        "blob_sha": "7c8b3ae14e02337f1d23b3eb61c7b7a0b800ba55",
+        "blob_sha": "09e0e7e1405cdffdd1ba1c9b78ed1ab7744aaa0a",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@906d70d0c89621a805515d769ee601027c294ef4:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@a0a7f6d9ae57c2159b22a5350abbd1bf3cc829cd:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -166,20 +159,20 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
       }
     },
     {
       "repository_id": 1362233598,
       "access": "verified",
-      "observed_head": "39336cd19eb4600d5ece58f5649f0c494cd02754",
+      "observed_head": "6ad408e38b6b876cc8049f207fcba1e86ffd6554",
       "owner_acceptance": {
         "status": "accepted",
-        "revision": "f746806e4361c2b1cd67ee97810071cc86db7b9a",
+        "revision": "7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Brain@39336cd19eb4600d5ece58f5649f0c494cd02754:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Brain@6ad408e38b6b876cc8049f207fcba1e86ffd6554:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -193,11 +186,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "f746806e4361c2b1cd67ee97810071cc86db7b9a",
+        "revision": "7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f",
         "release_status": "accepted",
-        "blob_sha": "9a1ccb4be8851351f5262de78506f8e4f82ebb56",
+        "blob_sha": "ba37f0f59a3d5908d763dba4a695583b902e2f47",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Brain@39336cd19eb4600d5ece58f5649f0c494cd02754:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Brain@6ad408e38b6b876cc8049f207fcba1e86ffd6554:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -213,9 +206,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
       }
     },
     {
@@ -260,20 +253,20 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
       }
     },
     {
       "repository_id": 1362243580,
       "access": "verified",
-      "observed_head": "23779f10515951ac92c83cba34a1a868c02c4d87",
+      "observed_head": "dab4d3b595052f9bfbf62d85c0f4401e34ebd72b",
       "owner_acceptance": {
         "status": "accepted",
-        "revision": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
+        "revision": "424e2a7b130011b715ff6c3fc3a5218c627765a1",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Skills@23779f10515951ac92c83cba34a1a868c02c4d87:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Skills@dab4d3b595052f9bfbf62d85c0f4401e34ebd72b:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -287,11 +280,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "afde5c06307fba7d074de2929c2eb6c3dc6bdab8",
+        "revision": "424e2a7b130011b715ff6c3fc3a5218c627765a1",
         "release_status": "accepted",
-        "blob_sha": "6673cf4b528ce8dee53de694ec7b6865ea8def10",
+        "blob_sha": "b3707c5b567323b314a444852e30f9239c9d2825",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Skills@23779f10515951ac92c83cba34a1a868c02c4d87:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Skills@dab4d3b595052f9bfbf62d85c0f4401e34ebd72b:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -307,9 +300,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
       }
     },
     {
@@ -317,8 +310,8 @@
       "access": "verified",
       "observed_head": "7e9fadbd73752b24eb79e270aff6b311ad508109",
       "owner_acceptance": {
-        "status": "failed",
-        "revision": null,
+        "status": "accepted",
+        "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
         "evidence_refs": [
           "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:release/component-release.json"
         ]
@@ -333,10 +326,10 @@
         ]
       },
       "descriptor": {
-        "status": "failed",
-        "revision": null,
-        "release_status": null,
-        "blob_sha": null,
+        "status": "observed",
+        "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
+        "release_status": "accepted",
+        "blob_sha": "1944fabb102843682e3dd29414c1626af15424d7",
         "evidence_refs": [
           "aiverse-filmmakers/AI-Verse-Data@7e9fadbd73752b24eb79e270aff6b311ad508109:release/component-release.json"
         ]
@@ -354,9 +347,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "d11e58ace9ec4cd39010c85b723083ad05a0e4ed"
+        "evidence_revision": "f9a705d434419ac064f398256e1ef7183def04a5"
       }
     },
     {
