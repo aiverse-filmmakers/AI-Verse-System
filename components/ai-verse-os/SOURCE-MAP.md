@@ -926,3 +926,9 @@ All26 exact-source checks passed, including Repository QC39507020086 and Four Re
 OS96/97 define recoverable local-source adoption. Distribution70/72 implement the launcher and bounded preparation/update path; the actual pioneering-member RC1→v6 update completed with allfive component doctors passing. This is an update-path improvement, not an immutable software/member-home redesign. Unknown source edits and unsafe preservation remain review cases.
 
 The optional adapter remains separately installed. Core source inclusion does not establish host trust, real callbacks or fresh-chat recall. Distribution73 binds helper upgrades to the current Core Brain runtime rather than historical first-install metadata and improves conflict guidance; its publication/qualification remains a separate record.
+
+## 2026-10-23 shared member Skills source acceptance
+
+[Owner source PR #100](https://github.com/aiverse-filmmakers/AI-Verse-OS/pull/100) is merged. Accepted source: `88e283aaac40ec6152b07d1ce764fb769515852e`. 32 source checks passed, including Repository QC, composed optional adapter acceptance and shared member Skills on Linux, macOS and Windows. OS owns installation-bound discovery, explicit collision selection and non-secret scoped settings.
+
+Core composition, release qualification and promotion remain separate Distribution gates. A source merge or catalog entry does not itself establish installed member health or native desktop callback evidence. See `docs/SHARED-SKILLS-LIBRARY-IMPLEMENTATION-PLAN-2026-10-21.md`.

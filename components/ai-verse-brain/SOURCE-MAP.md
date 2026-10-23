@@ -1279,3 +1279,9 @@ The accepted Brain contract adds a narrow relation between a Brain-owned intent 
 
 These checks establish the owner API and hosted composition. They do not establish that a fresh Codex desktop conversation has executed and reviewed the adapter hooks.
 
+
+## 2026-10-23 shared member Skills source acceptance
+
+[Owner source PR #33](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/33) is merged. Accepted source: `7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f`. Nine source checks passed. Brain validates and forwards explicit portability declarations; it does not infer portable eligibility, change proposal approval policy or acquire sibling state authority.
+
+Core composition, release qualification and promotion remain separate Distribution gates. A source merge or catalog entry does not itself establish installed member health or native desktop callback evidence. See `docs/SHARED-SKILLS-LIBRARY-IMPLEMENTATION-PLAN-2026-10-21.md`.

@@ -41,7 +41,9 @@ def global_refresh(state, revision="b" * 40, status="complete"):
     }
     for index, item in enumerate(value["repositories"]):
         registry_entry = registry_by_id[item["repository_id"]]
-        if status == "complete" and item["access"] != "verified":
+        # A synthetic successful full scan must replace prior observations,
+        # including descriptor failures in the changing committed State fixture.
+        if status == "complete":
             synthetic_head = f"{index + 1:040x}"[-40:]
             item["access"] = "verified"
             item["observed_head"] = synthetic_head
@@ -122,6 +124,20 @@ class RepositoryWatchdogTests(unittest.TestCase):
         watchdog_drift = [item for item in result["drift"] if item["id"].startswith("repository-watchdog-")]
         self.assertTrue(watchdog_drift)
         self.assertTrue(all(item["status"] == "resolved" for item in watchdog_drift))
+
+    def test_complete_synthetic_scan_replaces_prior_descriptor_failure(self):
+        prior = copy.deepcopy(self.state)
+        runtime_ids = {item["repository_id"] for item in self.registry["repositories"]
+                       if item["surface_classification"] == "runtime-component"}
+        broken = next(item for item in prior["repositories"] if item["repository_id"] in runtime_ids)
+        broken["access"] = "verified"
+        broken["descriptor"]["status"] = "failed"
+        self.assertTrue(repository_watchdog.collect_watchdog_failures(prior))
+        result, successful, failures = repository_watchdog.apply_watchdog_transition(
+            self.registry, prior, global_refresh(prior), observed_at="2026-10-12T16:50:00Z")
+        self.assertTrue(successful)
+        self.assertEqual(failures, [])
+        self.assertEqual(result["watchdog"]["status"], "WATCHDOG-CURRENT")
 
     def test_first_failure_after_current_is_failed_then_second_is_stale(self):
         current, _, _ = repository_watchdog.apply_watchdog_transition(
