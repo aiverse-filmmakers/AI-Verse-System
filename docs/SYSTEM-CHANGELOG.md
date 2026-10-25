@@ -1,3 +1,16 @@
+## 2026-10-26: Simplify implementation planning without expanding scope
+
+- Made proportional depth govern the method, including execution records and reporting.
+- Clarified the smallest maintainable complete change, reuse before new mechanisms, and verified no-code resolutions.
+- Separated stronger proof from new product requirements; replaced the architecture-heavy default sequence with a neutral implementation path.
+- Reduced template repetition and made relevant code entry points, planned verification and resumable checkpoints explicit.
+- Preserved ownership, permission, state-preservation, compatibility and release-evidence boundaries. No implementation or release behavior changed.
+- Tests and validation checks were not run, as requested by the operator.
+
+Canonical detail: `docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md` and `docs/IMPLEMENTATION-PLAN-TEMPLATE.md`.
+
+---
+
 ## 2026-10-19: Reconcile accepted Data Purpose and mutation boundaries
 
 - Updated the Data component records from the September baseline to accepted source `f8978f8f7a1bc94edecddc2662112233289159a3`, bound by the descriptor observed at `7e9fadbd73752b24eb79e270aff6b311ad508109`.

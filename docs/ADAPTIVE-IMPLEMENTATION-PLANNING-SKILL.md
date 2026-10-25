@@ -1,290 +1,130 @@
 # Adaptive Implementation Planning Skill
 
-**Purpose:** Build implementation plans that are structured enough to stay safe and resumable, but adaptive enough to discover the real work as implementation proceeds.
+**Purpose:** Produce implementation plans that guide the smallest maintainable change that fully resolves the agreed problem, while preserving existing infrastructure, user state and authority boundaries.
 
-Use this when starting a substantial new AI-Verse feature, subsystem, cross-repo change, migration, audit or architecture program.
+Use for AI-Verse features, repairs, integrations, migrations and architecture work. One living plan may serve as the product brief, architecture decision and execution record; do not create separate documents merely to satisfy a format. Planning does not grant implementation, test, publication or release permission.
 
-## Core model
+## 1. Choose the depth before the structure
 
-Plan at four levels:
+Use the shortest plan that covers the actual decisions and risks. This rule governs every section below, including task tracking, reviews and completion reports.
 
-```text
-Permanent laws / non-negotiables
-        ↓
-Phases
-        ↓
-Slices with fixed outcomes + acceptance criteria
-        ↓
-Adaptive tasks generated/refined when each slice begins
-```
-
-Do **not** fully pre-plan every low-level task for a complex program before inspecting reality.
-
-The plan should be stable at the level of intent and acceptance, adaptive at the level of execution.
-
-The safety boundary is:
-
-> **Discovery may adapt the route. It may not silently change the destination.**
-
-## 1. Start from reality, not invention
-
-Before designing implementation:
-
-1. inspect current source, docs, contracts, tests and shipped behavior;
-2. identify what already exists;
-3. classify each need as `REUSE`, `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN`;
-4. remove duplicate mechanisms from the proposed design;
-5. identify canonical owners before assigning work.
-
-Never create a new subsystem merely because the plan originally imagined one.
-
-## 2. Define permanent laws first
-
-Write only the non-negotiable outcomes that should survive future implementation changes.
-
-Examples:
-
-- preserve user-owned state;
-- canonical ownership remains canonical;
-- fail safely when evidence is missing;
-- no silent regression;
-- no duplicated source of truth.
-
-These laws are harder to change than implementation tasks.
-
-## 3. Build dependency-safe phases
-
-Order phases so later work consumes proven outputs from earlier work.
-
-Typical pattern:
-
-```text
-Audit reality
-→ freeze architecture/contracts
-→ build canonical control plane
-→ integrate owners
-→ enforce composition/delivery
-→ prove end-to-end
-→ close out
-```
-
-Do not automate assumptions before the audit proves them.
-
-## 4. Make slices stable acceptance milestones
-
-Each slice should have:
-
-- one clear outcome;
-- explicit dependencies;
-- bounded repository/surface scope;
-- acceptance criteria;
-- required evidence;
-- explicit next slice.
-
-A slice should be small enough to reason about independently but meaningful enough that completion proves something real.
-
-## 5. Discover tasks at slice start
-
-Do **not** freeze all tasks for all future slices up front.
-
-At the start of each slice:
-
-1. read the latest plan and previous findings;
-2. refresh only the live state relevant to this slice;
-3. inspect existing implementation before proposing work;
-4. derive the smallest task list needed to satisfy the slice acceptance criteria;
-5. record that task list in the plan;
-6. begin implementation only after the task list reflects current evidence.
-
-A good first task for substantial slices is:
-
-`X.Y.1 - Refresh current state and derive the execution tasks for this slice.`
-
-## 6. Allow tasks to evolve from evidence
-
-Tasks are provisional execution units.
-
-They may be added, removed, split, merged or reordered when findings justify it.
-
-A task should exist only because at least one is true:
-
-- required by slice acceptance criteria;
-- required by a verified finding;
-- required to resolve a blocker/drift condition;
-- required to test/prove an important claim;
-- required to reuse/extend an existing mechanism safely.
-
-Avoid speculative tasks whose only justification is that they sound sophisticated.
-
-Changing tasks must not silently weaken the slice outcome or acceptance criteria.
-
-## 7. Change-authority boundary
-
-Adaptive discovery has **bounded authority**.
-
-### May change automatically from evidence
-
-The implementing agent may, without redefining the roadmap:
-
-- add/remove/split/merge/reorder low-level tasks;
-- choose a different implementation technique inside the same slice;
-- replace `CREATE` work with `REUSE` or `EXTEND` when existing machinery proves sufficient;
-- add the smallest task required by a verified blocker/dependency;
-- improve tests/evidence requirements;
-- clarify acceptance wording when the meaning is unchanged or made stricter.
-
-### May not change automatically
-
-Self-discovery must **not** silently:
-
-- change a permanent law/invariant;
-- change product intent or canonical ownership;
-- change a phase purpose;
-- change a slice purpose/outcome;
-- weaken or delete an acceptance criterion;
-- weaken preservation, safety, validation, member-isolation or evidence requirements;
-- remove a slice because it appears inconvenient;
-- change the program denominator, major ordering or architectural direction;
-- promote an experimental finding into canonical architecture merely because it is newer.
-
-These are **plan amendments**, not task adaptation.
-
-### Plan-amendment protocol
-
-If evidence suggests one of those protected changes is genuinely necessary:
-
-1. stop the affected implementation path;
-2. mark the relevant task/slice `BLOCKED - PLAN AMENDMENT REQUIRED`;
-3. record exact evidence;
-4. prepare a concise amendment proposal containing:
-
-```text
-PLAN AMENDMENT PROPOSED
-Finding: <verified evidence>
-Current plan/law: <what currently governs>
-Proposed change: <exact change>
-Why the current route is unsafe/wrong/obsolete: <reason>
-Affected phases/slices/repos/contracts: <scope>
-Safety/compatibility/user-state impact: <impact>
-Alternatives considered: <short list>
-Recommendation: <proposed resolution>
-```
-
-5. do not implement the protected directional change until it is explicitly resolved through the program's governing approval process;
-6. if approved, update the plan/changelog/denominator before resuming;
-7. preserve the old decision/history rather than rewriting it away.
-
-### Non-degradation rule
-
-> **Discovery may reduce unnecessary work. It may never reduce safety, ownership, preservation, validation, member-isolation, or required evidence on its own authority.**
-
-When uncertain whether a discovery is task adaptation or roadmap redirection, choose the safer classification: **block and propose an amendment**.
-
-## 8. Keep progress honest
-
-Use slice completion for overall program percentage:
-
-`completed slices / total slices * 100`
-
-Use task counts only for local slice progress.
-
-Example:
-
-```text
-Task progress: 4/7 in Slice 2.1
-Slice: IN PROGRESS
-Phase: 1/3 slices complete
-Overall: 6/20 slices complete (30.0%)
-```
-
-If discovery adds tasks, local task progress may change. Overall program progress does not move backward because the stable unit is the slice.
-
-A blocked plan amendment does not count as progress and must not be hidden by changing task counts.
-
-## 9. Make the plan self-maintaining
-
-Before a slice starts, update the plan with:
-
-- `IN PROGRESS`;
-- starting refs/state;
-- derived task list;
-- task count;
-- current phase/program counters.
-
-Before a slice can become `COMPLETE`, update the plan with:
-
-- completed task list;
-- exact implementation evidence;
-- exact tests/validation;
-- blockers/drift found and resolved;
-- changed assumptions;
-- completed/total counters and percentage;
-- next slice.
-
-The plan update itself is part of the acceptance gate.
-
-## 10. Protect against plan drift
-
-If implementation reveals that the roadmap itself may be wrong:
-
-- do not force reality into the old roadmap;
-- do not silently rewrite the roadmap either;
-- stop the affected work;
-- record the finding;
-- classify it as a plan amendment;
-- propose the minimum evidence-backed change;
-- preserve completed history;
-- resume only after the amendment is explicitly resolved and recorded.
-
-Never manipulate the denominator, slice intent, acceptance criteria or task list merely to make progress look better.
-
-## 11. Completion report
-
-After every completed slice report:
-
-```text
-Completed: Slice X.Y - <title>
-Tasks: <completed>/<derived total>
-Overall: <completed>/<total> slices (<percent>%)
-Phase: <phase number> - <title>
-Phase progress: <completed>/<total>
-Until next phase: <N> slice(s)
-Next: <next slice/task>
-Blockers/drift/amendments: <none or concise status>
-```
-
-If a plan amendment is pending, report it explicitly and do not imply the roadmap change is already accepted.
-
-## 12. Make implementation plans technically useful and proportional
-
-The plan should give the implementer enough product and engineering context to make sound routine decisions without turning every change into paperwork. Choose depth by impact:
-
-| Depth | Use when | Keep in the plan |
+| Depth | Use when | Sufficient content |
 |---|---|---|
-| Compact | Bounded change with a known owner and no public-contract, data, permission or recovery change | Problem and current behavior, bounded change, relevant risk, observable acceptance, focused verification and recovery |
-| Standard | New behavior or several interacting modules | A concise product brief, requirements, caller/owner map, design choice, applicable risk decisions, slices and verification |
-| Extended | Multiple owners, persistent state, permissions, migration, installer/lifecycle or hard-to-reverse effects | Standard depth plus explicit contracts, compatibility, migration/recovery, owner acceptance and composed qualification |
+| Compact | A bounded change with a known owner and no material contract, state, permission or recovery change | Problem, existing path, smallest change, preserved behavior, relevant verification and next action |
+| Standard | New behavior or several interacting modules | Compact content plus the important requirements, design choice, dependencies and necessary slices |
+| Extended | Multiple owners, persistent-state migration, public contracts, permissions or difficult recovery | Standard content plus the affected contracts, compatibility, preservation/recovery and owner/composed acceptance |
 
-Use the shortest depth that still covers the real risks. Keep one living plan with linked evidence; a plan is not a reason to create duplicate PRD, architecture and status documents.
+A compact plan can be short prose. Use phases, requirement IDs, tables, counters and formal reports only when they improve execution of a substantial program. Omit irrelevant fields without filling them with N/A explanations. Do not impose word counts, line-of-code targets or a minimum number of tasks.
 
-For standard and extended work, state who needs the change, the observed problem, the intended user journey, scope and non-goals, behavior/data to preserve, and unresolved assumptions. Give important requirements stable IDs and map each to an observable success case, meaningful failure case and verification. Set performance, resource, accessibility or cost targets only when evidence supports them; otherwise plan a bounded measurement.
+The [Implementation Plan Template](IMPLEMENTATION-PLAN-TEMPLATE.md) is a starting point, not a form to complete. Link existing rules and evidence rather than copying them.
 
-Before choosing a design, trace the current trigger and caller through validation, owner effects and result/error. Compare reuse/configuration with new code. Explain why the selected approach is the simplest maintainable way to meet the requirement. Justify added dependencies, services, stores, abstractions and configuration; apply a deletion test to proposed layers. Use established repository patterns, not speculative frameworks.
+## 2. Start from observed behavior
 
-Screen relevant risks once: canonical ownership and permissions; privacy, security and untrusted input; persistence, migration and concurrency; supported runtimes/platforms; user-visible failure/recovery; and AI-specific scope, prompt-injection, context-budget and evaluation risks. Record a concrete decision or a reason an area does not apply. This is a judgment aid, not a checklist of features to build.
+Before choosing a design:
 
-For code slices, choose a public behavior that proves the requirement. Use a meaningful failing regression before a fix when practical, then implement the smallest complete behavior, verify it and simplify. Do not manufacture a failing test for documentation or pure cleanup; characterize existing behavior and compare the relevant outputs instead. Tests must exercise the intended caller and fail when the defect returns; do not weaken assertions or hide errors to get a green result. When a defect is unclear, reproduce it, probe one falsifiable cause at a time, remove temporary diagnostics and rerun the original case. Measure performance against a baseline only when the requirement or observed bottleneck makes it relevant.
+1. Identify the user's problem, intended behavior, scope and non-goals.
+2. Inspect the relevant source, callers, tests, contracts and prior accepted work. Retrieve only what the decision needs.
+3. Trace the current caller through validation, owner effects and result/error. Identify the canonical owner and useful code entry points.
+4. Distinguish confirmed observations from assumptions, unresolved decisions and genuinely unavailable evidence.
+5. Classify the needed work as `REUSE`, `EXTEND`, `CREATE`, `RETIRE` or `BLOCK/UNKNOWN`.
 
-Issue drafts may be derived from accepted slices when they help execution. Keep requirement IDs, dependencies and acceptance intact. Drafting or publishing issues is optional and follows existing authorization.
+Do not infer working behavior from a plan, registry entry, interface name or passing unrelated test. Do not reconstruct accepted infrastructure merely because an earlier proposal imagined something different.
 
-These checks supplement the fixed-outcome, bounded-adaptation, preservation, owner and evidence laws above; they do not change the roadmap or grant permission.
+Inspect bounded implementation questions before asking the operator. Make routine choices within existing authority; ask when a material product, ownership, permission, preservation or external-action decision remains unresolved.
+
+## 3. Choose the smallest complete change
+
+Prefer configuration, correction, wiring or extension at the existing owner. A verified no-code resolution is valid when existing behavior already satisfies the requirement.
+
+Add a dependency, service, store, abstraction or configuration surface only when a current requirement cannot be met adequately by the existing mechanisms. Explain that reason and the simpler alternative briefly. Apply a deletion test: if removing a proposed layer still meets the requirement safely, omit it.
+
+Exclude unrelated cleanup, speculative refactors, generic frameworks and capabilities for hypothetical future needs. Record useful follow-up ideas separately; they do not become required implementation work.
+
+Optimize for the smallest maintainable change that fully meets acceptance, not the fewest literal lines. A shortcut that hides errors, breaks another caller or bypasses authority is not a complete fix. Follow established codebase patterns and address the actual cause rather than masking symptoms.
+
+State the important behavior, contracts and data that must survive. Preserve canonical ownership, user-owned state, workspace/member isolation, authorization and recovery guarantees. Link established laws instead of restating them in each slice.
+
+## 4. Define observable acceptance once
+
+Record the important requirements and how to prove them. Use stable IDs for multi-slice work so slices can reference the same acceptance rather than repeat it.
+
+For each relevant behavior, identify the successful result, meaningful failure/regression and the existing command or user action that can verify it. Include the expected outcome. For user-facing changes, exercise the real caller or user journey where needed; unit tests alone may not establish the product behavior.
+
+Improve verification of agreed requirements and concrete risks within the authorized change. Better proof is not permission to add product obligations: extra features, platforms, infrastructure, benchmarks or quality targets require an explicit scope decision before becoming mandatory.
+
+Screen applicable risks once, beside the affected design: ownership/permissions, privacy/untrusted input, persistence/concurrency, compatibility/platforms and failure/recovery. Include AI-specific scope, context-budget or evaluation risks only where relevant. Risk discovery must not turn into an unsolicited feature checklist.
+
+Use established performance, accessibility, resource and cost requirements when they apply. If a necessary target is unknown, plan a bounded measurement or decision; do not invent a number or a benchmark program.
+
+## 5. Sequence useful, complete increments
+
+A neutral default is:
+
+`inspect -> smallest complete change -> integrate and verify -> deliver`
+
+Architecture, migration or qualification stages belong only where the actual work needs them. Where useful, prove an early narrow path from the real caller to the actual result before expanding the implementation. Do not create foundations without an evidenced requirement.
+
+For substantial work, organize the plan as:
+
+`non-negotiable outcomes -> necessary phases -> stable slices -> adaptive tasks`
+
+Each slice has one meaningful outcome, dependencies, a bounded owner/surface, referenced acceptance, required evidence and a next step. State rollout/recovery details only where they differ from the established plan. Shared evidence may prove several criteria; do not repeat the same check merely to fill several rows.
+
+Keep distant slices at outcome/dependency level. Do not freeze speculative implementation tasks for the whole program.
+
+## 6. Derive tasks when a slice starts
+
+At the start of a substantial slice:
+
+1. Read its current checkpoint and refresh only relevant source/evidence.
+2. Reuse existing implementation and accepted work before proposing additions.
+3. Record the smallest task list that satisfies the slice outcome and mark it `IN PROGRESS`.
+4. Identify the first useful behavior to implement or characterize and its verification path.
+
+Tasks may be added, removed, split, combined or reordered when evidence warrants it. Every task must serve agreed acceptance, a concrete risk/defect, a real dependency or a useful verification. Prefer `REUSE` or `EXTEND` when discovery removes the need for `CREATE`.
+
+Task adaptation may change the route; it must not silently move the finish line.
+
+## 7. Preserve direction and authority
+
+Routine implementation choices and stronger proof of existing requirements can adapt within scope. An agent must not silently:
+
+- change product intent, canonical ownership or permissions;
+- weaken acceptance, safety, preservation, isolation or required evidence;
+- add new product obligations under the label of stricter acceptance;
+- change a phase/slice outcome, remove a required slice or alter a program denominator or major ordering;
+- promote an experimental finding into canonical architecture without the relevant acceptance.
+
+First inspect whether an apparent conflict can be resolved within existing rules. If a material directional change remains necessary, stop only the affected implementation path and record `BLOCKED - PLAN AMENDMENT REQUIRED` with:
+
+- the observed finding and current requirement/law;
+- the proposed change, affected owners/slices and preservation/compatibility impact;
+- the smaller alternatives and recommended resolution.
+
+Resolve the amendment through the program's existing approval process, then update the plan/changelog and affected counters before resuming. Preserve the earlier decision and evidence. Do not create new approval ceremonies for routine choices or ignore authorization already supplied by the operator.
+
+**Discovery may reduce unnecessary work. It may not reduce safety, ownership, preservation, member isolation or required evidence.**
+
+## 8. Implement and verify proportionally
+
+Respect the operator's authorization for commands and checks. A planned check is not an executed check; if checks are deferred or forbidden, record that limit and do not claim verified completion.
+
+For a defect, use a meaningful failing regression before the fix when practical. Then implement the smallest complete behavior, verify and simplify. Do not manufacture failing tests for documentation or pure cleanup. Reuse useful existing tests; add only those needed to establish the changed behavior or a concrete regression risk.
+
+When the cause is uncertain, reproduce the behavior, probe one falsifiable explanation at a time, remove temporary diagnostics and rerun the original case. Do not weaken assertions, swallow errors or substitute success-shaped fallbacks to make checks pass.
+
+Run required owner checks and the checks justified by the change. Broaden or repeat them only when new edits, failures or unresolved risks warrant it. Separate source acceptance, composed qualification and member release; none implies the others. Preserve existing rollback and user-state guarantees.
+
+## 9. Keep one useful execution record
+
+Update the living plan with what changed, what was actually verified, unresolved material decisions and the next action. Link detailed logs and exact relevant refs; avoid accumulating repetitive narration or a second handoff document.
+
+For multi-slice programs, report completed slices over the fixed total. Task counts describe only the current slice. Do not manipulate denominators, acceptance or task lists to improve the apparent percentage. A blocked amendment is not completed work.
+
+A completed slice records implementation and acceptance evidence, remaining limitations and its next step. Use a concise report scaled to the program; compact changes do not require phase percentages or a fixed report template. A fresh agent should be able to resume without re-reading the entire history.
+
+Issue drafts may be derived from accepted slices when useful. Publishing them, making external changes and promoting releases still follow existing authorization. This method creates no new permissions.
 
 ## Planning principle
 
-> **Fix the destination. Discover the safest route from current reality.**
-
-And the safety companion:
-
-> **Adapt execution freely; change direction deliberately.**
-
-The plan should give future agents strong boundaries and measurable outcomes without pretending that unknown implementation details are already known, while preventing adaptive discovery from silently steering the system into a different architecture.
+**Fix the destination. Discover the smallest safe route from current reality.**
