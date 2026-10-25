@@ -399,6 +399,19 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 
 #### G3.2 — Security, resource and optional-remote admission
 
+
+##### G3.2 reuse-first bounded tasks — 2026-10-25
+
+**Owner authorization:** this batch covers **G3.1 T4 plus G3.2 T1–T3**, STOP before G3.2 T4. Dependencies: G3.1 bounded replay and exact-source three-OS composed Agent qualification must be accepted before G3.2 owner acceptance. No default release promotion or Dashboard MC1.4 acceptance.
+
+1. **T1 SOURCE AUDIT COMPLETE, dependent acceptance pending:** Reused canonical [Gateway `src/server.mjs`](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/src/server.mjs), [config admission](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/src/config.mjs), [hashed bearer/peer throttles](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/security-and-recovery.test.mjs), [owner controls](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/loop-contracts.test.mjs), and [current HTTP lifecycle tests](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/blob/main/test/clean-install.test.mjs). Existing: default loopback, non-loopback requires explicit `allow_remote` + TLS-proxy declaration, hashed bearer with asynchronous scrypt and 64 global/32 per-peer pre-auth concurrency, per-principal/peer rate limits, browser Origin allowlist, bounded 1 KiB–4 MiB request config, OS final action authority/budgets, scoped principal/run approval, explicit invalid decision, sanitized response/error. No separate service or public-remote launch. **Gap:** limit of `EventEmitter.setMaxListeners(200)` is warning-only, not hard per-run SSE subscriber admission; this is the next resource guard.
+2. **T2 IN NATIVE CI REVIEW:** [Gateway PR #75](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/75), external HTTP negative fixture, proves oversized JSON 413, invalid JSON 400, wrong/no bearer 401, forbidden Origin 403, no secret reflected by error, and a normal authorized 202 after rejection; uses **existing** `max_body_bytes=1024` configuration and validates existing API without duplicating auth. Native six-runner/source merge and merged-main CI are required before acceptance.
+3. **T3 IN NATIVE CI REVIEW:** [Gateway PR #76](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/pull/76) (builds on #75), adds **optional** hard 16-subscriber per-run SSE admission in existing `GatewayStore.subscribe` and checks before HTTP 200, yielding scoped 429 `EVENT_SUBSCRIBER_LIMIT`, freeing capacity on unsubscribe. Second external HTTP fixture forces a bounded 256-entry live queue overflow, requires explicit `gateway.replay_overflow` and all 270 original events still in canonical NDJSON for reconnect. No new broker, provider, OS/Brain mutation. Qualify complete owner-native six-runner CI and exact merged head before acceptance.
+4. **T4 WAIT for owner `next`:** Reconcile all security/admission tests (peer spoof, disabled/uninstall, oversized/malformed event and credential leakage, OS final tool approval, optional remote proxy policy), check exact release/three-OS owner composition, record genuine missing negative cases, accept G3.2 only with fixed original security outcome. Do not enable remote public use or promote member release.
+
+**Progress at ledger creation:** G3.2 Task 1 source audit recorded with dependency on G3.1 closure; Tasks 2/3 implemented in owner PRs **not yet accepted**. No change to ten-slice denominator while G3.1 composed Windows or current source gates remain unverified.
+
+
 - **Owner:** Gateway + OS final policy boundary.
 - **Dependencies:** G3.1.
 - **Outcome:** Safe local default for daily usage, deterministic auth and budget policy, bounded CPU/rate/event consumers, redacted errors and explicit optional remote behavior.
