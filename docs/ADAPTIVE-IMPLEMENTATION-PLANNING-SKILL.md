@@ -1,5 +1,7 @@
 # Adaptive Implementation Planning Skill
 
+Also known as **Plan Maker**, **implementation-plan maker**, **implementation planning**, **PRD planning** and **architecture planning**. Start at [Plan Maker](PLAN-MAKER.md).
+
 **Purpose:** Produce implementation plans that guide the smallest maintainable change that fully resolves the agreed problem, while preserving existing infrastructure, user state and authority boundaries.
 
 Use for AI-Verse features, repairs, integrations, migrations and architecture work. One living plan may serve as the product brief, architecture decision and execution record; do not create separate documents merely to satisfy a format. Planning does not grant implementation, test, publication or release permission.

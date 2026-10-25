@@ -1,5 +1,7 @@
 ## 2026-10-26: Simplify implementation planning without expanding scope
 
+- Added the Plan Maker alias/index, README and plans navigation, and a thin native agent discovery entry for implementation-plan, PRD and architecture-plan terminology. These routes reference the same method/template.
+
 - Made proportional depth govern the method, including execution records and reporting.
 - Clarified the smallest maintainable complete change, reuse before new mechanisms, and verified no-code resolutions.
 - Separated stronger proof from new product requirements; replaced the architecture-heavy default sequence with a neutral implementation path.

@@ -15,6 +15,10 @@ It does **not** duplicate implementation code from the component repositories. I
 - unresolved gaps and future-state requirements;
 - the long-term vision for the complete AI-Verse system.
 
+## Plan Maker / implementation plans
+
+For Plan Maker, implementation planning, PRDs, architecture plans, technical plans, build plans or execution plans, start with [Plan Maker](docs/PLAN-MAKER.md). It links the single planning method and template. A native agent entry is available as `plan-maker` under `.agents/skills/`.
+
 ## Documentation rule
 
 Every component is researched independently and documented one repository at a time. A component is not marked complete until its source repository, architecture documents, release/status documents, important historical fixes, integration contracts, relevant commit history, implementation enforcement, lifecycle surfaces, tests/CI, contradictions, negative-space findings, documentation drift, and current-target readiness have been reviewed.
