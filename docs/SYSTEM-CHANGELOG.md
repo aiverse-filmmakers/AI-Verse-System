@@ -1,3 +1,12 @@
+## 2026-10-26: Plan the chat-first app continuation from step 2
+
+- Added the operator-requested steps 2–6 continuation: existing proof, real chat UI, OpenRouter/streaming, Codex runtime auth, then desktop/phone/member access.
+- Kept step 1 qualification in its separate workstream, with an explicit accepted-evidence handoff and no MC1.4 gate bypass.
+- Reused existing System/Dashboard/Gateway plans and owners; preserved accepted progress and limited new work to nine continuation outcomes.
+- Linked the plan from product intent, the master plan and in-progress navigation. This records intended work only; no feature implementation or release promotion is claimed.
+
+---
+
 ## 2026-10-26: Simplify implementation planning without expanding scope
 
 - Added the Plan Maker alias/index, README and plans navigation, and a thin native agent discovery entry for implementation-plan, PRD and architecture-plan terminology. These routes reference the same method/template.

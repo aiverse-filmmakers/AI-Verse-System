@@ -594,6 +594,14 @@ Canonical implementation plan:
 
 - docs/DASHBOARD-MVP-WEB-DESKTOP-PLAN-2026-09-15.md
 
+## 11D. General-purpose member app continuation — 26 October 2026
+
+The owner clarified that the app should remain a general-purpose AI environment, comparable in shape to an IDE, Hermes or ChatGPT, with useful tabs added over time. It must not be limited to one workflow or output. Members should connect their own model providers/accounts; OpenRouter and a supported Codex runtime path are the immediate integration targets. Phone access is valuable, with computer-first delivery acceptable.
+
+The requested continuation starts at step 2: existing Mission Control-to-Gateway proof, actual scoped chat/history/controls, OpenRouter/model selection/provider streaming, Codex authentication, then desktop/phone/member access. The owner will handle step 1 Gateway security/integration qualification separately. That separation does not waive the proof's security prerequisites. Continue the approved Mission Control shell and existing canonical owners; do not restart the backend or silently introduce public multi-tenant hosting.
+
+The [continuation plan](../plans/in-progress/DASHBOARD-CHAT-FIRST-APP-CONTINUATION-2026-10-26.md) owns this bounded execution view. Features remain intended until owner acceptance and release evidence establish otherwise.
+
 ## 12. How to use this document in future work
 
 Before a significant product, UX, onboarding, autonomy, learning, workspace, Data, Skills, Bot, Automation or Distribution decision:
