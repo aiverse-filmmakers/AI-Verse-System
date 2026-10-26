@@ -27,8 +27,24 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          # The PR checkout is a synthetic merge SHA, not canonical System main.
+          # Bind to the live exact System main SHA as demanded by the refresh
+          # engine; fail closed if that ref changes during the request.
+          SYSTEM_MAIN_SHA="$(python - <<'PY'
+          import json, os, urllib.request
+          req = urllib.request.Request(
+              os.environ["GITHUB_API_URL"] + "/repos/" +
+              os.environ["GITHUB_REPOSITORY"] + "/branches/main",
+              headers={"Authorization": "Bearer " + os.environ["GITHUB_TOKEN"],
+                       "Accept": "application/vnd.github+json"},
+          )
+          with urllib.request.urlopen(req, timeout=20) as response:
+              print(json.load(response)["commit"]["sha"])
+          PY
+          )"
+          [[ "$SYSTEM_MAIN_SHA" =~ ^[0-9a-f]{40}$ ]]
           python scripts/refresh_repository_state.py --refresh --scope Agent \
-            > /tmp/g42-agent-preview.log
+            --evidence-revision "$SYSTEM_MAIN_SHA" > /tmp/g42-agent-preview.log
           grep '^REFRESH COMPLETE scope=Agent ' /tmp/g42-agent-preview.log
           git diff --exit-code -- governance/repository-registry.json \
             governance/repository-state.json docs/REPOSITORY-STATE-LEDGER.md
