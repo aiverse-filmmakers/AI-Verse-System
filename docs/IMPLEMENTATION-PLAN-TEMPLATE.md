@@ -1,70 +1,51 @@
 # Implementation Plan Template
 
-Use this as a starting structure for work that needs a written plan. Scale it to the risk; remove unused prompts. The [Adaptive Implementation Planning Skill](ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) remains the rule source. A template does not authorize implementation, tests, external actions or publication.
+Use only as much structure as the change needs. A small fix can be a few paragraphs; a cross-component migration needs more detail. Omit irrelevant prompts without explaining their absence. The [Adaptive Implementation Planning Skill](ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) is the rule source.
 
-## Plan details
+A plan does not authorize implementation, checks, external actions or publication. Record only useful metadata: <owner, repository, source revision, date and current status>.
 
-- **Outcome / owner / repository:** <what changes and who owns it>
-- **Planning depth:** <compact / standard / extended; why this is enough>
-- **Current revision and status:** <exact source ref; local / proposed / accepted / implementing>
-- **Fixed outcomes:** <slice count if there is more than one>
+## 1. Problem and boundary
 
-## Product brief
+- **Observed problem and intended behavior:** <who encounters it, concrete before/after and supporting evidence>
+- **Scope:** <what this change must accomplish and its boundaries>
+- **Preserve:** <existing behavior, data, contracts and ownership that this change could affect>
 
-- **Who needs this and what happens today:** <observed evidence>
-- **Desired result / main journey:** <plain language>
-- **Scope and non-goals:** <bounded>
-- **Behavior, data and contracts to preserve:** <invariants>
-- **Assumptions or decisions still open:** <impact, owner and next evidence>
+## 2. Existing path and smallest change
 
-## Requirements and checks
+- **Current implementation:** <relevant caller → logic → state/effects → result; exact useful file, symbol or contract references>
+- **Reuse first:** <what already works and the smallest complete correction, wiring or extension needed; no code change if existing behavior meets the requirement>
+- **Design choice:** <why this is the smallest maintainable solution; explain a new dependency, service, store or abstraction only if one is necessary>
 
-| ID | Observable success, important failure and unaffected behavior | Owner / slice | Verification and expected result |
-|---|---|---|---|
-| R01 | <specific behavior> | <owner / slice> | <caller, command or observation> |
+Keep compatibility, permissions, data preservation and recovery details beside the change they constrain. Add contract, migration, security or architecture detail only where the actual work needs it. Exclude unrelated cleanup and speculative infrastructure.
 
-Relevant performance, resource, accessibility or cost target: <evidence or measurement task; omit with reason if not relevant>.
+## 3. Acceptance and planned verification
 
-## Current flow and design choice
-
-- **Current caller and owner path:** <trigger → validation → logic → state/effects → result or failure>
-- **Reuse / extend / create / retire / blocked:** <existing mechanisms and owners>
-- **Chosen design and simpler alternative:** <why this meets the requirement with the least ongoing burden>
-- **New dependency, service, store, abstraction or configuration:** <requirement and why existing facilities are insufficient; or none>
-- **Compatibility, permission and recovery boundary:** <what must remain safe>
-
-## Applicable risks
-
-| Risk area | Decision and evidence | Owner or open blocker |
+| ID | Observable behavior to establish or preserve | Planned verification and expected result |
 |---|---|---|
-| <relevant privacy, security, state, concurrency, platform, UX or AI risk> | <concrete mitigation/check or reason it does not apply> | <owner / none> |
+| A1 | <success, relevant failure or unaffected behavior> | <exact command with working directory, caller or observation; expected result> |
 
-## Phases and slices
+Record each requirement once. Stronger proof may clarify an existing requirement; a new behavior or quality target is a scope decision, not an automatic addition. Include performance, accessibility, resource or cost targets only when they matter to this change.
 
-### Slice <ID> — <one stable outcome>
+Describe planned checks here; record actual evidence only after authorized execution. Reuse relevant existing checks and add only the coverage needed to demonstrate the behavior.
 
-- **Requirement IDs / owner:**
-- **Dependencies and exact start evidence:**
-- **Bounded repository and surface:**
-- **Acceptance and required evidence:**
-- **First useful behavior/check:** <public failure → smallest complete fix → green/refactor, or characterization/document review>
-- **Rollout, disable and recovery:**
-- **Completion evidence and next slice:**
+## 4. Execution
 
-<Repeat only for actual outcomes. Derive detailed tasks when each slice starts.>
+<Use a short sequence for a single change. Create slices only for outcomes that can be completed and verified separately. Detail the next work; keep later milestones broad.>
 
-## Reviews and progress
+### <Slice, only if needed> — <one complete outcome>
 
-- **Product/architecture:** <requirements, ownership, risks, simpler approach>
-- **Code/adversarial:** <diff, failure paths, test quality and simplification>
-- **Behavior/delivery:** <real journey, supported platforms, release truth and recovery>
-- **Current checkpoint:** <accepted/total slices; exact refs; local vs merged vs qualified vs released>
-- **Next action / blocker:**
+- **Acceptance references / owner:** <A1, A2; relevant repository or component owner>
+- **Change:** <bounded surfaces and immediate steps, using existing entry points>
+- **Dependencies or start condition:** <only evidence or decisions required before this work>
+- **Delivery and recovery:** <only rollout, disable, migration or recovery steps this change needs>
 
-## Choosing depth: small examples
+Reference section 3 instead of copying acceptance criteria or checks into every slice. Do not add a phase, subsystem or review ceremony merely to fill the template.
 
-- **Compact:** fix one parser edge case with a known owner; record current behavior, one regression, the focused check and recovery.
-- **Standard:** add a read-only capability used by several callers; map the user journey, requirements, existing flow, scope and failure behavior.
-- **Extended:** change an owner-backed migration across components; add contract decisions, data preservation, compatibility, interruption/recovery, owner checks and composed qualification.
+## 5. Checkpoint and next action
 
-Avoid repeating the method's permanent laws. Keep one living plan and link detailed evidence instead of duplicating it.
+- **Confirmed:** <current implementation facts and links to evidence>
+- **Assumptions / blockers:** <only unresolved points that could change the implementation, with the next evidence or decision needed>
+- **Status and next action:** <what is complete, what remains and the next concrete step>
+- **Execution evidence:** <when available: what ran, result and artifact/ref; distinguish local, merged, qualified and released>
+
+Keep one living plan. Replace stale statements as work changes and link detailed evidence rather than duplicating it. A plan is ready when the next implementer can make the bounded change and demonstrate it without inventing requirements.

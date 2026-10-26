@@ -2,6 +2,11 @@
 
 Put plans here when they are ready for implementation or actively being implemented.
 
+## Chat-first app continuation — steps 2–6
+
+[DASHBOARD-CHAT-FIRST-APP-CONTINUATION-2026-10-26.md](DASHBOARD-CHAT-FIRST-APP-CONTINUATION-2026-10-26.md) starts with the existing Mission Control proof, then scoped chat, OpenRouter/streaming, Codex runtime authentication, desktop, phone access and membership controls. Step 1 remains the operator's separate Gateway qualification workstream. Preparation is available; real proof waits for its explicit accepted handoff. Planning only, not shipped implementation.
+
+
 Each plan should state:
 
 - status and date;
