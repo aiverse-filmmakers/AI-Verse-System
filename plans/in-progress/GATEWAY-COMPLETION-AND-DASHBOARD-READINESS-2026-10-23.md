@@ -9,7 +9,7 @@
 **Method:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md)
 **Fixed destination:** Finish the *existing* canonical Gateway as a reliable, securely bounded, owner-backed, Dashboard-ready local Agent edge, with verified current-generation chat/runs/events/controls, restart behavior, composed integration and honest release qualification. Do not expand "finish" to speculative enterprise or every future owner feature.
 **Checkpoint:** 8 / 10 new acceptance slices complete (80%). Historical Gateway implementation remains preserved and is not counted as 0% built.
-**Next:** G3.2 T4 is accepted on exact merged Gateway and three-platform Agent CI-only composition. Dashboard's hosted synthetic Mission Control→Gateway HTTP dispatch was verified in PR #32; pre-gate routing guard, negative regression and repair proposal were merged in Dashboard PR #33 (no real MC1.4 acceptance). The pinned upstream `local/aiverse` classifier remains broken, with a clearly labeled deterministic CI-only alias. G4.1 still requires an approved upstream compatibility resolution, explicit Dashboard owner MC1.4 audit/repair gate release and real owner proof. No member release/pin promotion.
+**Next:** Continue our bounded G4.1 OS/runtime qualification and record the scoped MC1.4 audit decision. The operator explicitly replaced waiting for upstream acceptance with an AI-Verse maintained routing dependency. Dashboard [PR #34](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/pull/34) pins `aiverse-filmmakers/mission-control@570b74195b0837131ae015a06fe466472f12001a` and removes the CI alias. Genuine `local/aiverse` passed real HTTP composition on the operator's Mac using exact Gateway `9c42bdc21073020c3d7194446b0f2ae929eb25a2` and a deterministic fixture host. No Builderz review/merge is a prerequisite. Real installed OS/runtime acceptance and G4.2 remain to be proven; no member release/pin promotion.
 
 ## 1. Product brief and finish line
 
@@ -445,8 +445,41 @@ Tasks: **T1 canonical owner protocol documentation; T2 meaningful existing-Gatew
 - **At every slice close:** merge tested owner work, verify merged-main CI and composed evidence as applicable, update this living System plan with PR/SHA/CI, blockers, counters and next slice. Separate `code merged`, `owner accepted`, `Distribution qualified` and `member released`.
 - **Protected amendment:** any changed architecture, owner, scope, slice goal, acceptance, denominator or release behavior stops with `BLOCKED - PLAN AMENDMENT REQUIRED` and evidence-based proposal.
 - **Progress:** G0 2/2; G1 2/2; G2 2/2; G3 2/2; G4 0/2; overall **8/10 slices (80%)**. G3.1 **4/4 COMPLETE**; G3.2 **4/4 COMPLETE** (T1 audit + T2/T3 merges + T4 exact merged Gateway/native/three-OS composition). No release promotion; historical completed owner work preserved.
-- **Current execution pointer:** **G3.2 T4 ACCEPTED 2026-10-26. STOP at Dashboard MC1.4 independent owner gate.** The existing Dashboard tracker explicitly marks MC1.4 BLOCKED pending a recorded audit/repair gate release, notwithstanding the conditional supervised synthetic Agent dogfood verdict dated 2026-10-05. Do not derive/count real G4.1 tasks, invoke `npm run mc1:local`, or claim a true Mission Control dispatch until that gate is released; source-only/mock preflight assessment may continue. No member release promoted.
+- **Current execution pointer (26 October 2026):** G3.2 accepted, G4.1 routing prerequisite resolved through the operator-approved AI-Verse maintained dependency. Continue our own bounded OS/runtime qualification and explicit Dashboard audit record. Do not wait for third-party acceptance or resume external contributions. The disposable Mac proof is transport evidence with a deterministic fixture host; it must not be counted as real installed OS/runtime acceptance. Overall remains **8/10** until the original G4.1 outcome is proven.
 
 - **2026-10-26 — Hosted MC1 preflight evidence only (not G4.1 slice acceptance):** Dashboard [PR #32](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/pull/32) merged to `45b336c82c991139d1b8655c48f8126c4a9b148e`. [Synthetic composed CI 40315327229](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40315327229) passed real authenticated Mission Control→Gateway HTTP dispatch with unique response marker, correct synthetic system/workspace, disposable lab cleanup, pinned upstream `5483a0e1eef15b467c167e95796791112cedbb7c` and exact Gateway `9c42bdc21073020c3d7194446b0f2ae929eb25a2`; PR-head [Dashboard native CI 40315327465](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40315327465) passed Windows/macOS/Ubuntu Node22. **Limitation:** stock pinned Mission Control strips the `local/` provider prefix from `local/aiverse` before provider selection and incorrectly tries Anthropic (`ANTHROPIC_API_KEY not set`, hosted failure [40314698303](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40314698303)). To isolate and prove real transport without changing the accepted upstream source, deterministic CI alone used its built-in Ollama routing catalog alias `ollama/deepseek-r1:14b`; this alias is *not* the Gateway's advertised model, a usable production model setting, an upstream bug fix, or a substitute for the owner's real `local/aiverse` proof. Before MC1.4 real acceptance: resolve model routing via an approved upstream pin update or reviewed first-class adapter, discharge the independent Dashboard audit gate, and run the existing secure synthetic owner-machine proof. Gateway progress remains **8/10**; G4.1/G4.2 unaccepted; no release/pins promoted.
 
 - **2026-10-26 — Four pre-gate readiness activities completed (NOT G4.1 acceptance/tasks):** Dashboard [PR #33](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/pull/33) merged at `8949ca7e0ee5e3075563d4efbd3c920888494a6f`. **P1 upstream audit:** the audited pin `5483a0e1eef15b467c167e95796791112cedbb7c` and current Builderz Mission Control main snapshot `e28edf8b28c85a32f1fd55ac577d325df6b16e4a` both still strip the `local/` routing prefix; a blind upstream pin bump cannot qualify the owner path. **P2 fail-closed source guard:** `assertMc1RoutingGate` stops known broken or unreviewed pins for owner execution before setting up the third-party lab; only the exact pinned, disposable, `CI=true`, `ci-synthetic` deterministic fixture retains the existing alias, with no owner credential transfer. **P3 regressions and hosted proof:** negative tests cover real, non-CI, non-disposable, wrong runtime/system and unapproved pins; PR-head [Dashboard CI 40318115508](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40318115508) passed Windows/macOS/Ubuntu, hosted [MC1 synthetic 40318115551](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40318115551) passed real HTTP dispatch/unique response marker using the explicitly marked *CI-only* upstream Ollama routing alias. **P4 decision packet:** [MC1 routing repair proposal](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/blob/main/docs/MC1-LOCAL-MODEL-ROUTING-REPAIR-PROPOSAL-2026-10-26.md) records minimal upstream source change, negative requirements, pin qualification/review, rollback and independent MC1.4 audit gate. This is **source/hosted preparation only**, not approved architecture/pin revision and not an MC1.4 gate release. Dashboard MC1.4 remains **BLOCKED**; G4.1/G4.2 not counted; **8/10 (80%)** unchanged. Subsequent real-owner gate release and the disposable Mac proof still require their separately documented approvals and execution.
+
+
+## 26 October 2026 — Operator-approved maintained-dependency amendment
+
+The operator explicitly directed work and token use to their own AI-Verse OS and
+repositories, requested qualification of the necessary dependency repair in their
+own copy, and removed waiting for third-party acceptance. This changes the routing
+implementation/provenance dependency, not the ten-slice denominator, OS authority,
+G4.1 real-runtime outcome or Distribution release authority.
+
+**REUSE:** previously audited Mission Control base
+`5483a0e1eef15b467c167e95796791112cedbb7c`, existing Dashboard MC1 runner,
+exact accepted Gateway `9c42bdc21073020c3d7194446b0f2ae929eb25a2` and existing
+independent audit/recheck evidence. **EXTEND:** owned fork immutable revision
+`570b74195b0837131ae015a06fe466472f12001a` contains the three-line routing
+repair, eleven regression cases and provenance. Original MIT notice is retained.
+**RETIRE:** synthetic Ollama alias and upstream review/merge as a prerequisite.
+
+Dashboard [PR #34](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/pull/34)
+contains source pin enforcement, real `local/aiverse` in every proof mode, the
+retained non-disposable/unknown-pin/owner-gate negative checks and
+[sanitized Mac evidence](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/blob/codex/owned-mc-routing/docs/evidence/mc1-owned-routing-macos-2026-10-26.json).
+On this Mac: routing suite **11/11**, targeted lint/diff checks, Dashboard build
+and **87 tests passed / one existing skip**, disposable actual Gateway HTTP
+composition **passed** with authentication, correct system/workspace, unique
+result marker and cleanup. No owner credential or external model was used.
+
+**Remaining evidence:** run the existing path against the actual canonical OS
+host and supported runtime inside a disposable synthetic installation, using the
+existing conditional controlled-dogfood recheck as input to a recorded scoped
+MC1.4 gate decision. Do not represent the fixture host as the real OS. Then close
+MC1.4/G4.1 only against its fixed acceptance, followed by existing G4.2 release
+qualification. No new external contribution or acceptance is required.
