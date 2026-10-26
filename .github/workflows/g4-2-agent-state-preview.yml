@@ -1,0 +1,35 @@
+name: G4.2 Agent Registry/State Preview (read-only)
+
+on:
+  pull_request:
+    paths:
+      - 'plans/in-progress/GATEWAY-COMPLETION-AND-DASHBOARD-READINESS-2026-10-23.md'
+      - '.github/workflows/g4-2-agent-state-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scoped-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Recalculate candidate-only Agent State without writing
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python scripts/refresh_repository_state.py --refresh --scope Agent \
+            > /tmp/g42-agent-preview.log
+          grep '^REFRESH COMPLETE scope=Agent ' /tmp/g42-agent-preview.log
+          git diff --exit-code -- governance/repository-registry.json \
+            governance/repository-state.json docs/REPOSITORY-STATE-LEDGER.md
+          echo 'PASS: Registry identity and committed Repository State untouched; preview is not a promotion or pin.'
