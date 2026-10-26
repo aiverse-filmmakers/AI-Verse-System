@@ -43,9 +43,37 @@ jobs:
           PY
           )"
           [[ "$SYSTEM_MAIN_SHA" =~ ^[0-9a-f]{40}$ ]]
+          # Refresh into a temporary copy only: inspect real scoped Repository
+          # State output, but never promote that preview to canonical governance.
+          cp governance/repository-state.json /tmp/g42-agent-state.json
           python scripts/refresh_repository_state.py --refresh --scope Agent \
-            --evidence-revision "$SYSTEM_MAIN_SHA" > /tmp/g42-agent-preview.log
+            --evidence-revision "$SYSTEM_MAIN_SHA" \
+            --state /tmp/g42-agent-state.json --write-state > /tmp/g42-agent-preview.log
           grep '^REFRESH COMPLETE scope=Agent ' /tmp/g42-agent-preview.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          preview = json.loads(Path('/tmp/g42-agent-state.json').read_text())
+          registry = json.loads(Path('governance/repository-registry.json').read_text())
+          gw_id = next(r['repository_id'] for r in registry['repositories']
+                       if r['component_id'] == 'ai-verse-gateway')
+          gateway = next(r for r in preview['repositories']
+                         if r['repository_id'] == gw_id)
+          assert preview['refresh']['scope'] == 'Agent'
+          assert preview['refresh']['status'] == 'complete'
+          assert gateway['observed_head']
+          assert gateway['descriptor']['release_status'] == 'candidate', (
+              'Gateway descriptor must remain candidate-only'
+          )
+          assert gateway['distribution_pin']['status'] == 'unpinned', (
+              'Distribution candidate must not be treated as a published member pin'
+          )
+          open_drift = [d for d in preview['drift'] if d.get('status') == 'open']
+          blocking = [d for d in open_drift if d.get('severity') == 'BLOCKING']
+          print('G4.2 scoped preview: candidate descriptor; no Gateway Distribution pin')
+          print('G4.2 scoped preview drift:', len(blocking), 'blocking,',
+                len(open_drift), 'total; no release acceptance inferred')
+          PY
           git diff --exit-code -- governance/repository-registry.json \
             governance/repository-state.json docs/REPOSITORY-STATE-LEDGER.md
           echo 'PASS: Registry identity and committed Repository State untouched; preview is not a promotion or pin.'
