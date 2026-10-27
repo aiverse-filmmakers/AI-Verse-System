@@ -28,3 +28,7 @@ These plan-slice counters measure **remaining verification**, not implementation
 ## Guided provider connections follow-up
 
 - [Provider Connections backend plan](GUIDED-PROVIDER-CONNECTIONS-BACKEND-2026-10-27.md): separate new scope from the completed Connections V1 closeout. S1 is a bounded, synthetic provider key-check repair in Connections; S2 is blocked on an authenticated Dashboard host route and ChatGPT route eligibility. No Dashboard parallel edits or release admission.
+
+## Local-first desktop / whole-product composition (27 October 2026)
+
+- [Reuse-only Dashboard → Gateway → OS desktop composition plan](LOCAL-FIRST-DESKTOP-FULL-OS-COMPOSITION-2026-10-27.md): **PROPOSED, 0/7 composition acceptance slices**. Use finished canonical owner modules; repair only proven seams; test the complete disposable installed OS with real Gateway chat, workspace state, supervised Automations/Brain/Bot wakes and Mac launcher. Does not restart the completed Gateway, Connections V1, Token or original Dashboard MC0/MC1 scope. Dashboard tracker/order amendments and member release remain separately gated. No product source implementation authorized by the plan document alone.
