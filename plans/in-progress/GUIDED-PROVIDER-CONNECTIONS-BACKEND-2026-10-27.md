@@ -1,7 +1,7 @@
 # Guided provider connections: bounded backend follow-up
 
 **Date:** 2026-10-27
-**Status:** S1 IMPLEMENTED AND VERIFIED OWNER-LOCALLY on draft review PR #15, pending code review; S2 BLOCKED on authenticated host/API and deployment decisions. **1/2 slices implemented/locally verified, 0/2 accepted or released.**
+**Status:** S1 REVIEWED, ACCEPTED AND MERGED via Connections PR #15; S2 BLOCKED on authenticated host/API and deployment decisions. **1/2 slices accepted for owner-local backend scope; no member release.**
 **Planning rule:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md). This is new provider UX scope, not a reopening of completed Connections V1 or Token.
 
 ## Product and evidence
@@ -34,7 +34,7 @@ Official source checks (27 Oct 2026): [OpenRouter PKCE](https://openrouter.ai/do
 
 ## Slices
 ### S1: Owner-local key transport and honest check (Connections only)
-**Status:** IMPLEMENTED / 5 of 5 derived tasks verified owner-locally; awaiting draft PR review. Exact source and CI recorded below.
+**Status:** ACCEPTED / 5 of 5 derived tasks verified owner-locally; code reviewed and merged. Exact source and CI recorded below.
 **Derived/completed tasks:** S1.1 reproduce Key-header/KIE false positives in 6-runner CI; S1.2 add narrowly scoped Key header and opt-in KIE credit response checks; S1.3 add synthetic mock success/failure, redaction, compatibility and status-clearing tests; S1.4 document Dashboard owner handoff and verify all six OS/Node jobs; S1.5 **evidence-added**: reproduce stale in-flight verification after revoke/reauth, fence with a monotonic credential revision, maintain existing error precedence and test late success/failure across six OS/Node jobs. All 5/5 complete, no Dashboard code touched.
 **Acceptance:** synthetically demonstrated key-only happy path, failed check cannot remain approved; no provider generation, no raw key in persisted state, no changed v1 default behavior. Existing public library/CLI stays backward compatible. Full test suite green. **Next:** S2 only after host/eligibility gate; stop on complete S1.
 
@@ -49,7 +49,7 @@ Official source checks (27 Oct 2026): [OpenRouter PKCE](https://openrouter.ai/do
 - OpenRouter PKCE yields a provider key; no unapproved client-side token storage.
 - Vault credential deletion may affect shared handles: require reference checks and explicit operator scope before physical deletion in any future host route.
 - Recheck branch heads before writes; ship System plan and Connections code in separate **draft** PRs. Keep the Dashboard PR branch untouched.
-- **Progress:** S1 5/5 owner-local tasks complete, **1/2 fixed slices locally verified**, **0/2 formally accepted** until review. S2 remains blocked, no new whole-program Dashboard points; do not manufacture more Connections work.
+- **Progress:** S1 5/5 owner-local tasks complete, **1/2 fixed slices locally verified**, **1/2 formally accepted** for the bounded owner-local backend scope. S2 remains blocked, no new whole-program Dashboard points; do not manufacture more Connections work.
 
 ## 27 October 2026 implementation and review checkpoint
 
@@ -59,4 +59,11 @@ Official source checks (27 Oct 2026): [OpenRouter PKCE](https://openrouter.ai/do
 - **Verified S1 behavior:** native Connections service accepts copied key with trusted `Authorization: Key` transport, KIE uses a strictly configured non-generating `GET /api/v1/chat/credit` authenticated body check, unsuccessful checks clear stale approval, and an in-flight result from a prior credential revision cannot override explicit revoke/reauth. Existing Bearer and V1 final-edge authority remain. **Higgsfield itself is still configured/unverified until an admissible authenticated free check is documented.**
 - **Next bounded slice S2:** local Dashboard owner must design/verify authenticated, scope-bound host operations and coordinate Gateway model credential authority, then implement secure OpenRouter OAuth exchange and only approved ChatGPT route/identity/refresh with negative tests. Reuse Dashboard PR #42 AUTH-1; do not edit its remote code from this track, create a second vault or promote any source. Status stays **BLOCKED pending host ownership/deployment eligibility, no member release**.
 
-**Slice closeout report:** S1 5/5 tasks implemented and validated, phase provider owner-local checks 1/1 done; overall 1/2 locally verified, 0/2 review-accepted; until next phase: 1 blocked host integration slice; blockers as above. Plan remains in-progress (not the completed V1 closeout) until S2 accepted.
+**Slice closeout report:** S1 5/5 tasks implemented and validated, phase provider owner-local checks 1/1 done; overall 1/2 locally verified, 1/2 review-accepted; until next phase: 1 blocked host integration slice; blockers as above. Plan remains in-progress (not the completed V1 closeout) until S2 accepted.
+
+
+## 27 October independent acceptance and merge
+
+The operator explicitly authorized review and acceptance of this work. Reviewed all six changed files at Connections `eeb4af56e473f66303cc5e6c4f2a8cd069b54e5f`, including provider transport, bounded KIE response validation, credential revision fencing, final-edge callers and negative/compatibility tests. No blocking issue found in this bounded change. Independently ran `npm run check` on the Mac against that exact clean source with disposable local mock servers: **61/61 tests passed**, zero failures/skips. Verified **13/13 hosted checks** completed successfully at that same head, including all six native CI legs and recovery/scale checks.
+
+Connections [PR #15](https://github.com/aiverse-filmmakers/AI-Verse-Connections/pull/15) is now merged at `b6eedea9a1ab569581f56a9d123de3497464619d`. S1 is accepted: **1/2 fixed slices accepted; S2 remains blocked/unimplemented**. Earlier draft/pending/zero-accepted statements above are chronological pre-review evidence, superseded by this acceptance checkpoint. This accepts owner-local synthetic behavior only, not real provider credentials, Higgsfield account verification, paid generation, Dashboard routes, OAuth exchange, Gateway runtime integration, private Core compatibility or member release. Do not reopen completed S1 to manufacture work. Continue the scoped Dashboard authenticated-host integration once its owner/deployment decisions are resolved.
