@@ -2364,7 +2364,7 @@ Implementation evidence: Brain [PR #35](https://github.com/aiverse-filmmakers/AI
 3. What version should contain the September 10-12 hardening after beta.1?
 4. What strategic-intent import format should existing non-AI-Verse agents use?
 5. What common system write contract should consume Brain's symbolic write classifications?
-6. How should an existing Hermes/Codex/Claude agent persistently invoke Brain without manual host/cadence setup?
+6. **Partially answered:** OS-backed Codex/Claude `/learn` routes explicit and inferred goal evidence to Brain; a reusable host invocation/transcript contract, including Hermes-specific integration and history-coverage proof, remains open.
 7. Which host owns cadence installation in each environment?
 8. Should Brain provide a composite readiness command covering Brain + reasoner + host while preserving separate health layers?
 9. When is an actual state-schema migration first required, and how will migration registrations be versioned?
