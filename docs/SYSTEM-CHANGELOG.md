@@ -1,3 +1,11 @@
+## 2026-10-27: Right-size parallel Token and Connections work to existing implementation
+
+- Added [Token completion stop-check](../plans/in-progress/TOKEN-COMPLETION-STOP-CHECK-2026-10-27.md) **instead of creating a new Token feature phase**. Token's own beta.3 32/32 build map and 271-check release gate are complete; current main CI is 6/6 green. System's older candidate/unverified/unpinned release observation is a separate evidence/Distribution issue, not an unimplemented accounting engine.
+- Added [Connections v1 qualification/handoff](../plans/in-progress/CONNECTIONS-V1-QUALIFICATION-AND-HANDOFF-2026-10-27.md) rather than rebuilding the architecture seed. Current Connections main implements credential isolation, MCP/generic HTTP, authorization/admission, receipts and crash recovery with green 6/6 native CI; September seed-only QC/blueprint text is historical, not the latest owner implementation.
+- Both plans follow the canonical adaptive template, require evidence before code, **permit zero-code closeout**, preserve individual owners and keep Dashboard/Gateway/Distribution release decisions separate. No component code, credentials, member channels or generated Registry/State touched.
+
+---
+
 ## 2026-10-19: Reconcile accepted Data Purpose and mutation boundaries
 
 - Updated the Data component records from the September baseline to accepted source `f8978f8f7a1bc94edecddc2662112233289159a3`, bound by the descriptor observed at `7e9fadbd73752b24eb79e270aff6b311ad508109`.
