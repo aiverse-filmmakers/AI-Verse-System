@@ -11,28 +11,28 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `full-refresh`
 - Refresh scope: `global`
 - Refresh status: `complete`
-- Refresh evidence revision: `da0eb0328dfa597a4d64c3a3e46fcdad5b3cb0fa`
-- Last full refresh: `da0eb0328dfa597a4d64c3a3e46fcdad5b3cb0fa`
+- Refresh evidence revision: `71ee9b827925c3581a8aa5e169c31c0a1e141057`
+- Last full refresh: `71ee9b827925c3581a8aa5e169c31c0a1e141057`
 - Watchdog: `WATCHDOG-CURRENT`
-- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-26T08:54:38Z; all registered repositories were scanned with no access/fetch failure.
+- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-27T08:59:13Z; all registered repositories were scanned with no access/fetch failure.
 
 ## Repository state
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `da0eb0328dfa` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
-| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `e7ee40c99ee4` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `71ee9b827925` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
+| aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `355ac5012697` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / global |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `d490db4c02e7` | accepted `7bb622678339` | pinned `7bb622678339` / core-tool-placement-candidate-2026-10-23 | observed `7bb622678339` / accepted | synchronized `b43b640a7795` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `6ad408e38b6b` | accepted `7e6f7a7e8a3d` | pinned `7e6f7a7e8a3d` / core-tool-placement-candidate-2026-10-23 | observed `7e6f7a7e8a3d` / accepted | synchronized `967013147705` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `09911eae0b4b` | accepted `f1327be48ba2` | pinned `f1327be48ba2` / core-tool-placement-candidate-2026-10-23 | observed `f1327be48ba2` / accepted | synchronized `3c5715230f10` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `297c63a5be95` | accepted `390c6e1633af` | pinned `390c6e1633af` / core-tool-placement-candidate-2026-10-23 | observed `390c6e1633af` / accepted | synchronized `6be63e25b7eb` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `7e9fadbd7375` | accepted `f8978f8f7a1b` | pinned `f8978f8f7a1b` / core-tool-placement-candidate-2026-10-23 | observed `f8978f8f7a1b` / accepted | synchronized `b4d6ec721c5d` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Gateway | ai-verse-gateway | `9c42bdc21073` | unverified | unpinned | observed `1772b75e2add` / candidate | unverified | fresh / global |
+| aiverse-filmmakers/AI-Verse-Gateway | ai-verse-gateway | `ceb8849ec062` | unverified | unpinned | observed `386ff40135a8` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Automations | ai-verse-automations | `fda8b25b11b8` | unverified | unpinned | observed `287ce9d6718e` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Multiple-Bots | ai-verse-multiple-bots | `b4ad4315e560` | unverified | unpinned | observed `ddf70ac19736` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/ai-verse-token | ai-verse-token | `363dde3d87ed` | unverified | unpinned | observed `d36916323abb` / candidate | unverified | fresh / global |
-| aiverse-filmmakers/AI-Verse-Connections | ai-verse-connections | `b557ef1d83a9` | unverified | unpinned | observed `602a1c52ab78` / candidate | unverified | fresh / global |
-| aiverse-filmmakers/AI-Verse-Dashboard | ai-verse-dashboard | `abc67db90368` | unverified | unpinned | observed `bd26986e202d` / candidate | unverified | fresh / global |
+| aiverse-filmmakers/AI-Verse-Connections | ai-verse-connections | `b6eedea9a1ab` | unverified | unpinned | observed `602a1c52ab78` / candidate | unverified | fresh / global |
+| aiverse-filmmakers/AI-Verse-Dashboard | ai-verse-dashboard | `016da5fda319` | unverified | unpinned | observed `bd26986e202d` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Apps | ai-verse-apps | `db5b0115bf59` | unverified | not-applicable | not-applicable | unverified | fresh / global |
 
 ## Open drift
