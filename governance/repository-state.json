@@ -26,36 +26,36 @@
       1362252045,
       1364456634
     ],
-    "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625",
+    "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c",
     "last_scoped_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625",
-      "observed_at": "2026-10-27T09:09:50Z"
+      "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c",
+      "observed_at": "2026-10-27T09:16:26Z"
     },
     "last_full_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625",
-      "observed_at": "2026-10-27T09:09:50Z"
+      "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c",
+      "observed_at": "2026-10-27T09:16:26Z"
     }
   },
   "watchdog": {
     "status": "WATCHDOG-CURRENT",
-    "heartbeat_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625",
+    "heartbeat_revision": "90f40f900c09d06f602923daad0c9c4b6392888c",
     "last_successful_full_scan": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625",
-      "observed_at": "2026-10-27T09:09:50Z"
+      "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c",
+      "observed_at": "2026-10-27T09:16:26Z"
     },
-    "reason": "Successful Registry-derived global heartbeat at 2026-10-27T09:09:50Z; all registered repositories were scanned with no access/fetch failure."
+    "reason": "Successful Registry-derived global heartbeat at 2026-10-27T09:16:26Z; all registered repositories were scanned with no access/fetch failure."
   },
   "repositories": [
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "f55af5d67e3333a67d18a76e5dc7c73f8e815625",
+      "observed_head": "90f40f900c09d06f602923daad0c9c4b6392888c",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -82,7 +82,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -124,18 +124,18 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
       "repository_id": 1361862361,
       "access": "verified",
-      "observed_head": "00805bc7d866703d3ef5ca1359faa769d88ecdae",
+      "observed_head": "0dc744057199970a34a60c11dff192e407ad64ed",
       "owner_acceptance": {
         "status": "accepted",
-        "revision": "7bb6226783396ef7a00b325306da26b0f4b17474",
+        "revision": "00805bc7d866703d3ef5ca1359faa769d88ecdae",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@00805bc7d866703d3ef5ca1359faa769d88ecdae:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@0dc744057199970a34a60c11dff192e407ad64ed:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -149,11 +149,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "7bb6226783396ef7a00b325306da26b0f4b17474",
+        "revision": "00805bc7d866703d3ef5ca1359faa769d88ecdae",
         "release_status": "accepted",
-        "blob_sha": "210313750be91dd158027f0c2d4d181ee7ea39d5",
+        "blob_sha": "9eca34ad156a56e38ee559bbdcec1ac3306632ff",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@00805bc7d866703d3ef5ca1359faa769d88ecdae:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@0dc744057199970a34a60c11dff192e407ad64ed:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -168,18 +168,18 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
       "repository_id": 1362233598,
       "access": "verified",
-      "observed_head": "14ded0120c11362024864d50d47f1996e66530e8",
+      "observed_head": "32cae304861bb0c897a64dd0931bead516d22833",
       "owner_acceptance": {
         "status": "accepted",
-        "revision": "7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f",
+        "revision": "14ded0120c11362024864d50d47f1996e66530e8",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Brain@14ded0120c11362024864d50d47f1996e66530e8:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Brain@32cae304861bb0c897a64dd0931bead516d22833:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -193,11 +193,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f",
+        "revision": "14ded0120c11362024864d50d47f1996e66530e8",
         "release_status": "accepted",
-        "blob_sha": "ba37f0f59a3d5908d763dba4a695583b902e2f47",
+        "blob_sha": "c46de7f161862f6fec72b1da814942297f5ea53f",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Brain@14ded0120c11362024864d50d47f1996e66530e8:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Brain@32cae304861bb0c897a64dd0931bead516d22833:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -215,7 +215,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -262,7 +262,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -309,7 +309,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -356,7 +356,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -395,7 +395,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -434,7 +434,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -473,7 +473,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -512,7 +512,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -551,7 +551,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -590,7 +590,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     },
     {
@@ -623,7 +623,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "f55af5d67e3333a67d18a76e5dc7c73f8e815625"
+        "evidence_revision": "90f40f900c09d06f602923daad0c9c4b6392888c"
       }
     }
   ],
