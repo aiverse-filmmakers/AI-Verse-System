@@ -938,3 +938,12 @@ Core composition, release qualification and promotion remain separate Distributi
 OS PR102 accepts source `5845fcfed123910e854ff764cb895c826a0b3291`. All32 source checks passed, including actual Git privacy checks on Linux, macOS and Windows (run39908401200), Repository QC39908401125 and composed adapter acceptance39908401175. Provider roots, external source registrations, operator skill bindings and their transactional sidecars remain private by default while canonical OS source remains tracked. OS PR103 publishes the exact-source 0.3.7 descriptor.
 
 The unpromoted shared Skills v1 candidate is superseded. Distribution must freeze new evidence for v2 and repeat whole-product qualification; no v1 results alone admit the privacy-hardened composition.
+
+
+## 2026-10-27 chronological /learn owner and composition evidence
+
+- OS PR #108 accepts source revision `00805bc7d866703d3ef5ca1359faa769d88ecdae`, including the shared `system/capabilities/learn/SKILL.md`, Codex/Claude runtime peers, profile-owner operations, and cross-repository acceptance coverage.
+- Brain PR #35 accepts revision `14ded0120c11362024864d50d47f1996e66530e8` with exact-scope strategic intent reads, explicit goal capture, inferred proposals, and revision-checked corrections.
+- OS native Repository QC passed at the exact OS source revision in [run #40478262870](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/40478262870). Brain CI passed at the exact Brain source revision in [run #40477747599](https://github.com/aiverse-filmmakers/AI-Verse-Brain/actions/runs/40477747599).
+- The exact OS composition including Brain, Memory and external Skills passed [Four Repo Acceptance #40478262941](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/40478262941); the later owner-descriptor PRs also passed their exact-head full check suites (OS PR #109; Brain PR #36).
+- The capability reads only the current conversation evidence supplied by its runtime. This source evidence does not prove complete transcript availability, desktop trust/callback behavior, or member release admission/promotion. Those remain distinct runtime and Distribution gates.

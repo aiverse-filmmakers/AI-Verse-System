@@ -13,7 +13,7 @@
 
 **CURRENT:** AI-Verse OS is a domain-neutral, local-first operating layer for AI-assisted work.
 
-**Current accepted evidence head:** `156f15f162c6d63159b54d3ad87e0342ec7cf9aa` (includes Invisible Intelligence owner routes and progressive Memory bridge).  
+**Current accepted evidence head:** `00805bc7d866703d3ef5ca1359faa769d88ecdae` (adds chronological `/learn` policy and owner-routed goal/profile writes; Distribution member release admission remains separate).  
 
 It is best understood as the **host constitution** of the AI-Verse family. It defines where truth lives, how work is scoped, how optional components attach, which source has authority, which capability may be selected, which permissions constrain action, and how user-owned state survives system evolution.
 
@@ -1646,6 +1646,19 @@ The OS succeeds when these independently owned pieces feel like **one coherent s
 - The member-facing version reporter reports installed and admitted release information separately from local source recency.
 
 The implementation is owner-accepted and the exact cross-repository test workflow passed in [OS Four Repo Acceptance run #39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). That run proves the pinned owner composition and tests; it does not prove real Codex app trust, callbacks, review, or fresh-chat recall for a separately installed candidate. Distribution remains the authority for member packaging, qualification and release admission.
+
+### 52B. Current chronological `/learn` capability (2026-10-27)
+
+**CURRENT owner capability:** AI-Verse OS provides a shared `learn` capability that reviews the accessible current conversation in chronological order, reconciles later corrections and outcomes, then routes durable items through their existing owners.
+
+- The canonical capability is `system/capabilities/learn/SKILL.md`; Codex-compatible and Claude runtime peers are generated from this owner source.
+- The review is limited to the current conversation actually supplied by the host. Compacted or missing history must be disclosed; other conversations are not searched to fill gaps.
+- Stable operator preferences go through the OS profile owner. Historical events and lessons go through Memory. Strategic goals go through Brain's exact-scope intent owner, which distinguishes explicit user declarations from inferred proposals and checks revisions on corrections. Reusable methods go through the Skills owner and its admission rules.
+- The shared policy does not provide a transcript API. Each host must supply ordered, accessible conversation evidence. Hosted acceptance proves the owner routes and composition, not real desktop callback, hook trust or complete-history availability.
+- The capability does not authorize new Connections, permissions, durable autonomous actors, or external side effects. Reusable capability changes follow the existing Skills review/admission contract.
+- This is owner-accepted OS behavior, not a member release. Distribution still owns candidate admission, whole-product qualification and promotion.
+
+Implementation evidence: OS [PR #108](https://github.com/aiverse-filmmakers/AI-Verse-OS/pull/108), Brain [PR #35](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/35), OS exact-source [Four Repo Acceptance run #40478262941](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/40478262941), and exact owner descriptor acceptance in OS [PR #109](https://github.com/aiverse-filmmakers/AI-Verse-OS/pull/109) and Brain [PR #36](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/36).
 
 ## 53. Open decisions
 

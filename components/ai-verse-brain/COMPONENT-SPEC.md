@@ -2,7 +2,7 @@
 
 **Component:** AI-Verse Brain  
 **Repository reviewed:** `aiverse-filmmakers/AI-Verse-Brain`  
-**Current superseding evidence head:** `16c0b7ea32fcb4759cfb8368876b6985016eab68` (Invisible Intelligence owner-admission updates)  
+**Current superseding evidence head:** `14ded0120c11362024864d50d47f1996e66530e8` (adds the strategic intent owner API consumed by chronological `/learn`; earlier Invisible Intelligence owner-admission updates remain in history)  
 **Reviewed branch:** `main`  
 **Reviewed head:** `bef8261ad35d126d29aeff5d496f46904125b7b6`  
 **Fresh standalone review:** 2026-09-13  
@@ -2345,6 +2345,18 @@ The architecture is successful when the user experiences one coherent intelligen
 
 The interface is accepted in Brain revisions `a1e9a6a09fe38a9cce61086706cbc76a9bc73f9f` and `f746806e4361c2b1cd67ee97810071cc86db7b9`, with [PR #31](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/31) preserving legacy behavior and closing the direct-write bypass. The exact owner-linked adapter composition passed [OS Four Repo Acceptance run #39245128429](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/39245128429). This is owner/API and hosted composition evidence, not proof of real Codex desktop callbacks or fresh-chat behavior.
 
+### 69B. Current strategic-intent owner API for chronological `/learn` (2026-10-27)
+
+**CURRENT owner interface:** Brain exposes exact-scope intent reads, explicit goal capture, inferred proposal capture and revision-checked corrections for trusted hosts that review conversation evidence.
+
+- A trusted host supplies the evidence reference and authority classification; Brain does not inspect transcripts or decide whether a runtime has complete history.
+- Direct user declarations can become confirmed active intent. Inferred candidates remain proposed and cannot be silently treated as user-approved direction.
+- Corrections identify the exact intent and expected revision, use an idempotent operation identity, and fail on stale or mismatched scope/type. Existing visibility-only workspace links are preserved.
+- OS and supported runtime capabilities route goals to Brain; preferences, history and reusable Skill implementations stay under their respective owners. Brain does not write Memory, profile, Skills, Data or OS current context.
+- Hosted composition demonstrates the owner API path. It does not prove that each external runtime supplies complete transcripts or that the member Core release is admitted.
+
+Implementation evidence: Brain [PR #35](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/35) and OS [Four Repo Acceptance run #40478262941](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/40478262941). Distribution member qualification is still separate.
+
 ## 70. Open decisions
 
 1. What should the supported `enable` CLI look like?
@@ -2352,7 +2364,7 @@ The interface is accepted in Brain revisions `a1e9a6a09fe38a9cce61086706cbc76a9b
 3. What version should contain the September 10-12 hardening after beta.1?
 4. What strategic-intent import format should existing non-AI-Verse agents use?
 5. What common system write contract should consume Brain's symbolic write classifications?
-6. How should an existing Hermes/Codex/Claude agent persistently invoke Brain without manual host/cadence setup?
+6. **Partially answered:** OS-backed Codex/Claude `/learn` routes explicit and inferred goal evidence to Brain; a reusable host invocation/transcript contract, including Hermes-specific integration and history-coverage proof, remains open.
 7. Which host owns cadence installation in each environment?
 8. Should Brain provide a composite readiness command covering Brain + reasoner + host while preserving separate health layers?
 9. When is an actual state-schema migration first required, and how will migration registrations be versioned?

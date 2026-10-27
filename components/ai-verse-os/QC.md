@@ -878,3 +878,8 @@ The OS document remains living and must be updated whenever:
 
 The optional Codex adapter has owner-accepted source and exact pinned four-repository acceptance evidence. Setup, status and doctor are implemented, and the v4 clean-machine acceptance workflow passed its Linux/macOS/Windows matrix. Keep these claims scoped to the tested source and workflow. Real candidate-specific Codex app trust, callbacks, review receipts and fresh-chat recall have not been demonstrated by those hosted tests. The adapter is not evidence that the candidate is the default Core release; Distribution qualification and promotion remain separate gates.
 
+
+
+## 2026-10-27 Current-target update: chronological /learn
+
+The accepted OS capability reviews only host-supplied current-conversation history in order and routes preferences, history, strategic goals and reusable methods through their canonical owners. OS PR108 and Brain PR35 are merged; exact four-repository acceptance passed in [run #40478262941](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/40478262941), and owner descriptor gates passed on the exact accepted source revisions. This proves the policy and hosted owner composition. It does not prove every runtime exposes a complete transcript, real desktop callbacks or fresh-chat recall; the shared capability requires each runtime to disclose missing/compacted coverage. Distribution still must admit and qualify a Core release before members receive it.

@@ -536,3 +536,10 @@ A Bot/Worker that needs structured Data must use the Data owner boundary through
 Before a system/component claims seamless integration, compatibility/evaluation must exercise the current supported owner contracts, lifecycle generation and absence/degraded behavior.
 
 This may use versioned contract fixtures or owner-supported interfaces. It should not create hidden source-repository dependencies merely to make CI green.
+
+
+## 2026-10-27 Chronological /learn integration
+
+The first cross-owner learning capability is CURRENT in AI-Verse OS. It reviews the host-supplied current conversation in order, follows corrections and results, and routes durable items through the existing owners: profile preferences to OS, historical lessons to Memory, explicit/inferred strategic goals to Brain's intent API, and reusable procedures to Skills' review/admission path. This does not introduce a second memory store or transfer sibling authority.
+
+A runtime must supply only the conversation evidence it can actually access and disclose compacted or missing history. The shared capability is not a transcript API; Codex/Claude adapters or other hosts must each prove their own history and invocation behavior. Exact owner and composed acceptance have passed. Distribution still must freeze candidate evidence, qualify preservation and cross-platform composition, and separately promote a member release.

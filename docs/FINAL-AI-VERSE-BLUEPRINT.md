@@ -1585,6 +1585,17 @@ Codex is an optional local host for AI-Verse OS capabilities. Its adapter lives 
 
 The owner implementation and exact hosted composition are current. The runtime contract must keep installation and setup evidence separate from real desktop trust, callbacks, review receipts and fresh-chat recall. Distribution remains the owner of candidate qualification, member release admission and promotion. See the OS and Brain component specifications and source maps for exact revisions and evidence.
 
+
+## 30G. Chronological conversation learning (2026-10-27)
+
+AI-Verse OS now has a shared `/learn` capability for an explicit review of the current conversation. It reads the host-supplied evidence in chronological order, reconciles corrections and outcomes, then routes durable items to the established owner: preferences to OS profile, history to Memory, strategic direction to Brain, and reusable methods to Skills.
+
+The OS capability owns review/routing policy; it does not own the other components' records. Brain distinguishes explicit goals from inferred proposals and checks corrections against the exact current revision. Skills retains proposal review, admission and generation ownership. Memory remains historical rather than becoming a second profile or goal store.
+
+The capability can only review history the active runtime supplies. Compaction or missing ranges must be disclosed; it must not inspect other conversations to fill gaps. Cross-runtime compatibility therefore requires each host to expose its own ordered current-conversation evidence and invocation path. Current hosted acceptance covers the AI-Verse OS/Brain/Memory/Skills composition and Codex/Claude capability peers; it does not establish every Hermes/runtime hook, complete transcript availability, desktop callbacks or fresh-chat recall.
+
+Owner acceptance and hosted composition are current; Distribution admission, whole-product preservation qualification and promotion remain separate before this becomes the member default.
+
 ---
 
 ## 31. Final system conclusion

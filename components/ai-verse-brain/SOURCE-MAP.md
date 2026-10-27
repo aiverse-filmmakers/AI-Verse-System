@@ -1285,3 +1285,11 @@ These checks establish the owner API and hosted composition. They do not establi
 [Owner source PR #33](https://github.com/aiverse-filmmakers/AI-Verse-Brain/pull/33) is merged. Accepted source: `7e6f7a7e8a3d541815bc7f65c11dca7824c35d8f`. Nine source checks passed. Brain validates and forwards explicit portability declarations; it does not infer portable eligibility, change proposal approval policy or acquire sibling state authority.
 
 Core composition, release qualification and promotion remain separate Distribution gates. A source merge or catalog entry does not itself establish installed member health or native desktop callback evidence. See `docs/SHARED-SKILLS-LIBRARY-IMPLEMENTATION-PLAN-2026-10-21.md`.
+
+
+## 2026-10-27 strategic intent owner API for chronological /learn
+
+- Brain PR #35 accepts exact source revision `14ded0120c11362024864d50d47f1996e66530e8` with the `BrainController.intents` read/capture interface.
+- The OS/Brain acceptance contract classifies direct user declarations as explicit and inferred candidates as proposed. Corrections require the exact observed revision and operation ID; stale, cross-scope and mismatched corrections fail closed.
+- Brain's exact-head native CI passed in [run #40477747599](https://github.com/aiverse-filmmakers/AI-Verse-Brain/actions/runs/40477747599). The OS composition consumed this API in [Four Repo Acceptance #40478262941](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/40478262941).
+- The host authenticates source evidence and provides ordered accessible history. Brain does not read transcripts, own general history/profile/Skills/Data, or establish runtime transcript completeness. The component descriptor is accepted; Distribution release admission/promotion remains pending.
