@@ -116,6 +116,9 @@ Provider status must distinguish configured, live-verified, authorized, approved
 
 #### C0 verified handoff and test-ready inventory (27 October 2026)
 
+**Extra backend-to-frontend audit:** [Dashboard capability/surface gap map](DASHBOARD-BACKEND-CAPABILITY-SURFACE-AUDIT-2026-10-27.md) identifies already-built feature APIs hidden in the Personal preview and assigns contextual UI priorities P0/P1/P2/Defer within **existing** C1-C6 slices. This does not add a new implementation plan, change accepted progress or authorize changes to Core/Distribution.
+
+
 **Status classification:** source reviewed, not a new integration execution. The only new CI from this plan is System's contract validation at [run 40493675692](https://github.com/aiverse-filmmakers/AI-Verse-System/actions/runs/40493675692), which does **not** test runtime integration. Existing Gateway main CI [40397459697](https://github.com/aiverse-filmmakers/AI-Verse-Gateway/actions/runs/40397459697), Automations main CI [38383746985](https://github.com/aiverse-filmmakers/AI-Verse-Automations/actions/runs/38383746985), and Dashboard source branch CI [40491626384](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40491626384) passed their **own** suites. These separate greens do not constitute a composed Gateway+Dashboard+OS+Automations test.
 
 | Owner / source at starting SHA | Current authentic entry point and truth | Classification and smallest next consumer | What is NOT proven |
