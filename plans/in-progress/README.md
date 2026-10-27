@@ -31,4 +31,7 @@ These plan-slice counters measure **remaining verification**, not implementation
 
 ## Local-first desktop / whole-product composition (27 October 2026)
 
+- [Dashboard backend capability / missing frontend surface audit](DASHBOARD-BACKEND-CAPABILITY-SURFACE-AUDIT-2026-10-27.md): **SOURCE REVIEW only**. Prioritizes chat, real Bots/task/approvals, goals, existing heartbeat, usage, Skills/Memory, Data/health with contextual disclosure and C1-C6 owner/test mapping. No new standalone feature roadmap, no Core/Distribution changes.
+
+
 - [Reuse-only Dashboard → Gateway → OS desktop composition plan](LOCAL-FIRST-DESKTOP-FULL-OS-COMPOSITION-2026-10-27.md): **PROPOSED, 0/7 composition acceptance slices**. Use finished canonical owner modules; repair only proven seams; test the complete disposable installed OS with real Gateway chat, workspace state, supervised Automations/Brain/Bot wakes and Mac launcher. Does not restart the completed Gateway, Connections V1, Token or original Dashboard MC0/MC1 scope. Dashboard tracker/order amendments and member release remain separately gated. No product source implementation authorized by the plan document alone.
