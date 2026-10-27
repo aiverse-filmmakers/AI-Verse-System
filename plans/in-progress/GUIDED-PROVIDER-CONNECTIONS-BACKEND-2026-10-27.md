@@ -1,7 +1,7 @@
 # Guided provider connections: bounded backend follow-up
 
 **Date:** 2026-10-27
-**Status:** S1 IN PROGRESS, S2 BLOCKED on authenticated host/API and deployment decisions. **0/2 fixed outcome slices accepted** at plan creation.
+**Status:** S1 IMPLEMENTED AND VERIFIED OWNER-LOCALLY on draft review PR #15, pending code review; S2 BLOCKED on authenticated host/API and deployment decisions. **1/2 slices implemented/locally verified, 0/2 accepted or released.**
 **Planning rule:** [Adaptive Implementation Planning Skill](../../docs/ADAPTIVE-IMPLEMENTATION-PLANNING-SKILL.md) and [Implementation Plan Template](../../docs/IMPLEMENTATION-PLAN-TEMPLATE.md). This is new provider UX scope, not a reopening of completed Connections V1 or Token.
 
 ## Product and evidence
@@ -34,8 +34,8 @@ Official source checks (27 Oct 2026): [OpenRouter PKCE](https://openrouter.ai/do
 
 ## Slices
 ### S1: Owner-local key transport and honest check (Connections only)
-**Status:** IN PROGRESS; depends on actual adapter, existing fake-provider harness and documentation verified above.
-**Current tasks:** S1.1 characterize/record concrete false-positive and Key-header gaps; S1.2 add narrow Key header + opt-in KIE credit response validation, without altering defaults; S1.3 add mock tests for success/denial/malformed response, secret redaction, status invalidation and regression of existing Bearer behavior; S1.4 run `npm run check` / CI, update exact revision and owner handoff.
+**Status:** IMPLEMENTED / 5 of 5 derived tasks verified owner-locally; awaiting draft PR review. Exact source and CI recorded below.
+**Derived/completed tasks:** S1.1 reproduce Key-header/KIE false positives in 6-runner CI; S1.2 add narrowly scoped Key header and opt-in KIE credit response checks; S1.3 add synthetic mock success/failure, redaction, compatibility and status-clearing tests; S1.4 document Dashboard owner handoff and verify all six OS/Node jobs; S1.5 **evidence-added**: reproduce stale in-flight verification after revoke/reauth, fence with a monotonic credential revision, maintain existing error precedence and test late success/failure across six OS/Node jobs. All 5/5 complete, no Dashboard code touched.
 **Acceptance:** synthetically demonstrated key-only happy path, failed check cannot remain approved; no provider generation, no raw key in persisted state, no changed v1 default behavior. Existing public library/CLI stays backward compatible. Full test suite green. **Next:** S2 only after host/eligibility gate; stop on complete S1.
 
 ### S2: Authenticated host connection and OAuth admission handoff
@@ -49,4 +49,14 @@ Official source checks (27 Oct 2026): [OpenRouter PKCE](https://openrouter.ai/do
 - OpenRouter PKCE yields a provider key; no unapproved client-side token storage.
 - Vault credential deletion may affect shared handles: require reference checks and explicit operator scope before physical deletion in any future host route.
 - Recheck branch heads before writes; ship System plan and Connections code in separate **draft** PRs. Keep the Dashboard PR branch untouched.
-- **Progress:** S1 0/4 derived tasks initially, overall 0/2 slices; no new whole-program Dashboard points. Advance only with tests and owner review.
+- **Progress:** S1 5/5 owner-local tasks complete, **1/2 fixed slices locally verified**, **0/2 formally accepted** until review. S2 remains blocked, no new whole-program Dashboard points; do not manufacture more Connections work.
+
+## 27 October 2026 implementation and review checkpoint
+
+- **Reviewable Connections owner code:** [draft PR #15](https://github.com/aiverse-filmmakers/AI-Verse-Connections/pull/15), branch `codex/guided-provider-key-checks-2026-10-27`, exact final revision `eeb4af56e473f66303cc5e6c4f2a8cd069b54e5f`; main baseline `d326e39f4f07fb163250d671b8960a1fc00e8e03`. No merge. Its [Dashboard integration handoff](https://github.com/aiverse-filmmakers/AI-Verse-Connections/blob/codex/guided-provider-key-checks-2026-10-27/docs/GUIDED-PROVIDER-DASHBOARD-HANDOFF-2026-10-27.md) covers existing methods, proposed host-only envelopes, errors, permission checks and Mac regression checklist.
+- **Red regressions before repair:** CI [40471291303](https://github.com/aiverse-filmmakers/AI-Verse-Connections/actions/runs/40471291303), all 6 jobs failed with three demonstrated failures: unsupported Higgsfield `Key` scheme, KIE HTTP-200 false positive and missing strict KIE probe shape. New race regression CI [40471915569](https://github.com/aiverse-filmmakers/AI-Verse-Connections/actions/runs/40471915569) failed 6/6 on a delayed probe reviving revoked/replaced status. A subsequent CI also detected error-code precedence drift on revoke; this was removed rather than rewriting an accepted V1 test.
+- **Green evidence:** [Connections CI 40472441624](https://github.com/aiverse-filmmakers/AI-Verse-Connections/actions/runs/40472441624) on final head completed **6 of 6** Ubuntu/macOS/Windows × Node 20/22. Concurrent [WSA-054](https://github.com/aiverse-filmmakers/AI-Verse-Connections/actions/runs/40472441622), [WSA-055](https://github.com/aiverse-filmmakers/AI-Verse-Connections/actions/runs/40472441644) and [WSA-059](https://github.com/aiverse-filmmakers/AI-Verse-Connections/actions/runs/40472441613) extra workflows passed at same head. CI executes repository `npm ci && npm run check`; no real provider/key, no paid call and no Mac Dashboard interaction.
+- **Verified S1 behavior:** native Connections service accepts copied key with trusted `Authorization: Key` transport, KIE uses a strictly configured non-generating `GET /api/v1/chat/credit` authenticated body check, unsuccessful checks clear stale approval, and an in-flight result from a prior credential revision cannot override explicit revoke/reauth. Existing Bearer and V1 final-edge authority remain. **Higgsfield itself is still configured/unverified until an admissible authenticated free check is documented.**
+- **Next bounded slice S2:** local Dashboard owner must design/verify authenticated, scope-bound host operations and coordinate Gateway model credential authority, then implement secure OpenRouter OAuth exchange and only approved ChatGPT route/identity/refresh with negative tests. Reuse Dashboard PR #42 AUTH-1; do not edit its remote code from this track, create a second vault or promote any source. Status stays **BLOCKED pending host ownership/deployment eligibility, no member release**.
+
+**Slice closeout report:** S1 5/5 tasks implemented and validated, phase provider owner-local checks 1/1 done; overall 1/2 locally verified, 0/2 review-accepted; until next phase: 1 blocked host integration slice; blockers as above. Plan remains in-progress (not the completed V1 closeout) until S2 accepted.
