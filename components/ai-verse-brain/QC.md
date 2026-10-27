@@ -1264,3 +1264,8 @@ This closes the accepted Agent-path admission/routing gap without changing Brain
 
 The accepted Brain interface now supports explicit, revision-checked workspace link/unlink operations with evidence, idempotency, legacy compatibility and exact-scope redaction. OS's exact pinned adapter composition passed the hosted Four Repo Acceptance workflow. This closes the owner-interface and hosted-composition gap for workspace links. It does not close Brain's separately listed lifecycle, rollback, release identity, composite readiness or real Codex member-runtime gaps. Do not infer desktop hook activation from owner CI.
 
+
+
+## 2026-10-27 Current-target update: strategic intent owner API for /learn
+
+Brain now provides exact-scope intent read/capture operations used by the OS chronological learning capability. Explicit declarations are distinguished from inferred proposals; corrections are revision-checked, idempotent and preserve existing workspace links. Exact-source Brain CI and the composed OS Four Repo Acceptance passed. The host remains responsible for authenticating user evidence and disclosing transcript coverage; Brain does not inspect other chats or infer that history is complete. This changes no Brain authority over profile, Memory, Skills or Data. Distribution qualification and member release remain separate.
