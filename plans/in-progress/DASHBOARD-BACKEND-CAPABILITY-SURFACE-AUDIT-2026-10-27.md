@@ -128,3 +128,13 @@ This audit **does not add a parallel project or change C0-C6 acceptance totals**
 **Next action:** Use this shortlist to tighten the **existing MC2.1 typed Gateway/owner facade design**, so new Chat doesn't become a dead end. Implement **C1 authentic Chat first**, then expose P0 attention/activity and the smallest P1 owner-backed tools as their C2-C5 scopes mature. Maintain UI parity and owner proof; do not design a new general dashboard.
 
 **Evidence boundary:** Source-read this turn only; no interaction/user study, actual Mac-installed component inspection or composed runtime/real provider calls. Readmes describe source intent and accepted owner scope but do not themselves prove current private installation or host adapter readiness.
+
+
+## UI design implementation checkpoint, 27 October 2026
+
+The owner requested a visual tour of these proposed capabilities **before** implementing the backend connection. The existing Dashboard review branch now includes a clearly labeled, non-live **Explore features** workspace surface, accessible from the topbar Features button, app picker and Activity view. It previews 13 of the capabilities mapped above without modifying Core, Distribution or other owners. This is a UI/UX sample, **not** accepted C1 owner-backed behavior.
+
+- **Dashboard active working branch:** `codex/dashboard-source-checkpoint`, [PR #42](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/pull/42)
+- **Feature catalog implementation:** `apps/web/preview/feature-explorer.js` with CSS and a guarded extension in `personal-shell.js`; no new UI framework or backend service.
+- **Interaction evidence:** [Dashboard browser interaction QC #40503363677](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40503363677), **13/13 Chromium tests passed** at test revision `296740ea658ef9efeb9b3032cb7d787966b536eb`; [Dashboard CI #40503363682](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40503363682), Ubuntu/macOS/Windows passed. Existing static preview source deployment succeeded [#40503243375](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/actions/runs/40503243375) at CSS revision `661f9dea95de573872228a208a537f07ef092771`; later commits are tests/docs only.
+- **Clear handoff:** The visual example data must not leak into C1 or owner write paths as a faux state store. Real chat/workspace/approvals/agents/schedules/usage replace examples only after authenticated owner adapters and meaningful composed acceptance. No new C0-C6 slices or extra backend work are added by the preview.
