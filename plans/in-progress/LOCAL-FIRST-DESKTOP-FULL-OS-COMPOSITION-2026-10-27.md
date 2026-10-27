@@ -64,6 +64,29 @@ Every listed SHA is a planning snapshot. Before each slice, refresh the relevant
 
 Performance and resources: record startup, streamed-first-response latency, wake jitter, idle CPU/memory, failure recovery and local service overhead on a reproducible baseline. Do not invent thresholds before the measurements. Keep the UI quiet and focused on chat/current work. Accessibility and macOS keyboard/trackpad journeys are genuine interaction tests, not mere CSS/source assertions.
 
+## Per-feature completion and delivery rule — 27 October 2026
+
+**Operator-approved clarification of CP01, CP06 and CP10:** A Dashboard feature counts as complete only when its useful interface consumes the actual supported AI-Verse owner data, its supported user actions work through the existing authorized owner path, and the relevant interactions and failure cases have been tested. A feature catalogue, screenshot, sample-only page, registered panel, or passing navigation/source-pattern test does not establish that feature's backend integration.
+
+**Continue current work:** The current Dashboard screen-improvement pass may continue. This clarification does not pause it, require a new UI rebuild, or make finishing all 13 sample feature screens a prerequisite for Gateway integration. After the existing C0/MC2.1 review, **C1 remains the next implementation milestone: real chat with visible Activity for the same Gateway run**—streaming progress, supported stop/approval controls, and an inspectable outcome. Keep existing C1-C6 ownership and dependencies; do not replace the roadmap or change the seven-slice denominator.
+
+Then connect each mapped capability in a useful, complete increment under its existing slice. Reuse suitable Mission Control interface components where they save work, preserve their applicable notices, and retain the current AI-Verse chat, navigation and Canvas where appropriate. Interface reuse must consume AI-Verse owner contracts; it does not import a second scheduler, task store, memory system, credential vault or other competing backend. Check source compatibility before choosing component reuse; do not assume every reference component is directly interchangeable.
+
+Use the existing [backend-to-frontend capability map](DASHBOARD-BACKEND-CAPABILITY-SURFACE-AUDIT-2026-10-27.md) as the feature coverage record, rather than creating another feature roadmap or QA log. As each capability is implemented, record its UI destination, actual owner/API, supported operations, status, and exact evidence there or through links to the existing slice/verification record:
+
+- **Sample-only:** A usable design/example with illustrative records; not connected to the real owner and not accepted as a completed product feature.
+- **Connected:** Actual owner data and supported actions are integrated and verified for the stated environment/version; identify any remaining qualification limits separately.
+- **Blocked:** A specific unsupported owner operation, compatibility issue or missing integration prevents the intended feature; record the smallest proposed resolution at the correct owner.
+- **Deferred:** Explicitly outside the current increment or unsupported by the selected installation; retain the reason and existing future slice or review point so it is not silently forgotten.
+
+A read-only capability can be complete when authorized inspection is its agreed purpose; do not invent editing or execution APIs just to fill a screen. A missing optional component must display its real unavailable state. Some capabilities are used behind chat rather than through a dedicated page; verify that runtime path and expose useful inspection/control only where appropriate.
+
+For example, **Usage** is complete when the user can inspect Token-backed usage/cost evidence and use the agreed filters and detail views, with actual/calculated/unknown values shown honestly. A chart of sample figures alone is a design checkpoint. **Activity** must show the actual run that chat started, not a separate invented task.
+
+Feature verification should cover the actual UI journey, meaningful empty/offline/denied/error states, and relevant persistence or scope changes. Reuse the Dashboard [per-change UI/UX QC plan](https://github.com/aiverse-filmmakers/AI-Verse-Dashboard/blob/codex/dashboard-source-checkpoint/docs/DASHBOARD-UX-QC-PLAN.md) and existing verification record. Report browser, disposable-owner, live-model and physical Mac evidence accurately.
+
+**Acceptance accounting:** This section adds no completed points or new slice. Existing feature scope, read-only Core/Distribution boundaries, protected Dashboard plan review and release approvals remain authoritative.
+
 ## Current flow and simplest design
 
 Existing supported path:
