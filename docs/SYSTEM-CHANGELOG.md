@@ -1461,3 +1461,17 @@ Canonical detail:
 - `components/ai-verse-brain/SOURCE-MAP.md`
 - `components/ai-verse-brain/QC.md`
 - `docs/IDEA-INBOX.md`
+
+
+## 2026-10-27
+
+### Added chronological /learn owner routing
+
+**Affected components:** AI-Verse OS, Brain, Memory, Skills, Codex/Claude host integration, Distribution composition  
+**Type:** cross-component capability and owner-interface integration
+
+AI-Verse OS now provides a shared `/learn` capability that reviews accessible current-conversation evidence in order, reconciles later corrections and outcomes, and routes durable preferences, history, strategic intent and reusable methods through OS profile, Memory, Brain and Skills respectively. Brain's exact-scope intent API distinguishes explicit user direction from inferred proposals and revision-checks corrections. The capability reports transcript coverage limits and does not search other chats or transfer owner authority.
+
+The OS and Brain source changes are accepted and hosted four-repository composition passes. AI-Verse-System records the current owner boundaries and evidence here. Distribution must still admit and qualify the exact composed candidate before member rollout.
+
+Canonical detail: `components/ai-verse-os/COMPONENT-SPEC.md`, `components/ai-verse-os/SOURCE-MAP.md`, `components/ai-verse-os/QC.md`, and corresponding Brain records.
