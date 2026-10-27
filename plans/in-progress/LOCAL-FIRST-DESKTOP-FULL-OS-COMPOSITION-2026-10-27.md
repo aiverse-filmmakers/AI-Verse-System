@@ -1,7 +1,7 @@
 # AI-Verse local-first desktop: compose existing owners and prove the complete product
 
 **Date:** 27 October 2026  
-**Status:** PROPOSED implementation coordination plan; 0/7 new composition slices accepted. No product code or release approved by this document.  
+**Status:** C0 IN PROGRESS (source-only integration audit, 0/7 slices accepted). C1-C6 not started. No product code or release approved by this document.  
 **Plan owner:** AI-Verse-System (cross-repository integration and acceptance only).  
 **Code owners:** Dashboard for presentation/desktop host; Gateway for sessions/runs/transport; OS for workspace/permissions; Automations for durable scheduling and wake delivery; Brain for goals/ticks; Multiple Bots for workers/teams; Connections for external credentials and approvals; Token for usage/cost; Distribution for install/upgrade/recovery.  
 **Planning depth:** EXTENDED, because composition spans privileged desktop access, persistent state, scheduling, provider secrets, permissions, platform lifecycle and recovery.  
@@ -96,6 +96,16 @@ Provider status must distinguish configured, live-verified, authorized, approved
 **Progress unit = 7 fixed outcome slices; at creation 0/7 (0%).** These are *composition/acceptance milestones*, not duplicate Gateway, OS or Dashboard feature points. Detailed tasks are discovered/refined at each slice start per the Adaptive Planning Skill. No implementation of C1-C6 begins before C0's collision and authority review.
 
 ### C0. Inventory the actual installed composition and reconcile Dashboard gates
+
+**C0 execution ledger (derived 27 October 2026; source-only, no new owner source):**
+
+- [x] C0.1 Refresh live heads, Dashboard PRs, System PR and accepted/disposable release baselines before tracing contracts.
+- [ ] C0.2 Trace current Personal chat/demo, existing typed Dashboard /rpc and live adapters, canonical Gateway transport/auth/events, and identify the smallest existing caller seam.
+- [ ] C0.3 Trace OS/workspace and Distribution installation identity, existing Automations/Brain/Bot wake and relevant Connections/Token contracts; record verified supported/unsupported cases and completion statuses, not speculative expansion.
+- [ ] C0.4 Reconcile current Personal-first design amendment versus existing Mission Control MC2.1 gate and the original tracker, without quietly changing accepted 15/100 points or other accepted owner plans.
+- [ ] C0.5 Publish exact-source handoff matrix and meaningful negative/whole-product test route; review C0 acceptance and next C1 entry, keeping any unresolved protected change blocked until its owner review.
+
+**Starting revision inventory:** System main `172f095afac0c6a2be770ab314c8251e1d5f25da`, Dashboard review `bac349113cc9cb1a67bdb5e4d57cb3da0d580d89` (main `016da5fda319c94bda6704859acc5b12d23ad4ed`), Gateway `ceb8849ec062f0d3997ceb0207e42c25aedd20c6`, OS `0dc744057199970a34a60c11dff192e407ad64ed`, Automations `fda8b25b11b8419113a2625d09fd3da66b61064f`, Distribution `355ac5012697117f24dd351dce1be71d0ae4e839`, Connections `b6eedea9a1ab569581f56a9d123de3497464619d`, Multiple Bots `b4ad4315e560db0f60615e7c5ea59cb13c86969b`, Brain `32cae304861bb0c897a64dd0931bead516d22833`, Token `363dde3d87edaf8e7acd072c542775017f0b5dbf`. GitHub is a *source snapshot*, not evidence of the operator's installed Mac revisions.
 
 - **Owner/scope:** System planning, Dashboard/Gateway/Distribution/Automations/Connections contract evidence only.
 - **Dependencies:** Current PR/branches, admitted release catalog, existing MC1 proof and MC2.1 draft.
