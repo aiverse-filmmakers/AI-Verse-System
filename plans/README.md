@@ -2,6 +2,8 @@
 
 This directory contains implementation plans for work intended to be carried out in the AI-Verse repositories.
 
+**Find commercial access/licensing work here:** [Authorized OS Access: Skool Membership and Revocable App Licensing](in-progress/AUTHORIZED-OS-ACCESS-AND-SKOOL-LICENSING-2026-10-28.md). Research-only at creation, 0/7 slices, no app lock shipped; provider verification and execution-path audit are required before implementation.
+
 ## Folder meanings
 
 - `in-progress/`: plans that are ready for implementation or are actively being implemented. Each plan has a fixed destination, phases, slices, acceptance criteria, required evidence, and an explicit status.
