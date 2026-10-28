@@ -114,6 +114,8 @@ This completion is specific to Safe Infrastructure. Current release selection re
 
 Implementation plans intended for future AI-Verse work live in [plans/](plans/README.md).
 
+- **[Authorized OS Access: Skool Membership and Revocable App Licensing](plans/in-progress/AUTHORIZED-OS-ACCESS-AND-SKOOL-LICENSING-2026-10-28.md)**: researched, evidence-gated 7-slice plan (0/7); source-of-truth for future member-paid OS runtime licensing and expiry. Not implemented; Skool cancellation/renewal truth and local-runtime bypasses remain open feasibility gates.
+
 - [plans/in-progress/](plans/in-progress/) contains plans ready for implementation or actively being implemented.
 - [plans/completed/](plans/completed/) contains plans whose implementation and acceptance evidence are complete.
 - [plans/blocked/](plans/blocked/) contains plans paused for an explicit blocker or protected plan amendment.
