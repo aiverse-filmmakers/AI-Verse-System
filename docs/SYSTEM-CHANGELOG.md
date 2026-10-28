@@ -1,3 +1,12 @@
+## 2026-10-28: Plan authorized OS access and Skool-tied revocable licensing
+
+- Added the research/evidence-gated **[Authorized OS Access: Skool Membership and Revocable App Licensing](../plans/in-progress/AUTHORIZED-OS-ACCESS-AND-SKOOL-LICENSING-2026-10-28.md)** plan (7 fixed slices, 0/7 implemented) and linked it from System/plan indexes and Owner Product Intent.
+- Identified a verified limitation of Skool's documented Pro-only Zapier integration: onboarding new paid members is supported, but a reliable official cancellation/renewal lookup or trigger has not been established. Do not promise automatic end-of-term revocation without a verified authoritative source or billing policy change.
+- Set product intent for simple once-only sign-in and runtime premium revocation, **not merely update-code expiry**, with local-first user state preserved. Real Gateway/OS/CLI and publicly accessible source are explicit bypass/feasibility gates; no component implementation, Skool automation, member entitlement, release-pin change or updater duplication was made.
+- Preserved single-user Dashboard priority, component owners, Gateway/OS permissions and Distribution release responsibility. Next: S1 exact owner/execution-path audit before any code.
+
+---
+
 ## 2026-10-27: Right-size parallel Token and Connections work to existing implementation
 
 - Added [Token completion stop-check](../plans/in-progress/TOKEN-COMPLETION-STOP-CHECK-2026-10-27.md) **instead of creating a new Token feature phase**. Token's own beta.3 32/32 build map and 271-check release gate are complete; current main CI is 6/6 green. System's older candidate/unverified/unpinned release observation is a separate evidence/Distribution issue, not an unimplemented accounting engine.
