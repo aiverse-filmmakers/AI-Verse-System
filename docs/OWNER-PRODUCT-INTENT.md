@@ -594,6 +594,20 @@ Canonical implementation plan:
 
 - docs/DASHBOARD-MVP-WEB-DESKTOP-PLAN-2026-09-15.md
 
+## 11D. Commercial member access and revocable AI-Verse OS subscription (2026-10-28)
+
+**Status: ACCEPTED PRODUCT INTENT, RESEARCHED PLAN; NOT IMPLEMENTED.**
+
+For future distributed/member-facing AI-Verse software, the owner wants an experience tied to an eligible paid AI-Verse Skool community membership: sign in once, use the actual OS while entitled, then lose the right to **operate premium software** after access ends, not merely receive software updates. Ordinary members should not manage monthly licence codes or repeat setup. Existing paid-term and legitimate lifetime/owner-granted exceptions should be handled clearly and without destroying user projects or exports.
+
+The owner currently prefers to keep Skool community billing and native affiliate arrangements if feasible. However, Skool's documented integration currently exposes new paid-member onboarding but not a reliable supported cancellation/renewal status feed, so this is a **feasibility constraint**, not already solved automation. The first slice must verify the actual Skool admin data and current OS/Gateway/Distribution/Dashboard security paths. A strict zero-touch subscription lock remains **blocked for launch** until trustworthy time-bound status updates and all relevant premium execution gates can be proven. An installed public/local source application cannot be made absolutely uncopyable with a Dashboard screen lock. No claim of impossible-to-bypass DRM is authorised.
+
+Keep the current single-user-first Dashboard work and existing repo ownership intact. Commercial member identity and licence entitlement must not be confused with OS workspace/tool permission, Connections credentials or Token cost data; reuse existing owners. User-owned local state must survive cancellation and later reactivation.
+
+**Canonical plan:** [Authorized OS Access: Skool Membership and Revocable App Licensing](../plans/in-progress/AUTHORIZED-OS-ACCESS-AND-SKOOL-LICENSING-2026-10-28.md).
+
+---
+
 ## 12. How to use this document in future work
 
 Before a significant product, UX, onboarding, autonomy, learning, workspace, Data, Skills, Bot, Automation or Distribution decision:
