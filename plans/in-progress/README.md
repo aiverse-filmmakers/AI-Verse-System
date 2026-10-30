@@ -32,3 +32,7 @@ These plan-slice counters measure **remaining verification**, not implementation
 ## Guided provider connections follow-up
 
 - [Provider Connections backend plan](GUIDED-PROVIDER-CONNECTIONS-BACKEND-2026-10-27.md): separate new scope from the completed Connections V1 closeout. S1 is a bounded, synthetic provider key-check repair in Connections; S2 is blocked on an authenticated Dashboard host route and ChatGPT route eligibility. No Dashboard parallel edits or release admission.
+
+## Personal-first Dashboard product intent (27 October; reconciled 30 October)
+
+- [Personal-first Dashboard and guided provider handoff](DASHBOARD-PERSONAL-FIRST-HANDOFF-2026-10-27.md): product scope and owner boundaries only. Original MC2.1 design 17/100 formally accepted, but new Personal-first scope and code/production gates remain distinct. This restores the reviewed proposal from superseded draft System PR #294 without overwriting the current in-progress plan index.
