@@ -1,5 +1,7 @@
 # Code review and milestone acceptance governance
 
+> **Latest cross-repository review ledger, 30 October 2026:** [10 draft PRs, merged source receipts and bounded hold reasons](PR-REVIEW-CATCHUP-2026-10-30.md). The ledger supersedes the earlier example queue in this document where the PRs have since merged. Review receipt is AI-assisted unless independently verified.
+
 **Decision:** 30 October 2026, owner delegated technical review of AI-Verse changes to the governed **AI-Verse-Skills** `change-review` skill (aliases `code-review`, `pull-request-review`). This is the single executable skill owner. **AI-Verse-System** owns the cross-component policy and evidence semantics. Every component repo keeps its own PR, CI, integration evidence and applicable acceptance tracker. Do not create a second skill registry, alternate reviewer persona or hidden approval store.
 
 **Provenance:** Composite method developed by comparing Coder deep-review, Google Gemini CLI code-reviewer, Flutter iterative review and other GitHub skills, plus AI-Verse's existing `docs/AUDIT-METHODOLOGY.md`. This is first-party guidance, not a copied upstream skill body.
