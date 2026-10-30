@@ -2,6 +2,8 @@
 
 # AI-Verse Owner Product Intent and Operating Principles
 
+> **Code review operating decision, 30 October 2026:** Use the existing AI-Verse-Skills `change-review` capability, strengthened with evidence-based deep review, as the **default AI technical reviewer** after relevant implementation/test checkpoints and before merge/roadmap acceptance. Keep the reusable Skill in Skills and canonical cross-component review/approval policy in System. The operator delegates AI-assisted technical review instead of demanding an external GitHub reviewer for every change. Report AI self-review truthfully; independent owner/security and Mac/release gates remain when explicitly required. Record reviews against exact source/CI and never award roadmap points or merge based on green tests alone. See [governance](CODE-REVIEW-AND-ACCEPTANCE-GOVERNANCE-2026-10-30.md).
+
 **Status:** Canonical living owner-product-intent record  
 **Updated:** 2026-09-15  
 **Authority:** Product direction, UX intent, autonomy philosophy and owner preference. This document does not override implementation evidence, component ownership, security policy, migration safety or permission enforcement.
