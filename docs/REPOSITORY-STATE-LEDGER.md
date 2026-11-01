@@ -11,16 +11,16 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `full-refresh`
 - Refresh scope: `global`
 - Refresh status: `complete`
-- Refresh evidence revision: `5390bd55d4cbff33da8b3146303e87517074e25e`
-- Last full refresh: `5390bd55d4cbff33da8b3146303e87517074e25e`
+- Refresh evidence revision: `c71102d99ca886e0a03583565efb4eee8c96b06f`
+- Last full refresh: `c71102d99ca886e0a03583565efb4eee8c96b06f`
 - Watchdog: `WATCHDOG-CURRENT`
-- Watchdog reason: Successful Registry-derived global heartbeat at 2026-10-31T09:38:27Z; all registered repositories were scanned with no access/fetch failure.
+- Watchdog reason: Successful Registry-derived global heartbeat at 2026-11-01T10:26:52Z; all registered repositories were scanned with no access/fetch failure.
 
 ## Repository state
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `5390bd55d4cb` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `c71102d99ca8` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `c44a54a66d04` | accepted `1e05ea2c491a` | not-applicable | observed `1e05ea2c491a` / accepted | synchronized `16c0243bf3d2` | fresh / global |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `78ebc5be1a28` | accepted `00805bc7d866` | pinned `00805bc7d866` / core-learn-candidate-2026-10-27 | observed `00805bc7d866` / accepted | synchronized `b43b640a7795` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `32cae304861b` | accepted `14ded0120c11` | pinned `14ded0120c11` / core-learn-candidate-2026-10-27 | observed `14ded0120c11` / accepted | synchronized `967013147705` | fresh / global |
@@ -32,7 +32,7 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 | aiverse-filmmakers/AI-Verse-Multiple-Bots | ai-verse-multiple-bots | `b4ad4315e560` | unverified | unpinned | observed `ddf70ac19736` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/ai-verse-token | ai-verse-token | `363dde3d87ed` | unverified | unpinned | observed `d36916323abb` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Connections | ai-verse-connections | `b6eedea9a1ab` | unverified | unpinned | observed `602a1c52ab78` / candidate | unverified | fresh / global |
-| aiverse-filmmakers/AI-Verse-Dashboard | ai-verse-dashboard | `e668b545a68b` | unverified | unpinned | observed `bd26986e202d` / candidate | unverified | fresh / global |
+| aiverse-filmmakers/AI-Verse-Dashboard | ai-verse-dashboard | `c5323cf83b9b` | unverified | unpinned | observed `bd26986e202d` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Apps | ai-verse-apps | `db5b0115bf59` | unverified | not-applicable | not-applicable | unverified | fresh / global |
 
 ## Open drift
