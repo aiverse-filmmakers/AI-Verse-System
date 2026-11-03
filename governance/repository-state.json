@@ -26,36 +26,36 @@
       1362252045,
       1364456634
     ],
-    "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54",
+    "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a",
     "last_scoped_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54",
-      "observed_at": "2026-11-02T11:05:33Z"
+      "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a",
+      "observed_at": "2026-11-03T10:52:02Z"
     },
     "last_full_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54",
-      "observed_at": "2026-11-02T11:05:33Z"
+      "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a",
+      "observed_at": "2026-11-03T10:52:02Z"
     }
   },
   "watchdog": {
     "status": "WATCHDOG-CURRENT",
-    "heartbeat_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54",
+    "heartbeat_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a",
     "last_successful_full_scan": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54",
-      "observed_at": "2026-11-02T11:05:33Z"
+      "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a",
+      "observed_at": "2026-11-03T10:52:02Z"
     },
-    "reason": "Successful Registry-derived global heartbeat at 2026-11-02T11:05:33Z; all registered repositories were scanned with no access/fetch failure."
+    "reason": "Successful Registry-derived global heartbeat at 2026-11-03T10:52:02Z; all registered repositories were scanned with no access/fetch failure."
   },
   "repositories": [
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "1d69d76bc187866b0483bb268ea8aad9ada4ab54",
+      "observed_head": "4099bfc5a17426240886426c770d7ea2990a9c4a",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -82,7 +82,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -124,7 +124,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -168,7 +168,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -215,7 +215,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -262,7 +262,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -309,7 +309,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -356,7 +356,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -395,7 +395,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -434,7 +434,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -473,7 +473,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -512,7 +512,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -551,18 +551,18 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
       "repository_id": 1362252045,
       "access": "verified",
-      "observed_head": "68965edfa37a749c4310acf4342d9a5ac73589ae",
+      "observed_head": "91aad66592ab43dfe2acaeff314ade93c63a7cef",
       "owner_acceptance": {
         "status": "unverified",
         "revision": null,
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Dashboard@68965edfa37a749c4310acf4342d9a5ac73589ae:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Dashboard@91aad66592ab43dfe2acaeff314ade93c63a7cef:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -579,7 +579,7 @@
         "release_status": "candidate",
         "blob_sha": "abb1c7084478ac5e05ff62dc4af1dccbdbe9b87b",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-Dashboard@68965edfa37a749c4310acf4342d9a5ac73589ae:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-Dashboard@91aad66592ab43dfe2acaeff314ade93c63a7cef:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -590,7 +590,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     },
     {
@@ -623,7 +623,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "1d69d76bc187866b0483bb268ea8aad9ada4ab54"
+        "evidence_revision": "4099bfc5a17426240886426c770d7ea2990a9c4a"
       }
     }
   ],
