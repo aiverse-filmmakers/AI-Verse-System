@@ -26,36 +26,36 @@
       1362252045,
       1364456634
     ],
-    "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81",
+    "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439",
     "last_scoped_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81",
-      "observed_at": "2026-11-07T10:07:28Z"
+      "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439",
+      "observed_at": "2026-11-08T10:21:53Z"
     },
     "last_full_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81",
-      "observed_at": "2026-11-07T10:07:28Z"
+      "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439",
+      "observed_at": "2026-11-08T10:21:53Z"
     }
   },
   "watchdog": {
     "status": "WATCHDOG-CURRENT",
-    "heartbeat_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81",
+    "heartbeat_revision": "4397aaf8d11731c59945df15012cb4887b5ff439",
     "last_successful_full_scan": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81",
-      "observed_at": "2026-11-07T10:07:28Z"
+      "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439",
+      "observed_at": "2026-11-08T10:21:53Z"
     },
-    "reason": "Successful Registry-derived global heartbeat at 2026-11-07T10:07:28Z; all registered repositories were scanned with no access/fetch failure."
+    "reason": "Successful Registry-derived global heartbeat at 2026-11-08T10:21:53Z; all registered repositories were scanned with no access/fetch failure."
   },
   "repositories": [
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "bce2909c6aabaf4b1187becfe87326d3fddeed81",
+      "observed_head": "4397aaf8d11731c59945df15012cb4887b5ff439",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -82,7 +82,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -124,7 +124,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -168,7 +168,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -215,7 +215,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -262,7 +262,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -309,7 +309,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -356,7 +356,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -395,7 +395,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -434,7 +434,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -473,7 +473,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -512,7 +512,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -551,7 +551,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -590,7 +590,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     },
     {
@@ -623,7 +623,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "bce2909c6aabaf4b1187becfe87326d3fddeed81"
+        "evidence_revision": "4397aaf8d11731c59945df15012cb4887b5ff439"
       }
     }
   ],
