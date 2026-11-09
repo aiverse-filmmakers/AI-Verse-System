@@ -7,8 +7,8 @@
     "blob_sha": "88839264a3270d65d21297ade089f111aa843975"
   },
   "refresh": {
-    "mode": "full-refresh",
-    "scope": "global",
+    "mode": "scoped-refresh",
+    "scope": "Core",
     "status": "complete",
     "repository_ids": [
       1367664026,
@@ -17,21 +17,14 @@
       1362233598,
       1361910454,
       1362243580,
-      1364457521,
-      1368762130,
-      1368762786,
-      1362278774,
-      1368748835,
-      1364458279,
-      1362252045,
-      1364456634
+      1364457521
     ],
-    "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20",
+    "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87",
     "last_scoped_refresh": {
-      "scope": "global",
+      "scope": "Core",
       "status": "complete",
-      "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20",
-      "observed_at": "2026-11-09T11:30:07Z"
+      "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87",
+      "observed_at": null
     },
     "last_full_refresh": {
       "scope": "global",
@@ -55,7 +48,7 @@
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "f3fc2b2721df0fa42ad7564bda0a747284c22f20",
+      "observed_head": "9e81881390c090464ebcf01106caba8756be0a87",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -80,9 +73,9 @@
         "evidence_refs": []
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20"
+        "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87"
       }
     },
     {
@@ -122,20 +115,20 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20"
+        "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87"
       }
     },
     {
       "repository_id": 1361862361,
       "access": "verified",
-      "observed_head": "787aeee68a14aa6be9cf10ba6b9d66677d1b2fd8",
+      "observed_head": "176af45d841e82e512988d34fbf994bc14b77b11",
       "owner_acceptance": {
         "status": "accepted",
-        "revision": "725dfb43f756156ac9bf4c4214005b2390dc91a4",
+        "revision": "b473e0822aad97d97b6d1863fd0486c1bf99d227",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@787aeee68a14aa6be9cf10ba6b9d66677d1b2fd8:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@176af45d841e82e512988d34fbf994bc14b77b11:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -149,11 +142,11 @@
       },
       "descriptor": {
         "status": "observed",
-        "revision": "725dfb43f756156ac9bf4c4214005b2390dc91a4",
+        "revision": "b473e0822aad97d97b6d1863fd0486c1bf99d227",
         "release_status": "accepted",
-        "blob_sha": "0a5a87ba4f54227c6698903192d360e2f0612387",
+        "blob_sha": "8d79ee7fd531c55321a46b7f26a4259a481ccefa",
         "evidence_refs": [
-          "aiverse-filmmakers/AI-Verse-OS@787aeee68a14aa6be9cf10ba6b9d66677d1b2fd8:release/component-release.json"
+          "aiverse-filmmakers/AI-Verse-OS@176af45d841e82e512988d34fbf994bc14b77b11:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -166,9 +159,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20"
+        "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87"
       }
     },
     {
@@ -213,9 +206,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20"
+        "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87"
       }
     },
     {
@@ -260,9 +253,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20"
+        "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87"
       }
     },
     {
@@ -307,9 +300,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20"
+        "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87"
       }
     },
     {
@@ -354,9 +347,9 @@
         ]
       },
       "freshness": {
-        "scope": "global",
+        "scope": "Core",
         "status": "fresh",
-        "evidence_revision": "f3fc2b2721df0fa42ad7564bda0a747284c22f20"
+        "evidence_revision": "9e81881390c090464ebcf01106caba8756be0a87"
       }
     },
     {
