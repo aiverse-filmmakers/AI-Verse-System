@@ -1,5 +1,9 @@
 # AI-Verse Memory Component Specification
 
+## Portable local chat handoff under qualification
+
+Memory reads the OS archive as typed scoped historical evidence and follows current placement without taking transcript write ownership. See [the current cross-system handoff](../../docs/PORTABLE-LOCAL-CHAT-HISTORY.md). Owner acceptance, native host coverage and member promotion remain distinct; older audit sections below retain their historical scope.
+
 ## Current accepted implementation update — 2026-10-19
 
 This review supersedes the current-state and gap claims in the September 13, 2026 baseline below. The baseline is retained as historical audit evidence.

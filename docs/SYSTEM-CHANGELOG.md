@@ -1,3 +1,14 @@
+## 2026-11-11: Reconcile local original chats with selective learned Memory
+
+Recorded the owner's requirement to retain private visible local conversations
+as original evidence while keeping curated learning selective. Documented OS
+archive/placement ownership, Memory typed progressive reading, consent and
+qualified host limits, and the normal owner/System/Distribution release boundary.
+Implementation handoff is under qualification; this entry does not claim a
+member promotion or personal installation update. Historical evidence is kept.
+
+---
+
 ## 2026-10-28: Plan authorized OS access and Skool-tied revocable licensing
 
 - Added the research/evidence-gated **[Authorized OS Access: Skool Membership and Revocable App Licensing](../plans/in-progress/AUTHORIZED-OS-ACCESS-AND-SKOOL-LICENSING-2026-10-28.md)** plan (7 fixed slices, 0/7 implemented) and linked it from System/plan indexes and Owner Product Intent.
