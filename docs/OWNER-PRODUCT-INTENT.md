@@ -364,7 +364,18 @@ normal conversation/work
     -> retain provenance and exact-source references
 ```
 
-Transient chatter should remain transient.
+Transient chatter should remain transient in **curated learned Memory**.
+
+Bogdan's November 2026 clarification separately requires preserving the original
+visible chats from supported local tools in the selected OS folder. That private
+archive is source evidence, not automatic promotion of every utterance into
+curated facts or current truth. Another assistant with the copied folder must be
+able to retrieve original messages without the old provider's chat store.
+Personal/project placement is reviewed during tidying, with confirmation before
+cross-project moves. Hosted browser chats are outside this local-first pass.
+See [Portable local chat history](PORTABLE-LOCAL-CHAT-HISTORY.md) for ownership,
+qualified interface boundaries, consent and the separate release gates.
+
 
 The system should become more useful over time without allowing memory volume to make retrieval progressively noisier or more expensive.
 

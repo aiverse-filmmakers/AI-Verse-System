@@ -1,5 +1,9 @@
 # AI-Verse OS Component Specification
 
+## Portable local chat handoff under qualification
+
+OS owns raw visible chat source storage, consent, physical scope, placement and recovery; semantic learning remains separate. See [the current cross-system handoff](../../docs/PORTABLE-LOCAL-CHAT-HISTORY.md). Owner acceptance, native host coverage and member promotion remain distinct; older audit sections below retain their historical scope.
+
 **Component:** AI-Verse OS  
 **Repository reviewed:** `aiverse-filmmakers/AI-Verse-OS`  
 **Reviewed branch:** `main`  
