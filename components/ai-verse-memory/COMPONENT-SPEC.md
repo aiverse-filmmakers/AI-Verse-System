@@ -1,6 +1,12 @@
 # AI-Verse Memory Component Specification
 
-## Portable local chat handoff under qualification
+## Current portable local chat handoff
+
+The November portable history handoff has completed owner acceptance, System
+refresh, Distribution qualification and normal member promotion. Current exact
+accepted revisions and pins remain in canonical descriptors and Repository State.
+This update supersedes older current-state and gap claims below for this handoff;
+the dated earlier audits remain historical evidence.
 
 Memory reads the OS archive as typed scoped historical evidence and follows current placement without taking transcript write ownership. See [the current cross-system handoff](../../docs/PORTABLE-LOCAL-CHAT-HISTORY.md). Owner acceptance, native host coverage and member promotion remain distinct; older audit sections below retain their historical scope.
 

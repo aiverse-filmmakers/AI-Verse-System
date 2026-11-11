@@ -1,3 +1,14 @@
+## November 2026 member qualification
+
+The portable chat handoff is owner accepted and qualified in the normal Core
+member release. Exact evidence is linked in SOURCE-MAP.md. Three platform
+installation, populated update and helper preservation pass. Published update
+discovery also passes for the oldest supported Core across all three platforms.
+No emergency promotion or synchronization debt was used. Native capture remains
+limited to qualified local Claude Code and Codex interfaces on macOS/Linux;
+T3 and native Windows capture are not established by these results. Earlier
+audits below retain their dated scope. No personal installation update is claimed.
+
 ## November 2026 prompt durability correction
 
 The exact merged OS source in SOURCE-MAP.md passes real native Claude Code and

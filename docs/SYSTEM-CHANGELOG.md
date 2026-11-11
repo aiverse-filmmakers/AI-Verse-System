@@ -1,3 +1,21 @@
+## 2026-11-11: Qualify and promote portable local chat history
+
+The portable history handoff completed exact owner acceptance, scoped System
+refresh, Distribution qualification and normal member promotion. Distribution
+PR #99 passed all 89 checks; PR #100 passed all 89 final checks before merge.
+Published source 90a417f2d7e7b488b0d788486b554baf40e7fb57 then passed all six
+Installed update discovery jobs in run 43084223489, including the oldest
+supported Core walking every approved hop on Linux, macOS and Windows.
+
+Updated current readiness for OS archive/recovery and Memory typed progressive
+recall without replacing dated historical audits. Exact current pins remain
+canonical Repository State and owner descriptor observations. No synchronization
+debt, emergency path, historical evidence edits or personal update was used.
+The previous separate OS 0.3.14 promotion was closed as superseded, with its
+branch retained. Qualified host and attachment/privacy limits remain explicit.
+
+---
+
 ## 2026-11-11: Preserve prompts before native transcript flush
 
 Native chat files could lag behind submission, leaving the current prompt

@@ -1,6 +1,12 @@
 # AI-Verse OS Component Specification
 
-## Portable local chat handoff under qualification
+## Current portable local chat handoff
+
+The November portable history handoff has completed owner acceptance, System
+refresh, Distribution qualification and normal member promotion. Current exact
+accepted revisions and pins remain in canonical descriptors and Repository State.
+This update supersedes older current-state and gap claims below for this handoff;
+the dated earlier audits remain historical evidence.
 
 Submitted visible prompts are saved in a private OS recovery journal before
 waiting for native transcript flush. Exact native commits reconcile observations;

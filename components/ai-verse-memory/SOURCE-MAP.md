@@ -1,3 +1,23 @@
+## November 2026 qualified member release evidence
+
+Memory source `5a853e31628837adaf7135f46f75f24ae748bd46` was accepted by
+owner [PR #40](https://github.com/aiverse-filmmakers/AI-Verse-Memory/pull/40),
+published at `1e7bd0298d385c63adf79b5c2f6dddead846deee`, with exact native
+[Test 43010986784](https://github.com/aiverse-filmmakers/AI-Verse-Memory/actions/runs/43010986784).
+This milestone supersedes the older source/gap observations below for portable
+chat reading, immutable references, scope/move enforcement and bounded paging.
+
+Distribution [qualification #99](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/99)
+passed all 89 exact head checks, followed by
+[normal promotion #100](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/100)
+with all 89 final checks successful and no System synchronization debt.
+Published source `90a417f2d7e7b488b0d788486b554baf40e7fb57` passed
+[Installed update discovery 43084223489](https://github.com/aiverse-filmmakers/ai-verse-distribution/actions/runs/43084223489)
+in all six jobs, covering three platforms and oldest supported Core traversal.
+The source and public release evidence retain their exact revision bindings.
+Current accepted component refs are observed in canonical Repository State.
+Personal installation changes remain separate.
+
 # AI-Verse Memory Source Map
 
 ## Current evidence update — 2026-10-19
