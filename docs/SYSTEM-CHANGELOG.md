@@ -1,3 +1,20 @@
+## 2026-11-11: Preserve prompts before native transcript flush
+
+Native chat files could lag behind submission, leaving the current prompt
+outside the OS until the reply completed. OS PR #130 adds a private scoped
+recovery journal before native source collection, then reconciles exact words
+after verified transcript commit. Claude now shares one normalized observation
+identity between learning and capture. Hosted real native checks prove prompt
+durability before response, killed process survival and copied folder reads.
+
+The invariant applies to future local adapters: observed input must become
+durable without relying on a later provider flush. Incomplete prompts remain
+private and readable, never masquerade as a completed chat, and prevent a move
+that would strand raw words under the previous project. Member release remains
+under qualification. Existing historical evidence is retained.
+
+---
+
 ## 2026-11-11: Reconcile local original chats with selective learned Memory
 
 Recorded the owner's requirement to retain private visible local conversations

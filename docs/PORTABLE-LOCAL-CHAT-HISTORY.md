@@ -36,8 +36,8 @@ permissions; archiving grants no new connection or cross-project authority.
 
 ## Implemented handoff under qualification
 
-OS PR #129, Memory PR #39 and Distribution PR #97 implement the current handoff.
-Memory and Distribution implementation PRs have merged; OS acceptance and the
+OS PRs #129 and #130, Memory PR #39 and Distribution PR #97 implement the current handoff.
+Those implementation PRs have merged; OS acceptance and the
 unified member release remain separate gates. Exact accepted revisions and
 current release observations belong to owner descriptors and Repository State,
 not independently maintained version tables in this document.
@@ -59,6 +59,24 @@ Attachments are explicitly marked not embedded rather than silently copied.
 Credential-like visible content blocks capture for operator review; it is not
 silently claimed saved. Current status distinguishes saved-through-checkpoint,
 pending, partial, blocked and unverified.
+
+The native application may not flush its submitted prompt until after answering.
+A real approved UserPromptSubmit therefore saves the exact current user words
+first in an OS owned private recovery journal below that chat home's `.pending/`
+directory. This is provisional observed input, not a fabricated native message,
+source byte offset or Memory atomic. Existing consent, physical project,
+private session and secret checks still apply. It is not a second curated store.
+
+After native transcript messages commit durably, the OS matches observations
+once, in order and after their original saved message checkpoints. Matching raw
+text is removed from the journal; content free replay hashes remain. Repeated
+identical prompts are distinct observations. Unmatched text stays explicitly
+incomplete and is readable from the copied OS folder without provider history
+or runtime session state. Recovery reads require current OS project permission.
+Chats with unreconciled prompts cannot move and strand words in their old home.
+Never describe incomplete observations as a completed conversation or invent a
+reply the application did not produce. The durability invariant applies to any
+future local adapter: receiving input must not depend on a later provider flush.
 
 Each chat has one home. General root conversations use Personal; project chats
 use the physical workspace. Tidying reviews both through bounded rotating
@@ -82,7 +100,12 @@ archive capacity limits remain explicit fail-closed limits.
 The owner CI includes actual native executables with isolated homes, synthetic
 loopback providers and no personal credentials. It proves observed source
 formats, real approved callbacks, replay, resumed processes, exact copied-folder
-reads and scoped placement/recovery. The cross-native proof additionally requires
+reads and scoped placement/recovery. Native process death checks also kill a
+resumed app before its model response and require the exact submitted prompt
+to survive a copied folder with the original app history removed. Claude
+normalizes its observation identity once for learning and transcript capture;
+an identity local to only one consumer cannot support durable prompt replay.
+The cross-native proof additionally requires
 the next native model request to receive the earlier exact archived reply through
 Memory after the original provider home is removed, in both directions.
 
