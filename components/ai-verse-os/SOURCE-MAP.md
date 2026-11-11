@@ -1,3 +1,17 @@
+## November 2026 native prompt durability evidence
+
+OS source correction PR #130 merged at
+`c949bca4e5b6155b0632f36b81f6d4a62a74073c`. Exact source Repository QC
+[43055499515](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43055499515)
+and native history proof
+[43055552984](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43055552984)
+passed. The native proof includes prompt durability before response, killed
+resumed processes, copied folder recovery and bidirectional native continuity.
+Canonical implementation paths are
+`system/extensions/packages/ai-verse-codex-learning/chat_archive.py`,
+`prospective_capture.py` and `bridge.py`; recovery usage is in `INSTRUCTIONS.md`.
+This is implementation evidence, not Distribution member promotion.
+
 # AI-Verse OS Source Map
 
 **Repository:** `aiverse-filmmakers/AI-Verse-OS`  

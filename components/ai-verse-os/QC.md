@@ -1,3 +1,12 @@
+## November 2026 prompt durability correction
+
+The exact merged OS source in SOURCE-MAP.md passes real native Claude Code and
+Codex checks for submitted input saved before a reply and preserved after a
+killed process and copied OS folder. Hosted regressions cover repeated prompts,
+interrupted reconciliation, consent, private mode, secrets, changed identities
+and scope checks. No full suites were repeated locally. This does not establish
+native Windows capture, T3 capture or member promotion. Those limits remain.
+
 # AI-Verse OS Multi-Lens QC
 
 **Component:** AI-Verse OS  

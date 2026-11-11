@@ -2,6 +2,12 @@
 
 ## Portable local chat handoff under qualification
 
+Submitted visible prompts are saved in a private OS recovery journal before
+waiting for native transcript flush. Exact native commits reconcile observations;
+unmatched words remain incomplete and privately recoverable from copied folders.
+See the canonical [local chat contract](../../docs/PORTABLE-LOCAL-CHAT-HISTORY.md)
+for privacy, identity, reconciliation and placement invariants.
+
 OS owns raw visible chat source storage, consent, physical scope, placement and recovery; semantic learning remains separate. See [the current cross-system handoff](../../docs/PORTABLE-LOCAL-CHAT-HISTORY.md). Owner acceptance, native host coverage and member promotion remain distinct; older audit sections below retain their historical scope.
 
 **Component:** AI-Verse OS  
