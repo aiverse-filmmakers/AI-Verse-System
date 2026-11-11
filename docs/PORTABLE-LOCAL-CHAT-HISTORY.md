@@ -34,11 +34,11 @@ selective. The archive writer does not publish raw chats or sync them remotely.
 Provider execution and authorized contextual reads retain their existing
 permissions; archiving grants no new connection or cross-project authority.
 
-## Implemented handoff under qualification
+## Implemented handoff and verified member release
 
 OS PRs #129 and #130, Memory PR #39 and Distribution PR #97 implement the current handoff.
-Those implementation PRs have merged; OS acceptance and the
-unified member release remain separate gates. Exact accepted revisions and
+Those implementation PRs have merged. OS acceptance, System Core refresh,
+Distribution qualification and normal member promotion have passed. Exact accepted revisions and
 current release observations belong to owner descriptors and Repository State,
 not independently maintained version tables in this document.
 
@@ -114,3 +114,14 @@ System Core refresh, exact Distribution qualification, preservation/rollback and
 normal promotion must all pass. No emergency promotion, synchronization debt,
 skipped gate or edits to historical evidence are permitted for this handoff.
 The personal installation remains separate and is not updated by release work.
+
+
+The November member handoff passed Distribution qualification
+[PR #99](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/99)
+and normal promotion
+[PR #100](https://github.com/aiverse-filmmakers/ai-verse-distribution/pull/100).
+Published source `90a417f2d7e7b488b0d788486b554baf40e7fb57` passed
+[Installed update discovery 43084223489](https://github.com/aiverse-filmmakers/ai-verse-distribution/actions/runs/43084223489)
+on Linux, macOS and Windows, including the oldest supported Core walking every
+qualified hop. This is member release evidence, not an update of a personal
+installation. Future adapter/version coverage still requires its own proof.
