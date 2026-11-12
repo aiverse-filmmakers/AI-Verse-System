@@ -7,8 +7,8 @@
     "blob_sha": "88839264a3270d65d21297ade089f111aa843975"
   },
   "refresh": {
-    "mode": "scoped-refresh",
-    "scope": "Core",
+    "mode": "full-refresh",
+    "scope": "global",
     "status": "complete",
     "repository_ids": [
       1367664026,
@@ -17,38 +17,45 @@
       1362233598,
       1361910454,
       1362243580,
-      1364457521
+      1364457521,
+      1368762130,
+      1368762786,
+      1362278774,
+      1368748835,
+      1364458279,
+      1362252045,
+      1364456634
     ],
-    "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63",
+    "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7",
     "last_scoped_refresh": {
-      "scope": "Core",
+      "scope": "global",
       "status": "complete",
-      "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63",
-      "observed_at": null
+      "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7",
+      "observed_at": "2026-11-12T11:07:47Z"
     },
     "last_full_refresh": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580",
-      "observed_at": "2026-11-11T10:56:51Z"
+      "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7",
+      "observed_at": "2026-11-12T11:07:47Z"
     }
   },
   "watchdog": {
     "status": "WATCHDOG-CURRENT",
-    "heartbeat_revision": "710152b690c98efd5486c83fe0ccd8870de52580",
+    "heartbeat_revision": "34843a92c57d7018e5cb030518511931820484c7",
     "last_successful_full_scan": {
       "scope": "global",
       "status": "complete",
-      "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580",
-      "observed_at": "2026-11-11T10:56:51Z"
+      "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7",
+      "observed_at": "2026-11-12T11:07:47Z"
     },
-    "reason": "Successful Registry-derived global heartbeat at 2026-11-11T10:56:51Z; all registered repositories were scanned with no access/fetch failure."
+    "reason": "Successful Registry-derived global heartbeat at 2026-11-12T11:07:47Z; all registered repositories were scanned with no access/fetch failure."
   },
   "repositories": [
     {
       "repository_id": 1367664026,
       "access": "verified",
-      "observed_head": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63",
+      "observed_head": "34843a92c57d7018e5cb030518511931820484c7",
       "owner_acceptance": {
         "status": "not-applicable",
         "revision": null,
@@ -73,20 +80,20 @@
         "evidence_refs": []
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
       "repository_id": 1350081263,
       "access": "verified",
-      "observed_head": "90a417f2d7e7b488b0d788486b554baf40e7fb57",
+      "observed_head": "061aa9bcc8c45cb8846d918c3349d6e46d3b694c",
       "owner_acceptance": {
         "status": "accepted",
         "revision": "87fad278e29fae66ebcfbf8dc10bd93e4788d5f5",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:release/component-release.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:release/component-release.json"
         ]
       },
       "distribution_pin": {
@@ -101,7 +108,7 @@
         "release_status": "accepted",
         "blob_sha": "d900d199f9b6d437faa90f017ae7a9f05edc44d2",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:release/component-release.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:release/component-release.json"
         ]
       },
       "system_sync": {
@@ -117,9 +124,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -138,8 +145,8 @@
         "revision": "c949bca4e5b6155b0632f36b81f6d4a62a74073c",
         "release_id": "core-os-0.3.15-candidate-2026-11-11-v2",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:src/aiverse_distribution/catalog/core_promotions.json",
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json",
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
         ]
       },
       "descriptor": {
@@ -163,9 +170,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -184,8 +191,8 @@
         "revision": "14ded0120c11362024864d50d47f1996e66530e8",
         "release_id": "core-os-0.3.15-candidate-2026-11-11-v2",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:src/aiverse_distribution/catalog/core_promotions.json",
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json",
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
         ]
       },
       "descriptor": {
@@ -210,9 +217,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -231,8 +238,8 @@
         "revision": "5a853e31628837adaf7135f46f75f24ae748bd46",
         "release_id": "core-os-0.3.15-candidate-2026-11-11-v2",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:src/aiverse_distribution/catalog/core_promotions.json",
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json",
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
         ]
       },
       "descriptor": {
@@ -259,9 +266,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -280,8 +287,8 @@
         "revision": "390c6e1633afc809040bd1159840045f4f9ff27e",
         "release_id": "core-os-0.3.15-candidate-2026-11-11-v2",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:src/aiverse_distribution/catalog/core_promotions.json",
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json",
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
         ]
       },
       "descriptor": {
@@ -306,9 +313,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -327,8 +334,8 @@
         "revision": "f8978f8f7a1bc94edecddc2662112233289159a3",
         "release_id": "core-os-0.3.15-candidate-2026-11-11-v2",
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:src/aiverse_distribution/catalog/core_promotions.json",
-          "aiverse-filmmakers/ai-verse-distribution@90a417f2d7e7b488b0d788486b554baf40e7fb57:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json",
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:release-sets/core-os-0.3.15-candidate-2026-11-11-v2.json"
         ]
       },
       "descriptor": {
@@ -353,9 +360,9 @@
         ]
       },
       "freshness": {
-        "scope": "Core",
+        "scope": "global",
         "status": "fresh",
-        "evidence_revision": "dcba4c5ceb15dbc8e68d64ef231032b9248bad63"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -374,7 +381,7 @@
         "revision": null,
         "release_id": null,
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@5cd4da64ea8d6441e1462cf4ad03478b9309157a:src/aiverse_distribution/catalog/core_promotions.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json"
         ]
       },
       "descriptor": {
@@ -394,7 +401,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -413,7 +420,7 @@
         "revision": null,
         "release_id": null,
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@5cd4da64ea8d6441e1462cf4ad03478b9309157a:src/aiverse_distribution/catalog/core_promotions.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json"
         ]
       },
       "descriptor": {
@@ -433,7 +440,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -452,7 +459,7 @@
         "revision": null,
         "release_id": null,
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@5cd4da64ea8d6441e1462cf4ad03478b9309157a:src/aiverse_distribution/catalog/core_promotions.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json"
         ]
       },
       "descriptor": {
@@ -472,7 +479,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -491,7 +498,7 @@
         "revision": null,
         "release_id": null,
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@5cd4da64ea8d6441e1462cf4ad03478b9309157a:src/aiverse_distribution/catalog/core_promotions.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json"
         ]
       },
       "descriptor": {
@@ -511,7 +518,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -530,7 +537,7 @@
         "revision": null,
         "release_id": null,
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@5cd4da64ea8d6441e1462cf4ad03478b9309157a:src/aiverse_distribution/catalog/core_promotions.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json"
         ]
       },
       "descriptor": {
@@ -550,7 +557,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -569,7 +576,7 @@
         "revision": null,
         "release_id": null,
         "evidence_refs": [
-          "aiverse-filmmakers/ai-verse-distribution@5cd4da64ea8d6441e1462cf4ad03478b9309157a:src/aiverse_distribution/catalog/core_promotions.json"
+          "aiverse-filmmakers/ai-verse-distribution@061aa9bcc8c45cb8846d918c3349d6e46d3b694c:src/aiverse_distribution/catalog/core_promotions.json"
         ]
       },
       "descriptor": {
@@ -589,7 +596,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     },
     {
@@ -622,7 +629,7 @@
       "freshness": {
         "scope": "global",
         "status": "fresh",
-        "evidence_revision": "710152b690c98efd5486c83fe0ccd8870de52580"
+        "evidence_revision": "34843a92c57d7018e5cb030518511931820484c7"
       }
     }
   ],
