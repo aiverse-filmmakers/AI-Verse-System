@@ -8,6 +8,10 @@
 
 Skills' immutable distribution/provider engineering is strong. The largest remaining risks are no longer transactional installation correctness. They are package admission/trust, licensing and release freeze, plus whether generic runtime "support" means more than exposing directories.
 
+## November 2026 Skills 1.3.0 acceptance
+
+Owner acceptance of `4664880` is exact and evidence-bound (see SOURCE-MAP.md). Live checks on 14 November in fresh Claude Code and Codex chats: all 59 skills visible in both with no cut off; Seedance and story requests triggered the filmmaking chain; marketing announcements used `copywriting` with project notes. Not established: with and without comparisons per skill, and Codex routing of retired names. Member qualification is recorded by Distribution, not here.
+
 ## 2026-10-19 accepted-source and integration QC
 
 **Accepted source:** `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`; current owner head observed at `23779f10515951ac92c83cba34a1a868c02c4d87`. The accepted descriptor binds the owner-native gate to the exact accepted source.

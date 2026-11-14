@@ -11,6 +11,12 @@ The source and public release evidence retain their exact revision bindings.
 Current accepted component refs are observed in canonical Repository State.
 Personal installation changes remain separate.
 
+## 2026-11-14 accepted-source map (OS 0.3.16)
+
+**Accepted source:** `2060fe7764cfe0a7483737840c48ca1ae4520e4c` (OS 0.3.16, tag `v0.3.16`), accepted in OS PR #134. Repository QC [43581120733](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43581120733) and Prospective native chat history [43581546393](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43581546393) passed on that exact revision; all 12 push workflows passed.
+
+Changes since 0.3.15: PR #133 per project skill notes (`scripts/skill-adjustments.mjs`, resolver `project_adjustments`, CLI `adjustments-read|list|save|remove`) and PR #132 the built in `/skill` capability with one shared build standard used by `/learn`.
+
 ## November 2026 native prompt durability evidence
 
 OS source correction PR #130 merged at

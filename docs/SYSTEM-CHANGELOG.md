@@ -1,3 +1,18 @@
+## 2026-11-14: Accept Skills 1.3.0, OS 0.3.16 and member chat skill listing
+
+Skills 1.3.0 (`4664880`, Skills PR #32, tag `v1.3.0`) replaces the 120 skill
+catalogue with 59 owned skills stored in the repository, adds the filmmaking
+chain and redirects retired names. OS 0.3.16 (`2060fe7`, OS PR #134, tag
+`v0.3.16`) adds per project skill notes and the `/skill` builder. Distribution
+`fc3182c` (PR #102, accepted in #103) lists the active Skills generation in the
+OS folder's `.claude/skills` and `.agents/skills` on setup and update, because
+Claude and Codex only pick skills by themselves from those folders. Brain,
+Memory and Data pins are unchanged. Member qualification and promotion remain
+Distribution decisions and are not claimed here. No synchronization debt or
+emergency path is used.
+
+---
+
 ## 2026-11-11: Qualify and promote portable local chat history
 
 The portable history handoff completed exact owner acceptance, scoped System

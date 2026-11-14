@@ -9,6 +9,10 @@ limited to qualified local Claude Code and Codex interfaces on macOS/Linux;
 T3 and native Windows capture are not established by these results. Earlier
 audits below retain their dated scope. No personal installation update is claimed.
 
+## November 2026 OS 0.3.16 acceptance
+
+Owner acceptance of `2060fe7` is exact and evidence-bound (see SOURCE-MAP.md). Skill note tests cover isolation between projects, secret refusal, stale lock recovery and short name lookup. `/skill` has not been tried in a fresh live chat.
+
 ## November 2026 prompt durability correction
 
 The exact merged OS source in SOURCE-MAP.md passes real native Claude Code and
