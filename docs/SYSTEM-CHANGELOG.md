@@ -1,3 +1,15 @@
+## 2026-11-14: Accept Skills 1.3.1 after qualification found an update defect
+
+The OS 0.3.16 qualification run passed fresh install on Linux, macOS and
+Windows but the populated update from 0.3.15 failed on all three: Skills
+refused to lease the member's older generation because its licence fields no
+longer matched the new catalogue. Skills 1.3.1 (`4f2cef7`, PRs #33 and #34)
+treats those fields as the admitting snapshot while keeping byte, security,
+protection and admission decisions bound. The first candidate remains
+immutable and unpromoted; a v2 candidate binds Skills 1.3.1.
+
+---
+
 ## 2026-11-14: Accept Skills 1.3.0, OS 0.3.16 and member chat skill listing
 
 Skills 1.3.0 (`4664880`, Skills PR #32, tag `v1.3.0`) replaces the 120 skill

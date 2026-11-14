@@ -6,6 +6,10 @@
 **Audit date:** 2026-09-13  
 **Scope rule:** Skills was audited standalone. Cross-repository evidence was limited to contracts and acceptance surfaces that Skills itself names or depends on.
 
+## 2026-11-14 accepted-source map (Skills 1.3.1)
+
+**Accepted source:** `4f2cef7785215eb6d62ce4edd02dfa84b00052c5` (Skills 1.3.1, tag `v1.3.1`), accepted in Skills PR #34, supersedes 1.3.0 for member release. Runtime Readiness [43594275759](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/43594275759) passed on that exact revision. Skills PR #33 keeps older immutable generations usable after catalogue licence policy changes: Distribution qualification found that updating a member from `390c6e1` failed on all three platforms because licence and ownership fields were re-derived from the new catalogue. Bytes, security, protection and admit/block decisions stay strictly bound. 221 owner tests pass.
+
 ## 2026-11-14 accepted-source map (Skills 1.3.0)
 
 **Accepted source:** `4664880a852e07649d7e38c5e40b262eac316fac` (Skills 1.3.0, tag `v1.3.0`), accepted in Skills PR #32. Owner-native Runtime Readiness [43581186592](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/43581186592) passed on that exact revision, as did push CI (Validate, Generation Lease Retention, Full E2E Install).
