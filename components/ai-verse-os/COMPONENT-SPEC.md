@@ -1,5 +1,9 @@
 # AI-Verse OS Component Specification
 
+## 2026-11-14 current readiness (OS 0.3.16)
+
+Accepted OS 0.3.16 at `2060fe7`. Adds per project skill notes stored in `workspaces/<id>/context/skill-adjustments/` and the `/skill` built in capability. The OS does not yet detect the active project by itself; the caller passes the project scope.
+
 ## Current portable local chat handoff
 
 The November portable history handoff has completed owner acceptance, System

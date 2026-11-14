@@ -6,6 +6,14 @@
 **Audit date:** 2026-09-13  
 **Scope rule:** Skills was audited standalone. Cross-repository evidence was limited to contracts and acceptance surfaces that Skills itself names or depends on.
 
+## 2026-11-14 accepted-source map (Skills 1.3.0)
+
+**Accepted source:** `4664880a852e07649d7e38c5e40b262eac316fac` (Skills 1.3.0, tag `v1.3.0`), accepted in Skills PR #32. Owner-native Runtime Readiness [43581186592](https://github.com/aiverse-filmmakers/AI-Verse-Skills/actions/runs/43581186592) passed on that exact revision, as did push CI (Validate, Generation Lease Retention, Full E2E Install).
+
+Changes since the previously accepted `390c6e1`: PR #28 removed `shadcn` and `notion`; `28f7e84` made `change-review` the evidence based code review gate; PR #30 reduced the catalogue from 118 to 59 (9 foundation + 50 employee), stored every catalogue skill in the repository with licence and `SOURCE.json`, added `ai-realism`, `higgsfield-acting` and `cinematic-realism-director`, merged four entries into `ai-video-director` and `action-items`, redirected retired names, and added chat folder listing (`--expose`, `--expose-default`, `adapt --sync`, `doctor --target`, `adapter-verify --complete`); PR #31 improved trigger descriptions, kept chat folders in step on rollback and uninstall, validated folders before install and added two font licences. Decision record: `docs/SKILL-LIBRARY-STATUS.md`.
+
+Relevant surfaces: `installer/aiverse_skills_v3.py`, `registry/*.json`, `tests/test_all_skills_listed.py`, `tests/test_filmmaking_chain.py`, `tests/test_legacy_name_redirects.py`, `tests/test_marketing_adjustments.py`. 218 owner tests pass. The member entrypoint `installer/aiverse_skills.py` is unchanged in behaviour.
+
 ## 2026-10-19 accepted-source map
 
 **Accepted source:** `afde5c06307fba7d074de2929c2eb6c3dc6bdab8`; owner head observed at `23779f10515951ac92c83cba34a1a868c02c4d87`. The accepted descriptor binds the owner-native CI/acceptance evidence to that exact revision.

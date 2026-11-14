@@ -8,6 +8,10 @@
 **Fresh standalone review:** 2026-09-13  
 **Method:** `docs/AUDIT-METHODOLOGY.md`
 
+## 2026-11-14 current readiness (Skills 1.3.0)
+
+Accepted Skills 1.3.0 at `4664880a852e07649d7e38c5e40b262eac316fac`. The catalogue is 59 owned skills. Claude and Codex only pick skills by themselves from their own skill folders, so Distribution now asks the Skills owner to list the active generation in the OS folder's `.claude/skills` and `.agents/skills` on setup and update (Distribution PR #102). Listing copies only, replaces only what it listed before and leaves OS capabilities and foreign folders alone. Codex does not follow retired skill names typed by the member; Claude does.
+
 ## 2026-10-19 accepted Skills source integration
 
 **Accepted owner source:** `afde5c06307fba7d074de2929c2eb6c3dc6bdab8` (Skills v1.1.0-beta.2.dev0). The observed owner head is `23779f10515951ac92c83cba34a1a868c02c4d87`; its descriptor confirms that accepted revision. The current Core release ID remains `core-first-run-rc1-2026-10-12`; this System documentation reconciliation does not promote a new member release.
