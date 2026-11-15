@@ -1,3 +1,7 @@
+## 2026-11-15 accepted-source map (Memory 0.3.1-beta.1)
+
+**Accepted source:** `181bf983fcfdd2646aedf0251a0c085bf288dcd8`, accepted in Memory PR #42. Owner CI [43636801170](https://github.com/aiverse-filmmakers/AI-Verse-Memory/actions/runs/43636801170) passed on that exact revision. Changes since `5a853e3`: PR #41 optional meaning search.
+
 ## November 2026 qualified member release evidence
 
 Memory source `5a853e31628837adaf7135f46f75f24ae748bd46` was accepted by

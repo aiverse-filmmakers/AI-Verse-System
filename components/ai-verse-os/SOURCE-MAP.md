@@ -11,6 +11,12 @@ The source and public release evidence retain their exact revision bindings.
 Current accepted component refs are observed in canonical Repository State.
 Personal installation changes remain separate.
 
+## 2026-11-15 accepted-source map (OS 0.3.17)
+
+**Accepted source:** `ce3ae963ba1b2d9cecfc4f35896b4838eec472c9` (OS 0.3.17), accepted in OS PR #149. Repository QC [43710238202](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43710238202) and Prospective native chat history [43710275560](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43710275560) passed on that exact revision.
+
+Changes since 0.3.16: PRs #135 to #148.
+
 ## 2026-11-14 accepted-source map (OS 0.3.16)
 
 **Accepted source:** `2060fe7764cfe0a7483737840c48ca1ae4520e4c` (OS 0.3.16, tag `v0.3.16`), accepted in OS PR #134. Repository QC [43581120733](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43581120733) and Prospective native chat history [43581546393](https://github.com/aiverse-filmmakers/AI-Verse-OS/actions/runs/43581546393) passed on that exact revision; all 12 push workflows passed.
