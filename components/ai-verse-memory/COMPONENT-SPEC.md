@@ -1,5 +1,9 @@
 # AI-Verse Memory Component Specification
 
+## 2026-11-15 current readiness (Memory 0.3.1-beta.1)
+
+Accepted Memory 0.3.1-beta.1 at `181bf98`. Adds optional meaning search for recall using a small local model.
+
 ## Current portable local chat handoff
 
 The November portable history handoff has completed owner acceptance, System

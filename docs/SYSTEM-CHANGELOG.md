@@ -1,3 +1,18 @@
+## 2026-11-15: Accept OS 0.3.17, Skills 1.4.0, Memory 0.3.1-beta.1 and Distribution cd2eea9
+
+OS 0.3.17 (`ce3ae96`, OS PR #149) adds moving and copying an OS safely, my
+skills inside the OS folder, usage counting and tidy fixes, and stops
+automatic tidying from asking about old notes in unrelated chats. Skills 1.4.0
+(`8651b31`, Skills PR #39) adds usage listing, retired name redirects for
+Codex, skill packs and red-team. Memory 0.3.1-beta.1 (`181bf98`, Memory PR
+#42) adds optional meaning search. Distribution `cd2eea9` (PRs 107 to 109)
+lists my skills for chats, rebinds a moved OS and never shares a program
+folder with a copied OS. Brain and Data pins are unchanged. Member
+qualification and promotion remain Distribution decisions and are not claimed
+here.
+
+---
+
 ## 2026-11-14: Accept Skills 1.3.1 after qualification found an update defect
 
 The OS 0.3.16 qualification run passed fresh install on Linux, macOS and

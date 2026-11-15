@@ -1,5 +1,9 @@
 # AI-Verse OS Component Specification
 
+## 2026-11-15 current readiness (OS 0.3.17)
+
+Accepted OS 0.3.17 at `ce3ae96`. Adds the portability check and repair after a move or copy, member skills kept in `my-skills` inside the OS folder and listed for chats as 'My skills', a per skill usage counter, project skill note answers, saving into another project on the operator's yes, tidy supersede, `history locate`, and goal confirmation in a question box. A copied OS no longer carries the original's install ID (PR #147). Automatic tidying no longer asks the operator about old notes in unrelated chats (PR #148).
+
 ## 2026-11-14 current readiness (OS 0.3.16)
 
 Accepted OS 0.3.16 at `2060fe7`. Adds per project skill notes stored in `workspaces/<id>/context/skill-adjustments/` and the `/skill` built in capability. The OS does not yet detect the active project by itself; the caller passes the project scope.

@@ -1,3 +1,7 @@
+## November 2026 Memory 0.3.1-beta.1 acceptance
+
+Owner acceptance of `181bf98` is exact and evidence-bound (see SOURCE-MAP.md).
+
 ## November 2026 member qualification
 
 The portable chat handoff is owner accepted and qualified in the normal Core

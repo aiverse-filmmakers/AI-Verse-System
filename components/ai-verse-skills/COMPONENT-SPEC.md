@@ -8,6 +8,10 @@
 **Fresh standalone review:** 2026-09-13  
 **Method:** `docs/AUDIT-METHODOLOGY.md`
 
+## 2026-11-15 current readiness (Skills 1.4.0)
+
+Accepted Skills 1.4.0 at `8651b31`. Adds a skill usage list, tiny redirect skills so Codex finds retired names, `update --add-pack` for skill packs, and `red-team`, the small replacement for the removed RedTeam.
+
 ## 2026-11-14 current readiness (Skills 1.3.0)
 
 Accepted Skills 1.3.0 at `4664880a852e07649d7e38c5e40b262eac316fac`. The catalogue is 59 owned skills. Claude and Codex only pick skills by themselves from their own skill folders, so Distribution now asks the Skills owner to list the active generation in the OS folder's `.claude/skills` and `.agents/skills` on setup and update (Distribution PR #102). Listing copies only, replaces only what it listed before and leaves OS capabilities and foreign folders alone. Codex does not follow retired skill names typed by the member; Claude does.
