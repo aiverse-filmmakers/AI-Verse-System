@@ -11,22 +11,22 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `full-refresh`
 - Refresh scope: `global`
 - Refresh status: `complete`
-- Refresh evidence revision: `c9bbf02ffd37467034d5c7a2e0381cde30f4da74`
-- Last full refresh: `c9bbf02ffd37467034d5c7a2e0381cde30f4da74`
+- Refresh evidence revision: `d932d9af0486c86b56d24fde7f5c6b9ca1dd7f05`
+- Last full refresh: `d932d9af0486c86b56d24fde7f5c6b9ca1dd7f05`
 - Watchdog: `WATCHDOG-CURRENT`
-- Watchdog reason: Successful Registry-derived global heartbeat at 2026-11-16T11:16:22Z; all registered repositories were scanned with no access/fetch failure.
+- Watchdog reason: Successful Registry-derived global heartbeat at 2026-11-17T11:50:56Z; all registered repositories were scanned with no access/fetch failure.
 
 ## Repository state
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `c9bbf02ffd37` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `d932d9af0486` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `5bf29d35fbb4` | accepted `cd2eea9531d5` | not-applicable | observed `cd2eea9531d5` / accepted | synchronized `90d3f430da49` | fresh / global |
-| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `86c9acc63ba0` | accepted `ce3ae963ba1b` | pinned `ce3ae963ba1b` / core-os-0.3.17-candidate-2026-11-15 | observed `ce3ae963ba1b` / accepted | synchronized `90d3f430da49` | fresh / global |
+| aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `6b0513881a48` | accepted `ce3ae963ba1b` | pinned `ce3ae963ba1b` / core-os-0.3.17-candidate-2026-11-15 | observed `ce3ae963ba1b` / accepted | synchronized `90d3f430da49` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `32cae304861b` | accepted `14ded0120c11` | pinned `14ded0120c11` / core-os-0.3.17-candidate-2026-11-15 | observed `14ded0120c11` / accepted | synchronized `967013147705` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `0fdf94f64d62` | accepted `181bf983fcfd` | pinned `181bf983fcfd` / core-os-0.3.17-candidate-2026-11-15 | observed `181bf983fcfd` / accepted | synchronized `1ff43cd377e7` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `1e1bc98ed47d` | accepted `8651b310ce03` | pinned `8651b310ce03` / core-os-0.3.17-candidate-2026-11-15 | observed `8651b310ce03` / accepted | synchronized `cbd448f7cebe` | fresh / global |
-| aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `67b8b0614291` | accepted `f8978f8f7a1b` | pinned `f8978f8f7a1b` / core-os-0.3.17-candidate-2026-11-15 | observed `f8978f8f7a1b` / accepted | synchronized `b4d6ec721c5d` | fresh / global |
+| aiverse-filmmakers/AI-Verse-Memory | ai-verse-memory | `ae63af71dbeb` | accepted `181bf983fcfd` | pinned `181bf983fcfd` / core-os-0.3.17-candidate-2026-11-15 | observed `181bf983fcfd` / accepted | synchronized `1ff43cd377e7` | fresh / global |
+| aiverse-filmmakers/AI-Verse-Skills | ai-verse-skills | `f4a566269d01` | accepted `8651b310ce03` | pinned `8651b310ce03` / core-os-0.3.17-candidate-2026-11-15 | observed `8651b310ce03` / accepted | synchronized `cbd448f7cebe` | fresh / global |
+| aiverse-filmmakers/AI-Verse-Data | ai-verse-data | `5bd0a5f3bcbd` | accepted `f8978f8f7a1b` | pinned `f8978f8f7a1b` / core-os-0.3.17-candidate-2026-11-15 | observed `f8978f8f7a1b` / accepted | synchronized `b4d6ec721c5d` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Gateway | ai-verse-gateway | `ceb8849ec062` | unverified | unpinned | observed `386ff40135a8` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Automations | ai-verse-automations | `fda8b25b11b8` | unverified | unpinned | observed `287ce9d6718e` / candidate | unverified | fresh / global |
 | aiverse-filmmakers/AI-Verse-Multiple-Bots | ai-verse-multiple-bots | `b4ad4315e560` | unverified | unpinned | observed `ddf70ac19736` / candidate | unverified | fresh / global |
