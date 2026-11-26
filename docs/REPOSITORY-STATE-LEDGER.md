@@ -11,16 +11,16 @@ Regenerate with `python scripts/refresh_repository_state.py --write-ledger`. Ver
 - Refresh mode: `full-refresh`
 - Refresh scope: `global`
 - Refresh status: `complete`
-- Refresh evidence revision: `5356ae4d0b21643d82b391172a8e19ab0e23809a`
-- Last full refresh: `5356ae4d0b21643d82b391172a8e19ab0e23809a`
+- Refresh evidence revision: `7c16d083784740ac2c355cc8025e9fbc95d9537a`
+- Last full refresh: `7c16d083784740ac2c355cc8025e9fbc95d9537a`
 - Watchdog: `WATCHDOG-CURRENT`
-- Watchdog reason: Successful Registry-derived global heartbeat at 2026-11-25T12:54:06Z; all registered repositories were scanned with no access/fetch failure.
+- Watchdog reason: Successful Registry-derived global heartbeat at 2026-11-26T12:32:37Z; all registered repositories were scanned with no access/fetch failure.
 
 ## Repository state
 
 | Repository | Component | Observed HEAD | Owner acceptance | Distribution pin | Descriptor | System sync | Freshness |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `5356ae4d0b21` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
+| aiverse-filmmakers/AI-Verse-System | ai-verse-system | `7c16d0837847` | not-applicable | not-applicable | not-applicable | not-applicable | fresh / global |
 | aiverse-filmmakers/ai-verse-distribution | ai-verse-distribution | `5bf29d35fbb4` | accepted `cd2eea9531d5` | not-applicable | observed `cd2eea9531d5` / accepted | synchronized `90d3f430da49` | fresh / global |
 | aiverse-filmmakers/AI-Verse-OS | ai-verse-os | `06d22e26ba2b` | accepted `ce3ae963ba1b` | pinned `ce3ae963ba1b` / core-os-0.3.17-candidate-2026-11-15 | observed `ce3ae963ba1b` / accepted | synchronized `90d3f430da49` | fresh / global |
 | aiverse-filmmakers/AI-Verse-Brain | ai-verse-brain | `a43c369eff28` | accepted `14ded0120c11` | pinned `14ded0120c11` / core-os-0.3.17-candidate-2026-11-15 | observed `14ded0120c11` / accepted | synchronized `967013147705` | fresh / global |
